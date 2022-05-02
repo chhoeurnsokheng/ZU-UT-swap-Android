@@ -24,7 +24,7 @@ class SplashScreenActivity :
                     val intent = Intent(this@SplashScreenActivity, WelcomeActivity::class.java)
                     startActivity(intent)
                     finish()
-                }, 3000)
+                }, 5000)
             }
             // Code
         } catch (error: IOException) {
