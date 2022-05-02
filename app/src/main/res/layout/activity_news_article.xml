@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".screens.news.articleNewsScreen.ArticleNewsActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/bg_color"
+        android:padding="15dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="10dp"
+            android:paddingHorizontal="15dp"
+            android:background="@drawable/btn_bg"
+            android:backgroundTint="@color/white"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="15dp">
+            <ImageView
+                android:id="@+id/iv_back"
+                android:clickable="true"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_angles_left_regular"
+                app:tint="@color/color_main" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Article"
+                android:textColor="@color/color_main"
+                android:textSize="24dp"
+                android:textStyle="bold"
+                android:layout_marginStart="10dp"/>
+        </LinearLayout>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never"
+            android:background="@drawable/btn_bg"
+            android:backgroundTint="@color/white"
+            android:scrollbars="none">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="15dp">
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:src="@drawable/breaking_1"
+                    android:scaleType="fitXY"
+                    android:layout_marginBottom="5dp"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Laoka, Mondulkiri Land Plot Special Price !!!"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/color_main"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/color_main"
+                    android:textSize="16dp"
+                    android:text="Date:2022-01-26 07:15:36"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16dp"
+                    android:text="The property of UT KT 1665 is located in Khum Tang Krasang, Srok Santuk, Kampong Thom Province. The property comprises of a 600 sqm three-story guest house and 1,664.5 sqm of land. Generating a monthly income of approximately $1,000, the property is located in the district center which is considerably populated, packed with financial institutions, markets, business premises and other governmental offices. The property has the potential to be converted into a restaurant, a bank, an office or other business premise as well.\n\n\With the gradual social and economic recovery plus the adaptation of the new normal practices in covid-19 context, tourism sites in Kampong Thom province such as Phnom Sontuk, Phum Prasat Temple, Soban Teuk resorts, etc. will be revisited by tourists which will boost the traffic as well as the economy, hence the demand for real estate asset in the area.\n\n\The ITO price of UT KT 1665 was 1.95 ZP/UT, equivalent to $176/sqm land price. The future selling price is predicted to increase at least by 30% to $229/sqm which will result in a UT price of 2.54 ZP. Last price as of 16 Dec 2021 is 2.12 ZP, looking at the indication price and the comparable price of the surrounding properties, what should be the "
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16dp"
+                    android:text="The property of UT KT 1665 is located in Khum Tang Krasang, Srok Santuk, Kampong Thom Province. The property comprises of a 600 sqm three-story guest house and 1,664.5 sqm of land. Generating a monthly income of approximately $1,000, the property is located in the district center which is considerably populated, packed with financial institutions, markets, business premises and other governmental offices. The property has the potential to be converted into a restaurant, a bank, an office or other business premise as well.\n\n\With the gradual social and economic recovery plus the adaptation of the new normal practices in covid-19 context, tourism sites in Kampong Thom province such as Phnom Sontuk, Phum Prasat Temple, Soban Teuk resorts, etc. will be revisited by tourists which will boost the traffic as well as the economy, hence the demand for real estate asset in the area.\n\n\The ITO price of UT KT 1665 was 1.95 ZP/UT, equivalent to $176/sqm land price. The future selling price is predicted to increase at least by 30% to $229/sqm which will result in a UT price of 2.54 ZP. Last price as of 16 Dec 2021 is 2.12 ZP, looking at the indication price and the comparable price of the surrounding properties, what should be the "
+                    />
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
+</layout>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:id="@+id/lay_item"
+    android:tag="layout/item_list_notification_0"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/dimen_5"
+    android:layout_marginBottom="@dimen/dimen_5">
+    <LinearLayout
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/iv_image"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/image_two"
+                android:layout_centerVertical="true"/>
+            <TextView
+                android:textSize="16dp"
+                android:id="@+id/txt_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Complete Register"
+                android:singleLine="true"
+                android:layout_toRightOf="@+id/iv_image"/>
+            <TextView
+                android:textSize="12dp"
+                android:id="@+id/txt_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Zillion United welcomes you to our trading platform. Your trading account is being reviewed by our admin. Please be patient"
+                android:singleLine="true"
+                android:layout_toRightOf="@+id/iv_image"
+                android:layout_below="@+id/txt_title"/>
+            <TextView
+                android:textSize="14dp"
+                android:id="@+id/txt_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="6 day ago"
+                android:singleLine="true"
+                android:layout_toRightOf="@+id/iv_image"
+                android:layout_below="@+id/txt_description"/>
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>
+</layout>

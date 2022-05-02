@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/bg_color"
+        android:overScrollMode="never"
+
+        android:scrollbars="none">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="15dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="10dp"
+                android:paddingHorizontal="15dp"
+                android:background="@drawable/btn_bg"
+                android:backgroundTint="@color/white"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="15dp">
+                <ImageView
+                    android:id="@+id/iv_back"
+                    android:clickable="true"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_angles_left_regular"
+                    app:tint="@color/color_main" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/credit_card"
+                    android:textColor="@color/color_main"
+                    android:textSize="24dp"
+                    android:textStyle="bold"
+                    android:layout_marginStart="10dp"/>
+            </LinearLayout>
+            <com.vinaygaba.creditcardview.CreditCardView
+                android:id="@+id/card1"
+                android:layout_width="360dp"
+                android:layout_height="225dp"
+                android:background="@drawable/cardbackground_sky"
+                android:layout_marginBottom="16dp"
+                app:cardNumber="8888888888888888"
+                app:cardName="UTSWAP ACCOUNT"
+                app:cardNumberTextColor="@color/white"
+                app:cardNumberFormat="masked_all_but_last_four"
+                app:cardNameTextColor="@color/white"
+                app:type="auto"
+                app:putChip="false"
+                app:expiryDate = "02/22"
+                app:expiryDateTextColor="@color/white"
+                app:isEditable="false"
+                app:validTillTextColor="@color/white"
+                app:hintTextColor = "@color/white"
+                app:brandLogo="@drawable/logo_hori"
+                />
+            <com.vinaygaba.creditcardview.CreditCardView
+                android:id="@+id/card2"
+                android:layout_width="360dp"
+                android:layout_height="225dp"
+                android:background="@drawable/cardbackground_sky"
+                android:layout_marginBottom="16dp"
+                app:cardNumber="5188888888889999"
+                app:cardName="UTSWAP ACCOUNT"
+                app:cardNumberTextColor="@color/white"
+                app:cardNumberFormat="masked_all_but_last_four"
+                app:cardNameTextColor="@color/white"
+                app:type="auto"
+                app:putChip="false"
+                app:expiryDate = "02/22"
+                app:expiryDateTextColor="@color/white"
+                app:isEditable="false"
+                app:validTillTextColor="@color/white"
+                app:hintTextColor = "@color/white"
+                app:brandLogo="@drawable/logo_hori"
+                />
+            <RelativeLayout
+                android:id="@+id/btn_add_card"
+                android:clickable="true"
+                android:layout_width="360dp"
+                android:layout_height="225dp"
+                android:background="@drawable/bg_card">
+
+                <ImageView
+                    android:id="@+id/txt_add_card"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/ic_circle_plus_regular"
+                    android:tint="@color/color_main"
+                    android:layout_marginTop="60dp"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Add New Card"
+                    android:layout_below="@+id/txt_add_card"
+                    android:layout_centerInParent="true"
+                    android:layout_marginTop="10dp"
+                    android:textColor="@color/color_main"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textAllCaps="true"/>
+
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+</layout>

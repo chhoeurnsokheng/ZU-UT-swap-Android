@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:cardCornerRadius="@dimen/dimen_10"
+        android:layout_margin="@dimen/dimen_10"
+        android:padding="@dimen/dimen_15">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dimen_15"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/img_logo_cash"
+                    android:layout_width="@dimen/dimen_30"
+                    android:layout_height="@dimen/dimen_30"
+                    android:layout_gravity="start"
+                    app:tint="@color/dark_green"
+                    android:src="@drawable/ic_circle_check" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="end">
+
+                    <ImageView
+                        android:id="@+id/img_close"
+                        android:layout_width="@dimen/dimen_30"
+                        android:layout_height="@dimen/dimen_30"
+                        android:layout_gravity="end"
+                        android:src="@drawable/ic_baseline_cancel_24" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/dimen_20">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Transaction ID: "
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/font_size_14"/>
+
+                <TextView
+                    android:id="@+id/txt_transaction_id_dialog"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:text="TR202202-1646038558699791"
+                    android:textSize="@dimen/font_size_12"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/dimen_20">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Time: "
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/font_size_14"/>
+
+                <TextView
+                    android:id="@+id/txt_time_dialog"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:text="$ 119 802.45"
+                    android:layout_marginStart="@dimen/dimen_10"
+                    android:textSize="@dimen/font_size_14"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/dimen_20">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Amount: "
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/font_size_14"/>
+
+                <TextView
+                    android:id="@+id/txt_amount_dialog"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:text="28-Feb-2022"
+                    android:layout_marginStart="@dimen/dimen_10"
+                    android:textSize="@dimen/font_size_14"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/dimen_20">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Fee: "
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/font_size_14"/>
+
+                <TextView
+                    android:id="@+id/txt_fee_dialog"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:text="$ 0.00"
+                    android:layout_marginStart="@dimen/dimen_10"
+                    android:textSize="@dimen/font_size_14"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/dimen_20">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Amount arrival: "
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/font_size_14"/>
+
+                <TextView
+                    android:id="@+id/txt_amount_arrival_dialog"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="$ 119 802.45"
+                    android:gravity="end"
+                    android:layout_marginStart="@dimen/dimen_10"
+                    android:textSize="@dimen/font_size_14"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/dimen_20">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Receiveing Address: "
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/font_size_14"/>
+
+                <TextView
+                    android:id="@+id/txt_receiving_address_dialog"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:text="$ 119 802.45"
+                    android:layout_marginStart="@dimen/dimen_10"
+                    android:textSize="@dimen/font_size_14"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/dimen_20">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Status: "
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/font_size_14"/>
+
+                <TextView
+                    android:id="@+id/txt_status_dialog"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Withdraw success"
+                    android:gravity="end"
+                    android:layout_marginStart="@dimen/dimen_10"
+                    android:textColor="@color/dark_green"
+                    android:textSize="@dimen/font_size_14"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_1"
+                android:background="@color/dark"
+                android:layout_marginTop="@dimen/dimen_20"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/dimen_20"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Share"
+                    android:textSize="@dimen/font_size_18"/>
+
+                <ImageView
+                    android:layout_width="@dimen/dimen_25"
+                    android:layout_height="@dimen/dimen_25"
+                    android:layout_marginStart="@dimen/dimen_5"
+                    android:src="@drawable/ic_baseline_ios_share_24"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+</layout>

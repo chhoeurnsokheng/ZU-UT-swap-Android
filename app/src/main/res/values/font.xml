@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="bold_24" parent="@android:style/TextAppearance.Small">
+        <item name="android:fontFamily">@font/avenirnextcyr_bold</item>
+        <item name="android:textSize">@dimen/font_size_24</item>
+    </style>
+    <style name="bold_22" parent="@android:style/TextAppearance.Small">
+        <item name="android:fontFamily">@font/avenirnextcyr_bold</item>
+        <item name="android:textSize">@dimen/font_size_22</item>
+    </style>
+    <style name="bold_20" parent="@android:style/TextAppearance.Small">
+        <item name="android:fontFamily">@font/avenirnextcyr_bold</item>
+        <item name="android:textSize">@dimen/font_size_20</item>
+    </style>
+    <style name="bold_18" parent="@android:style/TextAppearance.Small">
+        <item name="android:fontFamily">@font/avenirnextcyr_bold</item>
+        <item name="android:textSize">@dimen/font_size_18</item>
+    </style>
+    <style name="bold_16" parent="@android:style/TextAppearance.Small">
+        <item name="android:fontFamily">@font/avenirnextcyr_bold</item>
+        <item name="android:textSize">@dimen/font_size_16</item>
+    </style>
+    <style name="bold_14" parent="@android:style/TextAppearance.Small">
+        <item name="android:fontFamily">@font/avenirnextcyr_bold</item>
+        <item name="android:textSize">@dimen/font_size_14</item>
+    </style>
+    <style name="bold_12" parent="@android:style/TextAppearance.Small">
+        <item name="android:fontFamily">@font/avenirnextcyr_bold</item>
+        <item name="android:textSize">@dimen/font_size_12</item>
+    </style>
+    <style name="medium_20" parent="@android:style/TextAppearance.Small">
+        <item name="android:fontFamily">@font/avenirnextcy_medium</item>
+        <item name="android:textSize">@dimen/font_size_20</item>
+    </style>
+    <style name="medium_18" parent="@android:style/TextAppearance.Small">
+        <item name="android:fontFamily">@font/avenirnextcy_medium</item>
+        <item name="android:textSize">@dimen/font_size_18</item>
+    </style>
+    <style name="medium_16" parent="@android:style/TextAppearance.Small">
+        <item name="android:fontFamily">@font/avenirnextcy_medium</item>
+        <item name="android:textSize">@dimen/font_size_16</item>
+    </style>
+    <style name="medium_14" parent="@android:style/TextAppearance.Small">
+        <item name="android:fontFamily">@font/avenirnextcy_medium</item>
+        <item name="android:textSize">@dimen/font_size_14</item>
+    </style>
+    <style name="medium_12" parent="@android:style/TextAppearance.Small">
+        <item name="android:fontFamily">@font/avenirnextcy_medium</item>
+        <item name="android:textSize">@dimen/font_size_12</item>
+    </style>
+    <style name="medium_10" parent="@android:style/TextAppearance.Small">
+        <item name="android:fontFamily">@font/avenirnextcy_medium</item>
+        <item name="android:textSize">@dimen/font_size_10</item>
+    </style>
+    <style name="regular_20" parent="@android:style/TextAppearance.Small">
+        <item name="android:fontFamily">@font/avenirnextcy_regular</item>
+        <item name="android:textSize">@dimen/font_size_20</item>
+    </style>
+    <style name="regular_18" parent="@android:style/TextAppearance.Small">
+        <item name="android:fontFamily">@font/avenirnextcy_regular</item>
+        <item name="android:textSize">@dimen/font_size_18</item>
+    </style>
+    <style name="regular_16" parent="@android:style/TextAppearance.Small">
+        <item name="android:fontFamily">@font/avenirnextcy_regular</item>
+        <item name="android:textSize">@dimen/font_size_16</item>
+    </style>
+    <style name="regular_14" parent="@android:style/TextAppearance.Small">
+        <item name="android:fontFamily">@font/avenirnextcy_regular</item>
+        <item name="android:textSize">@dimen/font_size_14</item>
+    </style>
+    <style name="regular_12" parent="@android:style/TextAppearance.Small">
+        <item name="android:fontFamily">@font/avenirnextcy_regular</item>
+        <item name="android:textSize">@dimen/font_size_12</item>
+    </style>
+    <style name="regular_10" parent="@android:style/TextAppearance.Small">
+        <item name="android:fontFamily">@font/avenirnextcy_regular</item>
+        <item name="android:textSize">@dimen/font_size_10</item>
+    </style>
+</resources>

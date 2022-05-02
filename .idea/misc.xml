@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="app/src/main/res/layout/activity_kyc_address_info.xml" value="0.16621376811594202" />
+        <entry key="app/src/main/res/layout/activity_kyc_application.xml" value="0.16621376811594202" />
+        <entry key="app/src/main/res/layout/activity_kyc_camera.xml" value="0.16621376811594202" />
+        <entry key="app/src/main/res/layout/activity_kyc_contract.xml" value="0.16621376811594202" />
+        <entry key="app/src/main/res/layout/activity_kyc_declaration.xml" value="0.16621376811594202" />
+        <entry key="app/src/main/res/layout/activity_kyc_employment_info.xml" value="0.16621376811594202" />
+        <entry key="app/src/main/res/layout/activity_kyc_fund_password.xml" value="0.16621376811594202" />
+        <entry key="app/src/main/res/layout/activity_kyc_id_type.xml" value="0.246875" />
+        <entry key="app/src/main/res/layout/activity_kyc_id_verification.xml" value="0.16621376811594202" />
+        <entry key="app/src/main/res/layout/activity_kyc_selfie.xml" value="0.16621376811594202" />
+        <entry key="app/src/main/res/layout/activity_kyc_selfie_holding.xml" value="0.16621376811594202" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.246875" />
+        <entry key="app/src/main/res/layout/activity_navbar.xml" value="0.16621376811594202" />
+        <entry key="app/src/main/res/layout/activity_project_description.xml" value="0.11302083333333333" />
+        <entry key="app/src/main/res/layout/activity_setting_add_card.xml" value="0.11197916666666667" />
+        <entry key="app/src/main/res/layout/activity_simple.xml" value="0.16621376811594202" />
+        <entry key="app/src/main/res/layout/activity_trade_exchange.xml" value="0.11510416666666666" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.246875" />
+        <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.246875" />
+        <entry key="app/src/main/res/layout/splash_screen.xml" value="0.16621376811594202" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

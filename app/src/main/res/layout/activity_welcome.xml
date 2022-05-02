@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/welcome_slider"
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
+            android:layout_marginTop="@dimen/dimen_30"/>
+
+        <LinearLayout
+            android:id="@+id/dotsLayout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_30"
+            android:layout_below="@+id/welcome_slider"
+            android:layout_marginTop="@dimen/dimen_10"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/dimen_40">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_signIn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/sign_in"
+                android:textColorHint="@color/white"
+                android:background="@drawable/bg_circular"
+                android:fontFamily="@font/avenirnextcyr_bold"
+                android:layout_marginStart="@dimen/dimen_20"
+                android:layout_marginEnd="@dimen/dimen_15"
+                android:layout_weight="1"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_register"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="@string/register"
+                android:layout_marginStart="@dimen/dimen_15"
+                android:layout_marginEnd="@dimen/dimen_20"
+                android:textColorHint="@color/color_main"
+                android:fontFamily="@font/avenirnextcyr_bold"
+                android:background="@drawable/bg_circular_border_blue"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+</layout>

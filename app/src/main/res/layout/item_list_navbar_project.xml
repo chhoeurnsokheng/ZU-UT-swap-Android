@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:tag="layout/item_list_project_0"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_10"
+        android:layout_marginBottom="@dimen/dimen_10">
+        <LinearLayout
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/iv_logo"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="5dp"
+                        android:src="@drawable/image_two" />
+                    <TextView
+                        android:textSize="14dp"
+                        android:id="@+id/txt_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="UT Siem Reap 17140"
+                        android:singleLine="true"
+                        android:layout_toRightOf="@+id/iv_logo"/>
+                    <TextView
+                        android:textSize="12dp"
+                        android:id="@+id/txt_volume"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="UT Issued : 4618"
+                        android:singleLine="true"
+                        android:layout_toRightOf="@+id/iv_logo"
+                        android:layout_below="@+id/txt_title"/>
+                </RelativeLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:gravity="center"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3">
+                <TextView
+                    android:textSize="18sp"
+                    android:id="@+id/txt_base_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="$1.50"
+                    android:singleLine="true"/>
+            </LinearLayout>
+            <LinearLayout
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3">
+                <TextView
+                    android:textSize="18sp"
+                    android:id="@+id/txt_target_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="$1.50"
+                    android:singleLine="true"/>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</layout>

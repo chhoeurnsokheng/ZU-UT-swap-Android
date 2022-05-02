@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_navbar_project"
+        android:icon="@drawable/ic_list_check_solid"
+        android:title="@string/project" />
+
+    <item
+        android:id="@+id/navigation_navbar_swap"
+        android:icon="@drawable/ic_retweet_regular"
+        android:title="@string/swap" />
+
+    <item
+        android:id="@+id/navigation_navbar_trade"
+        android:icon="@drawable/ic_chart_mixed_regular"
+        android:title="@string/trade" />
+
+    <item
+        android:id="@+id/navigation_navbar_news"
+        android:icon="@drawable/ic_newspaper_regular"
+        android:title="@string/news" />
+    <item
+        android:id="@+id/navigation_navbar_wallet"
+        android:icon="@drawable/ic_wallet_regular"
+        android:title="@string/wallet" />
+
+</menu>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/navigation_navbar_trade">
+
+    <fragment
+        android:id="@+id/navigation_navbar_project"
+        android:name="com.zillennium.utswap.screens.navbar.projectTab.ProjectFragment"
+        android:label="@string/project"
+        tools:layout="@layout/fragment_navbar_project" />
+
+    <fragment
+        android:id="@+id/navigation_navbar_swap"
+        android:name="com.zillennium.utswap.screens.navbar.swapTab.SwapFragment"
+        android:label="@string/swap"
+        tools:layout="@layout/fragment_navbar_swap" />
+
+    <fragment
+        android:id="@+id/navigation_navbar_trade"
+        android:name="com.zillennium.utswap.screens.navbar.tradeTab.TradeFragment"
+        android:label="@string/trade"
+        tools:layout="@layout/fragment_navbar_trade" />
+
+
+    <fragment
+        android:id="@+id/navigation_navbar_news"
+        android:name="com.zillennium.utswap.screens.navbar.newsTab.NewsFragment"
+        android:label="@string/news"
+        tools:layout="@layout/fragment_navbar_news" />
+
+    <fragment
+        android:id="@+id/navigation_navbar_wallet"
+        android:name="com.zillennium.utswap.screens.navbar.walletTab.WalletFragment"
+        android:label="@string/wallet"
+        tools:layout="@layout/fragment_navbar_wallet" />
+
+</navigation>
