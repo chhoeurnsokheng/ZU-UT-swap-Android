@@ -174,7 +174,7 @@ Parties have read and agreed to all the terms and conditions, sign or issue a th
 """
             }
 
-        } catch (error: IOException) {
+        } catch (error: Exception) {
             // Must be safe
         }
     }

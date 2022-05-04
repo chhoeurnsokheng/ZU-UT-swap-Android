@@ -94,7 +94,7 @@ If You have any inquiry, special request or assistance with regard to any of the
 
             }
 
-        } catch (error: IOException) {
+        } catch (error: Exception) {
             // Must be safe
         }
     }

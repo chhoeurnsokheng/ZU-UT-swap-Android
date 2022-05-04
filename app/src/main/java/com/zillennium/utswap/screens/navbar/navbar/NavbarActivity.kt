@@ -42,7 +42,7 @@ class NavbarActivity :
             // This Theme haven't use NoActionBar
             //NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
             setupWithNavController(navView, navController)
-        } catch (error: IOException) {
+        } catch (error: Exception) {
             // Must be safe
         }
     }

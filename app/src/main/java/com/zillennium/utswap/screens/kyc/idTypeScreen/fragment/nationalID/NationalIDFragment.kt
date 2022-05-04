@@ -32,7 +32,7 @@ class NationalIDFragment :
                     startActivity(intent)
                 }
             }
-        } catch (error: IOException) {
+        } catch (error: Exception) {
             // Must be safe
         }
     }

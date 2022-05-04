@@ -73,7 +73,7 @@ class IdTypeActivity :
                 val ivBack = binding.ivBack
                 BasePassedActivity.onPassedBack(this@IdTypeActivity, ivBack)
             }
-        } catch (error: IOException) {
+        } catch (error: Exception) {
             // Must be safe
         }
     }

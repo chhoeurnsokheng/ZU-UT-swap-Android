@@ -30,7 +30,7 @@ class HistoricalActivity :
 
     override fun initView() {
         super.initView()
-//        try {
+        try {
             binding.apply {
 
                 initView()
@@ -57,9 +57,9 @@ class HistoricalActivity :
                 }
 
             }
-//        } catch (error: IOException) {
-//            // Must be safe
-//        }
+        } catch (error: Exception) {
+            // Must be safe
+        }
     }
 
     fun initAction() {

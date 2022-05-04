@@ -77,7 +77,7 @@ class BalanceActivity :
                 BasePassedActivity.onPassedBack(this@BalanceActivity, ivBack)
             }
             // Code
-        } catch (error: IOException) {
+        } catch (error: Exception) {
             // Must be safe
         }
     }

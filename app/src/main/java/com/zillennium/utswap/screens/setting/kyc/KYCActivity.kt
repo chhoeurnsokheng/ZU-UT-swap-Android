@@ -19,16 +19,13 @@ class KYCActivity :
         try {
             binding.apply {
 
-//                val view: View = findViewById(R.id.toolbar)
-
                 // Set Passed Back
                 ivBack.setOnClickListener {
                     onBackPressed()
                 }
             }
             // Code
-        } catch (unused: Exception) {
-            Log.d("123456789", "hello world")
+        } catch (error: Exception) {
             // Must be safe
         }
     }

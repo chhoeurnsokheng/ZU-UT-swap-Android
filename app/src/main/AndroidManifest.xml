@@ -165,6 +165,11 @@
             android:exported="false"
             android:screenOrientation="portrait"/>
         <activity
+            android:label="@string/KYC"
+            android:name="com.zillennium.utswap.screens.setting.kyc.KYCActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"/>
+        <activity
             android:label="@string/language"
             android:name="com.zillennium.utswap.screens.setting.languageScreen.LanguageActivity"
             android:exported="false"

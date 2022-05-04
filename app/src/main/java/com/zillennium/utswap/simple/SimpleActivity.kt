@@ -1,11 +1,9 @@
 package com.zillennium.utswap.simple
 
-import android.os.Bundle
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.example.utswapapp.simple.SimplePresenter
 import com.zillennium.utswap.R
 import com.zillennium.utswap.databinding.ActivitySimpleBinding
-import java.io.IOException
 
 class SimpleActivity :
     BaseMvpActivity<SimpleView.View, SimpleView.Presenter, ActivitySimpleBinding>(),
@@ -20,7 +18,7 @@ class SimpleActivity :
             binding.apply {
                 // Code
             }
-        } catch (error: IOException) {
+        } catch (error: Exception) {
             // Must be safe
         }
     }

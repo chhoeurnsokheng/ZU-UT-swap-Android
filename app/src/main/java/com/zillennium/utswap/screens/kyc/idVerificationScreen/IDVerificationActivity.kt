@@ -164,7 +164,7 @@ class IDVerificationActivity :
                 spinner.onItemSelectedListener = this@IDVerificationActivity
             }
 
-        } catch (error: IOException) {
+        } catch (error: Exception) {
             // Must be safe
         }
     }

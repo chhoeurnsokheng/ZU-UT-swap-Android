@@ -71,7 +71,7 @@ class ProjectFragment :
 
             }
 
-        } catch (error: IOException) {
+        } catch (error: Exception) {
             // Must be safe
         }
     }
