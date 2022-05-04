@@ -6,6 +6,8 @@
         <entry key="app/src/main/res/layout/activity_kyc_address_info.xml" value="0.16621376811594202" />
         <entry key="app/src/main/res/layout/activity_kyc_application.xml" value="0.16621376811594202" />
         <entry key="app/src/main/res/layout/activity_kyc_camera.xml" value="0.16621376811594202" />
+        <entry key="app/src/main/res/layout/activity_kyc_camera_id_card.xml" value="0.10364583333333334" />
+        <entry key="app/src/main/res/layout/activity_kyc_camera_selfie.xml" value="0.10364583333333334" />
         <entry key="app/src/main/res/layout/activity_kyc_contract.xml" value="0.16621376811594202" />
         <entry key="app/src/main/res/layout/activity_kyc_declaration.xml" value="0.16621376811594202" />
         <entry key="app/src/main/res/layout/activity_kyc_employment_info.xml" value="0.16621376811594202" />
@@ -25,7 +27,7 @@
         <entry key="app/src/main/res/layout/activity_setting_kyc.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_setting_login_password.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_simple.xml" value="0.16621376811594202" />
-        <entry key="app/src/main/res/layout/activity_splash_screen.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_splash_screen.xml" value="0.32020969583530623" />
         <entry key="app/src/main/res/layout/activity_trade_exchange.xml" value="0.11510416666666666" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.246875" />
         <entry key="app/src/main/res/layout/fragment_kyc_national_id.xml" value="0.25" />

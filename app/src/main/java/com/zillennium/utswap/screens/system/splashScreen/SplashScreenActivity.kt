@@ -20,11 +20,10 @@ class SplashScreenActivity :
         try {
             binding.apply {
                 Handler().postDelayed({
-                    //Intent intent = new Intent(SplashScreenActivity.this, SigninActivity.class);
                     val intent = Intent(this@SplashScreenActivity, WelcomeActivity::class.java)
                     startActivity(intent)
                     finish()
-                }, 5000)
+                }, 3000)
             }
             // Code
         } catch (error: Exception) {
