@@ -2,22 +2,49 @@ package com.zillennium.utswap.bases.mvp
 
 import android.content.Context
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
-import java.util.*
 
 @Suppress("UNCHECKED_CAST")
-abstract class BaseMvpFragment<in V : BaseMvpView, T : BaseMvpPresenter<V>> :
+abstract class BaseMvpFragment<in V : BaseMvpView, T : BaseMvpPresenter<V>, M : ViewDataBinding> :
     Fragment(), BaseMvpView {
+
+    protected lateinit var binding: M
     protected abstract var mPresenter: T
-    protected val DISMISS_TIMEOUT = 500
-    val tagId = UUID.randomUUID().toString()
+    protected fun isRootIsInitialized() = this::binding.isInitialized
+    abstract val layoutResource: Int
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mPresenter.attachView(this as V)
-        mPresenter.initViewPresenter(requireActivity().baseContext, savedInstanceState)
     }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        if (!isRootIsInitialized()) {
+            binding = DataBindingUtil.inflate(inflater, layoutResource, container, false)
+            mPresenter.initViewPresenter(
+                context = requireActivity(),
+                savedInstanceState
+            )
+        }
+        return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding.root.requestLayout()
+    }
+
 
     override fun getContext(): Context? {
         if (activity != null) {

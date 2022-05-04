@@ -21,28 +21,28 @@ class AccountTypeActivity :
 
                 btnStandardDetails.setOnClickListener {
                     BaseDialogActivity.showDialog(
-                        UTSwapApp.instance,
+                        this@AccountTypeActivity,
                         R.layout.dialog_details
                     )
                 }
 
                 btnPremiumDetails.setOnClickListener {
                     BaseDialogActivity.showDialog(
-                        UTSwapApp.instance,
+                        this@AccountTypeActivity,
                         R.layout.dialog_details
                     )
                 }
 
                 btnProfessionalDetails.setOnClickListener {
                     BaseDialogActivity.showDialog(
-                        UTSwapApp.instance,
+                        this@AccountTypeActivity,
                         R.layout.dialog_details
                     )
                 }
 
                 btnPremiumUpgrade.setOnClickListener {
                     BaseDialogActivity.showDialog(
-                        UTSwapApp.instance,
+                        this@AccountTypeActivity,
                         R.layout.dialog_payment
                     )
                 }

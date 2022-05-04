@@ -14,13 +14,22 @@
         <entry key="app/src/main/res/layout/activity_kyc_id_verification.xml" value="0.16621376811594202" />
         <entry key="app/src/main/res/layout/activity_kyc_selfie.xml" value="0.16621376811594202" />
         <entry key="app/src/main/res/layout/activity_kyc_selfie_holding.xml" value="0.16621376811594202" />
+        <entry key="app/src/main/res/layout/activity_kyc_verification_reset_password.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.246875" />
         <entry key="app/src/main/res/layout/activity_navbar.xml" value="0.16621376811594202" />
         <entry key="app/src/main/res/layout/activity_project_description.xml" value="0.11302083333333333" />
+        <entry key="app/src/main/res/layout/activity_security_new_password.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_security_sign_in.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_setting.xml" value="0.11510416666666666" />
         <entry key="app/src/main/res/layout/activity_setting_add_card.xml" value="0.11197916666666667" />
+        <entry key="app/src/main/res/layout/activity_setting_kyc.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_setting_login_password.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_simple.xml" value="0.16621376811594202" />
+        <entry key="app/src/main/res/layout/activity_splash_screen.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_trade_exchange.xml" value="0.11510416666666666" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.246875" />
+        <entry key="app/src/main/res/layout/fragment_kyc_national_id.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_kyc_passport.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.246875" />
         <entry key="app/src/main/res/layout/splash_screen.xml" value="0.16621376811594202" />
       </map>

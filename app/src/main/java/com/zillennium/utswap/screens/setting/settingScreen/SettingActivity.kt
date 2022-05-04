@@ -15,7 +15,7 @@ import com.zillennium.utswap.models.ListMenu.ListMenu
 import com.zillennium.utswap.models.ListMenu.ListMenuAdapter
 import com.zillennium.utswap.screens.setting.creditCardScreen.CreditCardActivity
 import com.zillennium.utswap.screens.setting.fundPasswordScreen.FundPasswordActivity
-import com.zillennium.utswap.screens.setting.kycScreen.KYCActivity
+import com.zillennium.utswap.screens.setting.kyc.KYCActivity
 import com.zillennium.utswap.screens.setting.languageScreen.LanguageActivity
 import com.zillennium.utswap.screens.setting.lockScreen.LockScreenActivity
 import com.zillennium.utswap.screens.setting.logScreen.LogActivity
@@ -72,20 +72,20 @@ class SettingActivity :
 
                 lvSettings.adapter = accountAdapter
                 lvSettings.onItemClickListener =
-                    OnItemClickListener { _, view, position, _ ->
+                    OnItemClickListener { _, _, position, _ ->
                         val intent: Intent
                         val title = titleSetting[position]
                         intent = when (title) {
-                            "Profile" -> Intent(view.context, ProfileActivity::class.java)
-                            "Credit Card" -> Intent(view.context, CreditCardActivity::class.java)
-                            "KYC" -> Intent(view.context, KYCActivity::class.java)
-                            "Language" -> Intent(view.context, LanguageActivity::class.java)
-                            "Login Password" -> Intent(view.context, LoginPasswordActivity::class.java)
-                            "Fund Password" -> Intent(view.context, FundPasswordActivity::class.java)
-                            "Log" -> Intent(view.context, LogActivity::class.java)
-                            "2FA" -> Intent(view.context, TwoFAActivity::class.java)
-                            "Lock Screen" -> Intent(view.context, LockScreenActivity::class.java)
-                            else -> Intent(view.context, ProfileActivity::class.java) // As Profile
+                            "Profile" -> Intent(UTSwapApp.instance, ProfileActivity::class.java)
+                            "Credit Card" -> Intent(UTSwapApp.instance, CreditCardActivity::class.java)
+                            "KYC" -> Intent(UTSwapApp.instance, KYCActivity::class.java)
+                            "Language" -> Intent(UTSwapApp.instance, LanguageActivity::class.java)
+                            "Login Password" -> Intent(UTSwapApp.instance, LoginPasswordActivity::class.java)
+                            "Fund Password" -> Intent(UTSwapApp.instance, FundPasswordActivity::class.java)
+                            "Log" -> Intent(UTSwapApp.instance, LogActivity::class.java)
+                            "2FA" -> Intent(UTSwapApp.instance, TwoFAActivity::class.java)
+                            "Lock Screen" -> Intent(UTSwapApp.instance, LockScreenActivity::class.java)
+                            else -> Intent(UTSwapApp.instance, ProfileActivity::class.java) // As Profile
                         }
                         startActivity(intent)
                     }
@@ -99,13 +99,13 @@ class SettingActivity :
                     R.drawable.ic_instagram_brand,
                     R.drawable.ic_twitter_brand
                 )
-                val title_supports =
+                val titleSupports =
                     arrayOf("Telephone", "Website", "Facebook", "Telegram", "Instagram", "Twitter")
 
                 val supportArrayList: ArrayList<ListMenu> = ArrayList<ListMenu>()
 
-                for (i in title_supports.indices) {
-                    val support = ListMenu(title_supports[i], iconSupports[i])
+                for (i in titleSupports.indices) {
+                    val support = ListMenu(titleSupports[i], iconSupports[i])
                     supportArrayList.add(support)
                 }
 
@@ -115,7 +115,7 @@ class SettingActivity :
                 lvSupport.adapter = supportAdapter
                 lvSupport.onItemClickListener =
                     OnItemClickListener { adapterView, view, position, j ->
-                        val title = title_supports[position]
+                        val title = titleSupports[position]
                         when (title) {
                             "Telephone" -> {
                                 startActivity(

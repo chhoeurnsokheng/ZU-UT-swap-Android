@@ -2,10 +2,12 @@ package com.zillennium.utswap.bases.mvp
 
 import android.content.Context
 import android.os.Bundle
+import android.view.Window
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import com.zillennium.utswap.UTSwapApp
 
 abstract class BaseMvpActivity<in V : BaseMvpView, T : BaseMvpPresenter<V>, M : ViewDataBinding>
     : AppCompatActivity(), BaseMvpView {
