@@ -10,7 +10,7 @@ import com.zillennium.utswap.databinding.FragmentNavbarWalletBinding
 import com.zillennium.utswap.models.ListMenu.ListMenu
 import com.zillennium.utswap.models.ListMenu.ListMenuAdapter
 import com.zillennium.utswap.screens.setting.kyc.KYCActivity
-import com.zillennium.utswap.screens.wallet.MyWallet.MyWalletActivity
+import com.zillennium.utswap.screens.wallet.transactionScreen.TransactionActivity
 import com.zillennium.utswap.screens.setting.accountTypeScreen.AccountTypeActivity
 import com.zillennium.utswap.screens.setting.balanceScreen.BalanceActivity
 import com.zillennium.utswap.screens.wallet.depositScreen.DepositActivity
@@ -23,7 +23,6 @@ import com.zillennium.utswap.screens.wallet.subScriptionScreen.SubscriptionActiv
 import com.zillennium.utswap.screens.privacy.termScreen.TermActivity
 import com.zillennium.utswap.screens.wallet.transferScreen.TransferActivity
 import com.zillennium.utswap.screens.wallet.withdrawalScreen.WithdrawalActivity
-import java.io.IOException
 
 class WalletFragment :
     BaseMvpFragment<WalletView.View, WalletView.Presenter, FragmentNavbarWalletBinding>(),
@@ -76,7 +75,7 @@ class WalletFragment :
 
                 // Layout Wallet
                 layWallet.setOnClickListener {
-                    val intent = Intent(UTSwapApp.instance, MyWalletActivity::class.java)
+                    val intent = Intent(UTSwapApp.instance, TransactionActivity::class.java)
                     startActivity(intent)
                 }
 

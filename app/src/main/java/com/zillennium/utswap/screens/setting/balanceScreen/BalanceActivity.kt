@@ -8,11 +8,10 @@ import com.zillennium.utswap.R
 import com.zillennium.utswap.bases.BasePassedActivity
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityWalletBalanceBinding
-import com.zillennium.utswap.datas.balanceData.DataBalanceHistory
+import com.zillennium.utswap.Datas.ListDatas.balanceData.DataBalanceHistory
 import com.zillennium.utswap.models.BalanceHistory.BalanceHistory
 import com.zillennium.utswap.screens.setting.balanceScreen.adapter.BalanceHistoryAdapter
 import com.zillennium.utswap.screens.setting.balanceScreen.dialog.BalanceHistoryDetailDialog
-import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 

@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/ic_ut_swap_log.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_kyc_address_info.xml" value="0.16621376811594202" />
         <entry key="app/src/main/res/layout/activity_kyc_application.xml" value="0.16621376811594202" />
         <entry key="app/src/main/res/layout/activity_kyc_camera.xml" value="0.16621376811594202" />
@@ -21,13 +22,13 @@
         <entry key="app/src/main/res/layout/activity_navbar.xml" value="0.16621376811594202" />
         <entry key="app/src/main/res/layout/activity_project_description.xml" value="0.11302083333333333" />
         <entry key="app/src/main/res/layout/activity_security_new_password.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/activity_security_sign_in.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_security_sign_in.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_setting.xml" value="0.11510416666666666" />
         <entry key="app/src/main/res/layout/activity_setting_add_card.xml" value="0.11197916666666667" />
         <entry key="app/src/main/res/layout/activity_setting_kyc.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_setting_login_password.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_simple.xml" value="0.16621376811594202" />
-        <entry key="app/src/main/res/layout/activity_splash_screen.xml" value="0.32020969583530623" />
+        <entry key="app/src/main/res/layout/activity_splash_screen.xml" value="0.10130405618686872" />
         <entry key="app/src/main/res/layout/activity_trade_exchange.xml" value="0.11510416666666666" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.246875" />
         <entry key="app/src/main/res/layout/fragment_kyc_national_id.xml" value="0.25" />

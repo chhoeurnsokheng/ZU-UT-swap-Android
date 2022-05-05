@@ -7,17 +7,15 @@ import android.widget.AdapterView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
-import com.zillennium.utswap.bases.BasePassedActivity
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityWalletSubscriptionBinding
-import com.zillennium.utswap.datas.subscriptionData.DataSubscription
+import com.zillennium.utswap.Datas.ListDatas.subscriptionData.DataSubscription
 import com.zillennium.utswap.models.Subscription.Subscription
 import com.zillennium.utswap.models.SubscriptionHistory.SubscriptionHistory
 import com.zillennium.utswap.screens.wallet.subScriptionScreen.adapter.SubscriptionAdapter
 import com.zillennium.utswap.screens.wallet.subScriptionScreen.adapter.SubscriptionHistoryAdapter
 import com.zillennium.utswap.screens.wallet.subScriptionScreen.adapter.SubscriptionHistoryAdapter.OnclickSubscriptionHistory
 import com.zillennium.utswap.screens.wallet.subScriptionScreen.dialog.SubscriptionDetailDialog
-import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 

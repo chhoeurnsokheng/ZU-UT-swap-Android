@@ -10,7 +10,7 @@ import com.zillennium.utswap.bases.BaseDialogActivity
 import com.zillennium.utswap.bases.BaseListViewHeightActivity
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivitySettingBinding
-import com.zillennium.utswap.datas.SharedPreferencesStore
+import com.zillennium.utswap.Datas.StoredPreferences.SystemPreferences
 import com.zillennium.utswap.models.ListMenu.ListMenu
 import com.zillennium.utswap.models.ListMenu.ListMenuAdapter
 import com.zillennium.utswap.screens.setting.creditCardScreen.CreditCardActivity
@@ -22,7 +22,6 @@ import com.zillennium.utswap.screens.setting.logScreen.LogActivity
 import com.zillennium.utswap.screens.setting.loginPasswordScreen.LoginPasswordActivity
 import com.zillennium.utswap.screens.setting.profileScreen.ProfileActivity
 import com.zillennium.utswap.screens.setting.twoFAScreen.TwoFAActivity
-import java.io.IOException
 
 class SettingActivity :
     BaseMvpActivity<SettingView.View, SettingView.Presenter, ActivitySettingBinding>(),
@@ -130,7 +129,7 @@ class SettingActivity :
                                 startActivity(
                                     Intent(
                                         "android.intent.action.VIEW",
-                                        Uri.parse(SharedPreferencesStore.APP_TELEGRAM)
+                                        Uri.parse(SystemPreferences.APP_TELEGRAM)
                                     )
                                 )
                                 return@OnItemClickListener
@@ -190,7 +189,7 @@ class SettingActivity :
                                 startActivity(
                                     Intent(
                                         "android.intent.action.VIEW",
-                                        Uri.parse(SharedPreferencesStore.APP_WEBSITE)
+                                        Uri.parse(SystemPreferences.APP_WEBSITE)
                                     )
                                 )
                                 return@OnItemClickListener
@@ -233,7 +232,7 @@ class SettingActivity :
                                 startActivity(
                                     Intent(
                                         "android.intent.action.VIEW",
-                                        Uri.parse(SharedPreferencesStore.APP_WEBSITE)
+                                        Uri.parse(SystemPreferences.APP_WEBSITE)
                                     )
                                 )
                                 return@OnItemClickListener
@@ -259,7 +258,7 @@ class SettingActivity :
                                 startActivity(
                                     Intent(
                                         "android.intent.action.VIEW",
-                                        Uri.parse(SharedPreferencesStore.APP_WEBSITE)
+                                        Uri.parse(SystemPreferences.APP_WEBSITE)
                                     )
                                 )
                                 return@OnItemClickListener
@@ -268,7 +267,7 @@ class SettingActivity :
                                 startActivity(
                                     Intent(
                                         "android.intent.action.VIEW",
-                                        Uri.parse(SharedPreferencesStore.APP_WEBSITE)
+                                        Uri.parse(SystemPreferences.APP_WEBSITE)
                                     )
                                 )
                                 return@OnItemClickListener

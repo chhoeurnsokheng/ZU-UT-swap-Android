@@ -5,17 +5,15 @@ import android.widget.AdapterView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
-import com.zillennium.utswap.bases.BasePassedActivity
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityWalletLockUpBinding
-import com.zillennium.utswap.datas.lockUpData.DataLockUp
+import com.zillennium.utswap.Datas.ListDatas.lockUpData.DataLockUp
 import com.zillennium.utswap.models.LockUpHistory.LockUpHistory
 import com.zillennium.utswap.models.Subscription.Subscription
 import com.zillennium.utswap.screens.wallet.lockUpScreen.adapter.LockUpAdapter
 import com.zillennium.utswap.screens.wallet.lockUpScreen.adapter.LockUpAdapter.OnClickLockUpHistory
 import com.zillennium.utswap.screens.wallet.lockUpScreen.dialog.LockUpDetailDialog
 import com.zillennium.utswap.screens.wallet.subScriptionScreen.adapter.SubscriptionAdapter
-import java.io.IOException
 
 class LockUpActivity :
     BaseMvpActivity<LockUpView.View, LockUpView.Presenter, ActivityWalletLockUpBinding>(),

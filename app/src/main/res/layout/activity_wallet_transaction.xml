@@ -5,7 +5,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".screens.wallet.MyWallet.MyWalletActivity"
+        tools:context=".screens.wallet.transactionScreen.TransactionActivity"
         android:background="@color/color_main"
         android:alpha="0.92">
 

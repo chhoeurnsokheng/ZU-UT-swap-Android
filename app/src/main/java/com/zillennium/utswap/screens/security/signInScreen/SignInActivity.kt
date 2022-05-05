@@ -1,15 +1,21 @@
 package com.zillennium.utswap.screens.security.signInScreen
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Handler
 import android.os.Looper
 import android.widget.Toast
+import com.zillennium.utswap.Datas.StoredPreferences.KYCPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
+import com.zillennium.utswap.bases.BaseStoredPreferences
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivitySecuritySignInBinding
 import com.zillennium.utswap.screens.navbar.navbar.NavbarActivity
-import java.io.IOException
+import java.util.prefs.Preferences
+import kotlin.reflect.KProperty
+
 
 class SignInActivity :
     BaseMvpActivity<SignInView.View, SignInView.Presenter, ActivitySecuritySignInBinding>(),
@@ -62,9 +68,5 @@ class SignInActivity :
         this.doubleBackToExitPressedOnce = true
         Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show()
         Handler(Looper.getMainLooper()).postDelayed({ doubleBackToExitPressedOnce = false }, 2000)
-    }
-
-    private fun getColoredSpanned(text: String, color: String): String? {
-        return "<font color=$color>$text</font>"
     }
 }

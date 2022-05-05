@@ -9,7 +9,7 @@ import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityWalletHistoricalBinding
-import com.zillennium.utswap.datas.historicalData.DataHistorical
+import com.zillennium.utswap.Datas.ListDatas.historicalData.DataHistorical
 import com.zillennium.utswap.models.Historical.Historical
 import com.zillennium.utswap.models.Subscription.Subscription
 import com.zillennium.utswap.screens.wallet.historicalScreen.adapter.HistoricalAdapter
@@ -17,7 +17,6 @@ import com.zillennium.utswap.screens.wallet.historicalScreen.adapter.HistoricalA
 import com.zillennium.utswap.screens.wallet.historicalScreen.adapter.HistoricalFilterAdapter
 import com.zillennium.utswap.screens.wallet.historicalScreen.dialog.HistoricalDetailDialog
 import com.zillennium.utswap.screens.wallet.subScriptionScreen.adapter.SubscriptionAdapter
-import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 

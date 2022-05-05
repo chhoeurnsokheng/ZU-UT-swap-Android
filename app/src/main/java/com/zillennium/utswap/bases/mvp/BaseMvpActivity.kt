@@ -73,5 +73,4 @@ abstract class BaseMvpActivity<in V : BaseMvpView, T : BaseMvpPresenter<V>, M : 
     override fun onSetThem(): Int {
         return -1
     }
-
 }

@@ -284,7 +284,7 @@
             android:screenOrientation="portrait"/>
         <activity
             android:label="@string/my_wallet"
-            android:name="com.zillennium.utswap.screens.wallet.MyWallet.MyWalletActivity"
+            android:name="com.zillennium.utswap.screens.wallet.transactionScreen.TransactionActivity"
             android:exported="false"
             android:screenOrientation="portrait"/>
         <activity
