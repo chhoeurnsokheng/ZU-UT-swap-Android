@@ -1,59 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".screens.system.welcomeScreen.WelcomeActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:background="@color/white">
 
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/welcome_slider"
+        <ImageView
+            android:id="@+id/img_logo_ut_swap"
+            android:layout_width="@dimen/dimen_120"
+            android:layout_height="@dimen/dimen_150"
+            app:layout_constraintBottom_toBottomOf="@+id/linearLayout2"
+            app:layout_constraintEnd_toEndOf="@+id/linearLayout2"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="@+id/linearLayout2"
+            app:layout_constraintTop_toTopOf="@+id/linearLayout2"
+            app:layout_constraintVertical_bias="0.3"
+            app:srcCompat="@drawable/ic_ut_swap_log"
+            android:contentDescription="@string/logo_ut_swap" />
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="500dp"
-            android:layout_marginTop="@dimen/dimen_30"/>
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/dimen_20"
+            android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/dotsLayout"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dimen_30"
-            android:layout_below="@+id/welcome_slider"
-            android:layout_marginTop="@dimen/dimen_10"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="@dimen/dimen_40">
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_signIn"
+            <LinearLayout
+                android:id="@+id/main_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/sign_in"
-                android:textColorHint="@color/white"
-                android:background="@drawable/bg_circular"
-                android:fontFamily="@font/avenirnextcyr_bold"
-                android:layout_marginStart="@dimen/dimen_20"
-                android:layout_marginEnd="@dimen/dimen_15"
-                android:layout_weight="1"/>
+                android:layout_alignParentBottom="true"
+                android:paddingHorizontal="@dimen/dimen_20"
+                android:layout_marginBottom="@dimen/dimen_60"
+                android:orientation="horizontal">
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_register"
-                android:layout_width="match_parent"
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_signIn"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_50"
+                    android:layout_marginEnd="@dimen/dimen_10"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_circular"
+                    android:hint="@string/sign_in"
+                    android:textAppearance="@style/bold_16"
+                    android:textColorHint="@color/white" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_register"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_50"
+                    android:layout_marginStart="@dimen/dimen_10"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_circular_border_blue"
+                    android:hint="@string/register"
+                    android:textAppearance="@style/bold_16"
+                    android:textColorHint="@color/color_main" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center|bottom"
+            android:padding="30dp">
+
+            <TextView
+                android:id="@+id/txt_copyright"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="@string/register"
-                android:layout_marginStart="@dimen/dimen_15"
-                android:layout_marginEnd="@dimen/dimen_20"
-                android:textColorHint="@color/color_main"
-                android:fontFamily="@font/avenirnextcyr_bold"
-                android:background="@drawable/bg_circular_border_blue"/>
+                android:text="@string/copyright_2020"
+                android:textAppearance="@style/regular_14"
+                android:textColor="@color/orange"
+                android:layout_marginEnd="@dimen/dimen_8"/>
 
+            <TextView
+                android:id="@+id/txt_company"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/zillion_united_co_ltd"
+                android:textAppearance="@style/regular_14"
+                android:textColor="@color/color_main" />
         </LinearLayout>
 
-    </RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

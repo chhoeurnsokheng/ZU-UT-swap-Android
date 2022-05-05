@@ -29,6 +29,7 @@
         <entry key="app/src/main/res/layout/activity_setting_login_password.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_simple.xml" value="0.16621376811594202" />
         <entry key="app/src/main/res/layout/activity_splash_screen.xml" value="0.10130405618686872" />
+        <entry key="app/src/main/res/layout/activity_system_welcome.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_trade_exchange.xml" value="0.11510416666666666" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.246875" />
         <entry key="app/src/main/res/layout/fragment_kyc_national_id.xml" value="0.25" />
