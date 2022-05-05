@@ -129,7 +129,7 @@ class SettingActivity :
                                 startActivity(
                                     Intent(
                                         "android.intent.action.VIEW",
-                                        Uri.parse(SystemPreferences.APP_TELEGRAM)
+                                        Uri.parse(SystemPreferences().APP_TELEGRAM)
                                     )
                                 )
                                 return@OnItemClickListener
@@ -189,7 +189,7 @@ class SettingActivity :
                                 startActivity(
                                     Intent(
                                         "android.intent.action.VIEW",
-                                        Uri.parse(SystemPreferences.APP_WEBSITE)
+                                        Uri.parse(SystemPreferences().APP_WEBSITE)
                                     )
                                 )
                                 return@OnItemClickListener
@@ -232,7 +232,7 @@ class SettingActivity :
                                 startActivity(
                                     Intent(
                                         "android.intent.action.VIEW",
-                                        Uri.parse(SystemPreferences.APP_WEBSITE)
+                                        Uri.parse(SystemPreferences().APP_WEBSITE)
                                     )
                                 )
                                 return@OnItemClickListener
@@ -258,7 +258,7 @@ class SettingActivity :
                                 startActivity(
                                     Intent(
                                         "android.intent.action.VIEW",
-                                        Uri.parse(SystemPreferences.APP_WEBSITE)
+                                        Uri.parse(SystemPreferences().APP_WEBSITE)
                                     )
                                 )
                                 return@OnItemClickListener
@@ -267,7 +267,7 @@ class SettingActivity :
                                 startActivity(
                                     Intent(
                                         "android.intent.action.VIEW",
-                                        Uri.parse(SystemPreferences.APP_WEBSITE)
+                                        Uri.parse(SystemPreferences().APP_WEBSITE)
                                     )
                                 )
                                 return@OnItemClickListener
