@@ -1,6 +1,7 @@
 package com.zillennium.utswap.screens.system.welcomeScreen
 
 import android.content.Intent
+import android.database.sqlite.SQLiteOpenHelper
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
@@ -24,8 +25,6 @@ class WelcomeActivity :
             binding.apply {
 
                 supportActionBar?.hide()
-
-
 
                 btnSignIn.setOnClickListener {
                     val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
