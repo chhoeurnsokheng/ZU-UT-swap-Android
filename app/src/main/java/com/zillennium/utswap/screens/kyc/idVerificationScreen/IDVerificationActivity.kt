@@ -77,7 +77,6 @@ class IDVerificationActivity :
                 etHouse.setText(KYCPreferences().ADDRESS)
             }
 
-
             initSpinnerGender()
             initSpinnerCityProvince()
             initDistrictKhan()
