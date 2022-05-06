@@ -1,14 +1,12 @@
 package com.zillennium.utswap.screens.system.welcomeScreen
 
 import android.content.Intent
-import android.database.sqlite.SQLiteOpenHelper
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivitySystemWelcomeBinding
 import com.zillennium.utswap.screens.security.signInScreen.SignInActivity
 import com.zillennium.utswap.screens.security.signUpScreen.SignUpActivity
-import java.io.IOException
 
 class WelcomeActivity :
     BaseMvpActivity<WelcomeView.View, WelcomeView.Presenter, ActivitySystemWelcomeBinding>(),
@@ -16,8 +14,6 @@ class WelcomeActivity :
 
     override var mPresenter: WelcomeView.Presenter = WelcomePresenter()
     override val layoutResource: Int = R.layout.activity_system_welcome
-
-    lateinit var layouts: IntArray
 
     override fun initView() {
         super.initView()

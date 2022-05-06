@@ -217,4 +217,9 @@
     <string name="copyright_2020">Copyright 2020</string>
     <string name="zillion_united_co_ltd">Zillion United Co.,Ltd.</string>
     <string name="logo_ut_swap">logo ut swap</string>
+    <string name="john">JOHN</string>
+    <string name="doe">DOE</string>
+    <string name="indicates_required">indicates required</string>
+    <string name="passport_autocomplete">Passport Auto Complete</string>
+
 </resources>
