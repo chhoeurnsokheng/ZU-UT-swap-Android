@@ -82,6 +82,8 @@ class IDVerificationActivity :
             initDistrictKhan()
             initCommuneSangkat()
 
+
+
             imgBack.setOnClickListener { finish() }
 
             val calendar = Calendar.getInstance()
