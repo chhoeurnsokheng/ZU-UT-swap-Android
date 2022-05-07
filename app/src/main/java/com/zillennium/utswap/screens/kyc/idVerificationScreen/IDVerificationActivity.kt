@@ -15,11 +15,7 @@ import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityKycIdVerificationBinding
-import com.zillennium.utswap.models.Subscription.Subscription
-import com.zillennium.utswap.screens.kyc.idTypeScreen.fragment.nationalID.NationalIDFragment
 import com.zillennium.utswap.screens.kyc.selfieHoldingScreen.SelfieHoldingActivity
-import com.zillennium.utswap.screens.wallet.subScriptionScreen.adapter.SubscriptionAdapter
-import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -133,26 +129,26 @@ class IDVerificationActivity :
                 // House Address Error
                 if (etHouse.text.toString().isEmpty()) {
                     txtErrorHouse.visibility = View.VISIBLE
-                    etHouse.setBackgroundTintList(ColorStateList.valueOf(resources.getColor(R.color.red)))
+                    etHouse.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.red))
                     isHaveError = true
                 }
 
                 //  ID Verification Error
                 if (etFirstName.text.toString().isEmpty()) {
                     txtErrorFirstName.visibility = View.VISIBLE
-                    etFirstName.setBackgroundTintList(ColorStateList.valueOf(resources.getColor(R.color.red)))
+                    etFirstName.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.red))
                     isHaveError = true
                 }
                 //  Lastname Error
                 if (etLastName.text.toString().isEmpty()) {
                     txtErrorLastName.visibility = View.VISIBLE
-                    etLastName.setBackgroundTintList(ColorStateList.valueOf(resources.getColor(R.color.red)))
+                    etLastName.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.red))
                     isHaveError = true
                 }
                 // Date Of Birth Error
                 if (etDate.text.toString().isEmpty()) {
                     txtErrorDate.visibility = View.VISIBLE
-                    etDate.setBackgroundTintList(ColorStateList.valueOf(resources.getColor(R.color.red)))
+                    etDate.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.red))
                     isHaveError = true
                 }
 
@@ -184,7 +180,7 @@ class IDVerificationActivity :
 
                 override fun afterTextChanged(editable: Editable) {
                     txtErrorFirstName.visibility = View.GONE
-                    etFirstName.setBackgroundTintList(ColorStateList.valueOf(resources.getColor(R.color.secondary_text)))
+                    etFirstName.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.secondary_text))
                 }
             })
 
@@ -207,7 +203,7 @@ class IDVerificationActivity :
 
                 override fun afterTextChanged(editable: Editable) {
                     txtErrorLastName.visibility = View.GONE
-                    etLastName.setBackgroundTintList(ColorStateList.valueOf(resources.getColor(R.color.secondary_text)))
+                    etLastName.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.secondary_text))
 
                 }
             })
@@ -231,7 +227,7 @@ class IDVerificationActivity :
 
                 override fun afterTextChanged(editable: Editable) {
                     txtErrorDate.visibility = View.GONE
-                    etDate.setBackgroundTintList(ColorStateList.valueOf(resources.getColor(R.color.secondary_text)))
+                    etDate.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.secondary_text))
                 }
             })
 
@@ -249,7 +245,7 @@ class IDVerificationActivity :
                 @SuppressLint("UseCompatLoadingForDrawables")
                 override fun afterTextChanged(editable: Editable) {
                     txtErrorHouse.visibility = View.GONE
-                    etHouse.setBackgroundTintList(ColorStateList.valueOf(resources.getColor(R.color.secondary_text)))
+                    etHouse.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.secondary_text))
                 }
             })
 

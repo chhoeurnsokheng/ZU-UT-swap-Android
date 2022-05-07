@@ -7,14 +7,14 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 
 @RequiresApi(Build.VERSION_CODES.P)
-class UITracking(
+class UI(
     context: Context?,
     name: String?,
     version: Int,
     openParams: SQLiteDatabase.OpenParams
 ) : SQLiteOpenHelper(context, name, version, openParams) {
 
-    public var TABLE_NAME = "ui_tracking_db"
+    public var TABLE_NAME = "ui_db"
     public var UI_ID = "ui_id"
     public var UI_NAME = "ui_name"
     public var UI_EVENT = "ui_event"
