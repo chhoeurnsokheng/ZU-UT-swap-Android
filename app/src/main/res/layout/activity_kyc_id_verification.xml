@@ -5,7 +5,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <LinearLayout
             android:id="@+id/tool_bar"
@@ -14,6 +15,7 @@
             android:orientation="horizontal"
             android:paddingStart="@dimen/dimen_10"
             android:paddingTop="@dimen/dimen_15"
+            android:paddingEnd="@dimen/dimen_10"
             android:paddingBottom="@dimen/dimen_10">
 
             <ImageView
@@ -26,397 +28,408 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/id_verification"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/btn_next"
             android:layout_below="@+id/tool_bar"
-            android:layout_marginTop="@dimen/dimen_25"
-            android:orientation="vertical"
-            android:paddingStart="@dimen/dimen_30"
-            android:paddingEnd="@dimen/dimen_30">
+            android:overScrollMode="never"
+            android:scrollbars="none">
 
-            <TextView
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/id_verification"
-                android:textAppearance="@style/medium_16"
-                android:textColor="@color/color_main" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_10"
-                android:text="@string/please_ensure_that_the_information_below_is_correct"
-                android:textAppearance="@style/regular_12" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_10"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content">
 
                 <LinearLayout
+                    android:id="@+id/container"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/dimen_10"
-                    android:layout_marginBottom="@dimen/dimen_10"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:layout_marginTop="@dimen/dimen_25"
+                    android:orientation="vertical"
+                    android:paddingStart="@dimen/dimen_30"
+                    android:paddingEnd="@dimen/dimen_30">
 
-                    <EditText
-                        android:id="@+id/et_first_name"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/dimen_50"
-                        android:backgroundTint="@color/secondary_text"
-                        android:hint="@string/john"
-                        android:nextFocusDown="@+id/et_last_name"
-                        android:inputType="textNoSuggestions"
-                        android:singleLine="true"
-                        android:textAppearance="@style/regular_16"
-                        android:textColor="@color/secondary_text" />
 
                     <TextView
-                        android:id="@+id/txt_error_first_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/dimen_0"
-                        android:layout_marginTop="5dp"
-                        android:ellipsize="end"
-                        android:singleLine="true"
-                        android:text="@string/can_t_keep_empty"
-                        android:textAppearance="@style/regular_10"
-                        android:textColor="@color/red"
-                        android:visibility="gone" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/dimen_10"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-
-                    <EditText
-                        android:id="@+id/et_last_name"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/dimen_50"
-                        android:backgroundTint="@color/secondary_text"
-                        android:hint="@string/doe"
-                        android:inputType="textNoSuggestions"
-                        android:singleLine="true"
-                        android:textAppearance="@style/regular_16"
-                        android:textColor="@color/secondary_text" />
+                        android:layout_height="wrap_content"
+                        android:text="@string/id_verification"
+                        android:textAppearance="@style/medium_16"
+                        android:textColor="@color/color_main" />
 
                     <TextView
-                        android:id="@+id/txt_error_last_name"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:ellipsize="end"
-                        android:singleLine="true"
-                        android:text="@string/can_t_keep_empty"
-                        android:textAppearance="@style/regular_10"
-                        android:textColor="@color/red"
-                        android:visibility="gone" />
+                        android:layout_marginTop="@dimen/dimen_10"
+                        android:text="@string/please_ensure_that_the_information_below_is_correct"
+                        android:textAppearance="@style/regular_12" />
 
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/dimen_10"
-                    android:layout_marginBottom="@dimen/dimen_10"
-                    android:paddingTop="@dimen/dimen_5"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <RelativeLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="@dimen/dimen_50"
-                        android:gravity="center"
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dimen_10"
+                        android:baselineAligned="false"
                         android:orientation="horizontal">
 
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/dimen_10"
+                            android:layout_marginBottom="@dimen/dimen_10"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <EditText
+                                android:id="@+id/et_first_name"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/dimen_50"
+                                android:autofillHints="no"
+                                android:backgroundTint="@color/secondary_text"
+                                android:hint="@string/john"
+                                android:inputType="textNoSuggestions"
+                                android:nextFocusDown="@+id/et_last_name"
+                                android:singleLine="true"
+                                android:textAppearance="@style/regular_16"
+                                android:textColor="@color/secondary_text" />
+
+                            <TextView
+                                android:id="@+id/txt_error_first_name"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/dimen_0"
+                                android:layout_marginTop="5dp"
+                                android:ellipsize="end"
+                                android:singleLine="true"
+                                android:text="@string/can_t_keep_empty"
+                                android:textAppearance="@style/regular_10"
+                                android:textColor="@color/red"
+                                android:visibility="gone" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/dimen_10"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+
+                            <EditText
+                                android:id="@+id/et_last_name"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/dimen_50"
+                                android:autofillHints="no"
+                                android:backgroundTint="@color/secondary_text"
+                                android:hint="@string/doe"
+                                android:inputType="textNoSuggestions"
+                                android:singleLine="true"
+                                android:textAppearance="@style/regular_16"
+                                android:textColor="@color/secondary_text" />
+
+                            <TextView
+                                android:id="@+id/txt_error_last_name"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:ellipsize="end"
+                                android:singleLine="true"
+                                android:text="@string/can_t_keep_empty"
+                                android:textAppearance="@style/regular_10"
+                                android:textColor="@color/red"
+                                android:visibility="gone" />
+
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:baselineAligned="false"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/dimen_10"
+                            android:layout_marginBottom="@dimen/dimen_10"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:paddingTop="@dimen/dimen_5">
+
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="@dimen/dimen_50"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+
+                                <EditText
+                                    android:id="@+id/et_date"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/dimen_50"
+                                    android:backgroundTint="@color/secondary_text"
+                                    android:hint="@string/date_of_birth"
+                                    android:importantForAutofill="no"
+                                    android:inputType="none"
+                                    android:singleLine="true"
+                                    android:textAppearance="@style/regular_16"
+                                    android:textColor="@color/secondary_text"
+                                    tools:ignore="TextFields" />
+
+                            </RelativeLayout>
+
+                            <TextView
+                                android:id="@+id/txt_error_date"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:ellipsize="end"
+                                android:singleLine="true"
+                                android:text="@string/can_t_keep_empty"
+                                android:textAppearance="@style/regular_10"
+                                android:textColor="@color/red"
+                                android:visibility="gone" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/dimen_10"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
+                                android:id="@+id/spinner_gender"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/dimen_50"
+                                app:smsp_floatingLabelColor="@color/white"
+                                app:smsp_hint="Gender"
+                                app:smsp_hintColor="@color/gray"
+                                app:smsp_itemListColor="@color/secondary_text"
+                                app:smsp_itemListHintBackgroundColor="@color/secondary_text"
+                                app:smsp_itemListHintColor="@color/white"
+                                app:smsp_multilineError="false"
+                                app:smsp_selectedItemListColor="@color/secondary_text"
+                                app:smsp_underlineColor="@color/secondary_text" />
+
+                            <TextView
+                                android:id="@+id/txt_error_gender"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:ellipsize="end"
+                                android:singleLine="true"
+                                android:text="@string/can_t_keep_empty"
+                                android:textAppearance="@style/regular_10"
+                                android:textColor="@color/red"
+                                android:visibility="gone" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dimen_20"
+                        android:text="@string/address_information"
+                        android:textAppearance="@style/medium_16"
+                        android:textColor="@color/color_main" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dimen_10"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
+                            android:id="@+id/spinner_city_province"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:smsp_floatingLabelColor="@color/gray"
+                            app:smsp_floatingLabelText="City/Province *"
+                            app:smsp_hint="City/Province *"
+                            app:smsp_hintColor="@color/gray"
+                            app:smsp_itemColor="@color/secondary_text"
+                            app:smsp_itemListColor="@color/secondary_text"
+                            app:smsp_itemListHintBackgroundColor="@color/backgroundHint"
+                            app:smsp_itemListHintColor="@color/white"
+                            app:smsp_multilineError="false"
+                            app:smsp_selectedItemListColor="@color/secondary_text"
+                            app:smsp_underlineColor="@color/secondary_text" />
+
+                        <TextView
+                            android:id="@+id/txt_error_city"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:ellipsize="end"
+                            android:singleLine="true"
+                            android:text="@string/can_t_keep_empty"
+                            android:textAppearance="@style/regular_10"
+                            android:textColor="@color/red"
+                            android:visibility="gone" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dimen_5"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
+                            android:id="@+id/spinner_district_khan"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:smsp_floatingLabelColor="@color/gray"
+                            app:smsp_floatingLabelText="District/Khan *"
+                            app:smsp_hint="District/Khan *"
+                            app:smsp_hintColor="@color/gray"
+                            app:smsp_itemColor="@color/secondary_text"
+                            app:smsp_itemListColor="@color/secondary_text"
+                            app:smsp_itemListHintBackgroundColor="@color/backgroundHint"
+                            app:smsp_itemListHintColor="@color/white"
+                            app:smsp_multilineError="false"
+                            app:smsp_selectedItemListColor="@color/secondary_text"
+                            app:smsp_underlineColor="@color/secondary_text" />
+
+                        <TextView
+                            android:id="@+id/txt_error_district"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:ellipsize="end"
+                            android:singleLine="true"
+                            android:text="@string/can_t_keep_empty"
+                            android:textAppearance="@style/regular_10"
+                            android:textColor="@color/red"
+                            android:visibility="gone" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dimen_5"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
+                            android:id="@+id/spinner_commune_sangkat"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:smsp_floatingLabelColor="@color/gray"
+                            app:smsp_floatingLabelText="Commune/Sangkat *"
+                            app:smsp_hint="Commune/Sangkat *"
+                            app:smsp_hintColor="@color/gray"
+                            app:smsp_itemColor="@color/secondary_text"
+                            app:smsp_itemListColor="@color/secondary_text"
+                            app:smsp_itemListHintBackgroundColor="@color/backgroundHint"
+                            app:smsp_itemListHintColor="@color/white"
+                            app:smsp_multilineError="false"
+                            app:smsp_selectedItemListColor="@color/secondary_text"
+                            app:smsp_underlineColor="@color/secondary_text" />
+
+                        <TextView
+                            android:id="@+id/txt_error_commune"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:ellipsize="end"
+                            android:singleLine="true"
+                            android:text="@string/can_t_keep_empty"
+                            android:textAppearance="@style/regular_10"
+                            android:textColor="@color/red"
+                            android:visibility="gone" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dimen_5"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/dimen_2"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/house_no_street"
+                                android:textAppearance="@style/regular_12" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/star"
+                                android:textColor="@color/red" />
+
+                        </LinearLayout>
+
                         <EditText
-                            android:id="@+id/et_date"
+                            android:id="@+id/et_house"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/dimen_50"
                             android:backgroundTint="@color/secondary_text"
-                            android:hint="Date Of Birth"
-                            android:inputType="none"
+                            android:importantForAutofill="no"
+                            android:inputType="textNoSuggestions"
                             android:singleLine="true"
                             android:textAppearance="@style/regular_16"
-                            android:textColor="@color/secondary_text"
-                            tools:ignore="TextFields" />
+                            android:textColor="@color/secondary_text" />
 
-                    </RelativeLayout>
+                        <TextView
+                            android:id="@+id/txt_error_house"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:ellipsize="end"
+                            android:singleLine="true"
+                            android:text="@string/can_t_keep_empty"
+                            android:textAppearance="@style/regular_10"
+                            android:textColor="@color/red"
+                            android:visibility="gone" />
 
-                    <TextView
-                        android:id="@+id/txt_error_date"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:ellipsize="end"
-                        android:singleLine="true"
-                        android:text="@string/can_t_keep_empty"
-                        android:textAppearance="@style/regular_10"
-                        android:textColor="@color/red"
-                        android:visibility="gone" />
+                    </LinearLayout>
 
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/dimen_10"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
-                        android:id="@+id/spinner_gender"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/dimen_50"
-                        app:smsp_hint="Gender"
-                        app:smsp_floatingLabelColor="@color/white"
-                        app:smsp_hintColor="@color/gray"
-                        app:smsp_underlineColor="@color/secondary_text"
-                        app:smsp_itemListColor="@color/secondary_text"
-                        app:smsp_itemListHintBackgroundColor="@color/secondary_text"
-                        app:smsp_itemListHintColor="@color/white"
-                        app:smsp_multilineError="false"
-                        app:smsp_selectedItemListColor="@color/secondary_text" />
-
-                    <TextView
-                        android:id="@+id/txt_error_gender"
-                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:ellipsize="end"
-                        android:singleLine="true"
-                        android:text="@string/can_t_keep_empty"
-                        android:textAppearance="@style/regular_10"
-                        android:textColor="@color/red"
-                        android:visibility="gone" />
-                </LinearLayout>
-            </LinearLayout>
+                        android:layout_marginTop="@dimen/dimen_10"
+                        android:layout_marginBottom="@dimen/dimen_30"
+                        android:gravity="end"
+                        android:orientation="horizontal"
+                        android:paddingStart="@dimen/dimen_0"
+                        android:paddingEnd="@dimen/dimen_0">
 
-        </LinearLayout>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/starRight"
+                            android:textColor="@color/red" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/id_verification"
-            android:layout_marginTop="@dimen/dimen_20"
-            android:orientation="vertical"
-            android:paddingStart="@dimen/dimen_30"
-            android:paddingEnd="@dimen/dimen_15">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/indicates_required"
+                            android:textAppearance="@style/regular_12" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/address_information"
-                android:textAppearance="@style/medium_16"
-                android:textColor="@color/color_main" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_10"
-                android:layout_marginEnd="@dimen/dimen_10"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
-                    android:id="@+id/spinner_city_province"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:smsp_floatingLabelColor="@color/gray"
-                    app:smsp_floatingLabelText="City/Province *"
-                    app:smsp_hint="City/Province *"
-                    app:smsp_underlineColor="@color/secondary_text"
-                    app:smsp_hintColor="@color/gray"
-                    app:smsp_itemColor="@color/secondary_text"
-                    app:smsp_itemListColor="@color/secondary_text"
-                    app:smsp_itemListHintBackgroundColor="@color/backgroundHint"
-                    app:smsp_itemListHintColor="@color/white"
-                    app:smsp_multilineError="false"
-                    app:smsp_selectedItemListColor="@color/secondary_text" />
-
-                <TextView
-                    android:id="@+id/txt_error_city"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:ellipsize="end"
-                    android:textAppearance="@style/regular_10"
-                    android:singleLine="true"
-                    android:text="@string/can_t_keep_empty"
-                    android:textColor="@color/red"
-                    android:visibility="gone" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_5"
-                android:layout_marginEnd="@dimen/dimen_10"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
-                    android:id="@+id/spinner_district_khan"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:smsp_floatingLabelColor="@color/gray"
-                    app:smsp_floatingLabelText="District/Khan *"
-                    app:smsp_hint="District/Khan *"
-                    app:smsp_underlineColor="@color/secondary_text"
-                    app:smsp_hintColor="@color/gray"
-                    app:smsp_itemColor="@color/secondary_text"
-                    app:smsp_itemListColor="@color/secondary_text"
-                    app:smsp_itemListHintBackgroundColor="@color/backgroundHint"
-                    app:smsp_itemListHintColor="@color/white"
-                    app:smsp_multilineError="false"
-                    app:smsp_selectedItemListColor="@color/secondary_text" />
-
-                <TextView
-                    android:id="@+id/txt_error_district"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:ellipsize="end"
-                    android:textAppearance="@style/regular_10"
-                    android:singleLine="true"
-                    android:text="@string/can_t_keep_empty"
-                    android:textColor="@color/red"
-                    android:visibility="gone" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_5"
-                android:layout_marginEnd="@dimen/dimen_10"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
-                    android:id="@+id/spinner_commune_sangkat"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:smsp_floatingLabelColor="@color/gray"
-                    app:smsp_floatingLabelText="Commune/Sangkat *"
-                    app:smsp_hint="Commune/Sangkat *"
-                    app:smsp_underlineColor="@color/secondary_text"
-                    app:smsp_hintColor="@color/gray"
-                    app:smsp_itemColor="@color/secondary_text"
-                    app:smsp_itemListColor="@color/secondary_text"
-                    app:smsp_itemListHintBackgroundColor="@color/backgroundHint"
-                    app:smsp_itemListHintColor="@color/white"
-                    app:smsp_multilineError="false"
-                    app:smsp_selectedItemListColor="@color/secondary_text" />
-
-                <TextView
-                    android:id="@+id/txt_error_commune"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:ellipsize="end"
-                    android:textAppearance="@style/regular_10"
-                    android:singleLine="true"
-                    android:text="@string/can_t_keep_empty"
-                    android:textColor="@color/red"
-                    android:visibility="gone" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_5"
-                android:layout_marginEnd="@dimen/dimen_10"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/dimen_2"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="House No, Street #"
-                        android:textAppearance="@style/regular_12" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text=" *"
-                        android:textColor="@color/red" />
+                    </LinearLayout>
 
                 </LinearLayout>
 
-                <EditText
-                    android:id="@+id/et_house"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dimen_50"
-                    android:backgroundTint="@color/secondary_text"
-                    android:inputType="textNoSuggestions"
-                    android:singleLine="true"
-                    android:textAppearance="@style/regular_16"
-                    android:textColor="@color/secondary_text" />
 
-                <TextView
-                    android:id="@+id/txt_error_house"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:ellipsize="end"
-                    android:singleLine="true"
-                    android:text="@string/can_t_keep_empty"
-                    android:textAppearance="@style/regular_10"
-                    android:textColor="@color/red"
-                    android:visibility="gone" />
+            </RelativeLayout>
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_1"
-                android:gravity="end"
-                android:orientation="horizontal"
-                android:paddingStart="@dimen/dimen_0"
-                android:paddingEnd="@dimen/dimen_12">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="* "
-                    android:textColor="@color/red" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/indicates_required"
-                    android:textAppearance="@style/regular_12" />
-
-            </LinearLayout>
-        </LinearLayout>
+        </ScrollView>
 
         <LinearLayout
             android:id="@+id/btn_next"
@@ -424,6 +437,7 @@
             android:layout_height="@dimen/dimen_50"
             android:layout_alignParentBottom="true"
             android:layout_marginStart="@dimen/dimen_30"
+            android:layout_marginTop="@dimen/dimen_30"
             android:layout_marginEnd="@dimen/dimen_30"
             android:layout_marginBottom="@dimen/dimen_30"
             android:background="@drawable/bg_circular"
@@ -446,5 +460,7 @@
                 app:tint="@color/white" />
 
         </LinearLayout>
+
     </RelativeLayout>
+
 </layout>

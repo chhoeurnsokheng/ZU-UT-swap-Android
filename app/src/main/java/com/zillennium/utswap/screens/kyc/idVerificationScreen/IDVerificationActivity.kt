@@ -11,6 +11,7 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.DatePicker
 import com.chivorn.smartmaterialspinner.SmartMaterialSpinner
+import com.zillennium.utswap.Datas.StoredPreferences.KYCPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
@@ -62,10 +63,26 @@ class IDVerificationActivity :
         try {
         binding.apply {
 
+            /* if Data already input */
+            if(KYCPreferences().FIRST_NAME.isNullOrEmpty()){
+                etFirstName.setText(KYCPreferences().FIRST_NAME)
+            }
+            if(KYCPreferences().LAST_NAME.isNullOrEmpty()){
+                etLastName.setText(KYCPreferences().LAST_NAME)
+            }
+            if(KYCPreferences().BIRTHDAY.isNullOrEmpty()){
+                etDate.setText(KYCPreferences().BIRTHDAY)
+            }
+            if(KYCPreferences().ADDRESS.isNullOrEmpty()){
+                etHouse.setText(KYCPreferences().ADDRESS)
+            }
+
             initSpinnerGender()
             initSpinnerCityProvince()
             initDistrictKhan()
             initCommuneSangkat()
+
+
 
             imgBack.setOnClickListener { finish() }
 
@@ -160,6 +177,16 @@ class IDVerificationActivity :
                 if (isHaveError) {
                     return@setOnClickListener
                 } else {
+
+                    KYCPreferences().FIRST_NAME = info.firstName
+                    KYCPreferences().LAST_NAME = info.lastName
+                    KYCPreferences().BIRTHDAY = info.dateOfBirth
+                    KYCPreferences().GENDER = info.gender
+                    KYCPreferences().CITY_PROVINCE = info.city
+                    KYCPreferences().DISTRICT_KHAN = info.district
+                    KYCPreferences().COMMUNE_SANGKAT = info.commune
+                    KYCPreferences().ADDRESS = info.addressHouse
+
                     val intent = Intent(UTSwapApp.instance, SelfieHoldingActivity::class.java)
                     startActivity(intent)
                 }
