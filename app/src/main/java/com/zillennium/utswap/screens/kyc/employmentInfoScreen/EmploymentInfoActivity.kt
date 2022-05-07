@@ -2,15 +2,24 @@ package com.zillennium.utswap.screens.kyc.employmentInfoScreen
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import com.zillennium.utswap.Datas.StoredPreferences.KYCPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityKycEmploymentInfoBinding
 import com.zillennium.utswap.screens.kyc.addressInfoScreen.AddressInfoActivity
 import java.io.IOException
+
+object info {
+    var occupation = ""
+    var company = ""
+    var phone_number = ""
+    var email_emp = ""
+}
 
 class EmploymentInfoActivity :
     BaseMvpActivity<EmploymentInfoView.View, EmploymentInfoView.Presenter, ActivityKycEmploymentInfoBinding>(),
@@ -25,24 +34,44 @@ class EmploymentInfoActivity :
         try {
             binding.apply {
 
+                /* if Data already input */
+                if (KYCPreferences().OCCUPATION.isNullOrEmpty()) {
+                    etOccupation.setText(KYCPreferences().OCCUPATION)
+                }
+                if (KYCPreferences().COMPANY.isNullOrEmpty()) {
+                    etCompany.setText(KYCPreferences().COMPANY)
+                }
+                if (KYCPreferences().PHONE_NUMBER.isNullOrEmpty()) {
+                    etphoneNumber.setText(KYCPreferences().PHONE_NUMBER)
+                }
+                if (KYCPreferences().EMAIL.isNullOrEmpty()) {
+                    etemail.setText(KYCPreferences().EMAIL)
+                }
+
+
                 imgBack.setOnClickListener { finish() }
 
                 btnNext.setOnClickListener {
                     var isHaveError = false
                     if (etOccupation.text.toString().isEmpty()) {
                         txtErrorOccupation.visibility = View.VISIBLE
-                        etOccupation.background =
-                            getDrawable(R.drawable.outline_edittext_error_normal)
+                        etOccupation.setBackgroundTintList(ColorStateList.valueOf(resources.getColor(R.color.red)))
                         isHaveError = true
                     }
                     if (etCompany.text.toString().isEmpty()) {
                         txtErrorCompany.visibility = View.VISIBLE
-                        etCompany.background = getDrawable(R.drawable.outline_edittext_error_normal)
+                        etCompany.setBackgroundTintList(ColorStateList.valueOf(resources.getColor(R.color.red)))
                         isHaveError = true
                     }
                     if (isHaveError) {
                         return@setOnClickListener
                     } else {
+
+                        KYCPreferences().OCCUPATION = info.occupation
+                        KYCPreferences().COMPANY = info.company
+                        KYCPreferences().PHONE_NUMBER = info.phone_number
+                        KYCPreferences().EMAIL = info.email_emp
+
                         val intent = Intent(UTSwapApp.instance, AddressInfoActivity::class.java)
                         startActivity(intent)
                     }
@@ -57,19 +86,18 @@ class EmploymentInfoActivity :
                     ) {
                     }
 
-                    @SuppressLint("UseCompatLoadingForDrawables")
                     override fun onTextChanged(
                         charSequence: CharSequence,
                         i: Int,
                         i1: Int,
                         i2: Int
                     ) {
-                        txtErrorOccupation.visibility = View.GONE
-                        etOccupation.background =
-                            getDrawable(R.drawable.outline_edittext_change_color_focus)
                     }
 
-                    override fun afterTextChanged(editable: Editable) {}
+                    override fun afterTextChanged(editable: Editable) {
+                        txtErrorOccupation.visibility = View.GONE
+                        etOccupation.setBackgroundTintList(ColorStateList.valueOf(resources.getColor(R.color.secondary_text)))
+                    }
                 })
 
                 etCompany.addTextChangedListener(object : TextWatcher {
@@ -81,19 +109,18 @@ class EmploymentInfoActivity :
                     ) {
                     }
 
-                    @SuppressLint("UseCompatLoadingForDrawables")
                     override fun onTextChanged(
                         charSequence: CharSequence,
                         i: Int,
                         i1: Int,
                         i2: Int
                     ) {
-                        txtErrorCompany.visibility = View.GONE
-                        etCompany.background =
-                            getDrawable(R.drawable.outline_edittext_change_color_focus)
                     }
 
-                    override fun afterTextChanged(editable: Editable) {}
+                    override fun afterTextChanged(editable: Editable) {
+                        txtErrorCompany.visibility = View.GONE
+                        etCompany.setBackgroundTintList(ColorStateList.valueOf(resources.getColor(R.color.secondary_text)))
+                    }
                 })
             }
 
