@@ -27,5 +27,4 @@ class KYCPreferences : BaseStoredPreferences(UTSwapApp.instance, "KYCPreferences
     var NATIONAL_ID_FRONT by stringPref()
     var NATIONAL_ID_BACK by stringPref()
     var PASSPORT_FRONT by stringPref()
-
 }

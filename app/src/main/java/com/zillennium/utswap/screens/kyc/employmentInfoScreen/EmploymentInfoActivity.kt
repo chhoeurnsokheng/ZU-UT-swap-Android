@@ -6,6 +6,7 @@ import android.content.res.ColorStateList
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import androidx.core.view.isVisible
 import com.zillennium.utswap.Datas.StoredPreferences.KYCPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
@@ -42,16 +43,23 @@ class EmploymentInfoActivity :
                     etCompany.setText(KYCPreferences().COMPANY)
                 }
                 if (KYCPreferences().PHONE_NUMBER.isNullOrEmpty()) {
+                    txtPhoneNumber.visibility = View.VISIBLE
+                    etphoneNumber.visibility = View.VISIBLE
                     etphoneNumber.setText(KYCPreferences().PHONE_NUMBER)
                 }
                 if (KYCPreferences().EMAIL.isNullOrEmpty()) {
                     etemail.setText(KYCPreferences().EMAIL)
+                    txtEmail.visibility = View.VISIBLE
+                    etemail.visibility = View.VISIBLE
+                }else{
+                    txtEmail.visibility = View.GONE
+                    etemail.visibility = View.GONE
                 }
-
 
                 imgBack.setOnClickListener { finish() }
 
                 btnNext.setOnClickListener {
+
                     var isHaveError = false
                     if (etOccupation.text.toString().isEmpty()) {
                         txtErrorOccupation.visibility = View.VISIBLE
