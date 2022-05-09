@@ -11,7 +11,7 @@ import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivitySecurityVerificationBinding
 import com.zillennium.utswap.screens.kyc.termConditionScreen.TermConditionActivity
-import java.io.IOException
+import com.zillennium.utswap.screens.security.newPasswordScreen.NewPasswordActivity
 
 class VerificationActivity :
     BaseMvpActivity<VerificationView.View, VerificationView.Presenter, ActivitySecurityVerificationBinding>(),
@@ -39,6 +39,10 @@ class VerificationActivity :
                     startActivity(intent)
                 }
 
+                btnResend.setOnClickListener {
+                    startTimer()
+                }
+
                 setupOTPInputs()
 
             }
@@ -52,7 +56,14 @@ class VerificationActivity :
         binding.apply {
             startTimer()
             editBox1.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
+                override fun beforeTextChanged(
+                    charSequence: CharSequence,
+                    i: Int,
+                    i1: Int,
+                    i2: Int
+                ) {
+                }
+
                 override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
                     if (charSequence.toString().trim { it <= ' ' }.isNotEmpty()) {
                         editBox2.requestFocus()
@@ -62,7 +73,14 @@ class VerificationActivity :
                 override fun afterTextChanged(editable: Editable) {}
             })
             editBox2.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
+                override fun beforeTextChanged(
+                    charSequence: CharSequence,
+                    i: Int,
+                    i1: Int,
+                    i2: Int
+                ) {
+                }
+
                 override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
                     if (charSequence.toString().trim { it <= ' ' }.isNotEmpty()) {
                         editBox3.requestFocus()
@@ -72,7 +90,14 @@ class VerificationActivity :
                 override fun afterTextChanged(editable: Editable) {}
             })
             editBox3.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
+                override fun beforeTextChanged(
+                    charSequence: CharSequence,
+                    i: Int,
+                    i1: Int,
+                    i2: Int
+                ) {
+                }
+
                 override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
                     if (charSequence.toString().trim { it <= ' ' }.isNotEmpty()) {
                         editBox4.requestFocus()
@@ -82,7 +107,14 @@ class VerificationActivity :
                 override fun afterTextChanged(editable: Editable) {}
             })
             editBox4.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
+                override fun beforeTextChanged(
+                    charSequence: CharSequence,
+                    i: Int,
+                    i1: Int,
+                    i2: Int
+                ) {
+                }
+
                 override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
                     if (charSequence.toString().trim { it <= ' ' }.isNotEmpty()) {
                         editBox5.requestFocus()
@@ -92,7 +124,14 @@ class VerificationActivity :
                 override fun afterTextChanged(editable: Editable) {}
             })
             editBox5.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
+                override fun beforeTextChanged(
+                    charSequence: CharSequence,
+                    i: Int,
+                    i1: Int,
+                    i2: Int
+                ) {
+                }
+
                 override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
                     if (charSequence.toString().trim { it <= ' ' }.isNotEmpty()) {
                         editBox6.requestFocus()
@@ -102,7 +141,13 @@ class VerificationActivity :
                 override fun afterTextChanged(editable: Editable) {}
             })
             editBox6.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
+                override fun beforeTextChanged(
+                    charSequence: CharSequence,
+                    i: Int,
+                    i1: Int,
+                    i2: Int
+                ) {
+                }
 
                 @SuppressLint("UseCompatLoadingForDrawables")
                 override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
@@ -129,7 +174,13 @@ class VerificationActivity :
                     }
                 }
 
-                override fun afterTextChanged(editable: Editable) {}
+                override fun afterTextChanged(editable: Editable) {
+//                    resendMessage.visibility = View.VISIBLE
+//                    btnNext.setOnClickListener(View.OnClickListener { view: View? ->
+//                        val intent = Intent(applicationContext, NewPasswordActivity::class.java)
+//                        startActivity(intent)
+//                    })
+                }
             })
         }
 
@@ -137,6 +188,7 @@ class VerificationActivity :
 
     fun startTimer() {
         binding.apply {
+            countDownTimer?.cancel()
             countDownTimer = object : CountDownTimer(120000, 1000) {
                 @SuppressLint("SetTextI18n")
                 override fun onTick(l: Long) {

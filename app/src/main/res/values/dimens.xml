@@ -63,6 +63,7 @@
     <dimen name="dimen_160">160dp</dimen>
     <dimen name="dimen_165">165dp</dimen>
     <dimen name="dimen_200">200dp</dimen>
+    <dimen name="dimen_600">600dp</dimen>
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="margin_top_bottom_left_right">16dp</dimen>
     <!---->
