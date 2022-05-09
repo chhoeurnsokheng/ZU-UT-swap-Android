@@ -61,8 +61,8 @@ class IDVerificationActivity :
         binding.apply {
 
             /* if Data already input */
-            if(KYCPreferences().FIRST_NAME.isNullOrEmpty()){
-                etFirstName.setText(KYCPreferences().FIRST_NAME)
+            if(!KYCPreferences().FIRST_NAME.isNullOrEmpty()){
+                etFirstName.setText(KYCPreferences().FIRST_NAME.toString())
             }
             if(KYCPreferences().LAST_NAME.isNullOrEmpty()){
                 etLastName.setText(KYCPreferences().LAST_NAME)
@@ -74,7 +74,7 @@ class IDVerificationActivity :
                 etHouse.setText(KYCPreferences().ADDRESS)
             }
 
-            spCityProvince?.selectedItemPosition
+
 
             initSpinnerGender()
             initSpinnerCityProvince()
@@ -120,7 +120,6 @@ class IDVerificationActivity :
                 }
 
                 // City/Province Error
-                Log.d("city", info.city)
                 if (info.city.isEmpty()) {
                     txtErrorCity.visibility = View.VISIBLE
                     isHaveError = true
@@ -198,7 +197,7 @@ class IDVerificationActivity :
                     i1: Int,
                     i2: Int
                 ) {
-                    info.firstName = etFirstName.text.toString()
+                    info.firstName = charSequence.toString()
                 }
 
                 override fun afterTextChanged(editable: Editable) {
