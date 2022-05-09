@@ -3,26 +3,26 @@ package com.zillennium.utswap.screens.security.verificationScreen
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.CountDownTimer
+import android.os.Parcel
+import android.os.Parcelable
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
-import com.zillennium.utswap.databinding.ActivitySecurityVerificationBinding
+import com.zillennium.utswap.databinding.ActivityKycVerificationBinding
 import com.zillennium.utswap.screens.kyc.termConditionScreen.TermConditionActivity
 import java.io.IOException
 
-class VerificationActivity :
-    BaseMvpActivity<VerificationView.View, VerificationView.Presenter, ActivitySecurityVerificationBinding>(),
+class VerificationActivity():
+    BaseMvpActivity<VerificationView.View, VerificationView.Presenter, ActivityKycVerificationBinding>(),
     VerificationView.View {
 
     override var mPresenter: VerificationView.Presenter = VerificationPresenter()
-    override val layoutResource: Int = R.layout.activity_security_verification
+    override val layoutResource: Int = R.layout.activity_kyc_verification
 
     private var countDownTimer: CountDownTimer? = null
-    private val timeLeftInMilliseconds: Long = 12000 //120 second
-
 
     override fun initView() {
         super.initView()
@@ -32,17 +32,14 @@ class VerificationActivity :
                 imgBack.setOnClickListener { finish() }
 
                 btnNext.setOnClickListener {
-                    val intent = Intent(
-                        UTSwapApp.instance,
-                        TermConditionActivity::class.java
-                    )
+                    val intent = Intent(UTSwapApp.instance, TermConditionActivity::class.java)
                     startActivity(intent)
                 }
 
                 setupOTPInputs()
 
             }
-            // Code
+
         } catch (error: Exception) {
             // Must be safe
         }
@@ -132,7 +129,6 @@ class VerificationActivity :
                 override fun afterTextChanged(editable: Editable) {}
             })
         }
-
     }
 
     fun startTimer() {
@@ -146,6 +142,7 @@ class VerificationActivity :
                 override fun onFinish() {}
             }.start()
         }
+
     }
 
     fun stopTimer() {

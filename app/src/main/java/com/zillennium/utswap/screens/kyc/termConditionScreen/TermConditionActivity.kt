@@ -1,6 +1,8 @@
 package com.zillennium.utswap.screens.kyc.termConditionScreen
 
 import android.content.Intent
+import android.view.View
+import android.widget.CompoundButton
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
@@ -22,10 +24,17 @@ class TermConditionActivity :
 
                 imgBack.setOnClickListener { finish() }
 
+                btnNext.isEnabled = false
+
+                agreeTerm.setOnClickListener{
+                    btnNext.isEnabled = agreeTerm.isChecked
+
+                }
                 btnNext.setOnClickListener {
                     val intent = Intent(UTSwapApp.instance, IdTypeActivity::class.java)
                     startActivity(intent)
                 }
+
 
                 txtContent.text = """1. IMPORTANT & MUST READ
 You shall and are advised to read our Private Policy (herein called the "Terms") carefully before continuing to use Services UT Swap website and app (herein called "UT Swap") All Terms shall govern the use of UT Swap and apply to all users and recipients (herein called "You") of UT Swap, a platform owned and managed by Zillion United (herein called "We", "Us" or "Our"). By accessing or continuing to use UT Swap, You unconditionally consent to all Terms stated herein. Your use of UT Swap signifies Your agreement with these Terms. IF YOU DO NOT AGREE WITH ANY OF THESE TERMS, DO NOT USE UT SWAP.

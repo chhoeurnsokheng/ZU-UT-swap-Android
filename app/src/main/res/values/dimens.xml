@@ -2,6 +2,7 @@
 <resources>
     <!--dimens for font size-->
     <dimen name="font_size_36">36sp</dimen>
+    <dimen name="font_size_32">32sp</dimen>
     <dimen name="font_size_26">26sp</dimen>
     <dimen name="font_size_24">24sp</dimen>
     <dimen name="font_size_22">22sp</dimen>
@@ -62,6 +63,9 @@
     <dimen name="dimen_160">160dp</dimen>
     <dimen name="dimen_165">165dp</dimen>
     <dimen name="dimen_200">200dp</dimen>
+    <dimen name="dimen_270">270dp</dimen>
+    <dimen name="dimen_290">290dp</dimen>
+    <dimen name="dimen_350">350dp</dimen>
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="margin_top_bottom_left_right">16dp</dimen>
     <!---->

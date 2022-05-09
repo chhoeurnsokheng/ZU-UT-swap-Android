@@ -1,5 +1,6 @@
 package com.zillennium.utswap.screens.setting.accountTypeScreen
 
+import android.view.View
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.BaseDialogActivity
@@ -57,4 +58,6 @@ class AccountTypeActivity :
             // Must be safe
         }
     }
+
+    fun ShowHidePassword(view: View) {}
 }
