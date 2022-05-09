@@ -1,12 +1,13 @@
 package com.zillennium.utswap.screens.kyc.contractScreen
 
 import android.content.Intent
+import android.view.View
+import android.view.ViewTreeObserver.OnScrollChangedListener
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityKycContractBinding
 import com.zillennium.utswap.screens.kyc.kycApplicationScreen.KycApplicationActivity
-import java.io.IOException
 
 class ContractActivity :
     BaseMvpActivity<ContractView.View, ContractView.Presenter, ActivityKycContractBinding>(),
@@ -22,10 +23,7 @@ class ContractActivity :
 
                 imgBack.setOnClickListener { finish() }
 
-                btnAccept.setOnClickListener {
-                    val intent = Intent(UTSwapApp.instance, KycApplicationActivity::class.java)
-                    startActivity(intent)
-                }
+                btnAccept.isEnabled = false
 
                 txtContent.text = """ព្រះរាជាណាចក្រកម្ពុជា
 ជាតិ   សាសនា   ព្រះមហាក្សត្រ
@@ -172,6 +170,20 @@ Parties have read and agreed to all the terms and conditions, sign or issue a th
 
 
 """
+
+                /* Unless you scroll till the bottom then the button next display */
+                scrollViewContract.viewTreeObserver.addOnScrollChangedListener(
+                    OnScrollChangedListener {
+                        if (!scrollViewContract.canScrollVertically(1)) {
+                            btnAccept.setEnabled(true)
+                            btnAccept.setOnClickListener {
+                                val intent =
+                                    Intent(UTSwapApp.instance, KycApplicationActivity::class.java)
+                                startActivity(intent)
+                            }
+                            // bottom of scroll view
+                        }
+                    })
             }
 
         } catch (error: Exception) {

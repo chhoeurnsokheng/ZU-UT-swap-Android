@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
 <<<<<<< HEAD
+<<<<<<< HEAD
         <entry key="app/src/main/res/drawable/ic_baseline_access_time_filled_24.xml" value="0.1" />
 =======
         <entry key="..\:/Users/User/Desktop/kyc_clarification/ut-swap-android/app/src/main/res/layout/activity_kyc_contract.xml" value="0.27447916666666666" />
@@ -16,6 +17,14 @@
         <entry key="..\:/Users/User/Desktop/kyc_clarification/ut-swap-android/app/src/main/res/layout/activity_setting_log.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/User/Desktop/kyc_clarification/ut-swap-android/app/src/main/res/layout/dialog_register_agreement.xml" value="0.27447916666666666" />
 >>>>>>> 9b1ae421ebbcb9fc32b548b910162a54164fa418
+=======
+        <entry key="..\:/Users/User/Desktop/kyc_contract/ut-swap-android/app/src/main/res/drawable/bg_circular.xml" value="0.138" />
+        <entry key="..\:/Users/User/Desktop/kyc_contract/ut-swap-android/app/src/main/res/drawable/bg_circular_border_blue.xml" value="0.138" />
+        <entry key="..\:/Users/User/Desktop/kyc_contract/ut-swap-android/app/src/main/res/drawable/bg_circular_condition.xml" value="0.138" />
+        <entry key="..\:/Users/User/Desktop/kyc_contract/ut-swap-android/app/src/main/res/layout/activity_kyc_contract.xml" value="0.264" />
+        <entry key="..\:/Users/User/Desktop/kyc_contract/ut-swap-android/app/src/main/res/layout/activity_kyc_id_verification.xml" value="0.27447916666666666" />
+        <entry key="..\:/Users/User/Desktop/kyc_contract/ut-swap-android/app/src/main/res/layout/activity_kyc_verification.xml" value="0.27447916666666666" />
+>>>>>>> fd1308379647e4b5dd34c3b864c62eb7753a187e
         <entry key="app/src/main/res/drawable/ic_ut_swap_log.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_kyc_address_info.xml" value="0.16621376811594202" />
         <entry key="app/src/main/res/layout/activity_kyc_application.xml" value="0.16621376811594202" />
