@@ -60,17 +60,29 @@ class IDVerificationActivity :
         binding.apply {
 
             /* if Data already input */
-            if(KYCPreferences().FIRST_NAME.isNullOrEmpty()){
+            if(!KYCPreferences().FIRST_NAME.isNullOrEmpty()){
                 etFirstName.setText(KYCPreferences().FIRST_NAME)
             }
-            if(KYCPreferences().LAST_NAME.isNullOrEmpty()){
+            if(!KYCPreferences().LAST_NAME.isNullOrEmpty()){
                 etLastName.setText(KYCPreferences().LAST_NAME)
             }
-            if(KYCPreferences().BIRTHDAY.isNullOrEmpty()){
+            if(!KYCPreferences().BIRTHDAY.isNullOrEmpty()){
                 etDate.setText(KYCPreferences().BIRTHDAY)
             }
-            if(KYCPreferences().ADDRESS.isNullOrEmpty()){
+            if(!KYCPreferences().ADDRESS.isNullOrEmpty()){
                 etHouse.setText(KYCPreferences().ADDRESS)
+            }
+            if(!KYCPreferences().GENDER.isNullOrEmpty()){
+                spinnerGender.setSelection(KYCPreferences().GENDER?.toInt() ?: 0)
+            }
+            if(!KYCPreferences().CITY_PROVINCE.isNullOrEmpty()){
+                spinnerCityProvince.setSelection(KYCPreferences().CITY_PROVINCE?.toInt() ?: 0)
+            }
+            if(!KYCPreferences().DISTRICT_KHAN.isNullOrEmpty()){
+                spinnerDistrictKhan.setSelection(KYCPreferences().DISTRICT_KHAN?.toInt() ?: 0)
+            }
+            if(!KYCPreferences().COMMUNE_SANGKAT.isNullOrEmpty()){
+                spinnerCommuneSangkat.setSelection(KYCPreferences().COMMUNE_SANGKAT?.toInt() ?: 0)
             }
 
             initSpinnerGender()
@@ -114,24 +126,18 @@ class IDVerificationActivity :
                 if (info.gender.isEmpty()){
                     txtErrorGender.visibility = View.VISIBLE
                     isHaveError = true
-                }else{
-                    isHaveError = false
                 }
 
                 // City/Province Error
                 if (info.city.isEmpty()) {
                     txtErrorCity.visibility = View.VISIBLE
                     isHaveError = true
-                }else{
-                    isHaveError = false
                 }
 
                 // District Error
                 if (info.district.isEmpty()){
                     txtErrorDistrict.visibility = View.VISIBLE
                     isHaveError = true
-                }else{
-                    isHaveError = false
                 }
 
                 // Commune Error
