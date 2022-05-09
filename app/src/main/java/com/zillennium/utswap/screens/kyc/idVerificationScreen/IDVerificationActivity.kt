@@ -20,17 +20,6 @@ import com.zillennium.utswap.screens.kyc.selfieHoldingScreen.SelfieHoldingActivi
 import java.text.SimpleDateFormat
 import java.util.*
 
-object info {
-    var firstName = ""
-    var lastName = ""
-    var dateOfBirth = ""
-    var gender = ""
-    var city = ""
-    var district = ""
-    var commune = ""
-    var addressHouse = ""
-}
-
 
 class IDVerificationActivity :
     BaseMvpActivity<IDVerificationView.View, IDVerificationView.Presenter, ActivityKycIdVerificationBinding>(),
@@ -51,7 +40,16 @@ class IDVerificationActivity :
     private var spCommuneSankat: SmartMaterialSpinner<String>? = null
     private var communeList: MutableList<String>? = null
 
-
+    object info {
+        var firstName = ""
+        var lastName = ""
+        var dateOfBirth = ""
+        var gender = ""
+        var city = ""
+        var district = ""
+        var commune = ""
+        var addressHouse = ""
+    }
 
     @SuppressLint("UseCompatLoadingForDrawables")
     override fun initView() {
@@ -85,14 +83,10 @@ class IDVerificationActivity :
                 spinnerCommuneSangkat.setSelection(KYCPreferences().COMMUNE_SANGKAT?.toInt() ?: 0)
             }
 
-
-
             initSpinnerGender()
             initSpinnerCityProvince()
             initDistrictKhan()
             initCommuneSangkat()
-
-
 
             imgBack.setOnClickListener { finish() }
 

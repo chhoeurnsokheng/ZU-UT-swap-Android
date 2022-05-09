@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "212925684781",
+    "project_id": "zillion-united",
+    "storage_bucket": "zillion-united.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:212925684781:android:565af52bbc048359e7aca4",
+        "android_client_info": {
+          "package_name": "com.zillennium.utswap"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "212925684781-71k4ru6f3mucb467l94ab7lb6rff7s0k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAFjpz3eRvtw11e5cnsEQdZmPuJgEuNuM8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "212925684781-71k4ru6f3mucb467l94ab7lb6rff7s0k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

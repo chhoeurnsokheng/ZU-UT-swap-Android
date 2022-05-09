@@ -1,18 +1,18 @@
 package com.zillennium.utswap.screens.system.splashScreen
 
-import android.content.Context
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Handler
-import android.telephony.TelephonyManager
 import android.util.Log
-import androidx.annotation.RequiresApi
+import androidx.core.app.ActivityCompat
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivitySplashScreenBinding
 import com.zillennium.utswap.screens.system.welcomeScreen.WelcomeActivity
-import java.io.IOException
+
 
 class SplashScreenActivity :
     BaseMvpActivity<SplashScreenView.View, SplashScreenView.Presenter, ActivitySplashScreenBinding>(),
@@ -26,24 +26,15 @@ class SplashScreenActivity :
 //        try {
             binding.apply {
 
-                val os = System.getProperty("os.version"); // OS version
-                val api = Build.VERSION.SDK      // API Level
-                val device = Build.DEVICE          // Device
-                val model = Build.MODEL            // Model
-                val project= Build.PRODUCT          // Product
+                val os = System.getProperty("os.version")   // OS version
+                val api = Build.VERSION.SDK                 // API Level
+                val device = Build.DEVICE                   // Device
+                val model = Build.MODEL                     // Model
+                val project= Build.PRODUCT                  // Product
                 val brand = Build.BRAND
-                val id = Build.BOARD
+                val id = Build.ID
 
-                val telephonyManager = getSystemService(TELEPHONY_SERVICE) as TelephonyManager
-
-//                var imei = if (Build.VERSION.SDK_INT >= 26) {
-//                    telephonyManager.imei
-//                } else {
-//                    telephonyManager.deviceId
-//                }
-
-
-//                Log.d("imei", imei)
+                Log.d("imei", "hello")
                 Log.d("os", os)
                 Log.d("api", api)
                 Log.d("device", device)
