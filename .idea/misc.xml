@@ -3,6 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/User/Desktop/kyc_set_fund_password/ut-swap-android/app/src/main/res/drawable/bg_corner.xml" value="0.138" />
+        <entry key="..\:/Users/User/Desktop/kyc_set_fund_password/ut-swap-android/app/src/main/res/drawable/ic_baseline_disabled_visible_24.xml" value="0.138" />
+        <entry key="..\:/Users/User/Desktop/kyc_set_fund_password/ut-swap-android/app/src/main/res/drawable/ic_baseline_remove_red_eye_24.xml" value="0.138" />
+        <entry key="..\:/Users/User/Desktop/kyc_set_fund_password/ut-swap-android/app/src/main/res/drawable/ic_baseline_visibility_off_24.xml" value="0.138" />
+        <entry key="..\:/Users/User/Desktop/kyc_set_fund_password/ut-swap-android/app/src/main/res/layout/activity_kyc_fund_password.xml" value="0.264" />
         <entry key="app/src/main/res/drawable/ic_ut_swap_log.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_kyc_address_info.xml" value="0.16621376811594202" />
         <entry key="app/src/main/res/layout/activity_kyc_application.xml" value="0.16621376811594202" />
@@ -39,7 +44,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

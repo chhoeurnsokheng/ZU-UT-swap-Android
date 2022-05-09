@@ -187,7 +187,7 @@
     <string name="declaration">Declaration</string>
     <string name="enter_fund_password">Enter Fund Password</string>
     <string name="_4_digit_number">4-digit number</string>
-    <string name="this_4_digit_password_will_be_used_for_transfers_withdrawals"><![CDATA[This 4 digit password will be used for transfers & withdrawals]]></string>
+    <string name="the_4_digit_password_will_be_used_n_for_transfers_amp_withdrawals"><![CDATA[The 4-digit password will be used \n for transfers & withdrawals]]></string>
     <string name="contract">Contract</string>
     <string name="let_s_start">Let\'s Start</string>
     <string name="kyc_submission">KYC Submission</string>
@@ -221,5 +221,7 @@
     <string name="doe">DOE</string>
     <string name="indicates_required">indicates required</string>
     <string name="passport_autocomplete">Passport Auto Complete</string>
+    <string name="confirm_4_digit_number">Confirm 4-digit number</string>
+
 
 </resources>
