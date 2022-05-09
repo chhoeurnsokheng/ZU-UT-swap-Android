@@ -7,7 +7,6 @@ import android.content.Intent
 import android.content.res.ColorStateList
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.DatePicker
@@ -62,16 +61,28 @@ class IDVerificationActivity :
 
             /* if Data already input */
             if(!KYCPreferences().FIRST_NAME.isNullOrEmpty()){
-                etFirstName.setText(KYCPreferences().FIRST_NAME.toString())
+                etFirstName.setText(KYCPreferences().FIRST_NAME)
             }
-            if(KYCPreferences().LAST_NAME.isNullOrEmpty()){
+            if(!KYCPreferences().LAST_NAME.isNullOrEmpty()){
                 etLastName.setText(KYCPreferences().LAST_NAME)
             }
-            if(KYCPreferences().BIRTHDAY.isNullOrEmpty()){
+            if(!KYCPreferences().BIRTHDAY.isNullOrEmpty()){
                 etDate.setText(KYCPreferences().BIRTHDAY)
             }
-            if(KYCPreferences().ADDRESS.isNullOrEmpty()){
+            if(!KYCPreferences().ADDRESS.isNullOrEmpty()){
                 etHouse.setText(KYCPreferences().ADDRESS)
+            }
+            if(!KYCPreferences().GENDER.isNullOrEmpty()){
+                spinnerGender.setSelection(KYCPreferences().GENDER?.toInt() ?: 0)
+            }
+            if(!KYCPreferences().CITY_PROVINCE.isNullOrEmpty()){
+                spinnerCityProvince.setSelection(KYCPreferences().CITY_PROVINCE?.toInt() ?: 0)
+            }
+            if(!KYCPreferences().DISTRICT_KHAN.isNullOrEmpty()){
+                spinnerDistrictKhan.setSelection(KYCPreferences().DISTRICT_KHAN?.toInt() ?: 0)
+            }
+            if(!KYCPreferences().COMMUNE_SANGKAT.isNullOrEmpty()){
+                spinnerCommuneSangkat.setSelection(KYCPreferences().COMMUNE_SANGKAT?.toInt() ?: 0)
             }
 
 
@@ -222,7 +233,7 @@ class IDVerificationActivity :
                     i1: Int,
                     i2: Int
                 ) {
-                    info.lastName = etLastName.text.toString()
+                    info.lastName = charSequence.toString()
                 }
 
                 override fun afterTextChanged(editable: Editable) {
@@ -247,7 +258,7 @@ class IDVerificationActivity :
                     i1: Int,
                     i2: Int
                 ) {
-                    info.dateOfBirth = etDate.text.toString()
+                    info.dateOfBirth = charSequence.toString()
                 }
 
                 override fun afterTextChanged(editable: Editable) {
@@ -266,7 +277,7 @@ class IDVerificationActivity :
                 }
 
                 override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
-                    info.addressHouse = etHouse.text.toString()
+                    info.addressHouse = charSequence.toString()
                 }
 
                 @SuppressLint("UseCompatLoadingForDrawables")
