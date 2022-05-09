@@ -7,6 +7,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         <entry key="app/src/main/res/drawable/ic_baseline_access_time_filled_24.xml" value="0.1" />
 =======
         <entry key="..\:/Users/User/Desktop/kyc_clarification/ut-swap-android/app/src/main/res/layout/activity_kyc_contract.xml" value="0.27447916666666666" />
@@ -34,6 +35,34 @@
 >>>>>>> 8a7d2479d5ae26ad03b7951ede630fb28d57f3d4
         <entry key="..\:/Users/User/Desktop/kyc_employment/ut-swap-android/app/src/main/res/layout/activity_kyc_id_verification.xml" value="0.19479166666666667" />
 >>>>>>> 417b4753147783be9d68f632baf954a452e6e6fe
+=======
+        <entry key="..\:/Users/User/Desktop/kyc_application/ut-swap-android/app/src/main/res/drawable-v24/bg_card.xml" value="0.138" />
+        <entry key="..\:/Users/User/Desktop/kyc_application/ut-swap-android/app/src/main/res/drawable-v24/bg_date.xml" value="0.138" />
+        <entry key="..\:/Users/User/Desktop/kyc_application/ut-swap-android/app/src/main/res/drawable-v24/bg_edittext_search.xml" value="0.138" />
+        <entry key="..\:/Users/User/Desktop/kyc_application/ut-swap-android/app/src/main/res/drawable/bg_border_green_correct.xml" value="0.138" />
+        <entry key="..\:/Users/User/Desktop/kyc_application/ut-swap-android/app/src/main/res/drawable/bg_bottom_menu.xml" value="0.138" />
+        <entry key="..\:/Users/User/Desktop/kyc_application/ut-swap-android/app/src/main/res/drawable/bg_circular.xml" value="0.2035" />
+        <entry key="..\:/Users/User/Desktop/kyc_application/ut-swap-android/app/src/main/res/drawable/bg_circular_border_blue.xml" value="0.138" />
+        <entry key="..\:/Users/User/Desktop/kyc_application/ut-swap-android/app/src/main/res/drawable/bg_circular_condition.xml" value="0.138" />
+        <entry key="..\:/Users/User/Desktop/kyc_application/ut-swap-android/app/src/main/res/drawable/bg_corner.xml" value="0.138" />
+        <entry key="..\:/Users/User/Desktop/kyc_application/ut-swap-android/app/src/main/res/drawable/bg_green_total_balance.xml" value="0.138" />
+        <entry key="..\:/Users/User/Desktop/kyc_application/ut-swap-android/app/src/main/res/drawable/bg_lockscreen.xml" value="0.138" />
+        <entry key="..\:/Users/User/Desktop/kyc_application/ut-swap-android/app/src/main/res/drawable/bg_lockscreen_selected.xml" value="0.138" />
+        <entry key="..\:/Users/User/Desktop/kyc_application/ut-swap-android/app/src/main/res/drawable/bg_select_item.xml" value="0.138" />
+        <entry key="..\:/Users/User/Desktop/kyc_application/ut-swap-android/app/src/main/res/drawable/bg_splashscreen.xml" value="0.138" />
+        <entry key="..\:/Users/User/Desktop/kyc_application/ut-swap-android/app/src/main/res/drawable/bg_success.xml" value="0.138" />
+        <entry key="..\:/Users/User/Desktop/kyc_application/ut-swap-android/app/src/main/res/drawable/bg_tab_select.xml" value="0.138" />
+        <entry key="..\:/Users/User/Desktop/kyc_application/ut-swap-android/app/src/main/res/drawable/bg_tab_trading_select.xml" value="0.138" />
+        <entry key="..\:/Users/User/Desktop/kyc_application/ut-swap-android/app/src/main/res/drawable/ic_badge_check.xml" value="0.138" />
+        <entry key="..\:/Users/User/Desktop/kyc_application/ut-swap-android/app/src/main/res/drawable/ic_baseline_check_circle_24.xml" value="0.138" />
+        <entry key="..\:/Users/User/Desktop/kyc_application/ut-swap-android/app/src/main/res/drawable/ic_check_regular.xml" value="0.138" />
+        <entry key="..\:/Users/User/Desktop/kyc_application/ut-swap-android/app/src/main/res/drawable/ic_circle_check.xml" value="0.138" />
+        <entry key="..\:/Users/User/Desktop/kyc_application/ut-swap-android/app/src/main/res/drawable/ic_circle_check_regular.xml" value="0.138" />
+        <entry key="..\:/Users/User/Desktop/kyc_application/ut-swap-android/app/src/main/res/layout/activity_kyc_application.xml" value="0.2" />
+        <entry key="..\:/Users/User/Desktop/kyc_application/ut-swap-android/app/src/main/res/layout/activity_kyc_fund_password.xml" value="0.27447916666666666" />
+        <entry key="..\:/Users/User/Desktop/kyc_application/ut-swap-android/app/src/main/res/layout/activity_kyc_id_verification.xml" value="0.27447916666666666" />
+        <entry key="..\:/Users/User/Desktop/kyc_application/ut-swap-android/app/src/main/res/layout/activity_kyc_term_condition.xml" value="0.27447916666666666" />
+>>>>>>> f6b1b1f4bc55cf181be7d6e24104eaeddcf5e51e
         <entry key="app/src/main/res/drawable/ic_ut_swap_log.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_kyc_address_info.xml" value="0.16621376811594202" />
         <entry key="app/src/main/res/layout/activity_kyc_application.xml" value="0.16621376811594202" />
