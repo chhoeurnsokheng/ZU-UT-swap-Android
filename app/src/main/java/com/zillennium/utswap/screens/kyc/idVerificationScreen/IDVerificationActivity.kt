@@ -7,6 +7,7 @@ import android.content.Intent
 import android.content.res.ColorStateList
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.DatePicker
@@ -73,6 +74,8 @@ class IDVerificationActivity :
                 etHouse.setText(KYCPreferences().ADDRESS)
             }
 
+            spCityProvince?.selectedItemPosition
+
             initSpinnerGender()
             initSpinnerCityProvince()
             initDistrictKhan()
@@ -114,33 +117,25 @@ class IDVerificationActivity :
                 if (info.gender.isEmpty()){
                     txtErrorGender.visibility = View.VISIBLE
                     isHaveError = true
-                }else{
-                    isHaveError = false
                 }
 
                 // City/Province Error
+                Log.d("city", info.city)
                 if (info.city.isEmpty()) {
                     txtErrorCity.visibility = View.VISIBLE
                     isHaveError = true
-                }else{
-                    isHaveError = false
                 }
 
                 // District Error
                 if (info.district.isEmpty()){
                     txtErrorDistrict.visibility = View.VISIBLE
                     isHaveError = true
-                }else{
-                    isHaveError = false
                 }
 
                 // Commune Error
                 if (info.commune.isEmpty()){
                     txtErrorCommune.visibility = View.VISIBLE
                     isHaveError = true
-                }else{
-                    txtErrorCommune.visibility = View.GONE
-                    isHaveError = false
                 }
 
                 // House Address Error
@@ -208,6 +203,7 @@ class IDVerificationActivity :
                 override fun afterTextChanged(editable: Editable) {
                     txtErrorFirstName.visibility = View.GONE
                     etFirstName.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.secondary_text))
+
                 }
             })
 
