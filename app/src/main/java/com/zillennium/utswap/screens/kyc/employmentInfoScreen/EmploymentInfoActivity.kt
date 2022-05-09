@@ -43,8 +43,6 @@ class EmploymentInfoActivity :
                     etCompany.setText(KYCPreferences().COMPANY)
                 }
                 if (KYCPreferences().PHONE_NUMBER.isNullOrEmpty()) {
-                    txtPhoneNumber.visibility = View.VISIBLE
-                    etphoneNumber.visibility = View.VISIBLE
                     etphoneNumber.setText(KYCPreferences().PHONE_NUMBER)
                 }
                 if (KYCPreferences().EMAIL.isNullOrEmpty()) {
