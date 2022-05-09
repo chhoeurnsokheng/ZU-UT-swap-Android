@@ -7,6 +7,7 @@ import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivitySecurityNewPasswordBinding
 import com.zillennium.utswap.databinding.ActivitySecuritySignUpBinding
+import com.zillennium.utswap.screens.kyc.kycApplicationApprovedScreen.KycApplicationApprovedActivity
 import com.zillennium.utswap.screens.security.verificationScreen.VerificationActivity
 import java.io.IOException
 
@@ -25,7 +26,7 @@ class SignUpActivity :
                 imgBack.setOnClickListener { finish() }
 
                 btnSignup.setOnClickListener {
-                    val intent = Intent(UTSwapApp.instance, VerificationActivity::class.java)
+                    val intent = Intent(UTSwapApp.instance, KycApplicationApprovedActivity::class.java)
                     startActivity(intent)
                 }
 

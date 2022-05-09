@@ -94,6 +94,11 @@
             android:exported="false"
             android:screenOrientation="portrait"/>
         <activity
+            android:label="@string/kyc_application"
+            android:name="com.zillennium.utswap.screens.kyc.kycApplicationApprovedScreen.KycApplicationApprovedActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"/>
+        <activity
             android:label="@string/selfie_holding"
             android:name="com.zillennium.utswap.screens.kyc.selfieHoldingScreen.SelfieHoldingActivity"
             android:exported="false"

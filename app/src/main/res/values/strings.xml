@@ -190,6 +190,7 @@
     <string name="this_4_digit_password_will_be_used_for_transfers_withdrawals"><![CDATA[This 4 digit password will be used for transfers & withdrawals]]></string>
     <string name="contract">Contract</string>
     <string name="let_s_start">Let\'s Start</string>
+    <string name="start_trading">Start Trading</string>
     <string name="kyc_submission">KYC Submission</string>
     <string name="surname_name">[Surname Name]</string>
     <string name="submitted">Submitted</string>
@@ -221,5 +222,8 @@
     <string name="doe">DOE</string>
     <string name="indicates_required">indicates required</string>
     <string name="passport_autocomplete">Passport Auto Complete</string>
+    <string name="check_icon">check_icon</string>
+    <string name="pending_icon">pending_icon</string>
+    <string name="approved">Approved</string>
 
 </resources>
