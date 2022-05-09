@@ -1,6 +1,7 @@
 package com.zillennium.utswap.screens.security.resetPassword
 
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
@@ -47,14 +48,14 @@ class ResetPasswordActivity :
     private fun resetPassWord(): Boolean {
         binding.apply {
             val resetPassword = inputPassword.text.toString().trim()
-            val drawable: Drawable = inputPassword.getBackground() // get current EditText drawable
-            drawable.setColorFilter(Color.RED, PorterDuff.Mode.SRC_ATOP);
 
             if (resetPassword.isEmpty()) {
                 textEmpty.visibility = View.VISIBLE
+                inputPassword.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.main_red))
                 return false
             } else {
                 textEmpty.visibility = View.GONE
+                inputPassword.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.secondary_text))
                 return true
             }
         }
