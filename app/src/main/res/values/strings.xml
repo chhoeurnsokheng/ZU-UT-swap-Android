@@ -226,7 +226,6 @@
     <string name="enter_email_or_phone_number">Enter email or Phone number</string>
     <string name="house_no_street">House No, Street #</string>
     <string name="star">*</string>
-    <string name="starRight">*</string>
     <string name="please_check_your_email_sms">Please check your email/SMS</string>
     <string name="enter_6_digit_verification_code">Enter 6-digit Verification Code</string>
     <string name="content_loading">Content Loading</string>
