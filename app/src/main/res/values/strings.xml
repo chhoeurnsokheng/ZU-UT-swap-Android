@@ -225,6 +225,7 @@
     <string name="register_btn">Register</string>
     <string name="enter_email_or_phone_number">Enter email or Phone number</string>
     <string name="referral_id">Referral id (optional)</string>
+    <string name="terms_conditions">I agree to the terms and conditions.</string>
 
 
 </resources>
