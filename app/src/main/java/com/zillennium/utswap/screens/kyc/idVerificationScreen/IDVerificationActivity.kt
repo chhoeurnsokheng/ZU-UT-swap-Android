@@ -203,6 +203,7 @@ class IDVerificationActivity :
                     i1: Int,
                     i2: Int
                 ) {
+                    info.firstName = etFirstName.text.toString()
                 }
 
                 override fun afterTextChanged(editable: Editable) {
@@ -226,6 +227,7 @@ class IDVerificationActivity :
                     i1: Int,
                     i2: Int
                 ) {
+                    info.lastName = etLastName.text.toString()
                 }
 
                 override fun afterTextChanged(editable: Editable) {
@@ -250,6 +252,7 @@ class IDVerificationActivity :
                     i1: Int,
                     i2: Int
                 ) {
+                    info.dateOfBirth = etDate.text.toString()
                 }
 
                 override fun afterTextChanged(editable: Editable) {
@@ -267,7 +270,9 @@ class IDVerificationActivity :
                 ) {
                 }
 
-                override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
+                override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
+                    info.addressHouse = etHouse.text.toString()
+                }
 
                 @SuppressLint("UseCompatLoadingForDrawables")
                 override fun afterTextChanged(editable: Editable) {

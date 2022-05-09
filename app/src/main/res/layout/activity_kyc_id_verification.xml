@@ -97,7 +97,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/dimen_0"
-                                android:layout_marginTop="5dp"
+                                android:layout_marginTop="@dimen/dimen_5"
                                 android:ellipsize="end"
                                 android:singleLine="true"
                                 android:text="@string/can_t_keep_empty"
@@ -131,7 +131,7 @@
                                 android:id="@+id/txt_error_last_name"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="5dp"
+                                android:layout_marginTop="@dimen/dimen_5"
                                 android:ellipsize="end"
                                 android:singleLine="true"
                                 android:text="@string/can_t_keep_empty"
@@ -184,7 +184,7 @@
                                 android:id="@+id/txt_error_date"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="5dp"
+                                android:layout_marginTop="@dimen/dimen_5"
                                 android:ellipsize="end"
                                 android:singleLine="true"
                                 android:text="@string/can_t_keep_empty"
@@ -219,7 +219,7 @@
                                 android:id="@+id/txt_error_gender"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="5dp"
+                                android:layout_marginTop="@dimen/dimen_5"
                                 android:ellipsize="end"
                                 android:singleLine="true"
                                 android:text="@string/can_t_keep_empty"
@@ -413,7 +413,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/starRight"
+                            android:text="@string/star"
                             android:textColor="@color/red" />
 
                         <TextView

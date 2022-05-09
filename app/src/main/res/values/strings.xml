@@ -221,33 +221,15 @@
     <string name="doe">DOE</string>
     <string name="indicates_required">indicates required</string>
     <string name="passport_autocomplete">Passport Auto Complete</string>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
     <string name="forgot_password_btn">Forgot Password</string>
     <string name="register_btn">Register</string>
     <string name="enter_email_or_phone_number">Enter email or Phone number</string>
-=======
     <string name="house_no_street">House No, Street #</string>
     <string name="star">*</string>
-    <string name="starRight">*</string>
     <string name="please_check_your_email_sms">Please check your email/SMS</string>
     <string name="enter_6_digit_verification_code">Enter 6-digit Verification Code</string>
-    >>>>>>> 615bdf6411c1c68bc49d0c7a82c3dd3bd4cd16a0
-=======
     <string name="content_loading">Content Loading</string>
->>>>>>> 9b1ae421ebbcb9fc32b548b910162a54164fa418
-=======
-    <string name="content_loading">Content Loading</string>
->>>>>>> fd1308379647e4b5dd34c3b864c62eb7753a187e
-=======
-    <string name="star">*</string>
->>>>>>> 417b4753147783be9d68f632baf954a452e6e6fe
-
-=======
     <string name="check_icon">check_icon</string>
     <string name="pending_icon">pending_icon</string>
->>>>>>> f6b1b1f4bc55cf181be7d6e24104eaeddcf5e51e
 
 </resources>
