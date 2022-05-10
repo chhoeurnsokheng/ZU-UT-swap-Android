@@ -50,6 +50,9 @@
     <string name="term">Term</string>
     <string name="reset_password">Reset Password</string>
     <string name="sign_up">Sign Up</string>
+    <string name="btn_yes">Yes</string>
+
+    <string name="btn_latter">latter</string>
     <string name="home">Home</string>
     <string name="article_news">Article News</string>
     <string name="profile">Profile</string>
@@ -245,4 +248,10 @@
     <string name="selfie_holding_national_id">Selfie Holding National ID</string>
     <string name="open_camera">Open Camera</string>
     <string name="menu">menu</string>
+    <string name="invalid_login_or_password">Invalid Login or Password</string>
+    <string name="confirm_password_is_not_correct">Confirm Password is not correct.</string>
+    <string name="enter_a_new_password">Enter a New Password</string>
+    <string name="national_id_passport">National ID or Passport is required.</string>
+    <string name="would_you_like_to_verify_your_identity_now">Would you like to verify your identity now?</string>
+
 </resources>

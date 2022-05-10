@@ -13,6 +13,7 @@ import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityKycVerificationBinding
 import com.zillennium.utswap.screens.kyc.termConditionScreen.TermConditionActivity
+import com.zillennium.utswap.screens.security.newPasswordScreen.NewPasswordActivity
 import java.io.IOException
 
 class VerificationActivity():
@@ -32,7 +33,7 @@ class VerificationActivity():
                 imgBack.setOnClickListener { finish() }
 
                 btnNext.setOnClickListener {
-                    val intent = Intent(UTSwapApp.instance, TermConditionActivity::class.java)
+                    val intent = Intent(UTSwapApp.instance, NewPasswordActivity::class.java)
                     startActivity(intent)
                 }
 

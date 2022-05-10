@@ -43,6 +43,7 @@
         <entry key="app/src/main/res/layout/activity_security_reset_password.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_security_sign_in.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_security_sign_up.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_security_verification.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_setting.xml" value="0.11510416666666666" />
         <entry key="app/src/main/res/layout/activity_setting_add_card.xml" value="0.11197916666666667" />
         <entry key="app/src/main/res/layout/activity_setting_kyc.xml" value="0.25" />
