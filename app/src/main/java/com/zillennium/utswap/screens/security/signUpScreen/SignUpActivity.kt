@@ -12,10 +12,9 @@ import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivitySecurityNewPasswordBinding
 import com.zillennium.utswap.databinding.ActivitySecuritySignUpBinding
-import com.zillennium.utswap.screens.kyc.verificationScreen.VerificationActivity
-import com.zillennium.utswap.screens.security.signInScreen.SignInActivity
+import com.zillennium.utswap.screens.kyc.idVerificationScreen.info
+import com.zillennium.utswap.screens.security.verificationScreen.VerificationActivity
 import java.io.IOException
-import java.util.regex.Pattern
 
 class SignUpActivity :
     BaseMvpActivity<SignUpView.View, SignUpView.Presenter, ActivitySecuritySignUpBinding>(),
@@ -28,15 +27,118 @@ class SignUpActivity :
         super.initView()
         try {
             binding.apply {
+
                 imgBack.setOnClickListener { finish() }
+
                 btnSignup.setOnClickListener {
-                    if (!validEmail() or !validPassword() or !validConfirmPassword()) {
-                        true
+
+                    var isHaveError = false
+                    txtMessage.text = "Invalid Email or Password"
+                    if (inputEmail.text.toString().isEmpty()) {
+                        txtMessage.visibility = View.VISIBLE
+                        inputEmail.backgroundTintList =
+                            ColorStateList.valueOf(resources.getColor(R.color.red))
+                        isHaveError = true
+                    }
+                    if (inputPassword.text.toString().isEmpty()) {
+                        txtMessage.visibility = View.VISIBLE
+                        inputPassword.backgroundTintList =
+                            ColorStateList.valueOf(resources.getColor(R.color.red))
+                        isHaveError = true
+                    }
+                    if (inputConfirmPassword.text.toString().isEmpty()) {
+                        txtMessage.visibility = View.VISIBLE
+                        inputConfirmPassword.backgroundTintList =
+                            ColorStateList.valueOf(resources.getColor(R.color.red))
+                        isHaveError = true
+                    }
+
+                    if (isHaveError) {
+                        return@setOnClickListener
                     } else {
-                        val intent = Intent(UTSwapApp.instance, VerificationActivity::class.java)
-                        startActivity(intent)
+                        if(inputPassword.text.toString() != inputConfirmPassword.text.toString()){
+                            txtMessage.text = "Password didn't match"
+                            txtMessage.visibility = View.VISIBLE
+                        }else{
+                            txtMessage.visibility = View.GONE
+                            val intent = Intent(UTSwapApp.instance, VerificationActivity::class.java)
+                            startActivity(intent)
+                        }
                     }
                 }
+
+                inputEmail.addTextChangedListener(object : TextWatcher {
+                    override fun beforeTextChanged(
+                        charSequence: CharSequence,
+                        i: Int,
+                        i1: Int,
+                        i2: Int
+                    ) {
+                    }
+
+                    override fun onTextChanged(
+                        charSequence: CharSequence,
+                        i: Int,
+                        i1: Int,
+                        i2: Int
+                    ) {
+                    }
+
+                    override fun afterTextChanged(editable: Editable) {
+                        txtMessage.visibility = View.GONE
+                        inputEmail.backgroundTintList =
+                            ColorStateList.valueOf(resources.getColor(R.color.secondary_text))
+                    }
+                })
+
+                inputPassword.addTextChangedListener(object : TextWatcher {
+                    override fun beforeTextChanged(
+                        charSequence: CharSequence,
+                        i: Int,
+                        i1: Int,
+                        i2: Int
+                    ) {
+                    }
+
+                    override fun onTextChanged(
+                        charSequence: CharSequence,
+                        i: Int,
+                        i1: Int,
+                        i2: Int
+                    ) {
+                    }
+
+                    override fun afterTextChanged(editable: Editable) {
+                        txtMessage.visibility = View.GONE
+                        inputPassword.backgroundTintList =
+                            ColorStateList.valueOf(resources.getColor(R.color.secondary_text))
+
+                    }
+                })
+
+                inputConfirmPassword.addTextChangedListener(object : TextWatcher {
+                    override fun beforeTextChanged(
+                        charSequence: CharSequence,
+                        i: Int,
+                        i1: Int,
+                        i2: Int
+                    ) {
+                    }
+
+                    override fun onTextChanged(
+                        charSequence: CharSequence,
+                        i: Int,
+                        i1: Int,
+                        i2: Int
+                    ) {
+                    }
+
+                    override fun afterTextChanged(editable: Editable) {
+                        txtMessage.visibility = View.GONE
+                        inputConfirmPassword.backgroundTintList =
+                            ColorStateList.valueOf(resources.getColor(R.color.secondary_text))
+                    }
+                })
 
             }
             // Code
@@ -45,72 +147,19 @@ class SignUpActivity :
         }
     }
 
-    private fun validEmail(): Boolean {
-        binding.apply {
-            val Email = inputEmail.text.toString().trim()
-            if (Email.isEmpty()) {
-                txtMessage.visibility = View.VISIBLE
-                inputEmail.backgroundTintList =
-                    ColorStateList.valueOf(resources.getColor(R.color.main_red))
-                return false
-            } else {
-                txtMessage.visibility = View.GONE
-                inputEmail.backgroundTintList =
-                    ColorStateList.valueOf(resources.getColor(R.color.secondary_text))
-                return true
-            }
-
-        }
-    }
-
-    private fun validPassword(): Boolean {
-        binding.apply {
-            val password = inputPassword.text.toString().trim()
-            if (password.isEmpty()) {
-                txtMessage.visibility = View.VISIBLE
-                inputPassword.backgroundTintList =
-                    ColorStateList.valueOf(resources.getColor(R.color.main_red))
-                return false
-            } else {
-                txtMessage.visibility = View.GONE
-                inputPassword.backgroundTintList =
-                    ColorStateList.valueOf(resources.getColor(R.color.secondary_text))
-                return true
-            }
-        }
-    }
-
-
-    private fun validConfirmPassword(): Boolean {
-        binding.apply {
-            val ConfirmPassword = inputConfirmPassword.text.toString().trim()
-            if (ConfirmPassword.isEmpty()) {
-                txtMessage.visibility = View.VISIBLE
-                inputConfirmPassword.backgroundTintList =
-                    ColorStateList.valueOf(resources.getColor(R.color.main_red))
-                return false
-            } else {
-                txtMessage.visibility = View.GONE
-                inputConfirmPassword.backgroundTintList =
-                    ColorStateList.valueOf(resources.getColor(R.color.secondary_text))
-                return true
-            }
-        }
-    }
-
     //Show Hide password
     fun ShowHidePassword(view: View) {
-        binding.apply {
-            if (view.id == R.id.show_pass_btn) {
+        binding.apply{
+            if (view.id== R.id.show_pass_btn) {
                 if (inputPassword.transformationMethod.equals(PasswordTransformationMethod.getInstance())) {
                     showPassBtn.setImageResource(R.drawable.ic_baseline_visibility_off_24)
                     //Show Password
-                    inputPassword.transformationMethod =
+                    inputPassword.transformationMethod=
                         HideReturnsTransformationMethod.getInstance()
                 } else {
                     showPassBtn.setImageResource(R.drawable.ic_baseline_visibility_24)
                     //Hide Password
-                    inputPassword.transformationMethod = PasswordTransformationMethod.getInstance()
+                    inputPassword.transformationMethod= PasswordTransformationMethod.getInstance()
                 }
             }
         }
@@ -118,18 +167,18 @@ class SignUpActivity :
 
     //Show Hide confirm password
     fun ShowHidePassConfirmPassword(view: View) {
-        binding.apply {
-            if (view.id == R.id.show_confirm_pass_btn) {
+        binding.apply{
+            if (view.id== R.id.show_confirm_pass_btn) {
                 if (inputConfirmPassword.transformationMethod.equals(PasswordTransformationMethod.getInstance())
                 ) {
                     showConfirmPassBtn.setImageResource(R.drawable.ic_baseline_visibility_off_24)
                     //Show Password
-                    inputConfirmPassword.transformationMethod =
+                    inputConfirmPassword.transformationMethod=
                         HideReturnsTransformationMethod.getInstance()
                 } else {
                     showConfirmPassBtn.setImageResource(R.drawable.ic_baseline_visibility_24)
                     //Hide Password
-                    inputConfirmPassword.transformationMethod =
+                    inputConfirmPassword.transformationMethod=
                         PasswordTransformationMethod.getInstance()
                 }
             }
