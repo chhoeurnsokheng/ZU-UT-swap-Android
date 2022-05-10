@@ -33,8 +33,7 @@ class ResetPasswordActivity :
                     var isHaveError = false
                     if (inputEmail.text.toString().isEmpty()) {
                         textEmpty.visibility = View.VISIBLE
-                        inputEmail.backgroundTintList =
-                            ColorStateList.valueOf(resources.getColor(R.color.red))
+                        inputEmail.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.red))
                         isHaveError = true
                     }
                     else{
@@ -62,12 +61,10 @@ class ResetPasswordActivity :
 
                     override fun afterTextChanged(editable: Editable) {
                         textEmpty.visibility = View.GONE
-                        inputEmail.backgroundTintList =
-                            ColorStateList.valueOf(resources.getColor(R.color.secondary_text))
+                        inputEmail.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.secondary_text))
                     }
                 })
             }
-
             // Code
         } catch (error: Exception) {
             // Must be safe

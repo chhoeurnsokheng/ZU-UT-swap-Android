@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="main_company">Zillion United Co.,Ltd.</string>
     <string name="app_name">UT Swap</string>
     <string name="login_in_to_stay_connected">Log In to stay connected</string>
@@ -234,5 +234,6 @@
     <string name="enter_a_new_password">Enter a New Password</string>
     <string name="national_id_passport">National ID or Passport is required.</string>
     <string name="would_you_like_to_verify_your_identity_now">Would you like to verify your identity now?</string>
+    <string name="field_can_t_be_empty">Field can\'t be empty</string>
 
 </resources>
