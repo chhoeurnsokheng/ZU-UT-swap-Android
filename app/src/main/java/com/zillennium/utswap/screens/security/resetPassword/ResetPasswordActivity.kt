@@ -5,6 +5,8 @@ import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
@@ -28,36 +30,46 @@ class ResetPasswordActivity :
             binding.apply {
                 imgBack.setOnClickListener { finish() }
                 btnNext.setOnClickListener {
-                    if (!resetPassWord()) {
-                        false
-                    } else {
+                    var isHaveError = false
+                    if (inputEmail.text.toString().isEmpty()) {
+                        textEmpty.visibility = View.VISIBLE
+                        inputEmail.backgroundTintList =
+                            ColorStateList.valueOf(resources.getColor(R.color.red))
+                        isHaveError = true
+                    }
+                    else{
                         val intent = Intent(UTSwapApp.instance, VerificationActivity::class.java)
                         startActivity(intent)
-                        true
                     }
 
                 }
+                inputEmail.addTextChangedListener(object : TextWatcher {
+                    override fun beforeTextChanged(
+                        charSequence: CharSequence,
+                        i: Int,
+                        i1: Int,
+                        i2: Int
+                    ) {
+                    }
 
+                    override fun onTextChanged(
+                        charSequence: CharSequence,
+                        i: Int,
+                        i1: Int,
+                        i2: Int
+                    ) {
+                    }
+
+                    override fun afterTextChanged(editable: Editable) {
+                        textEmpty.visibility = View.GONE
+                        inputEmail.backgroundTintList =
+                            ColorStateList.valueOf(resources.getColor(R.color.secondary_text))
+                    }
+                })
             }
             // Code
         } catch (error: Exception) {
             // Must be safe
-        }
-    }
-
-    private fun resetPassWord(): Boolean {
-        binding.apply {
-            val resetPassword = inputPassword.text.toString().trim()
-
-            if (resetPassword.isEmpty()) {
-                textEmpty.visibility = View.VISIBLE
-                inputPassword.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.main_red))
-                return false
-            } else {
-                textEmpty.visibility = View.GONE
-                inputPassword.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.secondary_text))
-                return true
-            }
         }
     }
 }
