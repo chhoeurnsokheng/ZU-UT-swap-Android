@@ -218,13 +218,14 @@ class FundPasswordActivity :
                 })
 
                 imgShowPassword.setOnClickListener {
-                    showPassword(clickCount)
                     clickCount++
+                    showPassword(clickCount)
                 }
 
                 imgShowConfirmPassword.setOnClickListener {
-                    showCfPassword(click)
                     click++
+                    showCfPassword(click)
+
                 }
 
                 btnNext.setOnClickListener {
@@ -243,7 +244,6 @@ class FundPasswordActivity :
     private fun showPassword(clickCount: Int) {
         binding.apply {
             if (clickCount % 2 == 0) {
-
                 editBox1.transformationMethod = PasswordTransformationMethod.getInstance()
                 editBox2.transformationMethod = PasswordTransformationMethod.getInstance()
                 editBox3.transformationMethod = PasswordTransformationMethod.getInstance()
@@ -254,7 +254,7 @@ class FundPasswordActivity :
                 editBox2.transformationMethod = HideReturnsTransformationMethod.getInstance()
                 editBox3.transformationMethod = HideReturnsTransformationMethod.getInstance()
                 editBox4.transformationMethod = HideReturnsTransformationMethod.getInstance()
-                imgShowPassword.setImageDrawable(getDrawable(R.drawable.ic_baseline_disabled_visible_24))
+                imgShowPassword.setImageDrawable(getDrawable(R.drawable.ic_baseline_visibility_off_24))
             }
         }
     }
@@ -273,7 +273,7 @@ class FundPasswordActivity :
                 editBoxConfirm2.transformationMethod = HideReturnsTransformationMethod.getInstance()
                 editBoxConfirm3.transformationMethod = HideReturnsTransformationMethod.getInstance()
                 editBoxConfirm4.transformationMethod = HideReturnsTransformationMethod.getInstance()
-                imgShowConfirmPassword.setImageDrawable(getDrawable(R.drawable.ic_baseline_disabled_visible_24))
+                imgShowConfirmPassword.setImageDrawable(getDrawable(R.drawable.ic_baseline_visibility_off_24))
             }
         }
 
