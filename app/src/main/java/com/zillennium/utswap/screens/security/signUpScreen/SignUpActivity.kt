@@ -34,12 +34,14 @@ class SignUpActivity :
 
                     var isHaveError = false
                     txtMessage.text = "Invalid Email or Password"
+
                     if (inputEmail.text.toString().isEmpty()) {
                         txtMessage.visibility = View.VISIBLE
                         inputEmail.backgroundTintList =
                             ColorStateList.valueOf(resources.getColor(R.color.red))
                         isHaveError = true
                     }
+
                     if (inputPassword.text.toString().isEmpty()) {
                         txtMessage.visibility = View.VISIBLE
                         inputPassword.backgroundTintList =
@@ -147,17 +149,18 @@ class SignUpActivity :
         }
     }
 
-    //Show Hide password
+    //Show Hide Password
     fun ShowHidePassword(view: View) {
         binding.apply{
             if (view.id== R.id.show_pass_btn) {
                 if (inputPassword.transformationMethod.equals(PasswordTransformationMethod.getInstance())) {
                     showPassBtn.setImageResource(R.drawable.ic_baseline_visibility_off_24)
+
                     //Show Password
-                    inputPassword.transformationMethod=
-                        HideReturnsTransformationMethod.getInstance()
+                    inputPassword.transformationMethod= HideReturnsTransformationMethod.getInstance()
                 } else {
                     showPassBtn.setImageResource(R.drawable.ic_baseline_visibility_24)
+
                     //Hide Password
                     inputPassword.transformationMethod= PasswordTransformationMethod.getInstance()
                 }
@@ -172,14 +175,14 @@ class SignUpActivity :
                 if (inputConfirmPassword.transformationMethod.equals(PasswordTransformationMethod.getInstance())
                 ) {
                     showConfirmPassBtn.setImageResource(R.drawable.ic_baseline_visibility_off_24)
+
                     //Show Password
-                    inputConfirmPassword.transformationMethod=
-                        HideReturnsTransformationMethod.getInstance()
+                    inputConfirmPassword.transformationMethod= HideReturnsTransformationMethod.getInstance()
                 } else {
                     showConfirmPassBtn.setImageResource(R.drawable.ic_baseline_visibility_24)
+
                     //Hide Password
-                    inputConfirmPassword.transformationMethod=
-                        PasswordTransformationMethod.getInstance()
+                    inputConfirmPassword.transformationMethod= PasswordTransformationMethod.getInstance()
                 }
             }
 

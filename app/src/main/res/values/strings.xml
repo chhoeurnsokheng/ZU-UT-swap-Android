@@ -234,6 +234,9 @@
     <string name="enter_a_new_password">Enter a New Password</string>
     <string name="national_id_passport">National ID or Passport is required.</string>
     <string name="would_you_like_to_verify_your_identity_now">Would you like to verify your identity now?</string>
+    <string name="create_a_new_account">Create a New Account</string>
+    <string name="referral_id_optional">Referral ID (optional)</string>
+    <string name="invalid_email_or_password">Invalid Email or Password</string>
 
 
 </resources>
