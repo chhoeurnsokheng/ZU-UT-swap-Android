@@ -21,7 +21,7 @@ class VerificationActivity():
     VerificationView.View {
 
     override var mPresenter: VerificationView.Presenter = VerificationPresenter()
-    override val layoutResource: Int = R.layout.activity_kyc_verification
+    override val layoutResource: Int = R.layout.activity_security_verification
 
     private var countDownTimer: CountDownTimer? = null
 

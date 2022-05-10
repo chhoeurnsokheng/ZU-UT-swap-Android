@@ -57,7 +57,7 @@ class SignInActivity :
         super.initView()
         try {
 //            callNetworkConnection()
-            IdNeteworkConnection()
+//            IdNeteworkConnection()
             binding.apply {
                 imgBack.setOnClickListener { finish() }
 //                   if (!checkWifiOnAndConnected()) {
@@ -91,56 +91,56 @@ class SignInActivity :
                         txtMessage.visibility = View.GONE
                         val intent = Intent(UTSwapApp.instance, SignUpActivity::class.java)
                         startActivity(intent)
+                    }
                 }
-            }
-            textInputEmail.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(
-                    charSequence: CharSequence,
-                    i: Int,
-                    i1: Int,
-                    i2: Int
-                ) {
-                }
+                textInputEmail.addTextChangedListener(object : TextWatcher {
+                    override fun beforeTextChanged(
+                        charSequence: CharSequence,
+                        i: Int,
+                        i1: Int,
+                        i2: Int
+                    ) {
+                    }
 
-                override fun onTextChanged(
-                    charSequence: CharSequence,
-                    i: Int,
-                    i1: Int,
-                    i2: Int
-                ) {
-                }
+                    override fun onTextChanged(
+                        charSequence: CharSequence,
+                        i: Int,
+                        i1: Int,
+                        i2: Int
+                    ) {
+                    }
 
-                override fun afterTextChanged(editable: Editable) {
-                    txtMessage.visibility = View.GONE
-                    textInputEmail.backgroundTintList =
-                        ColorStateList.valueOf(resources.getColor(R.color.secondary_text))
-                }
-            })
+                    override fun afterTextChanged(editable: Editable) {
+                        txtMessage.visibility = View.GONE
+                        textInputEmail.backgroundTintList =
+                            ColorStateList.valueOf(resources.getColor(R.color.secondary_text))
+                    }
+                })
 
-            textInputPassword.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(
-                    charSequence: CharSequence,
-                    i: Int,
-                    i1: Int,
-                    i2: Int
-                ) {
-                }
+                textInputPassword.addTextChangedListener(object : TextWatcher {
+                    override fun beforeTextChanged(
+                        charSequence: CharSequence,
+                        i: Int,
+                        i1: Int,
+                        i2: Int
+                    ) {
+                    }
 
-                override fun onTextChanged(
-                    charSequence: CharSequence,
-                    i: Int,
-                    i1: Int,
-                    i2: Int
-                ) {
-                }
+                    override fun onTextChanged(
+                        charSequence: CharSequence,
+                        i: Int,
+                        i1: Int,
+                        i2: Int
+                    ) {
+                    }
 
-                override fun afterTextChanged(editable: Editable) {
-                    txtMessage.visibility = View.GONE
-                    textInputPassword.backgroundTintList =
-                        ColorStateList.valueOf(resources.getColor(R.color.secondary_text))
+                    override fun afterTextChanged(editable: Editable) {
+                        txtMessage.visibility = View.GONE
+                        textInputPassword.backgroundTintList =
+                            ColorStateList.valueOf(resources.getColor(R.color.secondary_text))
 
-                }
-            })
+                    }
+                })
 
 //        Glide.with(imgCapCha.getContext())
 //                .load("https://utswap.io/Verify/code")
@@ -152,13 +152,12 @@ class SignInActivity :
 //                    .into(imgCapCha);
 //        });
 
+            }
+            // Code
+        } catch (error: Exception) {
+            // Must be safe
         }
-        // Code
-    } catch (error: Exception)
-    {
-        // Must be safe
     }
-}
 //        @SuppressLint("ServiceCast")
 //        private fun checkWifiOnAndConnected(): Boolean {
 //        val wifiMgr = applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
@@ -172,12 +171,12 @@ class SignInActivity :
 //    }
 
 
-private fun IdNeteworkConnection() {
-    imageWifi = findViewById(R.id.imageWifi)
-    textView = findViewById(R.id.textView)
-    mainWifi = findViewById(R.id.main_Wifi)
-}
-
+//private fun IdNeteworkConnection() {
+//    imageWifi = findViewById(R.id.imageWifi)
+//    textView = findViewById(R.id.textView)
+//    mainWifi = findViewById(R.id.main_Wifi)
+//}
+//
 //    @SuppressLint("ResourceType")
 //    private fun callNetworkConnection() {
 //        checkNetworkConnection = CheckNetworkConnection(application)
@@ -196,35 +195,36 @@ private fun IdNeteworkConnection() {
 //        }
 //    }
 
-override fun onBackPressed() {
-    if (doubleBackToExitPressedOnce) {
-        super.onBackPressed()
-        return
+    override fun onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed()
+            return
+        }
+        this.doubleBackToExitPressedOnce = true
+        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show()
+        Handler(Looper.getMainLooper()).postDelayed(
+            { doubleBackToExitPressedOnce = false },
+            2000
+        )
     }
-    this.doubleBackToExitPressedOnce = true
-    Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show()
-    Handler(Looper.getMainLooper()).postDelayed(
-        { doubleBackToExitPressedOnce = false },
-        2000
-    )
-}
 
-fun ShowHidePass(view: View) {
-    binding.apply {
-        if (view.id == R.id.show_pass_btn) {
-            if (textInputPassword.transformationMethod
-                    .equals(PasswordTransformationMethod.getInstance())
-            ) {
-                showPassBtn.setImageResource(R.drawable.ic_baseline_visibility_off_24)
-                //Show Password
-                textInputPassword.transformationMethod =
-                    HideReturnsTransformationMethod.getInstance()
-            } else {
-                showPassBtn.setImageResource(R.drawable.ic_baseline_visibility_24)
-                //Hide Password
-                textInputPassword.transformationMethod = PasswordTransformationMethod.getInstance()
+    fun ShowHidePass(view: View) {
+        binding.apply {
+            if (view.id == R.id.show_pass_btn) {
+                if (textInputPassword.transformationMethod
+                        .equals(PasswordTransformationMethod.getInstance())
+                ) {
+                    showPassBtn.setImageResource(R.drawable.ic_baseline_visibility_off_24)
+                    //Show Password
+                    textInputPassword.transformationMethod =
+                        HideReturnsTransformationMethod.getInstance()
+                } else {
+                    showPassBtn.setImageResource(R.drawable.ic_baseline_visibility_24)
+                    //Hide Password
+                    textInputPassword.transformationMethod =
+                        PasswordTransformationMethod.getInstance()
+                }
             }
         }
     }
-}
 }
