@@ -235,5 +235,6 @@
     <string name="national_id_passport">National ID or Passport is required.</string>
     <string name="would_you_like_to_verify_your_identity_now">Would you like to verify your identity now?</string>
     <string name="field_can_t_be_empty">Field can\'t be empty</string>
+    <string name="password_not_matching">Password Not matching</string>
 
 </resources>

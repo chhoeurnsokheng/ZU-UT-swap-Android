@@ -30,7 +30,6 @@ class NewPasswordActivity :
 
                 imgBack.setOnClickListener { finish() }
 
-
                 btnNext.setOnClickListener {
                     var isHaveError = false
                     txtPasswordMessage.text = "Invalid Email or Password"
@@ -114,7 +113,6 @@ class NewPasswordActivity :
         }
     }
 
-
     //Show Hide password
     fun ShowHidePassword(view: View) {
         binding.apply {
@@ -134,7 +132,7 @@ class NewPasswordActivity :
     }
 
     //Show Hide confirm password
-    fun ShowHidePassConfirmPassword(view: View) {
+    fun ShowHideConfirmPassword(view: View) {
         binding.apply {
             if (view.id == R.id.show_confirm_pass_btn) {
                 if (inputConfirmPassword.transformationMethod.equals(PasswordTransformationMethod.getInstance())
