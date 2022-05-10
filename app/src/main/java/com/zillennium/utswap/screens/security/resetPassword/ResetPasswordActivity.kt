@@ -67,6 +67,7 @@ class ResetPasswordActivity :
                     }
                 })
             }
+
             // Code
         } catch (error: Exception) {
             // Must be safe
