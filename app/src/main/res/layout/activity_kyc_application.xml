@@ -13,8 +13,8 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:paddingStart="@dimen/dimen_10"
-            android:paddingEnd="@dimen/dimen_10"
             android:paddingTop="@dimen/dimen_15"
+            android:paddingEnd="@dimen/dimen_10"
             android:paddingBottom="@dimen/dimen_5">
 
             <ImageView
@@ -155,8 +155,8 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:contentDescription="@string/pending_icon"
-                        android:src="@drawable/ic_baseline_access_time_24"
-                        app:tint="@color/warning" />
+                        android:src="@drawable/ic_baseline_check_circle_24"
+                        app:tint="@color/success" />
 
                     <TextView
                         android:id="@+id/txt_pending"
@@ -164,7 +164,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginStart="@dimen/dimen_5"
-                        android:text="@string/pending"
+                        android:text="@string/approved"
                         android:textAppearance="@style/regular_16" />
 
                 </LinearLayout>
@@ -178,7 +178,7 @@
                 android:layout_marginStart="@dimen/dimen_20"
                 android:layout_marginTop="@dimen/dimen_20"
                 android:layout_marginEnd="@dimen/dimen_20"
-                android:background="@color/warning" />
+                android:background="@color/success" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -190,7 +190,30 @@
                 android:textColor="@color/success"
                 android:visibility="gone" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="You have been certified"
+                    android:textColor="@color/success"
+                    android:fontFamily="@font/avenirnextcy_medium"
+                    android:textSize="18sp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_baseline_check_24"
+                    app:tint="@color/success" />
+            </LinearLayout>
+
         </LinearLayout>
+
 
         <LinearLayout
             android:id="@+id/btn_accept"

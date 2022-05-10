@@ -22,13 +22,6 @@ class KycApplicationActivity :
             binding.apply {
 
                 imgBack.setOnClickListener { finish() }
-
-                btnAccept.isEnabled = false
-
-                /*btnAccept.setOnClickListener(View.OnClickListener {
-                    val intent = Intent(UTSwapApp.instance, NavbarActivity::class.java)
-                    startActivity(intent)
-                })*/
             }
 
         } catch (error: Exception) {
