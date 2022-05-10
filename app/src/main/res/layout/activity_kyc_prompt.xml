@@ -1,40 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="@dimen/dimen_20">
+        android:padding="@dimen/dimen_15">
 
-        <ImageView
-            android:id="@+id/iv_back"
-            android:layout_width="@dimen/dimen_32"
-            android:layout_height="@dimen/dimen_32"
-            android:src="@drawable/ic_baseline_arrow_back_24"
-            app:tint="@color/color_main" />
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="@dimen/dimen_140"
-            android:layout_height="@dimen/dimen_140"
-            android:layout_gravity="center"
-            android:layout_marginTop="@dimen/dimen_50"
-            app:cardCornerRadius="250dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/iv_selfie"
-                android:layout_width="@dimen/dimen_140"
-                android:layout_height="@dimen/dimen_140"
-                android:layout_gravity="center"
-                android:adjustViewBounds="true"
-                android:scaleType="centerCrop"
-                android:src="@drawable/sample_selfit" />
-        </androidx.cardview.widget.CardView>
+                android:id="@+id/img_back"
+                android:layout_width="@dimen/dimen_32"
+                android:layout_height="@dimen/dimen_32"
+                android:src="@drawable/ic_baseline_arrow_back_24"
+                app:tint="@color/color_main" />
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_10"
             android:orientation="vertical">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:layout_width="@dimen/dimen_140"
+                android:layout_height="@dimen/dimen_140"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/dimen_50"
+                android:src="@drawable/sample_selfit"
+                app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
+                app:strokeColor="@color/color_main"
+                app:strokeWidth="@dimen/dimen_2" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -56,32 +59,36 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_marginTop="@dimen/dimen_60"
+            android:layout_marginTop="@dimen/dimen_100"
             android:orientation="horizontal"
-            android:paddingHorizontal="@dimen/dimen_20">
+            android:layout_marginStart="@dimen/dimen_10"
+            android:layout_marginEnd="@dimen/dimen_10"
+           >
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_signIn"
+                android:id="@+id/btn_yes"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dimen_50"
                 android:layout_marginEnd="@dimen/dimen_10"
                 android:layout_weight="1"
                 android:background="@drawable/bg_circular"
                 android:hint="@string/yes"
-                android:textAppearance="@style/bold_16"
+                android:textAppearance="@style/bold_18"
                 android:textColorHint="@color/white" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_register"
+                android:id="@+id/btn_latter"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dimen_50"
                 android:layout_marginStart="@dimen/dimen_10"
                 android:layout_weight="1"
                 android:background="@drawable/bg_circular_border_blue"
                 android:hint="@string/btn_latter"
-                android:textAppearance="@style/bold_16"
+                android:textAppearance="@style/bold_18"
                 android:textColorHint="@color/color_main" />
 
         </LinearLayout>
+
     </LinearLayout>
+
 </layout>

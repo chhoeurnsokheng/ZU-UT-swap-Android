@@ -25,11 +25,8 @@ class SignUpActivity :
         super.initView()
         try {
             binding.apply {
-
                 imgBack.setOnClickListener { finish() }
-
                 btnSignup.setOnClickListener {
-
                     var isHaveError = false
                     txtMessage.text = "Invalid Email or Password"
                     if (inputEmail.text.toString().isEmpty()) {
