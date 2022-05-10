@@ -5,9 +5,8 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
 
@@ -17,11 +16,11 @@
         android:configChanges="keyboardHidden|orientation"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/Theme.UTSwapApp"
-        android:requestLegacyExternalStorage="true"
         android:usesCleartextTraffic="true">
 
         <activity
@@ -37,214 +36,216 @@
             </intent-filter>
         </activity>
         <activity
-            android:label="@string/home"
             android:name="com.zillennium.utswap.screens.navbar.navbar.NavbarActivity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:label="@string/home"
+            android:screenOrientation="portrait" />
 
         <!--Activity KYC-->
         <activity
-            android:label="@string/address_information"
             android:name="com.zillennium.utswap.screens.kyc.addressInfoScreen.AddressInfoActivity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:label="@string/address_information"
+            android:screenOrientation="portrait" />
         <activity
-            android:label="@string/contract"
             android:name="com.zillennium.utswap.screens.kyc.contractScreen.ContractActivity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:label="@string/contract"
+            android:screenOrientation="portrait" />
         <activity
-            android:label="@string/declaration"
             android:name="com.zillennium.utswap.screens.kyc.declarationScreen.DeclarationActivity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:label="@string/declaration"
+            android:screenOrientation="portrait" />
         <activity
-            android:label="@string/employment_info"
             android:name="com.zillennium.utswap.screens.kyc.employmentInfoScreen.EmploymentInfoActivity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:label="@string/employment_info"
+            android:screenOrientation="portrait" />
         <activity
-            android:label="@string/fund_password"
             android:name="com.zillennium.utswap.screens.kyc.fundPasswordScreen.FundPasswordActivity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:label="@string/fund_password"
+            android:screenOrientation="portrait" />
         <activity
-            android:label="@string/id_type"
             android:name="com.zillennium.utswap.screens.kyc.idTypeScreen.IdTypeActivity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:label="@string/id_type"
+            android:screenOrientation="portrait" />
         <activity
-            android:label="@string/id_card_camera"
             android:name="com.zillennium.utswap.screens.kyc.idTypeScreen.camera.idCardCameraActivity.IDCardCameraActivity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:label="@string/id_card_camera"
+            android:screenOrientation="portrait" />
         <activity
-            android:label="@string/selfie_camera"
             android:name="com.zillennium.utswap.screens.kyc.idTypeScreen.camera.selfieCameraActivity.SelfieCameraActivity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:label="@string/selfie_camera"
+            android:screenOrientation="portrait" />
         <activity
-            android:label="@string/id_verification"
             android:name="com.zillennium.utswap.screens.kyc.idVerificationScreen.IDVerificationActivity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:label="@string/id_verification"
+            android:screenOrientation="portrait" />
         <activity
-            android:label="@string/kyc_application"
             android:name="com.zillennium.utswap.screens.kyc.kycApplicationScreen.KycApplicationActivity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:label="@string/kyc_application"
+            android:screenOrientation="portrait" />
         <activity
-            android:label="@string/selfie_holding"
             android:name="com.zillennium.utswap.screens.kyc.selfieHoldingScreen.SelfieHoldingActivity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:label="@string/selfie_holding"
+            android:screenOrientation="portrait" />
         <activity
-            android:label="@string/terms_and_conditions"
             android:name="com.zillennium.utswap.screens.kyc.termConditionScreen.TermConditionActivity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:label="@string/terms_and_conditions"
+            android:screenOrientation="portrait" />
         <activity
-            android:label="@string/verification"
             android:name="com.zillennium.utswap.screens.kyc.verificationScreen.VerificationActivity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:label="@string/verification"
+            android:screenOrientation="portrait" />
         <!--End Activity KYC-->
 
         <!--Activity Security-->
         <activity
-            android:label="@string/new_password"
             android:name="com.zillennium.utswap.screens.security.newPasswordScreen.NewPasswordActivity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:label="@string/new_password"
+            android:screenOrientation="portrait" />
         <activity
-            android:label="@string/reset_password"
             android:name="com.zillennium.utswap.screens.security.resetPassword.ResetPasswordActivity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:label="@string/reset_password"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
         <activity
-            android:label="@string/sign_in"
             android:name="com.zillennium.utswap.screens.security.signInScreen.SignInActivity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:label="@string/sign_in"
+            android:screenOrientation="portrait" />
         <activity
-            android:label="@string/sign_up"
             android:name="com.zillennium.utswap.screens.security.signUpScreen.SignUpActivity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:label="@string/sign_up"
+            android:screenOrientation="portrait" />
         <activity
-            android:label="@string/verification"
             android:name="com.zillennium.utswap.screens.security.verificationScreen.VerificationActivity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:label="@string/verification"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
         <!--End Activity Security-->
 
         <!--Activity Setting-->
         <activity
-            android:label="@string/account_type"
             android:name="com.zillennium.utswap.screens.setting.accountTypeScreen.AccountTypeActivity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:label="@string/account_type"
+            android:screenOrientation="portrait" />
         <activity
-            android:label="@string/add_new_card"
             android:name="com.zillennium.utswap.screens.setting.addCardScreen.AddCardActivity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:label="@string/add_new_card"
+            android:screenOrientation="portrait" />
         <activity
-            android:label="@string/balance"
             android:name="com.zillennium.utswap.screens.setting.balanceScreen.BalanceActivity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:label="@string/balance"
+            android:screenOrientation="portrait" />
         <activity
-            android:label="@string/credit_card"
             android:name="com.zillennium.utswap.screens.setting.creditCardScreen.CreditCardActivity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:label="@string/credit_card"
+            android:screenOrientation="portrait" />
         <activity
-            android:label="@string/fund_password"
             android:name="com.zillennium.utswap.screens.setting.fundPasswordScreen.FundPasswordActivity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:label="@string/fund_password"
+            android:screenOrientation="portrait" />
         <activity
-            android:label="@string/KYC"
             android:name="com.zillennium.utswap.screens.setting.kyc.KYCActivity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:label="@string/KYC"
+            android:screenOrientation="portrait" />
         <activity
-            android:label="@string/language"
             android:name="com.zillennium.utswap.screens.setting.languageScreen.LanguageActivity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:label="@string/language"
+            android:screenOrientation="portrait" />
         <activity
-            android:label="@string/lock_screen"
             android:name="com.zillennium.utswap.screens.setting.lockScreen.LockScreenActivity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:label="@string/lock_screen"
+            android:screenOrientation="portrait" />
         <activity
-            android:label="@string/login_password"
             android:name="com.zillennium.utswap.screens.setting.loginPasswordScreen.LoginPasswordActivity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:label="@string/login_password"
+            android:screenOrientation="portrait" />
         <activity
-            android:label="@string/log"
             android:name="com.zillennium.utswap.screens.setting.logScreen.LogActivity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:label="@string/log"
+            android:screenOrientation="portrait" />
         <activity
-            android:label="@string/profile_qrcode"
             android:name="com.zillennium.utswap.screens.setting.profileQRCodeScreen.ProfileQRCodeActivity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:label="@string/profile_qrcode"
+            android:screenOrientation="portrait" />
         <activity
-            android:label="@string/profile"
             android:name="com.zillennium.utswap.screens.setting.profileScreen.ProfileActivity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:label="@string/profile"
+            android:screenOrientation="portrait" />
         <activity
-            android:label="@string/setting"
             android:name="com.zillennium.utswap.screens.setting.settingScreen.SettingActivity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:label="@string/setting"
+            android:screenOrientation="portrait" />
         <activity
-            android:label="@string/twofa"
             android:name="com.zillennium.utswap.screens.setting.twoFAScreen.TwoFAActivity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:label="@string/twofa"
+            android:screenOrientation="portrait" />
         <!--End Activity Setting-->
 
         <!--Activity System-->
         <activity
-            android:label="@string/notification"
             android:name="com.zillennium.utswap.screens.system.notificationScreen.NotificationActivity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:label="@string/notification"
+            android:screenOrientation="portrait" />
         <activity
-            android:label="@string/scan_qrcode"
             android:name="com.zillennium.utswap.screens.system.scanQRCodeScreen.ScanQRCodeActivity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:label="@string/scan_qrcode"
+            android:screenOrientation="portrait" />
         <activity
-            android:label="@string/search"
             android:name="com.zillennium.utswap.screens.system.searchScreen.SearchActivity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:label="@string/search"
+            android:screenOrientation="portrait" />
         <activity
-            android:label="@string/welcome"
             android:name="com.zillennium.utswap.screens.system.welcomeScreen.WelcomeActivity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:label="@string/welcome"
+            android:screenOrientation="portrait" />
         <!--End Activity System-->
 
         <!--Activity Project Tab-->
         <activity
-            android:label="@string/project_detail"
             android:name="com.zillennium.utswap.screens.project.projecrDetailScreen.ProjectDetailActivity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:label="@string/project_detail"
+            android:screenOrientation="portrait" />
         <activity
-            android:label="Project ICO"
             android:name="com.zillennium.utswap.screens.project.projectICOScreen.ProjectICOActivity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:label="Project ICO"
+            android:screenOrientation="portrait" />
         <!--End Activity Project Tab-->
 
         <!--Activity Swap Tab-->
@@ -252,64 +253,64 @@
 
         <!--Activity Trade Tab-->
         <activity
-            android:label="@string/trade_exchange"
             android:name="com.zillennium.utswap.screens.trade.tradeExchangeScreen.TradeExchangeActivity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:label="@string/trade_exchange"
+            android:screenOrientation="portrait" />
         <!--End Activity Trade Tab-->
 
         <!--Activity News Tab-->
         <activity
-            android:label="@string/article_news"
             android:name="com.zillennium.utswap.screens.news.articleNewsScreen.ArticleNewsActivity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:label="@string/article_news"
+            android:screenOrientation="portrait" />
         <!--End Activity News Tab-->
 
         <!--Activity Wallet Tab-->
         <activity
-            android:label="@string/deposit"
             android:name="com.zillennium.utswap.screens.wallet.depositScreen.DepositActivity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:label="@string/deposit"
+            android:screenOrientation="portrait" />
         <activity
-            android:label="@string/historical"
             android:name="com.zillennium.utswap.screens.wallet.historicalScreen.HistoricalActivity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:label="@string/historical"
+            android:screenOrientation="portrait" />
         <activity
-            android:label="@string/lock_up"
             android:name="com.zillennium.utswap.screens.wallet.lockUpScreen.LockUpActivity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:label="@string/lock_up"
+            android:screenOrientation="portrait" />
         <activity
-            android:label="@string/my_wallet"
             android:name="com.zillennium.utswap.screens.wallet.transactionScreen.TransactionActivity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:label="@string/my_wallet"
+            android:screenOrientation="portrait" />
         <activity
-            android:label="@string/subscription"
             android:name="com.zillennium.utswap.screens.wallet.subScriptionScreen.SubscriptionActivity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:label="@string/subscription"
+            android:screenOrientation="portrait" />
         <activity
-            android:label="@string/transfer"
             android:name="com.zillennium.utswap.screens.wallet.transferScreen.TransferActivity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:label="@string/transfer"
+            android:screenOrientation="portrait" />
         <activity
-            android:label="@string/withdrawal"
             android:name="com.zillennium.utswap.screens.wallet.withdrawalScreen.WithdrawalActivity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:label="@string/withdrawal"
+            android:screenOrientation="portrait" />
         <!--End Activity Wallet Tab-->
 
         <!--Activity Privacy-->
         <activity
-            android:label="@string/terms_and_conditions"
             android:name="com.zillennium.utswap.screens.privacy.termScreen.TermActivity"
             android:exported="false"
-            android:screenOrientation="portrait"/>
+            android:label="@string/terms_and_conditions"
+            android:screenOrientation="portrait" />
         <!--End Activity Privacy-->
 
         <meta-data

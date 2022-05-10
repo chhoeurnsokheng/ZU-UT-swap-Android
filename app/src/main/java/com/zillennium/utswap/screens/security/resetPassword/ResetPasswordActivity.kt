@@ -1,6 +1,7 @@
 package com.zillennium.utswap.screens.security.resetPassword
 
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
@@ -9,12 +10,11 @@ import android.widget.Toast
 import com.google.android.material.textfield.TextInputLayout
 import com.zillennium.utswap.databinding.ActivitySecurityResetPasswordBinding
 
-import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
-import com.zillennium.utswap.screens.navbar.navbar.NavbarActivity
+import com.zillennium.utswap.R
 import com.zillennium.utswap.screens.security.verificationScreen.VerificationActivity
-import java.io.IOException
+
 
 class ResetPasswordActivity :
     BaseMvpActivity<ResetPasswordView.View, ResetPasswordView.Presenter, ActivitySecurityResetPasswordBinding>(),
@@ -31,7 +31,6 @@ class ResetPasswordActivity :
 
             binding.apply {
                 imgBack.setOnClickListener { finish() }
-
                 btnNext.setOnClickListener {
                     if (!resetPassWord()) {
                         false
@@ -63,5 +62,4 @@ class ResetPasswordActivity :
             }
         }
     }
-
 }

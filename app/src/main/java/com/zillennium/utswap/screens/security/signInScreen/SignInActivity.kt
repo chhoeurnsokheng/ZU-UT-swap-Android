@@ -179,7 +179,7 @@ class SignInActivity :
         )
     }
 
-    fun ShowHidePass(view: View) {
+   fun ShowHidePass(view: View) {
         binding.apply {
             if (view.id == R.id.show_pass_btn) {
                 if (textInputPassword.transformationMethod
