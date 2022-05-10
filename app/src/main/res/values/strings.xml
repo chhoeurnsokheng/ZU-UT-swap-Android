@@ -235,5 +235,5 @@
     <string name="portfolio">Portfolio</string>
     <string name="confirm_4_digit_number">Confirm 4-digit number</string>
     <string name="approved">Approved</string>
-
+    <string name="referral_id">Referral id (optional)</string>
 </resources>

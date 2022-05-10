@@ -8,83 +8,81 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="@dimen/dimen_20">
+        android:padding="@dimen/dimen_15">
+
         <ImageView
             android:id="@+id/img_back"
             android:layout_width="@dimen/dimen_32"
             android:layout_height="@dimen/dimen_32"
             android:src="@drawable/ic_baseline_arrow_back_24"
             app:tint="@color/color_main" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_56"
             android:orientation="vertical"
-            android:paddingHorizontal="@dimen/dimen_10"
-            android:layout_marginTop="@dimen/dimen_56">
+            android:paddingHorizontal="@dimen/dimen_10">
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dimen_14"
                 android:text="@string/sign_in"
                 android:textAppearance="@style/bold_32"
-                android:textColor="@color/color_main"
-                android:layout_marginBottom="@dimen/dimen_14"/>
+                android:textColor="@color/color_main" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dimen_20"
                 android:text="@string/enter_account_details"
                 android:textAppearance="@style/medium_20"
-                android:textColor="@color/color_main"
-                android:layout_marginBottom="@dimen/dimen_20"/>
+                android:textColor="@color/color_main" />
 
-            <com.google.android.material.textfield.TextInputLayout
+            <EditText
                 android:id="@+id/textInputEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/enter_email_or_phone_number"
-                android:textColorHint="@color/secondary_text"
-                app:boxStrokeColor="@color/secondary_text"
-                app:boxStrokeWidth="@dimen/dimen_1"
-                app:helperTextTextAppearance="@style/regular_16"
-                android:layout_marginBottom="@dimen/dimen_20">
+                android:layout_marginTop="@dimen/dimen_20"
+                android:hint="@string/email_or_phone_number"
+                android:inputType="text"
+                android:maxLength="15"
+                android:paddingBottom="@dimen/dimen_25"
+                android:textAppearance="@style/regular_16" />
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/transparent"
-                    android:inputType="textPersonName"
-                    android:singleLine="true"
-                    android:layout_marginStart="-15dp"
-                    android:layout_marginEnd="-15dp"
-                    android:textAppearance="@style/regular_16"
-                    android:textColor="@color/secondary_text" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputPassword"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/password"
-                android:textColorHint="@color/secondary_text"
-                app:boxStrokeColor="@color/secondary_text"
-                app:endIconMode="password_toggle"
-                app:errorEnabled="true"
-                app:helperTextTextAppearance="@style/regular_16">
+                android:layout_marginTop="@dimen/dimen_20">
 
-                <com.google.android.material.textfield.TextInputEditText
+                <EditText
+                    android:id="@+id/textInputPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/transparent"
+                    android:hint="@string/password"
                     android:inputType="textPassword"
-                    android:singleLine="true"
-                    android:textAppearance="@style/regular_16"
-                    android:layout_marginStart="-15dp"
-                    android:layout_marginEnd="-15dp"
-                    android:textColor="@color/secondary_text" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:maxLength="15"
+                    android:paddingBottom="@dimen/dimen_25"
+                    android:textAppearance="@style/regular_16" />
+
+                <ImageView
+                    android:id="@+id/show_pass_btn"
+                    android:layout_width="@dimen/dimen_30"
+                    android:layout_height="@dimen/dimen_30"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/dimen_8"
+                    android:alpha=".5"
+                    android:onClick="ShowHidePass"
+                    android:padding="@dimen/dimen_5"
+                    android:src="@drawable/ic_baseline_visibility_24"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+
+            </RelativeLayout>
         </LinearLayout>
-        <RelativeLayout
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
@@ -94,64 +92,85 @@
                 android:id="@+id/txt_message"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_above="@+id/lay_sign_in"
+                android:layout_marginTop="@dimen/dimen_20"
+                android:background="@color/main_red"
+                android:paddingVertical="@dimen/dimen_8"
                 android:text="Invalid Login or Password"
                 android:textAlignment="center"
-                android:background="@color/main_red"
                 android:textAppearance="@style/regular_14"
-                android:paddingVertical="@dimen/dimen_8"
                 android:textColor="@color/white"
-                android:visibility="visible"
-                android:layout_above="@+id/lay_sign_in"
-                android:layout_marginBottom="@dimen/dimen_20"/>
+                android:visibility="invisible" />
+
+            <LinearLayout
+                android:id="@+id/main_Wifi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_20"
+                android:layout_marginBottom="@dimen/dimen_20"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imageWifi"
+                    android:layout_width="@dimen/dimen_30"
+                    android:layout_height="@dimen/dimen_30" />
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_15"
+                    android:text=""
+                    android:textAppearance="@style/regular_14" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lay_sign_in"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:orientation="vertical">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_signIn"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_50"
+                    android:background="@drawable/bg_circular"
+                    android:hint="@string/sign_in"
+                    android:textAppearance="@style/bold_18"
+                    android:textColorHint="@color/white"
+                    tools:ignore="OnClick" />
 
                 <LinearLayout
-                    android:id="@+id/lay_sign_in"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
+                    android:layout_marginVertical="@dimen/dimen_15"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="@dimen/dimen_8">
 
-                    android:layout_centerVertical="true">
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btn_signIn"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/dimen_50"
-                        android:background="@drawable/bg_circular"
-                        android:hint="@string/sign_in"
-                        android:textAppearance="@style/bold_18"
-                        android:textColorHint="@color/white" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:id="@+id/btn_register"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:paddingHorizontal="@dimen/dimen_8"
-                        android:layout_marginVertical="@dimen/dimen_15">
+                        android:layout_weight="1"
+                        android:text="@string/register_btn"
+                        android:textAppearance="@style/regular_14"
+                        android:textColor="@color/color_main" />
 
-                        <TextView
-                            android:id="@+id/btn_register"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/register_btn"
-                            android:textColor="@color/color_main"
-                            android:textAppearance="@style/regular_14" />
-
-                        <TextView
-                            android:id="@+id/btn_forgot"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="end"
-                            android:text="@string/forgot_password_btn"
-                            android:textAppearance="@style/regular_14" />
-                    </LinearLayout>
-
+                    <TextView
+                        android:id="@+id/btn_forgot"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:text="@string/forgot_password_btn"
+                        android:textAppearance="@style/regular_14" />
                 </LinearLayout>
-
-        </RelativeLayout>
+            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
-
 
 
 </layout>

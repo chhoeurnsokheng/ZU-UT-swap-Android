@@ -22,6 +22,14 @@ class TermConditionActivity :
 
                 imgBack.setOnClickListener { finish() }
 
+                btnNext.isEnabled = false
+
+                agreeTerm.setOnClickListener{
+                    btnNext.isEnabled = agreeTerm.isChecked
+
+                }
+
+
                 btnNext.setOnClickListener {
                     val intent = Intent(UTSwapApp.instance, IdTypeActivity::class.java)
                     startActivity(intent)

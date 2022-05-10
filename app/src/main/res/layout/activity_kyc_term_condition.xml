@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
+
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".screens.kyc.termConditionScreen.TermConditionActivity"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:context=".screens.kyc.termConditionScreen.TermConditionActivity">
 
         <LinearLayout
             android:id="@+id/tool_bar"
@@ -14,8 +15,8 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:paddingStart="@dimen/dimen_10"
-            android:paddingEnd="@dimen/dimen_10"
-            android:paddingTop="@dimen/dimen_10">
+            android:paddingTop="@dimen/dimen_10"
+            android:paddingEnd="@dimen/dimen_10">
 
             <ImageView
                 android:id="@+id/img_back"
@@ -36,11 +37,10 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/avenirnextcy_medium"
                 android:gravity="center"
                 android:text="@string/terms_and_conditions"
-                android:textColor="@color/color_main"
-                android:textSize="@dimen/font_size_20" />
+                android:textAppearance="@style/medium_20"
+                android:textColor="@color/color_main" />
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
@@ -48,13 +48,15 @@
                 android:layout_marginStart="@dimen/dimen_15"
                 android:layout_marginTop="@dimen/dimen_10"
                 android:layout_marginEnd="@dimen/dimen_15"
+                android:layout_marginBottom="@dimen/dimen_120"
                 android:elevation="@dimen/dimen_16"
                 app:cardCornerRadius="@dimen/dimen_10">
 
                 <ScrollView
                     android:layout_width="match_parent"
-                    android:layout_height="510dp"
+                    android:layout_height="match_parent"
                     android:backgroundTint="@color/white"
+                    android:fillViewport="true"
                     android:overScrollMode="never"
                     android:paddingHorizontal="15dp"
                     android:paddingVertical="10dp"
@@ -62,65 +64,62 @@
 
                     <TextView
                         android:id="@+id/txt_content"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Content Loading" />
+                        android:text="content loading"
+                        android:textAppearance="@style/regular_12" />
 
                 </ScrollView>
 
             </androidx.cardview.widget.CardView>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dimen_10"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <CheckBox
-                    android:id="@+id/checkbox"
-                    android:layout_width="@dimen/dimen_32"
-                    android:layout_height="wrap_content" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dimen_2"
-                    android:fontFamily="@font/avenirnextcy_regular"
-                    android:text="@string/i_agree_to_the_terms_and_conditions" />
-
-            </LinearLayout>
-
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/btn_next"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dimen_50"
+            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="@dimen/dimen_15"
-            android:layout_marginEnd="@dimen/dimen_15"
-            android:layout_marginBottom="@dimen/dimen_20"
-            android:background="@drawable/bg_circular"
-            android:gravity="center">
+            android:orientation="vertical">
 
-            <TextView
+            <CheckBox
+                android:id="@+id/agreeTerm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:fontFamily="@font/avenirnextcyr_bold"
-                android:text="@string/next"
-                android:textColor="@color/white"
-                android:textSize="@dimen/font_size_18" />
+                android:layout_gravity="left"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:text="I agree to the terms and conditions."
+                android:textAppearance="@style/regular_12"
+                android:textColor="@color/secondary_text" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dimen_5"
-                android:src="@drawable/ic_baseline_arrow_forward_24"
-                app:tint="@color/white" />
+            <LinearLayout
+                android:id="@+id/btn_next"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_50"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="@dimen/dimen_15"
+                android:layout_marginEnd="@dimen/dimen_15"
+                android:layout_marginBottom="@dimen/dimen_20"
+                android:background="@drawable/bg_circular_term_condition"
+                android:gravity="center">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/next"
+                    android:textAppearance="@style/bold_18"
+                    android:textColor="@color/white" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_5"
+                    android:src="@drawable/ic_baseline_arrow_forward_24"
+                    app:tint="@color/white" />
+            </LinearLayout>
         </LinearLayout>
+
 
     </RelativeLayout>
 </layout>
