@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
 <<<<<<< HEAD
+<<<<<<< HEAD
         <entry key="..\:/Users/User/Desktop/master/ut-swap-android/app/src/main/res/layout/activity_kyc_id_verification.xml" value="0.264" />
         <entry key="app/src/main/res/drawable/bg_circular_term_condition.xml" value="0.1095" />
         <entry key="app/src/main/res/drawable/ic_baseline_access_time_filled_24.xml" value="0.1" />
@@ -13,7 +14,11 @@
         <entry key="app/src/main/res/drawable/ic_check.xml" value="0.1095" />
         <entry key="app/src/main/res/drawable/ic_crossed.xml" value="0.1095" />
 =======
+=======
+        <entry key="..\:/Users/User/Desktop/kyc_id_type/ut-swap-android/app/src/main/res/layout/activity_kyc_camera_selfie.xml" value="0.17552083333333332" />
+>>>>>>> 6cc09dbbdf4b08dc976a853964c63cd4844c1a84
         <entry key="..\:/Users/User/Desktop/kyc_id_type/ut-swap-android/app/src/main/res/layout/activity_kyc_id_type.xml" value="0.19947916666666668" />
+        <entry key="..\:/Users/User/Desktop/kyc_id_type/ut-swap-android/app/src/main/res/layout/activity_kyc_selfie_holding.xml" value="0.2" />
         <entry key="..\:/Users/User/Desktop/kyc_id_type/ut-swap-android/app/src/main/res/layout/fragment_kyc_national_id.xml" value="0.264" />
         <entry key="..\:/Users/User/Desktop/kyc_id_type/ut-swap-android/app/src/main/res/layout/fragment_kyc_passport.xml" value="0.1765625" />
 >>>>>>> 7da9d86bd4b20743e1db783f20fa9ee20275ec8b
