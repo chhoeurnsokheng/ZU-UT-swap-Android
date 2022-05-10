@@ -8,10 +8,14 @@
         <entry key="..\:/Users/Sreyleak/AndroidStudioProjects/UT_SWAP_APP_Kotlin/ut-swap-android/app/src/main/res/drawable/bg_splashscreen.xml" value="0.1565" />
         <entry key="..\:/Users/Sreyleak/AndroidStudioProjects/UT_SWAP_APP_Kotlin/ut-swap-android/app/src/main/res/drawable/ic_crossed.xml" value="0.154" />
         <entry key="..\:/Users/Sreyleak/AndroidStudioProjects/UT_SWAP_APP_Kotlin/ut-swap-android/app/src/main/res/drawable/kyc_circle_prompt.xml" value="0.1565" />
+        <entry key="..\:/Users/Sreyleak/AndroidStudioProjects/UT_SWAP_APP_Kotlin/ut-swap-android/app/src/main/res/layout/activity_kyc_camera_id_card.xml" value="0.11639492753623189" />
+        <entry key="..\:/Users/Sreyleak/AndroidStudioProjects/UT_SWAP_APP_Kotlin/ut-swap-android/app/src/main/res/layout/activity_kyc_camera_selfie.xml" value="0.22083333333333333" />
+        <entry key="..\:/Users/Sreyleak/AndroidStudioProjects/UT_SWAP_APP_Kotlin/ut-swap-android/app/src/main/res/layout/activity_kyc_id_type.xml" value="0.22083333333333333" />
         <entry key="..\:/Users/Sreyleak/AndroidStudioProjects/UT_SWAP_APP_Kotlin/ut-swap-android/app/src/main/res/layout/activity_kyc_id_verification.xml" value="0.10696266397578204" />
-        <entry key="..\:/Users/Sreyleak/AndroidStudioProjects/UT_SWAP_APP_Kotlin/ut-swap-android/app/src/main/res/layout/activity_kyc_prompt.xml" value="0.22083333333333333" />
+        <entry key="..\:/Users/Sreyleak/AndroidStudioProjects/UT_SWAP_APP_Kotlin/ut-swap-android/app/src/main/res/layout/activity_kyc_prompt.xml" value="0.2" />
         <entry key="..\:/Users/Sreyleak/AndroidStudioProjects/UT_SWAP_APP_Kotlin/ut-swap-android/app/src/main/res/layout/activity_kyc_selfie_holding.xml" value="0.22083333333333333" />
         <entry key="..\:/Users/Sreyleak/AndroidStudioProjects/UT_SWAP_APP_Kotlin/ut-swap-android/app/src/main/res/layout/activity_kyc_term_condition.xml" value="0.2" />
+        <entry key="..\:/Users/Sreyleak/AndroidStudioProjects/UT_SWAP_APP_Kotlin/ut-swap-android/app/src/main/res/layout/activity_kyc_verification.xml" value="0.264" />
         <entry key="..\:/Users/Sreyleak/AndroidStudioProjects/UT_SWAP_APP_Kotlin/ut-swap-android/app/src/main/res/layout/activity_privacy_term.xml" value="0.22083333333333333" />
         <entry key="..\:/Users/Sreyleak/AndroidStudioProjects/UT_SWAP_APP_Kotlin/ut-swap-android/app/src/main/res/layout/activity_security_new_password.xml" value="0.22083333333333333" />
         <entry key="..\:/Users/Sreyleak/AndroidStudioProjects/UT_SWAP_APP_Kotlin/ut-swap-android/app/src/main/res/layout/activity_security_reset_password.xml" value="0.264" />

@@ -7,6 +7,7 @@ import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityKycTermConditionBinding
+import com.zillennium.utswap.screens.kyc.PromptScreen.PromptActivity
 import com.zillennium.utswap.screens.kyc.idTypeScreen.IdTypeActivity
 import java.io.IOException
 
@@ -31,7 +32,7 @@ class TermConditionActivity :
 
                 }
                 btnNext.setOnClickListener {
-                    val intent = Intent(UTSwapApp.instance, IdTypeActivity::class.java)
+                    val intent = Intent(UTSwapApp.instance, PromptActivity::class.java)
                     startActivity(intent)
                 }
 
@@ -107,4 +108,7 @@ If You have any inquiry, special request or assistance with regard to any of the
             // Must be safe
         }
     }
+
+
+
 }

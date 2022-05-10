@@ -33,7 +33,7 @@ class VerificationActivity():
                 imgBack.setOnClickListener { finish() }
 
                 btnNext.setOnClickListener {
-                    val intent = Intent(UTSwapApp.instance, NewPasswordActivity::class.java)
+                    val intent = Intent(UTSwapApp.instance, TermConditionActivity::class.java)
                     startActivity(intent)
                 }
 

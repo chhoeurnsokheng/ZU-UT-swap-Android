@@ -223,6 +223,10 @@
             android:exported="false"
             android:label="@string/scan_qrcode"
             android:screenOrientation="portrait" />
+
+        <activity
+            android:name="com.zillennium.utswap.screens.kyc.PromptScreen.PromptActivity"
+            android:exported="false" />
         <activity
             android:name="com.zillennium.utswap.screens.system.searchScreen.SearchActivity"
             android:exported="false"
@@ -304,6 +308,10 @@
             android:label="@string/withdrawal"
             android:screenOrientation="portrait" />
         <!--End Activity Wallet Tab-->
+
+
+        <!--  Promt Activity-->
+
 
         <!--Activity Privacy-->
         <activity
