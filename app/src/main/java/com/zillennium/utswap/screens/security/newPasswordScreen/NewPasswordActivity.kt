@@ -2,6 +2,8 @@ package com.zillennium.utswap.screens.security.newPasswordScreen
 
 import android.content.Intent
 import android.content.res.ColorStateList
+import android.text.Editable
+import android.text.TextWatcher
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.view.View
@@ -11,6 +13,7 @@ import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivitySecurityNewPasswordBinding
 import com.zillennium.utswap.screens.navbar.navbar.NavbarActivity
 import com.zillennium.utswap.screens.security.signInScreen.SignInActivity
+import com.zillennium.utswap.screens.security.verificationScreen.VerificationActivity
 import java.io.IOException
 
 class NewPasswordActivity :
@@ -27,36 +30,90 @@ class NewPasswordActivity :
 
                 imgBack.setOnClickListener { finish() }
 
+
                 btnNext.setOnClickListener {
-//                    val pass = inputPassword.text.toString()
-//                    val confirmPass = inputConfirmPassword.text.toString()
-
-//                    /** is password not much */
-//                    if (pass != confirmPass) {
-//                        txtErrorPasswordMessage.visibility = View.VISIBLE
-//                        inputPassword.backgroundTintList =
-//                            ColorStateList.valueOf(resources.getColor(R.color.main_red))
-//                        inputConfirmPassword.backgroundTintList =
-//                            ColorStateList.valueOf(resources.getColor(R.color.main_red))
-//                        false
-//                    } else {
-//                        inputPassword.backgroundTintList =
-//                            ColorStateList.valueOf(resources.getColor(R.color.secondary_text))
-//                        inputConfirmPassword.backgroundTintList =
-//                            ColorStateList.valueOf(resources.getColor(R.color.secondary_text))
-//                        txtErrorPasswordMessage.visibility = View.GONE
-//                        val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
-//                        startActivity(intent)
-//                        true
-//                    }
+                    var isHaveError = false
+                    txtPasswordMessage.text = "Invalid Email or Password"
+                    if (inputPassword.text.toString().isEmpty()) {
+                        txtPasswordMessage.visibility = View.VISIBLE
+                        inputPassword.backgroundTintList =
+                            ColorStateList.valueOf(resources.getColor(R.color.red))
+                        isHaveError = true
+                    }
+                    if (inputConfirmPassword.text.toString().isEmpty()) {
+                        txtPasswordMessage.visibility = View.VISIBLE
+                        inputConfirmPassword.backgroundTintList =
+                            ColorStateList.valueOf(resources.getColor(R.color.red))
+                        isHaveError = true
+                    }
+                    if (isHaveError) {
+                        return@setOnClickListener
+                    } else {
+                        if(inputPassword.text.toString() != inputConfirmPassword.text.toString()){
+                            txtPasswordMessage.text = "Password didn't match"
+                            txtPasswordMessage.visibility = View.VISIBLE
+                        }else{
+                           txtPasswordMessage.visibility = View.GONE
+                            val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
+                            startActivity(intent)
+                        }
+                    }
                 }
+                inputPassword.addTextChangedListener(object : TextWatcher {
+                    override fun beforeTextChanged(
+                        charSequence: CharSequence,
+                        i: Int,
+                        i1: Int,
+                        i2: Int
+                    ) {
+                    }
 
+                    override fun onTextChanged(
+                        charSequence: CharSequence,
+                        i: Int,
+                        i1: Int,
+                        i2: Int
+                    ) {
+                    }
+
+                    override fun afterTextChanged(editable: Editable) {
+                        txtPasswordMessage.visibility = View.GONE
+                        inputPassword.backgroundTintList =
+                            ColorStateList.valueOf(resources.getColor(R.color.secondary_text))
+
+                    }
+                })
+
+                inputConfirmPassword.addTextChangedListener(object : TextWatcher {
+                    override fun beforeTextChanged(
+                        charSequence: CharSequence,
+                        i: Int,
+                        i1: Int,
+                        i2: Int
+                    ) {
+                    }
+
+                    override fun onTextChanged(
+                        charSequence: CharSequence,
+                        i: Int,
+                        i1: Int,
+                        i2: Int
+                    ) {
+                    }
+
+                    override fun afterTextChanged(editable: Editable) {
+                        txtPasswordMessage.visibility = View.GONE
+                        inputConfirmPassword.backgroundTintList =
+                            ColorStateList.valueOf(resources.getColor(R.color.secondary_text))
+                    }
+                })
             }
             // Code
         } catch (error: Exception) {
             // Must be safe
         }
     }
+
 
     //Show Hide password
     fun ShowHidePassword(view: View) {
