@@ -1,11 +1,11 @@
-package com.zillennium.utswap.screens.navbar.walletTab
+package com.zillennium.utswap.screens.navbar.homeTab
 
 import android.content.Context
 import android.os.Bundle
 import com.zillennium.utswap.bases.mvp.BaseMvpPresenter
 import com.zillennium.utswap.bases.mvp.BaseMvpView
 
-class WalletView {
+class HomeView {
     interface View : BaseMvpView {
         override fun initView()
     }

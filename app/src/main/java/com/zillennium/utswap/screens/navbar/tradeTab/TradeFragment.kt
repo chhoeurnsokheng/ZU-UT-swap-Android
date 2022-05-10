@@ -24,35 +24,6 @@ class TradeFragment :
         try {
             binding.apply {
 
-                // User
-                btnUser.setOnClickListener {
-                    val intent = Intent(UTSwapApp.instance, SettingActivity::class.java)
-                    startActivity(intent)
-                }
-
-                // Scan QR Code
-                btnQrcode.setOnClickListener {
-                    val intent = Intent(UTSwapApp.instance, ScanQRCodeActivity::class.java)
-                    startActivity(intent)
-                }
-
-                // Search
-                btnSearch.setOnClickListener {
-                    val intent = Intent(UTSwapApp.instance, SearchActivity::class.java)
-                    startActivity(intent)
-                }
-
-                // Notification
-                btnNotification.setOnClickListener {
-                    val intent = Intent(UTSwapApp.instance, NotificationActivity::class.java)
-                    startActivity(intent)
-                }
-
-                // Layout Trading
-                layTrading.setOnClickListener {
-                    val intent = Intent(UTSwapApp.instance, TradeExchangeActivity::class.java)
-                    startActivity(intent)
-                }
 
             }
 

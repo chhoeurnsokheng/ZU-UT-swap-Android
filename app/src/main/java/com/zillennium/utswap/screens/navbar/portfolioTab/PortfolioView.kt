@@ -1,11 +1,11 @@
-package com.zillennium.utswap.screens.navbar.newsTab
+package com.zillennium.utswap.screens.navbar.portfolioTab
 
 import android.content.Context
 import android.os.Bundle
 import com.zillennium.utswap.bases.mvp.BaseMvpPresenter
 import com.zillennium.utswap.bases.mvp.BaseMvpView
 
-class NewsView {
+class PortfolioView {
     interface View : BaseMvpView {
         override fun initView()
     }

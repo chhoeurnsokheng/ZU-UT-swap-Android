@@ -29,11 +29,10 @@ class NavbarActivity :
             // Passing each menu ID as a set of Ids because each
             // menu should be considered as top level destinations.
             val appBarConfiguration = AppBarConfiguration.Builder(
-                R.id.navigation_navbar_project,
-                R.id.navigation_navbar_swap,
+                R.id.navigation_navbar_home,
+                R.id.navigation_navbar_portfolio,
                 R.id.navigation_navbar_trade,
-                R.id.navigation_navbar_news,
-                R.id.navigation_navbar_wallet
+                R.id.navigation_navbar_project,
             )
                 .build()
             val navController = findNavController(this, R.id.nav_host_fragment_activity_navbar_home)

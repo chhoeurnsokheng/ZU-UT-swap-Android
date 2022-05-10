@@ -11,6 +11,7 @@ import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivitySplashScreenBinding
+import com.zillennium.utswap.screens.navbar.navbar.NavbarActivity
 import com.zillennium.utswap.screens.system.welcomeScreen.WelcomeActivity
 
 
@@ -45,7 +46,7 @@ class SplashScreenActivity :
 
 
                 Handler().postDelayed({
-                    val intent = Intent(UTSwapApp.instance, WelcomeActivity::class.java)
+                    val intent = Intent(UTSwapApp.instance, NavbarActivity::class.java)
                     startActivity(intent)
                     finish()
                 }, 1000)

@@ -24,50 +24,7 @@ class ProjectFragment :
         try {
             binding.apply {
 
-                btnUser.setOnClickListener {
-                    startActivity(
-                        Intent(
-                            UTSwapApp.instance,
-                            SettingActivity::class.java
-                        )
-                    )
-                }
 
-                btnQrcode.setOnClickListener {
-                    startActivity(
-                        Intent(
-                            UTSwapApp.instance,
-                            ScanQRCodeActivity::class.java
-                        )
-                    )
-                }
-
-                btnSearch.setOnClickListener {
-                    startActivity(
-                        Intent(
-                            UTSwapApp.instance,
-                            SearchActivity::class.java
-                        )
-                    )
-                }
-
-                btnNotification.setOnClickListener {
-                    startActivity(
-                        Intent(
-                            UTSwapApp.instance,
-                            NotificationActivity::class.java
-                        )
-                    )
-                }
-
-                layProject.setOnClickListener {
-                    startActivity(
-                        Intent(
-                            UTSwapApp.instance,
-                            ProjectDetailActivity::class.java
-                        )
-                    )
-                }
 
             }
 

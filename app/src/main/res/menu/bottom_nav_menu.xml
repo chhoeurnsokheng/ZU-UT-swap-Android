@@ -2,14 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_navbar_project"
+        android:id="@+id/navigation_navbar_home"
         android:icon="@drawable/ic_list_check_solid"
-        android:title="@string/project" />
+        android:title="@string/home" />
 
     <item
-        android:id="@+id/navigation_navbar_swap"
+        android:id="@+id/navigation_navbar_portfolio"
         android:icon="@drawable/ic_retweet_regular"
-        android:title="@string/swap" />
+        android:title="@string/portfolio" />
 
     <item
         android:id="@+id/navigation_navbar_trade"
@@ -17,12 +17,8 @@
         android:title="@string/trade" />
 
     <item
-        android:id="@+id/navigation_navbar_news"
+        android:id="@+id/navigation_navbar_project"
         android:icon="@drawable/ic_newspaper_regular"
-        android:title="@string/news" />
-    <item
-        android:id="@+id/navigation_navbar_wallet"
-        android:icon="@drawable/ic_wallet_regular"
-        android:title="@string/wallet" />
+        android:title="@string/project" />
 
 </menu>

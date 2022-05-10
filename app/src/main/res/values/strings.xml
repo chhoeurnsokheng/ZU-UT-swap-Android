@@ -231,5 +231,6 @@
     <string name="content_loading">Content Loading</string>
     <string name="check_icon">check_icon</string>
     <string name="pending_icon">pending_icon</string>
+    <string name="portfolio">Portfolio</string>
 
 </resources>

@@ -35,8 +35,13 @@
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.246875" />
         <entry key="app/src/main/res/layout/fragment_kyc_national_id.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_kyc_passport.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_navbar_portfolio.xml" value="0.20444242973708068" />
+        <entry key="app/src/main/res/layout/fragment_navbar_project.xml" value="0.20444242973708068" />
+        <entry key="app/src/main/res/layout/fragment_navbar_trade.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_navbar_wallet.xml" value="0.20444242973708068" />
         <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.246875" />
         <entry key="app/src/main/res/layout/splash_screen.xml" value="0.16621376811594202" />
+        <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.26672210693359377" />
       </map>
     </option>
   </component>

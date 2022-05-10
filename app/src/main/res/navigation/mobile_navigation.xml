@@ -6,16 +6,16 @@
     app:startDestination="@id/navigation_navbar_trade">
 
     <fragment
-        android:id="@+id/navigation_navbar_project"
-        android:name="com.zillennium.utswap.screens.navbar.projectTab.ProjectFragment"
+        android:id="@+id/navigation_navbar_home"
+        android:name="com.zillennium.utswap.screens.navbar.homeTab.HomeFragment"
         android:label="@string/project"
-        tools:layout="@layout/fragment_navbar_project" />
+        tools:layout="@layout/fragment_navbar_home" />
 
     <fragment
-        android:id="@+id/navigation_navbar_swap"
-        android:name="com.zillennium.utswap.screens.navbar.swapTab.SwapFragment"
-        android:label="@string/swap"
-        tools:layout="@layout/fragment_navbar_swap" />
+        android:id="@+id/navigation_navbar_portfolio"
+        android:name="com.zillennium.utswap.screens.navbar.portfolioTab.PortfolioFragment"
+        android:label="@string/portfolio"
+        tools:layout="@layout/fragment_navbar_portfolio" />
 
     <fragment
         android:id="@+id/navigation_navbar_trade"
@@ -23,17 +23,10 @@
         android:label="@string/trade"
         tools:layout="@layout/fragment_navbar_trade" />
 
-
     <fragment
-        android:id="@+id/navigation_navbar_news"
-        android:name="com.zillennium.utswap.screens.navbar.newsTab.NewsFragment"
-        android:label="@string/news"
-        tools:layout="@layout/fragment_navbar_news" />
-
-    <fragment
-        android:id="@+id/navigation_navbar_wallet"
-        android:name="com.zillennium.utswap.screens.navbar.walletTab.WalletFragment"
-        android:label="@string/wallet"
-        tools:layout="@layout/fragment_navbar_wallet" />
+        android:id="@+id/navigation_navbar_project"
+        android:name="com.zillennium.utswap.screens.navbar.projectTab.ProjectFragment"
+        android:label="@string/home"
+        tools:layout="@layout/fragment_navbar_project" />
 
 </navigation>
