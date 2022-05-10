@@ -10,6 +10,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.zillennium.utswap.R
+import com.zillennium.utswap.screens.navbar.tradeTab.Trade
 
 class ProjectDetailAdapter(arrayList: ArrayList<ProjectDetail>) :
     RecyclerView.Adapter<ProjectDetailAdapter.ViewHolder>() {

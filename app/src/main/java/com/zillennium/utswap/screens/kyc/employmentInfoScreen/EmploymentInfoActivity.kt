@@ -13,6 +13,7 @@ import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityKycEmploymentInfoBinding
 import com.zillennium.utswap.screens.kyc.addressInfoScreen.AddressInfoActivity
+import com.zillennium.utswap.screens.kyc.declarationScreen.DeclarationActivity
 import java.io.IOException
 
 object info {
@@ -61,12 +62,12 @@ class EmploymentInfoActivity :
                     var isHaveError = false
                     if (etOccupation.text.toString().isEmpty()) {
                         txtErrorOccupation.visibility = View.VISIBLE
-                        etOccupation.setBackgroundTintList(ColorStateList.valueOf(resources.getColor(R.color.red)))
+                        etOccupation.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.red))
                         isHaveError = true
                     }
                     if (etCompany.text.toString().isEmpty()) {
                         txtErrorCompany.visibility = View.VISIBLE
-                        etCompany.setBackgroundTintList(ColorStateList.valueOf(resources.getColor(R.color.red)))
+                        etCompany.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.red))
                         isHaveError = true
                     }
                     if (isHaveError) {
@@ -78,7 +79,7 @@ class EmploymentInfoActivity :
                         KYCPreferences().PHONE_NUMBER = info.phone_number
                         KYCPreferences().EMAIL = info.email_emp
 
-                        val intent = Intent(UTSwapApp.instance, AddressInfoActivity::class.java)
+                        val intent = Intent(UTSwapApp.instance, DeclarationActivity::class.java)
                         startActivity(intent)
                     }
                 }
@@ -102,7 +103,7 @@ class EmploymentInfoActivity :
 
                     override fun afterTextChanged(editable: Editable) {
                         txtErrorOccupation.visibility = View.GONE
-                        etOccupation.setBackgroundTintList(ColorStateList.valueOf(resources.getColor(R.color.secondary_text)))
+                        etOccupation.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.secondary_text))
                     }
                 })
 
@@ -125,7 +126,7 @@ class EmploymentInfoActivity :
 
                     override fun afterTextChanged(editable: Editable) {
                         txtErrorCompany.visibility = View.GONE
-                        etCompany.setBackgroundTintList(ColorStateList.valueOf(resources.getColor(R.color.secondary_text)))
+                        etCompany.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.secondary_text))
                     }
                 })
             }

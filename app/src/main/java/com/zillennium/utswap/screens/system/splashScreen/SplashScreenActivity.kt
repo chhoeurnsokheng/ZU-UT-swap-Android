@@ -46,7 +46,7 @@ class SplashScreenActivity :
 
 
                 Handler().postDelayed({
-                    val intent = Intent(UTSwapApp.instance, WelcomeActivity::class.java)
+                    val intent = Intent(UTSwapApp.instance, NavbarActivity::class.java)
                     startActivity(intent)
                     finish()
                 }, 1000)

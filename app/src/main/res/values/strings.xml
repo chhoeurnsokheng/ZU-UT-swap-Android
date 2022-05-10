@@ -244,4 +244,5 @@
     <string name="passport_photo">Passport Photo</string>
     <string name="selfie_holding_national_id">Selfie Holding National ID</string>
     <string name="open_camera">Open Camera</string>
+    <string name="menu">menu</string>
 </resources>

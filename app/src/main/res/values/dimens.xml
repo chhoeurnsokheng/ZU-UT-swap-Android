@@ -6,6 +6,7 @@
     <dimen name="font_size_26">26sp</dimen>
     <dimen name="font_size_24">24sp</dimen>
     <dimen name="font_size_22">22sp</dimen>
+    <dimen name="font_size_21">21sp</dimen>
     <dimen name="font_size_20">20sp</dimen>
     <dimen name="font_size_18">18sp</dimen>
     <dimen name="font_size_16">16sp</dimen>
@@ -13,11 +14,13 @@
     <dimen name="font_size_12">12sp</dimen>
     <dimen name="font_size_10">10sp</dimen>
     <dimen name="font_size_8">8sp</dimen>
+    <dimen name="font_size_6">6sp</dimen>
 
     <!--dimens for margins/other dimensions-->
     <dimen name="dimen_0">0dp</dimen>
     <dimen name="dimen_1">1dp</dimen>
     <dimen name="dimen_2">2dp</dimen>
+    <dimen name="dimen_3">3dp</dimen>
     <dimen name="dimen_4">4dp</dimen>
     <dimen name="dimen_5">5dp</dimen>
     <dimen name="dimen_6">6dp</dimen>

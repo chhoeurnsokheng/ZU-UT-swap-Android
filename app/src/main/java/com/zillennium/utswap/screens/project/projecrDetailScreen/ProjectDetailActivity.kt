@@ -1,9 +1,7 @@
 package com.zillennium.utswap.screens.project.projecrDetailScreen
 
 import android.content.Intent
-import android.os.Bundle
 import android.view.View
-import android.widget.ImageView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.denzcoskun.imageslider.ImageSlider
@@ -15,7 +13,6 @@ import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityProjectDescriptionBinding
 import com.zillennium.utswap.screens.project.projectICOScreen.ProjectICOActivity
 import com.zillennium.utswap.screens.trade.tradeExchangeScreen.TradeExchangeActivity
-import java.io.IOException
 
 class ProjectDetailActivity :
     BaseMvpActivity<ProjectDetailView.View, ProjectDetailView.Presenter, ActivityProjectDescriptionBinding>(),

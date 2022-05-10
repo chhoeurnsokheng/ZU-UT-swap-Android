@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
@@ -8,18 +8,17 @@
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/nav_view"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="0dp"
             android:layout_marginEnd="0dp"
-            android:paddingHorizontal="10dp"
             app:labelVisibilityMode="labeled"
             android:background="@color/white"
             app:itemRippleColor="@color/transparent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:menu="@menu/bottom_nav_menu" />
+            android:layout_alignParentBottom="true"
+            app:menu="@menu/bottom_nav_menu"
+            app:itemTextAppearanceActive="@style/regular_10"
+            app:itemTextAppearanceInactive="@style/regular_10"/>
 
         <fragment
             android:id="@+id/nav_host_fragment_activity_navbar_home"
@@ -27,14 +26,71 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:defaultNavHost="true"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/nav_view"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
-            app:navGraph="@navigation/mobile_navigation" />
+            app:navGraph="@navigation/mobile_navigation"
+            android:layout_above="@id/nav_view"/>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:id="@+id/lay_verify"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="@dimen/dimen_20"
+            android:paddingTop="@dimen/dimen_20"
+            android:paddingBottom="@dimen/dimen_12"
+            android:layout_above="@id/nav_view"
+            android:background="@color/white"
+            android:gravity="center_horizontal"
+            android:visibility="visible">
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_verify"
+                android:layout_width="240dp"
+                android:layout_height="@dimen/dimen_48"
+                android:layout_marginEnd="@dimen/dimen_8"
+                android:background="@drawable/bg_circular"
+                android:hint="Verify Your Identity"
+                android:textAppearance="@style/bold_14"
+                android:textColorHint="@color/white"
+                android:layout_marginBottom="@dimen/dimen_6"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Please verify your identity to start trading."
+                android:textAppearance="@style/regular_10"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lay_auth"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/dimen_20"
+            android:paddingVertical="@dimen/dimen_26"
+            android:layout_above="@id/nav_view"
+            android:background="@color/white"
+            android:visibility="visible">
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_signIn"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_48"
+                android:layout_marginEnd="@dimen/dimen_8"
+                android:layout_weight="1"
+                android:background="@drawable/bg_circular"
+                android:hint="@string/login"
+                android:textAppearance="@style/bold_16"
+                android:textColorHint="@color/white" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_register"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_48"
+                android:layout_marginStart="@dimen/dimen_8"
+                android:layout_weight="1"
+                android:background="@drawable/bg_circular_border_button"
+                android:hint="@string/register"
+                android:textAppearance="@style/bold_16"
+                android:textColorHint="@color/color_main" />
+        </LinearLayout>
+
+
+    </RelativeLayout>
 </layout>
