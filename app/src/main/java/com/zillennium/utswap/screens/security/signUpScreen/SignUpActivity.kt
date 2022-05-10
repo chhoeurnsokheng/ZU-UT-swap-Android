@@ -58,7 +58,7 @@ class SignUpActivity :
                             txtMessage.visibility = View.VISIBLE
                         }else{
                             txtMessage.visibility = View.GONE
-                            val intent = Intent(UTSwapApp.instance, VerificationActivity::class.java)
+                            val intent = Intent(UTSwapApp.instance, com.zillennium.utswap.screens.kyc.verificationScreen.VerificationActivity::class.java)
                             startActivity(intent)
                         }
                     }
