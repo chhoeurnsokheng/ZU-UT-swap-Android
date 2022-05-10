@@ -26,7 +26,9 @@ class ResetPasswordActivity :
 
     override fun initView() {
         super.initView()
+
         try {
+
             binding.apply {
                 imgBack.setOnClickListener { finish() }
                 btnNext.setOnClickListener {
@@ -42,6 +44,7 @@ class ResetPasswordActivity :
                     }
 
                 }
+
                 inputEmail.addTextChangedListener(object : TextWatcher {
                     override fun beforeTextChanged(
                         charSequence: CharSequence,
