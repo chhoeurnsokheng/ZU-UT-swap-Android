@@ -14,12 +14,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Passport Photo"
-                android:textAppearance="@style/medium_18"/>
+                android:text="@string/passport_photo"
+                android:textAppearance="@style/medium_16"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=" *"
+                android:text="@string/star"
                 android:textColor="@color/danger"/>
         </LinearLayout>
         <LinearLayout
@@ -57,8 +57,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:text="Front"
-                android:textAppearance="@style/medium_16"
+                android:text="@string/front"
+                android:textAppearance="@style/medium_14"
                 android:layout_marginTop="@dimen/dimen_5"/>
         </LinearLayout>
 

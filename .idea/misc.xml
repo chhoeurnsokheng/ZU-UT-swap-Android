@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/User/Desktop/kyc_id_type/ut-swap-android/app/src/main/res/layout/activity_kyc_id_type.xml" value="0.19947916666666668" />
+        <entry key="..\:/Users/User/Desktop/kyc_id_type/ut-swap-android/app/src/main/res/layout/fragment_kyc_national_id.xml" value="0.264" />
+        <entry key="..\:/Users/User/Desktop/kyc_id_type/ut-swap-android/app/src/main/res/layout/fragment_kyc_passport.xml" value="0.1765625" />
         <entry key="app/src/main/res/drawable/ic_ut_swap_log.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_kyc_address_info.xml" value="0.16621376811594202" />
         <entry key="app/src/main/res/layout/activity_kyc_application.xml" value="0.16621376811594202" />
@@ -39,7 +42,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

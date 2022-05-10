@@ -221,5 +221,13 @@
     <string name="doe">DOE</string>
     <string name="indicates_required">indicates required</string>
     <string name="passport_autocomplete">Passport Auto Complete</string>
+    <string name="national_id">National ID</string>
+    <string name="passport">Passport</string>
+    <string name="id_type">ID Type</string>
+    <string name="national_id_photos">National ID Photos</string>
+    <string name="star">*</string>
+    <string name="front">Front</string>
+    <string name="back">Back</string>
+    <string name="passport_photo">Passport Photo</string>
 
 </resources>
