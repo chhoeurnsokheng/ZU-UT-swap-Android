@@ -3,7 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/User/Desktop/kyc_id_type/ut-swap-android/app/src/main/res/layout/activity_kyc_camera_selfie.xml" value="0.17552083333333332" />
         <entry key="..\:/Users/User/Desktop/kyc_id_type/ut-swap-android/app/src/main/res/layout/activity_kyc_id_type.xml" value="0.19947916666666668" />
+        <entry key="..\:/Users/User/Desktop/kyc_id_type/ut-swap-android/app/src/main/res/layout/activity_kyc_selfie_holding.xml" value="0.2" />
         <entry key="..\:/Users/User/Desktop/kyc_id_type/ut-swap-android/app/src/main/res/layout/fragment_kyc_national_id.xml" value="0.264" />
         <entry key="..\:/Users/User/Desktop/kyc_id_type/ut-swap-android/app/src/main/res/layout/fragment_kyc_passport.xml" value="0.1765625" />
         <entry key="app/src/main/res/drawable/ic_ut_swap_log.xml" value="0.1" />
