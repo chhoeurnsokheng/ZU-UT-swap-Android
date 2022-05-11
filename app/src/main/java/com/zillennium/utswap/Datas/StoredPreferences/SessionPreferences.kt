@@ -7,6 +7,8 @@ class SessionPreferences: BaseStoredPreferences(UTSwapApp.instance, "SessionPref
 
     var SESSION_ID by intPref()
     var SESSION_USERNAME by stringPref()
+    var SESSION_PASSWORD by stringPref()
+    var SESSION_KYC by booleanPref(defaultValue = false)
     var SESSION_TOKEN by stringPref()
     var SESSION_EXPIRED by stringPref()
 

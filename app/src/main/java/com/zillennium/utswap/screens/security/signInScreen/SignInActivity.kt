@@ -22,6 +22,7 @@ import android.widget.TextView
 import android.widget.Toast
 import com.google.android.material.color.ColorRoles
 import com.zillennium.utswap.Datas.StoredPreferences.KYCPreferences
+import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.BaseStoredPreferences
@@ -60,9 +61,6 @@ class SignInActivity :
             IdNeteworkConnection()
             binding.apply {
                 imgBack.setOnClickListener { finish() }
-//                   if (!checkWifiOnAndConnected()) {
-//
-//                    }
 
                 btnForgot.setOnClickListener {
                     val intent = Intent(UTSwapApp.instance, ResetPasswordActivity::class.java)
@@ -88,11 +86,13 @@ class SignInActivity :
                             ColorStateList.valueOf(resources.getColor(R.color.red))
                         isHaveError = true
                     } else {
+                        SessionPreferences().SESSION_USERNAME = textInputEmail.text.toString()
                         txtMessage.visibility = View.GONE
-                        val intent = Intent(UTSwapApp.instance, SignUpActivity::class.java)
-                        startActivity(intent)
+                        onBackPressed()
+//                        val intent = Intent(UTSwapApp.instance, SignUpActivity::class.java)
+//                        startActivity(intent)
+                    }
                 }
-            }
             textInputEmail.addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(
                     charSequence: CharSequence,
@@ -196,18 +196,18 @@ private fun IdNeteworkConnection() {
 //        }
 //    }
 
-override fun onBackPressed() {
-    if (doubleBackToExitPressedOnce) {
-        super.onBackPressed()
-        return
-    }
-    this.doubleBackToExitPressedOnce = true
-    Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show()
-    Handler(Looper.getMainLooper()).postDelayed(
-        { doubleBackToExitPressedOnce = false },
-        2000
-    )
-}
+//override fun onBackPressed() {
+//    if (doubleBackToExitPressedOnce) {
+//        super.onBackPressed()
+//        return
+//    }
+//    this.doubleBackToExitPressedOnce = true
+//    Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show()
+//    Handler(Looper.getMainLooper()).postDelayed(
+//        { doubleBackToExitPressedOnce = false },
+//        2000
+//    )
+//}
 
 fun ShowHidePass(view: View) {
     binding.apply {

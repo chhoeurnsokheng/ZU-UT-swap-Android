@@ -51,7 +51,6 @@ class TradeFragment :
                     1.68,
                     1.68
                 )
-
                 val volume = intArrayOf(
                     16800,
                     168,
@@ -74,7 +73,6 @@ class TradeFragment :
                     )
                     tradeArrayList.add(trade)
                 }
-
                 for (i in project.indices) {
                     val trade = Trade(
                         project[i],
@@ -84,9 +82,10 @@ class TradeFragment :
                     )
                     tradeArrayList.add(trade)
                 }
-
                 rvTrade.layoutManager = LinearLayoutManager(UTSwapApp.instance)
                 rvTrade.adapter = TradeAdapter(tradeArrayList)
+
+
             }
 
         } catch (error: Exception) {
