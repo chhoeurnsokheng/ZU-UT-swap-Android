@@ -30,16 +30,17 @@ class NewPasswordActivity :
 
                 imgBack.setOnClickListener { finish() }
 
-
                 btnNext.setOnClickListener {
                     var isHaveError = false
                     txtPasswordMessage.text = "Invalid Email or Password"
+
                     if (inputPassword.text.toString().isEmpty()) {
                         txtPasswordMessage.visibility = View.VISIBLE
                         inputPassword.backgroundTintList =
                             ColorStateList.valueOf(resources.getColor(R.color.red))
                         isHaveError = true
                     }
+
                     if (inputConfirmPassword.text.toString().isEmpty()) {
                         txtPasswordMessage.visibility = View.VISIBLE
                         inputConfirmPassword.backgroundTintList =
@@ -114,8 +115,7 @@ class NewPasswordActivity :
         }
     }
 
-
-    //Show Hide password
+    //Show Hide Password
     fun ShowHidePassword(view: View) {
         binding.apply {
             if (view.id == R.id.show_pass_btn) {
@@ -133,8 +133,8 @@ class NewPasswordActivity :
         }
     }
 
-    //Show Hide confirm password
-    fun ShowHidePassConfirmPassword(view: View) {
+    //Show Hide Confirm Password
+    fun ShowHideConfirmPassword(view: View) {
         binding.apply {
             if (view.id == R.id.show_confirm_pass_btn) {
                 if (inputConfirmPassword.transformationMethod.equals(PasswordTransformationMethod.getInstance())

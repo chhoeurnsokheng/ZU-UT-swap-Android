@@ -30,15 +30,17 @@ class ResetPasswordActivity :
 
         try {
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 699c71dcf2d8dc108768d97b916da9b45c7b4ba8
             binding.apply {
                 imgBack.setOnClickListener { finish() }
                 btnNext.setOnClickListener {
                     var isHaveError = false
                     if (inputEmail.text.toString().isEmpty()) {
                         textEmpty.visibility = View.VISIBLE
-                        inputEmail.backgroundTintList =
-                            ColorStateList.valueOf(resources.getColor(R.color.red))
+                        inputEmail.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.red))
                         isHaveError = true
                     }
                     else{
@@ -46,6 +48,7 @@ class ResetPasswordActivity :
                         startActivity(intent)
                     }
                 }
+
                 inputEmail.addTextChangedListener(object : TextWatcher {
                     override fun beforeTextChanged(
                         charSequence: CharSequence,
@@ -65,12 +68,10 @@ class ResetPasswordActivity :
 
                     override fun afterTextChanged(editable: Editable) {
                         textEmpty.visibility = View.GONE
-                        inputEmail.backgroundTintList =
-                            ColorStateList.valueOf(resources.getColor(R.color.secondary_text))
+                        inputEmail.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.secondary_text))
                     }
                 })
             }
-
             // Code
         } catch (error: Exception) {
             // Must be safe
