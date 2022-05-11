@@ -3,7 +3,6 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-<<<<<<< HEAD
         <entry key="..\:/Users/User/Desktop/master/ut-swap-android/app/src/main/res/layout/activity_kyc_id_verification.xml" value="0.264" />
         <entry key="app/src/main/res/drawable-v24/bg_card.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/bg_border_green_correct.xml" value="0.1" />
@@ -20,16 +19,10 @@
         <entry key="app/src/main/res/drawable/ic_baseline_wifi_off_24.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_check.xml" value="0.1095" />
         <entry key="app/src/main/res/drawable/ic_crossed.xml" value="0.1095" />
-=======
-        <entry key="..\:/Users/User/Desktop/application/ut-swap-android/app/src/main/res/layout/activity_kyc_application.xml" value="0.27447916666666666" />
-        <entry key="..\:/Users/User/Desktop/application/ut-swap-android/app/src/main/res/layout/activity_kyc_application_approved.xml" value="0.27447916666666666" />
-        <entry key="..\:/Users/User/Desktop/approved/ut-swap-android/app/src/main/res/drawable/bg_circular_condition.xml" value="0.138" />
-        <entry key="..\:/Users/User/Desktop/approved/ut-swap-android/app/src/main/res/layout/activity_kyc_application_approved.xml" value="0.27447916666666666" />
->>>>>>> 22b0e92c565b3dc1035651aa46bf514bbf0e6bed
         <entry key="app/src/main/res/drawable/ic_ut_swap_log.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_kyc_address_info.xml" value="0.16621376811594202" />
         <entry key="app/src/main/res/layout/activity_kyc_application.xml" value="0.16621376811594202" />
-        <entry key="app/src/main/res/layout/activity_kyc_application_approved.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_kyc_application_approved.xml" value="0.16351318359375" />
         <entry key="app/src/main/res/layout/activity_kyc_camera.xml" value="0.16621376811594202" />
         <entry key="app/src/main/res/layout/activity_kyc_camera_id_card.xml" value="0.10364583333333334" />
         <entry key="app/src/main/res/layout/activity_kyc_camera_selfie.xml" value="0.10364583333333334" />

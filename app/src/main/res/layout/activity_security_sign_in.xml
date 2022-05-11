@@ -47,7 +47,6 @@
                 android:layout_marginTop="@dimen/dimen_20"
                 android:hint="@string/email_or_phone_number"
                 android:inputType="text"
-                android:maxLength="15"
                 android:paddingBottom="@dimen/dimen_25"
                 android:textAppearance="@style/regular_16" />
 
@@ -62,7 +61,7 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/password"
                     android:inputType="textPassword"
-                    android:maxLength="15"
+                    android:maxLength="8"
                     android:paddingBottom="@dimen/dimen_25"
                     android:textAppearance="@style/regular_16" />
 
@@ -96,7 +95,7 @@
                 android:layout_marginTop="@dimen/dimen_20"
                 android:background="@color/main_red"
                 android:paddingVertical="@dimen/dimen_8"
-                android:text="Invalid Login or Password"
+                android:text="@string/invalid_login_or_password"
                 android:textAlignment="center"
                 android:textAppearance="@style/regular_14"
                 android:textColor="@color/white"
@@ -114,7 +113,8 @@
                 <ImageView
                     android:id="@+id/imageWifi"
                     android:layout_width="@dimen/dimen_30"
-                    android:layout_height="@dimen/dimen_30" />
+                    android:layout_height="@dimen/dimen_30"
+                    android:backgroundTint="@color/white" />
 
                 <TextView
                     android:id="@+id/textView"
@@ -140,8 +140,7 @@
                     android:background="@drawable/bg_circular"
                     android:hint="@string/sign_in"
                     android:textAppearance="@style/bold_18"
-                    android:textColorHint="@color/white"
-                    tools:ignore="OnClick" />
+                    android:textColorHint="@color/white" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
