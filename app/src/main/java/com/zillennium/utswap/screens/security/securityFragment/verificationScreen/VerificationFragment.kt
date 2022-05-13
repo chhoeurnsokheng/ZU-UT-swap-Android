@@ -1,11 +1,18 @@
 package com.zillennium.utswap.screens.security.securityFragment.verificationScreen
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.os.CountDownTimer
+import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
+import android.view.inputmethod.InputMethodManager
+import android.widget.TextView
+import android.widget.Toast
+import androidx.core.view.children
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -22,7 +29,9 @@ class VerificationFragment():
     override val layoutResource: Int = R.layout.fragment_security_verification
 
     private var countDownTimer: CountDownTimer? = null
+    private val timeLeftInMilliseconds: Long = 120000 //120 second = 120000
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     override fun initView() {
         super.initView()
         try {
@@ -32,130 +41,142 @@ class VerificationFragment():
                     findNavController().popBackStack()
                 }
 
-                btnNext.setOnClickListener {
-                    when(arguments?.getString("title")){
-                        "sign in" -> {
-                            activity?.finish()
-                        }
-                        "reset password" -> {
-                            findNavController().navigate(R.id.action_to_new_password_security_fragment)
-                        }
-                        "register" -> {
-                            findNavController().navigate(R.id.action_to_term_condition_security_fragment)
-                        }
+                startTimer()
+
+                layoutCount.setOnClickListener() {
+                    linearCountdown.visibility = View.VISIBLE
+                    imgWrong.visibility = View.GONE
+                    imgCorrect.visibility = View.GONE
+
+                    for (child in layoutCount.children){
+                        child.background = resources.getDrawable(R.drawable.bg_corner)
+                    }
+
+                    editBox.requestFocus()
+                    val inputManager =
+                        requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                    inputManager.showSoftInput(editBox, InputMethodManager.SHOW_IMPLICIT)
+
+                }
+
+                resendCode.setOnClickListener() {
+                    stopTimer()
+                    startTimer()
+                    btnNext.isEnabled = true
+                    Toast.makeText(
+                        requireActivity(),
+                        "New code has been sent to your email!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    editBox.setText("")
+                    layoutCount.isEnabled = true
+
+                    linearCountdown.visibility = View.VISIBLE
+                    imgCorrect.visibility = View.GONE
+                    imgWrong.visibility = View.GONE
+
+                    for(child in layoutCount.children){
+                        child.background = resources.getDrawable(R.drawable.bg_corner)
                     }
                 }
 
-                setupOTPInputs()
+                editBox.addTextChangedListener(object : TextWatcher {
+                    override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
+                    override fun onTextChanged(chr: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+                        textView1.text = ""
+                        textView2.text = ""
+                        textView3.text = ""
+                        textView4.text = ""
+                        textView5.text = ""
+                        textView6.text = ""
+
+                        if (chr != null) {
+                            for (index in chr.indices) {
+                                val textInput = layoutCount.getChildAt(index) as TextView
+                                textInput.text = chr[index].toString()
+                            }
+                        }
+                    }
+
+                    override fun afterTextChanged(p0: Editable?) {}
+
+                })
+
+                btnNext.setOnClickListener {
+
+                    if (editBox.text.toString() == "111111") {
+                        imgCorrect.visibility = View.VISIBLE
+                        imgWrong.visibility = View.GONE
+                        linearCountdown.visibility = View.GONE
+                        stopTimer()
+                        for(child in layoutCount.children){
+                            child.background = resources.getDrawable(R.drawable.bg_border_green_correct)
+                        }
+
+                        when (arguments?.getString("title")) {
+                            "sign in" -> {
+                                activity?.finish()
+                            }
+                            "reset password" -> {
+                                findNavController().navigate(R.id.action_to_new_password_security_fragment)
+                            }
+                            "register" -> {
+                                findNavController().navigate(R.id.action_to_term_condition_security_fragment)
+                            }
+                        }
+
+                    } else {
+                        linearCountdown.visibility = View.GONE
+                        imgCorrect.visibility = View.GONE
+                        imgWrong.visibility = View.VISIBLE
+
+                        for(child in layoutCount.children){
+                            child.background = resources.getDrawable(R.drawable.bg_red_corner)
+                        }
+                    }
+
+//                    if (editBox.text.toString().isEmpty() || editBox.text.toString().length < 6)
+                }
             }
-
-        } catch (error: Exception) {
+        }catch (error: Exception) {
             // Must be safe
         }
     }
 
-    private fun setupOTPInputs() {
+    private fun startTimer() {
         binding.apply {
-            startTimer()
-            editBox1.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
-                override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
-                    if (charSequence.toString().trim { it <= ' ' }.isNotEmpty()) {
-                        editBox2.requestFocus()
-                    }
-                }
-
-                override fun afterTextChanged(editable: Editable) {}
-            })
-            editBox2.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
-                override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
-                    if (charSequence.toString().trim { it <= ' ' }.isNotEmpty()) {
-                        editBox3.requestFocus()
-                    } else editBox1.requestFocus()
-                }
-
-                override fun afterTextChanged(editable: Editable) {}
-            })
-            editBox3.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
-                override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
-                    if (charSequence.toString().trim { it <= ' ' }.isNotEmpty()) {
-                        editBox4.requestFocus()
-                    } else editBox2.requestFocus()
-                }
-
-                override fun afterTextChanged(editable: Editable) {}
-            })
-            editBox4.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
-                override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
-                    if (charSequence.toString().trim { it <= ' ' }.isNotEmpty()) {
-                        editBox5.requestFocus()
-                    } else editBox3.requestFocus()
-                }
-
-                override fun afterTextChanged(editable: Editable) {}
-            })
-            editBox5.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
-                override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
-                    if (charSequence.toString().trim { it <= ' ' }.isNotEmpty()) {
-                        editBox6.requestFocus()
-                    } else editBox4.requestFocus()
-                }
-
-                override fun afterTextChanged(editable: Editable) {}
-            })
-            editBox6.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
-
-                @SuppressLint("UseCompatLoadingForDrawables")
-                override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
-                    if (charSequence.toString().trim { it <= ' ' }.isNotEmpty()) {
-                        imgCorrect.visibility = View.VISIBLE
-                        linearCountdown.visibility = View.GONE
-                        editBox1.background = resources.getDrawable(R.drawable.bg_border_green_correct)
-                        editBox2.background = resources.getDrawable(R.drawable.bg_border_green_correct)
-                        editBox3.background = resources.getDrawable(R.drawable.bg_border_green_correct)
-                        editBox4.background = resources.getDrawable(R.drawable.bg_border_green_correct)
-                        editBox5.background = resources.getDrawable(R.drawable.bg_border_green_correct)
-                        editBox6.background = resources.getDrawable(R.drawable.bg_border_green_correct)
-                        stopTimer()
-                    } else {
-                        imgCorrect.visibility = View.GONE
-                        linearCountdown.visibility = View.VISIBLE
-                        editBox5.requestFocus()
-                        editBox1.background = resources.getDrawable(R.drawable.bg_corner)
-                        editBox2.background = resources.getDrawable(R.drawable.bg_corner)
-                        editBox3.background = resources.getDrawable(R.drawable.bg_corner)
-                        editBox4.background = resources.getDrawable(R.drawable.bg_corner)
-                        editBox5.background = resources.getDrawable(R.drawable.bg_corner)
-                        editBox6.background = resources.getDrawable(R.drawable.bg_corner)
-                    }
-                }
-
-                override fun afterTextChanged(editable: Editable) {}
-            })
-        }
-    }
-
-    fun startTimer() {
-        binding.apply {
-            countDownTimer = object : CountDownTimer(120000, 1000) {
+            countDownTimer = object : CountDownTimer(timeLeftInMilliseconds, 1000) {
                 @SuppressLint("SetTextI18n")
                 override fun onTick(l: Long) {
                     txtCountDown.text = "" + l / 1000
                 }
 
-                override fun onFinish() {}
+                @SuppressLint("UseCompatLoadingForDrawables")
+                override fun onFinish() {
+                    btnNext.isEnabled = false
+                    Toast.makeText(
+                        requireActivity(),
+                        "You're run out of time!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    editBox.setText("")
+                    layoutCount.isEnabled = false
+
+                    linearCountdown.visibility = View.GONE
+                    imgCorrect.visibility = View.GONE
+                    imgWrong.visibility = View.VISIBLE
+
+                    for(child in layoutCount.children){
+                        child.background = resources.getDrawable(R.drawable.bg_red_corner)
+                    }
+                }
             }.start()
         }
-
     }
 
-    fun stopTimer() {
+    private fun stopTimer() {
         countDownTimer?.cancel()
     }
 

@@ -7,6 +7,7 @@ import android.text.TextWatcher
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.view.View
+import androidx.navigation.fragment.findNavController
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
@@ -25,7 +26,9 @@ class NewPasswordFragment :
         try {
             binding.apply {
 
-                imgBack.setOnClickListener {  }
+                imgBack.setOnClickListener {
+                    findNavController().popBackStack()
+                }
 
                 btnNext.setOnClickListener {
                     var isHaveError = false
@@ -52,8 +55,7 @@ class NewPasswordFragment :
                             txtPasswordMessage.visibility = View.VISIBLE
                         }else{
                            txtPasswordMessage.visibility = View.GONE
-                            val intent = Intent(UTSwapApp.instance, SignInFragment::class.java)
-                            startActivity(intent)
+                            activity?.finish()
                         }
                     }
                 }

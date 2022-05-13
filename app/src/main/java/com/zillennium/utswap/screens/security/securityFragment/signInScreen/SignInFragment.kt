@@ -18,6 +18,7 @@ import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentSecuritySignInBinding
 import com.zillennium.utswap.screens.security.securityActivity.registerScreen.RegisterActivity
+import com.zillennium.utswap.screens.security.securityActivity.resetPasswordScreen.ResetPasswordActivity
 import com.zillennium.utswap.screens.security.securityFragment.resetPassword.ResetPasswordFragment
 import com.zillennium.utswap.screens.security.securityFragment.signInScreen.CheckNetworkConnection.CheckNetworkConnection
 
@@ -56,7 +57,7 @@ class SignInFragment :
 
                 btnForgot.setOnClickListener {
                     activity?.finish()
-                    val intent = Intent(UTSwapApp.instance, ResetPasswordFragment::class.java)
+                    val intent = Intent(UTSwapApp.instance, ResetPasswordActivity::class.java)
                     startActivity(intent)
                 }
                 btnRegister.setOnClickListener {
@@ -83,9 +84,7 @@ class SignInFragment :
                         txtMessage.visibility = View.GONE
                         SessionPreferences().SESSION_USERNAME = textInputEmail.text.toString()
 //                        findNavController().popBackStack()
-                        val title = ""
-                        val bundle = bundleOf("sign in" to title)
-                        findNavController().navigate(R.id.action_to_verification_security_fragment, bundle)
+                        findNavController().navigate(R.id.action_to_verification_security_fragment)
                     }
                 }
                 textInputEmail.addTextChangedListener(object : TextWatcher {

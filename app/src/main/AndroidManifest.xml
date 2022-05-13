@@ -41,12 +41,6 @@
             android:screenOrientation="portrait" />
 
         <!--Activity KYC-->
-
-        <activity
-            android:name="com.zillennium.utswap.screens.kyc.verificationScreen.VerificationActivity"
-            android:exported="false"
-            android:label="@string/verification"
-            android:screenOrientation="portrait" />
         <activity
             android:name="com.zillennium.utswap.screens.kyc.kycActivity.KYCActivity"
             android:exported="false"
