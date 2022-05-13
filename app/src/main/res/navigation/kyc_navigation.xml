@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/kyc_navigation.xml"
+    app:startDestination="@id/IDTypeKycFragment">
+
+    <fragment
+        android:id="@+id/IDTypeKycFragment"
+        android:name="com.zillennium.utswap.screens.kyc.kycFragment.idTypeScreen.IdTypeFragment"
+        android:label="IDTypeKycFragment"
+        tools:layout="@layout/fragment_kyc_id_type">
+        <action
+            android:id="@+id/action_to_id_verification_kyc_fragment"
+            app:destination="@id/IDVerificationKycFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_to_id_card_camera_kyc_fragment"
+            app:destination="@id/IDCardCameraKYCFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_to_selfie_camera_kyc_fragment"
+            app:destination="@id/SelfieCameraKYCFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/IDCardCameraKYCFragment"
+        android:name="com.zillennium.utswap.screens.kyc.kycFragment.idTypeScreen.camera.idCardCameraFragment.IDCardCameraFragment"
+        android:label="IDTypeKycFragment"
+        tools:layout="@layout/fragment_kyc_camera_id_card">
+        <action
+            android:id="@+id/action_to_id_type_kyc_fragment"
+            app:destination="@id/IDTypeKycFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/SelfieCameraKYCFragment"
+        android:name="com.zillennium.utswap.screens.kyc.kycFragment.idTypeScreen.camera.selfieCameraFragment.SelfieCameraFragment"
+        android:label="IDTypeKycFragment"
+        tools:layout="@layout/fragment_kyc_camera_selfie">
+        <action
+            android:id="@+id/action_to_id_type_kyc_fragment"
+            app:destination="@id/IDTypeKycFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/IDVerificationKycFragment"
+        android:name="com.zillennium.utswap.screens.kyc.kycFragment.idVerificationScreen.IDVerificationFragment"
+        android:label="IDVerificationKycFragment"
+        tools:layout="@layout/fragment_kyc_id_verification">
+        <action
+            android:id="@+id/action_to_id_selfie_holding_fragment"
+            app:destination="@id/SelfieHoldingKycFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+
+        <action
+            android:id="@+id/action_to_id_type_kyc_fragment"
+            app:destination="@id/IDTypeKycFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/SelfieHoldingKycFragment"
+        android:name="com.zillennium.utswap.screens.kyc.kycFragment.selfieHoldingScreen.SelfieHoldingFragment"
+        android:label="SelfieHoldingKycFragment"
+        tools:layout="@layout/fragment_kyc_selfie_holding">
+        <action
+            android:id="@+id/action_to_employment_kyc_fragment"
+            app:destination="@id/EmploymentInfoKycFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+        <action
+            android:id="@+id/action_to_id_verification_kyc_fragment"
+            app:destination="@id/IDVerificationKycFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/EmploymentInfoKycFragment"
+        android:name="com.zillennium.utswap.screens.kyc.kycFragment.employmentInfoScreen.EmploymentInfoFragment"
+        android:label="EmploymentInfoKycFragment"
+        tools:layout="@layout/fragment_kyc_employment_info">
+        <action
+            android:id="@+id/action_to_declaration_kyc_fragment"
+            app:destination="@id/DeclarationKycFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+        <action
+            android:id="@+id/action_to_selfie_holding_kyc_fragment"
+            app:destination="@id/SelfieHoldingKycFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/DeclarationKycFragment"
+        android:name="com.zillennium.utswap.screens.kyc.kycFragment.declarationScreen.DeclarationFragment"
+        android:label="DeclarationKycFragment"
+        tools:layout="@layout/fragment_kyc_declaration">
+        <action
+            android:id="@+id/action_to_fund_password_kyc_fragment"
+            app:destination="@id/FundPasswordKycFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+        <action
+            android:id="@+id/action_to_employment_info_kyc_fragment"
+            app:destination="@id/EmploymentInfoKycFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/FundPasswordKycFragment"
+        android:name="com.zillennium.utswap.screens.kyc.kycFragment.fundPasswordScreen.FundPasswordFragment"
+        android:label="FundPasswordKycFragment"
+        tools:layout="@layout/fragment_kyc_fund_password">
+        <action
+            android:id="@+id/action_to_contract_kyc_fragment"
+            app:destination="@id/ContractKycFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+        <action
+            android:id="@+id/action_to_declaration_fragment"
+            app:destination="@id/DeclarationKycFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/ContractKycFragment"
+        android:name="com.zillennium.utswap.screens.kyc.kycFragment.contractScreen.ContractFragment"
+        android:label="ContractKycFragment"
+        tools:layout="@layout/fragment_kyc_contract">
+        <action
+            android:id="@+id/action_to_kyc_application_kyc_fragment"
+            app:destination="@id/KycApplicationKycFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+        <action
+            android:id="@+id/action_to_fund_password_kyc_fragment"
+            app:destination="@id/FundPasswordKycFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/KycApplicationKycFragment"
+        android:name="com.zillennium.utswap.screens.kyc.kycFragment.kycApplicationScreen.KycApplicationFragment"
+        android:label="KycApplicationKycFragment"
+        tools:layout="@layout/fragment_kyc_application">
+<!--        <action-->
+<!--            android:id="@+id/action_to_id_info_kyc_fragment"-->
+<!--            app:destination="@id/IDInfoKycFragment"-->
+<!--            app:enterAnim="@anim/slide_in_right"-->
+<!--            app:exitAnim="@anim/slide_out_left"-->
+<!--            app:popEnterAnim="@anim/slide_in_left"-->
+<!--            app:popExitAnim="@anim/slide_out_right" />-->
+
+        <action
+            android:id="@+id/action_to_contract_kyc_fragment"
+            app:destination="@id/ContractKycFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpToInclusive="true"/>
+
+    </fragment>
+
+
+</navigation>

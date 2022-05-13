@@ -1,9 +1,6 @@
 package com.zillennium.utswap.screens.navbar.navbar
 
-import android.content.Context
 import android.content.Intent
-import android.os.Bundle
-import android.se.omapi.Session
 import android.util.Log
 import android.view.View.GONE
 import androidx.navigation.Navigation.findNavController
@@ -12,16 +9,13 @@ import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.zillennium.utswap.R
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityNavbarBinding
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.zillennium.utswap.Datas.StoredPreferences.KYCPreferences
 import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.UTSwapApp
-import com.zillennium.utswap.screens.kyc.idTypeScreen.IdTypeActivity
-import com.zillennium.utswap.screens.kyc.termConditionScreen.TermConditionActivity
-import com.zillennium.utswap.screens.security.signInScreen.SignInActivity
-import com.zillennium.utswap.screens.security.signUpScreen.SignUpActivity
-import com.zillennium.utswap.screens.setting.kyc.KYCActivity
-import java.io.IOException
+import com.zillennium.utswap.screens.kyc.kycActivity.KYCActivity
+import com.zillennium.utswap.screens.security.securityActivity.registerScreen.RegisterActivity
+import com.zillennium.utswap.screens.security.securityActivity.signInScreen.SignInActivity
+import com.zillennium.utswap.screens.security.securityFragment.signInScreen.SignInFragment
 
 class NavbarActivity :
     BaseMvpActivity<NavbarView.View, NavbarView.Presenter, ActivityNavbarBinding>(),
@@ -68,13 +62,13 @@ class NavbarActivity :
                 }
 
                 btnRegister.setOnClickListener {
-                    val intent = Intent(UTSwapApp.instance, SignUpActivity::class.java)
+                    val intent = Intent(UTSwapApp.instance, RegisterActivity::class.java)
                     startActivity(intent)
                 }
 
                 btnVerify.setOnClickListener {
                     KYCPreferences().clearValue()
-                    val intent = Intent(UTSwapApp.instance, IdTypeActivity::class.java)
+                    val intent = Intent(UTSwapApp.instance, KYCActivity::class.java)
                     startActivity(intent)
                 }
             }
@@ -88,6 +82,7 @@ class NavbarActivity :
     override fun onTopResumedActivityChanged(isTopResumedActivity: Boolean) {
         super.onTopResumedActivityChanged(isTopResumedActivity)
         binding.apply {
+            Log.d("1234567898", SessionPreferences().SESSION_USERNAME.toString())
             if(!SessionPreferences().SESSION_USERNAME.isNullOrEmpty()){
                 layAuth.visibility = GONE
             }

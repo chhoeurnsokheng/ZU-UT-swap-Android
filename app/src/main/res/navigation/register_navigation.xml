@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/register_navigation"
+    app:startDestination="@id/SignUpSecurityFragment">
+
+    <fragment
+        android:id="@+id/SignUpSecurityFragment"
+        android:name="com.zillennium.utswap.screens.security.securityFragment.registerScreen.RegisterFragment"
+        android:label="SignUpSecurityFragment"
+        tools:layout="@layout/fragment_security_register">
+        <action
+            android:id="@+id/action_to_verification_security_fragment"
+            app:destination="@id/VerificationSecurityFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+        <!--        <action-->
+        <!--            android:id="@+id/actionTutorials"-->
+        <!--            app:destination="@id/tutorial_graph"-->
+        <!--            app:enterAnim="@anim/slide_in_right"-->
+        <!--            app:exitAnim="@anim/slide_out_left"-->
+        <!--            app:popEnterAnim="@anim/slide_in_left"-->
+        <!--            app:popExitAnim="@anim/slide_out_right" />-->
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/VerificationSecurityFragment"
+        android:name="com.zillennium.utswap.screens.security.securityFragment.verificationScreen.VerificationFragment"
+        android:label="VerificationSecurityFragment"
+        tools:layout="@layout/fragment_security_verification">
+        <action
+            android:id="@+id/action_to_term_condition_security_fragment"
+            app:destination="@id/TermConditionSecurityFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+        <action
+            android:id="@+id/action_to_signup_security_fragment"
+            app:destination="@id/SignUpSecurityFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/TermConditionSecurityFragment"
+        android:name="com.zillennium.utswap.screens.security.securityFragment.termConditionScreen.TermConditionFragment"
+        android:label="SignUpSecurityFragment"
+        tools:layout="@layout/fragment_security_register">
+        <action
+            android:id="@+id/action_to_prompt_security_fragment"
+            app:destination="@id/PromptSecurityFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+        <action
+            android:id="@+id/action_to_verification_security_fragment"
+            app:destination="@id/VerificationSecurityFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/PromptSecurityFragment"
+        android:name="com.zillennium.utswap.screens.security.securityFragment.PromptScreen.PromptFragment"
+        android:label="SignUpSecurityFragment"
+        tools:layout="@layout/fragment_security_register">
+        <action
+            android:id="@+id/action_to_term_condition_security_fragment"
+            app:destination="@id/TermConditionSecurityFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpToInclusive="true"/>
+
+        <!--        <action-->
+        <!--            android:id="@+id/actionTutorials"-->
+        <!--            app:destination="@id/tutorial_graph"-->
+        <!--            app:enterAnim="@anim/slide_in_right"-->
+        <!--            app:exitAnim="@anim/slide_out_left"-->
+        <!--            app:popEnterAnim="@anim/slide_in_left"-->
+        <!--            app:popExitAnim="@anim/slide_out_right" />-->
+
+    </fragment>
+
+</navigation>

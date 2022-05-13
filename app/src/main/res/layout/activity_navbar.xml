@@ -25,38 +25,39 @@
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_above="@id/nav_view"
             app:defaultNavHost="true"
-            app:navGraph="@navigation/mobile_navigation"
-            android:layout_above="@id/nav_view"/>
+            app:navGraph="@navigation/mobile_navigation" />
 
 
         <LinearLayout
             android:id="@+id/lay_verify"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_above="@id/nav_view"
+            android:background="@color/white"
+            android:gravity="center_horizontal"
             android:orientation="vertical"
             android:paddingHorizontal="@dimen/dimen_20"
             android:paddingTop="@dimen/dimen_20"
             android:paddingBottom="@dimen/dimen_12"
-            android:layout_above="@id/nav_view"
-            android:background="@color/white"
-            android:gravity="center_horizontal"
             android:visibility="visible">
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_verify"
                 android:layout_width="240dp"
                 android:layout_height="@dimen/dimen_48"
-                android:layout_marginEnd="@dimen/dimen_8"
+                android:layout_marginBottom="@dimen/dimen_6"
                 android:background="@drawable/bg_circular"
                 android:hint="Verify Your Identity"
                 android:textAppearance="@style/bold_14"
-                android:textColorHint="@color/white"
-                android:layout_marginBottom="@dimen/dimen_6"/>
+                android:textColorHint="@color/white" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Please verify your identity to start trading."
-                android:textAppearance="@style/regular_10"/>
+                android:textAppearance="@style/regular_10" />
         </LinearLayout>
 
         <LinearLayout

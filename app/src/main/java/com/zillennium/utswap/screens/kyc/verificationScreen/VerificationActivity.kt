@@ -3,15 +3,11 @@ package com.zillennium.utswap.screens.kyc.verificationScreen
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.CountDownTimer
-import android.text.Editable
-import android.text.TextWatcher
-import android.view.View
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityKycVerificationBinding
-import com.zillennium.utswap.screens.kyc.termConditionScreen.TermConditionActivity
-import java.io.IOException
+import com.zillennium.utswap.screens.security.securityFragment.termConditionScreen.TermConditionFragment
 
 class VerificationActivity :
     BaseMvpActivity<VerificationView.View, VerificationView.Presenter, ActivityKycVerificationBinding>(),
@@ -30,7 +26,7 @@ class VerificationActivity :
                 imgBack.setOnClickListener { finish() }
 
                 btnNext.setOnClickListener {
-                    val intent = Intent(UTSwapApp.instance, TermConditionActivity::class.java)
+                    val intent = Intent(UTSwapApp.instance, TermConditionFragment::class.java)
                     startActivity(intent)
                 }
 

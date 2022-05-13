@@ -5,8 +5,8 @@ import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivitySystemWelcomeBinding
-import com.zillennium.utswap.screens.security.signInScreen.SignInActivity
-import com.zillennium.utswap.screens.security.signUpScreen.SignUpActivity
+import com.zillennium.utswap.screens.security.securityFragment.signInScreen.SignInFragment
+import com.zillennium.utswap.screens.security.securityFragment.registerScreen.RegisterFragment
 
 class WelcomeActivity :
     BaseMvpActivity<WelcomeView.View, WelcomeView.Presenter, ActivitySystemWelcomeBinding>(),
@@ -23,12 +23,12 @@ class WelcomeActivity :
                 supportActionBar?.hide()
 
                 btnSignIn.setOnClickListener {
-                    val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
+                    val intent = Intent(UTSwapApp.instance, SignInFragment::class.java)
                     startActivity(intent)
                 }
 
                 btnRegister.setOnClickListener {
-                    val intent = Intent(UTSwapApp.instance, SignUpActivity::class.java)
+                    val intent = Intent(UTSwapApp.instance, RegisterFragment::class.java)
                     startActivity(intent)
                 }
 
