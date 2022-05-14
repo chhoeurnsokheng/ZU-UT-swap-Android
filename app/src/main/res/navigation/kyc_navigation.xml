@@ -24,14 +24,6 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
-        <action
-            android:id="@+id/action_to_selfie_camera_kyc_fragment"
-            app:destination="@id/SelfieCameraKYCFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
-
     </fragment>
 
     <fragment
@@ -46,11 +38,15 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <argument
+            android:name="title"
+            android:defaultValue="id card front"
+            app:argType="string" />
     </fragment>
 
     <fragment
         android:id="@+id/SelfieCameraKYCFragment"
-        android:name="com.zillennium.utswap.screens.kyc.kycFragment.idTypeScreen.camera.selfieCameraFragment.SelfieCameraFragment"
+        android:name="com.zillennium.utswap.screens.kyc.idTypeScreen.camera.selfieCameraActivity.SelfieCameraFragment"
         android:label="IDTypeKycFragment"
         tools:layout="@layout/fragment_kyc_camera_selfie">
         <action
@@ -105,6 +101,14 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_to_selfie_camera_kyc_fragment"
+            app:destination="@id/SelfieCameraKYCFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
 
     </fragment>
 

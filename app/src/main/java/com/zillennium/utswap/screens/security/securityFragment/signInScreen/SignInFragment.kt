@@ -10,7 +10,6 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
@@ -19,7 +18,6 @@ import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentSecuritySignInBinding
 import com.zillennium.utswap.screens.security.securityActivity.registerScreen.RegisterActivity
 import com.zillennium.utswap.screens.security.securityActivity.resetPasswordScreen.ResetPasswordActivity
-import com.zillennium.utswap.screens.security.securityFragment.resetPassword.ResetPasswordFragment
 import com.zillennium.utswap.screens.security.securityFragment.signInScreen.CheckNetworkConnection.CheckNetworkConnection
 
 
@@ -55,6 +53,10 @@ class SignInFragment :
 //
 //                    }
 
+                showPassBtn.setOnClickListener {
+                    ShowHidePass()
+                }
+
                 btnForgot.setOnClickListener {
                     activity?.finish()
                     val intent = Intent(UTSwapApp.instance, ResetPasswordActivity::class.java)
@@ -81,7 +83,7 @@ class SignInFragment :
                             ColorStateList.valueOf(resources.getColor(R.color.red))
                         isHaveError = true
                     } else {
-                        txtMessage.visibility = View.GONE
+                        txtMessage.visibility = View.INVISIBLE
                         SessionPreferences().SESSION_USERNAME = textInputEmail.text.toString()
 //                        findNavController().popBackStack()
                         findNavController().navigate(R.id.action_to_verification_security_fragment)
@@ -105,7 +107,7 @@ class SignInFragment :
                     }
 
                     override fun afterTextChanged(editable: Editable) {
-                        txtMessage.visibility = View.GONE
+                        txtMessage.visibility = View.INVISIBLE
                         textInputEmail.backgroundTintList =
                             ColorStateList.valueOf(resources.getColor(R.color.secondary_text))
                     }
@@ -129,7 +131,7 @@ class SignInFragment :
                     }
 
                     override fun afterTextChanged(editable: Editable) {
-                        txtMessage.visibility = View.GONE
+                        txtMessage.visibility = View.INVISIBLE
                         textInputPassword.backgroundTintList =
                             ColorStateList.valueOf(resources.getColor(R.color.secondary_text))
 
@@ -202,23 +204,23 @@ class SignInFragment :
 //        )
 //    }
 
-    fun ShowHidePass(view: View) {
+    private fun ShowHidePass() {
         binding.apply {
-            if (view.id == R.id.show_pass_btn) {
-                if (textInputPassword.transformationMethod
-                        .equals(PasswordTransformationMethod.getInstance())
-                ) {
-                    showPassBtn.setImageResource(R.drawable.ic_baseline_visibility_off_24)
-                    //Show Password
-                    textInputPassword.transformationMethod =
-                        HideReturnsTransformationMethod.getInstance()
-                } else {
-                    showPassBtn.setImageResource(R.drawable.ic_baseline_visibility_24)
-                    //Hide Password
-                    textInputPassword.transformationMethod =
-                        PasswordTransformationMethod.getInstance()
-                }
+            if (textInputPassword.transformationMethod
+                    .equals(PasswordTransformationMethod.getInstance())
+            ) {
+                showPassBtn.setImageResource(R.drawable.ic_baseline_visibility_off_24)
+                //Show Password
+                textInputPassword.transformationMethod =
+                    HideReturnsTransformationMethod.getInstance()
+            } else {
+                showPassBtn.setImageResource(R.drawable.ic_baseline_visibility_24)
+                //Hide Password
+                textInputPassword.transformationMethod =
+                    PasswordTransformationMethod.getInstance()
             }
         }
     }
 }
+
+

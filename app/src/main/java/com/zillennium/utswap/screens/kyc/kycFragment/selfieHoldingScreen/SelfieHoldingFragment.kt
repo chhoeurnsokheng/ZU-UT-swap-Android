@@ -1,13 +1,12 @@
 package com.zillennium.utswap.screens.kyc.kycFragment.selfieHoldingScreen
 
-import android.content.Intent
+import android.view.View
+import androidx.core.net.toUri
 import androidx.navigation.fragment.findNavController
+import com.zillennium.utswap.Datas.StoredPreferences.KYCPreferences
 import com.zillennium.utswap.R
-import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentKycSelfieHoldingBinding
-import com.zillennium.utswap.screens.kyc.kycFragment.employmentInfoScreen.EmploymentInfoFragment
-import com.zillennium.utswap.screens.kyc.kycFragment.idTypeScreen.camera.selfieCameraFragment.SelfieCameraFragment
 
 class SelfieHoldingFragment :
     BaseMvpFragment<SelfieHoldingView.View, SelfieHoldingView.Presenter, FragmentKycSelfieHoldingBinding>(),
@@ -22,8 +21,7 @@ class SelfieHoldingFragment :
             binding.apply {
 
                 btnCameraSelfie.setOnClickListener {
-                    val intent = Intent(UTSwapApp.instance, SelfieCameraFragment::class.java)
-                    startActivity(intent)
+                    findNavController().navigate(R.id.action_to_selfie_camera_kyc_fragment)
                 }
 
                 btnNext.setOnClickListener {
@@ -32,6 +30,15 @@ class SelfieHoldingFragment :
                     findNavController().navigate(R.id.action_to_employment_kyc_fragment)
                 }
 
+                binding.imgDelete.setOnClickListener {
+                    imgDelete.visibility = View.GONE
+                    btnCameraSelfie.isClickable = true
+                    btnCameraSelfie.visibility = View.VISIBLE
+                    imgLogoCorrect.visibility = View.GONE
+                    ivSelfie.setImageResource(R.drawable.sample_selfit)
+                }
+
+
                 ivBack.setOnClickListener {
                     findNavController().popBackStack()
                 }
@@ -39,6 +46,18 @@ class SelfieHoldingFragment :
 
         } catch (error: Exception) {
             // Must be safe
+        }
+    }
+    override fun onResume() {
+        super.onResume()
+        if (!KYCPreferences().SELFIE_HOLDING.isNullOrEmpty()) {
+            binding.apply {
+                ivSelfie.setImageURI(KYCPreferences().SELFIE_HOLDING?.toUri())
+                imgLogoCorrect.visibility = View.VISIBLE
+                imgDelete.visibility = View.VISIBLE
+                btnCameraSelfie.isClickable = false
+                btnCameraSelfie.visibility = View.GONE
+            }
         }
     }
 }

@@ -27,22 +27,22 @@ class SplashScreenActivity :
 //        try {
             binding.apply {
 
-                val os = System.getProperty("os.version")   // OS version
-                val api = Build.VERSION.SDK                 // API Level
-                val device = Build.DEVICE                   // Device
-                val model = Build.MODEL                     // Model
-                val project= Build.PRODUCT                  // Product
-                val brand = Build.BRAND
-                val id = Build.ID
-
-                Log.d("imei", "hello")
-                Log.d("os", os)
-                Log.d("api", api)
-                Log.d("device", device)
-                Log.d("model", model)
-                Log.d("project", project)
-                Log.d("brand", brand)
-                Log.d("id", id)
+//                val os = System.getProperty("os.version")   // OS version
+//                val api = Build.VERSION.SDK                 // API Level
+//                val device = Build.DEVICE                   // Device
+//                val model = Build.MODEL                     // Model
+//                val project= Build.PRODUCT                  // Product
+//                val brand = Build.BRAND
+//                val id = Build.ID
+//
+//                Log.d("imei", "hello")
+//                Log.d("os", os)
+//                Log.d("api", api)
+//                Log.d("device", device)
+//                Log.d("model", model)
+//                Log.d("project", project)
+//                Log.d("brand", brand)
+//                Log.d("id", id)
 
 
                 Handler().postDelayed({

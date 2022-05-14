@@ -1,7 +1,11 @@
 package com.zillennium.utswap.screens.kyc.kycFragment.idTypeScreen.fragment.passport
 
 import android.content.Intent
+import android.view.View
+import androidx.core.net.toUri
+import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
+import com.zillennium.utswap.Datas.StoredPreferences.KYCPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
@@ -21,12 +25,34 @@ class PassportFragment :
             binding.apply {
 
                 btnPassport.setOnClickListener {
-                    findNavController().navigate(R.id.action_to_selfie_camera_kyc_fragment)
+                    val bundle = bundleOf("title" to "passport_front")
+                    findNavController().navigate(R.id.action_to_id_card_camera_kyc_fragment, bundle)
+                }
+
+                imgDeleteFront.setOnClickListener {
+                    imgPassport.setImageResource(R.drawable.ic_national_id_back)
+                    imgLogoCamera.visibility = View.VISIBLE
+                    imgLogoCorrect.visibility = View.GONE
+                    imgDeleteFront.visibility = View.GONE
+                    btnPassport.isClickable = true
                 }
 
             }
         } catch (error: Exception) {
             // Must be safe
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (!KYCPreferences().PASSPORT_FRONT.isNullOrEmpty()) {
+            binding.apply {
+                imgPassport.setImageURI(KYCPreferences().PASSPORT_FRONT?.toUri())
+                btnPassport.isClickable = false
+                imgLogoCamera.visibility = View.GONE
+                imgLogoCorrect.visibility = View.VISIBLE
+                imgDeleteFront.visibility = View.VISIBLE
+            }
         }
     }
 }

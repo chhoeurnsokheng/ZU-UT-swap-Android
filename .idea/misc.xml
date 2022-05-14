@@ -5,6 +5,8 @@
       <map>
         <entry key="../../../../../layout/custom_preview.xml" value="0.1" />
         <entry key="..\:/Users/User/Desktop/master/ut-swap-android/app/src/main/res/layout/activity_kyc_id_verification.xml" value="0.264" />
+        <entry key="app/src/main/res/drawable-anydpi/bg_correct.xml" value="0.12" />
+        <entry key="app/src/main/res/drawable-anydpi/ic_baseline_delete_24.xml" value="0.12" />
         <entry key="app/src/main/res/drawable-v24/bg_card.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/bg_border_green_correct.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/bg_bottom_menu.xml" value="0.1" />
@@ -64,6 +66,7 @@
         <entry key="app/src/main/res/layout/activity_trade_exchange.xml" value="0.11510416666666666" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.246875" />
         <entry key="app/src/main/res/layout/fragment_kyc_application.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_kyc_camera_id_card.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_kyc_camera_selfie.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_kyc_id_type.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_kyc_id_verification.xml" value="0.2056434373663959" />
@@ -72,7 +75,7 @@
         <entry key="app/src/main/res/layout/fragment_kyc_selfie_holding.xml" value="0.2056434373663959" />
         <entry key="app/src/main/res/layout/fragment_navbar_home.xml" value="0.20607097050021378" />
         <entry key="app/src/main/res/layout/fragment_navbar_portfolio.xml" value="0.20444242973708068" />
-        <entry key="app/src/main/res/layout/fragment_navbar_project.xml" value="0.20444242973708068" />
+        <entry key="app/src/main/res/layout/fragment_navbar_project.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_navbar_trade.xml" value="0.33460803059273425" />
         <entry key="app/src/main/res/layout/fragment_navbar_wallet.xml" value="0.20444242973708068" />
         <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.246875" />
@@ -81,7 +84,7 @@
         <entry key="app/src/main/res/layout/fragment_security_sign_in.xml" value="0.2056434373663959" />
         <entry key="app/src/main/res/layout/fragment_security_sign_up.xml" value="0.2056434373663959" />
         <entry key="app/src/main/res/layout/fragment_security_verification.xml" value="0.2056434373663959" />
-        <entry key="app/src/main/res/layout/item_list_trade.xml" value="0.20607097050021378" />
+        <entry key="app/src/main/res/layout/item_list_trade.xml" value="0.33187134502923976" />
         <entry key="app/src/main/res/layout/splash_screen.xml" value="0.16621376811594202" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.26672210693359377" />
       </map>

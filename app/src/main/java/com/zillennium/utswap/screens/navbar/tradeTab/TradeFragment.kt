@@ -1,6 +1,7 @@
 package com.zillennium.utswap.screens.navbar.tradeTab
 
 import android.view.View
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.zillennium.utswap.R
@@ -82,6 +83,7 @@ class TradeFragment :
                     )
                     tradeArrayList.add(trade)
                 }
+//                rvTrade.layoutManager = GridLayoutManager(UTSwapApp.instance, 2)
                 rvTrade.layoutManager = LinearLayoutManager(UTSwapApp.instance)
                 rvTrade.adapter = TradeAdapter(tradeArrayList)
 

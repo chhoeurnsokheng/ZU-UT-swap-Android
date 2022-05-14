@@ -1,12 +1,18 @@
 package com.zillennium.utswap.screens.kyc.kycFragment.idTypeScreen.fragment.nationalID
 
+import android.app.Activity.RESULT_OK
 import android.content.Intent
+import android.graphics.BitmapFactory
+import android.util.Log
+import android.view.View
+import androidx.core.net.toUri
+import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
+import com.zillennium.utswap.Datas.StoredPreferences.KYCPreferences
 import com.zillennium.utswap.R
-import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentKycNationalIdBinding
-import com.zillennium.utswap.screens.kyc.kycFragment.idTypeScreen.camera.idCardCameraFragment.IDCardCameraFragment
+
 
 class NationalIDFragment :
     BaseMvpFragment<NationalIDView.View, NationalIDView.Presenter, FragmentKycNationalIdBinding>(),
@@ -21,22 +27,58 @@ class NationalIDFragment :
             binding.apply {
 
                 btnCameraFront.setOnClickListener {
-                    findNavController().navigate(R.id.action_to_id_card_camera_kyc_fragment)
-//                    val intent = Intent(UTSwapApp.instance, IDCardCameraFragment::class.java)
-//                    intent.putExtra("sample", R.drawable.ic_national_id_front)
-//                    startActivity(intent)
+                    val bundle = bundleOf("title" to "id_card_front")
+                    findNavController().navigate(R.id.action_to_id_card_camera_kyc_fragment, bundle)
                 }
 
                 btnCameraBack.setOnClickListener {
-                    findNavController().navigate(R.id.action_to_id_card_camera_kyc_fragment)
-//                    val intent = Intent(UTSwapApp.instance, IDCardCameraFragment::class.java)
-//                    intent.putExtra("sample", R.drawable.ic_national_id_back)
-//                    startActivity(intent)
+                    val bundle = bundleOf("title" to "id_card_back")
+                    findNavController().navigate(R.id.action_to_id_card_camera_kyc_fragment, bundle)
                 }
+
+                imgDeleteFront.setOnClickListener {
+                    imgNationalFront.setImageResource(R.drawable.ic_national_id_front)
+                    imgLogoCameraFront.visibility = View.VISIBLE
+                    imgLogoCorrectFront.visibility = View.GONE
+                    imgDeleteFront.visibility = View.GONE
+                    btnCameraFront.isClickable = true
+                }
+
+                imgDeleteBack.setOnClickListener {
+                    imgNationalBack.setImageResource(R.drawable.ic_national_id_back)
+                    imgLogoCameraBack.visibility = View.VISIBLE
+                    imgLogoCorrectBack.visibility = View.GONE
+                    imgDeleteBack.visibility = View.GONE
+                    btnCameraBack.isClickable = true
+                }
+
 
             }
         } catch (error: Exception) {
             // Must be safe
         }
     }
+
+    override fun onResume() {
+        super.onResume()
+        if(!KYCPreferences().NATIONAL_ID_FRONT.isNullOrEmpty()){
+            binding.apply {
+                imgNationalFront.setImageURI(KYCPreferences().NATIONAL_ID_FRONT?.toUri())
+                btnCameraFront.isClickable = false
+                imgLogoCameraFront.visibility = View.GONE
+                imgLogoCorrectFront.visibility = View.VISIBLE
+                imgDeleteFront.visibility = View.VISIBLE
+            }
+        }
+        if(!KYCPreferences().NATIONAL_ID_BACK.isNullOrEmpty()){
+            binding.apply {
+                imgNationalBack.setImageURI(KYCPreferences().NATIONAL_ID_BACK?.toUri())
+                btnCameraBack.isClickable = false
+                imgLogoCameraBack.visibility = View.GONE
+                imgLogoCorrectBack.visibility = View.VISIBLE
+                imgDeleteBack.visibility = View.VISIBLE
+            }
+        }
+    }
+
 }

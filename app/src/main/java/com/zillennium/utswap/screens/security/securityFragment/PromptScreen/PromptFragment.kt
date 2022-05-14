@@ -30,14 +30,14 @@ class PromptFragment :
                 }
 
                 btnYes.setOnClickListener {
-                    SessionPreferences().SESSION_USERNAME = KYCPreferences().FIRST_NAME
+                    SessionPreferences().SESSION_STATUS = true
                     activity?.finish()
                     val intent = Intent(UTSwapApp.instance.baseContext, KYCActivity::class.java)
                     startActivity(intent)
                 }
 
                 btnLatter.setOnClickListener {
-                    SessionPreferences().SESSION_USERNAME = KYCPreferences().FIRST_NAME
+                    SessionPreferences().SESSION_STATUS = true
                     activity?.finish()
                 }
             }

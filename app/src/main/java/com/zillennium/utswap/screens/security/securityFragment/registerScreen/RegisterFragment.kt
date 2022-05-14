@@ -126,6 +126,8 @@ class RegisterFragment :
                     }
                 })
 
+                showPassBtn.setOnClickListener { ShowHidePassword() }
+
                 inputConfirmPassword.addTextChangedListener(object : TextWatcher {
                     override fun beforeTextChanged(
                         charSequence: CharSequence,
@@ -150,6 +152,8 @@ class RegisterFragment :
                     }
                 })
 
+                showConfirmPassBtn.setOnClickListener { ShowHidePassConfirmPassword() }
+
             }
             // Code
         } catch (error: Exception) {
@@ -158,40 +162,36 @@ class RegisterFragment :
     }
 
     //Show Hide Password
-    fun ShowHidePassword(view: View) {
+    fun ShowHidePassword() {
         binding.apply{
-            if (view.id== R.id.show_pass_btn) {
-                if (inputPassword.transformationMethod.equals(PasswordTransformationMethod.getInstance())) {
-                    showPassBtn.setImageResource(R.drawable.ic_baseline_visibility_off_24)
+            if (inputPassword.transformationMethod.equals(PasswordTransformationMethod.getInstance())) {
+                showPassBtn.setImageResource(R.drawable.ic_baseline_visibility_off_24)
 
-                    //Show Password
-                    inputPassword.transformationMethod= HideReturnsTransformationMethod.getInstance()
-                } else {
-                    showPassBtn.setImageResource(R.drawable.ic_baseline_visibility_24)
+                //Show Password
+                inputPassword.transformationMethod= HideReturnsTransformationMethod.getInstance()
+            } else {
+                showPassBtn.setImageResource(R.drawable.ic_baseline_visibility_24)
 
-                    //Hide Password
-                    inputPassword.transformationMethod= PasswordTransformationMethod.getInstance()
-                }
+                //Hide Password
+                inputPassword.transformationMethod= PasswordTransformationMethod.getInstance()
             }
         }
     }
 
     //Show Hide confirm password
-    fun ShowHidePassConfirmPassword(view: View) {
+    fun ShowHidePassConfirmPassword() {
         binding.apply{
-            if (view.id== R.id.show_confirm_pass_btn) {
-                if (inputConfirmPassword.transformationMethod.equals(PasswordTransformationMethod.getInstance())
-                ) {
-                    showConfirmPassBtn.setImageResource(R.drawable.ic_baseline_visibility_off_24)
+            if (inputConfirmPassword.transformationMethod.equals(PasswordTransformationMethod.getInstance())
+            ) {
+                showConfirmPassBtn.setImageResource(R.drawable.ic_baseline_visibility_off_24)
 
-                    //Show Password
-                    inputConfirmPassword.transformationMethod= HideReturnsTransformationMethod.getInstance()
-                } else {
-                    showConfirmPassBtn.setImageResource(R.drawable.ic_baseline_visibility_24)
+                //Show Password
+                inputConfirmPassword.transformationMethod= HideReturnsTransformationMethod.getInstance()
+            } else {
+                showConfirmPassBtn.setImageResource(R.drawable.ic_baseline_visibility_24)
 
-                    //Hide Password
-                    inputConfirmPassword.transformationMethod= PasswordTransformationMethod.getInstance()
-                }
+                //Hide Password
+                inputConfirmPassword.transformationMethod= PasswordTransformationMethod.getInstance()
             }
 
         }

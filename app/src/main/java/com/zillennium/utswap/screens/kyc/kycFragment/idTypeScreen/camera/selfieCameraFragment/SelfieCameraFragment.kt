@@ -1,10 +1,14 @@
-package com.zillennium.utswap.screens.kyc.kycFragment.idTypeScreen.camera.selfieCameraFragment
+package com.zillennium.utswap.screens.kyc.idTypeScreen.camera.selfieCameraActivity
 
 import android.Manifest
-import com.zillennium.utswap.databinding.FragmentKycCameraSelfieBinding
 import android.annotation.SuppressLint
 import android.content.ContentValues
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.net.Uri
+import android.os.Build
 import android.os.Environment
 import android.provider.MediaStore
 import android.util.DisplayMetrics
@@ -12,16 +16,23 @@ import android.util.Size
 import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
+import androidx.core.net.toFile
 import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.fragment.findNavController
 import com.google.common.util.concurrent.ListenableFuture
+import com.zillennium.utswap.Datas.StoredPreferences.KYCPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
+import com.zillennium.utswap.databinding.FragmentKycCameraSelfieBinding
+import com.zillennium.utswap.screens.kyc.kycFragment.idTypeScreen.camera.selfieCameraFragment.SelfieCameraPresenter
+import com.zillennium.utswap.screens.kyc.kycFragment.idTypeScreen.camera.selfieCameraFragment.SelfieCameraView
+import com.zillennium.utswap.utils.FileCreator
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
@@ -47,14 +58,11 @@ class SelfieCameraFragment :
 
     private val MY_CAMERA_REQUEST_CODE = 100
 
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun initView() {
         super.initView()
         try {
             binding.apply {
-
-                ivBack.setOnClickListener {
-                    findNavController().popBackStack()
-                }
 
                 if (ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
                     requestPermissions(
@@ -62,10 +70,13 @@ class SelfieCameraFragment :
                         MY_CAMERA_REQUEST_CODE
                     )
                 }
-//
-                mPreviewView = viewFinder
+
+                mPreviewView = binding.viewFinder
                 setupCamera()
 
+                // Set Passed Back
+
+                // Set Passed Back
                 ivBack.setOnClickListener {
                     findNavController().popBackStack()
                 }
@@ -86,8 +97,8 @@ class SelfieCameraFragment :
                     (this as LifecycleOwner),
                     CameraSelector.DEFAULT_FRONT_CAMERA,
                     buildPreview(),
-//                    buildImageCapture(),
-//                    buildAnalysis()
+                    buildImageCapture(),
+                    buildAnalysis()
                 )
             } catch (e: ExecutionException) {
                 // No errors need to be handled for this Future.
@@ -110,7 +121,7 @@ class SelfieCameraFragment :
         return preview
     }
 
-    private fun buildImageCapture(): UseCase? {
+    private fun buildImageCapture(): ImageCapture? {
 
 //        Display displays = binding.viewFinder.getDisplay();
         val metrics = DisplayMetrics()
@@ -123,51 +134,91 @@ class SelfieCameraFragment :
         val executor: Executor = Executors.newSingleThreadExecutor()
         btnTakePhoto = binding.btnTakePhoto
         btnTakePhoto!!.setOnClickListener {
-            val timestamp = System.currentTimeMillis()
-            val contentValues = ContentValues()
-            contentValues.put(MediaStore.MediaColumns.DISPLAY_NAME, timestamp)
-            contentValues.put(MediaStore.MediaColumns.MIME_TYPE, "image/jpeg")
-            val metadata = ImageCapture.Metadata()
-            metadata.isReversedHorizontal = true
-            val outputFileOptions = ImageCapture.OutputFileOptions.Builder(
-                requireActivity().contentResolver,
-                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                contentValues
-            ).setMetadata(metadata).build()
-            imageCapture.takePicture(
-                outputFileOptions,
-                executor,
-                object : ImageCapture.OnImageSavedCallback {
-                    override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
-                        requireActivity().runOnUiThread {
-                            @SuppressLint("SimpleDateFormat") val timeStamp =
-                                SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
-                            val imageFileName = "JPEG_" + timeStamp + "_"
-                            val storageDir = requireActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-                            try {
-                                val image = File.createTempFile(
-                                    imageFileName,  /* prefix */
-                                    ".jpg",  /* suffix */
-                                    storageDir /* directory */
-                                )
-                                if (image.exists()) {
-                                    val saveUri = outputFileResults.savedUri
-                                    val imageCamera = binding.imageCamera
-                                    imageCamera.setImageURI(saveUri)
-                                    imageCamera.visibility = View.VISIBLE
-                                    image.delete()
+            binding.progressBar.visibility = View.VISIBLE
+            btnTakePhoto!!.isClickable = false
+//            val timestamp = System.currentTimeMillis()
+//            val contentValues = ContentValues()
+//            contentValues.put(MediaStore.MediaColumns.DISPLAY_NAME, timestamp)
+//            contentValues.put(MediaStore.MediaColumns.MIME_TYPE, "image/jpeg")
+//            val metadata = ImageCapture.Metadata()
+//            metadata.isReversedHorizontal = true
+//            val outputFileOptions = ImageCapture.OutputFileOptions.Builder(
+//                contentResolver,
+//                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+//                contentValues
+//            ).setMetadata(metadata).build()
+            val photoFile = FileCreator.createTempImageFile()
+            photoFile.apply {
+                val outputOptions =
+                    this?.let { it1 -> ImageCapture.OutputFileOptions.Builder(it1).build() }
+                if (outputOptions != null) {
+                    imageCapture.takePicture(
+                        outputOptions,
+                        executor,
+                        object : ImageCapture.OnImageSavedCallback{
+                            override fun onError(exception: ImageCaptureException) {
+                            }
+
+                            override fun onImageSaved(output: ImageCapture.OutputFileResults) {
+                                val savedUri = output.savedUri ?: Uri.fromFile(photoFile)
+                                val bitmap = BitmapFactory.decodeFile(savedUri.path)
+                                val rotatedBitmap =
+                                    FileCreator.rotate(bitmap, savedUri.toFile().absolutePath ?: "")
+                                photoFile?.delete()
+                                binding.apply {
+                                    val croppedImage =
+                                        cropImage(rotatedBitmap, viewFinder,rectangles)
+                                    val path = FileCreator.saveImage(croppedImage)
+                                    requireActivity().runOnUiThread{
+                                        progressBar.visibility = View.GONE
+                                        btnTakePhoto.isClickable = true
+                                        try {
+                                            KYCPreferences().SELFIE_HOLDING = path
+                                            findNavController().popBackStack()
+                                        }catch (e: Exception){
+                                            KYCPreferences().removeValue("SELFIE_HOLDING")
+                                        }
+                                    }
                                 }
-                            } catch (e: IOException) {
-                                e.printStackTrace()
                             }
                         }
-                    }
-
-                    override fun onError(error: ImageCaptureException) {
-                        error.printStackTrace()
-                        //                        Toast.makeText(getApplication(), error.toString(), Toast.LENGTH_LONG).show();
-                    }
-                })
+                    )
+                }
+            }
+//            imageCapture.takePicture(
+//                outputFileOptions,
+//                executor,
+//                object : ImageCapture.OnImageSavedCallback {
+//                    override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
+//                        runOnUiThread {
+//                            @SuppressLint("SimpleDateFormat") val timeStamp =
+//                                SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
+//                            val imageFileName = "JPEG_" + timeStamp + "_"
+//                            val storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+//                            try {
+//                                val image = File.createTempFile(
+//                                    imageFileName,  /* prefix */
+//                                    ".jpg",  /* suffix */
+//                                    storageDir /* directory */
+//                                )
+//                                if (image.exists()) {
+//                                    val saveUri = outputFileResults.savedUri
+//                                    val imageCamera = binding.imageCamera
+//                                    imageCamera.setImageURI(saveUri)
+//                                    imageCamera.visibility = View.VISIBLE
+//                                    image.delete()
+//                                }
+//                            } catch (e: IOException) {
+//                                e.printStackTrace()
+//                            }
+//                        }
+//                    }
+//
+//                    override fun onError(error: ImageCaptureException) {
+//                        error.printStackTrace()
+//                        //                        Toast.makeText(getApplication(), error.toString(), Toast.LENGTH_LONG).show();
+//                    }
+//                })
         }
         return imageCapture
     }
@@ -181,6 +232,26 @@ class SelfieCameraFragment :
             .setBackpressureStrategy(ImageAnalysis.STRATEGY_BLOCK_PRODUCER)
             .setImageQueueDepth(10)
             .build()
+    }
+
+    private fun cropImage(bitmap: Bitmap, frame: View, reference: View): ByteArray {
+        val heightOriginal = frame.height
+        val widthOriginal = frame.width
+        val heightFrame = reference.height
+        val widthFrame = reference.width
+        val leftFrame = reference.left
+        val topFrame = reference.top
+        val heightReal = bitmap.height
+        val widthReal = bitmap.width
+        val widthFinal = widthFrame * widthReal / widthOriginal
+        val heightFinal = heightFrame * heightReal / heightOriginal
+        val leftFinal = leftFrame * widthReal / widthOriginal
+        val topFinal = topFrame * heightReal / heightOriginal
+        val bitmapFinal = Bitmap.createBitmap(
+            bitmap,
+            leftFinal, topFinal, widthFinal, heightFinal
+        )
+        return FileCreator.bitMapToBytesArray(bitmapFinal)
     }
 
     @SuppressLint("SimpleDateFormat")

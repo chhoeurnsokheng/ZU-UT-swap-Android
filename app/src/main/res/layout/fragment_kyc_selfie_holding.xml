@@ -2,107 +2,171 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="@dimen/dimen_15">
-        <ImageView
-            android:id="@+id/iv_back"
-            android:layout_width="@dimen/dimen_32"
-            android:layout_height="@dimen/dimen_32"
-            android:src="@drawable/ic_baseline_arrow_back_24"
-            app:tint="@color/color_main"/>
+        android:layout_height="match_parent">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingHorizontal="@dimen/dimen_15">
+            android:padding="@dimen/dimen_15">
+
+            <ImageView
+                android:id="@+id/iv_back"
+                android:layout_width="@dimen/dimen_32"
+                android:layout_height="@dimen/dimen_32"
+                android:src="@drawable/ic_baseline_arrow_back_24"
+                app:tint="@color/color_main" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_40"
-                android:orientation="horizontal"
-                android:layout_marginBottom="@dimen/dimen_20">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/selfie_holding_national_id"
-                    android:textAppearance="@style/medium_16" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/star"
-                    android:textColor="@color/danger"/>
-            </LinearLayout>
-
-            <ImageView
-                android:id="@+id/iv_selfie"
-                android:layout_width="220dp"
-                android:layout_height="220dp"
-                android:scaleType="centerCrop"
-                android:adjustViewBounds="true"
-                android:src="@drawable/sample_selfit"
-                android:layout_gravity="center"
-                android:layout_marginTop="@dimen/dimen_20"
-                android:layout_marginBottom="80dp"/>
-
-            <LinearLayout
-                android:id="@+id/btn_camera_selfie"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_50"
-                android:background="@drawable/bg_circular"
-                android:orientation="horizontal"
                 android:gravity="center"
-                android:paddingVertical="@dimen/dimen_15">
-                <TextView
+                android:orientation="vertical"
+                android:paddingHorizontal="@dimen/dimen_15">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_40"
+                    android:layout_marginBottom="@dimen/dimen_20"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="National ID Photos"
+                        android:textAppearance="@style/medium_18" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" *"
+                        android:textColor="@color/danger" />
+                </LinearLayout>
+
+                <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/open_camera"
-                    android:textColor="@color/white"
-                    android:textAppearance="@style/bold_18"/>
-                <ImageView
-                    android:layout_width="@dimen/dimen_20"
-                    android:layout_height="@dimen/dimen_20"
-                    android:src="@drawable/ic_camera_filled"
-                    android:layout_marginLeft="@dimen/dimen_10"/>
+                    android:gravity="center">
+
+                    <RelativeLayout
+                        android:id="@+id/container_iv_selfie"
+                        android:layout_width="300dp"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/iv_selfie"
+                            android:layout_width="300dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginHorizontal="@dimen/dimen_20"
+                            android:layout_marginTop="@dimen/dimen_20"
+                            android:layout_marginBottom="80dp"
+                            android:adjustViewBounds="true"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/sample_selfit" />
+
+                        <LinearLayout
+                            android:id="@+id/img_logo_correct"
+                            android:layout_width="@dimen/dimen_60"
+                            android:layout_height="@dimen/dimen_60"
+                            android:layout_centerInParent="true"
+                            android:background="@drawable/bg_correct"
+                            android:backgroundTint="@color/white"
+                            android:visibility="gone">
+
+                            <ImageView
+                                android:layout_width="@dimen/dimen_60"
+                                android:layout_height="@dimen/dimen_60"
+                                android:src="@drawable/ic_baseline_check_24"
+                                app:tint="@color/success" />
+
+                        </LinearLayout>
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/img_delete"
+                            android:layout_width="@dimen/dimen_30"
+                            android:layout_height="@dimen/dimen_30"
+                            android:layout_alignParentEnd="true"
+                            android:backgroundTint="@color/white"
+                            android:elevation="@dimen/dimen_10"
+                            android:layout_marginEnd="@dimen/dimen_5"
+                            android:layout_marginTop="@dimen/dimen_5"
+                            android:visibility="gone"
+                            app:cardCornerRadius="@dimen/dimen_15">
+
+                            <ImageView
+                                android:layout_width="@dimen/dimen_20"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:backgroundTint="@color/gray"
+                                android:src="@drawable/ic_baseline_delete_24"
+                                app:tint="@color/red" />
+
+                        </androidx.cardview.widget.CardView>
+
+                    </RelativeLayout>
+
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/btn_camera_selfie"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_circular"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:paddingVertical="@dimen/dimen_15">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Open Camera"
+                        android:textAppearance="@style/bold_16"
+                        android:textColor="@color/white" />
+
+                    <ImageView
+                        android:layout_width="@dimen/dimen_20"
+                        android:layout_height="@dimen/dimen_20"
+                        android:layout_marginLeft="@dimen/dimen_10"
+                        android:src="@drawable/ic_camera_filled" />
+                </LinearLayout>
+
             </LinearLayout>
+
 
         </LinearLayout>
+        <LinearLayout
+            android:id="@+id/btn_next"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_50"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="@dimen/dimen_15"
+            android:layout_marginEnd="@dimen/dimen_15"
+            android:layout_marginBottom="@dimen/dimen_20"
+            android:background="@drawable/bg_circular"
+            android:gravity="center">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/avenirnextcyr_bold"
+                android:text="@string/next"
+                android:textColor="@color/white"
+                android:textSize="@dimen/font_size_18" />
 
-    </LinearLayout>
-    <LinearLayout
-        android:id="@+id/btn_next"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dimen_50"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="@dimen/dimen_15"
-        android:layout_marginEnd="@dimen/dimen_15"
-        android:layout_marginBottom="@dimen/dimen_20"
-        android:background="@drawable/bg_circular"
-        android:gravity="center">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_5"
+                android:src="@drawable/ic_baseline_arrow_forward_24"
+                app:tint="@color/white" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:fontFamily="@font/avenirnextcyr_bold"
-            android:text="@string/next"
-            android:textColor="@color/white"
-            android:textSize="@dimen/font_size_18" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dimen_5"
-            android:src="@drawable/ic_baseline_arrow_forward_24"
-            app:tint="@color/white" />
-
-    </LinearLayout>
-</RelativeLayout>
+        </LinearLayout>
+    </RelativeLayout>
 
 </layout>

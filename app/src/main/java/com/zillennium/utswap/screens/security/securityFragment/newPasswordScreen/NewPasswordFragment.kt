@@ -8,6 +8,7 @@ import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.view.View
 import androidx.navigation.fragment.findNavController
+import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
@@ -55,6 +56,8 @@ class NewPasswordFragment :
                             txtPasswordMessage.visibility = View.VISIBLE
                         }else{
                            txtPasswordMessage.visibility = View.GONE
+
+                            SessionPreferences().SESSION_STATUS = true
                             activity?.finish()
                         }
                     }

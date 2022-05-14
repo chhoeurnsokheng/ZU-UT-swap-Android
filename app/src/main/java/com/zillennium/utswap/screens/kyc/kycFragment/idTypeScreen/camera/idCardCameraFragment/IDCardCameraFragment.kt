@@ -1,14 +1,15 @@
 package com.zillennium.utswap.screens.kyc.kycFragment.idTypeScreen.camera.idCardCameraFragment
 
 import android.Manifest
-import android.annotation.SuppressLint
-import android.content.ContentValues
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Build
-import android.os.Environment
-import android.provider.MediaStore
+import android.util.Base64.DEFAULT
+import android.util.Base64.encodeToString
 import android.util.DisplayMetrics
+import android.util.Log
 import android.util.Size
 import android.view.View
 import android.widget.ImageView
@@ -19,16 +20,17 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
-import androidx.core.content.PermissionChecker.checkSelfPermission
+import androidx.core.net.toFile
+import androidx.core.net.toUri
 import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.fragment.findNavController
 import com.google.common.util.concurrent.ListenableFuture
+import com.zillennium.utswap.Datas.StoredPreferences.KYCPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentKycCameraIdCardBinding
-import java.io.File
-import java.io.IOException
-import java.text.SimpleDateFormat
+import com.zillennium.utswap.utils.FileCreator
+import java.io.ByteArrayOutputStream
 import java.util.*
 import java.util.concurrent.ExecutionException
 import java.util.concurrent.Executor
@@ -50,13 +52,19 @@ class IDCardCameraFragment :
     private val processCameraProvider: ProcessCameraProvider? = null
 
     private val MY_CAMERA_REQUEST_CODE = 100
+    private var statusNumber : Int = 0
 
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun initView() {
         super.initView()
         try {
             binding.apply {
 
-                mPreviewView = viewFinder
+
+
+                ivBack.setOnClickListener {
+                    findNavController().popBackStack()
+                }
 
                 if (ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
                     requestPermissions(
@@ -65,25 +73,14 @@ class IDCardCameraFragment :
                     )
                 }
 
-//                val extras = intent.extras
-//                if (extras != null) {
-//                    extras.getInt("sample")
-//                    val sample = extras.getInt("sample")
-//                    setImage(sample)
-//
-//                    //The key argument here must match that used in the other activity
-//                }
-
-                setupCamera()
-
-
-                // Set Passed Back
-
-
-                // Set Passed Back
-                ivBack.setOnClickListener {
-                    findNavController().popBackStack()
+                when (arguments?.getString("title").toString()){
+                    "id_card_front" -> { ivSample.setImageResource(R.drawable.ic_national_id_front) }
+                    "id_card_back" -> { ivSample.setImageResource(R.drawable.ic_national_id_back) }
+                    "passport_front" -> { ivSample.setImageResource(R.drawable.ic_passport_front) }
                 }
+
+                mPreviewView = viewFinder
+                setupCamera()
 
             }
 
@@ -124,8 +121,8 @@ class IDCardCameraFragment :
         preview.setSurfaceProvider(mPreviewView!!.surfaceProvider)
         return preview
     }
-//
-    private fun buildImageCapture(): UseCase? {
+
+    private fun buildImageCapture(): ImageCapture? {
 
 //        Display displays = binding.viewFinder.getDisplay();
         val metrics = DisplayMetrics()
@@ -138,60 +135,72 @@ class IDCardCameraFragment :
         val executor: Executor = Executors.newSingleThreadExecutor()
         btnTakePhoto = binding.btnTakePhoto
         btnTakePhoto!!.setOnClickListener {
-            val timestamp = System.currentTimeMillis()
-            val contentValues = ContentValues()
-            contentValues.put(MediaStore.MediaColumns.DISPLAY_NAME, timestamp)
-            contentValues.put(MediaStore.MediaColumns.MIME_TYPE, "image/jpeg")
-            val outputFileOptions = ImageCapture.OutputFileOptions.Builder(
-                requireActivity().contentResolver,
-                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                contentValues
-            ).build()
-            imageCapture.takePicture(
-                outputFileOptions,
-                executor,
-                object : ImageCapture.OnImageSavedCallback {
-                    override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
-                        requireActivity().runOnUiThread {
-                            @SuppressLint("SimpleDateFormat") val timeStamp =
-                                SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
-                            val imageFileName = "JPEG_" + timeStamp + "_"
-                            val storageDir = requireActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-                            try {
-                                val image = File.createTempFile(
-                                    imageFileName,  /* prefix */
-                                    ".jpg",  /* suffix */
-                                    storageDir /* directory */
-                                )
-                                if (image.exists()) {
-                                    val saveUri = outputFileResults.savedUri
+            btnTakePhoto!!.isClickable = false
+            binding.progressBar.visibility = View.VISIBLE
+            val photoFile = FileCreator.createTempImageFile()
+            photoFile.apply {
+                val outputOptions =
+                    this?.let { it1 -> ImageCapture.OutputFileOptions.Builder(it1).build() }
+                if (outputOptions != null) {
+                    imageCapture.takePicture(
+                        outputOptions,
+                        executor,
+                        object : ImageCapture.OnImageSavedCallback{
+                            override fun onError(exception: ImageCaptureException) {
+                            }
 
-                                    //                                        Bitmap bitmap = BitmapFactory.decodeFile(saveUri.getPath());
+                            override fun onImageSaved(output: ImageCapture.OutputFileResults) {
+                                val savedUri = output.savedUri ?: Uri.fromFile(photoFile)
+                                val bitmap = BitmapFactory.decodeFile(savedUri.path)
+                                val rotatedBitmap =
+                                    FileCreator.rotate(bitmap, savedUri.toFile().absolutePath ?: "")
+                                photoFile?.delete()
+                                binding.apply {
+                                    val croppedImage =
+                                        cropImage(rotatedBitmap, viewFinder, frameImage)
+                                    val path = FileCreator.saveImage(croppedImage)
+                                    requireActivity().runOnUiThread{
+                                        progressBar.visibility = View.GONE
+                                        btnTakePhoto.isClickable = true
+                                        try {
+                                            when (arguments?.getString("title").toString()){
+                                                "id_card_front" -> {
+                                                    KYCPreferences().NATIONAL_ID_FRONT = path
+                                                }
+                                                "id_card_back" -> {
+                                                    KYCPreferences().NATIONAL_ID_BACK = path
+                                                }
+                                                "passport_front" -> {
+                                                    KYCPreferences().PASSPORT_FRONT = path
+                                                }
+                                            }
 
-
-                                    //                                        Bitmap croppedImage = cropImage(bitmap, mPreviewView, binding.frameImage);
-                                    val imageCamera = binding.imageCamera
-                                    imageCamera.setImageURI(saveUri)
-                                    imageCamera.visibility = View.VISIBLE
-                                    image.delete()
+                                            findNavController().popBackStack()
+                                        }catch (e: Exception){
+                                            when (arguments?.getString("title").toString()){
+                                                "id_card_front" -> {
+                                                    KYCPreferences().removeValue("NATIONAL_ID_FRONT")
+                                                }
+                                                "id_card_back" -> {
+                                                    KYCPreferences().removeValue("NATIONAL_ID_BACK")
+                                                }
+                                                "passport_front" -> {
+                                                    KYCPreferences().removeValue("PASSPORT_FRONT")
+                                                }
+                                            }
+                                        }
+                                    }
                                 }
-                            } catch (e: IOException) {
-                                e.printStackTrace()
                             }
                         }
-                    }
-
-                    override fun onError(error: ImageCaptureException) {
-                        error.printStackTrace()
-                        //                        Toast.makeText(getApplication(), error.toString(), Toast.LENGTH_LONG).show();
-                    }
-                })
+                    )
+                }
+            }
         }
         return imageCapture
     }
 
     private fun buildAnalysis(): UseCase? {
-//        Display displays = binding.viewFinder.getDisplay();
         val metrics = DisplayMetrics()
         requireActivity().windowManager.defaultDisplay.getMetrics(metrics)
         return ImageAnalysis.Builder() //                .setTargetRotation(displays.getRotation())
@@ -201,24 +210,24 @@ class IDCardCameraFragment :
             .build()
     }
 
-    private fun cropImage(
-        bitmap: Bitmap,
-        frame: View,
-        reference: View
-    ): Bitmap? {
-        val heightOriginal = frame.height.toFloat()
-        val widthOriginal = frame.width.toFloat()
-        val heightFrame = reference.height.toFloat()
-        val widthFrame = reference.width.toFloat()
-        val leftFrame = reference.left.toFloat()
-        val topFrame = reference.top.toFloat()
+    private fun cropImage(bitmap: Bitmap, frame: View, reference: View): ByteArray {
+        val heightOriginal = frame.height
+        val widthOriginal = frame.width
+        val heightFrame = reference.height
+        val widthFrame = reference.width
+        val leftFrame = reference.left
+        val topFrame = reference.top
         val heightReal = bitmap.height
         val widthReal = bitmap.width
-        val widthFinal = (widthFrame * widthReal / widthOriginal).toInt()
-        val heightFinal = (heightFrame * heightReal / heightOriginal).toInt()
-        val leftFinal = (leftFrame * widthReal / widthOriginal).toInt()
-        val topFinal = (topFrame * heightReal / heightOriginal).toInt()
-        return Bitmap.createBitmap(bitmap, leftFinal, topFinal, widthFinal, heightFinal)
+        val widthFinal = widthFrame * widthReal / widthOriginal
+        val heightFinal = heightFrame * heightReal / heightOriginal
+        val leftFinal = leftFrame * widthReal / widthOriginal
+        val topFinal = topFrame * heightReal / heightOriginal
+        val bitmapFinal = Bitmap.createBitmap(
+            bitmap,
+            leftFinal, topFinal, widthFinal, heightFinal
+        )
+        return FileCreator.bitMapToBytesArray(bitmapFinal)
     }
 
     override fun onRequestPermissionsResult(

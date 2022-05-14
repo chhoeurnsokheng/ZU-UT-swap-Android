@@ -1,19 +1,15 @@
 package com.zillennium.utswap.screens.kyc.kycFragment.idTypeScreen
 
-import android.content.Intent
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.zillennium.utswap.R
-import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentKycIdTypeBinding
 import com.zillennium.utswap.screens.kyc.kycFragment.idTypeScreen.fragment.nationalID.NationalIDFragment
 import com.zillennium.utswap.screens.kyc.kycFragment.idTypeScreen.fragment.passport.PassportFragment
-import com.zillennium.utswap.screens.kyc.kycFragment.idVerificationScreen.IDVerificationFragment
 
 class IdTypeFragment :
     BaseMvpFragment<IdTypeView.View, IdTypeView.Presenter, FragmentKycIdTypeBinding>(),
@@ -30,26 +26,29 @@ class IdTypeFragment :
         try {
             binding.apply {
 
-                pageAdapter = ScreenSlidePageAdapter(this@IdTypeFragment, NUM_PAGES)
-                vpVerify.adapter = pageAdapter
-                vpVerify.isUserInputEnabled = false
-                vpVerify.registerOnPageChangeCallback(object : OnPageChangeCallback() {
-                    override fun onPageScrolled(
-                        position: Int,
-                        positionOffset: Float,
-                        positionOffsetPixels: Int
-                    ) {
-                        super.onPageScrolled(position, positionOffset, positionOffsetPixels)
-                    }
+                binding.apply {
+                    pageAdapter = ScreenSlidePageAdapter(this@IdTypeFragment, NUM_PAGES)
+                    vpVerify.adapter = pageAdapter
+                    vpVerify.isUserInputEnabled = false
+                    vpVerify.registerOnPageChangeCallback(object : OnPageChangeCallback() {
+                        override fun onPageScrolled(
+                            position: Int,
+                            positionOffset: Float,
+                            positionOffsetPixels: Int
+                        ) {
+                            super.onPageScrolled(position, positionOffset, positionOffsetPixels)
+                        }
 
-                    override fun onPageSelected(position: Int) {
-                        super.onPageSelected(position)
-                    }
+                        override fun onPageSelected(position: Int) {
+                            super.onPageSelected(position)
+                        }
 
-                    override fun onPageScrollStateChanged(state: Int) {
-                        super.onPageScrollStateChanged(state)
-                    }
-                })
+                        override fun onPageScrollStateChanged(state: Int) {
+                            super.onPageScrollStateChanged(state)
+                        }
+                    })
+                }
+
 
                 nationalId.setOnClickListener { view ->
                     onChangeTabs(view)
@@ -59,7 +58,6 @@ class IdTypeFragment :
                     onChangeTabs(view)
                     vpVerify.setCurrentItem(1, false)
                 }
-
 
                 btnNext.setOnClickListener {
                     findNavController().navigate(R.id.action_to_id_verification_kyc_fragment)
@@ -107,5 +105,16 @@ class IdTypeFragment :
         override fun getItemCount(): Int {
             return NUM_PAGES
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        binding.apply {
+            if(vpVerify.currentItem == 1){
+                vpVerify.setCurrentItem(0, false)
+            }
+        }
+
     }
 }

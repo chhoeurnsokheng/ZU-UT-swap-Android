@@ -29,11 +29,11 @@ class NavbarActivity :
         try {
             binding.apply {
 
-                SessionPreferences().removeValue("SESSION_USERNAME")
+                SessionPreferences().SESSION_STATUS = false
                 SessionPreferences().SESSION_KYC = false
 
-                if(!SessionPreferences().SESSION_USERNAME.isNullOrEmpty()){
-                    layAuth.visibility = GONE
+                if(SessionPreferences().SESSION_STATUS!!){
+                    layVerify.visibility = GONE
                 }
 
                 if(SessionPreferences().SESSION_KYC!!){
@@ -82,14 +82,15 @@ class NavbarActivity :
     override fun onTopResumedActivityChanged(isTopResumedActivity: Boolean) {
         super.onTopResumedActivityChanged(isTopResumedActivity)
         binding.apply {
-            Log.d("1234567898", SessionPreferences().SESSION_USERNAME.toString())
-            if(!SessionPreferences().SESSION_USERNAME.isNullOrEmpty()){
+
+            if(SessionPreferences().SESSION_STATUS!!){
                 layAuth.visibility = GONE
             }
 
             if(SessionPreferences().SESSION_KYC!!){
                 layVerify.visibility = GONE
             }
+
         }
     }
 }

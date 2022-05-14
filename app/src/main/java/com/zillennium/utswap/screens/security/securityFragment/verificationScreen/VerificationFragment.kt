@@ -16,6 +16,7 @@ import androidx.core.view.children
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
@@ -117,6 +118,7 @@ class VerificationFragment():
 
                         when (arguments?.getString("title")) {
                             "sign in" -> {
+                                SessionPreferences().SESSION_STATUS = true
                                 activity?.finish()
                             }
                             "reset password" -> {
