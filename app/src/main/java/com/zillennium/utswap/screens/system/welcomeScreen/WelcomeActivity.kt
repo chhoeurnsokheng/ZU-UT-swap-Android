@@ -5,6 +5,7 @@ import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivitySystemWelcomeBinding
+import com.zillennium.utswap.screens.kyc.kycFragment.fundPasswordScreen.FundPasswordFragment
 import com.zillennium.utswap.screens.security.securityFragment.signInScreen.SignInFragment
 import com.zillennium.utswap.screens.security.securityFragment.registerScreen.RegisterFragment
 
