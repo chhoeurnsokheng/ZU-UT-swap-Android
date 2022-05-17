@@ -36,22 +36,21 @@ class EmploymentInfoFragment :
             binding.apply {
 
                 /* if Data already input */
-                if (KYCPreferences().OCCUPATION.isNullOrEmpty()) {
-                    etOccupation.setText(KYCPreferences().OCCUPATION)
+                if (!KYCPreferences().OCCUPATION.isNullOrEmpty()) {
+                    info.occupation = KYCPreferences().OCCUPATION.toString()
+                    etOccupation.setText(info.occupation)
                 }
-                if (KYCPreferences().COMPANY.isNullOrEmpty()) {
-                    etCompany.setText(KYCPreferences().COMPANY)
+                if (!KYCPreferences().COMPANY.isNullOrEmpty()) {
+                    info.company = KYCPreferences().OCCUPATION.toString()
+                    etCompany.setText(info.company)
                 }
-                if (KYCPreferences().PHONE_NUMBER.isNullOrEmpty()) {
-                    etphoneNumber.setText(KYCPreferences().PHONE_NUMBER)
+                if (!KYCPreferences().PHONE_NUMBER.isNullOrEmpty()) {
+                    info.phone_number = KYCPreferences().PHONE_NUMBER.toString()
+                    etphoneNumber.setText(info.phone_number)
                 }
-                if (KYCPreferences().EMAIL.isNullOrEmpty()) {
-                    etemail.setText(KYCPreferences().EMAIL)
-                    txtEmail.visibility = View.VISIBLE
-                    etemail.visibility = View.VISIBLE
-                }else{
-                    txtEmail.visibility = View.GONE
-                    etemail.visibility = View.GONE
+                if (!KYCPreferences().EMAIL.isNullOrEmpty()) {
+                    info.email_emp = KYCPreferences().EMAIL.toString()
+                    etemail.setText(info.email_emp)
                 }
 
                 imgBack.setOnClickListener {
@@ -61,12 +60,12 @@ class EmploymentInfoFragment :
                 btnNext.setOnClickListener {
 
                     var isHaveError = false
-                    if (etOccupation.text.toString().isEmpty()) {
+                    if (info.occupation.isEmpty()) {
                         txtErrorOccupation.visibility = View.VISIBLE
                         etOccupation.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.red))
                         isHaveError = true
                     }
-                    if (etCompany.text.toString().isEmpty()) {
+                    if (info.occupation.isEmpty()) {
                         txtErrorCompany.visibility = View.VISIBLE
                         etCompany.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.red))
                         isHaveError = true
@@ -81,9 +80,6 @@ class EmploymentInfoFragment :
                         KYCPreferences().EMAIL = info.email_emp
 
                         findNavController().navigate(R.id.action_to_declaration_kyc_fragment)
-
-//                        val intent = Intent(UTSwapApp.instance, DeclarationFragment::class.java)
-//                        startActivity(intent)
                     }
                 }
 
@@ -102,6 +98,7 @@ class EmploymentInfoFragment :
                         i1: Int,
                         i2: Int
                     ) {
+                        info.occupation = charSequence.toString()
                     }
 
                     override fun afterTextChanged(editable: Editable) {
@@ -125,12 +122,43 @@ class EmploymentInfoFragment :
                         i1: Int,
                         i2: Int
                     ) {
+                        info.company = charSequence.toString()
                     }
 
                     override fun afterTextChanged(editable: Editable) {
                         txtErrorCompany.visibility = View.GONE
                         etCompany.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.secondary_text))
                     }
+                })
+
+                etphoneNumber.addTextChangedListener(object: TextWatcher{
+                    override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+                    }
+
+                    override fun onTextChanged(charSequence: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                        info.phone_number = charSequence.toString()
+                    }
+
+                    override fun afterTextChanged(p0: Editable?) {
+
+                    }
+
+                })
+
+                etemail.addTextChangedListener(object : TextWatcher{
+                    override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+                    }
+
+                    override fun onTextChanged(charSequence: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                        info.email_emp = charSequence.toString()
+                    }
+
+                    override fun afterTextChanged(p0: Editable?) {
+
+                    }
+
                 })
             }
 

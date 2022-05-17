@@ -10,6 +10,7 @@ import android.text.TextWatcher
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
+import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.databinding.ActivitySecurityResetPasswordBinding
 
 import com.zillennium.utswap.UTSwapApp
@@ -18,6 +19,7 @@ import com.zillennium.utswap.R
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentSecurityResetPasswordBinding
 import com.zillennium.utswap.screens.security.securityFragment.verificationScreen.VerificationFragment
+import com.zillennium.utswap.utils.validate
 
 
 class ResetPasswordFragment :
@@ -37,17 +39,30 @@ class ResetPasswordFragment :
                 }
                 btnNext.setOnClickListener {
                     var isHaveError = false
-                    if (inputEmail.text.toString().isEmpty()) {
+
+                    if(!validate().isValidEmail(inputEmail.text.toString()) && !validate().isValidPhoneNumber(inputEmail.text.toString())){
+                        textEmpty.text = "Please Enter Email or Number Phone"
+                        textEmpty.visibility = View.VISIBLE
+                        inputEmail.backgroundTintList =
+                            ColorStateList.valueOf(resources.getColor(R.color.red))
+                        isHaveError = true
+                    }
+
+                    if(inputEmail.text.isNullOrEmpty()) {
+                        textEmpty.text = "Field can't be empty"
                         textEmpty.visibility = View.VISIBLE
                         inputEmail.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.red))
                         isHaveError = true
                     }
+
+                    if (isHaveError) {
+                        textEmpty.visibility = View.VISIBLE
+                        inputEmail.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.red))
+                        return@setOnClickListener
+                    }
                     else{
-                        val title = ""
-                        val bundle = bundleOf("reset password" to title)
-                        findNavController().navigate(R.id.action_to_verification_security_fragment, bundle)
-//                        val intent = Intent(UTSwapApp.instance, VerificationFragment::class.java)
-//                        startActivity(intent)
+                        SessionPreferences().SESSION_USERNAME = inputEmail.text.toString().trim()
+                        findNavController().navigate(R.id.action_to_verification_security_fragment)
                     }
                 }
 
@@ -77,21 +92,6 @@ class ResetPasswordFragment :
             // Code
         } catch (error: Exception) {
             // Must be safe
-        }
-    }
-    private fun resetPassWord(): Boolean {
-        binding.apply {
-            val resetPassword = inputEmail.text.toString().trim()
-            val drawable: Drawable = inputEmail.background // get current EditText drawable
-            drawable.setColorFilter(Color.RED, PorterDuff.Mode.SRC_ATOP);
-
-            if (resetPassword.isEmpty()) {
-                textEmpty.visibility = View.VISIBLE
-                return false
-            } else {
-                textEmpty.visibility = View.GONE
-                return true
-            }
         }
     }
 }

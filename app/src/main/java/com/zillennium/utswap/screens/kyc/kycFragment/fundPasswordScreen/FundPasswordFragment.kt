@@ -7,12 +7,14 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
+import android.util.Log
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.core.view.children
 import androidx.navigation.fragment.findNavController
+import com.zillennium.utswap.Datas.StoredPreferences.KYCPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
@@ -32,7 +34,7 @@ class FundPasswordFragment :
     @SuppressLint("UseCompatLoadingForDrawables")
     override fun initView() {
         super.initView()
-        try {
+//        try {
             binding.apply {
 
                 imgBack.setOnClickListener {
@@ -51,28 +53,24 @@ class FundPasswordFragment :
                     override fun beforeTextChanged(ch: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
                     override fun onTextChanged(chr: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                        textView1.text = ""
-                        textView2.text = ""
-                        textView3.text = ""
-                        textView4.text = ""
+
 
                         for(child in numberVerification.children){
-                            child.background = resources.getDrawable(R.drawable.bg_border_bottom)
-                        }
-                        for(child in confirmNumberVerification.children){
-                            child.background = resources.getDrawable(R.drawable.bg_border_bottom)
+                            val children = child as TextView
+                            children.background = resources.getDrawable(R.drawable.bg_border_bottom)
+                            children.text = ""
                         }
 
-                        if (chr != null) {
-                            for (index in chr.indices) {
-                                val textInput = numberVerification.getChildAt(index) as TextView
-                                textInput.text = chr[index].toString()
+                        for (index in chr?.indices!!) {
+                            val textInput = numberVerification.getChildAt(index) as TextView
+                            textInput.text = chr[index].toString()
+                            if(index == numberVerification.childCount - 1){
+                                confirmNumberVerification.callOnClick()
                             }
                         }
                     }
                     override fun afterTextChanged(p0: Editable?) {}
                 })
-
 
                 /* Confirm Fund Password code */
                 confirmNumberVerification.setOnClickListener {
@@ -86,22 +84,20 @@ class FundPasswordFragment :
                     override fun beforeTextChanged(ch: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
                     override fun onTextChanged(chr: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                        textViewConfirm1.text = ""
-                        textViewConfirm2.text = ""
-                        textViewConfirm3.text = ""
-                        textViewConfirm4.text = ""
 
                         for(child in confirmNumberVerification.children){
-                            child.background = resources.getDrawable(R.drawable.bg_border_bottom)
-                        }
-                        for(child in numberVerification.children){
-                            child.background = resources.getDrawable(R.drawable.bg_border_bottom)
+                            val children = child as TextView
+                            children.background = resources.getDrawable(R.drawable.bg_border_bottom)
+                            children.text = ""
                         }
 
-                        if (chr != null){
-                            for (index in chr.indices){
-                                val textInput2 = confirmNumberVerification.getChildAt(index) as TextView
-                                textInput2.text = chr[index].toString()
+                        for (index in chr?.indices!!){
+                            val textInput2 = confirmNumberVerification.getChildAt(index) as TextView
+                            textInput2.text = chr[index].toString()
+                            if(index == numberVerification.childCount - 1){
+                                val inputManager2 =
+                                    requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                                inputManager2.hideSoftInputFromWindow(view?.windowToken, 0)
                             }
                         }
                     }
@@ -111,9 +107,8 @@ class FundPasswordFragment :
 
                 btnNext.setOnClickListener {
                     if (editFundPassword.text.toString() == editConfirmFundPassword.text.toString() && editFundPassword.length() == 4 && editConfirmFundPassword.length() == 4){
+                        KYCPreferences().FUND_PASSWORD = editFundPassword.text.toString()
                         findNavController().navigate(R.id.action_to_contract_kyc_fragment)
-//                    val intent = Intent(UTSwapApp.instance, ContractFragment::class.java)
-//                    startActivity(intent)
                     }else{
                         for(child in numberVerification.children){
                             child.background = resources.getDrawable(R.drawable.bg_border_bottom_red)
@@ -121,8 +116,12 @@ class FundPasswordFragment :
                         for(child in confirmNumberVerification.children){
                             child.background = resources.getDrawable(R.drawable.bg_border_bottom_red)
                         }
-                        Toast.makeText(requireActivity(), "Invalid Fund Password!", Toast.LENGTH_SHORT).show()
                     }
+                }
+
+                if(!KYCPreferences().FUND_PASSWORD.isNullOrEmpty()){
+                    editFundPassword.setText(KYCPreferences().FUND_PASSWORD.toString())
+                    editConfirmFundPassword.setText(KYCPreferences().FUND_PASSWORD.toString())
                 }
 
                 imgShowPassword.setOnClickListener{
@@ -134,11 +133,14 @@ class FundPasswordFragment :
                     clickCountConfirmPassword++
                     showConfirmPassword(clickCountConfirmPassword)
                 }
+
+                imgShowPassword.callOnClick()
+                imgShowConfirmPassword.callOnClick()
             }
 
-        } catch (error: Exception) {
-            // Must be safe
-        }
+//        } catch (error: Exception) {
+//            // Must be safe
+//        }
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
@@ -179,16 +181,4 @@ class FundPasswordFragment :
         }
 
     }
-
-//    private fun showSoftKeyboard(editText: View) {
-//        if (editText.requestFocus()) {
-//            val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-//            imm.showSoftInput(editText.windowToken as View, InputMethodManager.SHOW_IMPLICIT)
-//        }
-//    }
-
-//    fun hideSoftKeyboard(view: View) {
-//        val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-//        imm.hideSoftInputFromWindow(view.windowToken, 0)
-//    }
 }

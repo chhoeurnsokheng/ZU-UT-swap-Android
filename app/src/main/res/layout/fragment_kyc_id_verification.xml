@@ -208,12 +208,14 @@
                                 app:smsp_floatingLabelColor="@color/white"
                                 app:smsp_hint="Gender"
                                 app:smsp_hintColor="@color/gray"
+                                app:smsp_itemColor="@color/secondary_text"
                                 app:smsp_itemListColor="@color/secondary_text"
-                                app:smsp_itemListHintBackgroundColor="@color/secondary_text"
+                                app:smsp_itemListHintBackgroundColor="@color/backgroundHint"
                                 app:smsp_itemListHintColor="@color/white"
                                 app:smsp_multilineError="false"
                                 app:smsp_selectedItemListColor="@color/secondary_text"
-                                app:smsp_underlineColor="@color/secondary_text" />
+                                app:smsp_underlineColor="@color/secondary_text"
+                                app:smsp_underlineSize="0.1dp"/>
 
                             <TextView
                                 android:id="@+id/txt_error_gender"
@@ -241,7 +243,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dimen_10"
-                        android:layout_weight="1"
                         android:orientation="vertical">
 
                         <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
@@ -258,7 +259,8 @@
                             app:smsp_itemListHintColor="@color/white"
                             app:smsp_multilineError="false"
                             app:smsp_selectedItemListColor="@color/secondary_text"
-                            app:smsp_underlineColor="@color/secondary_text" />
+                            app:smsp_underlineColor="@color/secondary_text"
+                            app:smsp_underlineSize="0.1dp"/>
 
                         <TextView
                             android:id="@+id/txt_error_city"
@@ -277,8 +279,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dimen_5"
-                        android:layout_weight="1"
+                        android:layout_marginTop="@dimen/dimen_10"
                         android:orientation="vertical">
 
                         <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
@@ -293,9 +294,10 @@
                             app:smsp_itemListColor="@color/secondary_text"
                             app:smsp_itemListHintBackgroundColor="@color/backgroundHint"
                             app:smsp_itemListHintColor="@color/white"
-                            app:smsp_multilineError="false"
+                            app:smsp_multilineError="true"
                             app:smsp_selectedItemListColor="@color/secondary_text"
-                            app:smsp_underlineColor="@color/secondary_text" />
+                            app:smsp_underlineColor="@color/secondary_text"
+                            app:smsp_underlineSize="0.1dp"/>
 
                         <TextView
                             android:id="@+id/txt_error_district"
@@ -332,7 +334,8 @@
                             app:smsp_itemListHintColor="@color/white"
                             app:smsp_multilineError="false"
                             app:smsp_selectedItemListColor="@color/secondary_text"
-                            app:smsp_underlineColor="@color/secondary_text" />
+                            app:smsp_underlineColor="@color/secondary_text"
+                            app:smsp_underlineSize="0.1dp"/>
 
                         <TextView
                             android:id="@+id/txt_error_commune"
@@ -351,8 +354,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dimen_5"
-                        android:layout_weight="1"
+                        android:layout_marginTop="@dimen/dimen_10"
                         android:orientation="vertical">
 
                         <LinearLayout

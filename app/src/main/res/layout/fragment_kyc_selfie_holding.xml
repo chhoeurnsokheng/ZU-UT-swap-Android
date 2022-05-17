@@ -148,7 +148,8 @@
             android:layout_marginEnd="@dimen/dimen_15"
             android:layout_marginBottom="@dimen/dimen_20"
             android:background="@drawable/bg_circular"
-            android:gravity="center">
+            android:gravity="center"
+            android:visibility="gone">
 
             <TextView
                 android:layout_width="wrap_content"

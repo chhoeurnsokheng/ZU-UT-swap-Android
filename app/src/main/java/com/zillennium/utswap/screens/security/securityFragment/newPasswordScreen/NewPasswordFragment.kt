@@ -6,6 +6,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
+import android.util.Log
 import android.view.View
 import androidx.navigation.fragment.findNavController
 import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
@@ -35,33 +36,44 @@ class NewPasswordFragment :
                     var isHaveError = false
                     txtPasswordMessage.text = "Invalid Email or Password"
 
-                    if (inputPassword.text.toString().isEmpty()) {
+                    if(inputConfirmPassword.text.toString() != inputPassword.text.toString()){
+                        txtPasswordMessage.text = "Password didn't match"
+                        txtPasswordMessage.visibility = View.VISIBLE
+                        inputPassword.backgroundTintList =
+                            ColorStateList.valueOf(resources.getColor(R.color.red))
+                        inputConfirmPassword.backgroundTintList =
+                            ColorStateList.valueOf(resources.getColor(R.color.red))
+                        isHaveError = true
+                    }
+
+                    if (inputConfirmPassword.text.toString().length < 8) {
+                        txtPasswordMessage.text = "Please Enter a Confirm Password Longer Than 8 Digits"
+                        txtPasswordMessage.visibility = View.VISIBLE
+                        inputConfirmPassword.backgroundTintList =
+                            ColorStateList.valueOf(resources.getColor(R.color.red))
+                        isHaveError = true
+                    }
+
+                    if (inputPassword.text.toString().length < 8) {
+                        txtPasswordMessage.text = "Please Enter a Password Longer Than 8 Digits"
                         txtPasswordMessage.visibility = View.VISIBLE
                         inputPassword.backgroundTintList =
                             ColorStateList.valueOf(resources.getColor(R.color.red))
                         isHaveError = true
                     }
 
-                    if (inputConfirmPassword.text.toString().isEmpty()) {
-                        txtPasswordMessage.visibility = View.VISIBLE
+                    if (!isHaveError) {
+                        txtPasswordMessage.visibility = View.GONE
+                        inputPassword.backgroundTintList =
+                            ColorStateList.valueOf(resources.getColor(R.color.secondary_text))
                         inputConfirmPassword.backgroundTintList =
-                            ColorStateList.valueOf(resources.getColor(R.color.red))
-                        isHaveError = true
+                            ColorStateList.valueOf(resources.getColor(R.color.secondary_text))
+                        SessionPreferences().SESSION_STATUS = true
+                        activity?.finish()
                     }
-                    if (isHaveError) {
-                        return@setOnClickListener
-                    } else {
-                        if(inputPassword.text.toString() != inputConfirmPassword.text.toString()){
-                            txtPasswordMessage.text = "Password didn't match"
-                            txtPasswordMessage.visibility = View.VISIBLE
-                        }else{
-                           txtPasswordMessage.visibility = View.GONE
 
-                            SessionPreferences().SESSION_STATUS = true
-                            activity?.finish()
-                        }
-                    }
                 }
+
                 inputPassword.addTextChangedListener(object : TextWatcher {
                     override fun beforeTextChanged(
                         charSequence: CharSequence,
@@ -110,6 +122,15 @@ class NewPasswordFragment :
                             ColorStateList.valueOf(resources.getColor(R.color.secondary_text))
                     }
                 })
+
+                showPassBtn.setOnClickListener { view ->
+                    ShowHidePassword(view)
+                }
+
+                showConfirmPassBtn.setOnClickListener { view ->
+                    ShowHideConfirmPassword(view)
+                }
+
             }
             // Code
         } catch (error: Exception) {

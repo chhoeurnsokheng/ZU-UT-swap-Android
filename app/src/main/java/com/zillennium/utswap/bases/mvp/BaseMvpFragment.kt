@@ -17,7 +17,7 @@ abstract class BaseMvpFragment<in V : BaseMvpView, T : BaseMvpPresenter<V>, M : 
 
     protected lateinit var binding: M
     protected abstract var mPresenter: T
-//    protected fun isRootIsInitialized() = this::binding.isInitialized
+    protected fun isRootIsInitialized() = this::binding.isInitialized
     abstract val layoutResource: Int
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,18 +30,13 @@ abstract class BaseMvpFragment<in V : BaseMvpView, T : BaseMvpPresenter<V>, M : 
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-//        if (!isRootIsInitialized()) {
-//            binding = DataBindingUtil.inflate(inflater, layoutResource, container, false)
-//            mPresenter.initViewPresenter(
-//                context = requireActivity(),
-//                savedInstanceState
-//            )
-//        }
-        binding = DataBindingUtil.inflate(inflater, layoutResource, container, false)
-        mPresenter.initViewPresenter(
-            context = requireActivity(),
-            savedInstanceState
-        )
+        if (!isRootIsInitialized()) {
+            binding = DataBindingUtil.inflate(inflater, layoutResource, container, false)
+            mPresenter.initViewPresenter(
+                context = requireActivity(),
+                savedInstanceState
+            )
+        }
         return binding.root
     }
 

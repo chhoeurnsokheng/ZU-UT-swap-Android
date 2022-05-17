@@ -15,6 +15,7 @@ import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentSecurityRegisterBinding
+import com.zillennium.utswap.utils.validate
 
 class RegisterFragment :
     BaseMvpFragment<RegisterView.View, RegisterView.Presenter, FragmentSecurityRegisterBinding>(),
@@ -38,40 +39,45 @@ class RegisterFragment :
                     var isHaveError = false
                     txtMessage.text = "Invalid Email or Password"
 
-                    if (inputEmail.text.toString().isEmpty()) {
+                    if(inputConfirmPassword.text.toString() != inputPassword.text.toString()){
+                        txtMessage.text = "Password didn't match"
                         txtMessage.visibility = View.VISIBLE
-                        inputEmail.backgroundTintList =
+                        inputPassword.backgroundTintList =
+                            ColorStateList.valueOf(resources.getColor(R.color.red))
+                        inputConfirmPassword.backgroundTintList =
                             ColorStateList.valueOf(resources.getColor(R.color.red))
                         isHaveError = true
                     }
 
-                    if (inputPassword.text.toString().isEmpty()) {
-                        txtMessage.visibility = View.VISIBLE
-                        inputPassword.backgroundTintList =
-                            ColorStateList.valueOf(resources.getColor(R.color.red))
-                        isHaveError = true
-                    }
-                    if (inputConfirmPassword.text.toString().isEmpty()) {
+                    if (inputConfirmPassword.text.toString().length < 8) {
+                        txtMessage.text = "Please Enter a Confirm Password Longer Than 8 Digits"
                         txtMessage.visibility = View.VISIBLE
                         inputConfirmPassword.backgroundTintList =
                             ColorStateList.valueOf(resources.getColor(R.color.red))
                         isHaveError = true
                     }
 
-                    if (isHaveError) {
-                        return@setOnClickListener
-                    } else {
-                        if(inputPassword.text.toString() != inputConfirmPassword.text.toString()){
-                            txtMessage.text = "Password didn't match"
-                            txtMessage.visibility = View.VISIBLE
-                        }else{
-                            txtMessage.visibility = View.GONE
-                            KYCPreferences().FIRST_NAME = inputPassword.text.toString()
+                    if (inputPassword.text.toString().length < 8) {
+                        txtMessage.text = "Please Enter a Password Longer Than 8 Digits"
+                        txtMessage.visibility = View.VISIBLE
+                        inputPassword.backgroundTintList =
+                            ColorStateList.valueOf(resources.getColor(R.color.red))
+                        isHaveError = true
+                    }
 
-                            val title = ""
-                            val bundle = bundleOf("register" to title)
-                            findNavController().navigate(R.id.action_to_verification_security_fragment, bundle)
-                        }
+                    if(!validate().isValidEmail(inputEmail.text.toString()) && !validate().isValidPhoneNumber(inputEmail.text.toString())){
+                        txtMessage.text = "Please Enter Email or Number Phone"
+                        txtMessage.visibility = View.VISIBLE
+                        inputEmail.backgroundTintList =
+                            ColorStateList.valueOf(resources.getColor(R.color.red))
+                        isHaveError = true
+                    }
+
+                    if (!isHaveError) {
+                        txtMessage.visibility = View.GONE
+                        SessionPreferences().SESSION_USERNAME = inputEmail.text.toString()
+                        SessionPreferences().SESSION_PASSWORD = inputPassword.text.toString()
+                        findNavController().navigate(R.id.action_to_verification_security_fragment)
                     }
 
 

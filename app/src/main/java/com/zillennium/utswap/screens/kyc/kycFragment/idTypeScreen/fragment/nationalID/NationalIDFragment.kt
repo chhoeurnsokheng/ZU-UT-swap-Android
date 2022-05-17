@@ -1,17 +1,15 @@
 package com.zillennium.utswap.screens.kyc.kycFragment.idTypeScreen.fragment.nationalID
 
-import android.app.Activity.RESULT_OK
-import android.content.Intent
-import android.graphics.BitmapFactory
-import android.util.Log
 import android.view.View
 import androidx.core.net.toUri
 import androidx.core.os.bundleOf
+import androidx.fragment.app.FragmentTransaction
 import androidx.navigation.fragment.findNavController
 import com.zillennium.utswap.Datas.StoredPreferences.KYCPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentKycNationalIdBinding
+import com.zillennium.utswap.screens.kyc.kycFragment.idTypeScreen.IdTypeFragment
 
 
 class NationalIDFragment :
@@ -37,19 +35,23 @@ class NationalIDFragment :
                 }
 
                 imgDeleteFront.setOnClickListener {
+                    KYCPreferences().removeValue("NATIONAL_ID_FRONT")
                     imgNationalFront.setImageResource(R.drawable.ic_national_id_front)
                     imgLogoCameraFront.visibility = View.VISIBLE
                     imgLogoCorrectFront.visibility = View.GONE
                     imgDeleteFront.visibility = View.GONE
                     btnCameraFront.isClickable = true
+                    (parentFragment as IdTypeFragment).checkValidation()
                 }
 
                 imgDeleteBack.setOnClickListener {
+                    KYCPreferences().removeValue("NATIONAL_ID_BACK")
                     imgNationalBack.setImageResource(R.drawable.ic_national_id_back)
                     imgLogoCameraBack.visibility = View.VISIBLE
                     imgLogoCorrectBack.visibility = View.GONE
                     imgDeleteBack.visibility = View.GONE
                     btnCameraBack.isClickable = true
+                    (parentFragment as IdTypeFragment).checkValidation()
                 }
 
 

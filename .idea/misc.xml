@@ -4,14 +4,6 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../../../layout/custom_preview.xml" value="0.1" />
-        <entry key="..\:/Users/User/Desktop/developer/ut-swap-android/app/src/main/res/drawable-anydpi/bg_border_bottom.xml" value="0.142" />
-        <entry key="..\:/Users/User/Desktop/developer/ut-swap-android/app/src/main/res/drawable/bg_border_bottom_red.xml" value="0.1185" />
-        <entry key="..\:/Users/User/Desktop/developer/ut-swap-android/app/src/main/res/drawable/bg_red_corner.xml" value="0.1185" />
-        <entry key="..\:/Users/User/Desktop/developer/ut-swap-android/app/src/main/res/layout/fragment_kyc_camera_id_card.xml" value="0.27447916666666666" />
-        <entry key="..\:/Users/User/Desktop/developer/ut-swap-android/app/src/main/res/layout/fragment_kyc_fund_password.xml" value="0.27447916666666666" />
-        <entry key="..\:/Users/User/Desktop/developer/ut-swap-android/app/src/main/res/layout/fragment_kyc_id_type.xml" value="0.27447916666666666" />
-        <entry key="..\:/Users/User/Desktop/developer/ut-swap-android/app/src/main/res/layout/fragment_security_sign_in.xml" value="0.27447916666666666" />
-        <entry key="..\:/Users/User/Desktop/developer/ut-swap-android/app/src/main/res/layout/fragment_security_verification.xml" value="0.264" />
         <entry key="..\:/Users/User/Desktop/master/ut-swap-android/app/src/main/res/layout/activity_kyc_id_verification.xml" value="0.264" />
         <entry key="app/src/main/res/drawable-anydpi/bg_correct.xml" value="0.12" />
         <entry key="app/src/main/res/drawable-anydpi/ic_baseline_delete_24.xml" value="0.12" />
@@ -76,6 +68,8 @@
         <entry key="app/src/main/res/layout/fragment_kyc_application.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_kyc_camera_id_card.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_kyc_camera_selfie.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_kyc_employment_info.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_kyc_fund_password.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_kyc_id_type.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_kyc_id_verification.xml" value="0.2056434373663959" />
         <entry key="app/src/main/res/layout/fragment_kyc_national_id.xml" value="0.25" />
@@ -87,18 +81,20 @@
         <entry key="app/src/main/res/layout/fragment_navbar_trade.xml" value="0.33460803059273425" />
         <entry key="app/src/main/res/layout/fragment_navbar_wallet.xml" value="0.20444242973708068" />
         <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.246875" />
+        <entry key="app/src/main/res/layout/fragment_security_new_password.xml" value="0.20350577169730655" />
         <entry key="app/src/main/res/layout/fragment_security_prompt.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_security_register.xml" value="0.1005014625992478" />
+        <entry key="app/src/main/res/layout/fragment_security_reset_password.xml" value="0.20350577169730655" />
         <entry key="app/src/main/res/layout/fragment_security_sign_in.xml" value="0.2056434373663959" />
         <entry key="app/src/main/res/layout/fragment_security_sign_up.xml" value="0.2056434373663959" />
-        <entry key="app/src/main/res/layout/fragment_security_verification.xml" value="0.2056434373663959" />
+        <entry key="app/src/main/res/layout/fragment_security_verification.xml" value="0.16007232666015625" />
         <entry key="app/src/main/res/layout/item_list_trade.xml" value="0.33187134502923976" />
         <entry key="app/src/main/res/layout/splash_screen.xml" value="0.16621376811594202" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.26672210693359377" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

@@ -44,7 +44,7 @@ class VerificationFragment():
 
                 startTimer()
 
-                layoutCount.setOnClickListener() {
+                layoutCount.setOnClickListener {
                     linearCountdown.visibility = View.VISIBLE
                     imgWrong.visibility = View.GONE
                     imgCorrect.visibility = View.GONE
@@ -59,8 +59,9 @@ class VerificationFragment():
                     inputManager.showSoftInput(editBox, InputMethodManager.SHOW_IMPLICIT)
 
                 }
+                layoutCount.performClick()
 
-                resendCode.setOnClickListener() {
+                resendCode.setOnClickListener {
                     stopTimer()
                     startTimer()
                     btnNext.isEnabled = true
@@ -81,22 +82,33 @@ class VerificationFragment():
                     }
                 }
 
+                imgWrong.setOnClickListener {
+                    for (child in layoutCount.children){
+                        val children = child as TextView
+                        children.background = resources.getDrawable(R.drawable.bg_corner)
+                        children.text = ""
+                    }
+                    imgWrong.visibility = View.GONE
+                    linearCountdown.visibility = View.VISIBLE
+                }
+
                 editBox.addTextChangedListener(object : TextWatcher {
                     override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
                     override fun onTextChanged(chr: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                        for (child in layoutCount.children){
+                            val children = child as TextView
+                            children.text = ""
+                        }
 
-                        textView1.text = ""
-                        textView2.text = ""
-                        textView3.text = ""
-                        textView4.text = ""
-                        textView5.text = ""
-                        textView6.text = ""
+                        for (index in chr?.indices!!) {
+                            val textInput = layoutCount.getChildAt(index) as TextView
+                            textInput.text = chr[index].toString()
 
-                        if (chr != null) {
-                            for (index in chr.indices) {
-                                val textInput = layoutCount.getChildAt(index) as TextView
-                                textInput.text = chr[index].toString()
+                            if(index == layoutCount.childCount - 1){
+                                val inputManager =
+                                    requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                                inputManager.hideSoftInputFromWindow(view?.windowToken, 0)
                             }
                         }
                     }
@@ -149,6 +161,7 @@ class VerificationFragment():
 
     private fun startTimer() {
         binding.apply {
+            stopTimer()
             countDownTimer = object : CountDownTimer(timeLeftInMilliseconds, 1000) {
                 @SuppressLint("SetTextI18n")
                 override fun onTick(l: Long) {

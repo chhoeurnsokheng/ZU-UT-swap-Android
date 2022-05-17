@@ -3,6 +3,7 @@ package com.zillennium.utswap.screens.kyc.kycActivity
 import com.zillennium.utswap.R
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityKycBinding
+import com.zillennium.utswap.screens.kyc.kycFragment.idTypeScreen.IdTypeFragment
 import com.zillennium.utswap.screens.security.securityActivity.signInScreen.SIgnInPresenter
 import com.zillennium.utswap.screens.security.securityActivity.signInScreen.SignInView
 
@@ -12,6 +13,8 @@ class KYCActivity :
 
     override var mPresenter: SignInView.Presenter = SIgnInPresenter()
     override val layoutResource: Int = R.layout.activity_kyc
+
+    var mIdTypeFragment: IdTypeFragment? = null
 
     override fun initView() {
         super.initView()

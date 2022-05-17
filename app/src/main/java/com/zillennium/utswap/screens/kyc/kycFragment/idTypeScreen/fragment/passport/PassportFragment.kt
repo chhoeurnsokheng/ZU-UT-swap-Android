@@ -10,6 +10,7 @@ import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentKycPassportBinding
+import com.zillennium.utswap.screens.kyc.kycFragment.idTypeScreen.IdTypeFragment
 import com.zillennium.utswap.screens.kyc.kycFragment.idTypeScreen.camera.idCardCameraFragment.IDCardCameraFragment
 
 class PassportFragment :
@@ -30,11 +31,13 @@ class PassportFragment :
                 }
 
                 imgDeleteFront.setOnClickListener {
-                    imgPassport.setImageResource(R.drawable.ic_national_id_back)
+                    imgPassport.setImageResource(R.drawable.ic_passport_front)
                     imgLogoCamera.visibility = View.VISIBLE
                     imgLogoCorrect.visibility = View.GONE
                     imgDeleteFront.visibility = View.GONE
                     btnPassport.isClickable = true
+                    KYCPreferences().removeValue("PASSPORT_FRONT")
+                    (parentFragment as IdTypeFragment).checkValidation()
                 }
 
             }

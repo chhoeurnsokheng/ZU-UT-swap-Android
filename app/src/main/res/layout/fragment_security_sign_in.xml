@@ -59,24 +59,24 @@
                     android:id="@+id/textInputPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
                     android:hint="@string/password"
                     android:inputType="textPassword"
-                    android:maxLength="8"
+                    android:paddingEnd="@dimen/dimen_50"
                     android:paddingBottom="@dimen/dimen_25"
+                    android:singleLine="true"
                     android:textAppearance="@style/regular_16" />
 
                 <ImageView
                     android:id="@+id/show_pass_btn"
                     android:layout_width="@dimen/dimen_30"
                     android:layout_height="@dimen/dimen_30"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="@dimen/dimen_6"
                     android:layout_marginEnd="@dimen/dimen_8"
                     android:alpha=".5"
-                    android:onClick="ShowHidePass"
                     android:padding="@dimen/dimen_5"
-                    android:src="@drawable/ic_baseline_visibility_24"
-                    app:layout_constraintBottom_toBottomOf="parent" />
+                    android:src="@drawable/ic_baseline_visibility_24" />
 
             </RelativeLayout>
         </LinearLayout>

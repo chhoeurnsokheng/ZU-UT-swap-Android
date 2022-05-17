@@ -29,11 +29,8 @@ class NavbarActivity :
         try {
             binding.apply {
 
-                SessionPreferences().SESSION_STATUS = false
-                SessionPreferences().SESSION_KYC = false
-
                 if(SessionPreferences().SESSION_STATUS!!){
-                    layVerify.visibility = GONE
+                    layAuth.visibility = GONE
                 }
 
                 if(SessionPreferences().SESSION_KYC!!){
@@ -67,7 +64,6 @@ class NavbarActivity :
                 }
 
                 btnVerify.setOnClickListener {
-                    KYCPreferences().clearValue()
                     val intent = Intent(UTSwapApp.instance, KYCActivity::class.java)
                     startActivity(intent)
                 }
