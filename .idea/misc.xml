@@ -8,6 +8,7 @@
         <entry key="app/src/main/res/drawable-anydpi/bg_correct.xml" value="0.12" />
         <entry key="app/src/main/res/drawable-anydpi/ic_baseline_delete_24.xml" value="0.12" />
         <entry key="app/src/main/res/drawable-v24/bg_card.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable-v24/edittext_bg.xml" value="0.107" />
         <entry key="app/src/main/res/drawable/bg_border_green_correct.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/bg_bottom_menu.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/bg_circular.xml" value="0.1" />
@@ -19,6 +20,7 @@
         <entry key="app/src/main/res/drawable/bg_green_total_balance.xml" value="0.12" />
         <entry key="app/src/main/res/drawable/bg_red_corner.xml" value="0.12" />
         <entry key="app/src/main/res/drawable/bg_shadows.xml" value="0.1095" />
+        <entry key="app/src/main/res/drawable/ic_baseline_access_time_24.xml" value="0.194" />
         <entry key="app/src/main/res/drawable/ic_baseline_access_time_filled_24.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_baseline_visibility_24.xml" value="0.1095" />
         <entry key="app/src/main/res/drawable/ic_baseline_wifi_24.xml" value="0.1095" />
