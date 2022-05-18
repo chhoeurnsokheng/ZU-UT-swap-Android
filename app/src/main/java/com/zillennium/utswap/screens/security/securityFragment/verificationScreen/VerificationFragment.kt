@@ -9,6 +9,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import android.widget.Toast
@@ -37,6 +38,8 @@ class VerificationFragment():
         super.initView()
         try {
             binding.apply {
+
+//                activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
 
                 imgBack.setOnClickListener {
                     findNavController().popBackStack()
@@ -172,7 +175,7 @@ class VerificationFragment():
                 override fun onFinish() {
                     btnNext.isEnabled = false
                     Toast.makeText(
-                        requireActivity(),
+                        activity,
                         "You're run out of time!",
                         Toast.LENGTH_SHORT
                     ).show()

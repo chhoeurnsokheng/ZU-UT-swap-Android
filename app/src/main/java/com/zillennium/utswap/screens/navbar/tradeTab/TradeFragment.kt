@@ -8,7 +8,6 @@ import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentNavbarTradeBinding
-import com.zillennium.utswap.screens.project.projecrDetailScreen.ProjectDetailAdapter
 
 class TradeFragment :
     BaseMvpFragment<TradeView.View, TradeView.Presenter, FragmentNavbarTradeBinding>(),

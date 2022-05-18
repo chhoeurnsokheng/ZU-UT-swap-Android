@@ -132,24 +132,28 @@ class IDVerificationFragment :
 
                 //Gender Error
                 if (info.gender == 0) {
+                    spinnerGender.underlineColor = resources.getColor(R.color.red)
                     txtErrorGender.visibility = View.VISIBLE
                     isHaveError = true
                 }
 
                 // City/Province Error
                 if (info.city == 0) {
+                    spinnerCityProvince.underlineColor = resources.getColor(R.color.red)
                     txtErrorCity.visibility = View.VISIBLE
                     isHaveError = true
                 }
 
                 // District Error
                 if (info.district == 0) {
+                    spinnerDistrictKhan.underlineColor = resources.getColor(R.color.red)
                     txtErrorDistrict.visibility = View.VISIBLE
                     isHaveError = true
                }
 
                 // Commune Error
                 if (info.commune == 0) {
+                    spinnerCommuneSangkat.underlineColor = resources.getColor(R.color.red)
                     txtErrorCommune.visibility = View.VISIBLE
                     isHaveError = true
                 }
@@ -310,6 +314,7 @@ class IDVerificationFragment :
                     position: Int,
                     id: Long
                 ) {
+                    spinnerGender.underlineColor = resources.getColor(R.color.secondary_text)
                     info.gender = genderList[position].id
                     txtErrorGender.visibility = View.GONE
                 }
@@ -340,6 +345,7 @@ class IDVerificationFragment :
                         position: Int,
                         id: Long
                     ) {
+                        spinnerCityProvince.underlineColor = resources.getColor(R.color.secondary_text)
                         info.city = provinceList[position].id
                         txtErrorCity.visibility = View.GONE
                     }
@@ -370,6 +376,7 @@ class IDVerificationFragment :
                         position: Int,
                         id: Long
                     ) {
+                        spinnerDistrictKhan.underlineColor = resources.getColor(R.color.secondary_text)
                         info.district = districtList[position].id
                         txtErrorDistrict.visibility = View.GONE
                     }
@@ -401,6 +408,7 @@ class IDVerificationFragment :
                         position: Int,
                         id: Long
                     ) {
+                        spinnerCommuneSangkat.underlineColor = resources.getColor(R.color.secondary_text)
                         info.commune = communeList[position].id
                         txtErrorCommune.visibility = View.GONE
                     }

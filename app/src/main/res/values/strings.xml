@@ -1,22 +1,8 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="main_company">Zillion United Co.,Ltd.</string>
     <string name="app_name">UT Swap</string>
-    <string name="login_in_to_stay_connected">Log In to stay connected</string>
-    <string name="title_activity_main">MainActivity</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
     <string name="project">Project</string>
-    <string name="project_ico">Project ICO</string>
     <string name="trade">Trade</string>
-    <string name="swap">Swap</string>
-    <string name="news">News</string>
-    <string name="account">Account</string>
-    <string name="email">Email</string>
-    <string name="phone_number">Phone Number</string>
-    <string name="enter_email">Enter Email</string>
-    <string name="enter_password">Enter Password</string>
-    <string name="enter_code">Enter Code</string>
     <string name="forgot_password">Forget Password</string>
     <string name="sign_in">Sign In</string>
     <string name="register_now">Register Now</string>
@@ -51,7 +37,6 @@
     <string name="reset_password">Reset Password</string>
     <string name="sign_up">Sign Up</string>
     <string name="btn_yes">Yes</string>
-
     <string name="btn_later">Later</string>
     <string name="home">Home</string>
     <string name="article_news">Article News</string>
@@ -258,5 +243,5 @@
     <string name="invalid_email_or_password">Invalid Email or Password</string>
     <string name="field_can_t_be_empty">Field can\'t be empty</string>
     <string name="password_not_matching">Password Not matching</string>
-
+    <string name="cannot_leave_black">Cannot leave black</string>
 </resources>

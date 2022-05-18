@@ -41,7 +41,7 @@ class ResetPasswordFragment :
                     var isHaveError = false
 
                     if(!validate().isValidEmail(inputEmail.text.toString()) && !validate().isValidPhoneNumber(inputEmail.text.toString())){
-                        textEmpty.text = "Please Enter Email or Number Phone"
+                        textEmpty.text = "Please input a valid email/phone number."
                         textEmpty.visibility = View.VISIBLE
                         inputEmail.backgroundTintList =
                             ColorStateList.valueOf(resources.getColor(R.color.red))
