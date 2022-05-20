@@ -31,5 +31,7 @@
     <color name="dark_gray">#666666</color>
     <color name="gray_999999">#999999</color>
     <color name="black_222222">#222222</color>
+    <color name="black_333333">#333333</color>
     <color name="backgroundHint">#808080</color>
+    <color name="simple_green">#08B471</color>
 </resources>

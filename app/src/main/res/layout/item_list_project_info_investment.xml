@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/layout_investment"
+        >
+
+        <LinearLayout
+            android:layout_width="@dimen/dimen_0"
+            android:layout_height="wrap_content"
+            android:layout_weight="32"
+
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="@dimen/dimen_0"
+                android:layout_height="wrap_content"
+                android:layout_weight="20"
+                android:textAppearance="@style/medium_14"
+                android:text="$" />
+
+            <TextView
+                android:id="@+id/txt_per_ut"
+                android:layout_width="@dimen/dimen_0"
+                android:gravity="right"
+                android:layout_marginEnd="@dimen/dimen_5"
+                android:layout_weight="80"
+                android:textAppearance="@style/medium_14"
+                android:layout_height="wrap_content"
+                android:text="3.90" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="@dimen/dimen_0"
+            android:layout_weight="36"
+            android:layout_height="match_parent"
+
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/light_gray"/>
+
+            <TextView
+                android:id="@+id/txt_value_ut"
+                android:layout_width="@dimen/dimen_0"
+                android:layout_weight="95"
+                android:textAppearance="@style/medium_14"
+                android:layout_marginEnd="@dimen/dimen_5"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:text="858 000" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/light_gray" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="@dimen/dimen_0"
+            android:layout_height="wrap_content"
+            android:layout_weight="32"
+
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="@dimen/dimen_0"
+                android:layout_weight="20"
+                android:layout_marginStart="@dimen/dimen_5"
+                android:textAppearance="@style/medium_14"
+                android:layout_height="wrap_content"
+                android:text="$" />
+
+            <TextView
+                android:id="@+id/txt_sqm_ut"
+                android:layout_width="@dimen/dimen_0"
+                android:layout_weight="80"
+                android:textAppearance="@style/medium_14"
+                android:layout_height="wrap_content"
+                android:text="1 546"
+                android:gravity="right"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>
