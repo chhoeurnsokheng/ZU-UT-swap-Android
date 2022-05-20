@@ -2,6 +2,7 @@ package com.zillennium.utswap.screens.navbar.projectTab.projectScreen
 
 import android.annotation.SuppressLint
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
@@ -13,6 +14,7 @@ import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentNavbarProjectBinding
 import com.zillennium.utswap.models.Project
 import com.zillennium.utswap.screens.navbar.projectTab.projectScreen.adapter.ProjectAdapter
+import com.zillennium.utswap.screens.security.securityDialog.FundPasswordDialog
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
@@ -33,6 +35,7 @@ class ProjectFragment :
         super.initView()
         try {
             binding.apply {
+
                 val publicDate = arrayOf(
                     "05-05-2021",
                     "01-01-2022",
