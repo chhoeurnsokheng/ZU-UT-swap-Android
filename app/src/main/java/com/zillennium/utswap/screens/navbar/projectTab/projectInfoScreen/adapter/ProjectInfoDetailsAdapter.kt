@@ -6,11 +6,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.zillennium.utswap.R
-import com.zillennium.utswap.models.ProjectInfoDetail
+import com.zillennium.utswap.models.ProjectInfoDetailModel
 
-class ProjectInfoDetailsAdapter(arrayList: ArrayList<ProjectInfoDetail>) :
+class ProjectInfoDetailsAdapter(arrayList: ArrayList<ProjectInfoDetailModel>) :
     RecyclerView.Adapter<ProjectInfoDetailsAdapter.ViewHolder>() {
-    private val listdata: ArrayList<ProjectInfoDetail> = arrayList
+    private val listdata: ArrayList<ProjectInfoDetailModel> = arrayList
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var txtTitleInfo: TextView = view.findViewById<View>(R.id.title_info) as TextView
@@ -25,7 +25,7 @@ class ProjectInfoDetailsAdapter(arrayList: ArrayList<ProjectInfoDetail>) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val projectInfoDetailList: ProjectInfoDetail = listdata[position]
+        val projectInfoDetailList: ProjectInfoDetailModel = listdata[position]
         holder.txtTitleInfo.text = projectInfoDetailList.titleInfo
         holder.txtDescriptionInfo.text = projectInfoDetailList.descriptionInfo
 

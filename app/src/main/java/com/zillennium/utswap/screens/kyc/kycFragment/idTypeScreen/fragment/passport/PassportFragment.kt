@@ -38,6 +38,8 @@ class PassportFragment :
                     btnPassport.isClickable = true
                     KYCPreferences().removeValue("PASSPORT_FRONT")
                     (parentFragment as IdTypeFragment).checkValidation()
+                    val bundle = bundleOf("title" to "passport_front")
+                    findNavController().navigate(R.id.action_to_id_card_camera_kyc_fragment, bundle)
                 }
 
             }
@@ -48,13 +50,19 @@ class PassportFragment :
 
     override fun onResume() {
         super.onResume()
-        if (!KYCPreferences().PASSPORT_FRONT.isNullOrEmpty()) {
-            binding.apply {
+        binding.apply {
+            if (!KYCPreferences().PASSPORT_FRONT.isNullOrEmpty()) {
                 imgPassport.setImageURI(KYCPreferences().PASSPORT_FRONT?.toUri())
                 btnPassport.isClickable = false
                 imgLogoCamera.visibility = View.GONE
                 imgLogoCorrect.visibility = View.VISIBLE
                 imgDeleteFront.visibility = View.VISIBLE
+            }else{
+                imgPassport.setImageResource(R.drawable.ic_passport_front)
+                imgLogoCamera.visibility = View.VISIBLE
+                imgLogoCorrect.visibility = View.GONE
+                imgDeleteFront.visibility = View.GONE
+                btnPassport.isClickable = true
             }
         }
     }

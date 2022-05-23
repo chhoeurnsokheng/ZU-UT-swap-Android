@@ -9,8 +9,8 @@ import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentNavbarProjectInfoBinding
-import com.zillennium.utswap.models.ProjectInfoDetail
-import com.zillennium.utswap.models.ProjectInfoInvestment
+import com.zillennium.utswap.models.ProjectInfoDetailModel
+import com.zillennium.utswap.models.ProjectInfoInvestmentModel
 import com.zillennium.utswap.screens.navbar.projectTab.projectInfoScreen.adapter.ProjectInfoDetailsAdapter
 import com.zillennium.utswap.screens.navbar.projectTab.projectInfoScreen.adapter.ProjectInfoInvestmentAdapter
 import java.util.*
@@ -89,10 +89,10 @@ class ProjectInfoFragment :
                     "St. 105k, Kbal Damrei 1, Kakab 1, Pur Senchey, Phnom Penh"
                 )
 
-                val projectInfoDetailArrayList = arrayListOf<ProjectInfoDetail>()
+                val projectInfoDetailArrayList = arrayListOf<ProjectInfoDetailModel>()
 
                 for (i in titleInfoDetail.indices){
-                    val projectInfo = ProjectInfoDetail(
+                    val projectInfo = ProjectInfoDetailModel(
                         titleInfoDetail[i],
                         valueInfo[i]
                     )
@@ -138,19 +138,19 @@ class ProjectInfoFragment :
                     "1 804",
                 )
 
-                val projectInfoInvestmentArrayList = arrayListOf<ProjectInfoInvestment>()
+                val projectInfoInvestmentModelArrayList = arrayListOf<ProjectInfoInvestmentModel>()
 
                 for (i in perUT.indices){
-                    val projectInvestment = ProjectInfoInvestment(
+                    val projectInvestment = ProjectInfoInvestmentModel(
                         perUT[i],
                         valueUT[i],
                         sqmUT[i]
                     )
-                    projectInfoInvestmentArrayList.add(projectInvestment)
+                    projectInfoInvestmentModelArrayList.add(projectInvestment)
                 }
 
                 rvProjectInvestmentInfo.layoutManager = LinearLayoutManager(UTSwapApp.instance)
-                rvProjectInvestmentInfo.adapter = ProjectInfoInvestmentAdapter(projectInfoInvestmentArrayList)
+                rvProjectInvestmentInfo.adapter = ProjectInfoInvestmentAdapter(projectInfoInvestmentModelArrayList)
 
 
                 /* Term and condition && Document */

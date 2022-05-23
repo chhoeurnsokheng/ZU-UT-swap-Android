@@ -3,7 +3,7 @@ package com.zillennium.utswap.models
 import java.io.Serializable
 
 
-class Project(
+class ProjectModel(
     var id: Int,
     var publicDate: String,
     var imageIcon: Int,

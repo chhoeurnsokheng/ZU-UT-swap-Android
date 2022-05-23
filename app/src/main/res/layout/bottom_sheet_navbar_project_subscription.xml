@@ -3,16 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.cardview.widget.CardView
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="@dimen/dimen_20"
         android:layout_margin="@dimen/dimen_20">
 
         <LinearLayout
-            android:layout_marginStart="@dimen/dimen_20"
-            android:layout_marginEnd="@dimen/dimen_20"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_20"
+            android:layout_marginEnd="@dimen/dimen_20"
             android:orientation="vertical">
 
             <View
@@ -23,6 +23,7 @@
                 android:background="@drawable/btn_bar" />
 
             <TextView
+                android:id="@+id/txt_standard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_20"
@@ -42,6 +43,7 @@
                 android:layout_marginTop="@dimen/dimen_20"
                 android:text="@string/subscription_lock_period"
                 android:textAppearance="@style/regular_10" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -93,6 +95,7 @@
                     android:text=""
                     android:textAppearance="@style/regular_12" />
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/btn_subscript"
                 android:layout_width="match_parent"

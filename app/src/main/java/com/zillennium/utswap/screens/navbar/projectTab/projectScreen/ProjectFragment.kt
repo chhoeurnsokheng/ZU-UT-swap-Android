@@ -2,7 +2,6 @@ package com.zillennium.utswap.screens.navbar.projectTab.projectScreen
 
 import android.annotation.SuppressLint
 import android.os.Build
-import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
@@ -12,9 +11,8 @@ import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentNavbarProjectBinding
-import com.zillennium.utswap.models.Project
+import com.zillennium.utswap.models.ProjectModel
 import com.zillennium.utswap.screens.navbar.projectTab.projectScreen.adapter.ProjectAdapter
-import com.zillennium.utswap.screens.security.securityDialog.FundPasswordDialog
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
@@ -76,10 +74,10 @@ class ProjectFragment :
                     ""
                 )
 
-                val projectArrayList = ArrayList<Project>()
+                val projectArrayList = ArrayList<ProjectModel>()
 
                 for (i in publicDate.indices) {
-                    val project = Project(
+                    val project = ProjectModel(
                         i,
                         publicDate[i],
                         imageIcon[i],
@@ -91,7 +89,7 @@ class ProjectFragment :
                 }
 
                 for (i in publicDate.indices) {
-                    val project = Project(
+                    val project = ProjectModel(
                         i + 10,
                         publicDate[i],
                         imageIcon[i],
@@ -187,7 +185,7 @@ class ProjectFragment :
 
     private val onclickProject: ProjectAdapter.OnclickProject = object :
         ProjectAdapter.OnclickProject {
-        override fun onClickMe(projectHistory: Project?, selectedPosition: Int?) {
+        override fun onClickMe(projectHistory: ProjectModel?, selectedPosition: Int?) {
             val bundle = bundleOf("id" to selectedPosition)
             findNavController().navigate(R.id.action_to_project_info, bundle)
 

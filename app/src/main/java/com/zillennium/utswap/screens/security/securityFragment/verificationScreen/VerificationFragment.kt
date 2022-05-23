@@ -62,7 +62,6 @@ class VerificationFragment():
                     inputManager.showSoftInput(editBox, InputMethodManager.SHOW_IMPLICIT)
 
                 }
-                layoutCount.performClick()
 
                 resendCode.setOnClickListener {
                     stopTimer()
@@ -91,6 +90,7 @@ class VerificationFragment():
                         children.background = resources.getDrawable(R.drawable.bg_corner)
                         children.text = ""
                     }
+                    editBox.setText("")
                     imgWrong.visibility = View.GONE
                     linearCountdown.visibility = View.VISIBLE
                 }
@@ -99,6 +99,7 @@ class VerificationFragment():
                     override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
                     override fun onTextChanged(chr: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                        Log.d("12312321", chr.toString())
                         for (child in layoutCount.children){
                             val children = child as TextView
                             children.text = ""

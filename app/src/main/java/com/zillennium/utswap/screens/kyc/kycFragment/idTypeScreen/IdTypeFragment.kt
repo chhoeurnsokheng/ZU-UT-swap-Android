@@ -54,11 +54,14 @@ open class IdTypeFragment :
                     onChangeTabs(view)
                     vpVerify.setCurrentItem(0, false)
                     checkValidation()
+                    KYCPreferences().removeValue("PASSPORT_FRONT")
                 }
                 passport.setOnClickListener { view ->
                     onChangeTabs(view)
                     vpVerify.setCurrentItem(1, false)
                     checkValidation()
+                    KYCPreferences().removeValue("NATIONAL_ID_FRONT")
+                    KYCPreferences().removeValue("NATIONAL_ID_BACK")
                 }
 
                 // Set Passed Back

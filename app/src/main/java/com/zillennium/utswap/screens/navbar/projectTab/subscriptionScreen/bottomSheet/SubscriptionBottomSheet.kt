@@ -15,6 +15,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.zillennium.utswap.R
+import com.zillennium.utswap.screens.navbar.projectTab.subscriptionScreen.dialog.SubscriptionConfirmDialog
 
 class SubscriptionBottomSheet : BottomSheetDialogFragment(), AdapterView.OnItemSelectedListener {
 
@@ -23,6 +24,7 @@ class SubscriptionBottomSheet : BottomSheetDialogFragment(), AdapterView.OnItemS
     private var etVolume: EditText? = null
     private var strVolume: Int? = 1
     private var price: Double? = 1.00
+    private var txtStandard: TextView? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,13 +37,15 @@ class SubscriptionBottomSheet : BottomSheetDialogFragment(), AdapterView.OnItemS
 
         btnSubscript = view?.findViewById(R.id.btn_subscript)
         btnSubscript?.setOnClickListener{
-            val subscriptionConfirmDialog: SubscriptionBottomSheet =
-                SubscriptionBottomSheet.newInstance()
+            val subscriptionConfirmDialog: SubscriptionConfirmDialog = SubscriptionConfirmDialog.newInstance()
             subscriptionConfirmDialog.show(requireActivity().supportFragmentManager, "balanceHistoryDetailDialog")
         }
 
+        txtStandard = view?.findViewById(R.id.txt_standard)
         txtSubscriptPrice = view?.findViewById(R.id.txt_subscript_price)
         etVolume = view?.findViewById(R.id.et_input_volume)
+
+        txtStandard?.text = arguments?.getString("title")
 
         etVolume?.addTextChangedListener(object : TextWatcher{
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -68,9 +72,13 @@ class SubscriptionBottomSheet : BottomSheetDialogFragment(), AdapterView.OnItemS
 
     //companion object == static
     companion object {
-        fun newInstance(): SubscriptionBottomSheet {
+        fun newInstance(
+            title: String?,
+        ): SubscriptionBottomSheet {
             val subscriptionBottomSheetDialog = SubscriptionBottomSheet()
-            subscriptionBottomSheetDialog.arguments = Bundle()
+            val args = Bundle()
+            args.putString("title",title)
+            subscriptionBottomSheetDialog.arguments = args
             return subscriptionBottomSheetDialog
         }
     }

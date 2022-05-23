@@ -10,6 +10,7 @@ import android.view.Window
 import android.widget.LinearLayout
 import androidx.fragment.app.DialogFragment
 import com.zillennium.utswap.R
+import com.zillennium.utswap.screens.security.securityDialog.FundPasswordDialog
 
 class SubscriptionConfirmDialog : DialogFragment(){
 
@@ -32,7 +33,9 @@ class SubscriptionConfirmDialog : DialogFragment(){
 
         btnConfirm = view?.findViewById(R.id.btn_confirm)
         btnConfirm?.setOnClickListener {
-            //open fund password fragment
+            FundPasswordDialog().show(requireActivity().supportFragmentManager, "balanceHistoryDetailDialog")
+//            val subscriptionConfirmDialog: SubscriptionConfirmDialog = SubscriptionConfirmDialog.newInstance()
+//            subscriptionConfirmDialog.show(requireActivity().supportFragmentManager, "balanceHistoryDetailDialog")
         }
 
         return view

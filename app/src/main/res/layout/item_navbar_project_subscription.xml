@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <LinearLayout
+        android:id="@+id/CardViewPopup"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_30"
+        android:layout_width="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_height="@dimen/dimen_20"
+                    android:layout_width="@dimen/dimen_20"
+                    android:src="@drawable/ic_baseline_circle_24"
+                    app:tint="@color/simple_green" />
+
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_5"
+                    android:layout_width="wrap_content"
+                    android:text=""
+                    android:textAppearance="@style/medium_16" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:gravity="end"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent">
+
+                <TextView
+                    android:id="@+id/tv_dollar_text"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_3"
+                    android:layout_width="wrap_content"
+                    android:text="$"
+                    android:textAppearance="@style/medium_14" />
+
+                <TextView
+                    android:id="@+id/tv_dollar"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_3"
+                    android:layout_width="wrap_content"
+                    android:text=""
+                    android:textAppearance="@style/medium_14" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <ProgressBar
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:id="@+id/determinateBar"
+            android:layout_height="@dimen/dimen_5"
+            android:layout_marginTop="@dimen/dimen_20"
+            android:layout_width="match_parent"
+            android:progress="0"
+            android:progressBackgroundTint="@color/thirst_text" />
+
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_20"
+            android:layout_width="match_parent"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_height="@dimen/dimen_20"
+                    android:layout_width="@dimen/dimen_20"
+                    android:src="@drawable/ic_baseline_lock_24"
+                    app:tint="@color/thirst_text" />
+
+                <TextView
+                    android:id="@+id/tv_day_lock"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_5"
+                    android:layout_marginTop="@dimen/dimen_3"
+                    android:layout_width="wrap_content"
+                    android:text=""
+                    android:textAppearance="@style/regular_12" />
+                <TextView
+                    android:id="@+id/tv_day_lock_text"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_5"
+                    android:layout_marginTop="@dimen/dimen_3"
+                    android:layout_width="wrap_content"
+                    android:text="Days"
+                    android:textAppearance="@style/regular_12" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:gravity="end"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_ut_value"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_3"
+                    android:layout_width="wrap_content"
+                    android:text=""
+                    android:textAppearance="@style/medium_14" />
+                <TextView
+                    android:id="@+id/tv_Div"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_3"
+                    android:layout_width="wrap_content"
+                    android:text="/"
+                    android:textAppearance="@style/medium_14"
+                    />
+                <TextView
+                    android:id="@+id/tv_ut_main_value"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_3"
+                    android:layout_width="wrap_content"
+                    android:text=""
+                    android:textAppearance="@style/medium_14" />
+                <TextView
+                    android:layout_marginStart="@dimen/dimen_5"
+                    android:id="@+id/tv_ut_text"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_3"
+                    android:layout_width="wrap_content"
+                    android:text="UT"
+                    android:textAppearance="@style/medium_14" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:background="@color/thirst_text"
+            android:layout_height="@dimen/dimen_1"
+            android:layout_marginTop="@dimen/dimen_10"
+            android:layout_width="match_parent" />
+    </LinearLayout>
+
+</layout>

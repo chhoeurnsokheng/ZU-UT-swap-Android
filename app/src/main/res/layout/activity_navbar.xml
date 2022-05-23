@@ -25,72 +25,76 @@
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@id/nav_view"
+            android:layout_above="@id/lay_bottom_note"
             app:defaultNavHost="true"
-            app:navGraph="@navigation/navbar_navigation" />
-
-
-        <LinearLayout
-            android:id="@+id/lay_verify"
+            app:navGraph="@navigation/navbar_navigation"/>
+        <RelativeLayout
+            android:id="@+id/lay_bottom_note"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@id/nav_view"
-            android:background="@color/white"
-            android:gravity="center_horizontal"
             android:orientation="vertical"
-            android:paddingHorizontal="@dimen/dimen_20"
-            android:paddingTop="@dimen/dimen_20"
-            android:paddingBottom="@dimen/dimen_12"
-            android:visibility="visible">
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_verify"
-                android:layout_width="240dp"
-                android:layout_height="@dimen/dimen_48"
-                android:layout_marginBottom="@dimen/dimen_6"
-                android:background="@drawable/bg_circular"
-                android:hint="Verify Your Identity"
-                android:textAppearance="@style/bold_14"
-                android:textColorHint="@color/white" />
-
-            <TextView
-                android:layout_width="wrap_content"
+            android:layout_above="@id/nav_view">
+            <LinearLayout
+                android:id="@+id/lay_verify"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Please verify your identity to start trading."
-                android:textAppearance="@style/regular_10" />
-        </LinearLayout>
+                android:background="@color/white"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:paddingHorizontal="@dimen/dimen_20"
+                android:paddingTop="@dimen/dimen_20"
+                android:paddingBottom="@dimen/dimen_12"
+                android:visibility="visible">
 
-        <LinearLayout
-            android:id="@+id/lay_auth"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingHorizontal="@dimen/dimen_20"
-            android:paddingVertical="@dimen/dimen_26"
-            android:layout_above="@id/nav_view"
-            android:background="@color/white"
-            android:visibility="visible">
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_signIn"
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_verify"
+                    android:layout_width="240dp"
+                    android:layout_height="@dimen/dimen_48"
+                    android:layout_marginBottom="@dimen/dimen_6"
+                    android:background="@drawable/bg_circular"
+                    android:hint="Verify Your Identity"
+                    android:textAppearance="@style/bold_14"
+                    android:textColorHint="@color/white" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Please verify your identity to start trading."
+                    android:textAppearance="@style/regular_10" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lay_auth"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_48"
-                android:layout_marginEnd="@dimen/dimen_8"
-                android:layout_weight="1"
-                android:background="@drawable/bg_circular"
-                android:hint="@string/login"
-                android:textAppearance="@style/bold_16"
-                android:textColorHint="@color/white" />
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_register"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_48"
-                android:layout_marginStart="@dimen/dimen_8"
-                android:layout_weight="1"
-                android:background="@drawable/bg_circular_border_button"
-                android:hint="@string/register"
-                android:textAppearance="@style/bold_16"
-                android:textColorHint="@color/color_main" />
-        </LinearLayout>
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/dimen_20"
+                android:paddingVertical="@dimen/dimen_26"
+                android:background="@color/white"
+                android:visibility="visible">
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_signIn"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_48"
+                    android:layout_marginEnd="@dimen/dimen_8"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_circular"
+                    android:hint="@string/login"
+                    android:textAppearance="@style/bold_16"
+                    android:textColorHint="@color/white" />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_register"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_48"
+                    android:layout_marginStart="@dimen/dimen_8"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_circular_border_button"
+                    android:hint="@string/register"
+                    android:textAppearance="@style/bold_16"
+                    android:textColorHint="@color/color_main" />
+            </LinearLayout>
+        </RelativeLayout>
+
 
 
     </RelativeLayout>

@@ -8,8 +8,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dimen_5"
-            android:layout_marginBottom="@dimen/dimen_5"
+            android:paddingVertical="@dimen/dimen_8"
             android:orientation="horizontal">
 
             <TextView
@@ -28,14 +27,10 @@
                 android:gravity="right"
                 android:text="Hard title (10)"
                 android:textAppearance="@style/medium_14"/>
-
         </LinearLayout>
-
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginBottom="@dimen/dimen_5"
             android:background="@color/light_gray" />
-
     </LinearLayout>
 </layout>

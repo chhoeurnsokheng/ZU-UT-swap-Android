@@ -9,10 +9,10 @@ import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.zillennium.utswap.R
-import com.zillennium.utswap.models.Project
+import com.zillennium.utswap.models.ProjectModel
 
 class ProjectAdapter(
-    private val arrayList: ArrayList<Project>,
+    private val arrayList: ArrayList<ProjectModel>,
     private val itemListProject: Int,
     private val onclickProject: OnclickProject) :
     RecyclerView.Adapter<ProjectAdapter.ViewHolder>() {
@@ -35,7 +35,7 @@ class ProjectAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val projectList: Project = arrayList[position]
+        val projectList: ProjectModel = arrayList[position]
         holder.publicDate.text = projectList.publicDate
         holder.imageView.setImageResource(projectList.imageIcon)
         if (projectList.status.isNotEmpty()) {
@@ -58,7 +58,7 @@ class ProjectAdapter(
     }
 
     interface OnclickProject {
-        fun onClickMe(projectHistory: Project?,selectedPosition: Int?)
+        fun onClickMe(projectHistory: ProjectModel?, selectedPosition: Int?)
     }
 
 }

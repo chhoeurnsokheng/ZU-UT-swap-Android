@@ -10,11 +10,11 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
-import com.zillennium.utswap.models.ProjectInfoInvestment
+import com.zillennium.utswap.models.ProjectInfoInvestmentModel
 
-class ProjectInfoInvestmentAdapter (arrayList: ArrayList<ProjectInfoInvestment>) :
+class ProjectInfoInvestmentAdapter (arrayList: ArrayList<ProjectInfoInvestmentModel>) :
     RecyclerView.Adapter<ProjectInfoInvestmentAdapter.ViewHolder>() {
-    private val listdata:  ArrayList<ProjectInfoInvestment> = arrayList
+    private val listdata:  ArrayList<ProjectInfoInvestmentModel> = arrayList
 
     inner class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
         var txtPerUT: TextView = view.findViewById<View>(R.id.txt_per_ut) as TextView
@@ -32,11 +32,11 @@ class ProjectInfoInvestmentAdapter (arrayList: ArrayList<ProjectInfoInvestment>)
 
     @SuppressLint("ResourceAsColor")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val projectInfoInvestmentList: ProjectInfoInvestment = listdata[position]
+        val projectInfoInvestmentModelList: ProjectInfoInvestmentModel = listdata[position]
 
-        holder.txtPerUT.text = projectInfoInvestmentList.perUT
-        holder.txtValueUT.text = projectInfoInvestmentList.valueUT
-        holder.txtSqmUT.text = projectInfoInvestmentList.sqmUT
+        holder.txtPerUT.text = projectInfoInvestmentModelList.perUT
+        holder.txtValueUT.text = projectInfoInvestmentModelList.valueUT
+        holder.txtSqmUT.text = projectInfoInvestmentModelList.sqmUT
 
         if(position == 2)
         {

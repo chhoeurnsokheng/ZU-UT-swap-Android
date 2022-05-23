@@ -1,21 +1,13 @@
 package com.zillennium.utswap.screens.navbar.projectTab.subscriptionScreen
 
-import android.view.View
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.denzcoskun.imageslider.constants.ScaleTypes
-import com.denzcoskun.imageslider.models.SlideModel
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
-import com.zillennium.utswap.databinding.FragmentNavbarProjectInfoBinding
 import com.zillennium.utswap.databinding.FragmentNavbarProjectSubscriptionBinding
-import com.zillennium.utswap.models.ProjectInfoDetail
-import com.zillennium.utswap.models.ProjectInfoInvestment
-import com.zillennium.utswap.screens.navbar.projectTab.projectInfoScreen.adapter.ProjectInfoDetailsAdapter
-import com.zillennium.utswap.screens.navbar.projectTab.projectInfoScreen.adapter.ProjectInfoInvestmentAdapter
+import com.zillennium.utswap.models.SubscriptionModel
+import com.zillennium.utswap.screens.navbar.projectTab.subscriptionScreen.adapter.SubscriptionAdapter
 import com.zillennium.utswap.screens.navbar.projectTab.subscriptionScreen.bottomSheet.SubscriptionBottomSheet
-import java.util.*
 
 
 class SubscriptionFragment :
@@ -29,16 +21,64 @@ class SubscriptionFragment :
         super.initView()
         try {
             binding.apply {
-                CardViewPopup.setOnClickListener {
-                    val subscriptionBottomSheetDialog: SubscriptionBottomSheet = SubscriptionBottomSheet.newInstance()
-                    subscriptionBottomSheetDialog.show(requireActivity().supportFragmentManager, "balanceHistoryDetailDialog")
+                /* Recycle view of project info detail */
+                val tvTitle = arrayOf(
+                    "Professional",
+                    "Premium, Professional",
+                    "Standard, Premium, Professional"
+                )
+
+                val tvDollar = arrayOf(
+                    3.90,
+                    3.98,
+                    4.10
+                )
+                val tvDayLock = arrayOf(
+                    "60",
+                    "40 ",
+                    "No Lock"
+                )
+
+                val tvUtValue = arrayOf(
+                    0,
+                    11550,
+                    24750
+                )
+
+                val tvUtMainValue = arrayOf(
+                    44000,
+                    77000,
+                    99000
+                )
+
+                val subscriptionArrayList = arrayListOf<SubscriptionModel>()
+                for (i in tvTitle.indices) {
+                    val subscriptionInfo = SubscriptionModel(
+                        tvTitle[i],
+                        tvDollar[i],
+                        tvDayLock[i],
+                        tvUtValue[i],
+                        tvUtMainValue[i]
+                    )
+                    subscriptionArrayList.add(subscriptionInfo)
                 }
+                recycleViewProject.layoutManager = LinearLayoutManager(UTSwapApp.instance)
+                recycleViewProject.adapter = SubscriptionAdapter(subscriptionArrayList, onclickAdapter)
+
             }
 
         } catch (error: Exception) {
             // Must be safe
         }
-
+    }
+    private val onclickAdapter: SubscriptionAdapter.OnclickAdapter = object: SubscriptionAdapter.OnclickAdapter{
+        override fun onClickMe(subscriptionModel: SubscriptionModel) {
+            val subscriptionBottomSheetDialog: SubscriptionBottomSheet = SubscriptionBottomSheet.newInstance(
+                subscriptionModel?.tv_title,
+            )
+            subscriptionBottomSheetDialog.show(requireActivity().supportFragmentManager, "balanceHistoryDetailDialog")
+        }
 
     }
+
 }

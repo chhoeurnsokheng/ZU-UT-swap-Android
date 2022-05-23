@@ -44,6 +44,7 @@
         <entry key="app/src/main/res/drawable/ic_check.xml" value="0.1095" />
         <entry key="app/src/main/res/drawable/ic_crossed.xml" value="0.1095" />
         <entry key="app/src/main/res/drawable/ic_exclamation_solid.xml" value="0.194" />
+        <entry key="app/src/main/res/drawable/ic_fund_key_normal.xml" value="0.101" />
         <entry key="app/src/main/res/drawable/ic_map.xml" value="0.194" />
         <entry key="app/src/main/res/drawable/ic_ut_swap_log.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/outline_subscription.xml" value="0.194" />
@@ -188,6 +189,7 @@
         <entry key="app/src/main/res/layout/item_list_wallet_subscription_history.xml" value="0.20350577169730655" />
         <entry key="app/src/main/res/layout/item_list_wallet_transfer_history.xml" value="0.20350577169730655" />
         <entry key="app/src/main/res/layout/item_list_wallet_withdraw_history.xml" value="0.20350577169730655" />
+        <entry key="app/src/main/res/layout/item_navbar_project_subscription.xml" value="0.20094057289439932" />
         <entry key="app/src/main/res/layout/layout_deposit_bottomsheet_fragment.xml" value="0.20350577169730655" />
         <entry key="app/src/main/res/layout/layout_export_transaction_bottomsheet_fragment.xml" value="0.20350577169730655" />
         <entry key="app/src/main/res/layout/layout_filter_bottomsheet_fragment.xml" value="0.20350577169730655" />

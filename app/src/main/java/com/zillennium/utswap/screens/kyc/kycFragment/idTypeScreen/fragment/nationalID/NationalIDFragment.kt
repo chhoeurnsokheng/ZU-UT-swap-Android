@@ -63,24 +63,35 @@ class NationalIDFragment :
 
     override fun onResume() {
         super.onResume()
-        if(!KYCPreferences().NATIONAL_ID_FRONT.isNullOrEmpty()){
-            binding.apply {
+        binding.apply {
+            if(!KYCPreferences().NATIONAL_ID_FRONT.isNullOrEmpty()){
                 imgNationalFront.setImageURI(KYCPreferences().NATIONAL_ID_FRONT?.toUri())
                 btnCameraFront.isClickable = false
                 imgLogoCameraFront.visibility = View.GONE
                 imgLogoCorrectFront.visibility = View.VISIBLE
                 imgDeleteFront.visibility = View.VISIBLE
+            }else{
+                imgNationalFront.setImageResource(R.drawable.ic_national_id_front)
+                imgLogoCameraFront.visibility = View.VISIBLE
+                imgLogoCorrectFront.visibility = View.GONE
+                imgDeleteFront.visibility = View.GONE
+                btnCameraFront.isClickable = true
             }
-        }
-        if(!KYCPreferences().NATIONAL_ID_BACK.isNullOrEmpty()){
-            binding.apply {
+            if(!KYCPreferences().NATIONAL_ID_BACK.isNullOrEmpty()){
                 imgNationalBack.setImageURI(KYCPreferences().NATIONAL_ID_BACK?.toUri())
                 btnCameraBack.isClickable = false
                 imgLogoCameraBack.visibility = View.GONE
                 imgLogoCorrectBack.visibility = View.VISIBLE
                 imgDeleteBack.visibility = View.VISIBLE
+            }else{
+                imgNationalBack.setImageResource(R.drawable.ic_national_id_back)
+                imgLogoCameraBack.visibility = View.VISIBLE
+                imgLogoCorrectBack.visibility = View.GONE
+                imgDeleteBack.visibility = View.GONE
+                btnCameraBack.isClickable = true
             }
         }
+
     }
 
 }
