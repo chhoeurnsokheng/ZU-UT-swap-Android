@@ -1,320 +1,320 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
-        android:orientation="vertical"
-        android:overScrollMode="never"
-        android:scrollbars="none">
-
-        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/dimen_20"
-            android:layout_marginTop="@dimen/dimen_20"
-            android:layout_marginEnd="@dimen/dimen_20">
+        android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-                <RelativeLayout
+                <ImageView
+                    android:id="@+id/btn_back"
+                    android:layout_width="@dimen/dimen_60"
+                    android:layout_height="@dimen/dimen_60"
+                    android:padding="@dimen/dimen_14"
+                    android:src="@drawable/ic_baseline_arrow_back_24"
+                    app:tint="@color/color_main" />
+
+                <LinearLayout
+                    android:id="@+id/exclamation_project"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="right|center"
+                    android:layout_marginEnd="@dimen/dimen_20">
+
+
+                        <ImageView
+                            android:layout_width="@dimen/dimen_20"
+                            android:layout_height="@dimen/dimen_20"
+                            android:src="@drawable/ic_baseline_info_24"
+                            app:tint="@color/color_main"
+                            android:layout_marginEnd="@dimen/dimen_6" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Project"
+                            android:layout_gravity="center"
+                            android:textAppearance="@style/regular_14" />
+
+
+                </LinearLayout>
+            </LinearLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:overScrollMode="never"
+            android:scrollbars="none">
+
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/dimen_20"
+                android:layout_marginTop="@dimen/dimen_20"
+                android:layout_marginEnd="@dimen/dimen_20">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        tools:ignore="UselessParent">
+                        android:layout_marginTop="@dimen/dimen_60"
+                        android:orientation="vertical">
 
-                        <ImageView
-                            android:id="@+id/arrow_back"
-                            android:layout_width="@dimen/dimen_32"
-                            android:layout_height="@dimen/dimen_32"
-                            android:contentDescription="TODO"
-                            android:src="@drawable/ic_baseline_arrow_back_24"
-                            app:tint="@color/color_main"
-                            tools:ignore="ContentDescription" />
-
-                        <RelativeLayout
-                            android:id="@+id/exclamation_project"
+                        <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/dimen_5">
+                            android:text="@string/ut_pochentong"
+                            android:textAppearance="@style/medium_20" />
 
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentEnd="true"
-                                android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dimen_10"
+                            android:text="@string/time_date"
+                            android:textAppearance="@style/regular_12" />
 
-                                <ImageView
-                                    android:layout_width="@dimen/dimen_20"
-                                    android:layout_height="@dimen/dimen_20"
-                                    android:src="@drawable/ic_baseline_info_24"
-                                    app:tint="@color/color_main" />
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recycleView_project"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:overScrollMode="never"
+                            android:scrollbars="none" />
+                        <!--                <LinearLayout-->
+                        <!--                    android:layout_width="match_parent"-->
+                        <!--                    android:layout_height="wrap_content"-->
+                        <!--                    android:layout_marginTop="@dimen/dimen_30"-->
+                        <!--                    android:orientation="vertical">-->
 
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginStart="@dimen/dimen_5"
-                                    android:layout_marginTop="@dimen/dimen_3"
-                                    android:text="Project"
-                                    android:textAppearance="@style/regular_14" />
+                        <!--                    <LinearLayout-->
+                        <!--                        android:layout_width="match_parent"-->
+                        <!--                        android:layout_height="wrap_content"-->
+                        <!--                        android:orientation="horizontal">-->
 
-                            </LinearLayout>
+                        <!--                        <LinearLayout-->
+                        <!--                            android:layout_width="wrap_content"-->
+                        <!--                            android:layout_height="wrap_content"-->
+                        <!--                            android:orientation="horizontal">-->
 
-                        </RelativeLayout>
+                        <!--                            <ImageView-->
+                        <!--                                android:layout_width="@dimen/dimen_20"-->
+                        <!--                                android:layout_height="@dimen/dimen_20"-->
+                        <!--                                android:src="@drawable/ic_baseline_circle_24"-->
+                        <!--                                app:tint="@color/simple_green" />-->
+
+                        <!--                            <TextView-->
+                        <!--                                android:layout_width="wrap_content"-->
+                        <!--                                android:layout_height="wrap_content"-->
+                        <!--                                android:layout_marginStart="@dimen/dimen_5"-->
+                        <!--                                android:text="Premium, Professional"-->
+                        <!--                                android:textAppearance="@style/medium_16" />-->
+                        <!--                        </LinearLayout>-->
+
+                        <!--                        <LinearLayout-->
+                        <!--                            android:layout_width="match_parent"-->
+                        <!--                            android:layout_height="wrap_content"-->
+                        <!--                            android:gravity="end">-->
+
+                        <!--                            <ImageView-->
+                        <!--                                android:layout_width="@dimen/dimen_20"-->
+                        <!--                                android:layout_height="@dimen/dimen_20"-->
+                        <!--                                android:src="@drawable/ic_baseline_attach_money_24"-->
+                        <!--                                app:tint="@color/thirst_text" />-->
+
+                        <!--                            <TextView-->
+                        <!--                                android:layout_width="wrap_content"-->
+                        <!--                                android:layout_height="wrap_content"-->
+                        <!--                                android:layout_marginTop="@dimen/dimen_3"-->
+                        <!--                                android:text="@string/money1"-->
+                        <!--                                android:textAppearance="@style/medium_14" />-->
+                        <!--                        </LinearLayout>-->
+                        <!--                    </LinearLayout>-->
+
+                        <!--                    <ProgressBar-->
+                        <!--                        android:id="@+id/determinateBar2"-->
+                        <!--                        style="@android:style/Widget.ProgressBar.Horizontal"-->
+                        <!--                        android:layout_width="match_parent"-->
+                        <!--                        android:layout_height="@dimen/dimen_5"-->
+                        <!--                        android:layout_marginTop="@dimen/dimen_20"-->
+                        <!--                        android:progress="20"-->
+                        <!--                        android:progressBackgroundTint="@color/thirst_text" />-->
+
+                        <!--                    <LinearLayout-->
+                        <!--                        android:layout_width="match_parent"-->
+                        <!--                        android:layout_height="wrap_content"-->
+                        <!--                        android:layout_marginTop="@dimen/dimen_20"-->
+                        <!--                        android:orientation="horizontal">-->
+
+                        <!--                        <LinearLayout-->
+                        <!--                            android:layout_width="wrap_content"-->
+                        <!--                            android:layout_height="wrap_content"-->
+                        <!--                            android:orientation="horizontal">-->
+
+                        <!--                            <ImageView-->
+                        <!--                                android:layout_width="@dimen/dimen_20"-->
+                        <!--                                android:layout_height="@dimen/dimen_20"-->
+                        <!--                                android:src="@drawable/ic_baseline_lock_24"-->
+                        <!--                                app:tint="@color/thirst_text" />-->
+
+                        <!--                            <TextView-->
+                        <!--                                android:layout_width="wrap_content"-->
+                        <!--                                android:layout_height="wrap_content"-->
+                        <!--                                android:layout_marginStart="@dimen/dimen_5"-->
+                        <!--                                android:layout_marginTop="@dimen/dimen_3"-->
+                        <!--                                android:text="@string/lock_day1"-->
+                        <!--                                android:textAppearance="@style/regular_12" />-->
+                        <!--                        </LinearLayout>-->
+
+                        <!--                        <LinearLayout-->
+                        <!--                            android:layout_width="match_parent"-->
+                        <!--                            android:layout_height="wrap_content"-->
+                        <!--                            android:gravity="end">-->
+
+                        <!--                            <TextView-->
+                        <!--                                android:layout_width="wrap_content"-->
+                        <!--                                android:layout_height="wrap_content"-->
+                        <!--                                android:layout_marginTop="@dimen/dimen_3"-->
+                        <!--                                android:text="@string/ut_lock1"-->
+                        <!--                                android:textAppearance="@style/medium_14" />-->
+                        <!--                        </LinearLayout>-->
+                        <!--                    </LinearLayout>-->
+
+                        <!--                    <View-->
+                        <!--                        android:layout_width="match_parent"-->
+                        <!--                        android:layout_height="@dimen/dimen_1"-->
+                        <!--                        android:layout_marginTop="@dimen/dimen_10"-->
+                        <!--                        android:background="@color/thirst_text" />-->
+                        <!--                </LinearLayout>-->
+
+                        <!--                <LinearLayout-->
+                        <!--                    android:layout_width="match_parent"-->
+                        <!--                    android:layout_height="wrap_content"-->
+                        <!--                    android:layout_marginTop="@dimen/dimen_30"-->
+                        <!--                    android:orientation="vertical">-->
+
+                        <!--                    <LinearLayout-->
+                        <!--                        android:layout_width="match_parent"-->
+                        <!--                        android:layout_height="wrap_content"-->
+                        <!--                        android:orientation="horizontal">-->
+
+                        <!--                        <LinearLayout-->
+                        <!--                            android:layout_width="@dimen/dimen_0"-->
+                        <!--                            android:layout_height="wrap_content"-->
+                        <!--                            android:layout_weight="1"-->
+                        <!--                            android:orientation="horizontal">-->
+
+                        <!--                            <ImageView-->
+                        <!--                                android:layout_width="@dimen/dimen_20"-->
+                        <!--                                android:layout_height="@dimen/dimen_20"-->
+                        <!--                                android:src="@drawable/ic_baseline_circle_24"-->
+                        <!--                                app:tint="@color/simple_green" />-->
+
+                        <!--                            <TextView-->
+                        <!--                                android:layout_width="match_parent"-->
+                        <!--                                android:layout_height="wrap_content"-->
+                        <!--                                android:layout_marginStart="@dimen/dimen_5"-->
+                        <!--                                android:text="Standard, Premium, Professional"-->
+                        <!--                                android:textAppearance="@style/medium_16" />-->
+                        <!--                        </LinearLayout>-->
+
+                        <!--                        <LinearLayout-->
+                        <!--                            android:layout_width="wrap_content"-->
+                        <!--                            android:layout_height="wrap_content"-->
+
+                        <!--                            android:gravity="end">-->
+
+                        <!--                            <ImageView-->
+                        <!--                                android:layout_width="@dimen/dimen_20"-->
+                        <!--                                android:layout_height="@dimen/dimen_20"-->
+                        <!--                                android:src="@drawable/ic_baseline_attach_money_24"-->
+                        <!--                                app:tint="@color/thirst_text" />-->
+
+                        <!--                            <TextView-->
+                        <!--                                android:layout_width="match_parent"-->
+                        <!--                                android:layout_height="wrap_content"-->
+                        <!--                                android:layout_marginTop="@dimen/dimen_3"-->
+                        <!--                                android:text="@string/money2"-->
+                        <!--                                android:textAppearance="@style/medium_14" />-->
+                        <!--                        </LinearLayout>-->
+                        <!--                    </LinearLayout>-->
+
+                        <!--                    <ProgressBar-->
+                        <!--                        android:id="@+id/determinateBar3"-->
+                        <!--                        style="@android:style/Widget.ProgressBar.Horizontal"-->
+                        <!--                        android:layout_width="match_parent"-->
+                        <!--                        android:layout_height="@dimen/dimen_5"-->
+                        <!--                        android:layout_marginTop="@dimen/dimen_20"-->
+                        <!--                        android:progress="25"-->
+                        <!--                        android:progressBackgroundTint="@color/thirst_text" />-->
+
+                        <!--                    <LinearLayout-->
+                        <!--                        android:layout_width="match_parent"-->
+                        <!--                        android:layout_height="wrap_content"-->
+                        <!--                        android:layout_marginTop="@dimen/dimen_20"-->
+                        <!--                        android:orientation="horizontal">-->
+
+                        <!--                        <LinearLayout-->
+                        <!--                            android:layout_width="wrap_content"-->
+                        <!--                            android:layout_height="wrap_content"-->
+                        <!--                            android:orientation="horizontal">-->
+
+                        <!--                            <ImageView-->
+                        <!--                                android:layout_width="@dimen/dimen_20"-->
+                        <!--                                android:layout_height="@dimen/dimen_20"-->
+                        <!--                                android:src="@drawable/ic_baseline_lock_24"-->
+                        <!--                                app:tint="@color/thirst_text" />-->
+
+                        <!--                            <TextView-->
+                        <!--                                android:layout_width="wrap_content"-->
+                        <!--                                android:layout_height="wrap_content"-->
+                        <!--                                android:layout_marginStart="@dimen/dimen_5"-->
+                        <!--                                android:layout_marginTop="@dimen/dimen_3"-->
+                        <!--                                android:text="@string/non_lock_day"-->
+                        <!--                                android:textAppearance="@style/regular_12" />-->
+                        <!--                        </LinearLayout>-->
+
+                        <!--                        <LinearLayout-->
+                        <!--                            android:layout_width="match_parent"-->
+                        <!--                            android:layout_height="wrap_content"-->
+                        <!--                            android:gravity="end">-->
+
+                        <!--                            <TextView-->
+                        <!--                                android:layout_width="wrap_content"-->
+                        <!--                                android:layout_height="wrap_content"-->
+                        <!--                                android:layout_marginTop="@dimen/dimen_3"-->
+                        <!--                                android:text="@string/ut_lock2"-->
+                        <!--                                android:textAppearance="@style/medium_14" />-->
+                        <!--                        </LinearLayout>-->
+                        <!--                    </LinearLayout>-->
+
+                        <!--                    <View-->
+                        <!--                        android:layout_width="match_parent"-->
+                        <!--                        android:layout_height="@dimen/dimen_1"-->
+                        <!--                        android:layout_marginTop="@dimen/dimen_10"-->
+                        <!--                        android:background="@color/thirst_text" />-->
+                        <!--                </LinearLayout>-->
                     </LinearLayout>
-
-                </RelativeLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dimen_60"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/ut_pochentong"
-                        android:textAppearance="@style/medium_20" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dimen_10"
-                        android:text="@string/time_date"
-                        android:textAppearance="@style/regular_12" />
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recycleView_project"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:overScrollMode="never"
-                        android:scrollbars="none" />
-                    <!--                <LinearLayout-->
-                    <!--                    android:layout_width="match_parent"-->
-                    <!--                    android:layout_height="wrap_content"-->
-                    <!--                    android:layout_marginTop="@dimen/dimen_30"-->
-                    <!--                    android:orientation="vertical">-->
-
-                    <!--                    <LinearLayout-->
-                    <!--                        android:layout_width="match_parent"-->
-                    <!--                        android:layout_height="wrap_content"-->
-                    <!--                        android:orientation="horizontal">-->
-
-                    <!--                        <LinearLayout-->
-                    <!--                            android:layout_width="wrap_content"-->
-                    <!--                            android:layout_height="wrap_content"-->
-                    <!--                            android:orientation="horizontal">-->
-
-                    <!--                            <ImageView-->
-                    <!--                                android:layout_width="@dimen/dimen_20"-->
-                    <!--                                android:layout_height="@dimen/dimen_20"-->
-                    <!--                                android:src="@drawable/ic_baseline_circle_24"-->
-                    <!--                                app:tint="@color/simple_green" />-->
-
-                    <!--                            <TextView-->
-                    <!--                                android:layout_width="wrap_content"-->
-                    <!--                                android:layout_height="wrap_content"-->
-                    <!--                                android:layout_marginStart="@dimen/dimen_5"-->
-                    <!--                                android:text="Premium, Professional"-->
-                    <!--                                android:textAppearance="@style/medium_16" />-->
-                    <!--                        </LinearLayout>-->
-
-                    <!--                        <LinearLayout-->
-                    <!--                            android:layout_width="match_parent"-->
-                    <!--                            android:layout_height="wrap_content"-->
-                    <!--                            android:gravity="end">-->
-
-                    <!--                            <ImageView-->
-                    <!--                                android:layout_width="@dimen/dimen_20"-->
-                    <!--                                android:layout_height="@dimen/dimen_20"-->
-                    <!--                                android:src="@drawable/ic_baseline_attach_money_24"-->
-                    <!--                                app:tint="@color/thirst_text" />-->
-
-                    <!--                            <TextView-->
-                    <!--                                android:layout_width="wrap_content"-->
-                    <!--                                android:layout_height="wrap_content"-->
-                    <!--                                android:layout_marginTop="@dimen/dimen_3"-->
-                    <!--                                android:text="@string/money1"-->
-                    <!--                                android:textAppearance="@style/medium_14" />-->
-                    <!--                        </LinearLayout>-->
-                    <!--                    </LinearLayout>-->
-
-                    <!--                    <ProgressBar-->
-                    <!--                        android:id="@+id/determinateBar2"-->
-                    <!--                        style="@android:style/Widget.ProgressBar.Horizontal"-->
-                    <!--                        android:layout_width="match_parent"-->
-                    <!--                        android:layout_height="@dimen/dimen_5"-->
-                    <!--                        android:layout_marginTop="@dimen/dimen_20"-->
-                    <!--                        android:progress="20"-->
-                    <!--                        android:progressBackgroundTint="@color/thirst_text" />-->
-
-                    <!--                    <LinearLayout-->
-                    <!--                        android:layout_width="match_parent"-->
-                    <!--                        android:layout_height="wrap_content"-->
-                    <!--                        android:layout_marginTop="@dimen/dimen_20"-->
-                    <!--                        android:orientation="horizontal">-->
-
-                    <!--                        <LinearLayout-->
-                    <!--                            android:layout_width="wrap_content"-->
-                    <!--                            android:layout_height="wrap_content"-->
-                    <!--                            android:orientation="horizontal">-->
-
-                    <!--                            <ImageView-->
-                    <!--                                android:layout_width="@dimen/dimen_20"-->
-                    <!--                                android:layout_height="@dimen/dimen_20"-->
-                    <!--                                android:src="@drawable/ic_baseline_lock_24"-->
-                    <!--                                app:tint="@color/thirst_text" />-->
-
-                    <!--                            <TextView-->
-                    <!--                                android:layout_width="wrap_content"-->
-                    <!--                                android:layout_height="wrap_content"-->
-                    <!--                                android:layout_marginStart="@dimen/dimen_5"-->
-                    <!--                                android:layout_marginTop="@dimen/dimen_3"-->
-                    <!--                                android:text="@string/lock_day1"-->
-                    <!--                                android:textAppearance="@style/regular_12" />-->
-                    <!--                        </LinearLayout>-->
-
-                    <!--                        <LinearLayout-->
-                    <!--                            android:layout_width="match_parent"-->
-                    <!--                            android:layout_height="wrap_content"-->
-                    <!--                            android:gravity="end">-->
-
-                    <!--                            <TextView-->
-                    <!--                                android:layout_width="wrap_content"-->
-                    <!--                                android:layout_height="wrap_content"-->
-                    <!--                                android:layout_marginTop="@dimen/dimen_3"-->
-                    <!--                                android:text="@string/ut_lock1"-->
-                    <!--                                android:textAppearance="@style/medium_14" />-->
-                    <!--                        </LinearLayout>-->
-                    <!--                    </LinearLayout>-->
-
-                    <!--                    <View-->
-                    <!--                        android:layout_width="match_parent"-->
-                    <!--                        android:layout_height="@dimen/dimen_1"-->
-                    <!--                        android:layout_marginTop="@dimen/dimen_10"-->
-                    <!--                        android:background="@color/thirst_text" />-->
-                    <!--                </LinearLayout>-->
-
-                    <!--                <LinearLayout-->
-                    <!--                    android:layout_width="match_parent"-->
-                    <!--                    android:layout_height="wrap_content"-->
-                    <!--                    android:layout_marginTop="@dimen/dimen_30"-->
-                    <!--                    android:orientation="vertical">-->
-
-                    <!--                    <LinearLayout-->
-                    <!--                        android:layout_width="match_parent"-->
-                    <!--                        android:layout_height="wrap_content"-->
-                    <!--                        android:orientation="horizontal">-->
-
-                    <!--                        <LinearLayout-->
-                    <!--                            android:layout_width="@dimen/dimen_0"-->
-                    <!--                            android:layout_height="wrap_content"-->
-                    <!--                            android:layout_weight="1"-->
-                    <!--                            android:orientation="horizontal">-->
-
-                    <!--                            <ImageView-->
-                    <!--                                android:layout_width="@dimen/dimen_20"-->
-                    <!--                                android:layout_height="@dimen/dimen_20"-->
-                    <!--                                android:src="@drawable/ic_baseline_circle_24"-->
-                    <!--                                app:tint="@color/simple_green" />-->
-
-                    <!--                            <TextView-->
-                    <!--                                android:layout_width="match_parent"-->
-                    <!--                                android:layout_height="wrap_content"-->
-                    <!--                                android:layout_marginStart="@dimen/dimen_5"-->
-                    <!--                                android:text="Standard, Premium, Professional"-->
-                    <!--                                android:textAppearance="@style/medium_16" />-->
-                    <!--                        </LinearLayout>-->
-
-                    <!--                        <LinearLayout-->
-                    <!--                            android:layout_width="wrap_content"-->
-                    <!--                            android:layout_height="wrap_content"-->
-
-                    <!--                            android:gravity="end">-->
-
-                    <!--                            <ImageView-->
-                    <!--                                android:layout_width="@dimen/dimen_20"-->
-                    <!--                                android:layout_height="@dimen/dimen_20"-->
-                    <!--                                android:src="@drawable/ic_baseline_attach_money_24"-->
-                    <!--                                app:tint="@color/thirst_text" />-->
-
-                    <!--                            <TextView-->
-                    <!--                                android:layout_width="match_parent"-->
-                    <!--                                android:layout_height="wrap_content"-->
-                    <!--                                android:layout_marginTop="@dimen/dimen_3"-->
-                    <!--                                android:text="@string/money2"-->
-                    <!--                                android:textAppearance="@style/medium_14" />-->
-                    <!--                        </LinearLayout>-->
-                    <!--                    </LinearLayout>-->
-
-                    <!--                    <ProgressBar-->
-                    <!--                        android:id="@+id/determinateBar3"-->
-                    <!--                        style="@android:style/Widget.ProgressBar.Horizontal"-->
-                    <!--                        android:layout_width="match_parent"-->
-                    <!--                        android:layout_height="@dimen/dimen_5"-->
-                    <!--                        android:layout_marginTop="@dimen/dimen_20"-->
-                    <!--                        android:progress="25"-->
-                    <!--                        android:progressBackgroundTint="@color/thirst_text" />-->
-
-                    <!--                    <LinearLayout-->
-                    <!--                        android:layout_width="match_parent"-->
-                    <!--                        android:layout_height="wrap_content"-->
-                    <!--                        android:layout_marginTop="@dimen/dimen_20"-->
-                    <!--                        android:orientation="horizontal">-->
-
-                    <!--                        <LinearLayout-->
-                    <!--                            android:layout_width="wrap_content"-->
-                    <!--                            android:layout_height="wrap_content"-->
-                    <!--                            android:orientation="horizontal">-->
-
-                    <!--                            <ImageView-->
-                    <!--                                android:layout_width="@dimen/dimen_20"-->
-                    <!--                                android:layout_height="@dimen/dimen_20"-->
-                    <!--                                android:src="@drawable/ic_baseline_lock_24"-->
-                    <!--                                app:tint="@color/thirst_text" />-->
-
-                    <!--                            <TextView-->
-                    <!--                                android:layout_width="wrap_content"-->
-                    <!--                                android:layout_height="wrap_content"-->
-                    <!--                                android:layout_marginStart="@dimen/dimen_5"-->
-                    <!--                                android:layout_marginTop="@dimen/dimen_3"-->
-                    <!--                                android:text="@string/non_lock_day"-->
-                    <!--                                android:textAppearance="@style/regular_12" />-->
-                    <!--                        </LinearLayout>-->
-
-                    <!--                        <LinearLayout-->
-                    <!--                            android:layout_width="match_parent"-->
-                    <!--                            android:layout_height="wrap_content"-->
-                    <!--                            android:gravity="end">-->
-
-                    <!--                            <TextView-->
-                    <!--                                android:layout_width="wrap_content"-->
-                    <!--                                android:layout_height="wrap_content"-->
-                    <!--                                android:layout_marginTop="@dimen/dimen_3"-->
-                    <!--                                android:text="@string/ut_lock2"-->
-                    <!--                                android:textAppearance="@style/medium_14" />-->
-                    <!--                        </LinearLayout>-->
-                    <!--                    </LinearLayout>-->
-
-                    <!--                    <View-->
-                    <!--                        android:layout_width="match_parent"-->
-                    <!--                        android:layout_height="@dimen/dimen_1"-->
-                    <!--                        android:layout_marginTop="@dimen/dimen_10"-->
-                    <!--                        android:background="@color/thirst_text" />-->
-                    <!--                </LinearLayout>-->
                 </LinearLayout>
-            </LinearLayout>
-        </RelativeLayout>
-    </ScrollView>
+            </RelativeLayout>
+        </ScrollView>
+    </LinearLayout>
+
+
 </layout>

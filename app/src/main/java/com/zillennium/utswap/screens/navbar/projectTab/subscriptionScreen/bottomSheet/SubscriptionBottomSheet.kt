@@ -5,10 +5,7 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.view.Window
+import android.view.*
 import android.widget.AdapterView
 import android.widget.EditText
 import android.widget.LinearLayout
@@ -16,6 +13,7 @@ import android.widget.TextView
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.zillennium.utswap.R
 import com.zillennium.utswap.screens.navbar.projectTab.subscriptionScreen.dialog.SubscriptionConfirmDialog
+
 
 class SubscriptionBottomSheet : BottomSheetDialogFragment(), AdapterView.OnItemSelectedListener {
 
@@ -26,6 +24,10 @@ class SubscriptionBottomSheet : BottomSheetDialogFragment(), AdapterView.OnItemS
     private var price: Double? = 1.00
     private var txtStandard: TextView? = null
 
+    override fun getTheme(): Int {
+        return R.style.BottomSheetStyle
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -34,6 +36,8 @@ class SubscriptionBottomSheet : BottomSheetDialogFragment(), AdapterView.OnItemS
         val view = inflater.inflate(R.layout.bottom_sheet_navbar_project_subscription, container, false)
         dialog!!.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog!!.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+
 
         btnSubscript = view?.findViewById(R.id.btn_subscript)
         btnSubscript?.setOnClickListener{

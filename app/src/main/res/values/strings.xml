@@ -279,6 +279,6 @@
     <string name="volume_input">Volume:</string>
     <string name="subscription_price">Subscription Price:</string>
     <string name="price_subscript">$1 990.00</string>
-    <string name="subscript">SUBSCRIBE</string>
+    <string name="subscribes">Subscribes</string>
     <string name="ut_price">500 UT</string>
 </resources>

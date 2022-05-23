@@ -1,5 +1,8 @@
 package com.zillennium.utswap.screens.navbar.tradeTab
 
+import android.content.res.ColorStateList
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -87,6 +90,34 @@ class TradeFragment :
                 rvTrade.adapter = TradeAdapter(tradeArrayList)
 
 
+                etSearch.setOnFocusChangeListener { _, hasFocus ->
+                    if (hasFocus) {
+                        imgSearch.imageTintList =
+                            ColorStateList.valueOf(resources.getColor(R.color.color_main))
+                        laySearch.backgroundTintList =
+                            ColorStateList.valueOf(resources.getColor(R.color.color_main))
+                    } else {
+                        imgSearch.imageTintList =
+                            ColorStateList.valueOf(resources.getColor(R.color.light_gray))
+                        laySearch.backgroundTintList =
+                            ColorStateList.valueOf(resources.getColor(R.color.light_gray))
+                    }
+                }
+
+                etSearch.addTextChangedListener(object: TextWatcher {
+                    override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+                    }
+
+                    override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+                    }
+
+                    override fun afterTextChanged(p0: Editable?) {
+
+                    }
+
+                })
             }
 
         } catch (error: Exception) {

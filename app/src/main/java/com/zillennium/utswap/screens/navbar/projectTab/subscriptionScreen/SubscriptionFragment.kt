@@ -1,5 +1,6 @@
 package com.zillennium.utswap.screens.navbar.projectTab.subscriptionScreen
 
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
@@ -21,6 +22,11 @@ class SubscriptionFragment :
         super.initView()
         try {
             binding.apply {
+
+                btnBack.setOnClickListener {
+                    findNavController().popBackStack()
+                }
+
                 /* Recycle view of project info detail */
                 val tvTitle = arrayOf(
                     "Professional",

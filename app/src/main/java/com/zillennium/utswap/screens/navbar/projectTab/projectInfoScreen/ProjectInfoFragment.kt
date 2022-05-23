@@ -1,8 +1,15 @@
 package com.zillennium.utswap.screens.navbar.projectTab.projectInfoScreen
 
+import android.app.AlertDialog
+import android.app.Application
+import android.content.Intent
+import android.net.Uri
+import android.os.Bundle
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.viewpager2.widget.ViewPager2
 import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.models.SlideModel
 import com.zillennium.utswap.R
@@ -13,6 +20,9 @@ import com.zillennium.utswap.models.ProjectInfoDetailModel
 import com.zillennium.utswap.models.ProjectInfoInvestmentModel
 import com.zillennium.utswap.screens.navbar.projectTab.projectInfoScreen.adapter.ProjectInfoDetailsAdapter
 import com.zillennium.utswap.screens.navbar.projectTab.projectInfoScreen.adapter.ProjectInfoInvestmentAdapter
+import com.zillennium.utswap.screens.navbar.projectTab.projectInfoScreen.adapter.ProjectViewPagerAdapter
+import com.zillennium.utswap.screens.navbar.projectTab.projectInfoScreen.dialog.DialogProjectSliderImage
+import com.zillennium.utswap.screens.navbar.projectTab.subscriptionScreen.bottomSheet.SubscriptionBottomSheet
 import java.util.*
 
 
@@ -39,34 +49,57 @@ class ProjectInfoFragment :
                     findNavController().navigate(R.id.action_to_project_subscription)
                 }
 
-                /* Slide show */
-                val slideModels = ArrayList<SlideModel>()
 
-                slideModels.add(
-                    SlideModel(
-                        "https://utswap.io/Upload/issue/61fdf19956a5c.JPG",
-                        ScaleTypes.FIT
-                    )
+                /* Image slider dialog */
+//                imageDialog.setOnClickListener {
+//                    val imageSliderDialog: DialogProjectSliderImage = DialogProjectSliderImage.newInstance()
+//                    imageSliderDialog.arguments?.putInt("image", R.drawable.slide_image1 )
+//                    imageSliderDialog.show(requireActivity().supportFragmentManager, "balanceHistoryProjectSliderImage")
+////                    val view = View.inflate(
+////                        this@ProjectInfoFragment.requireActivity(),
+////                        R.layout.dialog_project_slider_image,
+////                        null
+////                    )
+////                    val builder = AlertDialog.Builder(this@ProjectInfoFragment.requireActivity())
+////                    builder.setView(view)
+////
+////                    val dialog = builder.create()
+////                    dialog.show()
+////                    dialog.window?.setBackgroundDrawableResource(R.color.transparent)
+//                }
+
+
+                /* Image Slider with View Pager */
+                val imagesSlider = listOf(
+                    R.drawable.slide_image1,
+                    R.drawable.slide_image2,
+                    R.drawable.slide_image3,
+                    R.drawable.slide_image4
                 )
-                slideModels.add(
-                    SlideModel(
-                        "https://utswap.io/Upload/issue/61fdf19b13e7e.JPG",
-                        ScaleTypes.FIT
-                    )
-                )
-                slideModels.add(
-                    SlideModel(
-                        "https://utswap.io/Upload/issue/61fdf19b4a9e5.JPG",
-                        ScaleTypes.FIT
-                    )
-                )
-                slideModels.add(
-                    SlideModel(
-                        "https://utswap.io/Upload/issue/61fdf19dd63cb.JPG",
-                        ScaleTypes.FIT
-                    )
-                )
-                imageSlider.setImageList(slideModels, ScaleTypes.FIT)
+                val adapter = ProjectViewPagerAdapter(imagesSlider)
+                imageSlideViewPager.adapter = adapter
+
+                imageSlideViewPager.registerOnPageChangeCallback(object :
+                    ViewPager2.OnPageChangeCallback() {
+                    override fun onPageScrolled(
+                        position: Int,
+                        positionOffset: Float,
+                        positionOffsetPixels: Int
+                    ) {
+                        changeColor()
+                        super.onPageScrolled(position, positionOffset, positionOffsetPixels)
+                    }
+
+                    override fun onPageSelected(position: Int) {
+                        super.onPageSelected(position)
+                    }
+
+                    override fun onPageScrollStateChanged(state: Int) {
+                        super.onPageScrollStateChanged(state)
+                        changeColor()
+                    }
+
+                })
 
 
                 /* Recycle view of project info detail */
@@ -91,7 +124,7 @@ class ProjectInfoFragment :
 
                 val projectInfoDetailArrayList = arrayListOf<ProjectInfoDetailModel>()
 
-                for (i in titleInfoDetail.indices){
+                for (i in titleInfoDetail.indices) {
                     val projectInfo = ProjectInfoDetailModel(
                         titleInfoDetail[i],
                         valueInfo[i]
@@ -138,19 +171,20 @@ class ProjectInfoFragment :
                     "1 804",
                 )
 
-                val projectInfoInvestmentModelArrayList = arrayListOf<ProjectInfoInvestmentModel>()
+                val projectInfoInvestmentArrayList = arrayListOf<ProjectInfoInvestmentModel>()
 
-                for (i in perUT.indices){
+                for (i in perUT.indices) {
                     val projectInvestment = ProjectInfoInvestmentModel(
                         perUT[i],
                         valueUT[i],
                         sqmUT[i]
                     )
-                    projectInfoInvestmentModelArrayList.add(projectInvestment)
+                    projectInfoInvestmentArrayList.add(projectInvestment)
                 }
 
                 rvProjectInvestmentInfo.layoutManager = LinearLayoutManager(UTSwapApp.instance)
-                rvProjectInvestmentInfo.adapter = ProjectInfoInvestmentAdapter(projectInfoInvestmentModelArrayList)
+                rvProjectInvestmentInfo.adapter =
+                    ProjectInfoInvestmentAdapter(projectInfoInvestmentArrayList)
 
 
                 /* Term and condition && Document */
@@ -164,30 +198,34 @@ class ProjectInfoFragment :
                             "the remaining 20% will be automatically exchanged at the delisting price. \n7. Trading is open 7/7 on UTSWAP Platform from 9 am 4 pm. " +
                             "\n8. The transaction fee per transaction is 0.3% of traded value. \n9. Minimum investment is 1 UT. \n10. Failure to comply with our terms " +
                             "and conditions results in penalty of 100% of the violated transaction value in addition to account freezing."
-                layoutTermCondition.setOnClickListener{
-                    if (termCondition){
+                layoutTermCondition.setOnClickListener {
+                    if (termCondition) {
                         arrowDownTermCondition.setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_24)
 
                         txtTermCondition.visibility = View.VISIBLE
                         termCondition = !termCondition
-                    }else{
+                    } else {
                         arrowDownTermCondition.setImageResource(R.drawable.ic_baseline_keyboard_arrow_down_24)
                         txtTermCondition.visibility = View.GONE
                         termCondition = !termCondition
                     }
                 }
                 layoutDocument.setOnClickListener {
-                    if (condition){
+                    if (condition) {
                         arrowDownDocument.setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_24)
                         pdfDocument.visibility = View.VISIBLE
                         condition = !condition
-                    }else{
+                    } else {
                         arrowDownDocument.setImageResource(R.drawable.ic_baseline_keyboard_arrow_down_24)
                         pdfDocument.visibility = View.GONE
                         condition = !condition
                     }
                 }
-//                txtDetailTitle.text = arguments?.getInt("id").toString()
+                layGoogleMap.setOnClickListener {
+                    val url = "https://goo.gl/maps/m4mXAaFMHT2SecpC7"
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                    startActivity(intent)
+                }
             }
 
         } catch (error: Exception) {
@@ -195,5 +233,38 @@ class ProjectInfoFragment :
         }
 
 
+    }
+
+    /* Image Slider Indicator */
+    fun changeColor() {
+        binding.apply {
+            when (imageSlideViewPager.currentItem) {
+                0 -> {
+                    ivSlide1.setBackgroundColor(resources.getColor(R.color.orange))
+                    ivSlide2.setBackgroundColor(resources.getColor(R.color.gray))
+                    ivSlide3.setBackgroundColor(resources.getColor(R.color.gray))
+                    ivSlide4.setBackgroundColor(resources.getColor(R.color.gray))
+
+                }
+                1 -> {
+                    ivSlide1.setBackgroundColor(resources.getColor(R.color.gray))
+                    ivSlide2.setBackgroundColor(resources.getColor(R.color.orange))
+                    ivSlide3.setBackgroundColor(resources.getColor(R.color.gray))
+                    ivSlide4.setBackgroundColor(resources.getColor(R.color.gray))
+                }
+                2 -> {
+                    ivSlide1.setBackgroundColor(resources.getColor(R.color.gray))
+                    ivSlide2.setBackgroundColor(resources.getColor(R.color.gray))
+                    ivSlide3.setBackgroundColor(resources.getColor(R.color.orange))
+                    ivSlide4.setBackgroundColor(resources.getColor(R.color.gray))
+                }
+                3 -> {
+                    ivSlide1.setBackgroundColor(resources.getColor(R.color.gray))
+                    ivSlide2.setBackgroundColor(resources.getColor(R.color.gray))
+                    ivSlide3.setBackgroundColor(resources.getColor(R.color.gray))
+                    ivSlide4.setBackgroundColor(resources.getColor(R.color.orange))
+                }
+            }
+        }
     }
 }

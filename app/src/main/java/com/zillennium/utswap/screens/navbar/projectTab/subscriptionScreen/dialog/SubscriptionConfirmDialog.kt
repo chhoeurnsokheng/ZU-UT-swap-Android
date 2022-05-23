@@ -8,40 +8,59 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.widget.LinearLayout
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import com.zillennium.utswap.R
+import com.zillennium.utswap.UTSwapApp
+import com.zillennium.utswap.databinding.DialogNavbarProjectSubscriptionConfirmBinding
 import com.zillennium.utswap.screens.security.securityDialog.FundPasswordDialog
+import eightbitlab.com.blurview.RenderScriptBlur
 
 class SubscriptionConfirmDialog : DialogFragment(){
 
-    private var btnBack: LinearLayout? = null
-    private var btnConfirm : LinearLayout? = null
+    private var binding: DialogNavbarProjectSubscriptionConfirmBinding? = null
+
+    override fun getTheme(): Int {
+        return R.style.FullScreenDialog
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.dialog_navbar_project_subscription_confirm, container, false)
-        dialog!!.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog!!.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-
-        btnBack = view?.findViewById(R.id.btn_back)
-        btnBack?.setOnClickListener {
-            dismiss()
-        }
-
-        btnConfirm = view?.findViewById(R.id.btn_confirm)
-        btnConfirm?.setOnClickListener {
-            FundPasswordDialog().show(requireActivity().supportFragmentManager, "balanceHistoryDetailDialog")
-//            val subscriptionConfirmDialog: SubscriptionConfirmDialog = SubscriptionConfirmDialog.newInstance()
-//            subscriptionConfirmDialog.show(requireActivity().supportFragmentManager, "balanceHistoryDetailDialog")
-        }
-
-        return view
+        dialog?.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        binding =
+            DataBindingUtil.inflate(inflater, R.layout.dialog_navbar_project_subscription_confirm, container, true)
+        return binding?.root
     }
 
-    companion object {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding?.apply {
+            btnBack.setOnClickListener {
+                dismiss()
+            }
+            btnConfirm.setOnClickListener {
+                FundPasswordDialog().show(requireActivity().supportFragmentManager, "balanceHistoryDetailDialog")
+            }
+            activity?.apply {
+                blurView.setupWith(findViewById<ViewGroup>(android.R.id.content))
+                    .setFrameClearDrawable(window.decorView.background)
+                    .setBlurAlgorithm(RenderScriptBlur(UTSwapApp.instance))
+                    .setBlurRadius(20f)
+                    .setBlurAutoUpdate(true)
+                    .setHasFixedTransformationMatrix(true)
+            }
+        }
+
+
+
+    }
+
+        companion object {
         fun newInstance(): SubscriptionConfirmDialog {
             val subscriptionConfirmDialog = SubscriptionConfirmDialog()
             val args = Bundle()

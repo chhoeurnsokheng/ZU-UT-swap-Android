@@ -1,7 +1,15 @@
 package com.zillennium.utswap.screens.navbar.projectTab.projectScreen
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.res.ColorStateList
 import android.os.Build
+import android.text.Editable
+import android.text.TextWatcher
+import android.view.KeyEvent
+import android.view.View
+import android.view.inputmethod.InputMethodManager
+import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
@@ -31,7 +39,7 @@ class ProjectFragment :
     @SuppressLint("ResourceType")
     override fun initView() {
         super.initView()
-        try {
+//        try {
             binding.apply {
 
                 val publicDate = arrayOf(
@@ -155,32 +163,39 @@ class ProjectFragment :
                 }
                 layView.callOnClick()
 
-                /* Search View on click change bg color */
-//                searchView.setOnClickListener{
-//                    searchView.isIconified = false
-//                    searchView.setBackgroundResource(R.drawable.bg_circular_border_search_hover)
-//                }
-
-                /*searchView.setOnKeyListener(object : View.OnKeyListener {
-                    override fun onKey(v: View?, keyCode: Int, event: KeyEvent): Boolean {
-                        // if the event is a key down event on the enter button
-                        if (event.action == KeyEvent.ACTION_DOWN &&
-                            keyCode == KeyEvent.KEYCODE_SEARCH
-                        ) {
-                            // perform action on key press
-                           // hideSoftKeyboard()
-                            *//*searchView.setBackgroundResource(R.drawable.bg_circular_border_search)*//*
-
-                            return true
-                        }
-                        return false
+                etSearch.setOnFocusChangeListener { _, hasFocus ->
+                    if (hasFocus) {
+                        imgSearch.imageTintList =
+                            ColorStateList.valueOf(resources.getColor(R.color.color_main))
+                        laySearch.backgroundTintList =
+                            ColorStateList.valueOf(resources.getColor(R.color.color_main))
+                    } else {
+                        imgSearch.imageTintList =
+                            ColorStateList.valueOf(resources.getColor(R.color.light_gray))
+                        laySearch.backgroundTintList =
+                            ColorStateList.valueOf(resources.getColor(R.color.light_gray))
                     }
-                })*/
+                }
+
+                etSearch.addTextChangedListener(object: TextWatcher{
+                    override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+                    }
+
+                    override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+                    }
+
+                    override fun afterTextChanged(p0: Editable?) {
+
+                    }
+
+                })
             }
 
-        } catch (error: Exception) {
-            // Must be safe
-        }
+//        } catch (error: Exception) {
+//            // Must be safe
+//        }
     }
 
     private val onclickProject: ProjectAdapter.OnclickProject = object :
