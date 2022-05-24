@@ -11,6 +11,7 @@ import androidx.databinding.DataBindingUtil
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.zillennium.utswap.R
 import com.zillennium.utswap.databinding.BottomSheetNavbarProjectSubscriptionBinding
+
 import com.zillennium.utswap.screens.navbar.projectTab.subscriptionScreen.dialog.SubscriptionConfirmDialog
 import com.zillennium.utswap.utils.groupingSeparator
 

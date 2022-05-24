@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
+import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentTradeDetailBinding
@@ -40,6 +41,16 @@ class TradeDetailFragment :
         super.initView()
         try {
             binding.apply {
+
+                if(SessionPreferences().SESSION_STATUS!!){
+                    layBuyAndSell.visibility = View.VISIBLE
+                    vpTable.visibility = View.VISIBLE
+                }
+
+                if(SessionPreferences().SESSION_KYC!!){
+                    layBuyAndSell.visibility = View.VISIBLE
+                    vpTable.visibility = View.VISIBLE
+                }
 
                 pageAdapter = ScreenSlidePageAdapter(this@TradeDetailFragment, NUM_PAGES)
                 vpVerify.adapter = pageAdapter
