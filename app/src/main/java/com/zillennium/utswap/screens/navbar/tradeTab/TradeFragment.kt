@@ -128,6 +128,14 @@ class TradeFragment :
 
                 })
                 rvTrade.adapter = TradeAdapter(tradeArrayList,onclickTrade)
+
+                txtSubscribe.setOnClickListener {
+                    Navigation.findNavController(requireView()).navigate(R.id.navigation_navbar_project_subscription)
+                }
+
+                txtDetail.setOnClickListener {
+                    Navigation.findNavController(requireView()).navigate(R.id.navigation_navbar_project_info)
+                }
             }
 
         } catch (error: Exception) {
