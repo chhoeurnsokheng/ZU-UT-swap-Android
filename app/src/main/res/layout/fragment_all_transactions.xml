@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Date"
+                android:textAlignment="textStart"
+                android:textColor="@color/color_main"
+                android:textSize="@dimen/font_size_14"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Time"
+                android:textColor="@color/color_main"
+                android:textSize="@dimen/font_size_14"
+                android:textAlignment="textStart"
+                android:layout_marginStart="@dimen/dimen_48"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Volume"
+                android:textAlignment="textStart"
+                android:textColor="@color/color_main"
+                android:layout_marginStart="57dp"
+                android:textSize="@dimen/font_size_14"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Price"
+                android:textAlignment="textStart"
+                android:layout_marginStart="@dimen/dimen_15"
+                android:textColor="@color/color_main"
+                android:textSize="@dimen/font_size_14" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Gross"
+                android:textAlignment="textStart"
+                android:layout_marginStart="@dimen/dimen_20"
+                android:textColor="@color/color_main"
+                android:textSize="@dimen/font_size_14" />
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_all_trans"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_10"
+            android:scrollbars="none"
+            android:overScrollMode="never"/>
+
+    </LinearLayout>
+</layout>

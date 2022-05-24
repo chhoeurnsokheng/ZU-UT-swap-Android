@@ -21,7 +21,15 @@
         android:id="@+id/navigation_navbar_trade"
         android:name="com.zillennium.utswap.screens.navbar.tradeTab.TradeFragment"
         android:label="@string/trade"
-        tools:layout="@layout/fragment_navbar_trade" />
+        tools:layout="@layout/fragment_navbar_trade">
+        <action
+            android:id="@+id/action_to_trade_detail"
+            app:destination="@+id/trade_detail"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_navbar_project"
@@ -68,6 +76,12 @@
         <!--            app:popExitAnim="@anim/slide_out_right" />-->
 
     </fragment>
+
+    <fragment
+        android:id="@+id/trade_detail"
+        android:name="com.zillennium.utswap.screens.navbar.tradeTab.fragment.tradeDetail.TradeDetailFragment"
+        android:label="TradeDetail"
+        tools:layout="@layout/fragment_trade_detail" />
 
 
 </navigation>
