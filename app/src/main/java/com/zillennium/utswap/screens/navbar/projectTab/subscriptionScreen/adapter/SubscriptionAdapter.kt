@@ -5,10 +5,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.zillennium.utswap.R
 import com.zillennium.utswap.models.SubscriptionModel
-import kotlin.math.roundToInt
+import com.zillennium.utswap.utils.groupingSeparator
+import java.text.DecimalFormat
+import java.text.DecimalFormatSymbols
 
 class SubscriptionAdapter(arrayList: ArrayList<SubscriptionModel>, onclickAdapter: OnclickAdapter):
     RecyclerView.Adapter<SubscriptionAdapter.ViewHolder>()
@@ -33,10 +36,11 @@ class SubscriptionAdapter(arrayList: ArrayList<SubscriptionModel>, onclickAdapte
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val subscriptionList: SubscriptionModel = list_data[position]
         holder.tv_title.text = subscriptionList.tv_title
-        holder.tv_dollar.text = subscriptionList.tv_dollar.toString()
+        holder.tv_dollar.text = groupingSeparator(subscriptionList.tv_dollar)
         holder.tv_day_lock.text = subscriptionList.tv_day_lock
-        holder.tv_ut_value.text = subscriptionList.tv_ut_value.toString()
-        holder.tv_ut_main_value.text = subscriptionList.tv_ut_main_value.toString()
+        holder.tv_ut_value.text = groupingSeparator(subscriptionList.tv_ut_value)
+
+        holder.tv_ut_main_value.text = groupingSeparator(subscriptionList.tv_ut_main_value)
 
         holder.itemView.setOnClickListener{
             onclickAdapter.onClickMe(subscriptionList)

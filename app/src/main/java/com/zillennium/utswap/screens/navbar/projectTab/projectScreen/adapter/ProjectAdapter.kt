@@ -8,7 +8,9 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.zillennium.utswap.R
+import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.models.ProjectModel
 
 class ProjectAdapter(
@@ -37,10 +39,11 @@ class ProjectAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val projectList: ProjectModel = arrayList[position]
         holder.publicDate.text = projectList.publicDate
-        holder.imageView.setImageResource(projectList.imageIcon)
+            Glide.with(UTSwapApp.instance).load(projectList.image).into(holder.imageView)
+        holder.txttitle.text = projectList.titleProject
         if (projectList.status.isNotEmpty()) {
             holder.txtstatus.isVisible = true
-            holder.txttitle.text = projectList.titleProject
+
         }
         holder.txtsubTitle.text = projectList.subTitle
         holder.txtstatus.text = projectList.status

@@ -121,6 +121,7 @@
                     android:layout_marginTop="@dimen/dimen_3"
                     android:layout_width="wrap_content"
                     android:text="/"
+                    android:layout_marginHorizontal="@dimen/dimen_3"
                     android:textAppearance="@style/medium_14"
                     />
                 <TextView

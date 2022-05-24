@@ -58,7 +58,8 @@ class SystemPreferences: BaseStoredPreferences(UTSwapApp.instance, "SystemPrefer
     var AUTH_EXPIRE by longPref()
 
     // Base Url of APIs
-    var API_HOSTING by stringPref()
+    var API_DEBUG by stringPref("https://sandbox.utswap.io/")
+    var API_HOSTING by stringPref("https://www.utswap.io/")
     var API_WORDPRESS by stringPref()
     var API_FIREBASE by stringPref()
     var API_AWS by stringPref()

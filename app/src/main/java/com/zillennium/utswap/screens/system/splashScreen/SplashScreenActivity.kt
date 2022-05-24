@@ -49,7 +49,7 @@ class SplashScreenActivity :
                     val intent = Intent(UTSwapApp.instance, NavbarActivity::class.java)
                     startActivity(intent)
                     finish()
-                }, 1000)
+                }, 5000)
             }
             // Code
 //        } catch (error: Exception) {
