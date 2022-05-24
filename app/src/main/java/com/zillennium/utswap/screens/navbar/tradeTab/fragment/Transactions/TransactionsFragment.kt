@@ -9,6 +9,7 @@ import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.zillennium.utswap.Datas.ListDatas.ordersData.OrdersData
 import com.zillennium.utswap.Datas.ListDatas.transactionsData.TransactionsData
+import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentTransactionsBinding
@@ -34,6 +35,16 @@ class TransactionsFragment :
         super.initView()
         try {
             binding.apply {
+                if(SessionPreferences().SESSION_STATUS!!){
+                    txtMessage.visibility = View.GONE
+                    linearTransactionsHistory.visibility = View.VISIBLE
+                }
+
+                if(SessionPreferences().SESSION_KYC!!){
+                    txtMessage.visibility = View.GONE
+                    linearTransactionsHistory.visibility = View.VISIBLE
+                }
+
                 imgFilter.setOnClickListener{
                     countClickFilter(clickFilter)
                     clickFilter++

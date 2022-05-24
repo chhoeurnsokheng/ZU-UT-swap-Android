@@ -44,12 +44,10 @@ class TradeDetailFragment :
 
                 if(SessionPreferences().SESSION_STATUS!!){
                     layBuyAndSell.visibility = View.VISIBLE
-                    vpTable.visibility = View.VISIBLE
                 }
 
                 if(SessionPreferences().SESSION_KYC!!){
                     layBuyAndSell.visibility = View.VISIBLE
-                    vpTable.visibility = View.VISIBLE
                 }
 
                 pageAdapter = ScreenSlidePageAdapter(this@TradeDetailFragment, NUM_PAGES)
