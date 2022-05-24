@@ -24,7 +24,7 @@ class SubscriptionFragment :
     override fun initView() {
         super.initView()
         try {
-            Handler().postDelayed({
+//            Handler().postDelayed({
                 binding.apply {
 
 
@@ -78,7 +78,7 @@ class SubscriptionFragment :
                     recycleViewProject.adapter = SubscriptionAdapter(subscriptionArrayList, onclickAdapter)
 
                 }
-            }, 5000)
+//            }, 5000)
 
 
         } catch (error: Exception) {

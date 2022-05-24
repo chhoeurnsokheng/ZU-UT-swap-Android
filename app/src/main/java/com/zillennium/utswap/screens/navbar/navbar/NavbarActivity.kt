@@ -3,9 +3,12 @@ package com.zillennium.utswap.screens.navbar.navbar
 import android.content.Intent
 import android.util.Log
 import android.view.View.GONE
+import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI.setupWithNavController
+import com.google.android.material.navigation.NavigationBarView
 import com.zillennium.utswap.R
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityNavbarBinding
@@ -46,9 +49,28 @@ class NavbarActivity :
                     R.id.navigation_navbar_project,
                 )
                     .build()
+
+                NavigationBarView.OnItemSelectedListener{ item ->  
+                    when(item.itemId){
+                        R.id.navigation_navbar_home -> {
+                            true
+                        }
+                        R.id.navigation_navbar_portfolio -> {
+                            true
+                        }
+                        R.id.navigation_navbar_trade -> {
+                            true
+                        }
+                        R.id.navigation_navbar_project -> {
+                            true
+                        }
+                        else -> false
+                    }
+                }
+
                 val navController = findNavController(this@NavbarActivity, R.id.nav_host_fragment_activity_navbar_home)
-                // This Theme haven't use NoActionBar
-                //NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+
+
                 // This Theme haven't use NoActionBar
                 //NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
                 setupWithNavController(navView, navController)

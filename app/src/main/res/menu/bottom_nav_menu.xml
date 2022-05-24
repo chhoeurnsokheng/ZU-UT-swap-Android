@@ -3,21 +3,25 @@
 
     <item
         android:id="@+id/navigation_navbar_home"
+        android:enabled="true"
         android:icon="@drawable/ic_home"
         android:title="@string/home" />
 
     <item
         android:id="@+id/navigation_navbar_portfolio"
+        android:enabled="true"
         android:icon="@drawable/ic_pie_chart"
         android:title="@string/portfolio" />
 
     <item
         android:id="@+id/navigation_navbar_trade"
+        android:enabled="true"
         android:icon="@drawable/ic_trade"
         android:title="@string/trade" />
 
     <item
         android:id="@+id/navigation_navbar_project"
+        android:enabled="true"
         android:icon="@drawable/ic_land_ut"
         android:title="@string/project" />
 

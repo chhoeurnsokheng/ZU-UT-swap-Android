@@ -76,13 +76,6 @@
             android:label="@string/welcome"
             android:screenOrientation="portrait" />
         <!--End Activity System-->
-
-        <!--Activity Swap Tab-->
-        <!--End Activity Swap Tab-->
-
-        <meta-data
-            android:name="preloaded_fonts"
-            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

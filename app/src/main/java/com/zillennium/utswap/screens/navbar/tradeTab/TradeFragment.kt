@@ -29,6 +29,10 @@ class TradeFragment :
         try {
             binding.apply {
 
+                imgNotification.setOnClickListener {
+                    findNavController().navigate(R.id.action_to_trade_detail)
+                }
+
                 val project = arrayOf(
                     "Siem Reap 17140",
                     "Muk Kampul 16644",
@@ -133,17 +137,18 @@ class TradeFragment :
 
     private val onclickTrade: TradeAdapter.OnclickTrade = object : TradeAdapter.OnclickTrade{
         override fun clickMe() {
-            Navigation.findNavController(requireView()).navigate(R.id.trade_detail)
+            findNavController().navigate(R.id.action_to_trade_detail)
+//            Navigation.findNavController(requireView()).navigate(R.id.trade_detail)
         }
 
     }
 
-    fun Fragment.hideKeyboard() {
-        view?.let { activity?.hideKeyboard(it) }
-    }
-
-    fun Context.hideKeyboard(view: View) {
-        val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
-    }
+//    fun Fragment.hideKeyboard() {
+//        view?.let { activity?.hideKeyboard(it) }
+//    }
+//
+//    fun Context.hideKeyboard(view: View) {
+//        val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+//        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+//    }
 }

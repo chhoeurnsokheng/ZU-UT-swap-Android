@@ -24,7 +24,21 @@
         tools:layout="@layout/fragment_navbar_trade">
         <action
             android:id="@+id/action_to_trade_detail"
-            app:destination="@+id/trade_detail"
+            app:destination="@id/navigation_navbar_trade_exchange"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_navbar_trade_exchange"
+        android:name="com.zillennium.utswap.screens.navbar.tradeTab.fragment.tradeDetail.TradeDetailFragment"
+        android:label="Trade Detail exchange"
+        tools:layout="@layout/fragment_trade_detail">
+        <action
+            android:id="@+id/action_to_navigation_navbar_trade"
+            app:destination="@+id/navigation_navbar_trade"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -44,6 +58,8 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
     </fragment>
+
+
 
     <fragment
         android:id="@+id/navigation_navbar_project_info"
@@ -66,22 +82,9 @@
         android:name="com.zillennium.utswap.screens.navbar.projectTab.subscriptionScreen.SubscriptionFragment"
         android:label="@string/project_info"
         tools:layout="@layout/fragment_navbar_project_subscription">
-
-        <!--        <action-->
-        <!--            android:id="@+id/action_to_project_view"-->
-        <!--            app:destination="@id/navigation_navbar_project"-->
-        <!--            app:enterAnim="@anim/slide_in_right"-->
-        <!--            app:exitAnim="@anim/slide_out_left"-->
-        <!--            app:popEnterAnim="@anim/slide_in_left"-->
-        <!--            app:popExitAnim="@anim/slide_out_right" />-->
-
     </fragment>
 
-    <fragment
-        android:id="@+id/trade_detail"
-        android:name="com.zillennium.utswap.screens.navbar.tradeTab.fragment.tradeDetail.TradeDetailFragment"
-        android:label="TradeDetail"
-        tools:layout="@layout/fragment_trade_detail" />
+
 
 
 </navigation>

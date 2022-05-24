@@ -35,7 +35,7 @@ class TradeDetailFragment :
     val NUM_PAGES_TABLE = 3
 
 
-    @SuppressLint("UseCompatLoadingForDrawables", "ResourceAsColor")
+//    @SuppressLint("UseCompatLoadingForDrawables", "ResourceAsColor")
     override fun initView() {
         super.initView()
         try {
@@ -210,19 +210,5 @@ class TradeDetailFragment :
         override fun getItemCount(): Int {
             return NUM_PAGES_TABLE
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-        binding.apply {
-            if(vpVerify.currentItem == 1){
-                vpVerify.setCurrentItem(0, false)
-            }
-            if(vpTable.currentItem == 1){
-                vpTable.setCurrentItem(0,false)
-            }
-        }
-
     }
 }
