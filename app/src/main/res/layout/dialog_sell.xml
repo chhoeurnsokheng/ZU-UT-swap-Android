@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:cardCornerRadius="@dimen/dimen_10"
+        android:layout_margin="@dimen/dimen_10"
+        android:padding="@dimen/dimen_15">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dimen_15"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/secondary_text"
+                android:textSize="@dimen/font_size_16"
+                android:text="Please confirm your oder"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/dimen_15">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Project: "
+                    android:textColor="@color/secondary_text"
+                    android:textSize="@dimen/font_size_14"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="New Airport 38Ha"
+                    android:gravity="end"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/font_size_12"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_1"
+                android:background="@color/dark"
+                android:layout_marginTop="@dimen/dimen_15"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/dimen_15">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Volume: "
+                    android:textColor="@color/secondary_text"
+                    android:textSize="@dimen/font_size_14"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="500 UT"
+                    android:gravity="end"
+                    android:layout_marginStart="@dimen/dimen_10"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/font_size_14"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_1"
+                android:background="@color/dark"
+                android:layout_marginTop="@dimen/dimen_15"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/dimen_15">
+
+                <TextView
+                    android:id="@+id/caption_txt_money"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Price: "
+                    android:textColor="@color/secondary_text"
+                    android:textSize="@dimen/font_size_14"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:text="$9.21"
+                    android:layout_marginStart="@dimen/dimen_10"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/font_size_14"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_1"
+                android:background="@color/dark"
+                android:layout_marginTop="@dimen/dimen_15"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/dimen_20">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Gross Value: "
+                    android:textColor="@color/secondary_text"
+                    android:textSize="@dimen/font_size_14"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:text="$4 605.00"
+                    android:layout_marginStart="@dimen/dimen_10"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/font_size_14"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_1"
+                android:background="@color/dark"
+                android:layout_marginTop="@dimen/dimen_15"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/dimen_20">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Fee: "
+                    android:textColor="@color/secondary_text"
+                    android:textSize="@dimen/font_size_14"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:text="$13.81"
+                    android:layout_marginStart="@dimen/dimen_10"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/font_size_14"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_1"
+                android:background="@color/dark"
+                android:layout_marginTop="@dimen/dimen_15"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/dimen_20">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Net Value: "
+                    android:textColor="@color/secondary_text"
+                    android:textSize="@dimen/font_size_14"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:text="$4 618.81"
+                    android:layout_marginStart="@dimen/dimen_10"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/font_size_14"/>
+
+            </LinearLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_sell_confirm"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_48"
+                android:layout_marginTop="@dimen/dimen_20"
+                android:layout_marginStart="@dimen/dimen_3"
+                android:layout_marginEnd="@dimen/dimen_4"
+                app:backgroundTint="@color/red"
+                android:background="@drawable/bg_circular"
+                android:hint="SELL"
+                android:textSize="@dimen/font_size_16"
+                android:textColorHint="@color/white" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_cancel"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_48"
+                app:backgroundTint="@color/gray"
+                android:background="@drawable/bg_circular"
+                android:hint="Cancel"
+                android:layout_marginTop="@dimen/dimen_15"
+                android:textSize="@dimen/font_size_16"
+                android:textColorHint="@color/color_main" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+</layout>

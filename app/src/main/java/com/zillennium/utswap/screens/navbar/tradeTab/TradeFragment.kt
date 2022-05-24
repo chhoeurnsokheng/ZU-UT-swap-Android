@@ -1,14 +1,24 @@
 package com.zillennium.utswap.screens.navbar.tradeTab
 
+import android.app.Activity
+import android.content.Context
+import android.content.Intent
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
-import androidx.recyclerview.widget.GridLayoutManager
+import android.view.inputmethod.InputMethodManager
+import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentNavbarTradeBinding
-import com.zillennium.utswap.screens.project.projecrDetailScreen.ProjectDetailAdapter
+import com.zillennium.utswap.screens.navbar.tradeTab.fragment.orders.adapter.OrdersAdapter
+import com.zillennium.utswap.screens.navbar.tradeTab.fragment.orders.dialog.DeleteOrdersDialog
+import com.zillennium.utswap.screens.navbar.tradeTab.fragment.tradeDetail.TradeDetailFragment
+
 
 class TradeFragment :
     BaseMvpFragment<TradeView.View, TradeView.Presenter, FragmentNavbarTradeBinding>(),
@@ -85,13 +95,27 @@ class TradeFragment :
                 }
 //                rvTrade.layoutManager = GridLayoutManager(UTSwapApp.instance, 2)
                 rvTrade.layoutManager = LinearLayoutManager(UTSwapApp.instance)
-                rvTrade.adapter = TradeAdapter(tradeArrayList)
-
-
+                rvTrade.adapter = TradeAdapter(tradeArrayList,onclickTrade)
             }
 
         } catch (error: Exception) {
             // Must be safe
         }
+    }
+
+    private val onclickTrade: TradeAdapter.OnclickTrade = object : TradeAdapter.OnclickTrade{
+        override fun clickMe() {
+            Navigation.findNavController(requireView()).navigate(R.id.trade_detail)
+        }
+
+    }
+
+    fun Fragment.hideKeyboard() {
+        view?.let { activity?.hideKeyboard(it) }
+    }
+
+    fun Context.hideKeyboard(view: View) {
+        val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
     }
 }

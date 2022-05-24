@@ -41,7 +41,7 @@
             android:paddingHorizontal="@dimen/dimen_20"
             android:paddingTop="@dimen/dimen_20"
             android:paddingBottom="@dimen/dimen_12"
-            android:visibility="visible">
+            android:visibility="gone">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_verify"
@@ -69,7 +69,7 @@
             android:paddingVertical="@dimen/dimen_26"
             android:layout_above="@id/nav_view"
             android:background="@color/white"
-            android:visibility="visible">
+            android:visibility="gone">
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_signIn"
                 android:layout_width="match_parent"
