@@ -129,7 +129,7 @@ class VerificationFragment():
                         linearCountdown.visibility = View.GONE
                         stopTimer()
                         for(child in layoutCount.children){
-                            child.background = resources.getDrawable(R.drawable.bg_border_green_correct)
+                            child.background = resources.getDrawable(R.drawable.bg_green_corner)
                         }
 
                         when (arguments?.getString("title")) {

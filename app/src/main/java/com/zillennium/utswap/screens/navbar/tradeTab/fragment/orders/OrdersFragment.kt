@@ -35,12 +35,7 @@ class OrdersFragment :
         try {
             binding.apply {
 
-                if(SessionPreferences().SESSION_STATUS!!){
-                    txtMessage.visibility = View.GONE
-                    linearOrderHistory.visibility = View.VISIBLE
-                }
-
-                if(SessionPreferences().SESSION_KYC!!){
+                if(SessionPreferences().SESSION_STATUS!! && SessionPreferences().SESSION_KYC!!){
                     txtMessage.visibility = View.GONE
                     linearOrderHistory.visibility = View.VISIBLE
                 }

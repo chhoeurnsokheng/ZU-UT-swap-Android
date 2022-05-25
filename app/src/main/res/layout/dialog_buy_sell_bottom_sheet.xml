@@ -37,9 +37,10 @@
 
                     <LinearLayout
                         android:id="@+id/btn_limit"
-                        android:layout_width="90dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="@dimen/dimen_40"
                         android:layout_marginEnd="@dimen/dimen_8"
+                        android:paddingHorizontal="@dimen/dimen_20"
                         android:background="@drawable/bg_circular">
 
                         <TextView
@@ -54,9 +55,10 @@
 
                     <LinearLayout
                         android:id="@+id/btn_market"
-                        android:layout_width="90dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="@dimen/dimen_40"
                         android:layout_marginEnd="@dimen/dimen_8"
+                        android:paddingHorizontal="@dimen/dimen_20"
                         android:backgroundTint="@color/gray"
                         android:background="@drawable/bg_circular">
 
@@ -71,9 +73,10 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:layout_width="90dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="@dimen/dimen_40"
                         android:layout_marginEnd="@dimen/dimen_8"
+                        android:paddingHorizontal="@dimen/dimen_20"
                         android:backgroundTint="@color/gray"
                         android:background="@drawable/bg_circular">
 
@@ -87,9 +90,10 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:layout_width="90dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="@dimen/dimen_40"
                         android:layout_marginEnd="@dimen/dimen_8"
+                        android:paddingHorizontal="@dimen/dimen_20"
                         android:backgroundTint="@color/gray"
                         android:background="@drawable/bg_circular">
 
@@ -113,7 +117,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="@dimen/dimen_80"
                     android:layout_height="wrap_content"
                     android:text="Volume"
                     android:textColor="@color/secondary"
@@ -123,7 +127,6 @@
                     android:id="@+id/et_volume"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dimen_40"
-                    android:layout_marginStart="@dimen/dimen_15"
                     android:inputType="number"
                     android:textSize="@dimen/font_size_16"
                     android:paddingEnd="@dimen/dimen_15"
@@ -140,7 +143,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="@dimen/dimen_80"
                     android:layout_height="wrap_content"
                     android:text="Price"
                     android:textColor="@color/secondary"
@@ -150,7 +153,6 @@
                     android:id="@+id/et_price_of_volume"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dimen_40"
-                    android:layout_marginStart="@dimen/dimen_30"
                     android:inputType="number"
                     android:textSize="@dimen/font_size_16"
                     android:paddingEnd="@dimen/dimen_15"

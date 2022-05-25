@@ -35,12 +35,7 @@ class TransactionsFragment :
         super.initView()
         try {
             binding.apply {
-                if(SessionPreferences().SESSION_STATUS!!){
-                    txtMessage.visibility = View.GONE
-                    linearTransactionsHistory.visibility = View.VISIBLE
-                }
-
-                if(SessionPreferences().SESSION_KYC!!){
+                if(SessionPreferences().SESSION_STATUS!! && SessionPreferences().SESSION_KYC!!){
                     txtMessage.visibility = View.GONE
                     linearTransactionsHistory.visibility = View.VISIBLE
                 }
@@ -296,7 +291,7 @@ class TransactionsFragment :
 
     private val onClickTransactions: TransactionsAdapter.OnClickTransactions = object : TransactionsAdapter.OnClickTransactions{
         override fun onClickMe(orders: Orders) {
-            val bundle = bundleOf("date" to orders.txtDate,"price" to orders.txtPrice.toString(),"status" to orders.txtStatus, "ut" to orders.txtUT)
+            val bundle = bundleOf("date" to orders.txtDate,"price" to orders.txtPrice,"status" to orders.txtStatus, "ut" to orders.txtUT)
             findNavController().navigate(R.id.action_to_navigation_navbar_transaction_detail,bundle)
         }
 

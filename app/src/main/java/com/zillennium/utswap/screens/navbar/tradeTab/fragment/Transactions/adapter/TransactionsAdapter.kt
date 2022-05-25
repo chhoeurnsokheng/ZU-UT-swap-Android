@@ -46,7 +46,7 @@ class TransactionsAdapter (
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val orders: Orders = arrayList[position]
 
-        holder.txtUT.text = orders.txtUT
+        holder.txtUT.text = orders.txtUT.toString()
         holder.txtPrice.text = "$ ${orders.txtPrice}"
         holder.txtDateBuy.text = orders.txtDate
 

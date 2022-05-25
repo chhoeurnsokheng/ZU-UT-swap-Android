@@ -29,6 +29,8 @@ class TradeFragment :
         try {
             binding.apply {
 
+
+
                 val project = arrayOf(
                     "Siem Reap 17140",
                     "Muk Kampul 16644",

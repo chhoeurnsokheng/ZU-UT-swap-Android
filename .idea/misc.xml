@@ -20,6 +20,7 @@
         <entry key="app/src/main/res/drawable/bg_circular_condition.xml" value="0.194" />
         <entry key="app/src/main/res/drawable/bg_circular_term_condition.xml" value="0.1095" />
         <entry key="app/src/main/res/drawable/bg_corner.xml" value="0.12" />
+        <entry key="app/src/main/res/drawable/bg_green_corner.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/bg_green_total_balance.xml" value="0.12" />
         <entry key="app/src/main/res/drawable/bg_red_corner.xml" value="0.12" />
         <entry key="app/src/main/res/drawable/bg_shadows.xml" value="0.1095" />
@@ -117,6 +118,7 @@
         <entry key="app/src/main/res/layout/custom_historical_filter_dropdown.xml" value="0.20350577169730655" />
         <entry key="app/src/main/res/layout/custom_spinner.xml" value="0.20350577169730655" />
         <entry key="app/src/main/res/layout/customer_in_subscription.xml" value="0.20350577169730655" />
+        <entry key="app/src/main/res/layout/dialog_buy_sell_bottom_sheet.xml" value="0.5402618408203126" />
         <entry key="app/src/main/res/layout/dialog_details.xml" value="0.20350577169730655" />
         <entry key="app/src/main/res/layout/dialog_log.xml" value="0.20350577169730655" />
         <entry key="app/src/main/res/layout/dialog_navbar_project_subscription_confirm.xml" value="0.20094057289439932" />
