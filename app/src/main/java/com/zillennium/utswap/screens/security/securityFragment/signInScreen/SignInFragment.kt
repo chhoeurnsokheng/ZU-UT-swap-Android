@@ -62,6 +62,7 @@ class SignInFragment :
                     val intent = Intent(UTSwapApp.instance, ResetPasswordActivity::class.java)
                     startActivity(intent)
                 }
+
                 btnRegister.setOnClickListener {
                     activity?.finish()
                     val intent = Intent(UTSwapApp.instance, RegisterActivity::class.java)
@@ -87,6 +88,7 @@ class SignInFragment :
                         textInputEmail.backgroundTintList =
                             ColorStateList.valueOf(resources.getColor(R.color.red))
                         isHaveError = true
+                        return@setOnClickListener
                     }
 
                     if (!isHaveError){
@@ -94,11 +96,6 @@ class SignInFragment :
                         SessionPreferences().SESSION_USERNAME = textInputEmail.text.toString().trim()
                         SessionPreferences().SESSION_PASSWORD = textInputPassword.text.toString().trim()
                         findNavController().navigate(R.id.action_to_verification_security_fragment)
-                    }else{
-                        textInputPassword.backgroundTintList =
-                            ColorStateList.valueOf(resources.getColor(R.color.red))
-                        textInputEmail.backgroundTintList =
-                            ColorStateList.valueOf(resources.getColor(R.color.red))
                     }
                 }
                 textInputEmail.addTextChangedListener(object : TextWatcher {
@@ -231,6 +228,7 @@ class SignInFragment :
                 textInputPassword.transformationMethod =
                     PasswordTransformationMethod.getInstance()
             }
+            textInputPassword.setSelection(textInputPassword.text.length)
         }
     }
 }
