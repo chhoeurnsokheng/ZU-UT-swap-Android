@@ -65,14 +65,30 @@
                     android:textColor="@color/secondary_text"
                     android:textSize="@dimen/font_size_14"/>
 
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="500 UT"
-                    android:gravity="end"
-                    android:layout_marginStart="@dimen/dimen_10"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/font_size_14"/>
+                    android:gravity="end">
+
+                    <TextView
+                        android:id="@+id/txt_volume"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="500"
+                        android:gravity="end"
+                        android:layout_marginStart="@dimen/dimen_10"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/font_size_14"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:text=" UT"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/font_size_14"/>
+
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -96,14 +112,30 @@
                     android:textColor="@color/secondary_text"
                     android:textSize="@dimen/font_size_14"/>
 
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="end"
-                    android:text="$9.21"
-                    android:layout_marginStart="@dimen/dimen_10"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/font_size_14"/>
+                    android:gravity="end">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:text="$"
+                        android:layout_marginStart="@dimen/dimen_10"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/font_size_14"/>
+
+                    <TextView
+                        android:id="@+id/txt_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:text="9.21"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/font_size_14"/>
+
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -126,14 +158,30 @@
                     android:textColor="@color/secondary_text"
                     android:textSize="@dimen/font_size_14"/>
 
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="end"
-                    android:text="$4 605.00"
-                    android:layout_marginStart="@dimen/dimen_10"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/font_size_14"/>
+                    android:gravity="end">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:text="$"
+                        android:layout_marginStart="@dimen/dimen_10"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/font_size_14"/>
+
+                    <TextView
+                        android:id="@+id/txt_gross_volume"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:text="4 605.00"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/font_size_14"/>
+
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -156,14 +204,29 @@
                     android:textColor="@color/secondary_text"
                     android:textSize="@dimen/font_size_14"/>
 
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="end"
-                    android:text="$13.81"
-                    android:layout_marginStart="@dimen/dimen_10"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/font_size_14"/>
+                    android:gravity="end">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:text="$"
+                        android:layout_marginStart="@dimen/dimen_10"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/font_size_14"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:text="13.81"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/font_size_14"/>
+
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -186,14 +249,30 @@
                     android:textColor="@color/secondary_text"
                     android:textSize="@dimen/font_size_14"/>
 
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="end"
-                    android:text="$4 618.81"
-                    android:layout_marginStart="@dimen/dimen_10"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/font_size_14"/>
+                    android:gravity="end">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:text="$"
+                        android:layout_marginStart="@dimen/dimen_10"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/font_size_14"/>
+
+                    <TextView
+                        android:id="@+id/txt_net_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:text="4 618.81"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/font_size_14"/>
+
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -204,7 +283,7 @@
                 android:layout_marginTop="@dimen/dimen_20"
                 android:layout_marginStart="@dimen/dimen_3"
                 android:layout_marginEnd="@dimen/dimen_4"
-                app:backgroundTint="@color/red"
+                app:backgroundTint="@color/main_red"
                 android:background="@drawable/bg_circular"
                 android:hint="SELL"
                 android:textSize="@dimen/font_size_16"

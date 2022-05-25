@@ -6,6 +6,7 @@
         <entry key="..\:/Drive C/ut_swap_android/app/src/main/res/drawable-anydpi/bg_correct.xml" value="0.277" />
         <entry key="..\:/Drive C/ut_swap_android/app/src/main/res/drawable-v24/bg_card.xml" value="0.239" />
         <entry key="..\:/Drive C/ut_swap_android/app/src/main/res/drawable-v24/bg_date.xml" value="0.277" />
+        <entry key="..\:/Drive C/ut_swap_android/app/src/main/res/drawable-xxhdpi/outline_edittext_error_normal.xml" value="0.1805" />
         <entry key="..\:/Drive C/ut_swap_android/app/src/main/res/drawable/bg_active.xml" value="0.239" />
         <entry key="..\:/Drive C/ut_swap_android/app/src/main/res/drawable/bg_border_green_correct.xml" value="0.241" />
         <entry key="..\:/Drive C/ut_swap_android/app/src/main/res/drawable/bg_border_red_transparent.xml" value="0.1655" />
@@ -18,6 +19,7 @@
         <entry key="..\:/Drive C/ut_swap_android/app/src/main/res/drawable/bg_circular_term_condition.xml" value="0.277" />
         <entry key="..\:/Drive C/ut_swap_android/app/src/main/res/drawable/bg_corner.xml" value="0.314" />
         <entry key="..\:/Drive C/ut_swap_android/app/src/main/res/drawable/bg_correct.xml" value="0.314" />
+        <entry key="..\:/Drive C/ut_swap_android/app/src/main/res/drawable/bg_error_red.xml" value="0.1805" />
         <entry key="..\:/Drive C/ut_swap_android/app/src/main/res/drawable/bg_red_corner.xml" value="0.2495" />
         <entry key="..\:/Drive C/ut_swap_android/app/src/main/res/drawable/bg_success.xml" value="0.277" />
         <entry key="..\:/Drive C/ut_swap_android/app/src/main/res/drawable/bg_tab_select.xml" value="0.277" />
@@ -31,6 +33,7 @@
         <entry key="..\:/Drive C/ut_swap_android/app/src/main/res/drawable/ic_national_id_back.xml" value="0.314" />
         <entry key="..\:/Drive C/ut_swap_android/app/src/main/res/drawable/ic_national_id_front.xml" value="0.196" />
         <entry key="..\:/Drive C/ut_swap_android/app/src/main/res/drawable/outline_edittext_change_color_focus.xml" value="0.277" />
+        <entry key="..\:/Drive C/ut_swap_android/app/src/main/res/drawable/outline_subscription.xml" value="0.1805" />
         <entry key="..\:/Drive C/ut_swap_android/app/src/main/res/layout/activity_kyc_camera_id_card.xml" value="0.25416666666666665" />
         <entry key="..\:/Drive C/ut_swap_android/app/src/main/res/layout/activity_kyc_camera_id_card_back.xml" value="0.365625" />
         <entry key="..\:/Drive C/ut_swap_android/app/src/main/res/layout/activity_kyc_camera_selfie.xml" value="0.36666666666666664" />
@@ -48,6 +51,7 @@
         <entry key="..\:/Drive C/ut_swap_android/app/src/main/res/layout/dialog_buy_sell_bottom_sheet.xml" value="0.4" />
         <entry key="..\:/Drive C/ut_swap_android/app/src/main/res/layout/dialog_delete_orders.xml" value="0.264" />
         <entry key="..\:/Drive C/ut_swap_android/app/src/main/res/layout/dialog_delete_orders_hostory.xml" value="0.25416666666666665" />
+        <entry key="..\:/Drive C/ut_swap_android/app/src/main/res/layout/dialog_market.xml" value="0.4" />
         <entry key="..\:/Drive C/ut_swap_android/app/src/main/res/layout/dialog_payment.xml" value="0.25416666666666665" />
         <entry key="..\:/Drive C/ut_swap_android/app/src/main/res/layout/dialog_sell.xml" value="0.365625" />
         <entry key="..\:/Drive C/ut_swap_android/app/src/main/res/layout/dialog_wallet_balance_history.xml" value="0.25416666666666665" />
@@ -62,6 +66,7 @@
         <entry key="..\:/Drive C/ut_swap_android/app/src/main/res/layout/fragment_security_sign_in.xml" value="0.36666666666666664" />
         <entry key="..\:/Drive C/ut_swap_android/app/src/main/res/layout/fragment_trade_detail.xml" value="0.264" />
         <entry key="..\:/Drive C/ut_swap_android/app/src/main/res/layout/fragment_transactions.xml" value="0.365625" />
+        <entry key="..\:/Drive C/ut_swap_android/app/src/main/res/layout/fragment_transactions_detail.xml" value="0.25416666666666665" />
         <entry key="..\:/Drive C/ut_swap_android/app/src/main/res/layout/item_list_all_transactions.xml" value="0.4" />
         <entry key="..\:/Drive C/ut_swap_android/app/src/main/res/layout/item_list_order_book.xml" value="0.25416666666666665" />
         <entry key="..\:/Drive C/ut_swap_android/app/src/main/res/layout/item_list_order_book_ask.xml" value="0.25416666666666665" />

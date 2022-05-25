@@ -1,7 +1,9 @@
 package com.zillennium.utswap.screens.navbar.tradeTab.fragment.allTransactions
 
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.zillennium.utswap.Datas.ListDatas.allTransactions.AllTransactionsData
+import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentAllTransactionsBinding
@@ -20,6 +22,16 @@ class AllTransactionsFragment :
         super.initView()
         try {
             binding.apply {
+                if(SessionPreferences().SESSION_STATUS!!){
+                    txtMessage.visibility = View.GONE
+                    linearAllTransHistory.visibility = View.VISIBLE
+                }
+
+                if(SessionPreferences().SESSION_KYC!!){
+                    txtMessage.visibility = View.GONE
+                    linearAllTransHistory.visibility = View.VISIBLE
+                }
+
                 val linearLayoutManager = LinearLayoutManager(requireContext())
                 rvAllTrans.layoutManager = linearLayoutManager
                 val allTransactionsAdapter = AllTransactionsAdapter(

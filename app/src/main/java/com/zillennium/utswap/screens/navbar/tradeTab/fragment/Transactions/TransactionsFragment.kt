@@ -6,6 +6,8 @@ import android.graphics.Color
 import android.os.Build
 import android.view.View
 import androidx.annotation.RequiresApi
+import androidx.core.os.bundleOf
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.zillennium.utswap.Datas.ListDatas.ordersData.OrdersData
 import com.zillennium.utswap.Datas.ListDatas.transactionsData.TransactionsData
@@ -59,7 +61,7 @@ class TransactionsFragment :
                 rvTransactions.layoutManager = linearLayoutManager
 
                 transactionsAdapter = TransactionsAdapter(
-                    TransactionsData.LIST_OF_TRANSACTIONS()
+                    TransactionsData.LIST_OF_TRANSACTIONS(),onClickTransactions
                 )
 
                 rvTransactions.adapter = transactionsAdapter
@@ -75,7 +77,7 @@ class TransactionsFragment :
                     transactionsAdapter!!.notifyDataSetChanged()
 
                     transactionsAdapter = TransactionsAdapter(
-                        TransactionsData.LIST_OF_TRANSACTIONS()
+                        TransactionsData.LIST_OF_TRANSACTIONS(),onClickTransactions
                     )
 
                     rvTransactions.adapter = transactionsAdapter
@@ -101,7 +103,7 @@ class TransactionsFragment :
                     transactionsAdapter!!.notifyDataSetChanged()
 
                     transactionsAdapter = TransactionsAdapter(
-                        list
+                        list,onClickTransactions
                     )
 
                     rvTransactions.adapter = transactionsAdapter
@@ -128,7 +130,7 @@ class TransactionsFragment :
                     transactionsAdapter!!.notifyDataSetChanged()
 
                     transactionsAdapter = TransactionsAdapter(
-                        list
+                        list,onClickTransactions
                     )
 
                     rvTransactions.adapter = transactionsAdapter
@@ -162,7 +164,7 @@ class TransactionsFragment :
                     transactionsAdapter!!.notifyDataSetChanged()
 
                     transactionsAdapter = TransactionsAdapter(
-                        list
+                        list,onClickTransactions
                     )
 
                     rvTransactions.adapter = transactionsAdapter
@@ -197,7 +199,7 @@ class TransactionsFragment :
                     transactionsAdapter!!.notifyDataSetChanged()
 
                     transactionsAdapter = TransactionsAdapter(
-                        list
+                        list,onClickTransactions
                     )
 
                     rvTransactions.adapter = transactionsAdapter
@@ -226,7 +228,7 @@ class TransactionsFragment :
                     transactionsAdapter!!.notifyDataSetChanged()
 
                     transactionsAdapter = TransactionsAdapter(
-                        list
+                        list,onClickTransactions
                     )
 
                     rvTransactions.adapter = transactionsAdapter
@@ -255,7 +257,7 @@ class TransactionsFragment :
                     transactionsAdapter!!.notifyDataSetChanged()
 
                     transactionsAdapter = TransactionsAdapter(
-                        list
+                        list,onClickTransactions
                     )
 
                     rvTransactions.adapter = transactionsAdapter
@@ -292,5 +294,13 @@ class TransactionsFragment :
                 linearContainerFilter.visibility = View.GONE
             }
         }
+    }
+
+    private val onClickTransactions: TransactionsAdapter.OnClickTransactions = object : TransactionsAdapter.OnClickTransactions{
+        override fun onClickMe(orders: Orders) {
+            val bundle = bundleOf("date" to orders.txtDate,"price" to orders.txtPrice.toString(),"status" to orders.txtStatus, "ut" to orders.txtUT)
+            findNavController().navigate(R.id.action_to_navigation_navbar_transaction_detail,bundle)
+        }
+
     }
 }

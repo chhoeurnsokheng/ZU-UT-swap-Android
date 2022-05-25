@@ -105,7 +105,6 @@
                 android:layout_marginTop="@dimen/dimen_15">
 
                 <TextView
-                    android:id="@+id/caption_txt_money"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Price: "
@@ -118,20 +117,10 @@
                     android:gravity="end">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="end"
-                        android:text="$"
-                        android:layout_marginStart="@dimen/dimen_10"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/font_size_14"/>
-
-                    <TextView
-                        android:id="@+id/txt_price"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="end"
-                        android:text="9.21"
+                        android:text="Market"
                         android:textColor="@color/black"
                         android:textSize="@dimen/font_size_14"/>
 
@@ -139,142 +128,12 @@
 
             </LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_1"
-                android:background="@color/dark"
-                android:layout_marginTop="@dimen/dimen_15"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="@dimen/dimen_20">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Gross Value: "
-                    android:textColor="@color/secondary_text"
-                    android:textSize="@dimen/font_size_14"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="end">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="end"
-                        android:text="$"
-                        android:layout_marginStart="@dimen/dimen_10"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/font_size_14"/>
-
-                    <TextView
-                        android:id="@+id/txt_gross_volume"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="end"
-                        android:text="4 605.00"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/font_size_14"/>
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_1"
-                android:background="@color/dark"
-                android:layout_marginTop="@dimen/dimen_15"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="@dimen/dimen_20">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Fee: "
-                    android:textColor="@color/secondary_text"
-                    android:textSize="@dimen/font_size_14"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="end">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="end"
-                        android:text="$"
-                        android:layout_marginStart="@dimen/dimen_10"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/font_size_14"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="end"
-                        android:text="13.81"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/font_size_14"/>
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_1"
-                android:background="@color/dark"
-                android:layout_marginTop="@dimen/dimen_15"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="@dimen/dimen_20">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Net Value: "
-                    android:textColor="@color/secondary_text"
-                    android:textSize="@dimen/font_size_14"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="end">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="end"
-                        android:text="$"
-                        android:layout_marginStart="@dimen/dimen_10"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/font_size_14"/>
-
-                    <TextView
-                        android:id="@+id/txt_net_value"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="end"
-                        android:text="4 618.81"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/font_size_14"/>
-
-                </LinearLayout>
-
-            </LinearLayout>
+                android:layout_marginTop="@dimen/dimen_16"
+                android:textSize="@dimen/dimen_14"
+                android:text="DISCLAIMER:  Market prices may change during order confirmation"/>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_buy_confirm"
