@@ -45,7 +45,7 @@ class ProjectFragment :
 //                Log.d("Test", it.title)
 //            }
 
-            Handler().postDelayed({
+//            Handler().postDelayed({
                 binding.apply {
 
                     pgLoading.visibility = View.GONE
@@ -202,7 +202,7 @@ class ProjectFragment :
 
                     })
                 }
-            }, 5000)
+//            }, 5000)
 
 
 //        } catch (error: Exception) {

@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.models.SlideModel
+import com.google.android.material.tabs.TabLayoutMediator
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
@@ -71,36 +72,17 @@ class ProjectInfoFragment :
 
                 /* Image Slider with View Pager */
                 val imagesSlider = listOf(
-                    R.drawable.slide_image1,
-                    R.drawable.slide_image2,
-                    R.drawable.slide_image3,
-                    R.drawable.slide_image4
+                    "https://utswap.io/Upload/issue/624baccd65299.png",
+                    "https://utswap.io/Upload/issue/624bacd53d783.jpg",
+                    "https://utswap.io/Upload/issue/624baceb728a8.png",
+                    "https://utswap.io/Upload/issue/624baced5d6a8.jpg"
                 )
                 val adapter = ProjectViewPagerAdapter(imagesSlider)
                 imageSlideViewPager.adapter = adapter
 
-                imageSlideViewPager.registerOnPageChangeCallback(object :
-                    ViewPager2.OnPageChangeCallback() {
-                    override fun onPageScrolled(
-                        position: Int,
-                        positionOffset: Float,
-                        positionOffsetPixels: Int
-                    ) {
-                        changeColor()
-                        super.onPageScrolled(position, positionOffset, positionOffsetPixels)
-                    }
+                TabLayoutMediator(tabLayoutDot, imageSlideViewPager) { tab, position ->
 
-                    override fun onPageSelected(position: Int) {
-                        super.onPageSelected(position)
-                    }
-
-                    override fun onPageScrollStateChanged(state: Int) {
-                        super.onPageScrollStateChanged(state)
-                        changeColor()
-                    }
-
-                })
-
+                }.attach()
 
                 /* Recycle view of project info detail */
                 val titleInfoDetail = arrayOf(
@@ -233,38 +215,5 @@ class ProjectInfoFragment :
         }
 
 
-    }
-
-    /* Image Slider Indicator */
-    fun changeColor() {
-        binding.apply {
-            when (imageSlideViewPager.currentItem) {
-                0 -> {
-                    ivSlide1.setBackgroundColor(resources.getColor(R.color.orange))
-                    ivSlide2.setBackgroundColor(resources.getColor(R.color.gray))
-                    ivSlide3.setBackgroundColor(resources.getColor(R.color.gray))
-                    ivSlide4.setBackgroundColor(resources.getColor(R.color.gray))
-
-                }
-                1 -> {
-                    ivSlide1.setBackgroundColor(resources.getColor(R.color.gray))
-                    ivSlide2.setBackgroundColor(resources.getColor(R.color.orange))
-                    ivSlide3.setBackgroundColor(resources.getColor(R.color.gray))
-                    ivSlide4.setBackgroundColor(resources.getColor(R.color.gray))
-                }
-                2 -> {
-                    ivSlide1.setBackgroundColor(resources.getColor(R.color.gray))
-                    ivSlide2.setBackgroundColor(resources.getColor(R.color.gray))
-                    ivSlide3.setBackgroundColor(resources.getColor(R.color.orange))
-                    ivSlide4.setBackgroundColor(resources.getColor(R.color.gray))
-                }
-                3 -> {
-                    ivSlide1.setBackgroundColor(resources.getColor(R.color.gray))
-                    ivSlide2.setBackgroundColor(resources.getColor(R.color.gray))
-                    ivSlide3.setBackgroundColor(resources.getColor(R.color.gray))
-                    ivSlide4.setBackgroundColor(resources.getColor(R.color.orange))
-                }
-            }
-        }
     }
 }

@@ -5,9 +5,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.zillennium.utswap.R
+import com.zillennium.utswap.UTSwapApp
 
-class ProjectViewPagerAdapter(private val images: List<Int>): RecyclerView.Adapter<ProjectViewPagerAdapter.ViewPagerViewHolder>() {
+class ProjectViewPagerAdapter(private val images: List<String>): RecyclerView.Adapter<ProjectViewPagerAdapter.ViewPagerViewHolder>() {
 
     inner class ViewPagerViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var imageViews: ImageView = view.findViewById<View>(R.id.ivImage) as ImageView
@@ -22,7 +24,7 @@ class ProjectViewPagerAdapter(private val images: List<Int>): RecyclerView.Adapt
 
     override fun onBindViewHolder(holder: ProjectViewPagerAdapter.ViewPagerViewHolder, position: Int) {
         val imageList = images[position]
-        holder.imageViews.setImageResource(imageList)
+        Glide.with(UTSwapApp.instance).load(imageList).into(holder.imageViews)
     }
 
     override fun getItemCount(): Int {
