@@ -31,6 +31,7 @@ class SubscriptionBottomSheet : BottomSheetDialogFragment(), AdapterView.OnItemS
     ): View? {
         dialog!!.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
         binding = DataBindingUtil.inflate(inflater, R.layout.bottom_sheet_navbar_project_subscription, container, false)
         return binding?.root
 

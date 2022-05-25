@@ -5,7 +5,10 @@ import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.adapter.FragmentStateAdapter
@@ -35,21 +38,21 @@ class TradeDetailFragment :
     private var pageTableAdapter: FragmentStateAdapter? = null
     val NUM_PAGES_TABLE = 3
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_trade_detail, container, false)
 
-//    @SuppressLint("UseCompatLoadingForDrawables", "ResourceAsColor")
-    override fun initView() {
-        super.initView()
         try {
             binding.apply {
-
                 if(SessionPreferences().SESSION_STATUS!!){
                     layBuyAndSell.visibility = View.VISIBLE
-                    vpTable.visibility = View.VISIBLE
                 }
 
                 if(SessionPreferences().SESSION_KYC!!){
                     layBuyAndSell.visibility = View.VISIBLE
-                    vpTable.visibility = View.VISIBLE
                 }
 
                 pageAdapter = ScreenSlidePageAdapter(this@TradeDetailFragment, NUM_PAGES)
@@ -116,8 +119,6 @@ class TradeDetailFragment :
                     vpTable.setCurrentItem(2, false)
                 }
 
-
-
                 btnBack.setOnClickListener {
                     findNavController().popBackStack()
                 }
@@ -135,14 +136,27 @@ class TradeDetailFragment :
                         )
                     activity?.let { it1 -> buyAndSellBottomSheetDialog.show(it1.supportFragmentManager, "dgdgdg") }
                 }
+            }
+        }catch (error: Exception){
+
+        }
+        return binding.root
+    }
+
+
+//    @SuppressLint("UseCompatLoadingForDrawables", "ResourceAsColor")
+    override fun initView() {
+        super.initView()
+        try {
+            binding.apply {
+
+
 
             }
         } catch (error: Exception) {
             // Must be safe
         }
     }
-
-
 
     private fun onChangeTabs(view: View) {
         binding.apply {
@@ -221,5 +235,23 @@ class TradeDetailFragment :
         override fun getItemCount(): Int {
             return NUM_PAGES_TABLE
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        binding.apply {
+            if(vpVerify.currentItem == 1){
+                vpVerify.setCurrentItem(0, false)
+            }
+            if(vpTable.currentItem == 1){
+                vpTable.setCurrentItem(0,false)
+            }
+        }
+
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
     }
 }

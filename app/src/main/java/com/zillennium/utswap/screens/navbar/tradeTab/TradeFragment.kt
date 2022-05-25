@@ -29,10 +29,6 @@ class TradeFragment :
         try {
             binding.apply {
 
-                imgNotification.setOnClickListener {
-                    findNavController().navigate(R.id.action_to_trade_detail)
-                }
-
                 val project = arrayOf(
                     "Siem Reap 17140",
                     "Muk Kampul 16644",
@@ -130,11 +126,11 @@ class TradeFragment :
                 rvTrade.adapter = TradeAdapter(tradeArrayList,onclickTrade)
 
                 txtSubscribe.setOnClickListener {
-                    Navigation.findNavController(requireView()).navigate(R.id.navigation_navbar_project_subscription)
+                    Navigation.findNavController(requireView()).navigate(R.id.action_to_navigation_navbar_project_subscription)
                 }
 
                 txtDetail.setOnClickListener {
-                    Navigation.findNavController(requireView()).navigate(R.id.navigation_navbar_project_info)
+                    Navigation.findNavController(requireView()).navigate(R.id.action_to_navigation_navbar_project_info)
                 }
             }
 

@@ -13,9 +13,11 @@ import com.zillennium.utswap.models.orders.Orders
 
 class TransactionsAdapter (
     arrayList: ArrayList<Orders>,
+    onClickTransactions: OnClickTransactions
 ) :
     RecyclerView.Adapter<TransactionsAdapter.ViewHolder>() {
     private var arrayList: ArrayList<Orders> = ArrayList()
+    private var onClickTransactions: OnClickTransactions
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -75,9 +77,18 @@ class TransactionsAdapter (
         }
 
         holder.imgArrow.visibility = View.GONE
+
+        holder.itemView.setOnClickListener {
+            onClickTransactions.onClickMe(orders)
+        }
     }
 
     init {
         this.arrayList = arrayList
+        this.onClickTransactions = onClickTransactions
+    }
+
+    interface OnClickTransactions{
+        fun onClickMe(orders: Orders)
     }
 }

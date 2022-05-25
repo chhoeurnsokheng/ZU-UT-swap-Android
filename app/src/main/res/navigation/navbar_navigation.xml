@@ -29,6 +29,20 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_to_navigation_navbar_project_info"
+            app:destination="@id/navigation_navbar_project_info"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_to_navigation_navbar_project_subscription"
+            app:destination="@id/navigation_navbar_project_subscription"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
     <fragment
@@ -39,6 +53,14 @@
         <action
             android:id="@+id/action_to_navigation_navbar_trade"
             app:destination="@+id/navigation_navbar_trade"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+
+        <action
+            android:id="@+id/action_to_navigation_navbar_transaction_detail"
+            app:destination="@+id/navigation_navbar_trade_transaction_detail"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -84,6 +106,13 @@
         tools:layout="@layout/fragment_navbar_project_subscription">
     </fragment>
 
+    <fragment
+        android:id="@+id/navigation_navbar_trade_transaction_detail"
+        android:name="com.zillennium.utswap.screens.navbar.tradeTab.fragment.Transactions.fragment.TransactionDetailFragment"
+        android:label="Transaction Detail"
+        tools:layout="@layout/fragment_transactions_detail">
+
+    </fragment>
 
 
 

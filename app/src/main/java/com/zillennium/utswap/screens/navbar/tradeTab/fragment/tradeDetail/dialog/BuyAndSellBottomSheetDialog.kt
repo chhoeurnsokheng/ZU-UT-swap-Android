@@ -1,15 +1,16 @@
 package com.zillennium.utswap.screens.navbar.tradeTab.fragment.tradeDetail.dialog
 
+import android.annotation.SuppressLint
+import android.content.res.ColorStateList
 import android.graphics.Color
-import android.graphics.PorterDuff
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.*
 import androidx.databinding.DataBindingUtil
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.google.android.material.button.MaterialButton
 import com.zillennium.utswap.R
-import com.zillennium.utswap.databinding.BottomSheetNavbarProjectSubscriptionBinding
 import com.zillennium.utswap.databinding.DialogBuySellBottomSheetBinding
 
 class BuyAndSellBottomSheetDialog : BottomSheetDialogFragment() {
@@ -32,26 +33,132 @@ class BuyAndSellBottomSheetDialog : BottomSheetDialogFragment() {
 
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding?.apply {
 
             (view.parent as View).setBackgroundColor(resources.getColor(android.R.color.transparent))
+            var click = true
 
             btnBuy.setOnClickListener {
-                val buyDialog: BuyDialog =
-                    BuyDialog.newInstance()
-                activity?.supportFragmentManager?.let { buyDialog.show(it, "asaf") }
+                var isHaveError = false
+                if(etVolume.text.isEmpty())
+                {
+                    etVolume.background = resources.getDrawable(R.drawable.bg_error_red)
+                    isHaveError = true
+                }
 
-                dismiss()
+                if(linearPrice.visibility == View.VISIBLE)
+                {
+                    if(etPriceOfVolume.text.isEmpty())
+                    {
+                        etPriceOfVolume.background = resources.getDrawable(R.drawable.bg_error_red)
+                        isHaveError = true
+                    }
+                }
+
+                if (isHaveError) return@setOnClickListener
+
+                if(click)
+                {
+                    val buyDialog: BuyDialog =
+                        BuyDialog.newInstance(etVolume.text.toString(), etPriceOfVolume.text.toString())
+                    activity?.supportFragmentManager?.let { buyDialog.show(it, "asaf") }
+
+                    dismiss()
+                }else{
+                    val marketDialog: MarketDialog =
+                        MarketDialog.newInstance(etVolume.text.toString(),"BUY")
+                    activity?.supportFragmentManager?.let { marketDialog.show(it, "asaf") }
+                    dismiss()
+                }
+
             }
 
             btnSell.setOnClickListener {
-                val sellDialog: SellDialog =
-                    SellDialog.newInstance()
-                activity?.supportFragmentManager?.let { sellDialog.show(it, "asaf") }
+                var isHaveError = false
+                if(etVolume.text.isEmpty())
+                {
+                    etVolume.background = resources.getDrawable(R.drawable.bg_error_red)
+                    isHaveError = true
+                }
 
-                dismiss()
+                if(linearPrice.visibility == View.VISIBLE)
+                {
+                    if(etPriceOfVolume.text.isEmpty())
+                    {
+                        etPriceOfVolume.background = resources.getDrawable(R.drawable.bg_error_red)
+                        isHaveError = true
+                    }
+                }
+
+                if (isHaveError) return@setOnClickListener
+
+                if(click)
+                {
+                    val sellDialog: SellDialog =
+                        SellDialog.newInstance(etVolume.text.toString(), etPriceOfVolume.text.toString())
+                    activity?.supportFragmentManager?.let { sellDialog.show(it, "asaf") }
+
+                    dismiss()
+                }else{
+                    val marketDialog: MarketDialog =
+                        MarketDialog.newInstance(etVolume.text.toString(),"SELL")
+                    activity?.supportFragmentManager?.let { marketDialog.show(it, "asaf") }
+                    dismiss()
+                }
+            }
+
+            etVolume.addTextChangedListener(object :TextWatcher{
+                override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+                }
+
+                override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                    etVolume.background = resources.getDrawable(R.drawable.outline_edittext_change_color_focus)
+                }
+
+                override fun afterTextChanged(p0: Editable?) {
+
+                }
+            })
+
+            etPriceOfVolume.addTextChangedListener(object :TextWatcher{
+                override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+                }
+
+                override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                    etPriceOfVolume.background = resources.getDrawable(R.drawable.outline_edittext_change_color_focus)
+                }
+
+                override fun afterTextChanged(p0: Editable?) {
+
+                }
+            })
+
+            btnMarket.setOnClickListener {
+                linearPrice.visibility = View.GONE
+                btnMarket.background = resources.getDrawable(R.drawable.bg_circular)
+                btnMarket.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.color_main))
+                txtMarket.setTextColor(resources.getColor(R.color.white))
+                txtLimit.setTextColor(resources.getColor(R.color.color_main))
+                btnLimit.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.gray))
+                etVolume.background = resources.getDrawable(R.drawable.outline_edittext_change_color_focus)
+                click = false
+            }
+
+            btnLimit.setOnClickListener {
+                linearPrice.visibility = View.VISIBLE
+                btnLimit.background = resources.getDrawable(R.drawable.bg_circular)
+                btnLimit.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.color_main))
+                txtLimit.setTextColor(resources.getColor(R.color.white))
+                txtMarket.setTextColor(resources.getColor(R.color.color_main))
+                btnMarket.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.gray))
+                etPriceOfVolume.background = resources.getDrawable(R.drawable.outline_edittext_change_color_focus)
+                etVolume.background = resources.getDrawable(R.drawable.outline_edittext_change_color_focus)
+                click = true
             }
         }
     }

@@ -1,6 +1,7 @@
 package com.zillennium.utswap.screens.navbar.tradeTab.fragment.tradeDetail.dialog
 
 import android.annotation.SuppressLint
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -13,16 +14,11 @@ import androidx.fragment.app.DialogFragment
 import com.google.android.material.button.MaterialButton
 import com.zillennium.utswap.R
 
-class BuyDialog : DialogFragment() {
+class MarketDialog : DialogFragment() {
     internal var view: View? = null
     private var btnBuy: MaterialButton? = null
     private var btnCancel: MaterialButton? = null
     private var txtVolume: TextView? = null
-    private var txtPrice: TextView? = null
-    private var txtGrossValue: TextView? = null
-    private var txtNetValue: TextView? = null
-    private var volume: String? = ""
-    private var price: String? = ""
 
     @SuppressLint("SetTextI18n")
     override fun onCreateView(
@@ -30,32 +26,33 @@ class BuyDialog : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        view = inflater.inflate(R.layout.dialog_buy, container, false)
+        view = inflater.inflate(R.layout.dialog_market, container, false)
         dialog!!.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog!!.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
         btnBuy = view?.findViewById(R.id.btn_buy_confirm)
         btnCancel = view?.findViewById(R.id.btn_cancel)
         txtVolume = view?.findViewById(R.id.txt_volume)
-        txtPrice = view?.findViewById(R.id.txt_price)
-        txtGrossValue = view?.findViewById(R.id.txt_gross_volume)
-        txtNetValue = view?.findViewById(R.id.txt_net_value)
 
-        volume = arguments?.getString("volume")
-        price = arguments?.getString("price")
+        txtVolume?.text = arguments?.get("volume").toString()
+        btnBuy?.text = arguments?.get("status").toString()
+        btnBuy?.setTextColor(resources.getColor(R.color.white))
 
-        txtVolume?.text = volume.toString()
-        txtPrice?.text = price.toString()
-        txtGrossValue?.text = (volume?.toFloat()?.times(price!!.toFloat())).toString()
-        txtNetValue?.text = (txtGrossValue?.text.toString().toFloat() + 13.81).toString()
-
-        btnBuy?.setOnClickListener {
-            dismiss()
+        if(arguments?.get("status") == "SELL")
+        {
+            btnBuy?.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.main_red))
+        }else{
+            btnBuy?.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.success))
         }
 
         btnCancel?.setOnClickListener {
             dismiss()
         }
+
+        btnBuy?.setOnClickListener {
+            dismiss()
+        }
+
 
         return view
     }
@@ -64,14 +61,14 @@ class BuyDialog : DialogFragment() {
     companion object {
         fun newInstance(
             volume: String?,
-            price: String?
-        ): BuyDialog {
-            val buyDialog = BuyDialog()
+            txtStatus: String?
+        ): MarketDialog {
+            val marketDialog = MarketDialog()
             val args = Bundle()
             args.putString("volume", volume)
-            args.putString("price", price)
-            buyDialog.arguments = args
-            return buyDialog
+            args.putString("status", txtStatus)
+            marketDialog.arguments = args
+            return marketDialog
         }
     }
 }

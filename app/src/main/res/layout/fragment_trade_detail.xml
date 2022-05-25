@@ -397,11 +397,10 @@
                 <androidx.viewpager2.widget.ViewPager2
                     android:id="@+id/vp_table"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="@dimen/dimen_200"
                     android:layout_marginTop="@dimen/dimen_15"
-                    android:visibility="gone"
-                    android:layout_marginBottom="@dimen/dimen_40"
-                    android:touchscreenBlocksFocus="true" />
+                    android:layout_marginBottom="@dimen/dimen_20"
+                    android:touchscreenBlocksFocus="true"/>
 
             </LinearLayout>
 
