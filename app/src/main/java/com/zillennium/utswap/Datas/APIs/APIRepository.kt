@@ -6,7 +6,7 @@ import retrofit2.Call
 import rx.Observable
 
 object APIRepository {
-    fun getPost(): Call<APIModel.MarketModel> {
+    fun getPost(): Call<JsonObject> {
         return APIInstance.hostingAPI.getPost()
     }
 
