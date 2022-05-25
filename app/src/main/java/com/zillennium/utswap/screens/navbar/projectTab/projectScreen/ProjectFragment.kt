@@ -13,23 +13,16 @@ import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.zillennium.utswap.Datas.APIs.APIInstance
-import com.zillennium.utswap.Datas.APIs.APIManager
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentNavbarProjectBinding
 import com.zillennium.utswap.models.ProjectModel
+import com.zillennium.utswap.models.TestModel
 import com.zillennium.utswap.screens.navbar.projectTab.projectScreen.adapter.ProjectAdapter
-import okhttp3.OkHttpClient
-import retrofit2.Retrofit
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
-import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
-import java.util.concurrent.TimeUnit
 
 
 class ProjectFragment :
@@ -47,7 +40,7 @@ class ProjectFragment :
     override fun initView() {
         super.initView()
 //        try {
-
+            mPresenter.getDataFromApi()
 //            mPresenter.getProject().map {
 //                Log.d("Test", it.title)
 //            }
@@ -276,6 +269,14 @@ class ProjectFragment :
             findNavController().navigate(R.id.action_to_project_info, bundle)
 
         }
+
+    }
+
+    override fun onGetPhoto(data: List<TestModel>) {
+        Log.d("onGetPhoto Fragment", "onGetPhoto Fragment")
+//        data.map {
+//            Log.d("123213", it.url)
+//        }
 
     }
 

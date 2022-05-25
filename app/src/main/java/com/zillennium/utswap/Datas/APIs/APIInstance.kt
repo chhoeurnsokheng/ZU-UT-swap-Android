@@ -5,7 +5,6 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
 import java.util.concurrent.TimeUnit
 
 object APIInstance {
@@ -32,10 +31,10 @@ object APIInstance {
       .build()
   }
 
-  val testAPI: APIManager by lazy { retrofitBuild("https://jsonplaceholder.typicode.com/").create(APIManager::class.java) }
+  val testAPI: APIService = retrofitBuild("https://jsonplaceholder.typicode.com/").create(APIService::class.java)
 
-  val hostingAPI: APIManager by lazy { retrofitBuild(debug).create(APIManager::class.java) }
+  val hostingAPI: APIService by lazy { retrofitBuild(debug).create(APIService::class.java) }
 
-  val firebaseAPI: APIManager by lazy { retrofitBuild(firebase).create(APIManager::class.java) }
+  val firebaseAPI: APIService by lazy { retrofitBuild(firebase).create(APIService::class.java) }
 
 }

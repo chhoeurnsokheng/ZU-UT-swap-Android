@@ -7,14 +7,12 @@ import android.os.Build
 import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.zillennium.utswap.Datas.ListDatas.ordersData.OrdersData
 import com.zillennium.utswap.Datas.ListDatas.transactionsData.TransactionsData
 import com.zillennium.utswap.R
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentTransactionsBinding
 import com.zillennium.utswap.models.orders.Orders
 import com.zillennium.utswap.screens.navbar.tradeTab.fragment.Transactions.adapter.TransactionsAdapter
-import com.zillennium.utswap.screens.navbar.tradeTab.fragment.orders.adapter.OrdersAdapter
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 

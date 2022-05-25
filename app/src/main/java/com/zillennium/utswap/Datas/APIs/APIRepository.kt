@@ -1,10 +1,17 @@
 package com.zillennium.utswap.Datas.APIs
 
+import com.google.gson.JsonObject
 import com.zillennium.utswap.models.TestModel
 import retrofit2.Call
+import rx.Observable
 
-class APIRepository {
-    fun getPost(): List<TestModel> {
+object APIRepository {
+    fun getPost(): Call<List<TestModel>> {
         return APIInstance.testAPI.getPost()
     }
+
+    fun hasGetPost(): Call<JsonObject> {
+        return APIInstance.testAPI.hasGetPost()
+    }
+
 }
