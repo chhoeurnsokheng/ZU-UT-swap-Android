@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Build
-import android.util.Log
 import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -36,12 +35,7 @@ class OrdersFragment :
         try {
             binding.apply {
 
-                if(SessionPreferences().SESSION_STATUS!!){
-                    txtMessage.visibility = View.GONE
-                    linearOrderHistory.visibility = View.VISIBLE
-                }
-
-                if(SessionPreferences().SESSION_KYC!!){
+                if(SessionPreferences().SESSION_STATUS!! && SessionPreferences().SESSION_KYC!!){
                     txtMessage.visibility = View.GONE
                     linearOrderHistory.visibility = View.VISIBLE
                 }

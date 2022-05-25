@@ -47,7 +47,7 @@ class OrdersAdapter (
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val orders: Orders = arrayList[position]
 
-        holder.txtUT.text = orders.txtUT
+        holder.txtUT.text = orders.txtUT.toString()
         holder.txtPrice.text = "$ ${orders.txtPrice}"
         holder.txtDateBuy.text = orders.txtDate
 
@@ -75,6 +75,11 @@ class OrdersAdapter (
                     holder.line.visibility = View.VISIBLE
                 }
             }
+        }
+
+        holder.itemView.setOnClickListener {
+            holder.btnArrow.visibility = View.VISIBLE
+            holder.btnDelete.visibility = View.GONE
         }
 
         holder.btnArrow.setOnClickListener {

@@ -1,10 +1,6 @@
 package com.zillennium.utswap.screens.navbar.tradeTab.fragment.tradeDetail
 
-import android.annotation.SuppressLint
-import android.content.res.ColorStateList
-import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -47,11 +43,7 @@ class TradeDetailFragment :
 
         try {
             binding.apply {
-                if(SessionPreferences().SESSION_STATUS!!){
-                    layBuyAndSell.visibility = View.VISIBLE
-                }
-
-                if(SessionPreferences().SESSION_KYC!!){
+                if(SessionPreferences().SESSION_STATUS!! && SessionPreferences().SESSION_KYC!!){
                     layBuyAndSell.visibility = View.VISIBLE
                 }
 

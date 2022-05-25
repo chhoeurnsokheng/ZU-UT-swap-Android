@@ -1,11 +1,11 @@
 package com.zillennium.utswap.screens.navbar.tradeTab.fragment.Transactions.fragment
 
 import android.annotation.SuppressLint
-import android.graphics.Color
 import androidx.navigation.fragment.findNavController
 import com.zillennium.utswap.R
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentTransactionsDetailBinding
+import com.zillennium.utswap.utils.groupingSeparator
 
 class TransactionDetailFragment :
     BaseMvpFragment<TransactionDetailView.View, TransactionDetailView.Presenter, FragmentTransactionsDetailBinding>(),
@@ -13,8 +13,8 @@ class TransactionDetailFragment :
 
     override var mPresenter: TransactionDetailView.Presenter = TransactionDetailPresenter()
     override val layoutResource: Int = R.layout.fragment_transactions_detail
-    private var volume: String? = ""
-    private var price: String? = ""
+    private var volume: Int? = 0
+    private var price: Double? = 0.0
 
     @SuppressLint("SetTextI18n")
     override fun initView() {
@@ -26,21 +26,21 @@ class TransactionDetailFragment :
                     findNavController().popBackStack()
                 }
 
-                txtVolume.text = arguments?.getString("ut").toString()
+                txtVolume.text = arguments?.getInt("ut").toString()
                 txtDate.text = arguments?.getString("date").toString()
+                txtPrice.text =  arguments?.getDouble("price").toString()
+
                 txtStatus.text = arguments?.getString("status")
                 if(txtStatus.text.toString() == "SELL")
                 {
                     txtStatus.setTextColor(resources.getColor(R.color.main_red))
                 }
 
-                txtPrice.text = arguments?.getString("price")
+                volume = arguments?.getInt("ut")
+                price = arguments?.getDouble("price")
 
-                volume = arguments?.getString("volume")
-                price = arguments?.getString("price")
-
-                txtGross.text = (volume?.toFloat()?.times(price!!.toFloat())).toString()
-                txtNet.text = (txtGross.text.toString().toFloat() + 0.30).toString()
+                txtGross.text = (volume?.times(price!!)?.let { groupingSeparator(it) }).toString()
+                txtNet.text = (groupingSeparator(txtGross.text.toString().toFloat() + 0.30)).toString()
 
             }
         } catch (error: Exception) {
