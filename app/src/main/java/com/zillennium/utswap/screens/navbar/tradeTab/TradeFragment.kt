@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
@@ -28,6 +29,15 @@ class TradeFragment :
         super.initView()
         try {
             binding.apply {
+
+                imgMenu.setOnClickListener {
+                    SessionPreferences().removeValue("SESSION_STATUS")
+                }
+
+                imgNotification.setOnClickListener {
+                    SessionPreferences().removeValue("SESSION_KYC")
+                }
+
 
 
 
