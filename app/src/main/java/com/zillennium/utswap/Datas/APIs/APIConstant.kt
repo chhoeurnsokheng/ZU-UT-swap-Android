@@ -5,6 +5,6 @@ import com.zillennium.utswap.Datas.StoredPreferences.SystemPreferences
 interface APIConstant {
 
     companion object{
-        const val photos = "photos"
+        const val photos = "api/index/marketInfo"
     }
 }

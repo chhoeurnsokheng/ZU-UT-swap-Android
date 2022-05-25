@@ -9,18 +9,18 @@ import com.zillennium.utswap.bases.BaseStoredPreferences
 class SystemPreferences: BaseStoredPreferences(UTSwapApp.instance, "SystemPreferences") {
 
     // Information App
-    var APP_NAME by stringPref("APP_NAME", "UT Swap")
+    var APP_NAME by stringPref(defaultValue = "UT Swap")
     var APP_CURRENT_VERSION by stringPref()
     var APP_LAST_VERSION by stringPref()
-    var APP_WEBSITE by stringPref("APP_WEBSITE", "https://utswap.io/")
+    var APP_WEBSITE by stringPref(defaultValue =  "https://utswap.io/")
     var APP_WELCOME by stringPref()
     var APP_STORE by stringPref()
     var APP_PLAY_STORE by stringPref()
     var APP_WINDOWS by stringPref()
     var APP_GALLERY by stringPref()
-    var APP_FACEBOOK by stringPref("APP_FACEBOOK", "101543225693802")
-    var APP_INSTAGRAM by stringPref("APP_INSTAGRAM", "zillion_united")
-    var APP_TELEGRAM by stringPref("APP_TELEGRAM", "https://t.me/+VfhwdqEfvU8006HH")
+    var APP_FACEBOOK by stringPref(defaultValue =  "101543225693802")
+    var APP_INSTAGRAM by stringPref(defaultValue =  "zillion_united")
+    var APP_TELEGRAM by stringPref(defaultValue = "https://t.me/+VfhwdqEfvU8006HH")
     var APP_PHONE by stringPref(defaultValue = "0239999999")
     var APP_TWITTER by stringPref(defaultValue = "zillionunited")
 
@@ -58,8 +58,8 @@ class SystemPreferences: BaseStoredPreferences(UTSwapApp.instance, "SystemPrefer
     var AUTH_EXPIRE by longPref()
 
     // Base Url of APIs
-    var API_DEBUG by stringPref("https://sandbox.utswap.io/")
-    var API_HOSTING by stringPref("https://www.utswap.io/")
+    var API_DEBUG by stringPref(defaultValue = "https://sandbox.utswap.io/")
+    var API_HOSTING by stringPref(defaultValue = "https://www.utswap.io/")
     var API_WORDPRESS by stringPref()
     var API_FIREBASE by stringPref()
     var API_AWS by stringPref()

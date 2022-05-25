@@ -11,7 +11,7 @@ import rx.Observable
 
 interface APIService {
     @GET(APIConstant.photos)
-    fun getPost() : Call<List<TestModel>>
+    fun getPost() : Call<APIModel.MarketModel>
 
     @GET(APIConstant.photos)
     fun hasGetPost() : Call<JsonObject>
