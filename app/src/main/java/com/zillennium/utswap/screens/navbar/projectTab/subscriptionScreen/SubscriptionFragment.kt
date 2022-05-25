@@ -1,15 +1,15 @@
 package com.zillennium.utswap.screens.navbar.projectTab.subscriptionScreen
 
-import android.content.Intent
-import android.os.Handler
+import android.view.View
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentNavbarProjectSubscriptionBinding
+
 import com.zillennium.utswap.models.SubscriptionModel
-import com.zillennium.utswap.screens.navbar.navbar.NavbarActivity
 import com.zillennium.utswap.screens.navbar.projectTab.subscriptionScreen.adapter.SubscriptionAdapter
 import com.zillennium.utswap.screens.navbar.projectTab.subscriptionScreen.bottomSheet.SubscriptionBottomSheet
 
@@ -26,8 +26,6 @@ class SubscriptionFragment :
         try {
 //            Handler().postDelayed({
                 binding.apply {
-
-
 
                     btnBack.setOnClickListener {
                         findNavController().popBackStack()
@@ -87,10 +85,13 @@ class SubscriptionFragment :
     }
     private val onclickAdapter: SubscriptionAdapter.OnclickAdapter = object: SubscriptionAdapter.OnclickAdapter{
         override fun onClickMe(subscriptionModel: SubscriptionModel) {
-            val subscriptionBottomSheetDialog: SubscriptionBottomSheet = SubscriptionBottomSheet.newInstance(
-                subscriptionModel?.tv_title,
-            )
-            subscriptionBottomSheetDialog.show(requireActivity().supportFragmentManager, "balanceHistoryDetailDialog")
+
+            if(SessionPreferences().SESSION_STATUS!! && SessionPreferences().SESSION_KYC!!){
+                val subscriptionBottomSheetDialog: SubscriptionBottomSheet = SubscriptionBottomSheet.newInstance(
+                    subscriptionModel.tv_title,
+                )
+                subscriptionBottomSheetDialog.show(requireActivity().supportFragmentManager, "balanceHistoryDetailDialog")
+            }
         }
 
     }
