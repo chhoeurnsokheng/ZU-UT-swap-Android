@@ -1,105 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:padding="@dimen/dimen_0"
+        android:layout_margin="@dimen/dimen_0">
 
         <ImageView
             android:id="@+id/close_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
+            android:layout_alignEnd="@+id/image_view"
+            android:layout_marginBottom="@dimen/dimen_5"
             android:padding="@dimen/dimen_5"
-            android:layout_marginBottom="@dimen/dimen_10"
             android:src="@drawable/ic_sharp_close_24"
             app:tint="@color/white" />
 
-        <androidx.cardview.widget.CardView
+        <ImageView
+            android:id="@+id/image_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:elevation="@dimen/dimen_0"
-            app:cardElevation="@dimen/dimen_0">
+            android:layout_height="200dp"
+            android:layout_below="@+id/close_image"
+            android:layout_marginBottom="@dimen/dimen_20"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/image_one" />
 
-            <ImageView
-                android:id="@+id/image_view"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:src="@drawable/image_one"
-                android:scaleType="centerCrop"
-                android:adjustViewBounds="true"/>
-
-<!--            <androidx.viewpager2.widget.ViewPager2-->
-<!--                android:id="@+id/imageSlideViewPager"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="200dp" />-->
-        </androidx.cardview.widget.CardView>
-
-<!--        <LinearLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginTop="@dimen/dimen_20"-->
-<!--            android:gravity="center"-->
-<!--            android:orientation="horizontal">-->
-
-<!--            <androidx.cardview.widget.CardView-->
-<!--                android:layout_width="@dimen/dimen_14"-->
-<!--                android:layout_height="@dimen/dimen_4"-->
-<!--                android:layout_margin="@dimen/dimen_3"-->
-<!--                app:cardCornerRadius="2dp"-->
-<!--                app:cardElevation="@dimen/dimen_0">-->
-
-<!--                <ImageView-->
-<!--                    android:id="@+id/ivSlide_1"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:background="@color/orange" />-->
-
-<!--            </androidx.cardview.widget.CardView>-->
-
-<!--            <androidx.cardview.widget.CardView-->
-<!--                android:layout_width="@dimen/dimen_14"-->
-<!--                android:layout_height="@dimen/dimen_4"-->
-<!--                android:layout_margin="@dimen/dimen_3"-->
-<!--                app:cardCornerRadius="2dp"-->
-<!--                app:cardElevation="@dimen/dimen_0">-->
-
-<!--                <ImageView-->
-<!--                    android:id="@+id/ivSlide_2"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="match_parent" />-->
-
-<!--            </androidx.cardview.widget.CardView>-->
-
-<!--            <androidx.cardview.widget.CardView-->
-<!--                android:layout_width="@dimen/dimen_14"-->
-<!--                android:layout_height="@dimen/dimen_4"-->
-<!--                android:layout_margin="@dimen/dimen_3"-->
-<!--                app:cardCornerRadius="2dp"-->
-<!--                app:cardElevation="@dimen/dimen_0">-->
-
-<!--                <ImageView-->
-<!--                    android:id="@+id/ivSlide_3"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="match_parent" />-->
-
-<!--            </androidx.cardview.widget.CardView>-->
-
-<!--            <androidx.cardview.widget.CardView-->
-<!--                android:layout_width="@dimen/dimen_14"-->
-<!--                android:layout_height="@dimen/dimen_4"-->
-<!--                android:layout_margin="@dimen/dimen_3"-->
-<!--                app:cardCornerRadius="2dp"-->
-<!--                app:cardElevation="@dimen/dimen_0">-->
-
-<!--                <ImageView-->
-<!--                    android:id="@+id/ivSlide_4"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="match_parent" />-->
-
-<!--            </androidx.cardview.widget.CardView>-->
-
-<!--        </LinearLayout>-->
-
-    </LinearLayout>
+    </RelativeLayout>
 </layout>
