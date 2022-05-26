@@ -4,6 +4,15 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../../../layout/custom_preview.xml" value="0.1" />
+<<<<<<< HEAD
+=======
+        <entry key="..\:/Drive C/ut_swap_android/app/src/main/res/layout/activity_security_reset_password.xml" value="0.36666666666666664" />
+        <entry key="..\:/Drive C/ut_swap_android/app/src/main/res/layout/fragment_kyc_id_type.xml" value="0.36666666666666664" />
+        <entry key="..\:/Drive C/ut_swap_android/app/src/main/res/layout/fragment_navbar_project_subscription.xml" value="0.36666666666666664" />
+        <entry key="..\:/Drive C/ut_swap_android/app/src/main/res/layout/fragment_security_reset_password.xml" value="0.36666666666666664" />
+        <entry key="..\:/Drive C/ut_swap_android/app/src/main/res/layout/fragment_trade_detail.xml" value="0.264" />
+        <entry key="..\:/Drive C/ut_swap_android/app/src/main/res/layout/item_list_orders.xml" value="0.36666666666666664" />
+>>>>>>> 96dc3513959c7c6fc934b8f5b5045c35f137e7c6
         <entry key="..\:/Users/User/Desktop/master/ut-swap-android/app/src/main/res/layout/activity_kyc_id_verification.xml" value="0.264" />
         <entry key="app/src/main/res/drawable-anydpi/bg_correct.xml" value="0.12" />
         <entry key="app/src/main/res/drawable-anydpi/ic_baseline_delete_24.xml" value="0.12" />

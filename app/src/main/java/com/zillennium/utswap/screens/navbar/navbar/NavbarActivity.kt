@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI.setupWithNavController
+import com.zillennium.utswap.Datas.StoredPreferences.KYCPreferences
 import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
@@ -33,6 +34,7 @@ class NavbarActivity :
 
                 SessionPreferences().removeValue("SESSION_STATUS")
                 SessionPreferences().removeValue("SESSION_KYC")
+                KYCPreferences().clearValue()
 
                 if(SessionPreferences().SESSION_STATUS!!){
                     layAuth.visibility = GONE
