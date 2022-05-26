@@ -193,7 +193,6 @@
         <item>Men</item>
         <item>Women</item>
     </string-array>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="welcome">welcome</string>
     <string name="employment_info">Employment Info</string>

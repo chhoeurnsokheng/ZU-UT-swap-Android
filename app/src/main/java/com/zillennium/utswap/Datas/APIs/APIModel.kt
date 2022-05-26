@@ -1,7 +1,5 @@
 package com.zillennium.utswap.Datas.APIs
 
-import com.google.gson.JsonObject
-
 
 object APIModel {
 

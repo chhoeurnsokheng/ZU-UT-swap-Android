@@ -23,16 +23,16 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
 
+        <!--            android:allowTaskReparenting="false"-->
+        <!--            android:excludeFromRecents="true"-->
+        <!--            android:launchMode="singleTask"-->
+        <!--            android:permission="android.permission.USE_SIP"-->
+        <!--            android:taskAffinity=""-->
         <activity
             android:name="com.zillennium.utswap.screens.system.splashScreen.SplashScreenActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:allowTaskReparenting="false"
-            android:excludeFromRecents="true"
-            android:launchMode="singleTask"
-            android:permission="android.permission.USE_SIP"
             android:screenOrientation="portrait"
-            android:taskAffinity=""
             tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

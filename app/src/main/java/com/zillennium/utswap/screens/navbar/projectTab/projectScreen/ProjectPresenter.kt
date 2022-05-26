@@ -3,17 +3,12 @@ package com.zillennium.utswap.screens.navbar.projectTab.projectScreen
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
-import com.google.gson.JsonElement
 import com.google.gson.JsonObject
-import com.zillennium.utswap.Datas.APIs.APIModel
 import com.zillennium.utswap.Datas.APIs.APIRepository
-import com.zillennium.utswap.Datas.APIs.APIService
 import com.zillennium.utswap.bases.mvp.BaseMvpPresenterImpl
-import com.zillennium.utswap.models.TestModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.ArrayList
 
 
 class ProjectPresenter : BaseMvpPresenterImpl<ProjectView.View>(),
