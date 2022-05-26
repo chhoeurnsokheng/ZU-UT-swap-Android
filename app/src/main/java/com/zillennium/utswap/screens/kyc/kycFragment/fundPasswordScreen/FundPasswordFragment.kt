@@ -31,7 +31,7 @@ class FundPasswordFragment :
     private var clickCountPassword = 1
     private var clickCountConfirmPassword = 1
 
-    @SuppressLint("UseCompatLoadingForDrawables")
+    @SuppressLint("UseCompatLoadingForDrawables", "SetTextI18n")
     override fun initView() {
         super.initView()
 //        try {
@@ -47,6 +47,17 @@ class FundPasswordFragment :
                     val inputManager1 =
                         requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                     inputManager1.showSoftInput(editFundPassword, InputMethodManager.SHOW_IMPLICIT)
+
+                    if(editFundPassword.text.isEmpty()){
+                        val textInputLast = numberVerification.getChildAt(0) as TextView
+                        textInputLast.text = "|"
+                        textInputLast.transformationMethod = HideReturnsTransformationMethod.getInstance()
+                    }
+
+                    if(editConfirmFundPassword.text.isEmpty()){
+                        val confirmTextInputLast = confirmNumberVerification.getChildAt(0) as TextView
+                        confirmTextInputLast.text = ""
+                    }
                 }
 
                 editFundPassword.addTextChangedListener(object : TextWatcher {
@@ -54,11 +65,17 @@ class FundPasswordFragment :
 
                     override fun onTextChanged(chr: CharSequence?, p1: Int, p2: Int, p3: Int) {
 
-
                         for(child in numberVerification.children){
                             val children = child as TextView
                             children.background = resources.getDrawable(R.drawable.bg_border_bottom)
                             children.text = ""
+                            showPassword(clickCountPassword)
+                        }
+
+                        if(chr?.length!! <= 3){
+                            val textInputLast = chr.length.let { numberVerification.getChildAt(it.toInt()) } as TextView
+                            textInputLast.text = "|"
+                            textInputLast.transformationMethod = HideReturnsTransformationMethod.getInstance()
                         }
 
                         for (index in chr?.indices!!) {
@@ -78,6 +95,17 @@ class FundPasswordFragment :
                     val inputManager2 =
                         requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                     inputManager2.showSoftInput(editConfirmFundPassword, InputMethodManager.SHOW_IMPLICIT)
+
+                    if(editConfirmFundPassword.text.isEmpty()){
+                        val confirmTextInputLast = confirmNumberVerification.getChildAt(0) as TextView
+                        confirmTextInputLast.text = "|"
+                        confirmTextInputLast.transformationMethod = HideReturnsTransformationMethod.getInstance()
+                    }
+
+                    if(editFundPassword.text.isEmpty()){
+                        val textInputLast = numberVerification.getChildAt(0) as TextView
+                        textInputLast.text = ""
+                    }
                 }
 
                 editConfirmFundPassword.addTextChangedListener(object: TextWatcher{
@@ -89,6 +117,13 @@ class FundPasswordFragment :
                             val children = child as TextView
                             children.background = resources.getDrawable(R.drawable.bg_border_bottom)
                             children.text = ""
+                            showConfirmPassword(clickCountConfirmPassword)
+                        }
+
+                        if(chr?.length!! <= 3){
+                            val textInputLast = chr.length.let { confirmNumberVerification.getChildAt(it.toInt()) } as TextView
+                            textInputLast.text = "|"
+                            textInputLast.transformationMethod = HideReturnsTransformationMethod.getInstance()
                         }
 
                         for (index in chr?.indices!!){
@@ -119,10 +154,10 @@ class FundPasswordFragment :
                     }
                 }
 
-                if(!KYCPreferences().FUND_PASSWORD.isNullOrEmpty()){
-                    editFundPassword.setText(KYCPreferences().FUND_PASSWORD.toString())
-                    editConfirmFundPassword.setText(KYCPreferences().FUND_PASSWORD.toString())
-                }
+//                if(!KYCPreferences().FUND_PASSWORD.isNullOrEmpty()){
+//                    editFundPassword.setText(KYCPreferences().FUND_PASSWORD.toString())
+//                    editConfirmFundPassword.setText(KYCPreferences().FUND_PASSWORD.toString())
+//                }
 
                 imgShowPassword.setOnClickListener{
                     clickCountPassword++
@@ -147,16 +182,17 @@ class FundPasswordFragment :
     private fun showPassword(clickPassword: Int) {
         binding.apply {
             if (clickPassword % 2 == 0) {
-                textView1.transformationMethod = PasswordTransformationMethod.getInstance()
-                textView2.transformationMethod = PasswordTransformationMethod.getInstance()
-                textView3.transformationMethod = PasswordTransformationMethod.getInstance()
-                textView4.transformationMethod = PasswordTransformationMethod.getInstance()
+                numberVerification
+                for (child in numberVerification.children) {
+                    val children = child as TextView
+                    children.transformationMethod = PasswordTransformationMethod.getInstance()
+                }
                 imgShowPassword.setImageResource(R.drawable.ic_baseline_remove_red_eye_24)
             } else {
-                textView1.transformationMethod = HideReturnsTransformationMethod.getInstance()
-                textView2.transformationMethod = HideReturnsTransformationMethod.getInstance()
-                textView3.transformationMethod = HideReturnsTransformationMethod.getInstance()
-                textView4.transformationMethod = HideReturnsTransformationMethod.getInstance()
+                for (child in numberVerification.children) {
+                    val children = child as TextView
+                    children.transformationMethod = HideReturnsTransformationMethod.getInstance()
+                }
                 imgShowPassword.setImageResource(R.drawable.ic_baseline_visibility_off_24)
             }
         }
@@ -166,16 +202,16 @@ class FundPasswordFragment :
     private fun showConfirmPassword(clickConfirmPassword: Int) {
         binding.apply {
             if (clickConfirmPassword % 2 == 0) {
-                textViewConfirm1.transformationMethod = PasswordTransformationMethod.getInstance()
-                textViewConfirm2.transformationMethod = PasswordTransformationMethod.getInstance()
-                textViewConfirm3.transformationMethod = PasswordTransformationMethod.getInstance()
-                textViewConfirm4.transformationMethod = PasswordTransformationMethod.getInstance()
+                for (child in confirmNumberVerification.children) {
+                    val children = child as TextView
+                    children.transformationMethod = PasswordTransformationMethod.getInstance()
+                }
                 imgShowConfirmPassword.setImageResource(R.drawable.ic_baseline_remove_red_eye_24)
             } else {
-                textViewConfirm1.transformationMethod = HideReturnsTransformationMethod.getInstance()
-                textViewConfirm2.transformationMethod = HideReturnsTransformationMethod.getInstance()
-                textViewConfirm3.transformationMethod = HideReturnsTransformationMethod.getInstance()
-                textViewConfirm4.transformationMethod = HideReturnsTransformationMethod.getInstance()
+                for (child in confirmNumberVerification.children) {
+                    val children = child as TextView
+                    children.transformationMethod = HideReturnsTransformationMethod.getInstance()
+                }
                 imgShowConfirmPassword.setImageResource(R.drawable.ic_baseline_visibility_off_24)
             }
         }
