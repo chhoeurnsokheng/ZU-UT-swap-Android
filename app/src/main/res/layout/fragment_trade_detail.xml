@@ -416,7 +416,7 @@
             android:paddingStart="@dimen/dimen_5"
             android:paddingEnd="@dimen/dimen_5"
             android:paddingBottom="@dimen/dimen_15"
-            android:visibility="visible">
+            android:visibility="gone">
 
             <View
                 android:layout_width="@dimen/dimen_40"

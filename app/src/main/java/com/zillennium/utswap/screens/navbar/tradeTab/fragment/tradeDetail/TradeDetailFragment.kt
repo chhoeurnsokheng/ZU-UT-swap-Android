@@ -43,7 +43,7 @@ class TradeDetailFragment :
 
         try {
             binding.apply {
-                if(SessionPreferences().SESSION_STATUS!! && SessionPreferences().SESSION_KYC!!){
+                if(SessionPreferences().SESSION_STATUS == true && SessionPreferences().SESSION_KYC == true){
                     layBuyAndSell.visibility = View.VISIBLE
                 }
 

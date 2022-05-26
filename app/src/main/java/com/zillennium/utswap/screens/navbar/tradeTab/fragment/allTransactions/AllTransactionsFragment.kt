@@ -22,7 +22,7 @@ class AllTransactionsFragment :
         super.initView()
         try {
             binding.apply {
-                if(SessionPreferences().SESSION_STATUS!! && SessionPreferences().SESSION_KYC!!){
+                if(SessionPreferences().SESSION_STATUS  == true && SessionPreferences().SESSION_KYC  == true){
                     txtMessage.visibility = View.GONE
                     linearAllTransHistory.visibility = View.VISIBLE
                 }

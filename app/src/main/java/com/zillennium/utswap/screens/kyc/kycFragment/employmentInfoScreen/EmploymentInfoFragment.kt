@@ -13,6 +13,7 @@ import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentKycEmploymentInfoBinding
 import com.zillennium.utswap.screens.kyc.kycFragment.declarationScreen.DeclarationFragment
+import com.zillennium.utswap.utils.validate
 
 
 class EmploymentInfoFragment :
@@ -70,15 +71,32 @@ class EmploymentInfoFragment :
                         etCompany.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.red))
                         isHaveError = true
                     }
+
+                    if(info.email_emp.isNotEmpty()){
+                        if(!validate().isValidEmail(info.email_emp.trim())){
+                            txtErrorEmail.visibility = View.VISIBLE
+                            etemail.backgroundTintList =
+                                ColorStateList.valueOf(resources.getColor(R.color.red))
+                            isHaveError = true
+                        }
+                    }
+
+                    if(info.phone_number.isNotEmpty()){
+                        if(!validate().isValidPhoneNumber(info.phone_number.trim())){
+                            txtErrorPhone.visibility = View.VISIBLE
+                            etphoneNumber.backgroundTintList =
+                                ColorStateList.valueOf(resources.getColor(R.color.red))
+                            isHaveError = true
+                        }
+                    }
+
                     if (isHaveError) {
                         return@setOnClickListener
                     } else {
-
                         KYCPreferences().OCCUPATION = info.occupation
                         KYCPreferences().COMPANY = info.company
                         KYCPreferences().PHONE_NUMBER = info.phone_number
                         KYCPreferences().EMAIL = info.email_emp
-
                         findNavController().navigate(R.id.action_to_declaration_kyc_fragment)
                     }
                 }
@@ -133,7 +151,9 @@ class EmploymentInfoFragment :
 
                 etphoneNumber.addTextChangedListener(object: TextWatcher{
                     override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
+                        txtErrorPhone.visibility = View.GONE
+                        etphoneNumber.backgroundTintList =
+                            ColorStateList.valueOf(resources.getColor(R.color.secondary_text))
                     }
 
                     override fun onTextChanged(charSequence: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -148,7 +168,9 @@ class EmploymentInfoFragment :
 
                 etemail.addTextChangedListener(object : TextWatcher{
                     override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
+                        txtErrorEmail.visibility = View.GONE
+                        etemail.backgroundTintList =
+                            ColorStateList.valueOf(resources.getColor(R.color.secondary_text))
                     }
 
                     override fun onTextChanged(charSequence: CharSequence?, p1: Int, p2: Int, p3: Int) {

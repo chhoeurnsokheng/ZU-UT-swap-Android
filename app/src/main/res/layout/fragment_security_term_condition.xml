@@ -58,7 +58,8 @@
                     android:overScrollMode="never"
                     android:paddingHorizontal="@dimen/dimen_15"
                     android:paddingVertical="@dimen/dimen_10"
-                    android:scrollbars="vertical">
+                    android:scrollbars="vertical"
+                    android:fadeScrollbars="false">
 
                     <TextView
                         android:id="@+id/txt_content"
@@ -117,7 +118,5 @@
                     app:tint="@color/white" />
             </LinearLayout>
         </LinearLayout>
-
-
     </RelativeLayout>
 </layout>

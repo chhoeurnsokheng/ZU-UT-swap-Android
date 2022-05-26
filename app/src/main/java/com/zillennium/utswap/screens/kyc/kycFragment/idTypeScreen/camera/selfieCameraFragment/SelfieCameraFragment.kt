@@ -2,15 +2,13 @@ package com.zillennium.utswap.screens.kyc.idTypeScreen.camera.selfieCameraActivi
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.content.ContentValues
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Matrix
 import android.net.Uri
 import android.os.Build
 import android.os.Environment
-import android.provider.MediaStore
 import android.util.DisplayMetrics
 import android.util.Size
 import android.view.View
@@ -235,6 +233,10 @@ class SelfieCameraFragment :
     }
 
     private fun cropImage(bitmap: Bitmap, frame: View, reference: View): ByteArray {
+
+        val matrix = Matrix()
+        matrix.preScale(-1.0f, 1.0f)
+
         val heightOriginal = frame.height
         val widthOriginal = frame.width
         val heightFrame = reference.height
@@ -249,7 +251,7 @@ class SelfieCameraFragment :
         val topFinal = topFrame * heightReal / heightOriginal
         val bitmapFinal = Bitmap.createBitmap(
             bitmap,
-            leftFinal, topFinal, widthFinal, heightFinal
+            leftFinal, topFinal, widthFinal, heightFinal, matrix, true
         )
         return FileCreator.bitMapToBytesArray(bitmapFinal)
     }

@@ -105,8 +105,8 @@ class RegisterFragment :
                                 txtMessage.text = "Email / phone number available"
                             }else{
                                 txtMessage.visibility = View.GONE
-                                SessionPreferences().SESSION_USERNAME = inputEmail.text.toString()
-                                SessionPreferences().SESSION_PASSWORD = inputPassword.text.toString()
+                                SessionPreferences().SESSION_USERNAME = inputEmail.text.toString().trim()
+                                SessionPreferences().SESSION_PASSWORD = inputPassword.text.toString().trim()
                                 findNavController().navigate(R.id.action_to_verification_security_fragment)
                             }
 

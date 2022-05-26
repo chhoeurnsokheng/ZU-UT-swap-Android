@@ -15,6 +15,8 @@ import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentSecurityNewPasswordBinding
+import com.zillennium.utswap.screens.security.securityActivity.registerScreen.RegisterActivity
+import com.zillennium.utswap.screens.security.securityActivity.signInScreen.SignInActivity
 import com.zillennium.utswap.screens.security.securityFragment.signInScreen.SignInFragment
 
 class NewPasswordFragment :
@@ -74,14 +76,15 @@ class NewPasswordFragment :
                                 ColorStateList.valueOf(resources.getColor(R.color.secondary_text))
                             inputConfirmPassword.backgroundTintList =
                                 ColorStateList.valueOf(resources.getColor(R.color.secondary_text))
-                            SessionPreferences().SESSION_STATUS = true
-
+//                            SessionPreferences().SESSION_STATUS = true
 
                             pbNext.visibility = View.GONE
                             btnNext.isClickable = true
                             btnNext.alpha = 1F
 
                             activity?.finish()
+                            val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
+                            startActivity(intent)
                         }, 3000)
                     }
                 }
