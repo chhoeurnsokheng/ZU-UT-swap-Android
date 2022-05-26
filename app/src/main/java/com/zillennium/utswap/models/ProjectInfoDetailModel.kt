@@ -1,9 +1,10 @@
 package com.zillennium.utswap.models
 
-import java.io.Serializable
+import com.google.gson.annotations.SerializedName
 
 class ProjectInfoDetailModel (
+    @SerializedName("titleInfo")
     var titleInfo: String,
+    @SerializedName("descriptionInfo")
     var descriptionInfo: String
-) :
-    Serializable
+)

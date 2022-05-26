@@ -8,6 +8,7 @@ import android.widget.ImageView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.databinding.DialogProjectSliderImageBinding
@@ -41,7 +42,11 @@ class DialogProjectSliderImage : DialogFragment() {
                 closeImage.setOnClickListener { dismiss() }
 
                 val image = arguments?.getString("selectedImage")
-                Glide.with(UTSwapApp.instance).load(image).into(imageView)
+                Glide.with(UTSwapApp.instance)
+                    .load(image)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true)
+                    .into(imageView)
 
             }
         }catch (error: Exception) {

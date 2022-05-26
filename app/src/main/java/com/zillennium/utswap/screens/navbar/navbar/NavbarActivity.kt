@@ -1,24 +1,21 @@
 package com.zillennium.utswap.screens.navbar.navbar
 
 import android.content.Intent
-import android.util.Log
+import android.os.Handler
 import android.view.View.GONE
-import androidx.fragment.app.Fragment
+import android.widget.Toast
 import androidx.navigation.Navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI.setupWithNavController
-import com.google.android.material.navigation.NavigationBarView
+import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
+import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityNavbarBinding
-import com.zillennium.utswap.Datas.StoredPreferences.KYCPreferences
-import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
-import com.zillennium.utswap.UTSwapApp
-import com.zillennium.utswap.screens.kyc.kycActivity.KYCActivity
+import com.zillennium.utswap.screens.navbar.projectTab.projectActivity.ProjectMainActivity
 import com.zillennium.utswap.screens.security.securityActivity.registerScreen.RegisterActivity
 import com.zillennium.utswap.screens.security.securityActivity.signInScreen.SignInActivity
-import com.zillennium.utswap.screens.security.securityFragment.signInScreen.SignInFragment
+
 
 class NavbarActivity :
     BaseMvpActivity<NavbarView.View, NavbarView.Presenter, ActivityNavbarBinding>(),
@@ -26,6 +23,8 @@ class NavbarActivity :
 
     override var mPresenter: NavbarView.Presenter = NavbarPresenter()
     override val layoutResource: Int = R.layout.activity_navbar
+
+    private var doubleBackToExitPressedOnce = false
 
     override fun initView() {
         super.initView()
@@ -53,23 +52,55 @@ class NavbarActivity :
                 )
                     .build()
 
-                NavigationBarView.OnItemSelectedListener{ item ->  
-                    when(item.itemId){
-                        R.id.navigation_navbar_home -> {
-                            true
-                        }
-                        R.id.navigation_navbar_portfolio -> {
-                            true
-                        }
-                        R.id.navigation_navbar_trade -> {
-                            true
-                        }
-                        R.id.navigation_navbar_project -> {
-                            true
-                        }
-                        else -> false
-                    }
-                }
+//                var homeStatus = false
+//                var portfolioStatus = false
+//
+//
+//                navView.setOnNavigationItemSelectedListener { item ->
+//
+//                    for(child in layFragment.children){
+//                        child.visibility = View.GONE
+//                    }
+//
+//                    when (item.itemId) {
+//                        R.id.navigation_navbar_home -> {
+//                            val nav_host_fragment_activity_navbar_home = findViewById(R.id.nav_host_fragment_activity_navbar_home) as ViewGroup
+//                            nav_host_fragment_activity_navbar_home.visibility = View.VISIBLE
+//                            if(!homeStatus){
+//                                val selectedFragment: Fragment = ProjectMainActivity()
+//                                val transaction: FragmentTransaction =
+//                                    supportFragmentManager.beginTransaction()
+//                                transaction.replace(R.id.nav_host_fragment_activity_navbar_home, selectedFragment)
+//                                transaction.commit()
+//                                homeStatus = !homeStatus
+//                            }
+//
+//                            Log.d("NavigationBarView", "navigation_navbar_home")
+//                        }
+//                        R.id.navigation_navbar_portfolio -> {
+//                            val nav_host_fragment_activity_navbar_portfolio = findViewById(R.id.nav_host_fragment_activity_navbar_portfolio) as ViewGroup
+//                            nav_host_fragment_activity_navbar_portfolio.visibility = View.VISIBLE
+//                            if(!portfolioStatus){
+//                                val selectedFragment: Fragment = ProjectMainActivity()
+//                                val transaction: FragmentTransaction =
+//                                    supportFragmentManager.beginTransaction()
+//                                transaction.replace(R.id.nav_host_fragment_activity_navbar_portfolio, selectedFragment)
+//                                transaction.commit()
+//                                portfolioStatus = !portfolioStatus
+//                            }
+//
+//                            Log.d("NavigationBarView", "navigation_navbar_portfolio")
+//                        }
+//                        R.id.navigation_navbar_trade -> {
+//                            Log.d("NavigationBarView", "navigation_navbar_trade")
+//                        }
+//                        R.id.navigation_navbar_project -> {
+//                            Log.d("NavigationBarView", "navigation_navbar_project")
+//                        }
+//                    }
+//                    true
+//                }
+//                navView.selectedItemId = R.id.navigation_navbar_trade
 
                 val navController = findNavController(this@NavbarActivity, R.id.nav_host_fragment_activity_navbar_home)
 
@@ -89,7 +120,7 @@ class NavbarActivity :
                 }
 
                 btnVerify.setOnClickListener {
-                    val intent = Intent(UTSwapApp.instance, KYCActivity::class.java)
+                    val intent = Intent(UTSwapApp.instance, ProjectMainActivity::class.java)
                     startActivity(intent)
                 }
             }
@@ -113,5 +144,15 @@ class NavbarActivity :
             }
 
         }
+    }
+
+    override fun onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed()
+            return
+        }
+        doubleBackToExitPressedOnce = true
+        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show()
+        Handler().postDelayed(Runnable { doubleBackToExitPressedOnce = false }, 2000)
     }
 }

@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.models.ProjectInfoSlideImageModel
@@ -34,7 +35,12 @@ class ProjectViewPagerAdapter(
 
     override fun onBindViewHolder(holder: ViewPagerViewHolder, position: Int) {
         val imageList: ProjectInfoSlideImageModel = arrayList[position]
-        Glide.with(UTSwapApp.instance).load(imageList.imageSlider).into(holder.imageViews)
+        Glide.with(UTSwapApp.instance)
+            .load(imageList.imageSlider)
+            .diskCacheStrategy(DiskCacheStrategy.NONE)
+            .skipMemoryCache(true)
+            .into(holder.imageViews)
+
         holder.itemView.setOnClickListener {
             onclickAdapter.onClickMe(imageList)
         }

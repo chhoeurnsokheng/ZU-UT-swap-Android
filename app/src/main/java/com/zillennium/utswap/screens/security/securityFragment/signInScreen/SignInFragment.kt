@@ -13,6 +13,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.fragment.app.clearFragmentResultListener
 import androidx.navigation.fragment.findNavController
 import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
@@ -24,6 +25,7 @@ import com.zillennium.utswap.screens.security.securityActivity.registerScreen.Re
 import com.zillennium.utswap.screens.security.securityActivity.resetPasswordScreen.ResetPasswordActivity
 import com.zillennium.utswap.screens.security.securityFragment.signInScreen.CheckNetworkConnection.CheckNetworkConnection
 import com.zillennium.utswap.utils.validate
+import kotlin.system.exitProcess
 
 
 class SignInFragment :
@@ -53,6 +55,7 @@ class SignInFragment :
                     SessionPreferences().removeValue("SESSION_USERNAME")
                     SessionPreferences().removeValue("SESSION_PASSWORD")
                     activity?.finish()
+
                 }
 
                 showPassBtn.setOnClickListener {

@@ -1,12 +1,9 @@
 package com.zillennium.utswap.Datas.APIs
 
 import com.google.gson.JsonObject
-import com.zillennium.utswap.models.TestModel
+import io.reactivex.rxjava3.core.Observable
 import retrofit2.Call
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
-import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
-import rx.Observable
 
 
 interface APIService {
@@ -14,6 +11,6 @@ interface APIService {
     fun getPost() : Call<JsonObject>
 
     @GET(APIConstant.photos)
-    fun hasGetPost() : Call<JsonObject>
+    fun hasGetPost() : Observable<JsonObject>
 
 }

@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.models.ProjectModel
@@ -39,7 +40,11 @@ class ProjectAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val projectList: ProjectModel = arrayList[position]
         holder.publicDate.text = projectList.publicDate
-            Glide.with(UTSwapApp.instance).load(projectList.image).into(holder.imageView)
+            Glide.with(UTSwapApp.instance)
+                .load(projectList.image)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true)
+                .into(holder.imageView)
         holder.txttitle.text = projectList.titleProject
         if (projectList.status.isNotEmpty()) {
             holder.txtstatus.isVisible = true

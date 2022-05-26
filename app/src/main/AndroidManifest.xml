@@ -20,13 +20,19 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/Theme.UTSwapApp"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"
+        tools:targetApi="m">
 
         <activity
             android:name="com.zillennium.utswap.screens.system.splashScreen.SplashScreenActivity"
             android:exported="true"
             android:label="@string/app_name"
+            android:allowTaskReparenting="false"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTask"
+            android:permission="android.permission.USE_SIP"
             android:screenOrientation="portrait"
+            android:taskAffinity=""
             tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -43,7 +49,7 @@
 
         <!--Activity KYC-->
         <activity
-            android:name="com.zillennium.utswap.screens.kyc.kycActivity.KYCActivity"
+            android:name="com.zillennium.utswap.screens.navbar.projectTab.projectActivity.ProjectMainActivity"
             android:exported="false"
             android:label="@string/KYC"
             android:screenOrientation="portrait" />

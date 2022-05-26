@@ -1,16 +1,16 @@
 package com.zillennium.utswap.Datas.APIs
 
 import com.google.gson.JsonObject
-import com.zillennium.utswap.models.TestModel
+import io.reactivex.rxjava3.core.Observable
 import retrofit2.Call
-import rx.Observable
+import io.reactivex.rxjava3.disposables.CompositeDisposable
 
 object APIRepository {
     fun getPost(): Call<JsonObject> {
         return APIInstance.hostingAPI.getPost()
     }
 
-    fun hasGetPost(): Call<JsonObject> {
+    fun hasGetPost(): Observable<JsonObject> {
         return APIInstance.hostingAPI.hasGetPost()
     }
 

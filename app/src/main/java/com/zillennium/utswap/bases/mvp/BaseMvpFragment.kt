@@ -57,8 +57,10 @@ abstract class BaseMvpFragment<in V : BaseMvpView, T : BaseMvpPresenter<V>, M : 
     }
 
     override fun onDestroy() {
-        super.onDestroy()
         mPresenter.detachView()
+        super.onDestroy()
+//        Runtime.getRuntime().gc()
+//        System.gc()
     }
 
     override fun onNext(page: Int) {

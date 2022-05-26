@@ -20,21 +20,37 @@
             app:itemTextAppearanceInactive="@style/regular_10"
             app:labelVisibilityMode="labeled"
             app:menu="@menu/bottom_nav_menu" />
-
-        <fragment
-            android:id="@+id/nav_host_fragment_activity_navbar_home"
-            android:name="androidx.navigation.fragment.NavHostFragment"
+        <RelativeLayout
+            android:id="@+id/lay_fragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@id/lay_bottom_note"
-            app:defaultNavHost="true"
-            app:navGraph="@navigation/navbar_navigation"/>
+            android:layout_above="@id/lay_bottom_note">
+            <fragment
+                android:id="@+id/nav_host_fragment_activity_navbar_home"
+                android:name="androidx.navigation.fragment.NavHostFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:defaultNavHost="true"
+                android:visibility="visible"
+                app:navGraph="@navigation/navbar_navigation"
+                />
+<!--            <fragment-->
+<!--                android:id="@+id/nav_host_fragment_activity_navbar_portfolio"-->
+<!--                android:name="androidx.navigation.fragment.NavHostFragment"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                app:defaultNavHost="true"-->
+<!--                android:visibility="visible"-->
+<!--                app:navGraph="@navigation/navbar_navigation"/>-->
+        </RelativeLayout>
+
         <RelativeLayout
             android:id="@+id/lay_bottom_note"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_above="@id/nav_view">
+            android:layout_above="@id/nav_view"
+            >
             <LinearLayout
                 android:id="@+id/lay_verify"
                 android:layout_width="match_parent"

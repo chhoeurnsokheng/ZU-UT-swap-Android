@@ -23,7 +23,7 @@ import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentSecurityVerificationBinding
 
-class VerificationFragment():
+class VerificationFragment :
     BaseMvpFragment<VerificationView.View, VerificationView.Presenter, FragmentSecurityVerificationBinding>(),
     VerificationView.View {
 
@@ -42,7 +42,9 @@ class VerificationFragment():
 //                activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
 
                 imgBack.setOnClickListener {
+                    fragmentManager?.backStackEntryCount
                     findNavController().popBackStack()
+
                 }
 
                 startTimer()

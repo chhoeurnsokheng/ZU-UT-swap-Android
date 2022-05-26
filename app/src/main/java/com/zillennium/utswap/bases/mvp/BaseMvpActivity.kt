@@ -66,8 +66,11 @@ abstract class BaseMvpActivity<in V : BaseMvpView, T : BaseMvpPresenter<V>, M : 
     }
 
     override fun onDestroy() {
+        finish()
         mPresenter.detachView()
         super.onDestroy()
+//        Runtime.getRuntime().gc()
+//        System.gc()
     }
 
     override fun onSetThem(): Int {
