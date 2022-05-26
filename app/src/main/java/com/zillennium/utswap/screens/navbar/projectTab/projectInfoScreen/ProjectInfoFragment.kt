@@ -1,17 +1,12 @@
 package com.zillennium.utswap.screens.navbar.projectTab.projectInfoScreen
 
-import android.app.AlertDialog
-import android.app.Application
 import android.content.Intent
 import android.net.Uri
-import android.os.Bundle
+import android.util.Log
 import android.view.View
-import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
-import com.denzcoskun.imageslider.constants.ScaleTypes
-import com.denzcoskun.imageslider.models.SlideModel
 import com.google.android.material.tabs.TabLayoutMediator
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
@@ -19,12 +14,11 @@ import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentNavbarProjectInfoBinding
 import com.zillennium.utswap.models.ProjectInfoDetailModel
 import com.zillennium.utswap.models.ProjectInfoInvestmentModel
+import com.zillennium.utswap.models.ProjectInfoSlideImageModel
 import com.zillennium.utswap.screens.navbar.projectTab.projectInfoScreen.adapter.ProjectInfoDetailsAdapter
 import com.zillennium.utswap.screens.navbar.projectTab.projectInfoScreen.adapter.ProjectInfoInvestmentAdapter
 import com.zillennium.utswap.screens.navbar.projectTab.projectInfoScreen.adapter.ProjectViewPagerAdapter
 import com.zillennium.utswap.screens.navbar.projectTab.projectInfoScreen.dialog.DialogProjectSliderImage
-import com.zillennium.utswap.screens.navbar.projectTab.subscriptionScreen.bottomSheet.SubscriptionBottomSheet
-import java.util.*
 
 
 class ProjectInfoFragment :
@@ -70,19 +64,43 @@ class ProjectInfoFragment :
 //                }
 
 
-                /* Image Slider with View Pager */
-                val imagesSlider = listOf(
+                /* Image Slider with View Pager and TabLayout*/
+                val imagesSlider = arrayOf(
                     "https://utswap.io/Upload/issue/624baccd65299.png",
                     "https://utswap.io/Upload/issue/624bacd53d783.jpg",
                     "https://utswap.io/Upload/issue/624baceb728a8.png",
                     "https://utswap.io/Upload/issue/624baced5d6a8.jpg"
                 )
-                val adapter = ProjectViewPagerAdapter(imagesSlider)
+
+                val projectInfoSlideImage = arrayListOf<ProjectInfoSlideImageModel>()
+
+                for (i in imagesSlider.indices){
+                    val projectImage = ProjectInfoSlideImageModel(
+                        imagesSlider[i],
+                    )
+                    projectInfoSlideImage.add(projectImage)
+                }
+
+                val adapter = ProjectViewPagerAdapter(projectInfoSlideImage, onclickAdapter)
                 imageSlideViewPager.adapter = adapter
 
                 TabLayoutMediator(tabLayoutDot, imageSlideViewPager) { tab, position ->
 
+//                    imageDialog.setOnClickListener {
+//                        val imagesDialog: DialogProjectSliderImage =
+//                            DialogProjectSliderImage.newInstance(
+//                                imagesSlider[tab.position]
+//                            )
+//                        imagesDialog.show(
+//                            requireActivity().supportFragmentManager,
+//                            "balanceHistoryDetailDialog"
+//                        )
+//                    }
                 }.attach()
+
+                imageSlideViewPager.registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback(){})
+
+
 
                 /* Recycle view of project info detail */
                 val titleInfoDetail = arrayOf(
@@ -213,7 +231,16 @@ class ProjectInfoFragment :
         } catch (error: Exception) {
             // Must be safe
         }
+    }
 
+    private val onclickAdapter: ProjectViewPagerAdapter.OnclickAdapter = object: ProjectViewPagerAdapter.OnclickAdapter{
+        override fun onClickMe(projectInfoSlideImageModel: ProjectInfoSlideImageModel) {
+            val imageSlideDialog: DialogProjectSliderImage = DialogProjectSliderImage.newInstance(
+                projectInfoSlideImageModel?.imageSlider
+            )
+            imageSlideDialog.show(requireActivity().supportFragmentManager, "imageSlideDialog")
+        }
 
     }
+
 }
