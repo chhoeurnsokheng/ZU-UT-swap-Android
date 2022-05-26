@@ -32,6 +32,9 @@ class NavbarActivity :
         try {
             binding.apply {
 
+                SessionPreferences().removeValue("SESSION_STATUS")
+                SessionPreferences().removeValue("SESSION_KYC")
+
                 if(SessionPreferences().SESSION_STATUS!!){
                     layAuth.visibility = GONE
                 }

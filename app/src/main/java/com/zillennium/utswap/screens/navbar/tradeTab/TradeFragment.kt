@@ -31,11 +31,11 @@ class TradeFragment :
             binding.apply {
 
                 imgMenu.setOnClickListener {
-                    SessionPreferences().removeValue("SESSION_STATUS")
+
                 }
 
                 imgNotification.setOnClickListener {
-                    SessionPreferences().removeValue("SESSION_KYC")
+
                 }
 
 

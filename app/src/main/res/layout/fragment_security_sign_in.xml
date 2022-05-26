@@ -35,7 +35,7 @@
                     android:paddingHorizontal="@dimen/dimen_10">
 
                     <TextView
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/dimen_14"
                         android:text="@string/sign_in"
@@ -43,7 +43,7 @@
                         android:textColor="@color/color_main" />
 
                     <TextView
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/dimen_20"
                         android:text="@string/enter_account_details"
@@ -75,7 +75,7 @@
                             android:paddingEnd="@dimen/dimen_50"
                             android:paddingBottom="@dimen/dimen_25"
                             android:singleLine="true"
-                            android:textAppearance="@style/regular_16" />
+                            android:textAppearance="@style/regular_16"/>
 
                         <ImageView
                             android:id="@+id/show_pass_btn"
@@ -143,15 +143,31 @@
                         android:layout_centerVertical="true"
                         android:orientation="vertical">
 
-                        <com.google.android.material.button.MaterialButton
-                            android:id="@+id/btn_signIn"
+                        <RelativeLayout
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/dimen_50"
-                            android:background="@drawable/bg_circular"
-                            android:hint="@string/sign_in"
-                            android:textAppearance="@style/bold_18"
-                            android:textColorHint="@color/white" />
+                            android:layout_height="@dimen/dimen_50">
 
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btn_signIn"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:alpha="1"
+                                android:background="@drawable/bg_circular"
+                                android:hint="@string/sign_in"
+                                android:textAppearance="@style/bold_18"
+                                android:textColorHint="@color/white" />
+                            <ProgressBar
+                                android:id="@+id/pb_sign_in"
+                                android:layout_width="@dimen/dimen_30"
+                                android:layout_height="@dimen/dimen_30"
+                                android:indeterminateTint="@color/white"
+                                android:indeterminate="true"
+                                android:layout_centerVertical="true"
+                                android:layout_alignParentEnd="true"
+                                android:layout_marginEnd="@dimen/dimen_12"
+                                android:elevation="@dimen/dimen_10"
+                                android:visibility="gone"/>
+                        </RelativeLayout>
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"

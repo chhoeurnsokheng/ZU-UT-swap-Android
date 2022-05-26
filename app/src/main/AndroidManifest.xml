@@ -54,7 +54,8 @@
             android:name="com.zillennium.utswap.screens.security.securityActivity.registerScreen.RegisterActivity"
             android:exported="false"
             android:label="@string/register"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize"/>
         <activity
             android:name="com.zillennium.utswap.screens.security.securityActivity.signInScreen.SignInActivity"
             android:exported="false"

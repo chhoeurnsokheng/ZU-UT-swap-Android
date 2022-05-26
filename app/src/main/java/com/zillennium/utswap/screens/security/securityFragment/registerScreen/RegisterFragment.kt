@@ -1,12 +1,15 @@
 package com.zillennium.utswap.screens.security.securityFragment.registerScreen
 
+import android.content.Context
 import android.content.Intent
 import android.content.res.ColorStateList
+import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import com.zillennium.utswap.Datas.StoredPreferences.KYCPreferences
@@ -33,28 +36,31 @@ class RegisterFragment :
                     activity?.finish()
                 }
 
+                layView.setOnClickListener {
+                    val inputManager =
+                        requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                    inputManager.hideSoftInputFromWindow(view?.windowToken, 0)
+                }
+
+                laySignUp.setOnClickListener {
+                    val inputManager =
+                        requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                    inputManager.hideSoftInputFromWindow(view?.windowToken, 0)
+                }
 
 
                 btnSignup.setOnClickListener {
+
                     var isHaveError = false
                     txtMessage.text = "Invalid Email or Password"
 
-                    if(inputConfirmPassword.text.toString() != inputPassword.text.toString()){
-                        txtMessage.text = "Password didn't match"
+                    if(!validate().isValidEmail(inputEmail.text.toString().trim()) && !validate().isValidPhoneNumber(inputEmail.text.toString().trim())){
+                        txtMessage.text = "Please Enter Email or Number Phone"
                         txtMessage.visibility = View.VISIBLE
-                        inputPassword.backgroundTintList =
-                            ColorStateList.valueOf(resources.getColor(R.color.red))
-                        inputConfirmPassword.backgroundTintList =
+                        inputEmail.backgroundTintList =
                             ColorStateList.valueOf(resources.getColor(R.color.red))
                         isHaveError = true
-                    }
-
-                    if (inputConfirmPassword.text.toString().length < 8) {
-                        txtMessage.text = "Please Enter a Confirm Password Longer Than 8 Digits"
-                        txtMessage.visibility = View.VISIBLE
-                        inputConfirmPassword.backgroundTintList =
-                            ColorStateList.valueOf(resources.getColor(R.color.red))
-                        isHaveError = true
+                        return@setOnClickListener
                     }
 
                     if (inputPassword.text.toString().length < 8) {
@@ -63,21 +69,53 @@ class RegisterFragment :
                         inputPassword.backgroundTintList =
                             ColorStateList.valueOf(resources.getColor(R.color.red))
                         isHaveError = true
+                        return@setOnClickListener
                     }
 
-                    if(!validate().isValidEmail(inputEmail.text.toString()) && !validate().isValidPhoneNumber(inputEmail.text.toString())){
-                        txtMessage.text = "Please Enter Email or Number Phone"
+                    if (inputConfirmPassword.text.toString().length < 8) {
+                        txtMessage.text = "Please Enter a Confirm Password Longer Than 8 Digits"
                         txtMessage.visibility = View.VISIBLE
-                        inputEmail.backgroundTintList =
+                        inputConfirmPassword.backgroundTintList =
                             ColorStateList.valueOf(resources.getColor(R.color.red))
                         isHaveError = true
+                        return@setOnClickListener
+                    }
+
+                    if(inputConfirmPassword.text.toString().trim() != inputPassword.text.toString().trim()){
+                        txtMessage.text = "Password didn't match"
+                        txtMessage.visibility = View.VISIBLE
+                        inputPassword.backgroundTintList =
+                            ColorStateList.valueOf(resources.getColor(R.color.red))
+                        inputConfirmPassword.backgroundTintList =
+                            ColorStateList.valueOf(resources.getColor(R.color.red))
+                        isHaveError = true
+                        return@setOnClickListener
                     }
 
                     if (!isHaveError) {
-                        txtMessage.visibility = View.GONE
-                        SessionPreferences().SESSION_USERNAME = inputEmail.text.toString()
-                        SessionPreferences().SESSION_PASSWORD = inputPassword.text.toString()
-                        findNavController().navigate(R.id.action_to_verification_security_fragment)
+
+                        pbSignup.visibility = View.VISIBLE
+                        btnSignup.isClickable = false
+                        btnSignup.alpha = 0.6F
+
+                        Handler().postDelayed({
+
+                            if(inputEmail.text.toString().trim() == "utswap@gmail.com"){
+                                txtMessage.visibility = View.VISIBLE
+                                txtMessage.text = "Email / phone number available"
+                            }else{
+                                txtMessage.visibility = View.GONE
+                                SessionPreferences().SESSION_USERNAME = inputEmail.text.toString()
+                                SessionPreferences().SESSION_PASSWORD = inputPassword.text.toString()
+                                findNavController().navigate(R.id.action_to_verification_security_fragment)
+                            }
+
+                            pbSignup.visibility = View.GONE
+                            btnSignup.isClickable = true
+                            btnSignup.alpha = 1F
+                        }, 3000)
+
+
                     }
 
 
@@ -181,6 +219,8 @@ class RegisterFragment :
                 //Hide Password
                 inputPassword.transformationMethod= PasswordTransformationMethod.getInstance()
             }
+            inputPassword.requestFocus()
+            inputPassword.setSelection(inputPassword.text.length)
         }
     }
 
@@ -199,6 +239,8 @@ class RegisterFragment :
                 //Hide Password
                 inputConfirmPassword.transformationMethod= PasswordTransformationMethod.getInstance()
             }
+            inputConfirmPassword.requestFocus()
+            inputConfirmPassword.setSelection(inputConfirmPassword.text.length)
 
         }
 

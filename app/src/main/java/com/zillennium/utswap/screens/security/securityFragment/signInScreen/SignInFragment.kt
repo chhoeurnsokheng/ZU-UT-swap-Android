@@ -2,6 +2,7 @@ package com.zillennium.utswap.screens.security.securityFragment.signInScreen
 
 import android.content.Intent
 import android.content.res.ColorStateList
+import android.os.Handler
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
@@ -18,6 +19,7 @@ import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentSecuritySignInBinding
+import com.zillennium.utswap.screens.navbar.navbar.NavbarActivity
 import com.zillennium.utswap.screens.security.securityActivity.registerScreen.RegisterActivity
 import com.zillennium.utswap.screens.security.securityActivity.resetPasswordScreen.ResetPasswordActivity
 import com.zillennium.utswap.screens.security.securityFragment.signInScreen.CheckNetworkConnection.CheckNetworkConnection
@@ -74,15 +76,7 @@ class SignInFragment :
 
                     txtMessage.text = "Invalid Email or Password"
 
-                    if(textInputPassword.text.toString().length < 8){
-                        txtMessage.text = "Please Enter a Password Longer Than 8 Digits"
-                        txtMessage.visibility = View.VISIBLE
-                        textInputPassword.backgroundTintList =
-                            ColorStateList.valueOf(resources.getColor(R.color.red))
-                        isHaveError = true
-                    }
-
-                    if(!validate().isValidEmail(textInputEmail.text.toString()) && !validate().isValidPhoneNumber(textInputEmail.text.toString())){
+                    if(!validate().isValidEmail(textInputEmail.text.toString().trim()) && !validate().isValidPhoneNumber(textInputEmail.text.toString().trim())){
                         txtMessage.text = "Please Enter Email or Number Phone"
                         txtMessage.visibility = View.VISIBLE
                         textInputEmail.backgroundTintList =
@@ -91,11 +85,43 @@ class SignInFragment :
                         return@setOnClickListener
                     }
 
+                    if(textInputPassword.text.toString().length < 8){
+                        txtMessage.text = "Please Enter a Password Longer Than 8 Digits"
+                        txtMessage.visibility = View.VISIBLE
+                        textInputPassword.backgroundTintList =
+                            ColorStateList.valueOf(resources.getColor(R.color.red))
+                        isHaveError = true
+                        return@setOnClickListener
+                    }
+
                     if (!isHaveError){
-                        txtMessage.visibility = View.INVISIBLE
-                        SessionPreferences().SESSION_USERNAME = textInputEmail.text.toString().trim()
-                        SessionPreferences().SESSION_PASSWORD = textInputPassword.text.toString().trim()
-                        findNavController().navigate(R.id.action_to_verification_security_fragment)
+
+                        pbSignIn.visibility = View.VISIBLE
+                        btnSignIn.isClickable = false
+                        btnSignIn.alpha = 0.6F
+
+                        Handler().postDelayed({
+                            val status: Int = 0
+                            if(status == 1 || (textInputEmail.text.toString().trim() == "utswap@gmail.com" && textInputPassword.text.toString().trim() == "12345678")){
+                                txtMessage.visibility = View.VISIBLE
+                                txtMessage.background.setTint(resources.getColor(R.color.success))
+                                txtMessage.text = "Successfully logged in"
+                                SessionPreferences().SESSION_USERNAME = textInputEmail.text.toString().trim()
+                                SessionPreferences().SESSION_PASSWORD = textInputPassword.text.toString().trim()
+                                findNavController().navigate(R.id.action_to_verification_security_fragment)
+                            }else{
+                                txtMessage.visibility = View.VISIBLE
+                                txtMessage.text = "Invalid email and password"
+                            }
+
+                            pbSignIn.visibility = View.GONE
+                            btnSignIn.isClickable = true
+                            btnSignIn.alpha = 1F
+
+                        }, 3000)
+
+
+
                     }
                 }
                 textInputEmail.addTextChangedListener(object : TextWatcher {

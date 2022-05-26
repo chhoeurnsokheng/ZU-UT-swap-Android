@@ -4,6 +4,7 @@
     >
 
     <LinearLayout
+        android:id="@+id/lay_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -21,144 +22,163 @@
                 app:tint="@color/color_main" />
         </LinearLayout>
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingHorizontal="@dimen/dimen_25">
-
-            <TextView
+            android:overScrollMode="never"
+            android:scrollbars="none">
+            <LinearLayout
+                android:id="@+id/lay_sign_up"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_36"
-                android:text="@string/register"
-                android:textAppearance="@style/bold_32"
-                android:textColor="@color/color_main" />
+                android:orientation="vertical"
+                android:paddingHorizontal="@dimen/dimen_25">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_15"
-                android:text="@string/create_a_new_account"
-                android:textAppearance="@style/medium_20"
-                android:textColor="@color/color_main" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_36"
+                    android:text="@string/register"
+                    android:textAppearance="@style/bold_32"
+                    android:textColor="@color/color_main" />
 
-            <EditText
-                android:id="@+id/inputEmail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_20"
-                android:backgroundTint="@color/secondary_text"
-                android:hint="@string/email_or_phone_number"
-                android:inputType="text"
-                android:maxLength="15"
-                android:paddingBottom="@dimen/dimen_25"
-                android:singleLine="true"
-                android:textAppearance="@style/regular_16" />
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_20">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_15"
+                    android:text="@string/create_a_new_account"
+                    android:textAppearance="@style/medium_20"
+                    android:textColor="@color/color_main" />
 
                 <EditText
-                    android:id="@+id/inputPassword"
+                    android:id="@+id/inputEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/password"
-                    android:inputType="textPassword"
+                    android:layout_marginTop="@dimen/dimen_20"
+                    android:backgroundTint="@color/secondary_text"
+                    android:hint="@string/email_or_phone_number"
+                    android:inputType="textVisiblePassword"
+                    android:paddingBottom="@dimen/dimen_25"
+                    android:singleLine="true"
+                    android:textAppearance="@style/regular_16" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_20">
+
+                    <EditText
+                        android:id="@+id/inputPassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/password"
+                        android:inputType="textPassword"
+                        android:paddingBottom="@dimen/dimen_25"
+                        android:paddingEnd="@dimen/dimen_50"
+                        android:textAppearance="@style/regular_16" />
+                    <ImageView
+                        android:id="@+id/show_pass_btn"
+                        android:layout_width="@dimen/dimen_30"
+                        android:layout_height="@dimen/dimen_30"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginTop="@dimen/dimen_6"
+                        android:layout_marginEnd="@dimen/dimen_8"
+                        android:alpha=".5"
+                        android:padding="@dimen/dimen_5"
+                        android:src="@drawable/ic_baseline_visibility_24" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_20">
+
+                    <EditText
+                        android:id="@+id/inputConfirmPassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/confirm_password"
+                        android:inputType="textPassword"
+                        android:paddingEnd="@dimen/dimen_50"
+                        android:paddingBottom="@dimen/dimen_25"
+                        android:textAppearance="@style/regular_16" />
+
+                    <ImageView
+                        android:id="@+id/show_confirm_pass_btn"
+                        android:layout_width="@dimen/dimen_30"
+                        android:layout_height="@dimen/dimen_30"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginTop="@dimen/dimen_6"
+                        android:layout_marginEnd="@dimen/dimen_8"
+                        android:alpha=".5"
+                        android:padding="@dimen/dimen_5"
+                        android:src="@drawable/ic_baseline_visibility_24" />
+                </RelativeLayout>
+
+                <EditText
+                    android:id="@+id/inputReferralId"
+                    android:layout_width="@dimen/dimen_200"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_20"
+                    android:hint="@string/referral_id_optional"
+                    android:inputType="number"
                     android:maxLength="15"
                     android:paddingBottom="@dimen/dimen_25"
                     android:textAppearance="@style/regular_16" />
 
-                <ImageView
-                    android:id="@+id/show_pass_btn"
-                    android:layout_width="@dimen/dimen_30"
-                    android:layout_height="@dimen/dimen_30"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginEnd="@dimen/dimen_8"
-                    android:alpha=".5"
-                    android:onClick="ShowHidePassword"
-                    android:padding="@dimen/dimen_5"
-                    android:src="@drawable/ic_baseline_visibility_24"
-                    app:layout_constraintBottom_toBottomOf="parent" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_20">
-
-                <EditText
-                    android:id="@+id/inputConfirmPassword"
+                <TextView
+                    android:id="@+id/txt_message"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/confirm_password"
-                    android:inputType="textPassword"
-                    android:paddingBottom="@dimen/dimen_25"
-                    android:textAppearance="@style/regular_16" />
-
-                <ImageView
-                    android:id="@+id/show_confirm_pass_btn"
-                    android:layout_width="@dimen/dimen_30"
-                    android:layout_height="@dimen/dimen_30"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginEnd="@dimen/dimen_8"
-                    android:alpha=".5"
-                    android:onClick="ShowHidePassConfirmPassword"
-                    android:padding="@dimen/dimen_5"
-                    android:src="@drawable/ic_baseline_visibility_24"
-                    app:layout_constraintBottom_toBottomOf="parent" />
-            </RelativeLayout>
-
-            <EditText
-                android:id="@+id/inputReferralId"
-                android:layout_width="@dimen/dimen_200"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_20"
-                android:hint="@string/referral_id_optional"
-                android:inputType="number"
-                android:maxLength="15"
-                android:paddingBottom="@dimen/dimen_25"
-                android:textAppearance="@style/regular_16" />
-
-            <TextView
-                android:id="@+id/txt_message"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_above="@+id/lay_sign_in"
-                android:layout_marginTop="@dimen/dimen_50"
-                android:background="@color/main_red"
-                android:paddingVertical="@dimen/dimen_8"
-                android:text="@string/invalid_email_or_password"
-                android:textAlignment="center"
-                android:textAppearance="@style/regular_14"
-                android:textColor="@color/white"
-                android:visibility="invisible" />
-        </LinearLayout>
-
+                    android:layout_above="@+id/lay_sign_in"
+                    android:layout_marginTop="@dimen/dimen_50"
+                    android:background="@color/main_red"
+                    android:paddingVertical="@dimen/dimen_8"
+                    android:text="@string/invalid_email_or_password"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/regular_14"
+                    android:textColor="@color/white"
+                    android:visibility="invisible" />
+            </LinearLayout>
+        </ScrollView>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:gravity="bottom">
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_signup"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dimen_30"
                 android:layout_marginEnd="@dimen/dimen_30"
-                android:layout_marginBottom="@dimen/dimen_30"
-                android:background="@drawable/bg_circular"
-                android:fontFamily="@font/avenirnextcyr_bold"
-                android:hint="@string/sign_up"
-                android:textColorHint="@color/white" />
+                android:layout_marginBottom="@dimen/dimen_30">
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_signup"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/bg_circular"
+                    android:fontFamily="@font/avenirnextcyr_bold"
+                    android:hint="@string/sign_up"
+                    android:textColorHint="@color/white" />
+                <ProgressBar
+                    android:id="@+id/pb_signup"
+                    android:layout_width="@dimen/dimen_30"
+                    android:layout_height="@dimen/dimen_30"
+                    android:indeterminateTint="@color/white"
+                    android:indeterminate="true"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="@dimen/dimen_12"
+                    android:elevation="@dimen/dimen_10"
+                    android:visibility="gone"/>
+            </RelativeLayout>
+
+
 
 
         </LinearLayout>
+
 
     </LinearLayout>
 </layout>

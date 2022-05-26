@@ -2,6 +2,7 @@ package com.zillennium.utswap.screens.security.securityFragment.newPasswordScree
 
 import android.content.Intent
 import android.content.res.ColorStateList
+import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
 import android.text.method.HideReturnsTransformationMethod
@@ -36,7 +37,7 @@ class NewPasswordFragment :
                     var isHaveError = false
                     txtPasswordMessage.text = "Invalid Email or Password"
 
-                    if(inputConfirmPassword.text.toString() != inputPassword.text.toString()){
+                    if(inputConfirmPassword.text.toString().trim() != inputPassword.text.toString().trim()){
                         txtPasswordMessage.text = "Password didn't match"
                         txtPasswordMessage.visibility = View.VISIBLE
                         inputPassword.backgroundTintList =
@@ -63,15 +64,26 @@ class NewPasswordFragment :
                     }
 
                     if (!isHaveError) {
-                        txtPasswordMessage.visibility = View.GONE
-                        inputPassword.backgroundTintList =
-                            ColorStateList.valueOf(resources.getColor(R.color.secondary_text))
-                        inputConfirmPassword.backgroundTintList =
-                            ColorStateList.valueOf(resources.getColor(R.color.secondary_text))
-                        SessionPreferences().SESSION_STATUS = true
-                        activity?.finish()
-                    }
+                        pbNext.visibility = View.VISIBLE
+                        btnNext.isClickable = false
+                        btnNext.alpha = 0.6F
 
+                        Handler().postDelayed({
+                            txtPasswordMessage.visibility = View.GONE
+                            inputPassword.backgroundTintList =
+                                ColorStateList.valueOf(resources.getColor(R.color.secondary_text))
+                            inputConfirmPassword.backgroundTintList =
+                                ColorStateList.valueOf(resources.getColor(R.color.secondary_text))
+                            SessionPreferences().SESSION_STATUS = true
+
+
+                            pbNext.visibility = View.GONE
+                            btnNext.isClickable = true
+                            btnNext.alpha = 1F
+
+                            activity?.finish()
+                        }, 3000)
+                    }
                 }
 
                 inputPassword.addTextChangedListener(object : TextWatcher {
@@ -152,6 +164,8 @@ class NewPasswordFragment :
                     //Hide Password
                     inputPassword.transformationMethod = PasswordTransformationMethod.getInstance()
                 }
+                inputPassword.requestFocus()
+                inputPassword.setSelection(inputPassword.text.length)
             }
         }
     }
@@ -172,6 +186,8 @@ class NewPasswordFragment :
                     inputConfirmPassword.transformationMethod =
                         PasswordTransformationMethod.getInstance()
                 }
+                inputConfirmPassword.requestFocus()
+                inputConfirmPassword.setSelection(inputConfirmPassword.text.length)
             }
 
         }
