@@ -24,7 +24,7 @@ class NavbarActivity :
     override var mPresenter: NavbarView.Presenter = NavbarPresenter()
     override val layoutResource: Int = R.layout.activity_navbar
 
-    private var doubleBackToExitPressedOnce = false
+//    private var doubleBackToExitPressedOnce = false
 
     override fun initView() {
         super.initView()
@@ -146,13 +146,13 @@ class NavbarActivity :
         }
     }
 
-    override fun onBackPressed() {
-        if (doubleBackToExitPressedOnce) {
-            super.onBackPressed()
-            return
-        }
-        doubleBackToExitPressedOnce = true
-        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show()
-        Handler().postDelayed(Runnable { doubleBackToExitPressedOnce = false }, 2000)
-    }
+//    override fun onBackPressed() {
+//        if (doubleBackToExitPressedOnce) {
+//            super.onBackPressed()
+//            return
+//        }
+//        doubleBackToExitPressedOnce = true
+//        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show()
+//        Handler().postDelayed(Runnable { doubleBackToExitPressedOnce = false }, 2000)
+//    }
 }
