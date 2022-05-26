@@ -7,7 +7,7 @@ import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentSecurityPromptBinding
-import com.zillennium.utswap.screens.navbar.projectTab.projectActivity.ProjectMainActivity
+import com.zillennium.utswap.screens.kyc.kycActivity.KYCActivity
 
 class PromptFragment :
     BaseMvpFragment<PromptView.View, PromptView.Presenter, FragmentSecurityPromptBinding>(),
@@ -28,7 +28,7 @@ class PromptFragment :
                 btnYes.setOnClickListener {
                     SessionPreferences().SESSION_STATUS = true
                     activity?.finish()
-                    val intent = Intent(UTSwapApp.instance.baseContext, ProjectMainActivity::class.java)
+                    val intent = Intent(UTSwapApp.instance.baseContext, KYCActivity::class.java)
                     startActivity(intent)
                 }
 

@@ -12,7 +12,7 @@ import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityNavbarBinding
-import com.zillennium.utswap.screens.navbar.projectTab.projectActivity.ProjectMainActivity
+import com.zillennium.utswap.screens.kyc.kycActivity.KYCActivity
 import com.zillennium.utswap.screens.security.securityActivity.registerScreen.RegisterActivity
 import com.zillennium.utswap.screens.security.securityActivity.signInScreen.SignInActivity
 
@@ -120,7 +120,7 @@ class NavbarActivity :
                 }
 
                 btnVerify.setOnClickListener {
-                    val intent = Intent(UTSwapApp.instance, ProjectMainActivity::class.java)
+                    val intent = Intent(UTSwapApp.instance, KYCActivity::class.java)
                     startActivity(intent)
                 }
             }

@@ -49,7 +49,7 @@
 
         <!--Activity KYC-->
         <activity
-            android:name="com.zillennium.utswap.screens.navbar.projectTab.projectActivity.ProjectMainActivity"
+            android:name="com.zillennium.utswap.screens.kyc.kycActivity.KYCActivity"
             android:exported="false"
             android:label="@string/KYC"
             android:screenOrientation="portrait" />
