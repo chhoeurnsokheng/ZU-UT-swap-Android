@@ -106,6 +106,7 @@ class FundPasswordDialog: DialogFragment() {
                     for (pingCode in layPingCode.children){
                         pingCode.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.success))
                     }
+                    dismiss()
                 }else{
                     imgIcon.setImageResource(R.drawable.ic_fund_key_invalid)
                     txtMessage.text = "Invalid"

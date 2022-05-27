@@ -44,6 +44,7 @@ class SubscriptionConfirmDialog : DialogFragment(){
                 dismiss()
             }
             btnConfirm.setOnClickListener {
+                dismiss()
                 FundPasswordDialog().show(requireActivity().supportFragmentManager, "balanceHistoryDetailDialog")
             }
             activity?.apply {
