@@ -80,12 +80,26 @@
                                     android:text="@string/volume_input"
                                     android:textAppearance="@style/regular_12" />
 
-                                <TextView
-                                    android:layout_width="wrap_content"
+                                <LinearLayout
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_alignParentEnd="true"
-                                    android:text="@string/ut_price"
-                                    android:textAppearance="@style/regular_12" />
+                                    android:gravity="end">
+
+                                    <TextView
+                                        android:id="@+id/txt_volume"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentEnd="true"
+                                        android:text="500"
+                                        android:textAppearance="@style/regular_12" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="@dimen/dimen_5"
+                                        android:text="UT"
+                                        android:textAppearance="@style/regular_12" />
+                                </LinearLayout>
                             </RelativeLayout>
 
                             <View

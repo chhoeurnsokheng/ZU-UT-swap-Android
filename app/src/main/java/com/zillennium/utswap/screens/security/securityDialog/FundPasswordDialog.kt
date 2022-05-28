@@ -5,6 +5,7 @@ import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.os.storage.StorageVolume
 import android.util.Log
 import android.view.*
 import android.widget.Button
@@ -16,6 +17,7 @@ import androidx.fragment.app.DialogFragment
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.databinding.DialogSecurityFundPasswordBinding
+import com.zillennium.utswap.screens.navbar.projectTab.subscriptionScreen.dialog.SubscriptionConfirmDialog
 import eightbitlab.com.blurview.RenderScriptBlur
 import java.sql.Struct
 
@@ -53,6 +55,8 @@ class FundPasswordDialog: DialogFragment() {
                     .setHasFixedTransformationMatrix(true)
 
                 imgBack.setOnClickListener {
+                    val subscriptionConfirmDialog: SubscriptionConfirmDialog = SubscriptionConfirmDialog.newInstance(arguments?.get("volume").toString(),arguments?.get("title").toString())
+                    subscriptionConfirmDialog.show(requireActivity().supportFragmentManager, "balanceHistoryDetailDialog")
                     dismiss()
                 }
 
@@ -136,9 +140,14 @@ class FundPasswordDialog: DialogFragment() {
     }
 
     companion object {
-        fun newInstance(): FundPasswordDialog {
+        fun newInstance(
+            volume: String?,
+            title: String?
+        ): FundPasswordDialog {
             val subscriptionConfirmDialog = FundPasswordDialog()
             val args = Bundle()
+            args.putString("volume",volume)
+            args.putString("title",title)
             subscriptionConfirmDialog.arguments = args
             return subscriptionConfirmDialog
         }

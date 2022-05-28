@@ -64,10 +64,10 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/dimen_10"
                             android:background="@drawable/outline_subscription"
-                            android:inputType="numberDecimal"
+                            android:inputType="number"
+                            android:maxLength="10"
                             android:padding="@dimen/dimen_10"
                             android:singleLine="true"
-                            android:maxLength="10"
                             android:textAlignment="textEnd" />
 
                     </RelativeLayout>

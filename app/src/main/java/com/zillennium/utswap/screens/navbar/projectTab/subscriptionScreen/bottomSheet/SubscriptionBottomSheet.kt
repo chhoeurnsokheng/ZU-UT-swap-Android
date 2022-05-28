@@ -3,6 +3,7 @@ package com.zillennium.utswap.screens.navbar.projectTab.subscriptionScreen.botto
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.os.storage.StorageVolume
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.*
@@ -46,9 +47,9 @@ class SubscriptionBottomSheet : BottomSheetDialogFragment(), AdapterView.OnItemS
             btnSubscript.setOnClickListener{
                 if(!etInputVolume.text.isNullOrEmpty()){
                     if(etInputVolume.text.toString().toLong() > 0){
-                        dismiss()
-                        val subscriptionConfirmDialog: SubscriptionConfirmDialog = SubscriptionConfirmDialog.newInstance()
+                        val subscriptionConfirmDialog: SubscriptionConfirmDialog = SubscriptionConfirmDialog.newInstance(etInputVolume.text.toString(),arguments?.get("title").toString())
                         subscriptionConfirmDialog.show(requireActivity().supportFragmentManager, "balanceHistoryDetailDialog")
+                        dismiss()
                     }
                 }
 
