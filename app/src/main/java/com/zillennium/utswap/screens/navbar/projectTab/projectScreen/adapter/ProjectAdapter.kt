@@ -1,5 +1,6 @@
 package com.zillennium.utswap.screens.navbar.projectTab.projectScreen.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,10 +16,14 @@ import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.models.ProjectModel
 
 class ProjectAdapter(
-    private val arrayList: ArrayList<ProjectModel>,
-    private val itemListProject: Int,
-    private val onclickProject: OnclickProject) :
+    arrayList: ArrayList<ProjectModel>,
+    itemListProject: Int,
+    onclickProject: OnclickProject) :
     RecyclerView.Adapter<ProjectAdapter.ViewHolder>() {
+
+    private var listModel: ArrayList<ProjectModel> = arrayList
+    private var itemListProject: Int? = 0
+    private var onclickProject: OnclickProject
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
@@ -33,12 +38,12 @@ class ProjectAdapter(
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
             LayoutInflater.from(viewGroup.context)
-                .inflate(itemListProject, viewGroup, false)
+                .inflate(itemListProject!!, viewGroup, false)
         )
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val projectList: ProjectModel = arrayList[position]
+        val projectList: ProjectModel = listModel[position]
         holder.publicDate.text = projectList.publicDate
             Glide.with(UTSwapApp.instance)
                 .load(projectList.image)
@@ -62,7 +67,19 @@ class ProjectAdapter(
     }
 
     override fun getItemCount(): Int {
-        return arrayList.size
+        return listModel.size
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun filterList(filterList: ArrayList<ProjectModel>) {
+        listModel = filterList
+        notifyDataSetChanged()
+    }
+
+    init {
+        this.listModel = arrayList
+        this.itemListProject = itemListProject
+        this.onclickProject = onclickProject
     }
 
     interface OnclickProject {

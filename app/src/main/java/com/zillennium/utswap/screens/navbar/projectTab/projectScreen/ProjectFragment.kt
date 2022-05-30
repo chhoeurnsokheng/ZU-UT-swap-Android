@@ -1,6 +1,8 @@
 package com.zillennium.utswap.screens.navbar.projectTab.projectScreen
 
 import android.annotation.SuppressLint
+import android.app.Activity
+import android.content.Context
 import android.content.res.ColorStateList
 import android.os.Build
 import android.os.Handler
@@ -8,8 +10,10 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.annotation.RequiresApi
 import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -34,6 +38,8 @@ class ProjectFragment :
 
     private var viewGrid = true
     private var sortedDate = true
+    private var projectArrayList = ArrayList<ProjectModel>()
+    private var projectAdapter: ProjectAdapter? = null
 
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("ResourceType")
@@ -92,8 +98,6 @@ class ProjectFragment :
                         ""
                     )
 
-                    val projectArrayList = ArrayList<ProjectModel>()
-
                     for (i in publicDate.indices) {
                         val project = ProjectModel(
                             i,
@@ -149,9 +153,13 @@ class ProjectFragment :
                             }
 
                         }
-                        rvProject.adapter =
-                            ProjectAdapter(projectArrayList, layout, onclickProject)
+                        projectAdapter = ProjectAdapter(projectArrayList, layout, onclickProject)
+                        rvProject.adapter = projectAdapter
+
                         sortedDate = !sortedDate
+                        hideKeyboard()
+                        etSearch.clearFocus()
+                        etSearch.text.clear()
                     }
 
                     /* Change View on click */
@@ -160,16 +168,20 @@ class ProjectFragment :
                             viewType.setImageResource(R.drawable.ic_grid_view)
 //                        txtViewType.text = "List View"
                             rvProject.layoutManager = GridLayoutManager(UTSwapApp.instance, 2)
-                            rvProject.adapter =
-                                ProjectAdapter(projectArrayList, R.layout.item_list_project_grid, onclickProject)
+                            projectAdapter = ProjectAdapter(projectArrayList, R.layout.item_list_project_grid, onclickProject)
+                            rvProject.adapter = projectAdapter
                         } else {
                             viewType.setImageResource(R.drawable.ic_list_view)
 //                        txtViewType.text = "Grid View"
                             rvProject.layoutManager = LinearLayoutManager(UTSwapApp.instance)
-                            rvProject.adapter =
-                                ProjectAdapter(projectArrayList, R.layout.item_list_project, onclickProject)
+                            projectAdapter = ProjectAdapter(projectArrayList, R.layout.item_list_project, onclickProject)
+                            rvProject.adapter = projectAdapter
+
                         }
                         viewGrid = !viewGrid
+                        hideKeyboard()
+                        etSearch.clearFocus()
+                        etSearch.text.clear()
                     }
                     layView.callOnClick()
 
@@ -197,7 +209,7 @@ class ProjectFragment :
                         }
 
                         override fun afterTextChanged(p0: Editable?) {
-
+                            filter(p0.toString())
                         }
 
                     })
@@ -246,20 +258,28 @@ class ProjectFragment :
             if(viewGrid == true){
                 viewType.setImageResource(R.drawable.ic_grid_view)
                 rvProject.layoutManager = GridLayoutManager(UTSwapApp.instance, 2)
-                rvProject.adapter =
-                    ProjectAdapter(dataProject, R.layout.item_list_project_grid, onclickProject)
+                projectAdapter = ProjectAdapter(dataProject, R.layout.item_list_project_grid, onclickProject)
+                rvProject.adapter = projectAdapter
             }else{
                 viewType.setImageResource(R.drawable.ic_list_view)
                 rvProject.layoutManager = LinearLayoutManager(UTSwapApp.instance)
-                rvProject.adapter =
-                    ProjectAdapter(dataProject, R.layout.item_list_project, onclickProject)
+                projectAdapter = ProjectAdapter(dataProject, R.layout.item_list_project, onclickProject)
+                rvProject.adapter = projectAdapter
             }
-
-
-
 
         }
 
+    }
+
+    private fun filter(text: String) {
+        val modelArrayList: ArrayList<ProjectModel> = ArrayList<ProjectModel>()
+        for (item in projectArrayList) {
+            if (item.titleProject.toLowerCase().contains(text.lowercase(Locale.getDefault()))) {
+                modelArrayList.add(item)
+            }
+        }
+
+        projectAdapter?.filterList(modelArrayList)
     }
 
     private val onclickProject: ProjectAdapter.OnclickProject = object :
@@ -278,6 +298,15 @@ class ProjectFragment :
 //            Log.d("123213", it.url)
 //        }
 
+    }
+
+    fun Fragment.hideKeyboard() {
+        view?.let { activity?.hideKeyboard(it) }
+    }
+
+    fun Context.hideKeyboard(view: View) {
+        val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
 }
