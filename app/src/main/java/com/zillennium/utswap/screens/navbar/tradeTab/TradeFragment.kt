@@ -1,22 +1,16 @@
 package com.zillennium.utswap.screens.navbar.tradeTab
 
 import android.content.res.ColorStateList
-import android.app.Activity
-import android.content.Context
-import android.content.Intent
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.View
-import android.view.inputmethod.InputMethodManager
-import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentNavbarTradeBinding
+import java.util.*
 
 class TradeFragment :
     BaseMvpFragment<TradeView.View, TradeView.Presenter, FragmentNavbarTradeBinding>(),
@@ -24,6 +18,8 @@ class TradeFragment :
 
     override var mPresenter: TradeView.Presenter = TradePresenter()
     override val layoutResource: Int = R.layout.fragment_navbar_trade
+    private var tradeArrayList = ArrayList<Trade>()
+    private var tradeAdapter: TradeAdapter? = null
 
     override fun initView() {
         super.initView()
@@ -82,8 +78,6 @@ class TradeFragment :
                     168
                 )
 
-                val tradeArrayList = ArrayList<Trade>()
-
                 for (i in project.indices) {
                     val trade = Trade(
                         project[i],
@@ -104,7 +98,8 @@ class TradeFragment :
                 }
 //                rvTrade.layoutManager = GridLayoutManager(UTSwapApp.instance, 2)
                 rvTrade.layoutManager = LinearLayoutManager(UTSwapApp.instance)
-                rvTrade.adapter = TradeAdapter(tradeArrayList, onclickTrade)
+                tradeAdapter = TradeAdapter(tradeArrayList, onclickTrade)
+                rvTrade.adapter = tradeAdapter
 
 
                 etSearch.setOnFocusChangeListener { _, hasFocus ->
@@ -131,11 +126,12 @@ class TradeFragment :
                     }
 
                     override fun afterTextChanged(p0: Editable?) {
-
+                        filter(p0.toString())
                     }
 
                 })
-                rvTrade.adapter = TradeAdapter(tradeArrayList,onclickTrade)
+                tradeAdapter = TradeAdapter(tradeArrayList,onclickTrade)
+                rvTrade.adapter = tradeAdapter
 
                 txtSubscribe.setOnClickListener {
                     Navigation.findNavController(requireView()).navigate(R.id.action_to_navigation_navbar_project_subscription)
@@ -157,6 +153,17 @@ class TradeFragment :
 //            Navigation.findNavController(requireView()).navigate(R.id.trade_detail)
         }
 
+    }
+
+    private fun filter(text: String) {
+        val modelArrayList: ArrayList<Trade> = ArrayList<Trade>()
+        for (item in tradeArrayList) {
+            if (item.project.toLowerCase().contains(text.lowercase(Locale.getDefault()))) {
+                modelArrayList.add(item)
+            }
+        }
+
+        tradeAdapter?.filterList(modelArrayList)
     }
 
 //    fun Fragment.hideKeyboard() {
