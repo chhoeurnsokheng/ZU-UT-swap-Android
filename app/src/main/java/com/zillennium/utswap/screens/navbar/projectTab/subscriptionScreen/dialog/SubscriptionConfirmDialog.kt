@@ -8,11 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.databinding.DialogNavbarProjectSubscriptionConfirmBinding
+import com.zillennium.utswap.screens.navbar.projectTab.subscriptionScreen.bottomSheet.SubscriptionBottomSheet
 import com.zillennium.utswap.screens.security.securityDialog.FundPasswordDialog
 import eightbitlab.com.blurview.RenderScriptBlur
 
@@ -33,6 +35,8 @@ class SubscriptionConfirmDialog : DialogFragment(){
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         binding =
             DataBindingUtil.inflate(inflater, R.layout.dialog_navbar_project_subscription_confirm, container, true)
+
+        binding?.txtVolume?.text = arguments?.get("volume").toString()
         return binding?.root
     }
 
@@ -41,10 +45,19 @@ class SubscriptionConfirmDialog : DialogFragment(){
 
         binding?.apply {
             btnBack.setOnClickListener {
+                val subscriptionBottomSheetDialog: SubscriptionBottomSheet = SubscriptionBottomSheet.newInstance(
+                    arguments?.get("title").toString(),
+                )
+                subscriptionBottomSheetDialog.show(requireActivity().supportFragmentManager, "balanceHistoryDetailDialog")
                 dismiss()
             }
             btnConfirm.setOnClickListener {
-                FundPasswordDialog().show(requireActivity().supportFragmentManager, "balanceHistoryDetailDialog")
+                val fundPasswordDialog: FundPasswordDialog = FundPasswordDialog.newInstance(
+                    arguments?.get("volume").toString(),
+                    arguments?.get("title").toString()
+                )
+                fundPasswordDialog.show(requireActivity().supportFragmentManager, "balanceHistoryDetailDialog")
+                dismiss()
             }
             activity?.apply {
                 blurView.setupWith(findViewById<ViewGroup>(android.R.id.content))
@@ -56,12 +69,19 @@ class SubscriptionConfirmDialog : DialogFragment(){
             }
         }
 
+
+
     }
 
     companion object {
-        fun newInstance(): SubscriptionConfirmDialog {
+        fun newInstance(
+            volume: String?,
+            title: String?
+        ): SubscriptionConfirmDialog {
             val subscriptionConfirmDialog = SubscriptionConfirmDialog()
             val args = Bundle()
+            args.putString("volume",volume)
+            args.putString("title",title)
             subscriptionConfirmDialog.arguments = args
             return subscriptionConfirmDialog
         }

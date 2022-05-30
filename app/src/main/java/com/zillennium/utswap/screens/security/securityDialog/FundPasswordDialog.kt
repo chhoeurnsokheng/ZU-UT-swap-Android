@@ -5,16 +5,21 @@ import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.os.Handler
+import android.os.storage.StorageVolume
+import android.util.Log
 import android.view.*
+import android.widget.Button
+import android.widget.LinearLayout
+import androidx.core.content.ContextCompat
 import androidx.core.view.children
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.Fragment
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.databinding.DialogSecurityFundPasswordBinding
+import com.zillennium.utswap.screens.navbar.projectTab.subscriptionScreen.dialog.SubscriptionConfirmDialog
 import eightbitlab.com.blurview.RenderScriptBlur
+import java.sql.Struct
 
 
 class FundPasswordDialog: DialogFragment() {
@@ -50,6 +55,8 @@ class FundPasswordDialog: DialogFragment() {
                     .setHasFixedTransformationMatrix(true)
 
                 imgBack.setOnClickListener {
+                    val subscriptionConfirmDialog: SubscriptionConfirmDialog = SubscriptionConfirmDialog.newInstance(arguments?.get("volume").toString(),arguments?.get("title").toString())
+                    subscriptionConfirmDialog.show(requireActivity().supportFragmentManager, "balanceHistoryDetailDialog")
                     dismiss()
                 }
 
@@ -96,38 +103,22 @@ class FundPasswordDialog: DialogFragment() {
             }
 
             if(codes.length == 4){
-
-                layProgressBar.visibility = View.VISIBLE
-
-                Handler().postDelayed({
-                    if(codes == "1111"){
-                        imgIcon.setImageResource(R.drawable.ic_fund_key_success)
-                        txtMessage.text = "Success"
-                        txtMessage.setTextColor(resources.getColor(R.color.success))
-                        for (pingCode in layPingCode.children){
-                            pingCode.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.success))
-                        }
-
-                        val prev: Fragment? = activity?.supportFragmentManager?.findFragmentByTag("subscriptionConfirmDialog")
-                        if (prev != null) {
-                            val df = prev as DialogFragment
-                            df.dismiss()
-                        }
-//                        SubscriptionConfirmDialog().isHidden
-                        dismiss()
-
-                    }else{
-                        imgIcon.setImageResource(R.drawable.ic_fund_key_invalid)
-                        txtMessage.text = "Invalid"
-                        txtMessage.setTextColor(resources.getColor(R.color.main_red))
-                        for (pingCode in layPingCode.children){
-                            pingCode.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.main_red))
-                        }
+                if(codes == "1111"){
+                    imgIcon.setImageResource(R.drawable.ic_fund_key_success)
+                    txtMessage.text = "Success"
+                    txtMessage.setTextColor(resources.getColor(R.color.success))
+                    for (pingCode in layPingCode.children){
+                        pingCode.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.success))
                     }
-
-                    layProgressBar.visibility = View.GONE
-
-                }, 3000)
+                    dismiss()
+                }else{
+                    imgIcon.setImageResource(R.drawable.ic_fund_key_invalid)
+                    txtMessage.text = "Invalid"
+                    txtMessage.setTextColor(resources.getColor(R.color.main_red))
+                    for (pingCode in layPingCode.children){
+                        pingCode.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.main_red))
+                    }
+                }
             }else{
                 imgIcon.setImageResource(R.drawable.ic_fund_key_normal)
                 txtMessage.text = "Enter Fund Password"
@@ -149,9 +140,14 @@ class FundPasswordDialog: DialogFragment() {
     }
 
     companion object {
-        fun newInstance(): FundPasswordDialog {
+        fun newInstance(
+            volume: String?,
+            title: String?
+        ): FundPasswordDialog {
             val subscriptionConfirmDialog = FundPasswordDialog()
             val args = Bundle()
+            args.putString("volume",volume)
+            args.putString("title",title)
             subscriptionConfirmDialog.arguments = args
             return subscriptionConfirmDialog
         }
