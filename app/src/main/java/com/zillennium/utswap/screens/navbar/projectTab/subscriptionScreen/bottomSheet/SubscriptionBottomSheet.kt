@@ -47,7 +47,7 @@ class SubscriptionBottomSheet : BottomSheetDialogFragment(), AdapterView.OnItemS
                 if(!etInputVolume.text.isNullOrEmpty()){
                     if(etInputVolume.text.toString().toLong() > 0){
                         val subscriptionConfirmDialog: SubscriptionConfirmDialog = SubscriptionConfirmDialog.newInstance()
-                        subscriptionConfirmDialog.show(requireActivity().supportFragmentManager, "balanceHistoryDetailDialog")
+                        subscriptionConfirmDialog.show(requireActivity().supportFragmentManager, "subscriptionConfirmDialog")
                     }
                 }
 

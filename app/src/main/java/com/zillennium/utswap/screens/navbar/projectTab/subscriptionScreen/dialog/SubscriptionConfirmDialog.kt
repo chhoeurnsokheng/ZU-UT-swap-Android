@@ -56,11 +56,9 @@ class SubscriptionConfirmDialog : DialogFragment(){
             }
         }
 
-
-
     }
 
-        companion object {
+    companion object {
         fun newInstance(): SubscriptionConfirmDialog {
             val subscriptionConfirmDialog = SubscriptionConfirmDialog()
             val args = Bundle()
