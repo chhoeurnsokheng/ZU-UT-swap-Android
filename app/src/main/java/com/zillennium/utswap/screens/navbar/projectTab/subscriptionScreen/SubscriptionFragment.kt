@@ -91,12 +91,12 @@ class SubscriptionFragment :
     }
     private val onclickAdapter: SubscriptionAdapter.OnclickAdapter = object: SubscriptionAdapter.OnclickAdapter{
         override fun onClickMe(subscriptionModel: SubscriptionModel) {
-//            if(SessionPreferences().SESSION_STATUS  == true && SessionPreferences().SESSION_KYC  == true){
+            if(SessionPreferences().SESSION_STATUS  == true && SessionPreferences().SESSION_KYC  == true){
                 val subscriptionBottomSheetDialog: SubscriptionBottomSheet = SubscriptionBottomSheet.newInstance(
                     subscriptionModel.tv_title,
                 )
                 subscriptionBottomSheetDialog.show(requireActivity().supportFragmentManager, "balanceHistoryDetailDialog")
-//            }
+            }
         }
 
     }

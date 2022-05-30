@@ -5,6 +5,7 @@ import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.os.Handler
 import android.os.storage.StorageVolume
 import android.util.Log
 import android.view.*
@@ -103,22 +104,28 @@ class FundPasswordDialog: DialogFragment() {
             }
 
             if(codes.length == 4){
-                if(codes == "1111"){
-                    imgIcon.setImageResource(R.drawable.ic_fund_key_success)
-                    txtMessage.text = "Success"
-                    txtMessage.setTextColor(resources.getColor(R.color.success))
-                    for (pingCode in layPingCode.children){
-                        pingCode.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.success))
+                layProgressBar.visibility = View.VISIBLE
+                Handler().postDelayed({
+                    if(codes == "1111"){
+                        imgIcon.setImageResource(R.drawable.ic_fund_key_success)
+                        txtMessage.text = "Success"
+                        txtMessage.setTextColor(resources.getColor(R.color.success))
+                        for (pingCode in layPingCode.children){
+                            pingCode.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.success))
+                        }
+                        dismiss()
+                    }else{
+                        imgIcon.setImageResource(R.drawable.ic_fund_key_invalid)
+                        txtMessage.text = "Invalid"
+                        txtMessage.setTextColor(resources.getColor(R.color.main_red))
+                        for (pingCode in layPingCode.children){
+                            pingCode.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.main_red))
+                        }
                     }
-                    dismiss()
-                }else{
-                    imgIcon.setImageResource(R.drawable.ic_fund_key_invalid)
-                    txtMessage.text = "Invalid"
-                    txtMessage.setTextColor(resources.getColor(R.color.main_red))
-                    for (pingCode in layPingCode.children){
-                        pingCode.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.main_red))
-                    }
-                }
+                    layProgressBar.visibility = View.GONE
+                }, 3000)
+
+
             }else{
                 imgIcon.setImageResource(R.drawable.ic_fund_key_normal)
                 txtMessage.text = "Enter Fund Password"
