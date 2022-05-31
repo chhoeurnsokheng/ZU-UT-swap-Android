@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    android:id="@+id/bottom_sheet_layout"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:overScrollMode="never"
+        android:scrollbars="none"
+        android:background="@drawable/dialog_bg">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_20"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/balance_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/dimen_20"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/dimen_18"
+                    android:layout_height="@dimen/dimen_18"
+                    android:src="@drawable/ic_baseline_account_balance_wallet_24"
+                    app:tint="@color/color_main" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_10"
+                    android:text="@string/balance"
+                    android:textAppearance="@style/medium_16"
+                    android:textColor="@color/black" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/subscription_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/dimen_20"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/dimen_18"
+                    android:layout_height="@dimen/dimen_18"
+                    android:src="@drawable/ic_hourglass_regular"
+                    app:tint="@color/color_main" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_10"
+                    android:text="@string/Subscription"
+                    android:textAppearance="@style/medium_16"
+                    android:textColor="@color/black" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lock_up_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/dimen_20"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/dimen_18"
+                    android:layout_height="@dimen/dimen_18"
+                    android:src="@drawable/ic_baseline_lock_24"
+                    app:tint="@color/color_main" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_10"
+                    android:text="@string/lock_up"
+                    android:textAppearance="@style/medium_16"
+                    android:textColor="@color/black" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/historical_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/dimen_20"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/dimen_18"
+                    android:layout_height="@dimen/dimen_18"
+                    android:src="@drawable/ic_clock_rotate_left_regular"
+                    app:tint="@color/color_main" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_10"
+                    android:text="@string/historical"
+                    android:textAppearance="@style/medium_16"
+                    android:textColor="@color/black" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</layout>
