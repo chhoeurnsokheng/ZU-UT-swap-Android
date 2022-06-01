@@ -1,18 +1,12 @@
 package com.zillennium.utswap.screens.navbar.tradeTab
 
 import android.content.res.ColorStateList
-import android.app.Activity
-import android.content.Context
-import android.content.Intent
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.View
-import android.view.inputmethod.InputMethodManager
-import androidx.fragment.app.Fragment
+import android.util.Log
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
@@ -37,9 +31,6 @@ class TradeFragment :
                 imgNotification.setOnClickListener {
 
                 }
-
-
-
 
                 val project = arrayOf(
                     "Siem Reap 17140",

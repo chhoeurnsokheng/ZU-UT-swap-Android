@@ -1,13 +1,11 @@
 package com.zillennium.utswap.screens.navbar.navbar
 
 import android.content.Intent
-import android.os.Handler
 import android.view.View.GONE
-import android.widget.Toast
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI.setupWithNavController
-import com.zillennium.utswap.Datas.StoredPreferences.KYCPreferences
+import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
 import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
@@ -25,8 +23,6 @@ class NavbarActivity :
     override var mPresenter: NavbarView.Presenter = NavbarPresenter()
     override val layoutResource: Int = R.layout.activity_navbar
 
-//    private var doubleBackToExitPressedOnce = false
-
     override fun initView() {
         super.initView()
         try {
@@ -35,6 +31,14 @@ class NavbarActivity :
                 SessionPreferences().removeValue("SESSION_STATUS")
                 SessionPreferences().removeValue("SESSION_KYC")
 //                KYCPreferences().clearValue()
+
+
+//
+//                TestPreferencesLiveData().SESSION_STATUS.observe(this@NavbarActivity, Observer {
+//
+//                })
+
+//                SessionVariable.
 
                 if(SessionPreferences().SESSION_STATUS!!){
                     layAuth.visibility = GONE
