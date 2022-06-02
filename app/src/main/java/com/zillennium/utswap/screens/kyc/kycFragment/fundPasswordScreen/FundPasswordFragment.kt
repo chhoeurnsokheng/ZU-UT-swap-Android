@@ -1,13 +1,20 @@
 package com.zillennium.utswap.screens.kyc.kycFragment.fundPasswordScreen
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.text.Editable
 import android.text.TextWatcher
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
+import android.util.Log
+import android.view.inputmethod.InputMethodManager
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources.getDrawable
+import androidx.core.view.children
 import androidx.navigation.fragment.findNavController
+import com.zillennium.utswap.Datas.StoredPreferences.KYCPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
@@ -21,273 +28,193 @@ class FundPasswordFragment :
     override var mPresenter: FundPasswordView.Presenter = FundPasswordPresenter()
     override val layoutResource: Int = R.layout.fragment_kyc_fund_password
 
-    private var clickCount = 2
-    private var click = 2
+    private var clickCountPassword = 1
+    private var clickCountConfirmPassword = 1
 
+    @SuppressLint("UseCompatLoadingForDrawables", "SetTextI18n")
     override fun initView() {
         super.initView()
-        try {
+//        try {
             binding.apply {
 
                 imgBack.setOnClickListener {
                     findNavController().popBackStack()
                 }
 
-                editBox1.requestFocus()
-//                showSoftKeyboard(editBox1 as View)
+                /* Fund Password Code */
+                numberVerification.setOnClickListener {
+                    editFundPassword.requestFocus()
+                    val inputManager1 =
+                        requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                    inputManager1.showSoftInput(editFundPassword, InputMethodManager.SHOW_IMPLICIT)
 
-                editBox1.addTextChangedListener(object : TextWatcher {
-                    override fun beforeTextChanged(
-                        charSequence: CharSequence,
-                        i: Int,
-                        i1: Int,
-                        i2: Int
-                    ) {
+                    if(editFundPassword.text.isEmpty()){
+                        val textInputLast = numberVerification.getChildAt(0) as TextView
+                        textInputLast.text = "|"
+                        textInputLast.transformationMethod = HideReturnsTransformationMethod.getInstance()
                     }
 
-                    override fun onTextChanged(
-                        charSequence: CharSequence,
-                        i: Int,
-                        i1: Int,
-                        i2: Int
-                    ) {
-                        if (charSequence.toString().trim { it <= ' ' }.isNotEmpty()) {
-                            editBox2.requestFocus()
-                        } else {
-                            editBox1.clearFocus()
+                    if(editConfirmFundPassword.text.isEmpty()){
+                        val confirmTextInputLast = confirmNumberVerification.getChildAt(0) as TextView
+                        confirmTextInputLast.text = ""
+                    }
+                }
+
+                editFundPassword.addTextChangedListener(object : TextWatcher {
+                    override fun beforeTextChanged(ch: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+                    override fun onTextChanged(chr: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+                        for(child in numberVerification.children){
+                            val children = child as TextView
+                            children.background = resources.getDrawable(R.drawable.bg_border_bottom)
+                            children.text = ""
+                            showPassword(clickCountPassword)
+                        }
+
+                        if(chr?.length!! <= 3){
+                            val textInputLast = chr.length.let { numberVerification.getChildAt(it.toInt()) } as TextView
+                            textInputLast.text = "|"
+                            textInputLast.transformationMethod = HideReturnsTransformationMethod.getInstance()
+                        }
+
+                        for (index in chr?.indices!!) {
+                            val textInput = numberVerification.getChildAt(index) as TextView
+                            textInput.text = chr[index].toString()
+                            if(index == numberVerification.childCount - 1){
+                                confirmNumberVerification.callOnClick()
+                            }
+                        }
+                    }
+                    override fun afterTextChanged(p0: Editable?) {}
+                })
+
+                /* Confirm Fund Password code */
+                confirmNumberVerification.setOnClickListener {
+                    editConfirmFundPassword.requestFocus()
+                    val inputManager2 =
+                        requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                    inputManager2.showSoftInput(editConfirmFundPassword, InputMethodManager.SHOW_IMPLICIT)
+
+                    if(editConfirmFundPassword.text.isEmpty()){
+                        val confirmTextInputLast = confirmNumberVerification.getChildAt(0) as TextView
+                        confirmTextInputLast.text = "|"
+                        confirmTextInputLast.transformationMethod = HideReturnsTransformationMethod.getInstance()
+                    }
+
+                    if(editFundPassword.text.isEmpty()){
+                        val textInputLast = numberVerification.getChildAt(0) as TextView
+                        textInputLast.text = ""
+                    }
+                }
+
+                editConfirmFundPassword.addTextChangedListener(object: TextWatcher{
+                    override fun beforeTextChanged(ch: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+                    override fun onTextChanged(chr: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+                        for(child in confirmNumberVerification.children){
+                            val children = child as TextView
+                            children.background = resources.getDrawable(R.drawable.bg_border_bottom)
+                            children.text = ""
+                            showConfirmPassword(clickCountConfirmPassword)
+                        }
+
+                        if(chr?.length!! <= 3){
+                            val textInputLast = chr.length.let { confirmNumberVerification.getChildAt(it.toInt()) } as TextView
+                            textInputLast.text = "|"
+                            textInputLast.transformationMethod = HideReturnsTransformationMethod.getInstance()
+                        }
+
+                        for (index in chr?.indices!!){
+                            val textInput2 = confirmNumberVerification.getChildAt(index) as TextView
+                            textInput2.text = chr[index].toString()
+                            if(index == numberVerification.childCount - 1){
+                                val inputManager2 =
+                                    requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                                inputManager2.hideSoftInputFromWindow(view?.windowToken, 0)
+                            }
                         }
                     }
 
-                    override fun afterTextChanged(editable: Editable) {}
-                })
-                editBox2.addTextChangedListener(object : TextWatcher {
-                    override fun beforeTextChanged(
-                        charSequence: CharSequence,
-                        i: Int,
-                        i1: Int,
-                        i2: Int
-                    ) {
-                    }
-
-                    override fun onTextChanged(
-                        charSequence: CharSequence,
-                        i: Int,
-                        i1: Int,
-                        i2: Int
-                    ) {
-                        if (charSequence.toString().trim { it <= ' ' }.isNotEmpty()) {
-                            editBox3.requestFocus()
-                        } else editBox1.requestFocus()
-                    }
-
-                    override fun afterTextChanged(editable: Editable) {}
-                })
-                editBox3.addTextChangedListener(object : TextWatcher {
-                    override fun beforeTextChanged(
-                        charSequence: CharSequence,
-                        i: Int,
-                        i1: Int,
-                        i2: Int
-                    ) {
-                    }
-
-                    override fun onTextChanged(
-                        charSequence: CharSequence,
-                        i: Int,
-                        i1: Int,
-                        i2: Int
-                    ) {
-                        if (charSequence.toString().trim { it <= ' ' }.isNotEmpty()) {
-                            editBox4.requestFocus()
-                        } else editBox2.requestFocus()
-                    }
-
-                    override fun afterTextChanged(editable: Editable) {}
-                })
-                editBox4.addTextChangedListener(object : TextWatcher {
-                    override fun beforeTextChanged(
-                        charSequence: CharSequence,
-                        i: Int,
-                        i1: Int,
-                        i2: Int
-                    ) {
-                    }
-
-                    override fun onTextChanged(
-                        charSequence: CharSequence,
-                        i: Int,
-                        i1: Int,
-                        i2: Int
-                    ) {
-                        if (charSequence.toString().trim { it <= ' ' }.isNotEmpty()) {
-                            editBoxConfirm1.requestFocus()
-                        } else editBoxConfirm3.requestFocus()
-                    }
-
-                    override fun afterTextChanged(editable: Editable) {}
+                    override fun afterTextChanged(p0: Editable?) {}
                 })
 
-                editBoxConfirm1.addTextChangedListener(object : TextWatcher {
-                    override fun beforeTextChanged(
-                        charSequence: CharSequence,
-                        i: Int,
-                        i1: Int,
-                        i2: Int
-                    ) {
+                btnNext.setOnClickListener {
+                    if (editFundPassword.text.toString() == editConfirmFundPassword.text.toString() && editFundPassword.length() == 4 && editConfirmFundPassword.length() == 4){
+                        KYCPreferences().FUND_PASSWORD = editFundPassword.text.toString()
+                        findNavController().navigate(R.id.action_to_contract_kyc_fragment)
+                    }else{
+                        for(child in numberVerification.children){
+                            child.background = resources.getDrawable(R.drawable.bg_border_bottom_red)
+                        }
+                        for(child in confirmNumberVerification.children){
+                            child.background = resources.getDrawable(R.drawable.bg_border_bottom_red)
+                        }
                     }
+                }
 
-                    override fun onTextChanged(
-                        charSequence: CharSequence,
-                        i: Int,
-                        i1: Int,
-                        i2: Int
-                    ) {
-                        if (charSequence.toString().trim { it <= ' ' }.isNotEmpty()) {
-                            editBoxConfirm2.requestFocus()
-                        } else editBoxConfirm1.clearFocus()
-                    }
+//                if(!KYCPreferences().FUND_PASSWORD.isNullOrEmpty()){
+//                    editFundPassword.setText(KYCPreferences().FUND_PASSWORD.toString())
+//                    editConfirmFundPassword.setText(KYCPreferences().FUND_PASSWORD.toString())
+//                }
 
-                    override fun afterTextChanged(editable: Editable) {}
-                })
-                editBoxConfirm2.addTextChangedListener(object : TextWatcher {
-                    override fun beforeTextChanged(
-                        charSequence: CharSequence,
-                        i: Int,
-                        i1: Int,
-                        i2: Int
-                    ) {
-                    }
-
-                    override fun onTextChanged(
-                        charSequence: CharSequence,
-                        i: Int,
-                        i1: Int,
-                        i2: Int
-                    ) {
-                        if (charSequence.toString().trim { it <= ' ' }.isNotEmpty()) {
-                            editBoxConfirm3.requestFocus()
-                        } else editBoxConfirm1.requestFocus()
-                    }
-
-                    override fun afterTextChanged(editable: Editable) {}
-                })
-                editBoxConfirm3.addTextChangedListener(object : TextWatcher {
-                    override fun beforeTextChanged(
-                        charSequence: CharSequence,
-                        i: Int,
-                        i1: Int,
-                        i2: Int
-                    ) {
-                    }
-
-                    override fun onTextChanged(
-                        charSequence: CharSequence,
-                        i: Int,
-                        i1: Int,
-                        i2: Int
-                    ) {
-                        if (charSequence.toString().trim { it <= ' ' }.isNotEmpty()) {
-                            editBoxConfirm4.requestFocus()
-                        } else editBoxConfirm2.requestFocus()
-                    }
-
-                    override fun afterTextChanged(editable: Editable) {}
-                })
-                editBoxConfirm4.addTextChangedListener(object : TextWatcher {
-                    override fun beforeTextChanged(
-                        charSequence: CharSequence,
-                        i: Int,
-                        i1: Int,
-                        i2: Int
-                    ) {
-                    }
-
-                    override fun onTextChanged(
-                        charSequence: CharSequence,
-                        i: Int,
-                        i1: Int,
-                        i2: Int
-                    ) {
-                        if (charSequence.toString().trim { it <= ' ' }.isNotEmpty()) {
-                            editBoxConfirm4.clearFocus()
-                        } else editBoxConfirm3.requestFocus()
-                    }
-
-                    override fun afterTextChanged(editable: Editable) {}
-                })
-
-                imgShowPassword.setOnClickListener {
-                    clickCount++
-                    showPassword(clickCount)
+                imgShowPassword.setOnClickListener{
+                    clickCountPassword++
+                    showPassword(clickCountPassword)
                 }
 
                 imgShowConfirmPassword.setOnClickListener {
-                    click++
-                    showCfPassword(click)
-
+                    clickCountConfirmPassword++
+                    showConfirmPassword(clickCountConfirmPassword)
                 }
 
-                btnNext.setOnClickListener {
-                    findNavController().navigate(R.id.action_to_contract_kyc_fragment)
-//                    val intent = Intent(UTSwapApp.instance, ContractFragment::class.java)
-//                    startActivity(intent)
-                }
-
+                imgShowPassword.callOnClick()
+                imgShowConfirmPassword.callOnClick()
             }
 
-        } catch (error: Exception) {
-            // Must be safe
-        }
-    }
-
-    @SuppressLint("UseCompatLoadingForDrawables")
-    private fun showPassword(clickCount: Int) {
-        binding.apply {
-            if (clickCount % 2 == 0) {
-                editBox1.transformationMethod = PasswordTransformationMethod.getInstance()
-                editBox2.transformationMethod = PasswordTransformationMethod.getInstance()
-                editBox3.transformationMethod = PasswordTransformationMethod.getInstance()
-                editBox4.transformationMethod = PasswordTransformationMethod.getInstance()
-                imgShowPassword.setImageDrawable(getDrawable(UTSwapApp.instance,R.drawable.ic_baseline_remove_red_eye_24))
-            } else {
-                editBox1.transformationMethod = HideReturnsTransformationMethod.getInstance()
-                editBox2.transformationMethod = HideReturnsTransformationMethod.getInstance()
-                editBox3.transformationMethod = HideReturnsTransformationMethod.getInstance()
-                editBox4.transformationMethod = HideReturnsTransformationMethod.getInstance()
-                imgShowPassword.setImageDrawable(getDrawable(UTSwapApp.instance, R.drawable.ic_baseline_visibility_off_24))
-            }
-        }
-    }
-
-    @SuppressLint("UseCompatLoadingForDrawables")
-    private fun showCfPassword(click: Int) {
-        binding.apply {
-            if (click % 2 == 0) {
-                editBoxConfirm1.transformationMethod = PasswordTransformationMethod.getInstance()
-                editBoxConfirm2.transformationMethod = PasswordTransformationMethod.getInstance()
-                editBoxConfirm3.transformationMethod = PasswordTransformationMethod.getInstance()
-                editBoxConfirm4.transformationMethod = PasswordTransformationMethod.getInstance()
-                imgShowConfirmPassword.setImageDrawable(getDrawable(UTSwapApp.instance, R.drawable.ic_baseline_remove_red_eye_24))
-            } else {
-                editBoxConfirm1.transformationMethod = HideReturnsTransformationMethod.getInstance()
-                editBoxConfirm2.transformationMethod = HideReturnsTransformationMethod.getInstance()
-                editBoxConfirm3.transformationMethod = HideReturnsTransformationMethod.getInstance()
-                editBoxConfirm4.transformationMethod = HideReturnsTransformationMethod.getInstance()
-                imgShowConfirmPassword.setImageDrawable(getDrawable(UTSwapApp.instance, R.drawable.ic_baseline_visibility_off_24))
-            }
-        }
-
-    }
-
-//    private fun showSoftKeyboard(editText: View) {
-//        if (editText.requestFocus()) {
-//            val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-//            imm.showSoftInput(editText.windowToken as View, InputMethodManager.SHOW_IMPLICIT)
+//        } catch (error: Exception) {
+//            // Must be safe
 //        }
-//    }
+    }
 
-//    fun hideSoftKeyboard(view: View) {
-//        val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-//        imm.hideSoftInputFromWindow(view.windowToken, 0)
-//    }
+    @SuppressLint("UseCompatLoadingForDrawables")
+    private fun showPassword(clickPassword: Int) {
+        binding.apply {
+            if (clickPassword % 2 == 0) {
+                numberVerification
+                for (child in numberVerification.children) {
+                    val children = child as TextView
+                    children.transformationMethod = PasswordTransformationMethod.getInstance()
+                }
+                imgShowPassword.setImageResource(R.drawable.ic_baseline_remove_red_eye_24)
+            } else {
+                for (child in numberVerification.children) {
+                    val children = child as TextView
+                    children.transformationMethod = HideReturnsTransformationMethod.getInstance()
+                }
+                imgShowPassword.setImageResource(R.drawable.ic_baseline_visibility_off_24)
+            }
+        }
+    }
+
+    @SuppressLint("UseCompatLoadingForDrawables")
+    private fun showConfirmPassword(clickConfirmPassword: Int) {
+        binding.apply {
+            if (clickConfirmPassword % 2 == 0) {
+                for (child in confirmNumberVerification.children) {
+                    val children = child as TextView
+                    children.transformationMethod = PasswordTransformationMethod.getInstance()
+                }
+                imgShowConfirmPassword.setImageResource(R.drawable.ic_baseline_remove_red_eye_24)
+            } else {
+                for (child in confirmNumberVerification.children) {
+                    val children = child as TextView
+                    children.transformationMethod = HideReturnsTransformationMethod.getInstance()
+                }
+                imgShowConfirmPassword.setImageResource(R.drawable.ic_baseline_visibility_off_24)
+            }
+        }
+
+    }
 }

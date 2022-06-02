@@ -1,12 +1,15 @@
 package com.zillennium.utswap.screens.security.securityFragment.registerScreen
 
+import android.content.Context
 import android.content.Intent
 import android.content.res.ColorStateList
+import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import com.zillennium.utswap.Datas.StoredPreferences.KYCPreferences
@@ -15,6 +18,7 @@ import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentSecurityRegisterBinding
+import com.zillennium.utswap.utils.validate
 
 class RegisterFragment :
     BaseMvpFragment<RegisterView.View, RegisterView.Presenter, FragmentSecurityRegisterBinding>(),
@@ -32,46 +36,87 @@ class RegisterFragment :
                     activity?.finish()
                 }
 
+                layView.setOnClickListener {
+                    val inputManager =
+                        requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                    inputManager.hideSoftInputFromWindow(view?.windowToken, 0)
+                }
+
+                laySignUp.setOnClickListener {
+                    val inputManager =
+                        requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                    inputManager.hideSoftInputFromWindow(view?.windowToken, 0)
+                }
 
 
                 btnSignup.setOnClickListener {
-                    var isHaveError = false
-                    txtMessage.text = "Invalid Email or Password"
 
-                    if (inputEmail.text.toString().isEmpty()) {
+                    var isHaveError = false
+                    txtMessage.text = "Invalid. Please Try Again"
+                    txtMessage.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.main_red))
+
+                    if(!validate().isValidEmail(inputEmail.text.toString().trim()) && !validate().isValidPhoneNumber(inputEmail.text.toString().trim())){
+                        txtMessage.text = "Please Enter Email or Phone Number"
                         txtMessage.visibility = View.VISIBLE
                         inputEmail.backgroundTintList =
                             ColorStateList.valueOf(resources.getColor(R.color.red))
                         isHaveError = true
+                        return@setOnClickListener
                     }
 
-                    if (inputPassword.text.toString().isEmpty()) {
+                    if (inputPassword.text.toString().length < 8) {
+                        txtMessage.text = "Please Enter a Password Longer Than 8 Digits"
                         txtMessage.visibility = View.VISIBLE
                         inputPassword.backgroundTintList =
                             ColorStateList.valueOf(resources.getColor(R.color.red))
                         isHaveError = true
+                        return@setOnClickListener
                     }
-                    if (inputConfirmPassword.text.toString().isEmpty()) {
+
+                    if (inputConfirmPassword.text.toString().length < 8) {
+                        txtMessage.text = "Invalid. Please Try Again"
                         txtMessage.visibility = View.VISIBLE
                         inputConfirmPassword.backgroundTintList =
                             ColorStateList.valueOf(resources.getColor(R.color.red))
                         isHaveError = true
+                        return@setOnClickListener
                     }
 
-                    if (isHaveError) {
+                    if(inputConfirmPassword.text.toString().trim() != inputPassword.text.toString().trim()){
+                        txtMessage.text = "Password didn't match"
+                        txtMessage.visibility = View.VISIBLE
+                        inputPassword.backgroundTintList =
+                            ColorStateList.valueOf(resources.getColor(R.color.red))
+                        inputConfirmPassword.backgroundTintList =
+                            ColorStateList.valueOf(resources.getColor(R.color.red))
+                        isHaveError = true
                         return@setOnClickListener
-                    } else {
-                        if(inputPassword.text.toString() != inputConfirmPassword.text.toString()){
-                            txtMessage.text = "Password didn't match"
-                            txtMessage.visibility = View.VISIBLE
-                        }else{
-                            txtMessage.visibility = View.GONE
-                            KYCPreferences().FIRST_NAME = inputPassword.text.toString()
+                    }
 
-                            val title = ""
-                            val bundle = bundleOf("register" to title)
-                            findNavController().navigate(R.id.action_to_verification_security_fragment, bundle)
-                        }
+                    if (!isHaveError) {
+
+                        pbSignup.visibility = View.VISIBLE
+                        btnSignup.isClickable = false
+                        btnSignup.alpha = 0.6F
+
+                        Handler().postDelayed({
+
+                            if(inputEmail.text.toString().trim() == "utswap@gmail.com"){
+                                txtMessage.visibility = View.VISIBLE
+                                txtMessage.text = "Email/Phone Number Unavailable"
+                            }else{
+                                txtMessage.visibility = View.GONE
+                                SessionPreferences().SESSION_USERNAME = inputEmail.text.toString().trim()
+                                SessionPreferences().SESSION_PASSWORD = inputPassword.text.toString().trim()
+                                findNavController().navigate(R.id.action_to_verification_security_fragment)
+                            }
+
+                            pbSignup.visibility = View.GONE
+                            btnSignup.isClickable = true
+                            btnSignup.alpha = 1F
+                        }, 3000)
+
+
                     }
 
 
@@ -175,6 +220,8 @@ class RegisterFragment :
                 //Hide Password
                 inputPassword.transformationMethod= PasswordTransformationMethod.getInstance()
             }
+            inputPassword.requestFocus()
+            inputPassword.setSelection(inputPassword.text.length)
         }
     }
 
@@ -193,6 +240,8 @@ class RegisterFragment :
                 //Hide Password
                 inputConfirmPassword.transformationMethod= PasswordTransformationMethod.getInstance()
             }
+            inputConfirmPassword.requestFocus()
+            inputConfirmPassword.setSelection(inputConfirmPassword.text.length)
 
         }
 

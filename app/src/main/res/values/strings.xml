@@ -1,22 +1,8 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="main_company">Zillion United Co.,Ltd.</string>
     <string name="app_name">UT Swap</string>
-    <string name="login_in_to_stay_connected">Log In to stay connected</string>
-    <string name="title_activity_main">MainActivity</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
     <string name="project">Project</string>
-    <string name="project_ico">Project ICO</string>
     <string name="trade">Trade</string>
-    <string name="swap">Swap</string>
-    <string name="news">News</string>
-    <string name="account">Account</string>
-    <string name="email">Email</string>
-    <string name="phone_number">Phone Number</string>
-    <string name="enter_email">Enter Email</string>
-    <string name="enter_password">Enter Password</string>
-    <string name="enter_code">Enter Code</string>
     <string name="forgot_password">Forget Password</string>
     <string name="sign_in">Sign In</string>
     <string name="register_now">Register Now</string>
@@ -51,7 +37,6 @@
     <string name="reset_password">Reset Password</string>
     <string name="sign_up">Sign Up</string>
     <string name="btn_yes">Yes</string>
-
     <string name="btn_later">Later</string>
     <string name="home">Home</string>
     <string name="article_news">Article News</string>
@@ -208,7 +193,6 @@
         <item>Men</item>
         <item>Women</item>
     </string-array>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="welcome">welcome</string>
     <string name="employment_info">Employment Info</string>
@@ -258,5 +242,57 @@
     <string name="invalid_email_or_password">Invalid Email or Password</string>
     <string name="field_can_t_be_empty">Field can\'t be empty</string>
     <string name="password_not_matching">Password Not matching</string>
+    <string name="cannot_leave_black">Cannot leave black</string>
+    <string name="project_info">Project Info</string>
+    <string name="investment_information">Investment Information</string>
+    <string name="UT">$/UT</string>
+    <string name="value">Value</string>
+    <string name="sqm">$/sqm</string>
+    <string name="target_selling_price">Target Selling Price</string>
+    <string name="documents">Documents</string>
+    <string name="sales_and_purchase_agreement">Sales and Purchase Agreement</string>
+    <string name="property_title">Property Title</string>
+    <string name="analysis">Analysis</string>
+    <string name="SubscriptionExpandedFragment">SubscriptionExpandedFragment</string>
+    <string name="SubscriptionConfirmPopupFragment">SubscriptionConfirmPopupFragment</string>
+    <string name="Please_confirm_your_order">Please confirm your order.</string>
+    <string name="confirm">Confirm</string>
+    <string name="price_subscription">Price:</string>
+    <string name="money3">$1 990.00</string>
+    <string name="Subscription">Subscription</string>
+    <string name="ut_pochentong">UT Pochentong 555</string>
+    <string name="time_date">End 10:00:00, 09/05/2022</string>
+    <string name="money">3.90</string>
+    <string name="money1">3.98</string>
+    <string name="money2">4.10</string>
+    <string name="ut_lock">0/44,000 UT</string>
+    <string name="ut_lock1">11 550/77 000 UT</string>
+    <string name="ut_lock2">24 750/99 000 UT</string>
+    <string name="lock_day">60 Day(s)</string>
+    <string name="lock_day1">40 Day(s)</string>
+    <string name="non_lock_day">No Lock</string>
+    <string name="subscription_label">SubscriptionFragment</string>
+    <string name="Premium_Professional">Premium, Professional</string>
+    <string name="ut_Pochentong">UT Pochentong 555</string>
+    <string name="subscription_lock_period">Subscription amount is subjected to a locked period of 60 minutes.</string>
+    <string name="volume_input">Volume:</string>
+    <string name="subscription_price">Subscription Price:</string>
+    <string name="price_subscript">$1 990.00</string>
+    <string name="subscribes">Subscribes</string>
+    <string name="ut_price">500 UT</string>
+    <string name="chart">Chart</string>
+    <string name="order_book">Order Book</string>
+    <string name="orders">Orders</string>
+    <string name="transactions">Transactions</string>
+    <string name="all_trans">All Trans.</string>
+    <string name="filter_">Filter</string>
+    <string name="sort">Sort</string>
+    <string name="bid">Bid</string>
+    <string name="ask">Ask</string>
+    <string name="trading_balance">Trading Balance</string>
+    <string name="finance">Finance</string>
+    <string name="watchlist">Watchlist</string>
+    <string name="recent_news">Recent News</string>
+    <string name="read_more">Read More</string>
 
 </resources>

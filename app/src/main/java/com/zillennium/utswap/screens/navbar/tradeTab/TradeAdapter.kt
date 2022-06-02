@@ -1,8 +1,5 @@
 package com.zillennium.utswap.screens.navbar.tradeTab
 
-import android.annotation.SuppressLint
-import android.content.res.ColorStateList
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
@@ -13,10 +10,13 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
+import com.zillennium.utswap.utils.groupingSeparator
+import com.zillennium.utswap.utils.groupingSeparatorInt
 
-class TradeAdapter(arrayList: ArrayList<Trade>) :
+class TradeAdapter(arrayList: ArrayList<Trade>, onclickTrade: OnclickTrade) :
     RecyclerView.Adapter<TradeAdapter.ViewHolder>() {
-    private val listdata: ArrayList<Trade> = arrayList
+    private var listdata: ArrayList<Trade> = arrayList
+    private var onclickTrade: OnclickTrade
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
@@ -40,24 +40,35 @@ class TradeAdapter(arrayList: ArrayList<Trade>) :
         viewHolder.txtProject.text = tradeList.project
 
         if(tradeList.change < 0){
-            viewHolder.txtChange.text = tradeList.change.toString() + "%"
+            viewHolder.txtChange.text = groupingSeparator(tradeList.change) + "%"
         }else {
-            viewHolder.txtChange.text = "+" + tradeList.change + "%"
+            viewHolder.txtChange.text = "+" + groupingSeparator(tradeList.change) + "%"
             viewHolder.txtChange.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.success))
         }
 
-        viewHolder.txtLast.text = "$" + tradeList.last
-        viewHolder.txtVolume.text = tradeList.volume.toString()
+        viewHolder.txtLast.text = "$" + groupingSeparator(tradeList.last)
+        viewHolder.txtVolume.text = groupingSeparatorInt(tradeList.volume)
 
         if(i + 1 == listdata.size){
             viewHolder.viewLine.visibility = GONE
         }
 
-        viewHolder.linearLayout.setOnClickListener { }
+        viewHolder.linearLayout.setOnClickListener {
+            onclickTrade.clickMe()
+        }
     }
 
     override fun getItemCount(): Int {
         return listdata.size
+    }
+
+    interface OnclickTrade{
+        fun clickMe()
+    }
+
+    init {
+        this.listdata = arrayList
+        this.onclickTrade = onclickTrade
     }
 
 }

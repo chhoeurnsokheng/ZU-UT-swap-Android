@@ -1,17 +1,13 @@
 package com.zillennium.utswap.screens.security.securityFragment.PromptScreen
 
 import android.content.Intent
-import androidx.camera.core.impl.utils.ContextUtil.getApplicationContext
 import androidx.navigation.fragment.findNavController
-import com.zillennium.utswap.Datas.StoredPreferences.KYCPreferences
 import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentSecurityPromptBinding
 import com.zillennium.utswap.screens.kyc.kycActivity.KYCActivity
-import com.zillennium.utswap.screens.kyc.kycFragment.idTypeScreen.IdTypeFragment
-import com.zillennium.utswap.screens.navbar.navbar.NavbarActivity
 
 class PromptFragment :
     BaseMvpFragment<PromptView.View, PromptView.Presenter, FragmentSecurityPromptBinding>(),

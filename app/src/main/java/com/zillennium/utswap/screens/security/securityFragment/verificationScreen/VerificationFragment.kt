@@ -9,6 +9,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import android.widget.Toast
@@ -16,13 +17,14 @@ import androidx.core.view.children
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
 import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentSecurityVerificationBinding
 
-class VerificationFragment():
+class VerificationFragment :
     BaseMvpFragment<VerificationView.View, VerificationView.Presenter, FragmentSecurityVerificationBinding>(),
     VerificationView.View {
 
@@ -38,19 +40,28 @@ class VerificationFragment():
         try {
             binding.apply {
 
+//                activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
+
                 imgBack.setOnClickListener {
+                    fragmentManager?.backStackEntryCount
                     findNavController().popBackStack()
+
                 }
 
                 startTimer()
 
-                layoutCount.setOnClickListener() {
+                layoutCount.setOnClickListener {
                     linearCountdown.visibility = View.VISIBLE
                     imgWrong.visibility = View.GONE
                     imgCorrect.visibility = View.GONE
 
                     for (child in layoutCount.children){
                         child.background = resources.getDrawable(R.drawable.bg_corner)
+                    }
+
+                    if(editBox.text.isEmpty()){
+                        val textInputLast = layoutCount.getChildAt(0) as TextView
+                        textInputLast.text = "|"
                     }
 
                     editBox.requestFocus()
@@ -60,7 +71,7 @@ class VerificationFragment():
 
                 }
 
-                resendCode.setOnClickListener() {
+                resendCode.setOnClickListener {
                     stopTimer()
                     startTimer()
                     btnNext.isEnabled = true
@@ -79,24 +90,45 @@ class VerificationFragment():
                     for(child in layoutCount.children){
                         child.background = resources.getDrawable(R.drawable.bg_corner)
                     }
+
+                    layoutCount.performClick()
+                }
+
+                imgWrong.setOnClickListener {
+                    for (child in layoutCount.children){
+                        val children = child as TextView
+                        children.background = resources.getDrawable(R.drawable.bg_corner)
+                        children.text = ""
+                    }
+                    editBox.setText("")
+                    imgWrong.visibility = View.GONE
+                    linearCountdown.visibility = View.VISIBLE
+
+                    layoutCount.performClick()
                 }
 
                 editBox.addTextChangedListener(object : TextWatcher {
                     override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
                     override fun onTextChanged(chr: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                        for (child in layoutCount.children){
+                            val children = child as TextView
+                            children.text = ""
+                        }
 
-                        textView1.text = ""
-                        textView2.text = ""
-                        textView3.text = ""
-                        textView4.text = ""
-                        textView5.text = ""
-                        textView6.text = ""
+                        if(chr?.length!! <= 5){
+                            val textInputLast = chr.length.let { layoutCount.getChildAt(it.toInt()) } as TextView
+                            textInputLast.text = "|"
+                        }
 
-                        if (chr != null) {
-                            for (index in chr.indices) {
-                                val textInput = layoutCount.getChildAt(index) as TextView
-                                textInput.text = chr[index].toString()
+                        for (index in chr.indices) {
+                            val textInput = layoutCount.getChildAt(index) as TextView
+                            textInput.text = chr[index].toString()
+
+                            if(index == layoutCount.childCount - 1){
+                                val inputManager =
+                                    requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                                inputManager.hideSoftInputFromWindow(view?.windowToken, 0)
                             }
                         }
                     }
@@ -106,40 +138,60 @@ class VerificationFragment():
                 })
 
                 btnNext.setOnClickListener {
+                    val status: Int = 0
+                    if (editBox.text.toString().length == 6 && editBox.text.toString().isNotEmpty()) {
 
-                    if (editBox.text.toString() == "111111") {
-                        imgCorrect.visibility = View.VISIBLE
-                        imgWrong.visibility = View.GONE
-                        linearCountdown.visibility = View.GONE
-                        stopTimer()
-                        for(child in layoutCount.children){
-                            child.background = resources.getDrawable(R.drawable.bg_border_green_correct)
-                        }
+                        pbNext.visibility = View.VISIBLE
+                        btnNext.isClickable = false
+                        btnNext.alpha = 0.6F
 
-                        when (arguments?.getString("title")) {
-                            "sign in" -> {
-                                SessionPreferences().SESSION_STATUS = true
-                                activity?.finish()
+                        Handler().postDelayed({
+                            if(editBox.text.toString() == "111111" || status == 1){
+                                imgCorrect.visibility = View.VISIBLE
+                                imgWrong.visibility = View.GONE
+                                linearCountdown.visibility = View.GONE
+                                stopTimer()
+                                for(child in layoutCount.children){
+                                    child.background = resources.getDrawable(R.drawable.bg_green_corner)
+                                }
+
+                                when (arguments?.getString("title")) {
+                                    "sign in" -> {
+                                        SessionPreferences().SESSION_STATUS = true
+                                        SessionVariable.SESSION_STATUS.value = true
+                                        activity?.finish()
+                                    }
+                                    "reset password" -> {
+                                        findNavController().navigate(R.id.action_to_new_password_security_fragment)
+                                    }
+                                    "register" -> {
+                                        findNavController().navigate(R.id.action_to_term_condition_security_fragment)
+                                    }
+                                }
+                            }else{
+                                linearCountdown.visibility = View.GONE
+                                imgCorrect.visibility = View.GONE
+                                imgWrong.visibility = View.VISIBLE
+                                for(child in layoutCount.children){
+                                    child.background = resources.getDrawable(R.drawable.bg_red_corner)
+                                }
                             }
-                            "reset password" -> {
-                                findNavController().navigate(R.id.action_to_new_password_security_fragment)
-                            }
-                            "register" -> {
-                                findNavController().navigate(R.id.action_to_term_condition_security_fragment)
-                            }
-                        }
+
+                            pbNext.visibility = View.GONE
+                            btnNext.isClickable = true
+                            btnNext.alpha = 1F
+
+                        }, 3000)
+
 
                     } else {
                         linearCountdown.visibility = View.GONE
                         imgCorrect.visibility = View.GONE
                         imgWrong.visibility = View.VISIBLE
-
                         for(child in layoutCount.children){
                             child.background = resources.getDrawable(R.drawable.bg_red_corner)
                         }
                     }
-
-//                    if (editBox.text.toString().isEmpty() || editBox.text.toString().length < 6)
                 }
             }
         }catch (error: Exception) {
@@ -149,6 +201,7 @@ class VerificationFragment():
 
     private fun startTimer() {
         binding.apply {
+            stopTimer()
             countDownTimer = object : CountDownTimer(timeLeftInMilliseconds, 1000) {
                 @SuppressLint("SetTextI18n")
                 override fun onTick(l: Long) {
@@ -159,7 +212,7 @@ class VerificationFragment():
                 override fun onFinish() {
                     btnNext.isEnabled = false
                     Toast.makeText(
-                        requireActivity(),
+                        activity,
                         "You're run out of time!",
                         Toast.LENGTH_SHORT
                     ).show()

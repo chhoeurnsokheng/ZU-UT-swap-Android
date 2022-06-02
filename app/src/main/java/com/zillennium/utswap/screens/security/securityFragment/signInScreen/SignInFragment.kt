@@ -2,23 +2,30 @@ package com.zillennium.utswap.screens.security.securityFragment.signInScreen
 
 import android.content.Intent
 import android.content.res.ColorStateList
+import android.os.Handler
 import android.text.Editable
+import android.text.TextUtils
 import android.text.TextWatcher
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
+import android.util.Patterns
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.fragment.app.clearFragmentResultListener
 import androidx.navigation.fragment.findNavController
 import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentSecuritySignInBinding
+import com.zillennium.utswap.screens.navbar.navbar.NavbarActivity
 import com.zillennium.utswap.screens.security.securityActivity.registerScreen.RegisterActivity
 import com.zillennium.utswap.screens.security.securityActivity.resetPasswordScreen.ResetPasswordActivity
 import com.zillennium.utswap.screens.security.securityFragment.signInScreen.CheckNetworkConnection.CheckNetworkConnection
+import com.zillennium.utswap.utils.validate
+import kotlin.system.exitProcess
 
 
 class SignInFragment :
@@ -45,13 +52,11 @@ class SignInFragment :
 //            IdNeteworkConnection()
             binding.apply {
                 imgBack.setOnClickListener {
+                    SessionPreferences().removeValue("SESSION_USERNAME")
+                    SessionPreferences().removeValue("SESSION_PASSWORD")
                     activity?.finish()
+
                 }
-
-
-//                   if (!checkWifiOnAndConnected()) {
-//
-//                    }
 
                 showPassBtn.setOnClickListener {
                     ShowHidePass()
@@ -62,31 +67,64 @@ class SignInFragment :
                     val intent = Intent(UTSwapApp.instance, ResetPasswordActivity::class.java)
                     startActivity(intent)
                 }
+
                 btnRegister.setOnClickListener {
                     activity?.finish()
                     val intent = Intent(UTSwapApp.instance, RegisterActivity::class.java)
                     startActivity(intent)
                 }
-                btnSignIn.setOnClickListener {
 
+                btnSignIn.setOnClickListener {
                     var isHaveError = false
+
                     txtMessage.text = "Invalid Email or Password"
-                    if (textInputEmail.text.toString().isEmpty()) {
+
+                    if(!validate().isValidEmail(textInputEmail.text.toString().trim()) && !validate().isValidPhoneNumber(textInputEmail.text.toString().trim())){
+                        txtMessage.text = "Please Enter Email or Phone Number"
                         txtMessage.visibility = View.VISIBLE
                         textInputEmail.backgroundTintList =
                             ColorStateList.valueOf(resources.getColor(R.color.red))
                         isHaveError = true
+                        return@setOnClickListener
                     }
-                    if (textInputPassword.text.toString().isEmpty()) {
+
+                    if(textInputPassword.text.toString().length < 8){
+                        txtMessage.text = "Please Enter a Password Longer Than 8 Digits"
                         txtMessage.visibility = View.VISIBLE
                         textInputPassword.backgroundTintList =
                             ColorStateList.valueOf(resources.getColor(R.color.red))
                         isHaveError = true
-                    } else {
-                        txtMessage.visibility = View.INVISIBLE
-                        SessionPreferences().SESSION_USERNAME = textInputEmail.text.toString()
-//                        findNavController().popBackStack()
-                        findNavController().navigate(R.id.action_to_verification_security_fragment)
+                        return@setOnClickListener
+                    }
+
+                    if (!isHaveError){
+
+                        pbSignIn.visibility = View.VISIBLE
+                        btnSignIn.isClickable = false
+                        btnSignIn.alpha = 0.6F
+
+                        Handler().postDelayed({
+                            val status: Int = 0
+                            if(status == 1 || (textInputEmail.text.toString().trim() == "utswap@gmail.com" && textInputPassword.text.toString().trim() == "12345678")){
+                                txtMessage.visibility = View.VISIBLE
+                                txtMessage.background.setTint(resources.getColor(R.color.success))
+                                txtMessage.text = "Successfully logged in"
+                                SessionPreferences().SESSION_USERNAME = textInputEmail.text.toString().trim()
+                                SessionPreferences().SESSION_PASSWORD = textInputPassword.text.toString().trim()
+                                findNavController().navigate(R.id.action_to_verification_security_fragment)
+                            }else{
+                                txtMessage.visibility = View.VISIBLE
+                                txtMessage.text = "Invalid email and password"
+                            }
+
+                            pbSignIn.visibility = View.GONE
+                            btnSignIn.isClickable = true
+                            btnSignIn.alpha = 1F
+
+                        }, 3000)
+
+
+
                     }
                 }
                 textInputEmail.addTextChangedListener(object : TextWatcher {
@@ -219,6 +257,7 @@ class SignInFragment :
                 textInputPassword.transformationMethod =
                     PasswordTransformationMethod.getInstance()
             }
+            textInputPassword.setSelection(textInputPassword.text.length)
         }
     }
 }

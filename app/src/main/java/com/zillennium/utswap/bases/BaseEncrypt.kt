@@ -1,7 +1,7 @@
 package com.zillennium.utswap.bases
 
-import okio.HashingSource.md5
-import java.util.*
+//import okio.HashingSource.md5
+//import java.util.*
 
 
 //class BaseEncrypt {

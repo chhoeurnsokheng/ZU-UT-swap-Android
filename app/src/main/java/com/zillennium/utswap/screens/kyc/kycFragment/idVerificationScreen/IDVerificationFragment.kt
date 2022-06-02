@@ -6,90 +6,77 @@ import android.app.DatePickerDialog.OnDateSetListener
 import android.content.res.ColorStateList
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.DatePicker
 import androidx.navigation.fragment.findNavController
-import com.chivorn.smartmaterialspinner.SmartMaterialSpinner
 import com.zillennium.utswap.Datas.StoredPreferences.KYCPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentKycIdVerificationBinding
+import com.zillennium.utswap.models.SpinnerModel
 import java.text.SimpleDateFormat
 import java.util.*
 
 
 class IDVerificationFragment :
     BaseMvpFragment<IDVerificationView.View, IDVerificationView.Presenter, FragmentKycIdVerificationBinding>(),
-    IDVerificationView.View, AdapterView.OnItemSelectedListener {
+    IDVerificationView.View {
 
     override var mPresenter: IDVerificationView.Presenter = IDVerificationPresenter()
     override val layoutResource: Int = R.layout.fragment_kyc_id_verification
 
-    private var spGender: SmartMaterialSpinner<String>? = null
-    private var genderList: MutableList<String>? = null
-
-    private var spCityProvince: SmartMaterialSpinner<String>? = null
-    private var provinceList: MutableList<String>? = null
-
-    private var spDistrictKhan: SmartMaterialSpinner<String>? = null
-    private var districtList: MutableList<String>? = null
-
-    private var spCommuneSankat: SmartMaterialSpinner<String>? = null
-    private var communeList: MutableList<String>? = null
+    private val genderList = mutableListOf<SpinnerModel>()
+    private val provinceList = mutableListOf<SpinnerModel>()
+    private val districtList = mutableListOf<SpinnerModel>()
+    private val communeList = mutableListOf<SpinnerModel>()
 
     object info {
         var firstName = ""
         var lastName = ""
         var dateOfBirth = ""
-        var gender = ""
-        var city = ""
-        var district = ""
-        var commune = ""
+        var gender = 0
+        var city = 0
+        var district = 0
+        var commune = 0
         var addressHouse = ""
     }
 
-    @SuppressLint("UseCompatLoadingForDrawables")
     override fun initView() {
         super.initView()
-        try {
-        binding.apply {
-
-            /* if Data already input */
-            if(!KYCPreferences().FIRST_NAME.isNullOrEmpty()){
-                etFirstName.setText(KYCPreferences().FIRST_NAME)
-            }
-            if(!KYCPreferences().LAST_NAME.isNullOrEmpty()){
-                etLastName.setText(KYCPreferences().LAST_NAME)
-            }
-            if(!KYCPreferences().BIRTHDAY.isNullOrEmpty()){
-                etDate.setText(KYCPreferences().BIRTHDAY)
-            }
-            if(!KYCPreferences().ADDRESS.isNullOrEmpty()){
-                etHouse.setText(KYCPreferences().ADDRESS)
-            }
-            if(!KYCPreferences().GENDER.isNullOrEmpty()){
-                spinnerGender.setSelection(KYCPreferences().GENDER?.toInt() ?: 0)
-            }
-            if(!KYCPreferences().CITY_PROVINCE.isNullOrEmpty()){
-                spinnerCityProvince.setSelection(KYCPreferences().CITY_PROVINCE?.toInt() ?: 0)
-            }
-            if(!KYCPreferences().DISTRICT_KHAN.isNullOrEmpty()){
-                spinnerDistrictKhan.setSelection(KYCPreferences().DISTRICT_KHAN?.toInt() ?: 0)
-            }
-            if(!KYCPreferences().COMMUNE_SANGKAT.isNullOrEmpty()){
-                spinnerCommuneSangkat.setSelection(KYCPreferences().COMMUNE_SANGKAT?.toInt() ?: 0)
-            }
-
-            btnBack.setOnClickListener {
-                findNavController().popBackStack()
-            }
-
+//        try {
+            binding.apply {
 
             initSpinnerGender()
             initSpinnerCityProvince()
             initDistrictKhan()
             initCommuneSangkat()
+
+            /* if Data already input */
+            if (!KYCPreferences().FIRST_NAME.isNullOrEmpty()) {
+                info.firstName = KYCPreferences().FIRST_NAME.toString()
+                etFirstName.setText(info.firstName)
+            }
+
+            if (!KYCPreferences().LAST_NAME.isNullOrEmpty()) {
+                info.lastName = KYCPreferences().LAST_NAME.toString()
+                etLastName.setText(info.lastName)
+            }
+
+            if (!KYCPreferences().BIRTHDAY.isNullOrEmpty()) {
+                info.dateOfBirth = KYCPreferences().BIRTHDAY.toString()
+                etDate.setText(info.dateOfBirth)
+            }
+
+            if (!KYCPreferences().ADDRESS.isNullOrEmpty()) {
+                info.addressHouse = KYCPreferences().ADDRESS.toString()
+                etHouse.setText(info.addressHouse)
+            }
+
+            btnBack.setOnClickListener {
+                popFragmentNavigation()
+            }
 
             val calendar = Calendar.getInstance()
 
@@ -115,30 +102,58 @@ class IDVerificationFragment :
                     calendar[Calendar.DAY_OF_MONTH]
                 ).show()
             }
-
+//
             btnNext.setOnClickListener {
                 var isHaveError = false
 
-                // Gender Error
-                if (info.gender.isEmpty()){
+                //  FirstName Error
+                if (etFirstName.text.toString().isEmpty()) {
+                    txtErrorFirstName.visibility = View.VISIBLE
+                    etFirstName.backgroundTintList =
+                        ColorStateList.valueOf(resources.getColor(R.color.red))
+                    isHaveError = true
+                }
+
+                //  Lastname Error
+                if (etLastName.text.toString().isEmpty()) {
+                    txtErrorLastName.visibility = View.VISIBLE
+                    etLastName.backgroundTintList =
+                        ColorStateList.valueOf(resources.getColor(R.color.red))
+                    isHaveError = true
+                }
+
+                // Date Of Birth Error
+                if (etDate.text.toString().isEmpty()) {
+                    txtErrorDate.visibility = View.VISIBLE
+                    etDate.backgroundTintList =
+                        ColorStateList.valueOf(resources.getColor(R.color.red))
+                    isHaveError = true
+                }
+
+                //Gender Error
+                if (info.gender == 0) {
+                    spinnerGender.underlineColor = resources.getColor(R.color.red)
                     txtErrorGender.visibility = View.VISIBLE
                     isHaveError = true
                 }
 
                 // City/Province Error
-                if (info.city.isEmpty()) {
+                if (info.city == 0) {
+                    spinnerCityProvince.underlineColor = resources.getColor(R.color.red)
                     txtErrorCity.visibility = View.VISIBLE
                     isHaveError = true
                 }
 
                 // District Error
-                if (info.district.isEmpty()){
+                if (info.district == 0) {
+                    spinnerDistrictKhan.underlineColor = resources.getColor(R.color.red)
                     txtErrorDistrict.visibility = View.VISIBLE
                     isHaveError = true
-                }
+               }
 
                 // Commune Error
-                if (info.commune.isEmpty()){
+                if (info.commune == 0) {
+                    spinnerCommuneSangkat.underlineColor = resources.getColor(R.color.red)
                     txtErrorCommune.visibility = View.VISIBLE
                     isHaveError = true
                 }
@@ -146,29 +161,10 @@ class IDVerificationFragment :
                 // House Address Error
                 if (etHouse.text.toString().isEmpty()) {
                     txtErrorHouse.visibility = View.VISIBLE
-                    etHouse.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.red))
+                    etHouse.backgroundTintList =
+                        ColorStateList.valueOf(resources.getColor(R.color.red))
                     isHaveError = true
                 }
-
-                //  ID Verification Error
-                if (etFirstName.text.toString().isEmpty()) {
-                    txtErrorFirstName.visibility = View.VISIBLE
-                    etFirstName.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.red))
-                    isHaveError = true
-                }
-                //  Lastname Error
-                if (etLastName.text.toString().isEmpty()) {
-                    txtErrorLastName.visibility = View.VISIBLE
-                    etLastName.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.red))
-                    isHaveError = true
-                }
-                // Date Of Birth Error
-                if (etDate.text.toString().isEmpty()) {
-                    txtErrorDate.visibility = View.VISIBLE
-                    etDate.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.red))
-                    isHaveError = true
-                }
-
 
                 if (isHaveError) {
                     return@setOnClickListener
@@ -184,10 +180,8 @@ class IDVerificationFragment :
                     KYCPreferences().ADDRESS = info.addressHouse
 
                     findNavController().navigate(R.id.action_to_id_selfie_holding_fragment)
-
-//                    val intent = Intent(UTSwapApp.instance, SelfieHoldingFragment::class.java)
-//                    startActivity(intent)
                 }
+
             }
 
             etFirstName.addTextChangedListener(object : TextWatcher {
@@ -205,16 +199,19 @@ class IDVerificationFragment :
                     i1: Int,
                     i2: Int
                 ) {
+                    txtErrorFirstName.visibility = View.GONE
+                    etFirstName.backgroundTintList =
+                        ColorStateList.valueOf(resources.getColor(R.color.secondary_text))
+
                     info.firstName = charSequence.toString()
                 }
 
-                override fun afterTextChanged(editable: Editable) {
-                    txtErrorFirstName.visibility = View.GONE
-                    etFirstName.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.secondary_text))
+                override fun afterTextChanged(editable: Editable?) {
+
 
                 }
             })
-
+//
             etLastName.addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(
                     charSequence: CharSequence,
@@ -230,16 +227,19 @@ class IDVerificationFragment :
                     i1: Int,
                     i2: Int
                 ) {
+                    txtErrorLastName.visibility = View.GONE
+                    etLastName.backgroundTintList =
+                        ColorStateList.valueOf(resources.getColor(R.color.secondary_text))
+
                     info.lastName = charSequence.toString()
                 }
 
-                override fun afterTextChanged(editable: Editable) {
-                    txtErrorLastName.visibility = View.GONE
-                    etLastName.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.secondary_text))
+                override fun afterTextChanged(editable: Editable?) {
+
 
                 }
             })
-
+//
             etDate.addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(
                     charSequence: CharSequence,
@@ -255,60 +255,68 @@ class IDVerificationFragment :
                     i1: Int,
                     i2: Int
                 ) {
+                    txtErrorDate.visibility = View.GONE
+                    etDate.backgroundTintList =
+                        ColorStateList.valueOf(resources.getColor(R.color.secondary_text))
+
                     info.dateOfBirth = charSequence.toString()
                 }
 
-                override fun afterTextChanged(editable: Editable) {
-                    txtErrorDate.visibility = View.GONE
-                    etDate.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.secondary_text))
+                override fun afterTextChanged(editable: Editable?) {
+
                 }
             })
-
+//
             etHouse.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(
-                    charSequence: CharSequence,
-                    i: Int,
-                    i1: Int,
-                    i2: Int
-                ) {
-                }
+                    override fun beforeTextChanged(
+                        charSequence: CharSequence,
+                        i: Int,
+                        i1: Int,
+                        i2: Int
+                    ) {
+                    }
 
-                override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
-                    info.addressHouse = charSequence.toString()
-                }
+                    override fun onTextChanged(
+                        charSequence: CharSequence,
+                        i: Int,
+                        i1: Int,
+                        i2: Int
+                    ) {
+                        txtErrorHouse.visibility = View.GONE
+                        etHouse.backgroundTintList =
+                            ColorStateList.valueOf(resources.getColor(R.color.secondary_text))
 
-                @SuppressLint("UseCompatLoadingForDrawables")
-                override fun afterTextChanged(editable: Editable) {
-                    txtErrorHouse.visibility = View.GONE
-                    etHouse.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.secondary_text))
-                }
-            })
+                        info.addressHouse = charSequence.toString()
+                    }
 
+                    override fun afterTextChanged(editable: Editable?) {
+
+                    }
+                })
         }
-        } catch (error: Exception) {
-            // Must be safe
-        }
+//        } catch (error: Exception) {
+//            // Must be safe
+//        }
     }
-
-    override fun onItemSelected(adapterView: AdapterView<*>, view: View?, i: Int, l: Long) {}
-
-    override fun onNothingSelected(adapterView: AdapterView<*>?) {}
 
     private fun initSpinnerGender() {
         binding.apply {
-            var genderList = ArrayList<String>()
 
-            genderList.add("Male")
-            genderList.add("Female")
+            genderList.add(SpinnerModel(1, "Male"))
+            genderList.add(SpinnerModel(2, "Female"))
 
-            spinnerGender.item = genderList as List<Any>?
+            spinnerGender.item = genderList.map { it.name }
 
             spinnerGender.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(adapterView: AdapterView<*>, view: View, position: Int, id: Long) {
-                    info.gender = spinnerGender.selectedItemPosition.toString()
-                    binding.apply {
-                        txtErrorGender.visibility = View.GONE
-                    }
+                override fun onItemSelected(
+                    adapterView: AdapterView<*>,
+                    view: View,
+                    position: Int,
+                    id: Long
+                ) {
+                    spinnerGender.underlineColor = resources.getColor(R.color.secondary_text)
+                    info.gender = genderList[position].id
+                    txtErrorGender.visibility = View.GONE
                 }
 
                 override fun onNothingSelected(adapterView: AdapterView<*>) {}
@@ -319,54 +327,62 @@ class IDVerificationFragment :
 
     private fun initSpinnerCityProvince() {
         binding.apply {
-            val provinceList = ArrayList<String>()
 
-            provinceList.add("Kampong Thom")
-            provinceList.add("Kampong Cham")
-            provinceList.add("Kampong Chhnang")
-            provinceList.add("Phnom Penh")
-            provinceList.add("Kandal")
-            provinceList.add("Kampot")
+            provinceList.add(SpinnerModel(1, "Kampong Thom"))
+            provinceList.add(SpinnerModel(2, "Kampong Cham"))
+            provinceList.add(SpinnerModel(3, "Kampong Chhnang"))
+            provinceList.add(SpinnerModel(4, "Phnom Penh"))
+            provinceList.add(SpinnerModel(5, "Kandal"))
+            provinceList.add(SpinnerModel(6, "Kampot"))
 
-            spinnerCityProvince.item = provinceList as List<Any>?
+            spinnerCityProvince.item = provinceList.map { it.name }
 
-            spinnerCityProvince.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(adapterView: AdapterView<*>, view: View, position: Int, id: Long) {
-                    info.city = spinnerCityProvince.selectedItemPosition.toString()
-                    binding.apply {
+            spinnerCityProvince.onItemSelectedListener =
+                object : AdapterView.OnItemSelectedListener {
+                    override fun onItemSelected(
+                        adapterView: AdapterView<*>,
+                        view: View,
+                        position: Int,
+                        id: Long
+                    ) {
+                        spinnerCityProvince.underlineColor = resources.getColor(R.color.secondary_text)
+                        info.city = provinceList[position].id
                         txtErrorCity.visibility = View.GONE
                     }
-                }
 
-                override fun onNothingSelected(adapterView: AdapterView<*>) {}
-            }
+                    override fun onNothingSelected(adapterView: AdapterView<*>) {}
+                }
         }
 
     }
 
     private fun initDistrictKhan() {
         binding.apply {
-            var districtList = ArrayList<String>()
 
-            districtList.add("Chamkarmon")
-            districtList.add("Toul Kork")
-            districtList.add("Steung Meanchey")
-            districtList.add("Chbar Om Pov")
-            districtList.add("Toul Tom Pong I")
-            districtList.add("Toul Tom Pong II")
+            districtList.add(SpinnerModel(1, "Chamkarmon"))
+            districtList.add(SpinnerModel(2, "Toul Kork"))
+            districtList.add(SpinnerModel(3, "Steung Meanchey"))
+            districtList.add(SpinnerModel(4, "Chbar Om Pov"))
+            districtList.add(SpinnerModel(5, "Toul Tom Pong I"))
+            districtList.add(SpinnerModel(6, "Toul Tom Pong II"))
 
-            spinnerDistrictKhan.item = districtList as List<Any>?
+            spinnerDistrictKhan.item = districtList.map { it.name }
 
-            spinnerDistrictKhan.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(adapterView: AdapterView<*>, view: View, position: Int, id: Long) {
-                    info.district = spinnerDistrictKhan.selectedItemPosition.toString()
-                    binding.apply {
+            spinnerDistrictKhan.onItemSelectedListener =
+                object : AdapterView.OnItemSelectedListener {
+                    override fun onItemSelected(
+                        adapterView: AdapterView<*>,
+                        view: View,
+                        position: Int,
+                        id: Long
+                    ) {
+                        spinnerDistrictKhan.underlineColor = resources.getColor(R.color.secondary_text)
+                        info.district = districtList[position].id
                         txtErrorDistrict.visibility = View.GONE
                     }
-                }
 
-                override fun onNothingSelected(adapterView: AdapterView<*>) {}
-            }
+                    override fun onNothingSelected(adapterView: AdapterView<*>) {}
+                }
         }
 
     }
@@ -374,29 +390,75 @@ class IDVerificationFragment :
     private fun initCommuneSangkat() {
 
         binding.apply {
-            var communeList = ArrayList<String>()
 
-            communeList.add("Beoung Tra Bek")
-            communeList.add("Toul Tom Pong")
-            communeList.add("Steung Meanchey")
-            communeList.add("Chbar Om Pov")
-            communeList.add("Prek Pra")
-            communeList.add("Toul Sleng")
+            communeList.add(SpinnerModel(1, "Beoung Tra Bek"))
+            communeList.add(SpinnerModel(2, "Toul Tom Pong"))
+            communeList.add(SpinnerModel(3, "Steung Meanchey"))
+            communeList.add(SpinnerModel(4, "Chbar Om Pov"))
+            communeList.add(SpinnerModel(5, "Prek Pra"))
+            communeList.add(SpinnerModel(6, "Toul Sleng"))
 
-            spinnerCommuneSangkat.item = communeList as List<Any>?
+            spinnerCommuneSangkat.item = communeList.map { it.name }
 
-            spinnerCommuneSangkat.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(adapterView: AdapterView<*>, view: View, position: Int, id: Long) {
-                    info.commune = spinnerCommuneSangkat.selectedItemPosition.toString()
-                    binding.apply {
+            spinnerCommuneSangkat.onItemSelectedListener =
+                object : AdapterView.OnItemSelectedListener {
+                    override fun onItemSelected(
+                        adapterView: AdapterView<*>,
+                        view: View,
+                        position: Int,
+                        id: Long
+                    ) {
+                        spinnerCommuneSangkat.underlineColor = resources.getColor(R.color.secondary_text)
+                        info.commune = communeList[position].id
                         txtErrorCommune.visibility = View.GONE
                     }
-                }
 
-                override fun onNothingSelected(adapterView: AdapterView<*>) {}
-            }
+                    override fun onNothingSelected(adapterView: AdapterView<*>) {}
+                }
         }
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding.apply {
+            if (KYCPreferences().GENDER != 0) {
+                info.gender = KYCPreferences().GENDER ?: 0
+                genderList.forEachIndexed { index, item ->
+                    if (item.id == info.gender) {
+                        spinnerGender.setSelection(index)
+                    }
+                }
+            }
+
+            if (KYCPreferences().CITY_PROVINCE != 0) {
+                info.city = KYCPreferences().CITY_PROVINCE ?: 0
+                provinceList.forEachIndexed { index, item ->
+                    if (item.id == info.city) {
+                        spinnerCityProvince.setSelection(index)
+                    }
+                }
+            }
+
+            if (KYCPreferences().DISTRICT_KHAN != 0) {
+                info.district = KYCPreferences().DISTRICT_KHAN ?: 0
+                districtList.forEachIndexed { index, item ->
+                    if (item.id == info.district) {
+                        spinnerDistrictKhan.setSelection(index)
+                    }
+                }
+            }
+
+            if (KYCPreferences().COMMUNE_SANGKAT != 0) {
+                info.commune = KYCPreferences().COMMUNE_SANGKAT ?: 0
+                communeList.forEachIndexed { index, item ->
+                    if (item.id == info.commune) {
+                        spinnerCommuneSangkat.setSelection(index)
+                    }
+                }
+            }
+
+        }
     }
 }
 

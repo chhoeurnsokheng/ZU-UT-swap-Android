@@ -12,17 +12,13 @@
             android:id="@+id/tool_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingStart="@dimen/dimen_10"
-            android:paddingTop="@dimen/dimen_15"
-            android:paddingEnd="@dimen/dimen_10"
-            android:paddingBottom="@dimen/dimen_10">
+            android:orientation="horizontal">
 
             <ImageView
                 android:id="@+id/btn_back"
-                android:layout_width="@dimen/dimen_32"
-                android:layout_height="@dimen/dimen_32"
-                android:layout_marginEnd="@dimen/dimen_5"
+                android:layout_width="@dimen/dimen_60"
+                android:layout_height="@dimen/dimen_60"
+                android:padding="@dimen/dimen_14"
                 android:src="@drawable/ic_baseline_arrow_back_24"
                 app:tint="@color/color_main" />
 
@@ -100,7 +96,7 @@
                                 android:layout_marginTop="@dimen/dimen_5"
                                 android:ellipsize="end"
                                 android:singleLine="true"
-                                android:text="@string/can_t_keep_empty"
+                                android:text="@string/cannot_leave_black"
                                 android:textAppearance="@style/regular_10"
                                 android:textColor="@color/red"
                                 android:visibility="gone" />
@@ -134,7 +130,7 @@
                                 android:layout_marginTop="@dimen/dimen_5"
                                 android:ellipsize="end"
                                 android:singleLine="true"
-                                android:text="@string/can_t_keep_empty"
+                                android:text="@string/cannot_leave_black"
                                 android:textAppearance="@style/regular_10"
                                 android:textColor="@color/red"
                                 android:visibility="gone" />
@@ -187,7 +183,7 @@
                                 android:layout_marginTop="@dimen/dimen_5"
                                 android:ellipsize="end"
                                 android:singleLine="true"
-                                android:text="@string/can_t_keep_empty"
+                                android:text="@string/cannot_leave_black"
                                 android:textAppearance="@style/regular_10"
                                 android:textColor="@color/red"
                                 android:visibility="gone" />
@@ -208,12 +204,14 @@
                                 app:smsp_floatingLabelColor="@color/white"
                                 app:smsp_hint="Gender"
                                 app:smsp_hintColor="@color/gray"
+                                app:smsp_itemColor="@color/secondary_text"
                                 app:smsp_itemListColor="@color/secondary_text"
-                                app:smsp_itemListHintBackgroundColor="@color/secondary_text"
+                                app:smsp_itemListHintBackgroundColor="@color/backgroundHint"
                                 app:smsp_itemListHintColor="@color/white"
                                 app:smsp_multilineError="false"
                                 app:smsp_selectedItemListColor="@color/secondary_text"
-                                app:smsp_underlineColor="@color/secondary_text" />
+                                app:smsp_underlineColor="@color/secondary_text"
+                                app:smsp_underlineSize="0.1dp"/>
 
                             <TextView
                                 android:id="@+id/txt_error_gender"
@@ -222,7 +220,7 @@
                                 android:layout_marginTop="@dimen/dimen_5"
                                 android:ellipsize="end"
                                 android:singleLine="true"
-                                android:text="@string/can_t_keep_empty"
+                                android:text="@string/cannot_leave_black"
                                 android:textAppearance="@style/regular_10"
                                 android:textColor="@color/red"
                                 android:visibility="gone" />
@@ -241,7 +239,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dimen_10"
-                        android:layout_weight="1"
                         android:orientation="vertical">
 
                         <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
@@ -258,7 +255,8 @@
                             app:smsp_itemListHintColor="@color/white"
                             app:smsp_multilineError="false"
                             app:smsp_selectedItemListColor="@color/secondary_text"
-                            app:smsp_underlineColor="@color/secondary_text" />
+                            app:smsp_underlineColor="@color/secondary_text"
+                            app:smsp_underlineSize="0.1dp"/>
 
                         <TextView
                             android:id="@+id/txt_error_city"
@@ -267,7 +265,7 @@
                             android:layout_marginTop="5dp"
                             android:ellipsize="end"
                             android:singleLine="true"
-                            android:text="@string/can_t_keep_empty"
+                            android:text="@string/cannot_leave_black"
                             android:textAppearance="@style/regular_10"
                             android:textColor="@color/red"
                             android:visibility="gone" />
@@ -277,8 +275,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dimen_5"
-                        android:layout_weight="1"
+                        android:layout_marginTop="@dimen/dimen_10"
                         android:orientation="vertical">
 
                         <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
@@ -293,9 +290,10 @@
                             app:smsp_itemListColor="@color/secondary_text"
                             app:smsp_itemListHintBackgroundColor="@color/backgroundHint"
                             app:smsp_itemListHintColor="@color/white"
-                            app:smsp_multilineError="false"
+                            app:smsp_multilineError="true"
                             app:smsp_selectedItemListColor="@color/secondary_text"
-                            app:smsp_underlineColor="@color/secondary_text" />
+                            app:smsp_underlineColor="@color/secondary_text"
+                            app:smsp_underlineSize="0.1dp"/>
 
                         <TextView
                             android:id="@+id/txt_error_district"
@@ -304,7 +302,7 @@
                             android:layout_marginTop="5dp"
                             android:ellipsize="end"
                             android:singleLine="true"
-                            android:text="@string/can_t_keep_empty"
+                            android:text="@string/cannot_leave_black"
                             android:textAppearance="@style/regular_10"
                             android:textColor="@color/red"
                             android:visibility="gone" />
@@ -332,7 +330,8 @@
                             app:smsp_itemListHintColor="@color/white"
                             app:smsp_multilineError="false"
                             app:smsp_selectedItemListColor="@color/secondary_text"
-                            app:smsp_underlineColor="@color/secondary_text" />
+                            app:smsp_underlineColor="@color/secondary_text"
+                            app:smsp_underlineSize="0.1dp"/>
 
                         <TextView
                             android:id="@+id/txt_error_commune"
@@ -341,7 +340,7 @@
                             android:layout_marginTop="5dp"
                             android:ellipsize="end"
                             android:singleLine="true"
-                            android:text="@string/can_t_keep_empty"
+                            android:text="@string/cannot_leave_black"
                             android:textAppearance="@style/regular_10"
                             android:textColor="@color/red"
                             android:visibility="gone" />
@@ -351,8 +350,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dimen_5"
-                        android:layout_weight="1"
+                        android:layout_marginTop="@dimen/dimen_10"
                         android:orientation="vertical">
 
                         <LinearLayout
@@ -365,13 +363,15 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/house_no_street"
-                                android:textAppearance="@style/regular_12" />
+                                android:textAppearance="@style/regular_12"
+                                android:layout_marginRight="@dimen/dimen_4"/>
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/star"
-                                android:textColor="@color/red" />
+                                android:textColor="@color/red"
+                                android:textSize="@dimen/font_size_10"/>
 
                         </LinearLayout>
 
@@ -393,7 +393,7 @@
                             android:layout_marginTop="5dp"
                             android:ellipsize="end"
                             android:singleLine="true"
-                            android:text="@string/can_t_keep_empty"
+                            android:text="@string/cannot_leave_black"
                             android:textAppearance="@style/regular_10"
                             android:textColor="@color/red"
                             android:visibility="gone" />
@@ -414,7 +414,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/star"
-                            android:textColor="@color/red" />
+                            android:textColor="@color/red"
+                            android:textSize="@dimen/font_size_10"
+                            android:layout_marginEnd="@dimen/dimen_4"/>
 
                         <TextView
                             android:layout_width="wrap_content"

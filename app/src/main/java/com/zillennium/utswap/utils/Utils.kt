@@ -1,5 +1,6 @@
 package com.zillennium.utswap.utils
 
+import android.annotation.SuppressLint
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -7,6 +8,7 @@ import java.util.*
 
 object Utils {
     val todayDate: String
+        @SuppressLint("SimpleDateFormat")
         get() {
             val format = SimpleDateFormat("yyyy-MM-dd")
             val calendar = Calendar.getInstance()

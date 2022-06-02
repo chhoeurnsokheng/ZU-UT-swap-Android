@@ -19,14 +19,13 @@ class SelfieHoldingFragment :
         super.initView()
         try {
             binding.apply {
-
+                ivBack.setOnClickListener {
+                    findNavController().popBackStack()
+                }
                 btnCameraSelfie.setOnClickListener {
                     findNavController().navigate(R.id.action_to_selfie_camera_kyc_fragment)
                 }
-
                 btnNext.setOnClickListener {
-//                    val intent = Intent(UTSwapApp.instance, EmploymentInfoFragment::class.java)
-//                    startActivity(intent)
                     findNavController().navigate(R.id.action_to_employment_kyc_fragment)
                 }
 
@@ -36,12 +35,12 @@ class SelfieHoldingFragment :
                     btnCameraSelfie.visibility = View.VISIBLE
                     imgLogoCorrect.visibility = View.GONE
                     ivSelfie.setImageResource(R.drawable.sample_selfit)
+                    btnNext.isClickable = false
+                    btnNext.visibility = View.GONE
                 }
 
 
-                ivBack.setOnClickListener {
-                    findNavController().popBackStack()
-                }
+
             }
 
         } catch (error: Exception) {
@@ -57,6 +56,8 @@ class SelfieHoldingFragment :
                 imgDelete.visibility = View.VISIBLE
                 btnCameraSelfie.isClickable = false
                 btnCameraSelfie.visibility = View.GONE
+                btnNext.isClickable = true
+                btnNext.visibility = View.VISIBLE
             }
         }
     }

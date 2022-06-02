@@ -2,32 +2,42 @@ package com.zillennium.utswap.Datas.StoredPreferences
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.os.Build
+import androidx.annotation.RequiresApi
 import com.google.gson.Gson
+import com.zillennium.utswap.BuildConfig
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.BaseStoredPreferences
 
+@RequiresApi(Build.VERSION_CODES.R)
 class SystemPreferences: BaseStoredPreferences(UTSwapApp.instance, "SystemPreferences") {
 
     // Information App
-    var APP_NAME by stringPref("APP_NAME", "UT Swap")
+    var APP_NAME by stringPref(defaultValue = "UT Swap")
     var APP_CURRENT_VERSION by stringPref()
     var APP_LAST_VERSION by stringPref()
-    var APP_WEBSITE by stringPref("APP_WEBSITE", "https://utswap.io/")
+    var APP_WEBSITE by stringPref(defaultValue =  "https://utswap.io/")
     var APP_WELCOME by stringPref()
     var APP_STORE by stringPref()
     var APP_PLAY_STORE by stringPref()
     var APP_WINDOWS by stringPref()
     var APP_GALLERY by stringPref()
-    var APP_FACEBOOK by stringPref("APP_FACEBOOK", "101543225693802")
-    var APP_INSTAGRAM by stringPref("APP_INSTAGRAM", "zillion_united")
-    var APP_TELEGRAM by stringPref("APP_TELEGRAM", "https://t.me/+VfhwdqEfvU8006HH")
+    var APP_FACEBOOK by stringPref(defaultValue =  "101543225693802")
+    var APP_INSTAGRAM by stringPref(defaultValue =  "zillion_united")
+    var APP_TELEGRAM by stringPref(defaultValue = "https://t.me/+VfhwdqEfvU8006HH")
     var APP_PHONE by stringPref(defaultValue = "0239999999")
     var APP_TWITTER by stringPref(defaultValue = "zillionunited")
 
     // Device and Permission Phone
-    var DEVICE_NAME by stringPref()
-    var DEVICE_VERSION by stringPref()
-    var DEVICE_MODEL by stringPref()
+    var DEVICE_ID by stringPref(defaultValue = Build.ID)
+    var DEVICE_NAME by stringPref(defaultValue = Build.DEVICE)
+    var DEVICE_BRAND by stringPref(defaultValue = Build.BRAND)
+    var DEVICE_MODEL by stringPref(defaultValue = Build.MODEL)
+    var DEVICE_VERSION by stringPref(defaultValue = Build.VERSION.RELEASE_OR_CODENAME)
+    var DEVICE_SDK by stringPref(defaultValue = Build.VERSION.SDK)
+    var DEVICE_OS by stringPref(defaultValue = System.getProperty("os.version"))
+    var APP_VERSION by stringPref(defaultValue = BuildConfig.VERSION_NAME)
+    var APP_VERSION_CODE by intPref(defaultValue = BuildConfig.VERSION_CODE)
     var PERMISSION_NOTIFICATION by stringPref()
     var PERMISSION_CAMERA by stringPref()
     var PERMISSION_FILE_AND_MEDIA by stringPref()
@@ -58,7 +68,8 @@ class SystemPreferences: BaseStoredPreferences(UTSwapApp.instance, "SystemPrefer
     var AUTH_EXPIRE by longPref()
 
     // Base Url of APIs
-    var API_HOSTING by stringPref()
+    var API_DEBUG by stringPref(defaultValue = "https://sandbox.utswap.io/")
+    var API_HOSTING by stringPref(defaultValue = "https://www.utswap.io/")
     var API_WORDPRESS by stringPref()
     var API_FIREBASE by stringPref()
     var API_AWS by stringPref()

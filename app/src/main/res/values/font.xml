@@ -32,6 +32,14 @@
         <item name="android:fontFamily">@font/avenirnextcyr_bold</item>
         <item name="android:textSize">@dimen/font_size_12</item>
     </style>
+    <style name="medium_28" parent="@android:style/TextAppearance.Small">
+        <item name="android:fontFamily">@font/avenirnextcy_medium</item>
+        <item name="android:textSize">@dimen/font_size_28</item>
+    </style>
+    <style name="medium_24" parent="@android:style/TextAppearance.Small">
+        <item name="android:fontFamily">@font/avenirnextcy_medium</item>
+        <item name="android:textSize">@dimen/font_size_24</item>
+    </style>
     <style name="medium_21" parent="@android:style/TextAppearance.Small">
         <item name="android:fontFamily">@font/avenirnextcy_medium</item>
         <item name="android:textSize">@dimen/font_size_21</item>

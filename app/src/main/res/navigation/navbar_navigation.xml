@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/navigation_navbar_trade">
+
+    <fragment
+        android:id="@+id/navigation_navbar_home"
+        android:name="com.zillennium.utswap.screens.navbar.homeTab.HomeFragment"
+        android:label="@string/project"
+        tools:layout="@layout/fragment_navbar_home" />
+
+    <fragment
+        android:id="@+id/navigation_navbar_portfolio"
+        android:name="com.zillennium.utswap.screens.navbar.portfolioTab.PortfolioFragment"
+        android:label="@string/portfolio"
+        tools:layout="@layout/fragment_navbar_portfolio" />
+
+    <fragment
+        android:id="@+id/navigation_navbar_trade"
+        android:name="com.zillennium.utswap.screens.navbar.tradeTab.TradeFragment"
+        android:label="@string/trade"
+        tools:layout="@layout/fragment_navbar_trade">
+        <action
+            android:id="@+id/action_to_trade_detail"
+            app:destination="@id/navigation_navbar_trade_exchange"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_to_navigation_navbar_project_info"
+            app:destination="@id/navigation_navbar_project_info"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_to_navigation_navbar_project_subscription"
+            app:destination="@id/navigation_navbar_project_subscription"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpToInclusive="true"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_navbar_trade_exchange"
+        android:name="com.zillennium.utswap.screens.navbar.tradeTab.fragment.tradeDetail.TradeDetailFragment"
+        android:label="Trade Detail exchange"
+        tools:layout="@layout/fragment_trade_detail">
+        <action
+            android:id="@+id/action_to_navigation_navbar_trade"
+            app:destination="@+id/navigation_navbar_trade"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpToInclusive="true"/>
+
+        <action
+            android:id="@+id/action_to_navigation_navbar_transaction_detail"
+            app:destination="@+id/navigation_navbar_trade_transaction_detail"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpToInclusive="true"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_navbar_project"
+        android:name="com.zillennium.utswap.screens.navbar.projectTab.projectScreen.ProjectFragment"
+        android:label="@string/home"
+        tools:layout="@layout/fragment_navbar_project">
+        <action
+            android:id="@+id/action_to_project_info"
+            app:destination="@id/navigation_navbar_project_info"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpToInclusive="true"/>
+    </fragment>
+
+
+
+    <fragment
+        android:id="@+id/navigation_navbar_project_info"
+        android:name="com.zillennium.utswap.screens.navbar.projectTab.projectInfoScreen.ProjectInfoFragment"
+        android:label="@string/project_info"
+        tools:layout="@layout/fragment_navbar_project_info">
+
+        <action
+            android:id="@+id/action_to_project_subscription"
+            app:destination="@id/navigation_navbar_project_subscription"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpToInclusive="true"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_navbar_project_subscription"
+        android:name="com.zillennium.utswap.screens.navbar.projectTab.subscriptionScreen.SubscriptionFragment"
+        android:label="@string/project_info"
+        tools:layout="@layout/fragment_navbar_project_subscription">
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_navbar_trade_transaction_detail"
+        android:name="com.zillennium.utswap.screens.navbar.tradeTab.fragment.Transactions.fragment.TransactionDetailFragment"
+        android:label="Transaction Detail"
+        tools:layout="@layout/fragment_transactions_detail">
+
+    </fragment>
+
+
+
+</navigation>
