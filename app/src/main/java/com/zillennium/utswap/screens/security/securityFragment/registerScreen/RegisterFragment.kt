@@ -52,10 +52,11 @@ class RegisterFragment :
                 btnSignup.setOnClickListener {
 
                     var isHaveError = false
-                    txtMessage.text = "Invalid Email or Password"
+                    txtMessage.text = "Invalid. Please Try Again"
+                    txtMessage.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.main_red))
 
                     if(!validate().isValidEmail(inputEmail.text.toString().trim()) && !validate().isValidPhoneNumber(inputEmail.text.toString().trim())){
-                        txtMessage.text = "Please Enter Email or Number Phone"
+                        txtMessage.text = "Please Enter Email or Phone Number"
                         txtMessage.visibility = View.VISIBLE
                         inputEmail.backgroundTintList =
                             ColorStateList.valueOf(resources.getColor(R.color.red))
@@ -73,7 +74,7 @@ class RegisterFragment :
                     }
 
                     if (inputConfirmPassword.text.toString().length < 8) {
-                        txtMessage.text = "Please Enter a Confirm Password Longer Than 8 Digits"
+                        txtMessage.text = "Invalid. Please Try Again"
                         txtMessage.visibility = View.VISIBLE
                         inputConfirmPassword.backgroundTintList =
                             ColorStateList.valueOf(resources.getColor(R.color.red))
@@ -102,7 +103,7 @@ class RegisterFragment :
 
                             if(inputEmail.text.toString().trim() == "utswap@gmail.com"){
                                 txtMessage.visibility = View.VISIBLE
-                                txtMessage.text = "Email / phone number available"
+                                txtMessage.text = "Email/Phone Number Unavailable"
                             }else{
                                 txtMessage.visibility = View.GONE
                                 SessionPreferences().SESSION_USERNAME = inputEmail.text.toString().trim()

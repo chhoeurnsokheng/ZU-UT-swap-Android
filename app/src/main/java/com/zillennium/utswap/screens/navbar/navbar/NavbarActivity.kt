@@ -2,6 +2,7 @@ package com.zillennium.utswap.screens.navbar.navbar
 
 import android.content.Intent
 import android.view.View.GONE
+import android.view.View.VISIBLE
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI.setupWithNavController
@@ -30,22 +31,27 @@ class NavbarActivity :
 
                 SessionPreferences().removeValue("SESSION_STATUS")
                 SessionPreferences().removeValue("SESSION_KYC")
-//                KYCPreferences().clearValue()
 
-
-//
-//                TestPreferencesLiveData().SESSION_STATUS.observe(this@NavbarActivity, Observer {
-//
-//                })
-
-//                SessionVariable.
-
-                if(SessionPreferences().SESSION_STATUS!!){
-                    layAuth.visibility = GONE
+                SessionVariable.SESSION_STATUS.observe(this@NavbarActivity) {
+                    if(SessionVariable.SESSION_STATUS.value == true){
+                        layAuth.visibility = GONE
+                    }else{
+                        layAuth.visibility = VISIBLE
+                    }
                 }
 
-                if(SessionPreferences().SESSION_KYC!!){
-                    layVerify.visibility = GONE
+                if(SessionVariable.SESSION_STATUS.value == true){
+                    layAuth.visibility = GONE
+                }else{
+                    layAuth.visibility = VISIBLE
+                }
+
+                SessionVariable.SESSION_KYC.observe(this@NavbarActivity) {
+                    if(SessionVariable.SESSION_KYC.value == true){
+                        layVerify.visibility = GONE
+                    }else{
+                        layVerify.visibility = VISIBLE
+                    }
                 }
 
                 // Passing each menu ID as a set of Ids because each
@@ -137,20 +143,11 @@ class NavbarActivity :
         }
     }
 
-    override fun onTopResumedActivityChanged(isTopResumedActivity: Boolean) {
-        super.onTopResumedActivityChanged(isTopResumedActivity)
-        binding.apply {
-
-            if(SessionPreferences().SESSION_STATUS!!){
-                layAuth.visibility = GONE
-            }
-
-            if(SessionPreferences().SESSION_KYC!!){
-                layVerify.visibility = GONE
-            }
-
-        }
+    override fun onDestroy() {
+        super.onDestroy()
     }
+
+
 
 //    override fun onBackPressed() {
 //        if (doubleBackToExitPressedOnce) {

@@ -67,14 +67,14 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/volume"
+                    android:text="@string/ask"
                     android:textColor="@color/color_main"
                     android:textSize="@dimen/font_size_14"/>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/bid"
+                    android:text="@string/volume"
                     android:textColor="@color/color_main"
                     android:gravity="end"
                     android:textSize="@dimen/font_size_14"/>

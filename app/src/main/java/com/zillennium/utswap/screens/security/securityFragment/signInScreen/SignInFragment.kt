@@ -80,7 +80,7 @@ class SignInFragment :
                     txtMessage.text = "Invalid Email or Password"
 
                     if(!validate().isValidEmail(textInputEmail.text.toString().trim()) && !validate().isValidPhoneNumber(textInputEmail.text.toString().trim())){
-                        txtMessage.text = "Please Enter Email or Number Phone"
+                        txtMessage.text = "Please Enter Email or Phone Number"
                         txtMessage.visibility = View.VISIBLE
                         textInputEmail.backgroundTintList =
                             ColorStateList.valueOf(resources.getColor(R.color.red))

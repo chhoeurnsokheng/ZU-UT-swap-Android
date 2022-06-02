@@ -7,6 +7,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.zillennium.utswap.R
 import com.zillennium.utswap.models.orderBookList.OrderBookList
+import com.zillennium.utswap.utils.groupingSeparator
+import com.zillennium.utswap.utils.groupingSeparatorInt
 
 class TradeOrderBookAskAdapter  (
     arrayList: ArrayList<OrderBookList>,
@@ -36,8 +38,8 @@ class TradeOrderBookAskAdapter  (
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val orderBookList: OrderBookList = arrayList[position]
 
-        holder.txtBid.text = orderBookList.txtBid
-        holder.txtVolume.text = orderBookList.txtVolume
+        holder.txtBid.text =  groupingSeparator(orderBookList.txtBid.toDouble())
+        holder.txtVolume.text = groupingSeparatorInt(orderBookList.txtVolume.toInt())
     }
 
     init {

@@ -2,10 +2,14 @@ package com.zillennium.utswap.Datas.StoredPreferences
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.os.Build
+import androidx.annotation.RequiresApi
 import com.google.gson.Gson
+import com.zillennium.utswap.BuildConfig
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.BaseStoredPreferences
 
+@RequiresApi(Build.VERSION_CODES.R)
 class SystemPreferences: BaseStoredPreferences(UTSwapApp.instance, "SystemPreferences") {
 
     // Information App
@@ -25,9 +29,15 @@ class SystemPreferences: BaseStoredPreferences(UTSwapApp.instance, "SystemPrefer
     var APP_TWITTER by stringPref(defaultValue = "zillionunited")
 
     // Device and Permission Phone
-    var DEVICE_NAME by stringPref()
-    var DEVICE_VERSION by stringPref()
-    var DEVICE_MODEL by stringPref()
+    var DEVICE_ID by stringPref(defaultValue = Build.ID)
+    var DEVICE_NAME by stringPref(defaultValue = Build.DEVICE)
+    var DEVICE_BRAND by stringPref(defaultValue = Build.BRAND)
+    var DEVICE_MODEL by stringPref(defaultValue = Build.MODEL)
+    var DEVICE_VERSION by stringPref(defaultValue = Build.VERSION.RELEASE_OR_CODENAME)
+    var DEVICE_SDK by stringPref(defaultValue = Build.VERSION.SDK)
+    var DEVICE_OS by stringPref(defaultValue = System.getProperty("os.version"))
+    var APP_VERSION by stringPref(defaultValue = BuildConfig.VERSION_NAME)
+    var APP_VERSION_CODE by intPref(defaultValue = BuildConfig.VERSION_CODE)
     var PERMISSION_NOTIFICATION by stringPref()
     var PERMISSION_CAMERA by stringPref()
     var PERMISSION_FILE_AND_MEDIA by stringPref()

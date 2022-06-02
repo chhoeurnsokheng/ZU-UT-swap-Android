@@ -5,13 +5,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
-import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.zillennium.utswap.R
 import com.zillennium.utswap.models.SubscriptionModel
 import com.zillennium.utswap.utils.groupingSeparator
-import java.text.DecimalFormat
-import java.text.DecimalFormatSymbols
 
 class SubscriptionAdapter(arrayList: ArrayList<SubscriptionModel>, onclickAdapter: OnclickAdapter):
     RecyclerView.Adapter<SubscriptionAdapter.ViewHolder>()

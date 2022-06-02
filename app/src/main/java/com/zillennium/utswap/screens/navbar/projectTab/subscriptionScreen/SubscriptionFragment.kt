@@ -3,6 +3,7 @@ package com.zillennium.utswap.screens.navbar.projectTab.subscriptionScreen
 import android.view.View
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
 import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
@@ -29,6 +30,14 @@ class SubscriptionFragment :
 
                     btnBack.setOnClickListener {
                         findNavController().popBackStack()
+                    }
+
+                    SessionVariable.SESSION_STATUS.observe(requireActivity()) {
+                        onCheckSessionStatusAndKYC()
+                    }
+
+                    SessionVariable.SESSION_KYC.observe(requireActivity()){
+                        onCheckSessionStatusAndKYC()
                     }
 
                     /* Recycle view of project info detail */
@@ -89,9 +98,20 @@ class SubscriptionFragment :
             // Must be safe
         }
     }
+
+    private fun onCheckSessionStatusAndKYC(){
+        binding.apply {
+            if(SessionVariable.SESSION_STATUS.value == true && SessionVariable.SESSION_KYC.value == true){
+                recycleViewProject.alpha = 1F
+            }else{
+                recycleViewProject.alpha = 0.6F
+            }
+        }
+    }
+
     private val onclickAdapter: SubscriptionAdapter.OnclickAdapter = object: SubscriptionAdapter.OnclickAdapter{
         override fun onClickMe(subscriptionModel: SubscriptionModel) {
-            if(SessionPreferences().SESSION_STATUS  == true && SessionPreferences().SESSION_KYC  == true){
+            if(SessionVariable.SESSION_STATUS.value == true && SessionVariable.SESSION_KYC.value == true){
                 val subscriptionBottomSheetDialog: SubscriptionBottomSheet = SubscriptionBottomSheet.newInstance(
                     subscriptionModel.tv_title,
                 )

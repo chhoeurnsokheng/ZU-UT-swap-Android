@@ -1,6 +1,7 @@
 package com.zillennium.utswap.screens.kyc.kycFragment.kycApplicationScreen
 
 import androidx.navigation.fragment.findNavController
+import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
 import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
@@ -24,6 +25,7 @@ class KycApplicationFragment :
 
                 btnAccept.setOnClickListener {
                     SessionPreferences().SESSION_KYC = true
+                    SessionVariable.SESSION_KYC.value = true
                     activity?.finish()
 
                 }

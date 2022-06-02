@@ -163,14 +163,16 @@
                     android:paddingHorizontal="@dimen/dimen_12"
                     android:scrollbars="none"
                     android:visibility="invisible" />
+
                 <RelativeLayout
                     android:id="@+id/pg_loading"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
+
                     <ProgressBar
                         android:layout_width="@dimen/dimen_50"
                         android:layout_height="@dimen/dimen_50"
-                        android:layout_centerInParent="true"/>
+                        android:layout_centerInParent="true" />
                 </RelativeLayout>
 
             </RelativeLayout>

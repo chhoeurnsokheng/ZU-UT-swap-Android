@@ -35,10 +35,11 @@ class OrdersFragment :
         try {
             binding.apply {
 
-                if(SessionPreferences().SESSION_STATUS  == true && SessionPreferences().SESSION_KYC  == true){
-                    txtMessage.visibility = View.GONE
-                    linearOrderHistory.visibility = View.VISIBLE
-                }
+//                if(SessionPreferences().SESSION_STATUS  == true && SessionPreferences().SESSION_KYC  == true){
+//                    txtMessage.visibility = View.GONE
+//                    linearOrderHistory.visibility = View.VISIBLE
+//                }
+
 
                 imgFilter.setOnClickListener{
                     countClickFilter(clickFilter)

@@ -35,10 +35,10 @@ class TransactionsFragment :
         super.initView()
         try {
             binding.apply {
-                if(SessionPreferences().SESSION_STATUS == true && SessionPreferences().SESSION_KYC  == true){
-                    txtMessage.visibility = View.GONE
-                    linearTransactionsHistory.visibility = View.VISIBLE
-                }
+//                if(SessionPreferences().SESSION_STATUS == true && SessionPreferences().SESSION_KYC  == true){
+//                    txtMessage.visibility = View.GONE
+//                    linearTransactionsHistory.visibility = View.VISIBLE
+//                }
 
                 imgFilter.setOnClickListener{
                     countClickFilter(clickFilter)

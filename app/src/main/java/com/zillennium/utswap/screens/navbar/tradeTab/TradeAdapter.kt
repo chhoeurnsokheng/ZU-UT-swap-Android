@@ -10,6 +10,8 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
+import com.zillennium.utswap.utils.groupingSeparator
+import com.zillennium.utswap.utils.groupingSeparatorInt
 
 class TradeAdapter(arrayList: ArrayList<Trade>, onclickTrade: OnclickTrade) :
     RecyclerView.Adapter<TradeAdapter.ViewHolder>() {
@@ -38,14 +40,14 @@ class TradeAdapter(arrayList: ArrayList<Trade>, onclickTrade: OnclickTrade) :
         viewHolder.txtProject.text = tradeList.project
 
         if(tradeList.change < 0){
-            viewHolder.txtChange.text = tradeList.change.toString() + "%"
+            viewHolder.txtChange.text = groupingSeparator(tradeList.change) + "%"
         }else {
-            viewHolder.txtChange.text = "+" + tradeList.change + "%"
+            viewHolder.txtChange.text = "+" + groupingSeparator(tradeList.change) + "%"
             viewHolder.txtChange.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.success))
         }
 
-        viewHolder.txtLast.text = "$" + tradeList.last
-        viewHolder.txtVolume.text = tradeList.volume.toString()
+        viewHolder.txtLast.text = "$" + groupingSeparator(tradeList.last)
+        viewHolder.txtVolume.text = groupingSeparatorInt(tradeList.volume)
 
         if(i + 1 == listdata.size){
             viewHolder.viewLine.visibility = GONE

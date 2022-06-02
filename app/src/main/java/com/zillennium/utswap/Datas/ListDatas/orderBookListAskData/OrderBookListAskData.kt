@@ -10,7 +10,7 @@ object OrderBookListAskData {
         orderBookList.add(OrderBookList("18.91","1800"))
         orderBookList.add(OrderBookList("18.92","900"))
         orderBookList.add(OrderBookList("18.93","588"))
-        orderBookList.add(OrderBookList("18.94","20 000"))
+        orderBookList.add(OrderBookList("18.94","20000"))
         orderBookList.add(OrderBookList("18.95","888"))
         orderBookList.add(OrderBookList("18.96","300"))
         orderBookList.add(OrderBookList("18.97","200"))

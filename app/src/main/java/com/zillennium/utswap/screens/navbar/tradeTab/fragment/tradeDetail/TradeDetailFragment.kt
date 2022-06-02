@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
+import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
 import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
@@ -34,17 +35,17 @@ class TradeDetailFragment :
     private var pageTableAdapter: FragmentStateAdapter? = null
     val NUM_PAGES_TABLE = 3
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_trade_detail, container, false)
-
+//    @SuppressLint("UseCompatLoadingForDrawables", "ResourceAsColor")
+    override fun initView() {
+        super.initView()
         try {
             binding.apply {
-                if(SessionPreferences().SESSION_STATUS == true && SessionPreferences().SESSION_KYC == true){
-                    layBuyAndSell.visibility = View.VISIBLE
+                SessionVariable.SESSION_STATUS.observe(requireActivity()) {
+                    onCheckSessionStatusAndKYC()
+                }
+
+                SessionVariable.SESSION_KYC.observe(requireActivity()){
+                    onCheckSessionStatusAndKYC()
                 }
 
                 pageAdapter = ScreenSlidePageAdapter(this@TradeDetailFragment, NUM_PAGES)
@@ -129,24 +130,20 @@ class TradeDetailFragment :
                     activity?.let { it1 -> buyAndSellBottomSheetDialog.show(it1.supportFragmentManager, "dgdgdg") }
                 }
             }
-        }catch (error: Exception){
-
-        }
-        return binding.root
-    }
-
-
-//    @SuppressLint("UseCompatLoadingForDrawables", "ResourceAsColor")
-    override fun initView() {
-        super.initView()
-        try {
-            binding.apply {
-
-
-
-            }
         } catch (error: Exception) {
             // Must be safe
+        }
+    }
+
+    private fun onCheckSessionStatusAndKYC(){
+        binding.apply {
+            if(SessionVariable.SESSION_STATUS.value == true && SessionVariable.SESSION_KYC.value == true){
+                layBuyAndSell.visibility = View.VISIBLE
+                layTransactions.visibility = View.VISIBLE
+            }else{
+                layBuyAndSell.visibility = View.GONE
+                layTransactions.visibility = View.GONE
+            }
         }
     }
 
@@ -229,19 +226,18 @@ class TradeDetailFragment :
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-
-        binding.apply {
-            if(vpVerify.currentItem == 1){
-                vpVerify.setCurrentItem(0, false)
-            }
-            if(vpTable.currentItem == 1){
-                vpTable.setCurrentItem(0,false)
-            }
-        }
-
-    }
+//    override fun onResume() {
+//        super.onResume()
+//        binding.apply {
+//            if(vpVerify.currentItem == 1){
+//                vpVerify.setCurrentItem(0, false)
+//            }
+//            if(vpTable.currentItem == 1){
+//                vpTable.setCurrentItem(0,false)
+//            }
+//        }
+//
+//    }
 
     override fun onDestroy() {
         super.onDestroy()

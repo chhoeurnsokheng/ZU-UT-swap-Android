@@ -188,7 +188,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="24H LOw"
+                            android:text="24H Low"
                             android:textColor="@color/black"
                             android:textSize="@dimen/font_size_14" />
 
@@ -259,148 +259,157 @@
 
                 </LinearLayout>
 
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dimen_45"
-                    android:layout_marginTop="@dimen/dimen_40"
-                    android:background="@drawable/bg_tabs">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/tab_select"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:background="@drawable/bg_tab_select"
-                            android:text="" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:text="" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/order_book"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="@string/order_book"
-                            android:textAppearance="@style/regular_16"
-                            android:textColor="@color/white" />
-
-                        <TextView
-                            android:id="@+id/chart"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="@string/chart"
-                            android:textAppearance="@style/regular_16"
-                            android:textColor="@color/color_main" />
-
-                    </LinearLayout>
-
-                </FrameLayout>
-
-                <androidx.viewpager2.widget.ViewPager2
-                    android:id="@+id/vp_verify"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dimen_20"
-                    android:touchscreenBlocksFocus="true" />
+                    android:orientation="vertical">
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dimen_45"
+                        android:layout_marginTop="@dimen/dimen_40"
+                        android:background="@drawable/bg_tabs">
 
-                <FrameLayout
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/tab_select"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:background="@drawable/bg_tab_select"
+                                android:text="" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:text="" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/order_book"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="@string/order_book"
+                                android:textAppearance="@style/regular_16"
+                                android:textColor="@color/white" />
+
+                            <TextView
+                                android:id="@+id/chart"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="@string/chart"
+                                android:textAppearance="@style/regular_16"
+                                android:textColor="@color/color_main" />
+
+                        </LinearLayout>
+
+                    </FrameLayout>
+                    <androidx.viewpager2.widget.ViewPager2
+                        android:id="@+id/vp_verify"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dimen_20"
+                        android:touchscreenBlocksFocus="true" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/lay_transactions"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dimen_45"
-                    android:layout_marginTop="@dimen/dimen_30"
-                    android:background="@drawable/bg_tabs">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dimen_45"
+                        android:layout_marginTop="@dimen/dimen_30"
+                        android:background="@drawable/bg_tabs">
 
-                    <LinearLayout
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/tab_select_orders"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:background="@drawable/bg_tab_select"
+                                android:text="" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:text="" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:text="" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/txt_orders"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="@string/orders"
+                                android:textAppearance="@style/regular_16"
+                                android:textColor="@color/white" />
+
+                            <TextView
+                                android:id="@+id/txt_transactions"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="@string/transactions"
+                                android:textAppearance="@style/regular_16"
+                                android:textColor="@color/color_main" />
+
+                            <TextView
+                                android:id="@+id/txt_all_transactions"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="@string/all_trans"
+                                android:textAppearance="@style/regular_16"
+                                android:textColor="@color/color_main" />
+
+                        </LinearLayout>
+
+                    </FrameLayout>
+                    <androidx.viewpager2.widget.ViewPager2
+                        android:id="@+id/vp_table"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/tab_select_orders"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:background="@drawable/bg_tab_select"
-                            android:text="" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:text="" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:text="" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/txt_orders"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="@string/orders"
-                            android:textAppearance="@style/regular_16"
-                            android:textColor="@color/white" />
-
-                        <TextView
-                            android:id="@+id/txt_transactions"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="@string/transactions"
-                            android:textAppearance="@style/regular_16"
-                            android:textColor="@color/color_main" />
-
-                        <TextView
-                            android:id="@+id/txt_all_transactions"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="@string/all_trans"
-                            android:textAppearance="@style/regular_16"
-                            android:textColor="@color/color_main" />
-
-                    </LinearLayout>
-
-                </FrameLayout>
-
-                <androidx.viewpager2.widget.ViewPager2
-                    android:id="@+id/vp_table"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="@dimen/dimen_15"
-                    android:touchscreenBlocksFocus="true" />
-
+                        android:layout_marginTop="@dimen/dimen_15"
+                        android:touchscreenBlocksFocus="true" />
+                </LinearLayout>
             </LinearLayout>
 
         </ScrollView>
