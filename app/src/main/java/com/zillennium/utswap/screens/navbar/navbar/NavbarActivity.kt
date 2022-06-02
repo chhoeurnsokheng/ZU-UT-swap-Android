@@ -1,11 +1,17 @@
 package com.zillennium.utswap.screens.navbar.navbar
 
 import android.content.Intent
+import android.view.MenuItem
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResult
 import androidx.navigation.Navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.NavigationUI.setupWithNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
 import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
@@ -13,6 +19,10 @@ import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityNavbarBinding
 import com.zillennium.utswap.screens.kyc.kycActivity.KYCActivity
+import com.zillennium.utswap.screens.navbar.homeTab.HomeFragment
+import com.zillennium.utswap.screens.navbar.portfolioTab.PortfolioFragment
+import com.zillennium.utswap.screens.navbar.projectTab.projectScreen.ProjectFragment
+import com.zillennium.utswap.screens.navbar.tradeTab.TradeFragment
 import com.zillennium.utswap.screens.security.securityActivity.registerScreen.RegisterActivity
 import com.zillennium.utswap.screens.security.securityActivity.signInScreen.SignInActivity
 import java.lang.Exception
@@ -65,62 +75,60 @@ class NavbarActivity :
                 )
                     .build()
 
-//                var homeStatus = false
-//                var portfolioStatus = false
+                val navController = findNavController(this@NavbarActivity, R.id.nav_host_fragment_activity_navbar_home)
+
+                // This Theme haven't use NoActionBar
+                setupWithNavController(navView, navController)
+
+//                val HomeFragment = HomeFragment()
+//                val PortfolioFragment = PortfolioFragment()
+//                val TradeFragment = TradeFragment()
+//                val ProjectFragment = ProjectFragment()
+//                val fragmentManager = supportFragmentManager
+//                var activeFragment: Fragment = TradeFragment
 //
+//                val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_navbar_home) as NavHostFragment
+//                val navController = navHostFragment.navController
+//
+//                fragmentManager.beginTransaction().apply {
+//                    add(R.id.nav_host_fragment_activity_navbar_home, HomeFragment, "HomeFragment").hide(HomeFragment)
+//                    add(R.id.nav_host_fragment_activity_navbar_home, PortfolioFragment, "PortfolioFragment").hide(PortfolioFragment)
+//                    add(R.id.nav_host_fragment_activity_navbar_home, TradeFragment, "TradeFragment").hide(TradeFragment)
+//                    add(R.id.nav_host_fragment_activity_navbar_home, ProjectFragment, "ProjectFragment").hide(ProjectFragment)
+//                }.commit()
 //
 //                navView.setOnNavigationItemSelectedListener { item ->
-//
-//                    for(child in layFragment.children){
-//                        child.visibility = View.GONE
-//                    }
-//
 //                    when (item.itemId) {
 //                        R.id.navigation_navbar_home -> {
-//                            val nav_host_fragment_activity_navbar_home = findViewById(R.id.nav_host_fragment_activity_navbar_home) as ViewGroup
-//                            nav_host_fragment_activity_navbar_home.visibility = View.VISIBLE
-//                            if(!homeStatus){
-//                                val selectedFragment: Fragment = ProjectMainActivity()
-//                                val transaction: FragmentTransaction =
-//                                    supportFragmentManager.beginTransaction()
-//                                transaction.replace(R.id.nav_host_fragment_activity_navbar_home, selectedFragment)
-//                                transaction.commit()
-//                                homeStatus = !homeStatus
-//                            }
-//
-//                            Log.d("NavigationBarView", "navigation_navbar_home")
+//                            fragmentManager.beginTransaction().hide(activeFragment).show(HomeFragment).commit()
+//                            activeFragment = HomeFragment
+//                            true
 //                        }
 //                        R.id.navigation_navbar_portfolio -> {
-//                            val nav_host_fragment_activity_navbar_portfolio = findViewById(R.id.nav_host_fragment_activity_navbar_portfolio) as ViewGroup
-//                            nav_host_fragment_activity_navbar_portfolio.visibility = View.VISIBLE
-//                            if(!portfolioStatus){
-//                                val selectedFragment: Fragment = ProjectMainActivity()
-//                                val transaction: FragmentTransaction =
-//                                    supportFragmentManager.beginTransaction()
-//                                transaction.replace(R.id.nav_host_fragment_activity_navbar_portfolio, selectedFragment)
-//                                transaction.commit()
-//                                portfolioStatus = !portfolioStatus
-//                            }
-//
-//                            Log.d("NavigationBarView", "navigation_navbar_portfolio")
+//                            fragmentManager.beginTransaction().hide(activeFragment).show(PortfolioFragment).commit()
+//                            activeFragment = PortfolioFragment
+//                            true
 //                        }
 //                        R.id.navigation_navbar_trade -> {
-//                            Log.d("NavigationBarView", "navigation_navbar_trade")
+//                            fragmentManager.beginTransaction().hide(activeFragment).show(TradeFragment).commit()
+//                            activeFragment = TradeFragment
+//                            true
 //                        }
 //                        R.id.navigation_navbar_project -> {
-//                            Log.d("NavigationBarView", "navigation_navbar_project")
+//                            fragmentManager.beginTransaction().hide(activeFragment).show(ProjectFragment).commit()
+//                            activeFragment = ProjectFragment
+//                            true
 //                        }
+//                        else -> false
 //                    }
 //                    true
 //                }
+
+//                fragmentManager.beginTransaction().hide(activeFragment).show(TradeFragment).commit()
+//                activeFragment = TradeFragment
 //                navView.selectedItemId = R.id.navigation_navbar_trade
 
-                val navController = findNavController(this@NavbarActivity, R.id.nav_host_fragment_activity_navbar_home)
 
-
-                // This Theme haven't use NoActionBar
-                //NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-                setupWithNavController(navView, navController)
 
                 btnSignIn.setOnClickListener {
                     val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
@@ -143,11 +151,6 @@ class NavbarActivity :
             // Must be safe
         }
     }
-
-    override fun onDestroy() {
-        super.onDestroy()
-    }
-
 
 
 //    override fun onBackPressed() {

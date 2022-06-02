@@ -1,6 +1,7 @@
 package com.zillennium.utswap.screens.navbar.tradeTab.fragment.chart
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.webkit.WebChromeClient
 import android.webkit.WebSettings
 import android.webkit.WebView

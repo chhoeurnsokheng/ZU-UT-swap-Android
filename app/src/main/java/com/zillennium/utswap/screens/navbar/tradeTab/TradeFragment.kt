@@ -1,5 +1,6 @@
 package com.zillennium.utswap.screens.navbar.tradeTab
 
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.text.Editable
 import android.text.TextWatcher
@@ -11,6 +12,7 @@ import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentNavbarTradeBinding
+import com.zillennium.utswap.screens.navbar.tradeTab.fragment.tradeDetail.TradeDetailFragment
 
 class TradeFragment :
     BaseMvpFragment<TradeView.View, TradeView.Presenter, FragmentNavbarTradeBinding>(),

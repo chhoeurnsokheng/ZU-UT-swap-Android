@@ -7,7 +7,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
+import okhttp3.internal.notifyAll
 
 abstract class BaseMvpActivity<in V : BaseMvpView, T : BaseMvpPresenter<V>, M : ViewDataBinding>
     : AppCompatActivity(), BaseMvpView {
@@ -15,14 +17,19 @@ abstract class BaseMvpActivity<in V : BaseMvpView, T : BaseMvpPresenter<V>, M : 
     protected lateinit var binding: M
     abstract val layoutResource: Int
 
+    val savedStateSparseArray = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (onSetThem() != -1) {
             setTheme(onSetThem())
         }
-        this.mPresenter.attachView(this@BaseMvpActivity as V)
-        this.binding = DataBindingUtil.setContentView(this, layoutResource)
-        this.mPresenter.initViewPresenter(this, savedInstanceState)
+
+        mPresenter.attachView(this@BaseMvpActivity as V)
+        binding = DataBindingUtil.setContentView(this, layoutResource)
+
+
+        mPresenter.initViewPresenter(this, savedInstanceState)
     }
 
     override fun getContext(): Context = this
@@ -67,8 +74,12 @@ abstract class BaseMvpActivity<in V : BaseMvpView, T : BaseMvpPresenter<V>, M : 
 
     override fun onDestroy() {
         mPresenter.detachView()
+        binding.unbind()
+        Runtime.getRuntime().gc()
         super.onDestroy()
     }
+
+
 
     override fun onSetThem(): Int {
         return -1

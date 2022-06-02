@@ -31,7 +31,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:defaultNavHost="true"
-                android:visibility="visible"
                 app:navGraph="@navigation/navbar_navigation"
                 />
 <!--            <fragment-->

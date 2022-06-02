@@ -3,7 +3,6 @@ package com.zillennium.utswap.screens.navbar.projectTab.projectScreen
 import android.annotation.SuppressLint
 import android.content.res.ColorStateList
 import android.os.Build
-import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -13,7 +12,6 @@ import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.neovisionaries.ws.client.*
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
@@ -50,6 +48,8 @@ class ProjectFragment :
 
 //            Handler().postDelayed({
                 binding.apply {
+
+                    Log.d("hello", "world")
 
                     pgLoading.visibility = View.GONE
                     rvProject.visibility = View.VISIBLE
@@ -258,9 +258,6 @@ class ProjectFragment :
                     ProjectAdapter(dataProject, R.layout.item_list_project, onclickProject)
             }
 
-
-
-
         }
 
     }
@@ -270,7 +267,6 @@ class ProjectFragment :
         override fun onClickMe(projectHistory: ProjectModel?, selectedPosition: Int?) {
             val bundle = bundleOf("id" to selectedPosition)
             findNavController().navigate(R.id.action_to_project_info, bundle)
-
         }
 
     }
