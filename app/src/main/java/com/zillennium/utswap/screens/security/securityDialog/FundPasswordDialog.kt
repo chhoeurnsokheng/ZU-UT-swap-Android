@@ -6,12 +6,8 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.os.Handler
-import android.os.storage.StorageVolume
 import android.util.Log
 import android.view.*
-import android.widget.Button
-import android.widget.LinearLayout
-import androidx.core.content.ContextCompat
 import androidx.core.view.children
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
@@ -20,7 +16,7 @@ import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.databinding.DialogSecurityFundPasswordBinding
 import com.zillennium.utswap.screens.navbar.projectTab.subscriptionScreen.dialog.SubscriptionConfirmDialog
 import eightbitlab.com.blurview.RenderScriptBlur
-import java.sql.Struct
+import java.lang.Exception
 
 
 class FundPasswordDialog: DialogFragment() {
@@ -46,45 +42,50 @@ class FundPasswordDialog: DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding?.apply {
-            activity?.apply {
-                blurView.setupWith(findViewById<ViewGroup>(android.R.id.content))
-                    .setFrameClearDrawable(window.decorView.background)
-                    .setBlurAlgorithm(RenderScriptBlur(UTSwapApp.instance))
-                    .setBlurRadius(20f)
-                    .setBlurAutoUpdate(true)
-                    .setHasFixedTransformationMatrix(true)
+        try {
+            binding?.apply {
+                activity?.apply {
+                    blurView.setupWith(findViewById<ViewGroup>(android.R.id.content))
+                        .setFrameClearDrawable(window.decorView.background)
+                        .setBlurAlgorithm(RenderScriptBlur(UTSwapApp.instance))
+                        .setBlurRadius(20f)
+                        .setBlurAutoUpdate(true)
+                        .setHasFixedTransformationMatrix(true)
 
-                imgBack.setOnClickListener {
-                    val subscriptionConfirmDialog: SubscriptionConfirmDialog = SubscriptionConfirmDialog.newInstance(arguments?.get("volume").toString(),arguments?.get("title").toString())
-                    subscriptionConfirmDialog.show(requireActivity().supportFragmentManager, "balanceHistoryDetailDialog")
-                    dismiss()
-                }
-
-                val numberList = arrayListOf(
-                    number0,
-                    number1,
-                    number2,
-                    number3,
-                    number4,
-                    number5,
-                    number6,
-                    number7,
-                    number8,
-                    number9,
-                )
-
-                numberList.forEachIndexed { index, element ->
-                    element.setOnClickListener {
-                        setNumber(index)
+                    imgBack.setOnClickListener {
+                        val subscriptionConfirmDialog: SubscriptionConfirmDialog = SubscriptionConfirmDialog.newInstance(arguments?.get("volume").toString(),arguments?.get("title").toString())
+                        subscriptionConfirmDialog.show(requireActivity().supportFragmentManager, "balanceHistoryDetailDialog")
+                        dismiss()
                     }
-                }
 
-                removeNumber.setOnClickListener { removeNumber()  }
+                    val numberList = arrayListOf(
+                        number0,
+                        number1,
+                        number2,
+                        number3,
+                        number4,
+                        number5,
+                        number6,
+                        number7,
+                        number8,
+                        number9,
+                    )
+
+                    numberList.forEachIndexed { index, element ->
+                        element.setOnClickListener {
+                            setNumber(index)
+                        }
+                    }
+
+                    removeNumber.setOnClickListener { removeNumber()  }
+
+                }
 
             }
-
+        }catch (e: Exception){
+            Log.d("error", e.toString())
         }
+
     }
 
     private fun setNumber(number: Number){
@@ -92,14 +93,14 @@ class FundPasswordDialog: DialogFragment() {
         setPingCode()
     }
 
-    @SuppressLint("UseCompatLoadingForDrawables", "ResourceAsColor")
+    @SuppressLint("UseCompatLoadingForDrawables")
     private fun setPingCode(){
         binding?.apply {
             for (pingCode in layPingCode.children){
                 pingCode.background = resources.getDrawable(R.drawable.bg_circular_border)
             }
 
-            for (i in 0..codes.length - 1) {
+            for (i in codes.indices) {
                 layPingCode.getChildAt(i).background = resources.getDrawable(R.drawable.bg_circular)
             }
 

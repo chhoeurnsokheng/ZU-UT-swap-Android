@@ -1,5 +1,6 @@
 package com.zillennium.utswap.screens.system.splashScreen
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Build
 import android.os.Handler
@@ -14,6 +15,7 @@ import com.zillennium.utswap.databinding.ActivitySplashScreenBinding
 import com.zillennium.utswap.screens.navbar.navbar.NavbarActivity
 
 
+@SuppressLint("CustomSplashScreen")
 class SplashScreenActivity :
     BaseMvpActivity<SplashScreenView.View, SplashScreenView.Presenter, ActivitySplashScreenBinding>(),
     SplashScreenView.View {
