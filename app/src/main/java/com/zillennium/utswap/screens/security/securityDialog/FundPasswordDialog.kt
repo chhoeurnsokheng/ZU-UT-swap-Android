@@ -82,8 +82,8 @@ class FundPasswordDialog: DialogFragment() {
                 }
 
             }
-        }catch (e: Exception){
-            Log.d("error", e.toString())
+        }catch (error: Exception){
+            Log.d("error", error.toString())
         }
 
     }

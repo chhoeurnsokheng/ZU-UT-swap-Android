@@ -4,10 +4,13 @@ import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import com.google.gson.Gson
 import com.google.gson.JsonObject
+import com.zillennium.utswap.Datas.APIs.APIModel
 import com.zillennium.utswap.Datas.APIs.APIRepository
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpPresenterImpl
+import com.zillennium.utswap.models.ProjectModel
 import com.zillennium.utswap.screens.security.securityFragment.signInScreen.CheckNetworkConnection.CheckNetworkConnection
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import okhttp3.OkHttpClient
@@ -37,11 +40,22 @@ class ProjectPresenter : BaseMvpPresenterImpl<ProjectView.View>(),
 //        disposables.add(
             APIRepository.hasGetPost()
                 .subscribe({ JsonObject ->
+
+//                    val model = JsonObject.asJsonObject.get("data").asJsonObject.get("market").asJsonArray
+//
+//                    val test : ProjectModel = Gson().fromJson(model, ProjectModel::class.java)
+//
+//                    APIModel.Market.
+
+
                     Log.d("hello world", JsonObject.toString())
                 }, { error ->
                     println(error.localizedMessage)
                     Log.d("hello world", error.localizedMessage.toString())
                 })
+
+
+
 //        )
 //        disposables.clear()
 

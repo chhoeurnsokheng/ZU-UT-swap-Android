@@ -15,6 +15,7 @@ import com.zillennium.utswap.databinding.ActivityNavbarBinding
 import com.zillennium.utswap.screens.kyc.kycActivity.KYCActivity
 import com.zillennium.utswap.screens.security.securityActivity.registerScreen.RegisterActivity
 import com.zillennium.utswap.screens.security.securityActivity.signInScreen.SignInActivity
+import java.lang.Exception
 
 
 class NavbarActivity :
