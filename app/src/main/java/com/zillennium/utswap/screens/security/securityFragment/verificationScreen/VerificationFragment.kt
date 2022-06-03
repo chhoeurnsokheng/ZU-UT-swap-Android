@@ -113,6 +113,7 @@ class VerificationFragment :
                     override fun onTextChanged(chr: CharSequence?, p1: Int, p2: Int, p3: Int) {
                         for (child in layoutCount.children){
                             val children = child as TextView
+                            children.background = resources.getDrawable(R.drawable.bg_corner)
                             children.text = ""
                         }
 
