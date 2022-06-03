@@ -42,8 +42,6 @@ class ProjectAdapter(
         holder.publicDate.text = projectList.publicDate
             Glide.with(UTSwapApp.instance)
                 .load(projectList.image)
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
-                .skipMemoryCache(true)
                 .into(holder.imageView)
         holder.txttitle.text = projectList.titleProject
         if (projectList.status.isNotEmpty()) {

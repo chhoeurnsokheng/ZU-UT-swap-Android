@@ -149,7 +149,6 @@ class TradeFragment :
             findNavController().navigate(R.id.action_to_trade_detail)
 //            Navigation.findNavController(requireView()).navigate(R.id.trade_detail)
         }
-
     }
 
 //    fun Fragment.hideKeyboard() {

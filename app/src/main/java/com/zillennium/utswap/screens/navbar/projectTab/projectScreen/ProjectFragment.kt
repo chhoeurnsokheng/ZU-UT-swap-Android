@@ -31,7 +31,9 @@ class ProjectFragment :
     override var mPresenter: ProjectView.Presenter = ProjectPresenter()
     override val layoutResource: Int = R.layout.fragment_navbar_project
 
-    private var viewGrid = true
+    private var projectArrayList = ArrayList<ProjectModel>()
+    private var search = ""
+    private var viewGrid = false
     private var sortedDate = true
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -95,8 +97,6 @@ class ProjectFragment :
                         ""
                     )
 
-                    val projectArrayList = ArrayList<ProjectModel>()
-
                     for (i in publicDate.indices) {
                         val project = ProjectModel(
                             i,
@@ -131,48 +131,14 @@ class ProjectFragment :
 
                     /* Sorted on click */
                     layLast.setOnClickListener {
-                        val layout = if(!viewGrid){
-                            R.layout.item_list_project_grid
-                        }else{
-                            R.layout.item_list_project
-                        }
-                        if (sortedDate) {
-                            projectArrayList.sortByDescending {
-                                LocalDate.parse(
-                                    it.publicDate,
-                                    dateTimeFormatter
-                                )
-                            }
-                        } else {
-                            projectArrayList.sortBy {
-                                LocalDate.parse(
-                                    it.publicDate,
-                                    dateTimeFormatter
-                                )
-                            }
-
-                        }
-                        rvProject.adapter =
-                            ProjectAdapter(projectArrayList, layout, onclickProject)
                         sortedDate = !sortedDate
+                        getData()
                     }
 
                     /* Change View on click */
                     layView.setOnClickListener {
-                        if (viewGrid) {
-                            viewType.setImageResource(R.drawable.ic_grid_view)
-//                        txtViewType.text = "List View"
-                            rvProject.layoutManager = GridLayoutManager(UTSwapApp.instance, 2)
-                            rvProject.adapter =
-                                ProjectAdapter(projectArrayList, R.layout.item_list_project_grid, onclickProject)
-                        } else {
-                            viewType.setImageResource(R.drawable.ic_list_view)
-//                        txtViewType.text = "Grid View"
-                            rvProject.layoutManager = LinearLayoutManager(UTSwapApp.instance)
-                            rvProject.adapter =
-                                ProjectAdapter(projectArrayList, R.layout.item_list_project, onclickProject)
-                        }
                         viewGrid = !viewGrid
+                        getData()
                     }
                     layView.callOnClick()
 
@@ -191,16 +157,16 @@ class ProjectFragment :
                     }
 
                     etSearch.addTextChangedListener(object: TextWatcher{
-                        override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                        override fun beforeTextChanged(char: CharSequence?, p1: Int, p2: Int, p3: Int) {
 
                         }
 
-                        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
+                        override fun onTextChanged(char: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                            search = char.toString()
                         }
 
                         override fun afterTextChanged(p0: Editable?) {
-
+                            getData()
                         }
 
                     })
@@ -214,23 +180,24 @@ class ProjectFragment :
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun getData(data: ArrayList<ProjectModel>, search: String? = "", viewGrid: Boolean? = true, sortLatest: Boolean? = true){
-
+    private fun getData(){
         binding.apply {
 
-            val dataProject: ArrayList<ProjectModel> = data
+            var dataProject: ArrayList<ProjectModel> = arrayListOf()
 
-            if(!search.isNullOrEmpty()){
+            if(search.isNotEmpty()){
                 dataProject.clear()
-                data.map {
+                projectArrayList.map {
                     if(it.titleProject.contains(search, ignoreCase = true)){
                         dataProject.add(it)
                     }
                 }
+            }else{
+                dataProject = projectArrayList
             }
 
             val dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")
-            if(sortLatest == true){
+            if(sortedDate){
                 dataProject.sortByDescending {
                     LocalDate.parse(
                         it.publicDate,
@@ -246,7 +213,7 @@ class ProjectFragment :
                 }
             }
 
-            if(viewGrid == true){
+            if(viewGrid){
                 viewType.setImageResource(R.drawable.ic_grid_view)
                 rvProject.layoutManager = GridLayoutManager(UTSwapApp.instance, 2)
                 rvProject.adapter =
