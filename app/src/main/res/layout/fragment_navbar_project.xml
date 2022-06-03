@@ -147,7 +147,7 @@
                         android:layout_width="@dimen/dimen_10"
                         android:layout_height="@dimen/dimen_10"
                         android:src="@drawable/ic_sort_solid"
-                        app:tint="@color/dark_gray" />
+                        app:tint="@color/gray_999999" />
                 </LinearLayout>
             </RelativeLayout>
 
