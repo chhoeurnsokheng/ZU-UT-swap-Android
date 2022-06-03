@@ -1,7 +1,5 @@
 package com.zillennium.utswap.Datas.GlobalVariable
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import com.zillennium.utswap.Datas.StoredPreferences.SystemPreferences
 
 class SystemVariable {

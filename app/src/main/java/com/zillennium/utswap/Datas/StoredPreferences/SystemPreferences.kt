@@ -1,11 +1,6 @@
 package com.zillennium.utswap.Datas.StoredPreferences
 
-import android.annotation.SuppressLint
-import android.content.Context
-import android.content.SharedPreferences
 import android.os.Build
-import androidx.annotation.RequiresApi
-import com.google.gson.Gson
 import com.zillennium.utswap.BuildConfig
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.BaseStoredPreferences
