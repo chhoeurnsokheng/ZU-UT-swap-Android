@@ -144,9 +144,9 @@
                         android:textColor="@color/dark_gray" />
 
                     <ImageView
-                        android:layout_width="@dimen/dimen_12"
-                        android:layout_height="@dimen/dimen_12"
-                        android:src="@drawable/ic_sort"
+                        android:layout_width="@dimen/dimen_10"
+                        android:layout_height="@dimen/dimen_10"
+                        android:src="@drawable/ic_sort_solid"
                         app:tint="@color/dark_gray" />
                 </LinearLayout>
             </RelativeLayout>
