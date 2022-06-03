@@ -17,25 +17,19 @@ abstract class BaseMvpActivity<in V : BaseMvpView, T : BaseMvpPresenter<V>, M : 
     protected lateinit var binding: M
     abstract val layoutResource: Int
 
-    val savedStateSparseArray = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (onSetThem() != -1) {
             setTheme(onSetThem())
         }
-
         mPresenter.attachView(this@BaseMvpActivity as V)
         binding = DataBindingUtil.setContentView(this, layoutResource)
-
-
         mPresenter.initViewPresenter(this, savedInstanceState)
     }
 
     override fun getContext(): Context = this
 
     override fun initView() {
-
     }
 
     protected abstract var mPresenter: T
@@ -53,7 +47,7 @@ abstract class BaseMvpActivity<in V : BaseMvpView, T : BaseMvpPresenter<V>, M : 
     }
 
     override fun onWillBeDisplayed() {
-
+        println("test_onWillBeDisplayed")
     }
 
     override fun onRefresh() {
