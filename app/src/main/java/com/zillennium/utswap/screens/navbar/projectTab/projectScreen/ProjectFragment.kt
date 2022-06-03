@@ -12,6 +12,7 @@ import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.zillennium.utswap.Datas.GlobalVariable.SystemVariable
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
@@ -41,7 +42,6 @@ class ProjectFragment :
     override fun initView() {
         super.initView()
 //        try {
-
         mPresenter.getDataFromApi()
 
 //            mPresenter.getProject().map {
