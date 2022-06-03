@@ -37,7 +37,7 @@ class HomeWatchlistAdapter(arrayList: ArrayList<HomeWatchlistModel>):
         holder.txtLocationTitle.text = homeWatchlistList.locationProject
         holder.txtLastValue.text = homeWatchlistList.lastValue.toString()
         if(homeWatchlistList.changeValue < 0){
-            holder.txtChangeValue.text = "-" + homeWatchlistList.changeValue.toString() + "%"
+            holder.txtChangeValue.text = homeWatchlistList.changeValue.toString() + "%"
             holder.txtChangeValue.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.red))
         }else {
             holder.txtChangeValue.text = "+" + homeWatchlistList.changeValue + "%"
