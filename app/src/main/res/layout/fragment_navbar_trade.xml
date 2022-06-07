@@ -209,12 +209,13 @@
                             android:text="@string/change"
                             android:textAppearance="@style/regular_12"
                             android:textColor="@color/dark_gray" />
+
                         <ImageView
                             android:layout_width="@dimen/dimen_10"
                             android:layout_height="@dimen/dimen_10"
-                            android:src="@drawable/ic_sort_solid"
                             android:layout_centerVertical="true"
                             android:layout_toEndOf="@+id/txt_change"
+                            android:src="@drawable/ic_sort_solid"
                             app:tint="@color/gray_999999" />
                     </RelativeLayout>
                     <RelativeLayout
