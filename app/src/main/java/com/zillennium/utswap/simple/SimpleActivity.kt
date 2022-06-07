@@ -1,7 +1,6 @@
 package com.zillennium.utswap.simple
 
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
-import com.example.utswapapp.simple.SimplePresenter
 import com.zillennium.utswap.R
 import com.zillennium.utswap.databinding.ActivitySimpleBinding
 

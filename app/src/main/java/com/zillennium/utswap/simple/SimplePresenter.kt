@@ -1,4 +1,4 @@
-package com.example.utswapapp.simple
+package com.zillennium.utswap.simple
 
 import android.content.Context
 import android.os.Bundle
