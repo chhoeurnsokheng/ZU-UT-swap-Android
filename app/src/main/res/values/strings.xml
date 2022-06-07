@@ -294,5 +294,17 @@
     <string name="watchlist">Watchlist</string>
     <string name="recent_news">Recent News</string>
     <string name="read_more">Read More</string>
-
+    <string name="performance">Performance</string>
+    <string name="asset">Asset</string>
+    <string name="weight">Weight</string>
+    <string name="trading_balance_cash">Trading Balance (Cash)</string>
+    <string name="buy_dollar">Buy ($)</string>
+    <string name="mkt_dollar">Mkt ($)</string>
+    <string name="hour_24_price_movement_of_each_asset">24-hour price movement of each asset.</string>
+    <string name="return_on_your_investment">Return on your investment.</string>
+    <string name="avg_cost_of_your_buy_price_and_current_price_of_each_asset">Avg. cost of your buy price &amp; the current price of each asset.</string>
+    <string name="volume_and_value_of_each_asset_that_you_own">Volume and value of each asset that you own.</string>
+    <string name="allocation_of_your_assets">Allocation of your assets.</string>
+    <string name="volume_ut">Volume (UT)</string>
+    <string name="value_dollar">Value ($)</string>
 </resources>

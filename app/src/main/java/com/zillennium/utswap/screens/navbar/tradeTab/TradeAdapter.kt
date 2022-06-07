@@ -1,5 +1,6 @@
 package com.zillennium.utswap.screens.navbar.tradeTab
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
@@ -60,6 +61,12 @@ class TradeAdapter(arrayList: ArrayList<Trade>, onclickTrade: OnclickTrade) :
 
     override fun getItemCount(): Int {
         return listdata.size
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun filterList(filterList: ArrayList<Trade>) {
+        listdata = filterList
+        notifyDataSetChanged()
     }
 
     interface OnclickTrade{

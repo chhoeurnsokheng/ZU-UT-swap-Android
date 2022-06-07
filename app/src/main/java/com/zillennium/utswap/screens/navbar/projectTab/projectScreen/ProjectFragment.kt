@@ -49,128 +49,128 @@ class ProjectFragment :
 //            }
 
 //            Handler().postDelayed({
-                binding.apply {
+        binding.apply {
 
-                    Log.d("hello", "world")
+            Log.d("hello", "world")
 
-                    pgLoading.visibility = View.GONE
-                    rvProject.visibility = View.VISIBLE
+            pgLoading.visibility = View.GONE
+            rvProject.visibility = View.VISIBLE
 
 
-                    val publicDate = arrayOf(
-                        "05-05-2021",
-                        "01-01-2022",
-                        "03-03-2022",
-                        "02-01-2022",
-                        "02-04-2022",
-                    )
+            val publicDate = arrayOf(
+                "05-05-2021",
+                "01-01-2022",
+                "03-03-2022",
+                "02-01-2022",
+                "02-04-2022",
+            )
 
-                    val imageIcon = arrayOf(
-                        "https://utswap.io/Upload/issue/62258e1d402b7.png",
-                        "https://utswap.io/Upload/issue/62258e6ce881f.jpg",
-                        "https://utswap.io/Upload/issue/62258de873321.jpg",
-                        "https://utswap.io/Upload/issue/62258dc331263.jpg",
-                        "https://utswap.io/Upload/issue/62258d2401bb7.jpg"
-                    )
+            val imageIcon = arrayOf(
+                "https://utswap.io/Upload/issue/62258e1d402b7.png",
+                "https://utswap.io/Upload/issue/62258e6ce881f.jpg",
+                "https://utswap.io/Upload/issue/62258de873321.jpg",
+                "https://utswap.io/Upload/issue/62258dc331263.jpg",
+                "https://utswap.io/Upload/issue/62258d2401bb7.jpg"
+            )
 
-                    val titleProject = arrayOf(
-                        "KT 1665",
-                        "Siem Reap 17140",
-                        "Muk Kampul 16644",
-                        "Veng Sreng 2719",
-                        "Pochentong 555",
-                    )
+            val titleProject = arrayOf(
+                "KT 1665",
+                "Siem Reap 17140",
+                "Muk Kampul 16644",
+                "Veng Sreng 2719",
+                "Pochentong 555",
+            )
 
-                    val subTitle = arrayOf(
-                        "KT 1665",
-                        "Siem Reap 17140",
-                        "Muk Kampul 16644",
-                        "Veng Sreng 2719",
-                        "Flipping Strategy"
-                    )
+            val subTitle = arrayOf(
+                "KT 1665",
+                "Siem Reap 17140",
+                "Muk Kampul 16644",
+                "Veng Sreng 2719",
+                "Flipping Strategy"
+            )
 
-                    val status = arrayOf(
-                        "Upcoming",
-                        "",
-                        "",
-                        "",
-                        ""
-                    )
+            val status = arrayOf(
+                "Upcoming",
+                "",
+                "",
+                "",
+                ""
+            )
 
-                    for (i in publicDate.indices) {
-                        val project = ProjectModel(
-                            i,
-                            publicDate[i],
-                            imageIcon[i],
-                            titleProject[i],
-                            subTitle[i],
-                            status[i]
-                        )
-                        projectArrayList.add(project)
-                    }
+            for (i in publicDate.indices) {
+                val project = ProjectModel(
+                    i,
+                    publicDate[i],
+                    imageIcon[i],
+                    titleProject[i],
+                    subTitle[i],
+                    status[i]
+                )
+                projectArrayList.add(project)
+            }
 
-                    for (i in publicDate.indices) {
-                        val project = ProjectModel(
-                            i + 10,
-                            publicDate[i],
-                            imageIcon[i],
-                            titleProject[i],
-                            subTitle[i],
-                            status[i]
-                        )
-                        projectArrayList.add(project)
-                    }
+            for (i in publicDate.indices) {
+                val project = ProjectModel(
+                    i + 10,
+                    publicDate[i],
+                    imageIcon[i],
+                    titleProject[i],
+                    subTitle[i],
+                    status[i]
+                )
+                projectArrayList.add(project)
+            }
 
-                    val dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")
-                    projectArrayList.sortByDescending {
-                        LocalDate.parse(
-                            it.publicDate,
-                            dateTimeFormatter
-                        )
-                    }
+            val dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")
+            projectArrayList.sortByDescending {
+                LocalDate.parse(
+                    it.publicDate,
+                    dateTimeFormatter
+                )
+            }
 
-                    /* Sorted on click */
-                    layLast.setOnClickListener {
-                        sortedDate = !sortedDate
-                        getData()
-                    }
+            /* Sorted on click */
+            layLast.setOnClickListener {
+                sortedDate = !sortedDate
+                getData()
+            }
 
-                    /* Change View on click */
-                    layView.setOnClickListener {
-                        viewGrid = !viewGrid
-                        getData()
-                    }
-                    layView.callOnClick()
+            /* Change View on click */
+            layView.setOnClickListener {
+                viewGrid = !viewGrid
+                getData()
+            }
+            layView.callOnClick()
 
-                    etSearch.setOnFocusChangeListener { _, hasFocus ->
-                        if (hasFocus) {
-                            imgSearch.imageTintList =
-                                ColorStateList.valueOf(resources.getColor(R.color.color_main))
-                            laySearch.backgroundTintList =
-                                ColorStateList.valueOf(resources.getColor(R.color.color_main))
-                        } else {
-                            imgSearch.imageTintList =
-                                ColorStateList.valueOf(resources.getColor(R.color.light_gray))
-                            laySearch.backgroundTintList =
-                                ColorStateList.valueOf(resources.getColor(R.color.light_gray))
-                        }
-                    }
-
-                    etSearch.addTextChangedListener(object: TextWatcher{
-                        override fun beforeTextChanged(char: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
-                        }
-
-                        override fun onTextChanged(char: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                            search = char.toString()
-                        }
-
-                        override fun afterTextChanged(p0: Editable?) {
-                            getData()
-                        }
-
-                    })
+            etSearch.setOnFocusChangeListener { _, hasFocus ->
+                if (hasFocus) {
+                    imgSearch.imageTintList =
+                        ColorStateList.valueOf(resources.getColor(R.color.color_main))
+                    laySearch.backgroundTintList =
+                        ColorStateList.valueOf(resources.getColor(R.color.color_main))
+                } else {
+                    imgSearch.imageTintList =
+                        ColorStateList.valueOf(resources.getColor(R.color.light_gray))
+                    laySearch.backgroundTintList =
+                        ColorStateList.valueOf(resources.getColor(R.color.light_gray))
                 }
+            }
+
+            etSearch.addTextChangedListener(object: TextWatcher{
+                override fun beforeTextChanged(char: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+                }
+
+                override fun onTextChanged(char: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                    search = char.toString()
+                }
+
+                override fun afterTextChanged(p0: Editable?) {
+                    getData()
+                }
+
+            })
+        }
 //            }, 5000)
 
 
