@@ -21,12 +21,11 @@ class TradeFragment :
     private var tradeArrayList = ArrayList<Trade>()
     private var tradeAdapter: TradeAdapter? = null
 
-
     private var search: String = ""
-    private var filter: Int = 0 // 0 = no sort, 1 = asc change, 2 = desc change, 3 = asc last, 4 = desc last, 5 asc volume, 6 desc volume
-//    private var filterChange: Int = 0 // 0 = no sort, 1 = asc sort, 2 = desc sort
-//    private var filterLast: Int = 0 // 0 = no sort, 1 = asc sort, 2 = desc sort
-//    private var filterVolume: Int = 0 // 0 = no sort, 1 = asc sort, 2 = desc sort
+    private var filter: Int = 0 // 0 = no sort,
+                                // 1 = asc change, 2 = desc change,
+                                // 3 = asc last, 4 = desc last,
+                                // 5 asc volume, 6 desc volume
 
     override fun initView() {
         super.initView()
@@ -130,7 +129,6 @@ class TradeFragment :
                     }
 
                     override fun afterTextChanged(p0: Editable?) {
-//                        filter(p0.toString())
                     }
 
                 })
@@ -186,17 +184,6 @@ class TradeFragment :
             findNavController().navigate(R.id.action_to_trade_detail)
 //            Navigation.findNavController(requireView()).navigate(R.id.trade_detail)
         }
-    }
-
-    private fun filter(text: String) {
-        val modelArrayList: ArrayList<Trade> = ArrayList<Trade>()
-        for (item in tradeArrayList) {
-            if (item.project.toLowerCase().contains(text.lowercase(Locale.getDefault()))) {
-                modelArrayList.add(item)
-            }
-        }
-
-        tradeAdapter?.filterList(modelArrayList)
     }
 
     private fun getFilterData(){

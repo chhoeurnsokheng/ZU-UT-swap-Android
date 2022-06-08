@@ -145,10 +145,11 @@
                         android:textColor="@color/dark_gray" />
 
                     <ImageView
+                        android:id="@+id/img_last"
                         android:layout_width="@dimen/dimen_10"
                         android:layout_height="@dimen/dimen_10"
-                        android:src="@drawable/ic_sort_solid"
-                        app:tint="@color/gray_999999" />
+                        android:src="@drawable/ic_sort_arrow_up_down_selected"
+                        android:rotation="180" />
                 </LinearLayout>
             </RelativeLayout>
 

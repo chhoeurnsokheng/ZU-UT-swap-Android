@@ -88,6 +88,8 @@ class PortfolioFragment :
 
                    btnFilter.hint = SettingVariable.portfolio_selected.value.toString()
 
+
+
                    when(SettingVariable.portfolio_selected.value.toString()){
                        "Change" -> {
                            //list data of performance

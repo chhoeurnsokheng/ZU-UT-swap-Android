@@ -132,6 +132,11 @@ class ProjectFragment :
             /* Sorted on click */
             layLast.setOnClickListener {
                 sortedDate = !sortedDate
+                if(sortedDate){
+                    imgLast.rotation = 180f
+                }else{
+                    imgLast.rotation = 0f
+                }
                 getData()
             }
 
