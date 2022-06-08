@@ -1,10 +1,8 @@
 package com.zillennium.utswap.screens.navbar.tradeTab
 
-import android.content.Intent
 import android.content.res.ColorStateList
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,6 +20,13 @@ class TradeFragment :
     override val layoutResource: Int = R.layout.fragment_navbar_trade
     private var tradeArrayList = ArrayList<Trade>()
     private var tradeAdapter: TradeAdapter? = null
+
+
+    private var search: String = ""
+    private var filter: Int = 0 // 0 = no sort, 1 = asc change, 2 = desc change, 3 = asc last, 4 = desc last, 5 asc volume, 6 desc volume
+//    private var filterChange: Int = 0 // 0 = no sort, 1 = asc sort, 2 = desc sort
+//    private var filterLast: Int = 0 // 0 = no sort, 1 = asc sort, 2 = desc sort
+//    private var filterVolume: Int = 0 // 0 = no sort, 1 = asc sort, 2 = desc sort
 
     override fun initView() {
         super.initView()
@@ -95,11 +100,10 @@ class TradeFragment :
                     )
                     tradeArrayList.add(trade)
                 }
-//                rvTrade.layoutManager = GridLayoutManager(UTSwapApp.instance, 2)
+
                 rvTrade.layoutManager = LinearLayoutManager(UTSwapApp.instance)
                 tradeAdapter = TradeAdapter(tradeArrayList, onclickTrade)
                 rvTrade.adapter = tradeAdapter
-
 
                 etSearch.setOnFocusChangeListener { _, hasFocus ->
                     if (hasFocus) {
@@ -120,17 +124,48 @@ class TradeFragment :
 
                     }
 
-                    override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
+                    override fun onTextChanged(char: CharSequence, p1: Int, p2: Int, p3: Int) {
+                        search = char.toString()
+                        getFilterData()
                     }
 
                     override fun afterTextChanged(p0: Editable?) {
-                        filter(p0.toString())
+//                        filter(p0.toString())
                     }
 
                 })
-                tradeAdapter = TradeAdapter(tradeArrayList,onclickTrade)
-                rvTrade.adapter = tradeAdapter
+
+                layProject.setOnClickListener {
+                    filter = 0
+                    getFilterData()
+                }
+
+                layChange.setOnClickListener {
+                    filter = when(filter){
+                        2 -> 0
+                        1 -> 2
+                        else -> 1
+                    }
+                    getFilterData()
+                }
+
+                layLast.setOnClickListener {
+                    filter = when(filter){
+                        4 -> 0
+                        3 -> 4
+                        else -> 3
+                    }
+                    getFilterData()
+                }
+
+                layVolume.setOnClickListener {
+                    filter = when(filter){
+                        6 -> 0
+                        5 -> 6
+                        else -> 5
+                    }
+                    getFilterData()
+                }
 
                 txtSubscribe.setOnClickListener {
                     Navigation.findNavController(requireView()).navigate(R.id.action_to_navigation_navbar_project_subscription)
@@ -162,6 +197,74 @@ class TradeFragment :
         }
 
         tradeAdapter?.filterList(modelArrayList)
+    }
+
+    private fun getFilterData(){
+
+        val tradeData = ArrayList<Trade>()
+        binding.apply {
+
+            if(search.isNotEmpty()){
+                tradeData.clear()
+                tradeArrayList.map {
+                    if(it.project.contains(search, ignoreCase = true)){
+                        tradeData.add(it)
+                    }
+                }
+            }else{
+                tradeData.addAll(tradeArrayList)
+            }
+
+            onClearFilter()
+            when(filter){
+                6 -> {
+                    tradeData.sortByDescending { it.volume }
+                    iconVolume.setImageResource(R.drawable.ic_sort_arrow_up_down_selected)
+                    iconVolume.rotation = 180f
+                }
+                5 -> {
+                    tradeData.sortBy { it.volume }
+                    iconVolume.setImageResource(R.drawable.ic_sort_arrow_up_down_selected)
+                    iconVolume.rotation = 0f
+                }
+                4 -> {
+                    tradeData.sortByDescending { it.last }
+                    iconLast.setImageResource(R.drawable.ic_sort_arrow_up_down_selected)
+                    iconLast.rotation = 180f
+                }
+                3 -> {
+                    tradeData.sortBy { it.last }
+                    iconLast.setImageResource(R.drawable.ic_sort_arrow_up_down_selected)
+                    iconLast.rotation = 0f
+                }
+                2 -> {
+                    tradeData.sortByDescending { it.change }
+                    iconChange.setImageResource(R.drawable.ic_sort_arrow_up_down_selected)
+                    iconChange.rotation = 180f
+                }
+                1 -> {
+                    tradeData.sortBy { it.change }
+                    iconChange.setImageResource(R.drawable.ic_sort_arrow_up_down_selected)
+                    iconChange.rotation = 0f
+                }
+                else -> {
+                    onClearFilter()
+                }
+            }
+
+            tradeAdapter = TradeAdapter(tradeData, onclickTrade)
+            rvTrade.adapter = tradeAdapter
+
+        }
+
+    }
+
+    private fun onClearFilter(){
+        binding.apply {
+            iconChange.setImageResource(R.drawable.ic_sort_arrow_up_down)
+            iconLast.setImageResource(R.drawable.ic_sort_arrow_up_down)
+            iconVolume.setImageResource(R.drawable.ic_sort_arrow_up_down)
+        }
     }
 
 //    fun Fragment.hideKeyboard() {
