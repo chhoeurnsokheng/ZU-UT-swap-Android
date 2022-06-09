@@ -307,4 +307,16 @@
     <string name="allocation_of_your_assets">Allocation of your assets.</string>
     <string name="volume_ut">Volume (UT)</string>
     <string name="value_dollar">Value ($)</string>
+    <string name="total_balance_">Total Balance</string>
+    <string name="available">Available</string>
+    <string name="pending_">Pending</string>
+    <string name="select_date_range">Select Date Range</string>
+    <string name="transfer_">Transfer</string>
+    <string name="trading">Trading</string>
+    <string name="subscriptions">Subscriptions</string>
+    <string name="export_data_as_pdf">Export data as PDF</string>
+    <string name="to__">to</string>
+    <string name="hint_date">DD-MM-YYYY</string>
+    <string name="money_out">Money Out</string>
+
 </resources>

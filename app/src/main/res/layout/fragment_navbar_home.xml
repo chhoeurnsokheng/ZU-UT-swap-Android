@@ -150,7 +150,7 @@
                         <ImageView
                             android:layout_width="@dimen/dimen_16"
                             android:layout_height="@dimen/dimen_16"
-                            android:src="@drawable/ic_baseline_account_balance_wallet_24"
+                            android:src="@drawable/ic_finance"
                             android:layout_marginEnd="@dimen/dimen_10"
                             app:tint="@color/color_main" />
 
