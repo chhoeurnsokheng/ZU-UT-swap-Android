@@ -1,7 +1,10 @@
 package com.zillennium.utswap.screens.navbar.navbar
 
 import android.content.Intent
+import android.content.res.ColorStateList
+import android.os.Handler
 import android.view.MenuItem
+import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import androidx.fragment.app.Fragment
@@ -46,24 +49,49 @@ class NavbarActivity :
                 SessionVariable.SESSION_STATUS.observe(this@NavbarActivity) {
                     if(SessionVariable.SESSION_STATUS.value == true){
                         layAuth.visibility = GONE
+                        layVerify.visibility = VISIBLE
                     }else{
                         layAuth.visibility = VISIBLE
                     }
                 }
 
-                if(SessionVariable.SESSION_STATUS.value == true){
-                    layAuth.visibility = GONE
-                }else{
-                    layAuth.visibility = VISIBLE
-                }
-
                 SessionVariable.SESSION_KYC.observe(this@NavbarActivity) {
-                    if(SessionVariable.SESSION_KYC.value == true){
-                        layVerify.visibility = GONE
-                    }else{
+                    if(SessionVariable.SESSION_KYC.value == false && SessionVariable.SESSION_STATUS.value == true && SessionVariable.SESSION_KYC_STATUS.value != 0){
                         layVerify.visibility = VISIBLE
+                    }else{
+                        layVerify.visibility = GONE
                     }
                 }
+
+                SessionVariable.SESSION_KYC_STATUS.observe(this@NavbarActivity){
+                    if(SessionVariable.SESSION_KYC.value == false && SessionVariable.SESSION_STATUS.value == true){
+                        when(SessionVariable.SESSION_KYC_STATUS.value){
+                            2 -> {
+                                layKycStatus.visibility = View.VISIBLE
+                                layKycStatus.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.orange))
+                                txtStatus.text = "Pending Review."
+                                btnVerify.isClickable = false
+                                btnVerify.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.gray_999999))
+                                Handler().postDelayed({
+                                    SessionVariable.SESSION_KYC_STATUS.value = 1
+                                }, 5000)
+
+                            }
+                            1 -> {
+                                layKycStatus.visibility = View.VISIBLE
+                                layKycStatus.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.main_red))
+                                txtStatus.text = "Invalid Verification. Please Try Again."
+                                btnVerify.isClickable = true
+                                btnVerify.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.color_main))
+                            }
+                            else -> {
+                                layKycStatus.visibility = View.GONE
+                                SessionVariable.SESSION_KYC.value = true
+                            }
+                        }
+                    }
+                }
+
 
                 // Passing each menu ID as a set of Ids because each
                 // menu should be considered as top level destinations.

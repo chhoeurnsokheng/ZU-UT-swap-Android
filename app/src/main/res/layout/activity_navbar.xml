@@ -57,11 +57,31 @@
                 android:background="@color/white"
                 android:gravity="center_horizontal"
                 android:orientation="vertical"
-                android:paddingHorizontal="@dimen/dimen_20"
-                android:paddingTop="@dimen/dimen_20"
                 android:paddingBottom="@dimen/dimen_12"
-                android:visibility="visible">
-
+                android:visibility="gone">
+                <LinearLayout
+                    android:id="@+id/lay_kyc_status"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_38"
+                    android:background="@color/main_red"
+                    android:orientation="horizontal"
+                    android:visibility="gone"
+                    android:gravity="center">
+                    <ImageView
+                        android:layout_width="@dimen/dimen_18"
+                        android:layout_height="@dimen/dimen_18"
+                        android:src="@drawable/ic_circle_exclamation_soild"
+                        app:tint="@color/white"
+                        android:layout_marginEnd="@dimen/dimen_12"
+                        android:rotation="180"/>
+                    <TextView
+                        android:id="@+id/txt_status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@style/medium_14"
+                        android:text="Invalid Verification. Please Try Again."
+                        android:textColor="@color/white"/>
+                </LinearLayout>
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_verify"
                     android:layout_width="240dp"
@@ -70,7 +90,8 @@
                     android:background="@drawable/bg_circular"
                     android:hint="Verify Your Identity"
                     android:textAppearance="@style/bold_14"
-                    android:textColorHint="@color/white" />
+                    android:textColorHint="@color/white"
+                    android:layout_marginTop="@dimen/dimen_20"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -87,7 +108,7 @@
                 android:paddingHorizontal="@dimen/dimen_20"
                 android:paddingVertical="@dimen/dimen_26"
                 android:background="@color/white"
-                android:visibility="visible">
+                android:visibility="gone">
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_signIn"
                     android:layout_width="match_parent"

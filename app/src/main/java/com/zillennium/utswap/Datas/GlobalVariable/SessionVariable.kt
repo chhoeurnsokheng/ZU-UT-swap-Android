@@ -10,6 +10,7 @@ class SessionVariable {
         var SESSION_PASSWORD = SessionPreferences().SESSION_PASSWORD
         var SESSION_STATUS = MutableLiveData<Boolean>(SessionPreferences().SESSION_STATUS)
         var SESSION_KYC = MutableLiveData<Boolean>(SessionPreferences().SESSION_KYC)
+        var SESSION_KYC_STATUS = MutableLiveData<Int>(SessionPreferences().SESSION_KYC_STATUS)
         var SESSION_TOKEN = SessionPreferences().SESSION_TOKEN
         var SESSION_EXPIRED = SessionPreferences().SESSION_EXPIRED
     }

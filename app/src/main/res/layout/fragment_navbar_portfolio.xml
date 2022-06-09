@@ -153,7 +153,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:visibility="gone"
-                    android:layout_marginTop="@dimen/dimen_24"
+                    android:layout_marginTop="@dimen/dimen_14"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal">
 
                     <TextView
@@ -162,6 +163,7 @@
                         android:text="@string/asset"
                         android:layout_weight="1"
                         android:textColor="@color/dark_gray"
+                        android:paddingVertical="@dimen/dimen_8"
                         android:textAppearance="@style/regular_12"/>
 
                     <LinearLayout
@@ -177,12 +179,14 @@
                             android:text="@string/buy_dollar"
                             android:textColor="@color/dark_gray"
                             android:layout_marginEnd="@dimen/dimen_50"
+                            android:paddingVertical="@dimen/dimen_8"
                             android:textAppearance="@style/regular_12" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/mkt_dollar"
+                            android:paddingVertical="@dimen/dimen_8"
                             android:textColor="@color/dark_gray"
                             android:textAppearance="@style/regular_12"/>
 
@@ -194,8 +198,9 @@
                     android:id="@+id/linearLayout_performance"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dimen_15"
+                    android:layout_marginTop="@dimen/dimen_14"
                     android:visibility="gone"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal">
 
                     <TextView
@@ -210,6 +215,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
+                        android:paddingVertical="@dimen/dimen_8"
                         android:gravity="end">
 
                         <TextView
@@ -237,8 +243,9 @@
                     android:id="@+id/linearLayout_change"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dimen_15"
+                    android:layout_marginTop="@dimen/dimen_14"
                     android:visibility="gone"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal">
 
                     <TextView
@@ -253,6 +260,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
+                        android:paddingVertical="@dimen/dimen_8"
                         android:gravity="end">
 
                         <TextView
@@ -280,8 +288,9 @@
                     android:id="@+id/linearLayout_weight"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dimen_15"
+                    android:layout_marginTop="@dimen/dimen_14"
                     android:visibility="gone"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal">
 
                     <TextView
@@ -296,6 +305,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
+                        android:paddingVertical="@dimen/dimen_8"
                         android:gravity="end">
 
                         <TextView
@@ -323,8 +333,9 @@
                     android:id="@+id/linearLayout_balance"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dimen_15"
+                    android:layout_marginTop="@dimen/dimen_14"
                     android:visibility="gone"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal">
 
                     <TextView
@@ -337,6 +348,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:paddingVertical="@dimen/dimen_8"
                         android:gravity="end"
                         android:orientation="horizontal">
 
@@ -384,7 +396,6 @@
                     android:scrollbars="none"
                     android:overScrollMode="never"
                     android:nestedScrollingEnabled="false"
-                    android:layout_marginTop="@dimen/dimen_10"
                     />
 
                 <LinearLayout

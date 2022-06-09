@@ -24,8 +24,17 @@ class KycApplicationFragment :
                 }
 
                 btnAccept.setOnClickListener {
-                    SessionPreferences().SESSION_KYC = true
-                    SessionVariable.SESSION_KYC.value = true
+                    SessionPreferences().SESSION_KYC = false
+                    SessionVariable.SESSION_KYC.value = false
+
+                    if(SessionVariable.SESSION_KYC_STATUS.value == 1){
+                        SessionPreferences().SESSION_KYC_STATUS = 0
+                        SessionVariable.SESSION_KYC_STATUS.value = 0
+                    }else{
+                        SessionPreferences().SESSION_KYC_STATUS = 2
+                        SessionVariable.SESSION_KYC_STATUS.value = 2
+                    }
+
                     activity?.finish()
 
                 }
