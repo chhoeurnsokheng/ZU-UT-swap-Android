@@ -40,7 +40,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/mkt_dollar"
                     android:gravity="end"
-                    android:textColor="@color/success"
+                    android:textColor="@color/simple_green"
                     android:textSize="@dimen/font_size_14"/>
 
             </LinearLayout>

@@ -29,7 +29,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="1.68"
-                    android:textColor="@color/success"
+                    android:textColor="@color/simple_green"
                     android:textSize="@dimen/font_size_14"/>
 
                 <TextView

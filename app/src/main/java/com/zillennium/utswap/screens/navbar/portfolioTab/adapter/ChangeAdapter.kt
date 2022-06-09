@@ -6,8 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.zillennium.utswap.R
+import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.models.portfolio.Change
 
 class ChangeAdapter (
@@ -46,13 +48,13 @@ class ChangeAdapter (
 
         if (change.txtPercent > 0)
         {
-            holder.txtPercent.setTextColor(Color.parseColor("#08B471"))
-            holder.percent.setTextColor(Color.parseColor("#08B471"))
+            holder.txtPercent.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.simple_green))
+            holder.percent.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.simple_green))
         }
         else
         {
-            holder.txtPercent.setTextColor(Color.parseColor("#FF0000"))
-            holder.percent.setTextColor(Color.parseColor("#FF0000"))
+            holder.txtPercent.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.main_red))
+            holder.percent.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.main_red))
         }
 
         if (arrayList.size == 1) {

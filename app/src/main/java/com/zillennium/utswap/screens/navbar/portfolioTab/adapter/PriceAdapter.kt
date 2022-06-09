@@ -6,8 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.zillennium.utswap.R
+import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.models.portfolio.Price
 
 class PriceAdapter (
@@ -63,7 +65,7 @@ class PriceAdapter (
 
         if(position == 2)
         {
-            holder.txtMkt.setTextColor(Color.parseColor("#FF0000"))
+            holder.txtMkt.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.main_red))
         }
 
     }
