@@ -40,6 +40,7 @@
                     android:layout_height="wrap_content"
                     android:text="Project"
                     android:layout_gravity="center"
+                    android:textColor="@color/color_main"
                     android:textAppearance="@style/regular_14" />
 
 
@@ -52,7 +53,8 @@
             android:layout_above="@+id/lay_buy_and_sell"
             android:layout_below="@+id/lay_btn_back"
             android:overScrollMode="never"
-            android:scrollbars="none">
+            android:scrollbars="none"
+            android:paddingBottom="@dimen/dimen_15">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -77,7 +79,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dimen_8"
                         android:text="New Airport 38Ha"
-                        android:textSize="@dimen/font_size_18" />
+                        android:textColor="@color/black"
+                        android:textAppearance="@style/medium_18" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -111,7 +114,7 @@
                             android:layout_height="wrap_content"
                             android:text="Last"
                             android:textColor="@color/black"
-                            android:textSize="@dimen/font_size_14" />
+                            android:textAppearance="@style/regular_14" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -119,7 +122,7 @@
                             android:gravity="end"
                             android:text="9.21"
                             android:textColor="@color/black"
-                            android:textSize="@dimen/font_size_14" />
+                            android:textAppearance="@style/medium_14" />
 
                     </LinearLayout>
 
@@ -135,7 +138,7 @@
                             android:layout_height="wrap_content"
                             android:text="24H High"
                             android:textColor="@color/black"
-                            android:textSize="@dimen/font_size_14" />
+                            android:textAppearance="@style/regular_14" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -143,7 +146,7 @@
                             android:gravity="end"
                             android:text="7.73"
                             android:textColor="@color/black"
-                            android:textSize="@dimen/font_size_14" />
+                            android:textAppearance="@style/medium_14" />
 
                     </LinearLayout>
 
@@ -166,7 +169,7 @@
                             android:layout_height="wrap_content"
                             android:text="24H Change"
                             android:textColor="@color/black"
-                            android:textSize="@dimen/font_size_14" />
+                            android:textAppearance="@style/regular_14" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -174,7 +177,7 @@
                             android:gravity="end"
                             android:text="+1.68%"
                             android:textColor="@color/success"
-                            android:textSize="@dimen/font_size_14" />
+                            android:textAppearance="@style/medium_14" />
 
                     </LinearLayout>
 
@@ -190,7 +193,7 @@
                             android:layout_height="wrap_content"
                             android:text="24H Low"
                             android:textColor="@color/black"
-                            android:textSize="@dimen/font_size_14" />
+                            android:textAppearance="@style/regular_14" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -198,7 +201,7 @@
                             android:gravity="end"
                             android:text="7.03"
                             android:textColor="@color/black"
-                            android:textSize="@dimen/font_size_14" />
+                            android:textAppearance="@style/medium_14"/>
 
                     </LinearLayout>
 
@@ -221,7 +224,7 @@
                             android:layout_height="wrap_content"
                             android:text="24H Volume"
                             android:textColor="@color/black"
-                            android:textSize="@dimen/font_size_14" />
+                            android:textAppearance="@style/regular_14"/>
 
                         <TextView
                             android:layout_width="match_parent"
@@ -229,7 +232,7 @@
                             android:gravity="end"
                             android:text="111"
                             android:textColor="@color/black"
-                            android:textSize="@dimen/font_size_14" />
+                            android:textAppearance="@style/medium_14"/>
 
                     </LinearLayout>
 
@@ -245,7 +248,7 @@
                             android:layout_height="wrap_content"
                             android:text="Target Price"
                             android:textColor="@color/black"
-                            android:textSize="@dimen/font_size_14" />
+                            android:textAppearance="@style/regular_14" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -253,7 +256,7 @@
                             android:gravity="end"
                             android:text="11.02"
                             android:textColor="@color/black"
-                            android:textSize="@dimen/font_size_14" />
+                            android:textAppearance="@style/medium_14"/>
 
                     </LinearLayout>
 
@@ -263,6 +266,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
+
                     <FrameLayout
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dimen_45"
@@ -318,6 +322,7 @@
                         </LinearLayout>
 
                     </FrameLayout>
+
                     <androidx.viewpager2.widget.ViewPager2
                         android:id="@+id/vp_verify"
                         android:layout_width="match_parent"
@@ -332,6 +337,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
+
                     <FrameLayout
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dimen_45"
@@ -403,6 +409,7 @@
                         </LinearLayout>
 
                     </FrameLayout>
+
                     <androidx.viewpager2.widget.ViewPager2
                         android:id="@+id/vp_table"
                         android:layout_width="match_parent"

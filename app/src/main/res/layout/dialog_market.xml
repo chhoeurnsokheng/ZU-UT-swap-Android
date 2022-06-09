@@ -2,39 +2,40 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
+        android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:cardCornerRadius="@dimen/dimen_10"
-        android:layout_margin="@dimen/dimen_10"
-        android:padding="@dimen/dimen_15">
+        app:cardCornerRadius="@dimen/dimen_10">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/dimen_15"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginHorizontal="@dimen/dimen_25"
+            android:layout_marginTop="@dimen/dimen_24"
+            android:layout_marginBottom="@dimen/dimen_20">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:textColor="@color/secondary_text"
-                android:textSize="@dimen/font_size_16"
-                android:text="Please confirm your oder"/>
+                android:textAppearance="@style/regular_14"
+                android:text="Please confirm your oder"
+                android:layout_marginBottom="@dimen/dimen_28"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="@dimen/dimen_15">
+                android:paddingVertical="@dimen/dimen_10">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Project: "
-                    android:textColor="@color/secondary_text"
-                    android:textSize="@dimen/font_size_14"/>
+                    android:textColor="@color/dark_gray"
+                    android:textAppearance="@style/regular_12"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -42,28 +43,27 @@
                     android:text="New Airport 38Ha"
                     android:gravity="end"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/font_size_12"/>
+                    android:textAppearance="@style/regular_12"/>
 
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dimen_1"
-                android:background="@color/dark"
-                android:layout_marginTop="@dimen/dimen_15"/>
+                android:background="@color/light_gray"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="@dimen/dimen_15">
+                android:paddingVertical="@dimen/dimen_10">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Volume: "
-                    android:textColor="@color/secondary_text"
-                    android:textSize="@dimen/font_size_14"/>
+                    android:textColor="@color/dark_gray"
+                    android:textAppearance="@style/regular_12"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -78,7 +78,7 @@
                         android:gravity="end"
                         android:layout_marginStart="@dimen/dimen_10"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/font_size_14"/>
+                        android:textAppearance="@style/regular_12"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -86,7 +86,7 @@
                         android:gravity="end"
                         android:text=" UT"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/font_size_14"/>
+                        android:textAppearance="@style/regular_12"/>
 
                 </LinearLayout>
 
@@ -95,21 +95,20 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dimen_1"
-                android:background="@color/dark"
-                android:layout_marginTop="@dimen/dimen_15"/>
+                android:background="@color/light_gray"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="@dimen/dimen_15">
+                android:paddingVertical="@dimen/dimen_10">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Price: "
-                    android:textColor="@color/secondary_text"
-                    android:textSize="@dimen/font_size_14"/>
+                    android:textColor="@color/dark_gray"
+                    android:textAppearance="@style/regular_12"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -122,7 +121,7 @@
                         android:gravity="end"
                         android:text="Market"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/font_size_14"/>
+                        android:textAppearance="@style/regular_12"/>
 
                 </LinearLayout>
 
@@ -131,32 +130,31 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_16"
-                android:textSize="@dimen/dimen_14"
-                android:text="DISCLAIMER:  Market prices may change during order confirmation"/>
+                android:layout_marginTop="@dimen/dimen_6"
+                android:textAppearance="@style/regular_10"
+                android:textColor="@color/dark_gray"
+                android:text="DISCLAIMER:  Market prices may change during order confirmation"
+                android:layout_marginBottom="@dimen/dimen_28"/>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_buy_confirm"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dimen_48"
-                android:layout_marginTop="@dimen/dimen_20"
-                android:layout_marginStart="@dimen/dimen_3"
-                android:layout_marginEnd="@dimen/dimen_4"
                 app:backgroundTint="@color/success"
                 android:background="@drawable/bg_circular"
                 android:hint="BUY"
-                android:textSize="@dimen/font_size_16"
-                android:textColorHint="@color/white" />
+                android:textAppearance="@style/regular_16"
+                android:textColorHint="@color/white"
+                android:layout_marginBottom="@dimen/dimen_12"/>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_cancel"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dimen_48"
-                app:backgroundTint="@color/gray"
+                app:backgroundTint="@color/gray_F7F7F7"
                 android:background="@drawable/bg_circular"
                 android:hint="Cancel"
-                android:layout_marginTop="@dimen/dimen_15"
-                android:textSize="@dimen/font_size_16"
+                android:textAppearance="@style/regular_16"
                 android:textColorHint="@color/color_main" />
 
         </LinearLayout>

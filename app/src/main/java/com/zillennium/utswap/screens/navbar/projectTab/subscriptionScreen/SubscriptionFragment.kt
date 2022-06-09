@@ -84,7 +84,7 @@ class SubscriptionFragment :
                     recycleViewProject.layoutManager = LinearLayoutManager(UTSwapApp.instance)
                     recycleViewProject.adapter = SubscriptionAdapter(subscriptionArrayList, onclickAdapter)
 
-                    if(SessionPreferences().SESSION_STATUS  == true && SessionPreferences().SESSION_KYC  == true){
+                    if(SessionVariable.SESSION_STATUS.value  == true && SessionVariable.SESSION_STATUS.value  == true){
                         recycleViewProject.alpha = 1F
                     } else{
                         recycleViewProject.alpha = 0.6F

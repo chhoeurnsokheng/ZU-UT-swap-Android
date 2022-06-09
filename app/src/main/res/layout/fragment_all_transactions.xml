@@ -31,7 +31,8 @@
                     android:text="Date"
                     android:textAlignment="textStart"
                     android:textColor="@color/color_main"
-                    android:textSize="@dimen/font_size_14"
+                    android:textAppearance="@style/regular_14"
+                    android:layout_weight="3"
                     />
 
                 <TextView
@@ -39,9 +40,9 @@
                     android:layout_height="wrap_content"
                     android:text="Time"
                     android:textColor="@color/color_main"
-                    android:textSize="@dimen/font_size_14"
+                    android:textAppearance="@style/regular_14"
                     android:textAlignment="textStart"
-                    android:layout_marginStart="@dimen/dimen_48"
+                    android:layout_weight="3"
                     />
 
                 <TextView
@@ -50,8 +51,8 @@
                     android:text="Volume"
                     android:textAlignment="textStart"
                     android:textColor="@color/color_main"
-                    android:layout_marginStart="57dp"
-                    android:textSize="@dimen/font_size_14"
+                    android:layout_weight="1"
+                    android:textAppearance="@style/regular_14"
                     />
 
                 <TextView
@@ -59,18 +60,18 @@
                     android:layout_height="wrap_content"
                     android:text="Price"
                     android:textAlignment="textStart"
-                    android:layout_marginStart="@dimen/dimen_15"
+                    android:layout_weight="1"
                     android:textColor="@color/color_main"
-                    android:textSize="@dimen/font_size_14" />
+                    android:textAppearance="@style/regular_14" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Gross"
                     android:textAlignment="textStart"
-                    android:layout_marginStart="@dimen/dimen_20"
+                    android:layout_weight="1"
                     android:textColor="@color/color_main"
-                    android:textSize="@dimen/font_size_14" />
+                    android:textAppearance="@style/regular_14" />
 
             </LinearLayout>
 

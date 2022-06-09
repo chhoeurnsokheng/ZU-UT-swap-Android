@@ -92,6 +92,10 @@
         <item name="android:fontFamily">@font/avenirnextcy_regular</item>
         <item name="android:textSize">@dimen/font_size_10</item>
     </style>
+    <style name="regular_8" parent="@android:style/TextAppearance.Small">
+        <item name="android:fontFamily">@font/avenirnextcy_regular</item>
+        <item name="android:textSize">@dimen/font_size_8</item>
+    </style>
     <style name="regular_6" parent="@android:style/TextAppearance.Small">
         <item name="android:fontFamily">@font/avenirnextcy_regular</item>
         <item name="android:textSize">@dimen/font_size_6</item>

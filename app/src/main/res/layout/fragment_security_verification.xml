@@ -38,19 +38,17 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/dimen_8"
-                        android:fontFamily="@font/avenirnextcy_medium"
                         android:text="@string/please_check_your_email_sms"
-                        android:textSize="@dimen/font_size_16" />
+                        android:textAppearance="@style/medium_16"/>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dimen_10"
                         android:layout_marginBottom="@dimen/dimen_22"
-                        android:fontFamily="@font/avenirnextcy_medium"
                         android:text="@string/enter_6_digit_verification_code"
                         android:textColor="@color/color_main"
-                        android:textSize="@dimen/font_size_20" />
+                        android:textAppearance="@style/medium_20"/>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -76,7 +74,7 @@
                                 android:gravity="center"
                                 android:singleLine="true"
                                 android:textColor="@color/black"
-                                android:textSize="@dimen/font_size_22"
+                                android:textAppearance="@style/bold_22"
                                 android:textStyle="bold" />
 
                             <TextView
@@ -88,7 +86,7 @@
                                 android:background="@drawable/bg_corner"
                                 android:gravity="center"
                                 android:textColor="@color/black"
-                                android:textSize="@dimen/font_size_22"
+                                android:textAppearance="@style/bold_22"
                                 android:textStyle="bold" />
 
                             <TextView
@@ -100,7 +98,7 @@
                                 android:background="@drawable/bg_corner"
                                 android:gravity="center"
                                 android:textColor="@color/black"
-                                android:textSize="@dimen/font_size_22"
+                                android:textAppearance="@style/bold_22"
                                 android:textStyle="bold" />
 
                             <TextView
@@ -112,7 +110,7 @@
                                 android:background="@drawable/bg_corner"
                                 android:gravity="center"
                                 android:textColor="@color/black"
-                                android:textSize="@dimen/font_size_22"
+                                android:textAppearance="@style/bold_22"
                                 android:textStyle="bold" />
 
                             <TextView
@@ -124,7 +122,7 @@
                                 android:background="@drawable/bg_corner"
                                 android:gravity="center"
                                 android:textColor="@color/black"
-                                android:textSize="@dimen/font_size_22"
+                                android:textAppearance="@style/bold_22"
                                 android:textStyle="bold" />
 
                             <TextView
@@ -136,7 +134,7 @@
                                 android:background="@drawable/bg_corner"
                                 android:gravity="center"
                                 android:textColor="@color/black"
-                                android:textSize="@dimen/font_size_22"
+                                android:textAppearance="@style/bold_22"
                                 android:textStyle="bold" />
 
                         </LinearLayout>
@@ -273,10 +271,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:fontFamily="@font/avenirnextcyr_bold"
                     android:text="@string/next"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/font_size_18" />
+                    android:textAppearance="@style/bold_18" />
 
                 <ImageView
                     android:layout_width="wrap_content"

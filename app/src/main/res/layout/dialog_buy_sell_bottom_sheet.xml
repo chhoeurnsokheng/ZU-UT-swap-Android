@@ -38,7 +38,7 @@
                     <LinearLayout
                         android:id="@+id/btn_limit"
                         android:layout_width="wrap_content"
-                        android:layout_height="@dimen/dimen_40"
+                        android:layout_height="@dimen/dimen_31"
                         android:layout_marginEnd="@dimen/dimen_8"
                         android:paddingHorizontal="@dimen/dimen_20"
                         android:background="@drawable/bg_circular">
@@ -50,13 +50,13 @@
                             android:gravity="center"
                             android:text="Limit"
                             android:textColor="@color/white"
-                            android:textSize="@dimen/font_size_14" />
+                            android:textAppearance="@style/regular_12" />
                     </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/btn_market"
                         android:layout_width="wrap_content"
-                        android:layout_height="@dimen/dimen_40"
+                        android:layout_height="@dimen/dimen_31"
                         android:layout_marginEnd="@dimen/dimen_8"
                         android:paddingHorizontal="@dimen/dimen_20"
                         android:backgroundTint="@color/gray"
@@ -69,15 +69,15 @@
                             android:gravity="center"
                             android:text="Market"
                             android:textColor="@color/color_main"
-                            android:textSize="@dimen/font_size_14" />
+                            android:textAppearance="@style/regular_12"/>
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="@dimen/dimen_40"
+                        android:layout_height="@dimen/dimen_31"
                         android:layout_marginEnd="@dimen/dimen_8"
                         android:paddingHorizontal="@dimen/dimen_20"
-                        android:backgroundTint="@color/gray"
+                        android:backgroundTint="@color/gray_EEEEEE"
                         android:background="@drawable/bg_circular">
 
                         <TextView
@@ -85,16 +85,16 @@
                             android:layout_height="match_parent"
                             android:gravity="center"
                             android:text="Conditional"
-                            android:textColor="@color/thirst_text"
-                            android:textSize="@dimen/font_size_14" />
+                            android:textColor="@color/light_gray"
+                            android:textAppearance="@style/regular_12" />
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="@dimen/dimen_40"
+                        android:layout_height="@dimen/dimen_31"
                         android:layout_marginEnd="@dimen/dimen_8"
                         android:paddingHorizontal="@dimen/dimen_20"
-                        android:backgroundTint="@color/gray"
+                        android:backgroundTint="@color/gray_EEEEEE"
                         android:background="@drawable/bg_circular">
 
                         <TextView
@@ -102,8 +102,8 @@
                             android:layout_height="match_parent"
                             android:gravity="center"
                             android:text="Loss"
-                            android:textColor="@color/thirst_text"
-                            android:textSize="@dimen/font_size_14" />
+                            android:textColor="@color/light_gray"
+                            android:textAppearance="@style/regular_12" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -120,15 +120,15 @@
                     android:layout_width="@dimen/dimen_80"
                     android:layout_height="wrap_content"
                     android:text="Volume"
-                    android:textColor="@color/secondary"
-                    android:textSize="@dimen/font_size_18"/>
+                    android:textColor="@color/dark_gray"
+                    android:textAppearance="@style/regular_12"/>
 
                 <EditText
                     android:id="@+id/et_volume"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dimen_40"
                     android:inputType="number"
-                    android:textSize="@dimen/font_size_16"
+                    android:textAppearance="@style/medium_16"
                     android:paddingEnd="@dimen/dimen_15"
                     android:textAlignment="textEnd"
                     android:background="@drawable/outline_edittext_change_color_focus"/>
@@ -146,15 +146,15 @@
                     android:layout_width="@dimen/dimen_80"
                     android:layout_height="wrap_content"
                     android:text="Price"
-                    android:textColor="@color/secondary"
-                    android:textSize="@dimen/font_size_18"/>
+                    android:textColor="@color/dark_gray"
+                    android:textAppearance="@style/regular_12"/>
 
                 <EditText
                     android:id="@+id/et_price_of_volume"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dimen_40"
                     android:inputType="number"
-                    android:textSize="@dimen/font_size_16"
+                    android:textAppearance="@style/medium_16"
                     android:paddingEnd="@dimen/dimen_15"
                     android:textAlignment="textEnd"
                     android:visibility="visible"

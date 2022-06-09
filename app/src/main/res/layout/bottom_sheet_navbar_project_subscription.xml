@@ -91,7 +91,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dimen_10"
                     android:gravity="end"
-                    android:text=""
+                    android:text="0.00"
                     android:textAppearance="@style/regular_12" />
             </LinearLayout>
 
@@ -100,9 +100,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dimen_50"
                 android:layout_marginVertical="@dimen/dimen_20"
-
                 android:background="@drawable/bg_circular_condition"
                 android:gravity="center"
+                android:backgroundTint="@color/gray_999999"
                 android:orientation="horizontal">
 
                 <TextView
@@ -110,6 +110,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/subscribes"
                     android:textAllCaps="true"
+                    android:clickable="false"
                     android:textAppearance="@style/bold_18"
                     android:textColor="@color/white" />
             </LinearLayout>

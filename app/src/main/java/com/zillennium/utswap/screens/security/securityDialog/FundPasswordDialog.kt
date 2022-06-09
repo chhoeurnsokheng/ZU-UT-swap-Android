@@ -114,7 +114,11 @@ class FundPasswordDialog: DialogFragment() {
                         for (pingCode in layPingCode.children){
                             pingCode.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.success))
                         }
-                        dismiss()
+                        Handler().postDelayed({
+                            layProgressBar.visibility = View.GONE
+                            dismiss()
+                        }, 3000)
+
                     }else{
                         imgIcon.setImageResource(R.drawable.ic_fund_key_invalid)
                         txtMessage.text = "Invalid"
@@ -122,8 +126,9 @@ class FundPasswordDialog: DialogFragment() {
                         for (pingCode in layPingCode.children){
                             pingCode.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.main_red))
                         }
+                        layProgressBar.visibility = View.GONE
                     }
-                    layProgressBar.visibility = View.GONE
+
                 }, 3000)
 
 

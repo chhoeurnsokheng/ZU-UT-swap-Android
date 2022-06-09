@@ -1,5 +1,6 @@
 package com.zillennium.utswap.screens.navbar.projectTab.subscriptionScreen.bottomSheet
 
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -7,9 +8,11 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.*
 import android.widget.AdapterView
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.zillennium.utswap.R
+import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.databinding.BottomSheetNavbarProjectSubscriptionBinding
 
 import com.zillennium.utswap.screens.navbar.projectTab.subscriptionScreen.dialog.SubscriptionConfirmDialog
@@ -68,6 +71,15 @@ class SubscriptionBottomSheet : BottomSheetDialogFragment(), AdapterView.OnItemS
                     }else{
                         0
                     }
+
+                    if(strVolume > 0){
+                        btnSubscript.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.success))
+                        btnSubscript.isClickable = true
+                    }else{
+                        btnSubscript.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.gray_999999))
+                        btnSubscript.isClickable = false
+                    }
+
                     val price = (3.90 * strVolume)
                     txtSubscriptPrice.text = groupingSeparator(price)
                 }

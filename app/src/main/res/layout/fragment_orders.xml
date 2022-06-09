@@ -46,7 +46,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dimen_6"
                         android:text="@string/filter_"
-                        android:textSize="@dimen/font_size_16" />
+                        android:textAppearance="@style/regular_14"/>
 
                 </LinearLayout>
 
@@ -71,7 +71,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dimen_6"
                         android:text="@string/sort"
-                        android:textSize="@dimen/font_size_16" />
+                        android:textAppearance="@style/regular_14" />
 
                 </LinearLayout>
 
@@ -99,7 +99,7 @@
                         android:gravity="center"
                         android:text="ALL"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/font_size_14" />
+                        android:textAppearance="@style/regular_14" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -116,7 +116,7 @@
                         android:gravity="center"
                         android:text="BUY"
                         android:textColor="@color/success"
-                        android:textSize="@dimen/font_size_14" />
+                        android:textAppearance="@style/regular_14" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -132,8 +132,8 @@
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:text="SELL"
-                        android:textColor="@color/red"
-                        android:textSize="@dimen/font_size_14" />
+                        android:textColor="@color/main_red"
+                        android:textAppearance="@style/regular_14" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -150,14 +150,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dimen_10"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     android:orientation="horizontal">
 
                     <LinearLayout
                         android:id="@+id/btn_latest"
-                        android:layout_width="@dimen/dimen_80"
-                        android:layout_height="@dimen/dimen_40"
-                        android:layout_marginEnd="@dimen/dimen_8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/dimen_31"
+                        android:layout_marginEnd="@dimen/dimen_10"
+                        android:paddingHorizontal="@dimen/dimen_15"
                         android:background="@drawable/bg_circular">
 
                         <TextView
@@ -167,13 +168,14 @@
                             android:gravity="center"
                             android:text="Latest"
                             android:textColor="@color/white"
-                            android:textSize="@dimen/font_size_14" />
+                            android:textAppearance="@style/regular_12"/>
                     </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/btn_oldest"
-                        android:layout_width="@dimen/dimen_80"
-                        android:layout_height="@dimen/dimen_40"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/dimen_31"
+                        android:paddingHorizontal="@dimen/dimen_15"
                         android:layout_marginEnd="@dimen/dimen_8"
                         android:background="@drawable/bg_circular_border_blue">
 
@@ -184,13 +186,14 @@
                             android:gravity="center"
                             android:text="Oldest"
                             android:textColor="@color/color_main"
-                            android:textSize="@dimen/font_size_14" />
+                            android:textAppearance="@style/regular_12" />
                     </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/btn_small_to_big"
-                        android:layout_width="@dimen/dimen_80"
-                        android:layout_height="@dimen/dimen_40"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/dimen_31"
+                        android:paddingHorizontal="@dimen/dimen_10"
                         android:layout_marginEnd="@dimen/dimen_8"
                         android:background="@drawable/bg_circular_border_blue">
 
@@ -201,13 +204,14 @@
                             android:gravity="center"
                             android:text="$$$ -> $"
                             android:textColor="@color/color_main"
-                            android:textSize="@dimen/font_size_14" />
+                            android:textAppearance="@style/regular_12" />
                     </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/btn_big_to_small"
-                        android:layout_width="@dimen/dimen_80"
-                        android:layout_height="@dimen/dimen_40"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/dimen_31"
+                        android:paddingHorizontal="@dimen/dimen_10"
                         android:layout_marginEnd="@dimen/dimen_8"
                         android:background="@drawable/bg_circular_border_blue">
 
@@ -218,7 +222,7 @@
                             android:gravity="center"
                             android:text="$ -> $$$"
                             android:textColor="@color/color_main"
-                            android:textSize="@dimen/font_size_14" />
+                            android:textAppearance="@style/regular_12"  />
                     </LinearLayout>
 
                 </LinearLayout>
