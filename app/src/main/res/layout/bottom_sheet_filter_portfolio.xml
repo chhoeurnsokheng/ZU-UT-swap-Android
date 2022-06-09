@@ -12,15 +12,16 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/dimen_10"
             android:orientation="vertical"
-            android:paddingBottom="@dimen/dimen_15"
+            android:layout_marginBottom="@dimen/dimen_20"
             android:layout_marginTop="@dimen/dimen_30">
 
             <LinearLayout
                 android:id="@+id/btn_change"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/dimen_56"
+                android:paddingHorizontal="@dimen/dimen_20"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -49,32 +50,28 @@
                     android:id="@+id/img_check_change"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:visibility="gone"
+                    android:visibility="invisible"
                     android:gravity="end">
-
                     <ImageView
                         android:layout_width="@dimen/dimen_20"
                         android:layout_height="match_parent"
                         android:src="@drawable/ic_baseline_check_24"
-                        android:layout_gravity="center"
                         app:tint="@color/color_main"/>
-
                 </LinearLayout>
-
             </LinearLayout>
-
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dimen_1"
-                android:background="@color/thirst_text"
-                android:layout_marginTop="@dimen/dimen_10"/>
+                android:layout_marginHorizontal="@dimen/dimen_20"
+                android:background="@color/thirst_text"/>
 
             <LinearLayout
                 android:id="@+id/btn_performance"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="@dimen/dimen_8">
+                android:layout_height="@dimen/dimen_56"
+                android:paddingHorizontal="@dimen/dimen_20"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -102,14 +99,13 @@
                     android:id="@+id/img_check_performance"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:visibility="gone"
+                    android:visibility="invisible"
                     android:gravity="end">
 
                     <ImageView
                         android:layout_width="@dimen/dimen_20"
                         android:layout_height="match_parent"
                         android:src="@drawable/ic_baseline_check_24"
-                        android:layout_gravity="center"
                         app:tint="@color/color_main"/>
 
                 </LinearLayout>
@@ -120,13 +116,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dimen_1"
                 android:background="@color/thirst_text"
-                android:layout_marginTop="@dimen/dimen_10"/>
+                android:layout_marginHorizontal="@dimen/dimen_20"/>
 
             <LinearLayout
                 android:id="@+id/btn_price"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_8"
+                android:layout_height="@dimen/dimen_56"
+                android:paddingHorizontal="@dimen/dimen_20"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -155,14 +152,13 @@
                     android:id="@+id/img_check_price"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:visibility="gone"
+                    android:visibility="invisible"
                     android:gravity="end">
 
                     <ImageView
                         android:layout_width="@dimen/dimen_20"
                         android:layout_height="match_parent"
                         android:src="@drawable/ic_baseline_check_24"
-                        android:layout_gravity="center"
                         app:tint="@color/color_main"/>
 
                 </LinearLayout>
@@ -173,13 +169,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dimen_1"
                 android:background="@color/thirst_text"
-                android:layout_marginTop="@dimen/dimen_10"/>
+                android:layout_marginHorizontal="@dimen/dimen_20"/>
 
             <LinearLayout
                 android:id="@+id/btn_balance"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_8"
+                android:layout_height="@dimen/dimen_56"
+                android:paddingHorizontal="@dimen/dimen_20"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -208,14 +205,13 @@
                     android:id="@+id/img_check_balance"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:visibility="gone"
+                    android:visibility="invisible"
                     android:gravity="end">
 
                     <ImageView
                         android:layout_width="@dimen/dimen_20"
                         android:layout_height="match_parent"
                         android:src="@drawable/ic_baseline_check_24"
-                        android:layout_gravity="center"
                         app:tint="@color/color_main"/>
 
                 </LinearLayout>
@@ -226,13 +222,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dimen_1"
                 android:background="@color/thirst_text"
-                android:layout_marginTop="@dimen/dimen_10"/>
+                android:layout_marginHorizontal="@dimen/dimen_20"/>
 
             <LinearLayout
                 android:id="@+id/btn_weight"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_8"
+                android:layout_height="@dimen/dimen_56"
+                android:paddingHorizontal="@dimen/dimen_20"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -261,16 +258,14 @@
                     android:id="@+id/img_check_weight"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:visibility="gone"
+                    android:visibility="invisible"
                     android:gravity="end">
 
                     <ImageView
                         android:layout_width="@dimen/dimen_20"
                         android:layout_height="match_parent"
                         android:src="@drawable/ic_baseline_check_24"
-                        android:layout_gravity="center"
                         app:tint="@color/color_main"/>
-
                 </LinearLayout>
 
             </LinearLayout>

@@ -36,10 +36,7 @@ class PortfolioFragment :
     private var weightAdapter: WeightAdapter? = null
 
     var blurCondition = true
-    var click: Int = 2
-    var sortChange: String = "sortDescend"
-    var sortWeight: String = "sortDescend"
-    var sortBalance: String = "sortDescend"
+    private var filter: Int = 0 // 0 = no sort, 1 = asc sort, 2 = desc sort
 
     @SuppressLint("UseCompatLoadingForDrawables", "NotifyDataSetChanged")
     override fun initView() {
@@ -65,18 +62,18 @@ class PortfolioFragment :
                 /* Show or Hide Trading Balance */
                 val blurMask: MaskFilter = BlurMaskFilter(50f, BlurMaskFilter.Blur.NORMAL)
                 txtBalance.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
-                txtBalance.getPaint().setMaskFilter(blurMask)
+                txtBalance.paint.maskFilter = blurMask
 
                 imgVisibility.setOnClickListener {
                     blurCondition = !blurCondition
 
                     if (blurCondition) {
                         txtBalance.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
-                        txtBalance.getPaint().setMaskFilter(null)
+                        txtBalance.paint.maskFilter = null
                         imgVisibility.setImageResource(R.drawable.ic_baseline_remove_red_eye_24)
                     } else {
                         txtBalance.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
-                        txtBalance.getPaint().setMaskFilter(blurMask)
+                        txtBalance.paint.maskFilter = blurMask
                         imgVisibility.setImageResource(R.drawable.ic_baseline_visibility_off_24)
                     }
                 }
@@ -88,7 +85,13 @@ class PortfolioFragment :
 
                    btnFilter.hint = SettingVariable.portfolio_selected.value.toString()
 
+                   filter = 0
 
+                   linearLayoutChange.visibility = View.GONE
+                   linearLayoutPrice.visibility = View.GONE
+                   linearLayoutPerformance.visibility = View.GONE
+                   linearLayoutBalance.visibility = View.GONE
+                   linearLayoutWeight.visibility = View.GONE
 
                    when(SettingVariable.portfolio_selected.value.toString()){
                        "Change" -> {
@@ -101,42 +104,46 @@ class PortfolioFragment :
                            changeList.add(Change("Veng Sreng 2719",1.05))
 
                            linearLayoutChange.visibility = View.VISIBLE
-                           linearLayoutPrice.visibility = View.GONE
-                           linearLayoutPerformance.visibility = View.GONE
-                           linearLayoutBalance.visibility = View.GONE
-                           linearLayoutWeight.visibility = View.GONE
 
                            changeAdapter = ChangeAdapter(changeList)
 
                            rvFilter.adapter = changeAdapter
 
                            txtTradingBalance.text = "$6 420.99"
-                           click = 2
 
-                           txtChange.setOnClickListener {
-                                if(sortChange == "sortDescend")
-                                {
-                                    sortChange = "sortAscend"
+                           imgSortChange.setImageResource(R.drawable.ic_sort_arrow_up_down)
+                           laySortChange.setOnClickListener {
 
-                                    val list = arrayListOf<Change>()
+                               val list = arrayListOf<Change>()
+                               list.addAll(changeList)
+                               filter++
 
-                                    changeList.map {
-                                        list.add(Change(it.projectName,it.txtPercent))
-                                    }
+                               when(filter){
+                                   2 -> {
+                                       filter = 2
+                                       imgSortChange.setImageResource(R.drawable.ic_sort_arrow_up_down_selected)
+                                       imgSortChange.rotation = 180f
+                                       list.sortByDescending {
+                                           it.txtPercent
+                                       }
+                                   }
+                                   1 -> {
+                                       filter = 1
+                                       imgSortChange.setImageResource(R.drawable.ic_sort_arrow_up_down_selected)
+                                       imgSortChange.rotation = 0f
+                                       list.sortBy {
+                                           it.txtPercent
+                                       }
+                                   }
+                                   else -> {
+                                       filter = 0
+                                       imgSortChange.setImageResource(R.drawable.ic_sort_arrow_up_down)
+                                   }
+                               }
 
-                                    list.sortByDescending {
-                                        it.txtPercent
-                                    }
+                               changeAdapter = ChangeAdapter(list)
+                               rvFilter.adapter = changeAdapter
 
-                                    changeAdapter!!.notifyDataSetChanged()
-
-                                    changeAdapter = ChangeAdapter(list)
-
-                                    rvFilter.adapter = changeAdapter
-                                }else{
-                                    clickCountSortChange(click)
-                                    click++
-                                }
                            }
                        }
                        "Weight" -> {
@@ -152,38 +159,43 @@ class PortfolioFragment :
 
                            rvFilter.adapter = weightAdapter
 
-                           linearLayoutPrice.visibility = View.GONE
-                           linearLayoutPerformance.visibility = View.GONE
-                           linearLayoutBalance.visibility = View.GONE
                            linearLayoutWeight.visibility = View.VISIBLE
-                           linearLayoutChange.visibility = View.GONE
 
                            txtTradingBalance.text = "16.8%"
-                           click = 2
 
-                           txtWeight.setOnClickListener {
-                               if(sortWeight == "sortDescend")
-                               {
-                                   sortWeight = "sortAscend"
+                           imgSortWeight.setImageResource(R.drawable.ic_sort_arrow_up_down)
+                           layWeight.setOnClickListener {
 
-                                   val list = arrayListOf<Weight>()
+                               val list = arrayListOf<Weight>()
+                               list.addAll(weightList)
+                               filter++
 
-                                   weightList.map {
-                                       list.add(Weight(it.projectName,it.txtPercent))
+                               when(filter){
+                                   2 -> {
+                                       filter = 2
+                                       imgSortWeight.setImageResource(R.drawable.ic_sort_arrow_up_down_selected)
+                                       imgSortWeight.rotation = 180f
+                                       list.sortByDescending {
+                                           it.txtPercent
+                                       }
                                    }
-
-                                   list.sortByDescending {
-                                       it.txtPercent
+                                   1 -> {
+                                       filter = 1
+                                       imgSortWeight.setImageResource(R.drawable.ic_sort_arrow_up_down_selected)
+                                       imgSortWeight.rotation = 0f
+                                       list.sortBy {
+                                           it.txtPercent
+                                       }
                                    }
-
-                                   weightAdapter!!.notifyDataSetChanged()
-                                   weightAdapter = WeightAdapter(list)
-
-                                   rvFilter.adapter = weightAdapter
-                               }else{
-                                   clickCountSortWeight(click)
-                                   click++
+                                   else -> {
+                                       filter = 0
+                                       imgSortWeight.setImageResource(R.drawable.ic_sort_arrow_up_down)
+                                   }
                                }
+
+                               weightAdapter = WeightAdapter(list)
+                               rvFilter.adapter = weightAdapter
+
                            }
 
                        }
@@ -200,37 +212,43 @@ class PortfolioFragment :
 
                            rvFilter.adapter = balanceAdapter
 
-                           linearLayoutPrice.visibility = View.GONE
-                           linearLayoutPerformance.visibility = View.GONE
                            linearLayoutBalance.visibility = View.VISIBLE
-                           linearLayoutWeight.visibility = View.GONE
-                           linearLayoutChange.visibility = View.GONE
 
                            txtTradingBalance.text = "$6 420.99"
-                           click = 2
 
-                           txtValueBalance.setOnClickListener {
-                               if(sortBalance == "sortDescend")
-                               {
-                                   sortBalance = "sortAscend"
+                           imgSortBalance.setImageResource(R.drawable.ic_sort_arrow_up_down)
+                           layBalance.setOnClickListener {
 
-                                   val list = arrayListOf<Balance>()
+                               val list = arrayListOf<Balance>()
+                               list.addAll(balanceList)
+                               filter++
 
-                                   balanceList.map {
-                                       list.add(Balance(it.projectName,it.ut,it.value))
+                               when(filter){
+                                   2 -> {
+                                       filter = 2
+                                       imgSortBalance.setImageResource(R.drawable.ic_sort_arrow_up_down_selected)
+                                       imgSortBalance.rotation = 180f
+                                       list.sortByDescending {
+                                           it.value
+                                       }
                                    }
-
-                                   list.sortByDescending {
-                                       it.value
+                                   1 -> {
+                                       filter = 1
+                                       imgSortBalance.setImageResource(R.drawable.ic_sort_arrow_up_down_selected)
+                                       imgSortBalance.rotation = 0f
+                                       list.sortBy {
+                                           it.value
+                                       }
                                    }
-
-                                   balanceAdapter!!.notifyDataSetChanged()
-                                   balanceAdapter = BalanceAdapter(list)
-                                   rvFilter.adapter = balanceAdapter
-                               }else{
-                                   clickCountSortBalance(click)
-                                   click++
+                                   else -> {
+                                       filter = 0
+                                       imgSortBalance.setImageResource(R.drawable.ic_sort_arrow_up_down)
+                                   }
                                }
+
+                               balanceAdapter = BalanceAdapter(list)
+                               rvFilter.adapter = balanceAdapter
+
                            }
                        }
                        "Price" -> {
@@ -243,10 +261,6 @@ class PortfolioFragment :
                            priceList.add(Price("Veng Sreng 2719",0.67,0.68))
 
                            linearLayoutPrice.visibility = View.VISIBLE
-                           linearLayoutPerformance.visibility = View.GONE
-                           linearLayoutBalance.visibility = View.GONE
-                           linearLayoutWeight.visibility = View.GONE
-                           linearLayoutChange.visibility = View.GONE
 
                            rvFilter.adapter = PriceAdapter(priceList)
 
@@ -261,43 +275,47 @@ class PortfolioFragment :
                            performanceList.add(Performance("KT 1665",0.16))
                            performanceList.add(Performance("Veng Sreng 2719",1.05))
 
-                           linearLayoutPrice.visibility = View.GONE
                            linearLayoutPerformance.visibility = View.VISIBLE
-                           linearLayoutBalance.visibility = View.GONE
-                           linearLayoutWeight.visibility = View.GONE
-                           linearLayoutChange.visibility = View.GONE
 
                            performanceAdapter = PerformanceAdapter(performanceList)
 
                            rvFilter.adapter = performanceAdapter
 
                            txtTradingBalance.text = "$6 420.99"
-                           click = 2
 
                            txtPerformance.text = "Performance"
 
-                           txtPerformance.setOnClickListener {
-                               if(txtPerformance.text.toString() == "Performance")
-                               {
-                                   txtPerformance.text = "Change"
+                           imgSortPerformance.setImageResource(R.drawable.ic_sort_arrow_up_down)
+                           laySortPerformance.setOnClickListener {
+                               val list = arrayListOf<Performance>()
+                               list.addAll(performanceList)
+                               filter++
 
-                                   val list = arrayListOf<Performance>()
-
-                                   performanceList.map {
-                                       list.add(Performance(it.projectName,it.txtPercent))
+                               when(filter){
+                                   2 -> {
+                                       filter = 2
+                                       imgSortPerformance.setImageResource(R.drawable.ic_sort_arrow_up_down_selected)
+                                       imgSortPerformance.rotation = 180f
+                                       list.sortByDescending {
+                                           it.txtPercent
+                                       }
                                    }
-
-                                   list.sortByDescending {
-                                       it.txtPercent
+                                   1 -> {
+                                       filter = 1
+                                       imgSortPerformance.setImageResource(R.drawable.ic_sort_arrow_up_down_selected)
+                                       imgSortPerformance.rotation = 0f
+                                       list.sortBy {
+                                           it.txtPercent
+                                       }
                                    }
-
-                                   performanceAdapter!!.notifyDataSetChanged()
-                                   performanceAdapter = PerformanceAdapter(list)
-                                   rvFilter.adapter = performanceAdapter
-                               }else if(txtPerformance.text.toString() == "Change"){
-                                   clickCountSortPerformance(click)
-                                   click++
+                                   else -> {
+                                       filter = 0
+                                       imgSortPerformance.setImageResource(R.drawable.ic_sort_arrow_up_down)
+                                   }
                                }
+
+                               performanceAdapter = PerformanceAdapter(list)
+                               rvFilter.adapter = performanceAdapter
                            }
                        }
                    }
@@ -313,125 +331,6 @@ class PortfolioFragment :
 
         } catch (error: Exception) {
             // Must be safe
-        }
-    }
-
-    @SuppressLint("NotifyDataSetChanged")
-    private fun clickCountSortPerformance(click: Int)
-    {
-        binding.apply {
-            if(click % 2 == 0)
-            {
-                val list = arrayListOf<Performance>()
-
-                performanceList.map {
-                    list.add(Performance(it.projectName,it.txtPercent))
-                }
-
-                list.sortBy{
-                    it.txtPercent
-                }
-
-                performanceAdapter!!.notifyDataSetChanged()
-                performanceAdapter = PerformanceAdapter(list)
-                rvFilter.adapter = performanceAdapter
-            }else{
-                txtPerformance.text = "Performance"
-
-                performanceAdapter!!.notifyDataSetChanged()
-                performanceAdapter = PerformanceAdapter(performanceList)
-                rvFilter.adapter = performanceAdapter
-            }
-        }
-
-    }
-
-    @SuppressLint("NotifyDataSetChanged")
-    private fun clickCountSortChange(click: Int)
-    {
-        binding.apply {
-            if(click%2 == 0)
-            {
-                val list = arrayListOf<Change>()
-
-                changeList.map {
-                    list.add(Change(it.projectName,it.txtPercent))
-                }
-
-                list.sortBy{
-                    it.txtPercent
-                }
-
-                changeAdapter!!.notifyDataSetChanged()
-
-                changeAdapter = ChangeAdapter(list)
-                rvFilter.adapter = changeAdapter
-            }else{
-                sortChange = "sortDescend"
-
-                changeAdapter!!.notifyDataSetChanged()
-                changeAdapter = ChangeAdapter(changeList)
-                rvFilter.adapter = changeAdapter
-            }
-        }
-    }
-
-    @SuppressLint("NotifyDataSetChanged")
-    private fun clickCountSortWeight(click: Int)
-    {
-        binding.apply {
-            if(click%2 == 0)
-            {
-                val list = arrayListOf<Weight>()
-
-                weightList.map {
-                    list.add(Weight(it.projectName,it.txtPercent))
-                }
-
-                list.sortBy{
-                    it.txtPercent
-                }
-
-                weightAdapter!!.notifyDataSetChanged()
-
-                weightAdapter = WeightAdapter(list)
-                rvFilter.adapter = weightAdapter
-            }else{
-                sortWeight = "sortDescend"
-
-                weightAdapter!!.notifyDataSetChanged()
-                weightAdapter = WeightAdapter(weightList)
-                rvFilter.adapter = weightAdapter
-            }
-        }
-    }
-
-    @SuppressLint("NotifyDataSetChanged")
-    private fun clickCountSortBalance(click: Int)
-    {
-        binding.apply {
-            if(click%2 == 0)
-            {
-                val list = arrayListOf<Balance>()
-
-                balanceList.map {
-                    list.add(Balance(it.projectName,it.ut,it.value))
-                }
-
-                list.sortBy {
-                    it.value
-                }
-
-                balanceAdapter!!.notifyDataSetChanged()
-                balanceAdapter = BalanceAdapter(list)
-                rvFilter.adapter = balanceAdapter
-            }else{
-                sortBalance = "sortDescend"
-
-                balanceAdapter!!.notifyDataSetChanged()
-                balanceAdapter = BalanceAdapter(balanceList)
-                rvFilter.adapter = balanceAdapter
-            }
         }
     }
 
