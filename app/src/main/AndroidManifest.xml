@@ -82,8 +82,20 @@
             android:name="com.zillennium.utswap.screens.system.welcomeScreen.WelcomeActivity"
             android:exported="false"
             android:label="@string/welcome"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
+
+
+        <!--  Activity Finance    -->
+        <activity android:name=".screens.finance.depositActivity.DepositActivity"
+            android:exported="false"
+            android:label="@string/deposit"
+            android:screenOrientation="portrait"/>
         <!--End Activity System-->
+
+        <activity android:name=".screens.finance.depositActivity.addCard.DepositAddCardActivity"
+            android:exported="false"
+            android:label="@string/deposit"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

@@ -36,6 +36,10 @@
         <item name="android:fontFamily">@font/avenirnextcy_medium</item>
         <item name="android:textSize">@dimen/font_size_28</item>
     </style>
+    <style name="medium_32" parent="@android:style/TextAppearance.Small">
+        <item name="android:fontFamily">@font/avenirnextcy_medium</item>
+        <item name="android:textSize">@dimen/font_size_32</item>
+    </style>
     <style name="medium_24" parent="@android:style/TextAppearance.Small">
         <item name="android:fontFamily">@font/avenirnextcy_medium</item>
         <item name="android:textSize">@dimen/font_size_24</item>
