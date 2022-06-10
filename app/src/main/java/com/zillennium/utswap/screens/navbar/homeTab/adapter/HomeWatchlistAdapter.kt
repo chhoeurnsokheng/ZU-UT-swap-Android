@@ -43,6 +43,7 @@ class HomeWatchlistAdapter(arrayList: ArrayList<HomeWatchlistModel>):
             holder.txtChangeValue.text = "+" + homeWatchlistList.changeValue + "%"
             holder.txtChangeValue.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.success))
         }
+
     }
 
     override fun getItemCount(): Int {
