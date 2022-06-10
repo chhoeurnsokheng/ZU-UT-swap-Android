@@ -137,7 +137,7 @@
             android:id="@+id/line"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dimen_1"
-            android:background="@color/thirst_text"/>
+            android:background="@color/light_gray"/>
 
     </LinearLayout>
 

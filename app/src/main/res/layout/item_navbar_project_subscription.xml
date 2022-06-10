@@ -150,7 +150,7 @@
         </LinearLayout>
 
         <View
-            android:background="@color/thirst_text"
+            android:background="@color/light_gray"
             android:layout_height="@dimen/dimen_1"
             android:layout_marginTop="@dimen/dimen_10"
             android:layout_width="match_parent" />
