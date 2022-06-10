@@ -7,10 +7,16 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
             <LinearLayout
                 android:layout_width="@dimen/dimen_350"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
+                android:gravity="center"
                 android:layout_marginHorizontal="@dimen/dimen_25">
 
                 <ImageView
@@ -184,6 +190,8 @@
                 </LinearLayout>
 
             </LinearLayout>
+
+        </LinearLayout>
 
             <ImageView
                 android:id="@+id/screen_shot"
