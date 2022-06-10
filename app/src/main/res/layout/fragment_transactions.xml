@@ -132,7 +132,7 @@
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:text="SELL"
-                        android:textColor="@color/red"
+                        android:textColor="@color/main_red"
                         android:textAppearance="@style/regular_14"/>
                 </LinearLayout>
 

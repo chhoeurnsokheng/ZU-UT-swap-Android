@@ -55,7 +55,7 @@
                     android:textColor="@color/white"
                     android:textAppearance="@style/regular_6"
                     android:background="@drawable/bg_circular"
-                    android:backgroundTint="@color/red"
+                    android:backgroundTint="@color/red_EE1111"
                     android:paddingHorizontal="@dimen/dimen_4"
                     android:paddingVertical="@dimen/dimen_2"
                     android:layout_alignEnd="@+id/img_notification"/>
