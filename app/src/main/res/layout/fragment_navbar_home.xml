@@ -26,7 +26,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="@dimen/dimen_5"
-                    android:text="@string/trading_balance"
+                    android:text="Total Balance"
                     android:textAppearance="@style/regular_12"
                     android:textColor="@color/dark_gray"
                     android:paddingHorizontal="@dimen/dimen_20"/>

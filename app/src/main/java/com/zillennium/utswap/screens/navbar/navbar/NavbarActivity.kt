@@ -205,6 +205,8 @@ class NavbarActivity :
         }
     }
 
+    
+
 
 //    override fun onBackPressed() {
 //        if (doubleBackToExitPressedOnce) {
