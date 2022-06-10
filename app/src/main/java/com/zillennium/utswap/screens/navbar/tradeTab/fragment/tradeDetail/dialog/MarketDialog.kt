@@ -22,7 +22,6 @@ class MarketDialog : DialogFragment() {
     private var btnCancel: MaterialButton? = null
     private var txtVolume: TextView? = null
 
-    @SuppressLint("SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

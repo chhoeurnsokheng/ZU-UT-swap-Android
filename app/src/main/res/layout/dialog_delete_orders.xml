@@ -4,6 +4,7 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="280dp"
                 android:layout_height="wrap_content"
+                android:orientation="vertical"
                 app:cardCornerRadius="@dimen/dimen_10">
 
                 <LinearLayout
@@ -51,7 +52,8 @@
                         android:background="@drawable/bg_circular"
                         android:hint="Back"
                         android:textAppearance="@style/regular_16"
-                        android:textColorHint="@color/color_main" />
+                        android:textColorHint="@color/color_main"
+                        style="?android:attr/borderlessButtonStyle"/>
 
                 </LinearLayout>
 

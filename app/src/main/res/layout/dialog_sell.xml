@@ -296,7 +296,8 @@
                 android:background="@drawable/bg_circular"
                 android:hint="Cancel"
                 android:textAppearance="@style/regular_16"
-                android:textColorHint="@color/color_main" />
+                android:textColorHint="@color/color_main"
+                style="?android:attr/borderlessButtonStyle"/>
 
         </LinearLayout>
 
