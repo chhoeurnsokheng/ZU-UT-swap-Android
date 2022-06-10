@@ -1,22 +1,17 @@
 package com.zillennium.utswap.screens.navbar.tradeTab.fragment.tradeDetail
 
-import android.os.Bundle
-import android.view.LayoutInflater
+import android.graphics.Paint
 import android.view.View
-import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
-import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentTradeDetailBinding
-
 import com.zillennium.utswap.screens.navbar.tradeTab.fragment.Transactions.TransactionsFragment
 import com.zillennium.utswap.screens.navbar.tradeTab.fragment.allTransactions.AllTransactionsFragment
 import com.zillennium.utswap.screens.navbar.tradeTab.fragment.chart.ChartFragment
@@ -50,25 +45,15 @@ class TradeDetailFragment :
                     onCheckSessionStatusAndKYC()
                 }
 
+
+                txtAvailable.paintFlags = txtAvailable.paintFlags or Paint.UNDERLINE_TEXT_FLAG
+                txtUt.paintFlags = txtUt.paintFlags or Paint.UNDERLINE_TEXT_FLAG
+
                 pageAdapter = ScreenSlidePageAdapter(this@TradeDetailFragment, NUM_PAGES)
                 vpVerify.adapter = pageAdapter
                 vpVerify.isUserInputEnabled = false
                 vpVerify.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-                    override fun onPageScrolled(
-                        position: Int,
-                        positionOffset: Float,
-                        positionOffsetPixels: Int
-                    ) {
-                        super.onPageScrolled(position, positionOffset, positionOffsetPixels)
-                    }
 
-                    override fun onPageSelected(position: Int) {
-                        super.onPageSelected(position)
-                    }
-
-                    override fun onPageScrollStateChanged(state: Int) {
-                        super.onPageScrollStateChanged(state)
-                    }
                 })
 
                 orderBook.setOnClickListener { view ->
@@ -84,21 +69,7 @@ class TradeDetailFragment :
                 vpTable.adapter = pageTableAdapter
                 vpTable.isUserInputEnabled = false
                 vpTable.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-                    override fun onPageScrolled(
-                        position: Int,
-                        positionOffset: Float,
-                        positionOffsetPixels: Int
-                    ) {
-                        super.onPageScrolled(position, positionOffset, positionOffsetPixels)
-                    }
 
-                    override fun onPageSelected(position: Int) {
-                        super.onPageSelected(position)
-                    }
-
-                    override fun onPageScrollStateChanged(state: Int) {
-                        super.onPageScrollStateChanged(state)
-                    }
                 })
 
                 txtOrders.setOnClickListener { view ->
@@ -158,7 +129,7 @@ class TradeDetailFragment :
             } else if (view.id == R.id.chart) {
                 orderBook.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.color_main))
                 chart.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.white))
-                val size: Int = chart.width ?: 0
+                val size: Int = chart.width
                 tabSelect.animate().x(size.toFloat()).duration = 100
             }
         }
@@ -178,14 +149,14 @@ class TradeDetailFragment :
                     txtOrders.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.color_main))
                     txtAllTransactions.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.color_main))
                     txtTransactions.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.white))
-                    val size: Int = txtTransactions.width ?: 0
+                    val size: Int = txtTransactions.width
                     tabSelectOrders.animate().x(size.toFloat()).duration = 100
                 }
                 R.id.txt_all_transactions -> {
                     txtOrders.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.color_main))
                     txtTransactions.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.color_main))
                     txtAllTransactions.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.white))
-                    val sizeAllTrans: Int = (txtAllTransactions.x.toInt()) ?: 0
+                    val sizeAllTrans: Int = (txtAllTransactions.x.toInt())
 
                     tabSelectOrders.animate().x(sizeAllTrans.toFloat()).duration = 100
                 }
@@ -241,7 +212,4 @@ class TradeDetailFragment :
 //
 //    }
 
-    override fun onDestroy() {
-        super.onDestroy()
-    }
 }

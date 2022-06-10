@@ -434,47 +434,63 @@
             android:background="@drawable/dialog_bg"
             android:elevation="@dimen/dimen_10"
             android:orientation="vertical"
-            android:paddingStart="@dimen/dimen_5"
-            android:paddingEnd="@dimen/dimen_5"
-            android:paddingBottom="@dimen/dimen_15"
-            android:visibility="gone">
+            android:visibility="visible">
 
             <View
                 android:layout_width="@dimen/dimen_40"
                 android:layout_height="@dimen/dimen_4"
                 android:layout_gravity="center"
-                android:background="@drawable/btn_bar" />
+                android:background="@drawable/btn_bar"
+                android:layout_marginBottom="@dimen/dimen_20"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_15"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/dimen_20">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
+                    android:paddingEnd="@dimen/dimen_3"
                     android:orientation="vertical">
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btn_buy"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dimen_48"
-                        android:layout_marginStart="@dimen/dimen_5"
-                        android:layout_marginEnd="@dimen/dimen_4"
                         android:background="@drawable/bg_circular"
                         android:hint="BUY"
                         android:textAppearance="@style/bold_16"
                         android:textColorHint="@color/white"
-                        app:backgroundTint="@color/success" />
+                        app:backgroundTint="@color/success"
+                        style="?android:attr/borderlessButtonStyle"
+                        android:layout_marginBottom="@dimen/dimen_6"/>
 
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dimen_10"
-                        android:text="Avail.Balance: $0.00" />
+                        android:orientation="horizontal"
+                        android:gravity="center_horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Avail.Balance:"
+                            android:textColor="@color/black_333333"
+                            android:textAppearance="@style/regular_10"
+                            android:layout_marginEnd="@dimen/dimen_3"/>
+                        <TextView
+                            android:id="@+id/txt_available"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textStyle=""
+                            android:textColor="@color/black_333333"
+                            android:textAppearance="@style/regular_10"
+                            android:text="$0.00" />
+                    </LinearLayout>
+
 
                 </LinearLayout>
 
@@ -483,25 +499,41 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
+                    android:paddingStart="@dimen/dimen_3"
                     android:orientation="vertical">
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btn_sell"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dimen_48"
-                        android:layout_marginStart="@dimen/dimen_4"
-                        android:layout_marginEnd="@dimen/dimen_5"
                         android:background="@drawable/bg_circular"
                         android:hint="SELL"
+                        style="?android:attr/borderlessButtonStyle"
                         android:textAppearance="@style/bold_16"
                         android:textColorHint="@color/white"
-                        app:backgroundTint="@color/main_red" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
+                        app:backgroundTint="@color/main_red"
+                        android:layout_marginBottom="@dimen/dimen_6"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dimen_10"
-                        android:text="UT: 0" />
+                        android:orientation="horizontal"
+                        android:gravity="center">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black_333333"
+                            android:textAppearance="@style/regular_10"
+                            android:text="UT:"
+                            android:layout_marginEnd="@dimen/dimen_3"/>
+                        <TextView
+                            android:id="@+id/txt_ut"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black_333333"
+                            android:textAppearance="@style/regular_10"
+                            android:text="0" />
+                    </LinearLayout>
+
 
                 </LinearLayout>
 

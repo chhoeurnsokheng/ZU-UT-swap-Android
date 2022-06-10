@@ -55,6 +55,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dimen_15"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal">
 
                     <ImageView
@@ -82,13 +83,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_10"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:orientation="horizontal">
 
                 <LinearLayout
                     android:id="@+id/btn_all"
-                    android:layout_width="@dimen/dimen_80"
-                    android:layout_height="@dimen/dimen_40"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dimen_38"
+                    android:paddingHorizontal="@dimen/dimen_20"
                     android:layout_marginEnd="@dimen/dimen_8"
                     android:background="@drawable/bg_circular">
 
@@ -104,8 +106,9 @@
 
                 <LinearLayout
                     android:id="@+id/btn_buy"
-                    android:layout_width="@dimen/dimen_80"
-                    android:layout_height="@dimen/dimen_40"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dimen_38"
+                    android:paddingHorizontal="@dimen/dimen_20"
                     android:layout_marginEnd="@dimen/dimen_8"
                     android:background="@drawable/bg_border_green_correct">
 
@@ -121,8 +124,9 @@
 
                 <LinearLayout
                     android:id="@+id/btn_sell"
-                    android:layout_width="@dimen/dimen_80"
-                    android:layout_height="@dimen/dimen_40"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dimen_38"
+                    android:paddingHorizontal="@dimen/dimen_20"
                     android:layout_marginEnd="@dimen/dimen_8"
                     android:background="@drawable/bg_border_red_transparent">
 
@@ -150,7 +154,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dimen_10"
-                    android:visibility="visible"
+                    android:visibility="gone"
                     android:orientation="horizontal">
 
                     <LinearLayout
