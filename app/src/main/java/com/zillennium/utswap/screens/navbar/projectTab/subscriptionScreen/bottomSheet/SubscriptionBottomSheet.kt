@@ -44,7 +44,7 @@ class SubscriptionBottomSheet : BottomSheetDialogFragment(), AdapterView.OnItemS
         super.onViewCreated(view, savedInstanceState)
         binding?.apply {
 
-            (view.parent as View).setBackgroundColor(resources.getColor(android.R.color.transparent))
+            (view.parent as View).setBackgroundColor(ContextCompat.getColor(UTSwapApp.instance, android.R.color.transparent))
 
             btnSubscript.setOnClickListener{
                 if(!etInputVolume.text.isNullOrEmpty()){

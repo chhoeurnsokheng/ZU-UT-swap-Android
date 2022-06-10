@@ -10,6 +10,7 @@ import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import com.zillennium.utswap.Datas.StoredPreferences.KYCPreferences
@@ -53,13 +54,13 @@ class RegisterFragment :
 
                     var isHaveError = false
                     txtMessage.text = "Invalid. Please Try Again"
-                    txtMessage.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.main_red))
+                    txtMessage.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.main_red))
 
                     if(!validate().isValidEmail(inputEmail.text.toString().trim()) && !validate().isValidPhoneNumber(inputEmail.text.toString().trim())){
                         txtMessage.text = "Please Enter Email or Phone Number"
                         txtMessage.visibility = View.VISIBLE
                         inputEmail.backgroundTintList =
-                            ColorStateList.valueOf(resources.getColor(R.color.red))
+                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.main_red))
                         isHaveError = true
                         return@setOnClickListener
                     }
@@ -68,7 +69,7 @@ class RegisterFragment :
                         txtMessage.text = "Please Enter a Password Longer Than 8 Digits"
                         txtMessage.visibility = View.VISIBLE
                         inputPassword.backgroundTintList =
-                            ColorStateList.valueOf(resources.getColor(R.color.red))
+                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.main_red))
                         isHaveError = true
                         return@setOnClickListener
                     }
@@ -77,7 +78,7 @@ class RegisterFragment :
                         txtMessage.text = "Invalid. Please Try Again"
                         txtMessage.visibility = View.VISIBLE
                         inputConfirmPassword.backgroundTintList =
-                            ColorStateList.valueOf(resources.getColor(R.color.red))
+                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.main_red))
                         isHaveError = true
                         return@setOnClickListener
                     }
@@ -86,9 +87,9 @@ class RegisterFragment :
                         txtMessage.text = "Password didn't match"
                         txtMessage.visibility = View.VISIBLE
                         inputPassword.backgroundTintList =
-                            ColorStateList.valueOf(resources.getColor(R.color.red))
+                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.main_red))
                         inputConfirmPassword.backgroundTintList =
-                            ColorStateList.valueOf(resources.getColor(R.color.red))
+                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.main_red))
                         isHaveError = true
                         return@setOnClickListener
                     }
@@ -142,7 +143,7 @@ class RegisterFragment :
                     override fun afterTextChanged(editable: Editable) {
                         txtMessage.visibility = View.GONE
                         inputEmail.backgroundTintList =
-                            ColorStateList.valueOf(resources.getColor(R.color.secondary_text))
+                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text))
                     }
                 })
 
@@ -166,7 +167,7 @@ class RegisterFragment :
                     override fun afterTextChanged(editable: Editable) {
                         txtMessage.visibility = View.GONE
                         inputPassword.backgroundTintList =
-                            ColorStateList.valueOf(resources.getColor(R.color.secondary_text))
+                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text))
 
                     }
                 })
@@ -193,7 +194,7 @@ class RegisterFragment :
                     override fun afterTextChanged(editable: Editable) {
                         txtMessage.visibility = View.GONE
                         inputConfirmPassword.backgroundTintList =
-                            ColorStateList.valueOf(resources.getColor(R.color.secondary_text))
+                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text))
                     }
                 })
 

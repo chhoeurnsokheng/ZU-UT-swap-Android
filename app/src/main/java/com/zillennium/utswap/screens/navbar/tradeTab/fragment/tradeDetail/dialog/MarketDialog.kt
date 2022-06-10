@@ -10,9 +10,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import com.google.android.material.button.MaterialButton
 import com.zillennium.utswap.R
+import com.zillennium.utswap.UTSwapApp
 
 class MarketDialog : DialogFragment() {
     internal var view: View? = null
@@ -36,13 +38,13 @@ class MarketDialog : DialogFragment() {
 
         txtVolume?.text = arguments?.get("volume").toString()
         btnBuy?.text = arguments?.get("status").toString()
-        btnBuy?.setTextColor(resources.getColor(R.color.white))
+        btnBuy?.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.white))
 
         if(arguments?.get("status") == "SELL")
         {
-            btnBuy?.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.main_red))
+            btnBuy?.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.main_red))
         }else{
-            btnBuy?.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.success))
+            btnBuy?.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.success))
         }
 
         btnCancel?.setOnClickListener {

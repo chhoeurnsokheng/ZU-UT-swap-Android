@@ -6,9 +6,11 @@ import android.os.Bundle
 import android.view.*
 import android.widget.AdapterView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.zillennium.utswap.R
+import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.databinding.BottomSheetHomeFinanceBinding
 
 class HomeFinanceBottomSheet : BottomSheetDialogFragment(), AdapterView.OnItemSelectedListener {
@@ -37,7 +39,7 @@ class HomeFinanceBottomSheet : BottomSheetDialogFragment(), AdapterView.OnItemSe
         super.onViewCreated(view, savedInstanceState)
         binding?.apply {
 
-            (view.parent as View).setBackgroundColor(resources.getColor(android.R.color.transparent))
+            (view.parent as View).setBackgroundColor(ContextCompat.getColor(UTSwapApp.instance, android.R.color.transparent))
 
             balanceButton.setOnClickListener {
                 Toast.makeText(context, "BALANCE IS CLICKED", Toast.LENGTH_SHORT).show()

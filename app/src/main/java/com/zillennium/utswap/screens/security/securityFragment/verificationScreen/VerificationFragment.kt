@@ -13,6 +13,7 @@ import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.core.view.children
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -56,7 +57,7 @@ class VerificationFragment :
                     imgCorrect.visibility = View.GONE
 
                     for (child in layoutCount.children){
-                        child.background = resources.getDrawable(R.drawable.bg_corner)
+                        child.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_corner)
                     }
 
                     if(editBox.text.isEmpty()){
@@ -88,7 +89,7 @@ class VerificationFragment :
                     imgWrong.visibility = View.GONE
 
                     for(child in layoutCount.children){
-                        child.background = resources.getDrawable(R.drawable.bg_corner)
+                        child.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_corner)
                     }
 
                     layoutCount.performClick()
@@ -97,7 +98,7 @@ class VerificationFragment :
                 imgWrong.setOnClickListener {
                     for (child in layoutCount.children){
                         val children = child as TextView
-                        children.background = resources.getDrawable(R.drawable.bg_corner)
+                        children.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_corner)
                         children.text = ""
                     }
                     editBox.setText("")
@@ -113,7 +114,7 @@ class VerificationFragment :
                     override fun onTextChanged(chr: CharSequence?, p1: Int, p2: Int, p3: Int) {
                         for (child in layoutCount.children){
                             val children = child as TextView
-                            children.background = resources.getDrawable(R.drawable.bg_corner)
+                            children.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_corner)
                             children.text = ""
                         }
 
@@ -153,7 +154,7 @@ class VerificationFragment :
                                 linearCountdown.visibility = View.GONE
                                 stopTimer()
                                 for(child in layoutCount.children){
-                                    child.background = resources.getDrawable(R.drawable.bg_green_corner)
+                                    child.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_green_corner)
                                 }
 
                                 when (arguments?.getString("title")) {
@@ -174,7 +175,7 @@ class VerificationFragment :
                                 imgCorrect.visibility = View.GONE
                                 imgWrong.visibility = View.VISIBLE
                                 for(child in layoutCount.children){
-                                    child.background = resources.getDrawable(R.drawable.bg_red_corner)
+                                    child.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_red_corner)
                                 }
                             }
 
@@ -190,7 +191,7 @@ class VerificationFragment :
                         imgCorrect.visibility = View.GONE
                         imgWrong.visibility = View.VISIBLE
                         for(child in layoutCount.children){
-                            child.background = resources.getDrawable(R.drawable.bg_red_corner)
+                            child.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_red_corner)
                         }
                     }
                 }
@@ -225,7 +226,7 @@ class VerificationFragment :
                     imgWrong.visibility = View.VISIBLE
 
                     for(child in layoutCount.children){
-                        child.background = resources.getDrawable(R.drawable.bg_red_corner)
+                        child.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_red_corner)
                     }
                 }
             }.start()

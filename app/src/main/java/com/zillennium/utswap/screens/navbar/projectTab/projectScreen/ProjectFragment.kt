@@ -8,6 +8,7 @@ import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -150,14 +151,14 @@ class ProjectFragment :
             etSearch.setOnFocusChangeListener { _, hasFocus ->
                 if (hasFocus) {
                     imgSearch.imageTintList =
-                        ColorStateList.valueOf(resources.getColor(R.color.color_main))
+                        ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.color_main))
                     laySearch.backgroundTintList =
-                        ColorStateList.valueOf(resources.getColor(R.color.color_main))
+                        ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.color_main))
                 } else {
                     imgSearch.imageTintList =
-                        ColorStateList.valueOf(resources.getColor(R.color.light_gray))
+                        ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.light_gray))
                     laySearch.backgroundTintList =
-                        ColorStateList.valueOf(resources.getColor(R.color.light_gray))
+                        ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.light_gray))
                 }
             }
 

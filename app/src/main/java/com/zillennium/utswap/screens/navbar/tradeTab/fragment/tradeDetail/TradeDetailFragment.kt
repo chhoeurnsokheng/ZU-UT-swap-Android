@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -12,6 +13,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
 import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
+import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentTradeDetailBinding
 
@@ -151,11 +153,11 @@ class TradeDetailFragment :
         binding.apply {
             if (view.id == R.id.order_book) {
                 tabSelect.animate()?.x(0f)?.duration = 100
-                orderBook.setTextColor(resources.getColor(R.color.white))
-                chart.setTextColor(resources.getColor(R.color.color_main))
+                orderBook.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.white))
+                chart.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.color_main))
             } else if (view.id == R.id.chart) {
-                orderBook.setTextColor(resources.getColor(R.color.color_main))
-                chart.setTextColor(resources.getColor(R.color.white))
+                orderBook.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.color_main))
+                chart.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.white))
                 val size: Int = chart.width ?: 0
                 tabSelect.animate().x(size.toFloat()).duration = 100
             }
@@ -168,21 +170,21 @@ class TradeDetailFragment :
             when (view.id) {
                 R.id.txt_orders -> {
                     tabSelectOrders.animate()?.x(0f)?.duration = 100
-                    txtOrders.setTextColor(resources.getColor(R.color.white))
-                    txtAllTransactions.setTextColor(resources.getColor(R.color.color_main))
-                    txtTransactions.setTextColor(resources.getColor(R.color.color_main))
+                    txtOrders.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.white))
+                    txtAllTransactions.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.color_main))
+                    txtTransactions.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.color_main))
                 }
                 R.id.txt_transactions -> {
-                    txtOrders.setTextColor(resources.getColor(R.color.color_main))
-                    txtAllTransactions.setTextColor(resources.getColor(R.color.color_main))
-                    txtTransactions.setTextColor(resources.getColor(R.color.white))
+                    txtOrders.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.color_main))
+                    txtAllTransactions.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.color_main))
+                    txtTransactions.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.white))
                     val size: Int = txtTransactions.width ?: 0
                     tabSelectOrders.animate().x(size.toFloat()).duration = 100
                 }
                 R.id.txt_all_transactions -> {
-                    txtOrders.setTextColor(resources.getColor(R.color.color_main))
-                    txtTransactions.setTextColor(resources.getColor(R.color.color_main))
-                    txtAllTransactions.setTextColor(resources.getColor(R.color.white))
+                    txtOrders.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.color_main))
+                    txtTransactions.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.color_main))
+                    txtAllTransactions.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.white))
                     val sizeAllTrans: Int = (txtAllTransactions.x.toInt()) ?: 0
 
                     tabSelectOrders.animate().x(sizeAllTrans.toFloat()).duration = 100

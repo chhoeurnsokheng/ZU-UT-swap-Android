@@ -7,6 +7,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
 import androidx.navigation.Navigation.findNavController
@@ -68,10 +69,11 @@ class NavbarActivity :
                         when(SessionVariable.SESSION_KYC_STATUS.value){
                             2 -> {
                                 layKycStatus.visibility = View.VISIBLE
-                                layKycStatus.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.orange))
+                                layKycStatus.backgroundTintList = ColorStateList.valueOf(
+                                    ContextCompat.getColor(UTSwapApp.instance, R.color.orange))
                                 txtStatus.text = "Pending Review."
                                 btnVerify.isClickable = false
-                                btnVerify.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.gray_999999))
+                                btnVerify.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.gray_999999))
                                 Handler().postDelayed({
                                     SessionVariable.SESSION_KYC_STATUS.value = 1
                                 }, 5000)
@@ -79,10 +81,10 @@ class NavbarActivity :
                             }
                             1 -> {
                                 layKycStatus.visibility = View.VISIBLE
-                                layKycStatus.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.main_red))
+                                layKycStatus.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.main_red))
                                 txtStatus.text = "Invalid Verification. Please Try Again."
                                 btnVerify.isClickable = true
-                                btnVerify.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.color_main))
+                                btnVerify.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.color_main))
                             }
                             else -> {
                                 layKycStatus.visibility = View.GONE

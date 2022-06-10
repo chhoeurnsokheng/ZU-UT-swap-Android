@@ -1,8 +1,10 @@
 package com.zillennium.utswap.screens.navbar.tradeTab.fragment.Transactions.fragment
 
 import android.annotation.SuppressLint
+import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import com.zillennium.utswap.R
+import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentTransactionsDetailBinding
 import com.zillennium.utswap.utils.groupingSeparator
@@ -33,7 +35,7 @@ class TransactionDetailFragment :
                 txtStatus.text = arguments?.getString("status")
                 if(txtStatus.text.toString() == "SELL")
                 {
-                    txtStatus.setTextColor(resources.getColor(R.color.main_red))
+                    txtStatus.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.main_red))
                 }
 
                 volume = arguments?.getInt("ut")

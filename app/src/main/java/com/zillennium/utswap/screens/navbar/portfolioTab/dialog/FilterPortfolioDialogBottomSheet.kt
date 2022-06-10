@@ -5,11 +5,13 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.*
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.zillennium.utswap.Datas.GlobalVariable.SettingVariable
 import com.zillennium.utswap.R
+import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.databinding.BottomSheetFilterPortfolioBinding
 
 
@@ -38,7 +40,7 @@ class FilterPortfolioDialogBottomSheet : BottomSheetDialogFragment(){
         super.onViewCreated(view, savedInstanceState)
         binding?.apply {
 
-            (view.parent as View).setBackgroundColor(resources.getColor(android.R.color.transparent))
+            (view.parent as View).setBackgroundColor(ContextCompat.getColor(UTSwapApp.instance, android.R.color.transparent))
 
             when(arguments?.get("title")){
                 "Performance" -> imgCheckPerformance.visibility = View.VISIBLE
@@ -66,7 +68,7 @@ class FilterPortfolioDialogBottomSheet : BottomSheetDialogFragment(){
 
             item.mapIndexed { index, it ->
                 it.setOnClickListener {
-                    SettingVariable.portfolio_selected.value = title.get(index).toString()
+                    SettingVariable.portfolio_selected.value = title[index].toString()
                     dismiss()
                 }
             }

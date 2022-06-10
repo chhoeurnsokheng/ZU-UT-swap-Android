@@ -10,9 +10,11 @@ import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.DatePicker
+import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import com.zillennium.utswap.Datas.StoredPreferences.KYCPreferences
 import com.zillennium.utswap.R
+import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentKycIdVerificationBinding
 import com.zillennium.utswap.models.SpinnerModel
@@ -110,7 +112,7 @@ class IDVerificationFragment :
                 if (etFirstName.text.toString().isEmpty()) {
                     txtErrorFirstName.visibility = View.VISIBLE
                     etFirstName.backgroundTintList =
-                        ColorStateList.valueOf(resources.getColor(R.color.red))
+                        ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.main_red))
                     isHaveError = true
                 }
 
@@ -118,7 +120,7 @@ class IDVerificationFragment :
                 if (etLastName.text.toString().isEmpty()) {
                     txtErrorLastName.visibility = View.VISIBLE
                     etLastName.backgroundTintList =
-                        ColorStateList.valueOf(resources.getColor(R.color.red))
+                        ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.main_red))
                     isHaveError = true
                 }
 
@@ -126,34 +128,34 @@ class IDVerificationFragment :
                 if (etDate.text.toString().isEmpty()) {
                     txtErrorDate.visibility = View.VISIBLE
                     etDate.backgroundTintList =
-                        ColorStateList.valueOf(resources.getColor(R.color.red))
+                        ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.main_red))
                     isHaveError = true
                 }
 
                 //Gender Error
                 if (info.gender == 0) {
-                    spinnerGender.underlineColor = resources.getColor(R.color.red)
+                    spinnerGender.underlineColor = ContextCompat.getColor(UTSwapApp.instance, R.color.main_red)
                     txtErrorGender.visibility = View.VISIBLE
                     isHaveError = true
                 }
 
                 // City/Province Error
                 if (info.city == 0) {
-                    spinnerCityProvince.underlineColor = resources.getColor(R.color.red)
+                    spinnerCityProvince.underlineColor = ContextCompat.getColor(UTSwapApp.instance, R.color.main_red)
                     txtErrorCity.visibility = View.VISIBLE
                     isHaveError = true
                 }
 
                 // District Error
                 if (info.district == 0) {
-                    spinnerDistrictKhan.underlineColor = resources.getColor(R.color.red)
+                    spinnerDistrictKhan.underlineColor = ContextCompat.getColor(UTSwapApp.instance, R.color.main_red)
                     txtErrorDistrict.visibility = View.VISIBLE
                     isHaveError = true
                }
 
                 // Commune Error
                 if (info.commune == 0) {
-                    spinnerCommuneSangkat.underlineColor = resources.getColor(R.color.red)
+                    spinnerCommuneSangkat.underlineColor = ContextCompat.getColor(UTSwapApp.instance, R.color.main_red)
                     txtErrorCommune.visibility = View.VISIBLE
                     isHaveError = true
                 }
@@ -162,7 +164,7 @@ class IDVerificationFragment :
                 if (etHouse.text.toString().isEmpty()) {
                     txtErrorHouse.visibility = View.VISIBLE
                     etHouse.backgroundTintList =
-                        ColorStateList.valueOf(resources.getColor(R.color.red))
+                        ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.main_red))
                     isHaveError = true
                 }
 
@@ -201,7 +203,7 @@ class IDVerificationFragment :
                 ) {
                     txtErrorFirstName.visibility = View.GONE
                     etFirstName.backgroundTintList =
-                        ColorStateList.valueOf(resources.getColor(R.color.secondary_text))
+                        ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text))
 
                     info.firstName = charSequence.toString()
                 }
@@ -229,7 +231,7 @@ class IDVerificationFragment :
                 ) {
                     txtErrorLastName.visibility = View.GONE
                     etLastName.backgroundTintList =
-                        ColorStateList.valueOf(resources.getColor(R.color.secondary_text))
+                        ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text))
 
                     info.lastName = charSequence.toString()
                 }
@@ -257,7 +259,7 @@ class IDVerificationFragment :
                 ) {
                     txtErrorDate.visibility = View.GONE
                     etDate.backgroundTintList =
-                        ColorStateList.valueOf(resources.getColor(R.color.secondary_text))
+                        ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text))
 
                     info.dateOfBirth = charSequence.toString()
                 }
@@ -284,7 +286,7 @@ class IDVerificationFragment :
                     ) {
                         txtErrorHouse.visibility = View.GONE
                         etHouse.backgroundTintList =
-                            ColorStateList.valueOf(resources.getColor(R.color.secondary_text))
+                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text))
 
                         info.addressHouse = charSequence.toString()
                     }
@@ -314,7 +316,7 @@ class IDVerificationFragment :
                     position: Int,
                     id: Long
                 ) {
-                    spinnerGender.underlineColor = resources.getColor(R.color.secondary_text)
+                    spinnerGender.underlineColor = ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text)
                     info.gender = genderList[position].id
                     txtErrorGender.visibility = View.GONE
                 }
@@ -345,7 +347,7 @@ class IDVerificationFragment :
                         position: Int,
                         id: Long
                     ) {
-                        spinnerCityProvince.underlineColor = resources.getColor(R.color.secondary_text)
+                        spinnerCityProvince.underlineColor = ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text)
                         info.city = provinceList[position].id
                         txtErrorCity.visibility = View.GONE
                     }
@@ -376,7 +378,7 @@ class IDVerificationFragment :
                         position: Int,
                         id: Long
                     ) {
-                        spinnerDistrictKhan.underlineColor = resources.getColor(R.color.secondary_text)
+                        spinnerDistrictKhan.underlineColor = ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text)
                         info.district = districtList[position].id
                         txtErrorDistrict.visibility = View.GONE
                     }
@@ -408,7 +410,7 @@ class IDVerificationFragment :
                         position: Int,
                         id: Long
                     ) {
-                        spinnerCommuneSangkat.underlineColor = resources.getColor(R.color.secondary_text)
+                        spinnerCommuneSangkat.underlineColor = ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text)
                         info.commune = communeList[position].id
                         txtErrorCommune.visibility = View.GONE
                     }
