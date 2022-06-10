@@ -33,20 +33,20 @@ class HomeFragment :
             binding.apply {
 
                 /* Show or Hide Trading Balance */
-                val blurMask: MaskFilter = BlurMaskFilter(20f, BlurMaskFilter.Blur.NORMAL)
+                val blurMask: MaskFilter = BlurMaskFilter(50f, BlurMaskFilter.Blur.NORMAL)
                 tradingBalance.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
-                tradingBalance.getPaint().setMaskFilter(blurMask)
+                tradingBalance.paint.maskFilter = blurMask
 
                 buttonShowToggle.setOnClickListener {
                     blurCondition = !blurCondition
 
                     if (blurCondition) {
                         tradingBalance.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
-                        tradingBalance.getPaint().setMaskFilter(null)
+                        tradingBalance.paint.maskFilter = null
                         eyeImage.setImageResource(R.drawable.ic_baseline_remove_red_eye_24)
                     } else {
                         tradingBalance.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
-                        tradingBalance.getPaint().setMaskFilter(blurMask)
+                        tradingBalance.paint.maskFilter = blurMask
                         eyeImage.setImageResource(R.drawable.ic_baseline_visibility_off_24)
                     }
                 }
