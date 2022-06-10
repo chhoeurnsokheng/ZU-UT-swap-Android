@@ -22,9 +22,6 @@ class DeleteOrdersDialog : DialogFragment() {
         dialog!!.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog!!.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
-
-
-
         btnConfirm = view?.findViewById(R.id.btn_confirm)
         btnBack = view?.findViewById(R.id.btn_cancel)
 
