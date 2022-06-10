@@ -77,14 +77,17 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/ut_pochentong"
-                            android:textAppearance="@style/medium_20" />
+                            android:textColor="@color/black"
+                            android:textAppearance="@style/medium_20"
+                            android:layout_marginBottom="@dimen/dimen_8"/>
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/dimen_10"
                             android:text="@string/time_date"
-                            android:textAppearance="@style/regular_12" />
+                            android:textColor="@color/black_333333"
+                            android:textAppearance="@style/regular_12"
+                            android:layout_marginBottom="@dimen/dimen_20"/>
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/recycleView_project"

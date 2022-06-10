@@ -30,10 +30,13 @@
     <color name="gray">#DCDCDC</color>
     <color name="light_gray">#DDDDDD</color>
     <color name="dark_gray">#666666</color>
+    <color name="gray_CCCCCC">#CCCCCC</color>
     <color name="gray_EEEEEE">#EEEEEE</color>
     <color name="gray_999999">#999999</color>
     <color name="gray_888888">#888888</color>
+    <color name="gray_E7E7E7">#E7E7E7</color>
     <color name="gray_F7F7F7">#F7F7F7</color>
+    <color name="gray_707070">#707070</color>
     <color name="black_222222">#222222</color>
     <color name="black_333333">#333333</color>
     <color name="backgroundHint">#808080</color>

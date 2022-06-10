@@ -32,6 +32,7 @@
                     android:layout_marginStart="@dimen/dimen_5"
                     android:layout_width="wrap_content"
                     android:text=""
+                    android:textColor="@color/color_main"
                     android:textAppearance="@style/medium_16" />
             </LinearLayout>
 
@@ -46,6 +47,7 @@
                     android:layout_marginTop="@dimen/dimen_3"
                     android:layout_width="wrap_content"
                     android:text="$"
+                    android:textColor="@color/black_222222"
                     android:textAppearance="@style/medium_14" />
 
                 <TextView
@@ -54,6 +56,7 @@
                     android:layout_marginTop="@dimen/dimen_3"
                     android:layout_width="wrap_content"
                     android:text=""
+                    android:textColor="@color/black_222222"
                     android:textAppearance="@style/medium_14" />
             </LinearLayout>
         </LinearLayout>
@@ -65,7 +68,7 @@
             android:layout_marginTop="@dimen/dimen_20"
             android:layout_width="match_parent"
             android:progress="0"
-            android:progressBackgroundTint="@color/thirst_text" />
+            android:progressBackgroundTint="@color/gray_E7E7E7" />
 
         <LinearLayout
             android:layout_height="wrap_content"
@@ -82,7 +85,7 @@
                     android:layout_height="@dimen/dimen_20"
                     android:layout_width="@dimen/dimen_20"
                     android:src="@drawable/ic_baseline_lock_24"
-                    app:tint="@color/thirst_text" />
+                    app:tint="@color/dark_gray" />
 
                 <TextView
                     android:id="@+id/tv_day_lock"
@@ -91,6 +94,7 @@
                     android:layout_marginTop="@dimen/dimen_3"
                     android:layout_width="wrap_content"
                     android:text=""
+                    android:textColor="@color/gray_707070"
                     android:textAppearance="@style/regular_12" />
                 <TextView
                     android:id="@+id/tv_day_lock_text"
@@ -99,6 +103,7 @@
                     android:layout_marginTop="@dimen/dimen_3"
                     android:layout_width="wrap_content"
                     android:text="Days"
+                    android:textColor="@color/gray_707070"
                     android:textAppearance="@style/regular_12" />
             </LinearLayout>
 
@@ -114,6 +119,7 @@
                     android:layout_marginTop="@dimen/dimen_3"
                     android:layout_width="wrap_content"
                     android:text=""
+                    android:textColor="@color/black_222222"
                     android:textAppearance="@style/medium_14" />
                 <TextView
                     android:id="@+id/tv_Div"
@@ -121,6 +127,7 @@
                     android:layout_marginTop="@dimen/dimen_3"
                     android:layout_width="wrap_content"
                     android:text="/"
+                    android:textColor="@color/black_222222"
                     android:layout_marginHorizontal="@dimen/dimen_3"
                     android:textAppearance="@style/medium_14"
                     />

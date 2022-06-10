@@ -40,7 +40,7 @@ class ProjectInfoInvestmentAdapter (arrayList: ArrayList<ProjectInfoInvestmentMo
 
         if(position == 2)
         {
-            holder.layoutInvestment.setBackgroundColor(ContextCompat.getColor(UTSwapApp.instance, R.color.thirst_text))
+            holder.layoutInvestment.setBackgroundColor(ContextCompat.getColor(UTSwapApp.instance, R.color.gray_CCCCCC))
         }
         else if(position == 8){
             holder.layoutInvestment.setBackgroundColor(ContextCompat.getColor(UTSwapApp.instance, R.color.orange))

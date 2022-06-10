@@ -63,7 +63,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dimen_1"
                 android:layout_marginHorizontal="@dimen/dimen_20"
-                android:background="@color/thirst_text"/>
+                android:background="@color/light_gray"/>
 
             <LinearLayout
                 android:id="@+id/btn_performance"
@@ -115,7 +115,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dimen_1"
-                android:background="@color/thirst_text"
+                android:background="@color/light_gray"
                 android:layout_marginHorizontal="@dimen/dimen_20"/>
 
             <LinearLayout
@@ -168,7 +168,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dimen_1"
-                android:background="@color/thirst_text"
+                android:background="@color/light_gray"
                 android:layout_marginHorizontal="@dimen/dimen_20"/>
 
             <LinearLayout
@@ -221,7 +221,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dimen_1"
-                android:background="@color/thirst_text"
+                android:background="@color/light_gray"
                 android:layout_marginHorizontal="@dimen/dimen_20"/>
 
             <LinearLayout
