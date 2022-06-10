@@ -34,7 +34,7 @@
                 app:tint="@color/color_main" />
 
             <ImageView
-                android:id="@+id/"
+                android:id="@+id/img_logo"
                 android:layout_width="@dimen/dimen_20"
                 android:layout_height="@dimen/dimen_20"
                 android:layout_centerInParent="true"

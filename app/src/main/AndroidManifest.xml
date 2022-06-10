@@ -56,6 +56,14 @@
             android:screenOrientation="portrait" />
         <!--End Activity KYC-->
 
+        <!--Activity Finance-->
+        <activity
+            android:name="com.zillennium.utswap.screens.finance.balanceActivity.FinanceBalanceActivity"
+            android:exported="false"
+            android:label="@string/finance"
+            android:screenOrientation="portrait" />
+        <!--End Activity Finance-->
+
         <!--Activity Security-->
         <activity
             android:name="com.zillennium.utswap.screens.security.securityActivity.registerScreen.RegisterActivity"

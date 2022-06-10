@@ -1,5 +1,6 @@
 package com.zillennium.utswap.screens.navbar.homeTab.bottomSheet
 
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -12,6 +13,9 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.databinding.BottomSheetHomeFinanceBinding
+import com.zillennium.utswap.screens.finance.balanceActivity.FinanceBalanceActivity
+import com.zillennium.utswap.screens.finance.balanceActivity.bottomSheet.FinanceExportFileBottomSheet
+import com.zillennium.utswap.screens.navbar.portfolioTab.PortfolioFragment
 
 class HomeFinanceBottomSheet : BottomSheetDialogFragment(), AdapterView.OnItemSelectedListener {
 
@@ -42,7 +46,8 @@ class HomeFinanceBottomSheet : BottomSheetDialogFragment(), AdapterView.OnItemSe
             (view.parent as View).setBackgroundColor(ContextCompat.getColor(UTSwapApp.instance, android.R.color.transparent))
 
             balanceButton.setOnClickListener {
-                Toast.makeText(context, "BALANCE IS CLICKED", Toast.LENGTH_SHORT).show()
+                val intent = Intent(UTSwapApp.instance, FinanceBalanceActivity::class.java)
+                startActivity(intent)
             }
 
             subscriptionButton.setOnClickListener {}

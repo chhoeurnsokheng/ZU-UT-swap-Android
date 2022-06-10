@@ -42,4 +42,6 @@
     <color name="black_333333">#333333</color>
     <color name="backgroundHint">#808080</color>
     <color name="simple_green">#08B471</color>
+    <color name="light_white">#ECECEC</color>
+    <color name="gray_97">#F7F7F7</color>
 </resources>
