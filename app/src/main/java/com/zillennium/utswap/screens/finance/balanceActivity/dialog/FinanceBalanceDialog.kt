@@ -8,7 +8,9 @@ import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import com.zillennium.utswap.R
+import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.databinding.DialogBalanceBinding
+import eightbitlab.com.blurview.RenderScriptBlur
 
 class FinanceBalanceDialog: DialogFragment() {
 
@@ -35,6 +37,16 @@ class FinanceBalanceDialog: DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding?.apply {
+
+            activity?.apply {
+                blurView.setupWith(findViewById<ViewGroup>(android.R.id.content))
+                    .setFrameClearDrawable(window.decorView.background)
+                    .setBlurAlgorithm(RenderScriptBlur(UTSwapApp.instance))
+                    .setBlurRadius(20f)
+                    .setBlurAutoUpdate(true)
+                    .setHasFixedTransformationMatrix(true)
+            }
+
             closeImage.setOnClickListener{
                 dismiss()
             }
