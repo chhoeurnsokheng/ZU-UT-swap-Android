@@ -83,7 +83,7 @@ class PortfolioFragment :
 
                SettingVariable.portfolio_selected.observe(this@PortfolioFragment) {
 
-                   btnFilter.hint = SettingVariable.portfolio_selected.value.toString()
+                   btnFilter.text = SettingVariable.portfolio_selected.value.toString()
 
                    filter = 0
 
@@ -322,8 +322,8 @@ class PortfolioFragment :
 
                }
 
-                btnFilter.setOnClickListener {
-                    val filterPortfolioDialogBottomSheet: FilterPortfolioDialogBottomSheet = FilterPortfolioDialogBottomSheet.newInstance(btnFilter.hint.toString())
+                layFilter.setOnClickListener {
+                    val filterPortfolioDialogBottomSheet: FilterPortfolioDialogBottomSheet = FilterPortfolioDialogBottomSheet.newInstance(btnFilter.text.toString())
                     filterPortfolioDialogBottomSheet.show(requireActivity().supportFragmentManager, "filter_portfolio")
 
                 }
