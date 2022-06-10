@@ -282,6 +282,7 @@
                 app:backgroundTint="@color/success"
                 android:background="@drawable/bg_circular"
                 android:hint="BUY"
+                style="?android:attr/borderlessButtonStyle"
                android:textAppearance="@style/regular_16"
                 android:textColorHint="@color/white"
                 android:layout_marginBottom="@dimen/dimen_12"/>

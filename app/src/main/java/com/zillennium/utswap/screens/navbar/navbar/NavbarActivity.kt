@@ -3,19 +3,13 @@ package com.zillennium.utswap.screens.navbar.navbar
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Handler
-import android.view.MenuItem
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.setFragmentResult
 import androidx.navigation.Navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.NavigationUI.setupWithNavController
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
 import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
@@ -23,10 +17,6 @@ import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityNavbarBinding
 import com.zillennium.utswap.screens.kyc.kycActivity.KYCActivity
-import com.zillennium.utswap.screens.navbar.homeTab.HomeFragment
-import com.zillennium.utswap.screens.navbar.portfolioTab.PortfolioFragment
-import com.zillennium.utswap.screens.navbar.projectTab.projectScreen.ProjectFragment
-import com.zillennium.utswap.screens.navbar.tradeTab.TradeFragment
 import com.zillennium.utswap.screens.security.securityActivity.registerScreen.RegisterActivity
 import com.zillennium.utswap.screens.security.securityActivity.signInScreen.SignInActivity
 import java.lang.Exception
@@ -107,8 +97,33 @@ class NavbarActivity :
 
                 val navController = findNavController(this@NavbarActivity, R.id.nav_host_fragment_activity_navbar_home)
 
+                navView.setOnNavigationItemSelectedListener { item ->
+                    when (item.itemId) {
+                        R.id.navigation_navbar_home -> {
+
+                            true
+                        }
+                        R.id.navigation_navbar_portfolio -> {
+
+                            true
+                        }
+                        R.id.navigation_navbar_trade -> {
+
+                            true
+                        }
+                        R.id.navigation_navbar_project -> {
+
+                            true
+                        }
+                        else -> false
+                    }
+                    true
+                }
+
                 // This Theme haven't use NoActionBar
                 setupWithNavController(navView, navController)
+
+
 
 //                val HomeFragment = HomeFragment()
 //                val PortfolioFragment = PortfolioFragment()
@@ -173,6 +188,14 @@ class NavbarActivity :
                 btnVerify.setOnClickListener {
                     val intent = Intent(UTSwapApp.instance, KYCActivity::class.java)
                     startActivity(intent)
+                }
+
+                imgMenu.setOnClickListener {
+
+                }
+
+                imgNotification.setOnClickListener {
+
                 }
             }
 

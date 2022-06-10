@@ -84,6 +84,27 @@
             android:label="@string/welcome"
             android:screenOrientation="portrait" />
         <!--End Activity System-->
+
+        <!--Activity Project-->
+        <activity
+            android:name="com.zillennium.utswap.screens.navbar.projectTab.projectInfoScreen.ProjectInfoActivity"
+            android:exported="false"
+            android:label="@string/project_info"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.zillennium.utswap.screens.navbar.projectTab.subscriptionScreen.SubscriptionActivity"
+            android:exported="false"
+            android:label="@string/subscription"
+            android:screenOrientation="portrait" />
+        <!--End Activity Project-->
+
+        <!--Activity Trade-->
+        <activity
+            android:name="com.zillennium.utswap.screens.navbar.tradeTab.tradeExchangeScreen.TradeExchangeActivity"
+            android:exported="false"
+            android:label="@string/trade_exchange"
+            android:screenOrientation="portrait" />
+        <!--End Activity Trade-->
     </application>
 
 </manifest>

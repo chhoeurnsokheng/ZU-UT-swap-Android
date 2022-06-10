@@ -80,8 +80,9 @@
             android:layout_marginEnd="@dimen/dimen_20"
             android:layout_marginBottom="30dp"
             android:background="@drawable/bg_circular"
-            android:fontFamily="@font/avenirnextcyr_bold"
             android:hint="@string/accept"
+            style="?android:attr/borderlessButtonStyle"
+            android:textAppearance="@style/bold_18"
             android:textColorHint="@color/white"
             app:backgroundTint="@color/success" />
 

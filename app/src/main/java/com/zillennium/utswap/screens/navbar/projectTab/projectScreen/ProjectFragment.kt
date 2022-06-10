@@ -1,6 +1,7 @@
 package com.zillennium.utswap.screens.navbar.projectTab.projectScreen
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Build
 import android.text.Editable
@@ -20,6 +21,7 @@ import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentNavbarProjectBinding
 import com.zillennium.utswap.models.ProjectModel
 import com.zillennium.utswap.models.TestModel
+import com.zillennium.utswap.screens.navbar.projectTab.projectInfoScreen.ProjectInfoActivity
 import com.zillennium.utswap.screens.navbar.projectTab.projectScreen.adapter.ProjectAdapter
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -238,8 +240,10 @@ class ProjectFragment :
     private val onclickProject: ProjectAdapter.OnclickProject = object :
         ProjectAdapter.OnclickProject {
         override fun onClickMe(projectHistory: ProjectModel?, selectedPosition: Int?) {
-            val bundle = bundleOf("id" to selectedPosition)
-            findNavController().navigate(R.id.action_to_project_info, bundle)
+//            val bundle = bundleOf("id" to selectedPosition)
+//            findNavController().navigate(R.id.action_to_project_info, bundle)
+                val intent: Intent = Intent(UTSwapApp.instance, ProjectInfoActivity::class.java)
+                startActivity(intent)
         }
 
     }

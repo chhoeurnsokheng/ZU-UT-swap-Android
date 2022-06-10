@@ -158,8 +158,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="@drawable/bg_circular"
-                    android:fontFamily="@font/avenirnextcyr_bold"
                     android:hint="@string/sign_up"
+                    android:textAppearance="@style/bold_18"
+                    style="?android:attr/borderlessButtonStyle"
                     android:textColorHint="@color/white" />
                 <ProgressBar
                     android:id="@+id/pb_signup"

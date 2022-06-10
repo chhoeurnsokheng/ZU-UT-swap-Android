@@ -46,6 +46,7 @@
                     android:background="@drawable/bg_circular"
                     android:hint="@string/sign_in"
                     android:textAppearance="@style/bold_16"
+                    style="?android:attr/borderlessButtonStyle"
                     android:textColorHint="@color/white" />
 
                 <com.google.android.material.button.MaterialButton
@@ -56,6 +57,7 @@
                     android:layout_weight="1"
                     android:background="@drawable/bg_circular_border_blue"
                     android:hint="@string/register"
+                    style="?android:attr/borderlessButtonStyle"
                     android:textAppearance="@style/bold_16"
                     android:textColorHint="@color/color_main" />
 

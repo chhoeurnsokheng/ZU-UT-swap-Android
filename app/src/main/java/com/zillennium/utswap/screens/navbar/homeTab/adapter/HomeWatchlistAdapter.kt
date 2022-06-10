@@ -31,7 +31,6 @@ class HomeWatchlistAdapter(arrayList: ArrayList<HomeWatchlistModel>):
         )
     }
 
-    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val homeWatchlistList: HomeWatchlistModel = listData[position]
         holder.txtLocationTitle.text = homeWatchlistList.locationProject

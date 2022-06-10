@@ -73,6 +73,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/bg_circular"
                 android:hint="@string/yes"
+                style="?android:attr/borderlessButtonStyle"
                 android:textAppearance="@style/bold_18"
                 android:textColorHint="@color/white" />
 
@@ -84,6 +85,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/bg_circular_border_blue"
                 android:hint="@string/btn_later"
+                style="?android:attr/borderlessButtonStyle"
                 android:textAppearance="@style/bold_18"
                 android:textColorHint="@color/color_main" />
 

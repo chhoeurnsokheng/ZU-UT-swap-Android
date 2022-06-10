@@ -42,6 +42,7 @@
                         android:hint="Confirm"
                         android:textAppearance="@style/regular_16"
                         android:textColorHint="@color/white"
+                        style="?android:attr/borderlessButtonStyle"
                         android:layout_marginBottom="@dimen/dimen_12"/>
 
                     <com.google.android.material.button.MaterialButton
