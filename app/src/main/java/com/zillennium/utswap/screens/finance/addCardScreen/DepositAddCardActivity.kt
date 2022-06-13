@@ -175,7 +175,7 @@ class DepositAddCardActivity :
                 inputCardholder = etCardHolderName.text.toString()
 
                 btnAddCardConfirm.isEnabled = inputCardNumber.length >= 16 && inputDate.length == 5 && inputCvv.length == 3 && inputCardholder.isNotEmpty()
-                println(btnAddCardConfirm.isEnabled)
+
             }
         }
 
