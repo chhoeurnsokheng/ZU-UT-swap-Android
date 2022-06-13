@@ -1,4 +1,4 @@
-package com.zillennium.utswap.screens.finance.balanceActivity.adapter
+package com.zillennium.utswap.screens.finance.balanceScreen.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,13 +8,9 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.models.FinanceBalanceModel
-import com.zillennium.utswap.models.HomeRecentNewsModel
-import org.w3c.dom.Text
 
 class FinanceBalanceAdapter (arrayList: ArrayList<FinanceBalanceModel>, onClickAdapter: OnClickAdapter):
     RecyclerView.Adapter<FinanceBalanceAdapter.ViewHolder>() {

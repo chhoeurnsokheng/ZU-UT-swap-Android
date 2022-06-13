@@ -1,4 +1,4 @@
-package com.zillennium.utswap.screens.finance.depositActivity.addCard
+package com.zillennium.utswap.screens.finance.addCardScreen
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -39,7 +39,8 @@ class DepositAddCardActivity :
                 etCardHolderName.addTextChangedListener(cardTextWatcher)
 
 
-                btnAddCardBack.setOnClickListener {
+                backImage.setOnClickListener {
+                    onBackPressed()
 //                    val intent = Intent(this@DepositAddCardActivity, DepositActivity::class.java)
 //                    startActivity(intent)
                 }

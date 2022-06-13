@@ -1,11 +1,11 @@
-package com.zillennium.utswap.screens.finance.depositActivity.fragment
+package com.zillennium.utswap.screens.finance.addCardScreen
 
 import android.content.Context
 import android.os.Bundle
 import com.zillennium.utswap.bases.mvp.BaseMvpPresenterImpl
 
-class DepositPresenter : BaseMvpPresenterImpl<DepositView.View>(),
-    DepositView.Presenter {
+class DepositAddCardPresenter : BaseMvpPresenterImpl<DepositAddCardView.View>(),
+        DepositAddCardView.Presenter {
     override fun initViewPresenter(context: Context, bundle: Bundle?) {
         mBundle = bundle
         mContext = context

@@ -77,7 +77,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginTop="@dimen/dimen_10"
-                    android:background="@color/light_white" />
+                    android:background="@color/light_gray" />
 
             </LinearLayout>
         </LinearLayout>

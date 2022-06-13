@@ -1,6 +1,5 @@
-package com.zillennium.utswap.screens.finance.balanceActivity.bottomSheet
+package com.zillennium.utswap.screens.finance.balanceScreen.bottomSheet
 
-import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -10,18 +9,16 @@ import android.text.TextWatcher
 import android.view.*
 import android.widget.AdapterView
 import android.widget.DatePicker
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.zillennium.utswap.R
-import com.zillennium.utswap.databinding.BottomSheetBalanceSelectDateRangeBinding
+import com.zillennium.utswap.databinding.BottomSheetBalanceExportBinding
 import java.text.SimpleDateFormat
 import java.util.*
 
-class FinanceSelectDateRangeBottonSheet : BottomSheetDialogFragment(),
-    AdapterView.OnItemSelectedListener {
+class FinanceExportFileBottomSheet: BottomSheetDialogFragment(), AdapterView.OnItemSelectedListener {
 
-    private var binding: BottomSheetBalanceSelectDateRangeBinding? = null
+    private var binding: BottomSheetBalanceExportBinding? = null
 
     override fun getTheme(): Int {
         return R.style.BottomSheetStyle
@@ -36,12 +33,7 @@ class FinanceSelectDateRangeBottonSheet : BottomSheetDialogFragment(),
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
         binding =
-            DataBindingUtil.inflate(
-                inflater,
-                R.layout.bottom_sheet_balance_select_date_range,
-                container,
-                false
-            )
+            DataBindingUtil.inflate(inflater, R.layout.bottom_sheet_balance_export, container, false)
         return binding?.root
     }
 
@@ -78,7 +70,7 @@ class FinanceSelectDateRangeBottonSheet : BottomSheetDialogFragment(),
             etStartDate.isLongClickable = false
             etStartDate.setOnClickListener {
                 DatePickerDialog(
-                    this@FinanceSelectDateRangeBottonSheet.requireActivity(),
+                    this@FinanceExportFileBottomSheet.requireActivity(),
                     dateStart,
                     calendar[Calendar.YEAR],
                     calendar[Calendar.MONTH],
@@ -90,7 +82,7 @@ class FinanceSelectDateRangeBottonSheet : BottomSheetDialogFragment(),
             etEndDate.isLongClickable = false
             etEndDate.setOnClickListener {
                 DatePickerDialog(
-                    this@FinanceSelectDateRangeBottonSheet.requireActivity(),
+                    this@FinanceExportFileBottomSheet.requireActivity(),
                     dateEnd,
                     calendar[Calendar.YEAR],
                     calendar[Calendar.MONTH],
@@ -98,44 +90,34 @@ class FinanceSelectDateRangeBottonSheet : BottomSheetDialogFragment(),
                 ).show()
             }
 
-            etStartDate.addTextChangedListener(object: TextWatcher{
+            etStartDate.addTextChangedListener(object: TextWatcher {
                 override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
                 override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
                 override fun afterTextChanged(p0: Editable?) {
-                   etEndDate.setHintTextColor(resources.getColor(R.color.color_main))
+                    etEndDate.setHintTextColor(resources.getColor(R.color.color_main))
                 }
 
             })
 
-            etEndDate.addTextChangedListener(object: TextWatcher{
-                override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-
-                override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-
-                override fun afterTextChanged(p0: Editable?) {
-                    dismiss()
-                }
-
-            })
-
-
+            buttonExport.setOnClickListener{}
         }
     }
 
     companion object {
         fun newInstance(
-        ): FinanceSelectDateRangeBottonSheet {
-            val financeSelectDateRangeBottomSheet = FinanceSelectDateRangeBottonSheet()
+        ): FinanceExportFileBottomSheet {
+            val financeExportFileBottomSheet = FinanceExportFileBottomSheet()
             val args = Bundle()
 
-            financeSelectDateRangeBottomSheet.arguments = args
-            return financeSelectDateRangeBottomSheet
+            financeExportFileBottomSheet.arguments = args
+            return financeExportFileBottomSheet
         }
     }
 
     override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {}
 
     override fun onNothingSelected(p0: AdapterView<*>?) {}
+
 }

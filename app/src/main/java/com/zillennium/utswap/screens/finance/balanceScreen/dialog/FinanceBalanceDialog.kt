@@ -1,10 +1,9 @@
-package com.zillennium.utswap.screens.finance.balanceActivity.dialog
+package com.zillennium.utswap.screens.finance.balanceScreen.dialog
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.*
-import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import com.zillennium.utswap.R

@@ -1,4 +1,4 @@
-package com.zillennium.utswap.screens.finance.depositActivity.adapter
+package com.zillennium.utswap.screens.finance.depositScreen.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.zillennium.utswap.R
 import com.zillennium.utswap.models.DepositModel
 import com.zillennium.utswap.utils.dpToPx
-import com.zillennium.utswap.screens.finance.depositActivity.depositBottomSheet.BottomSheetFinanceDepositPayment
 
 
 class DepositAdapter(private val arrayList: ArrayList<DepositModel>, onclickDeposit: OnClickDeposit) :

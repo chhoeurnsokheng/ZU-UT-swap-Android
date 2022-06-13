@@ -1,11 +1,11 @@
-package com.zillennium.utswap.screens.finance.depositActivity
+package com.zillennium.utswap.screens.finance.balanceScreen
 
 import android.content.Context
 import android.os.Bundle
 import com.zillennium.utswap.bases.mvp.BaseMvpPresenter
 import com.zillennium.utswap.bases.mvp.BaseMvpView
 
-class DepositView {
+class FinanceBalanceView {
     interface View : BaseMvpView {
         override fun initView()
     }

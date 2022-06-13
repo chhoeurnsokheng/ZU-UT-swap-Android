@@ -1,4 +1,4 @@
-package com.zillennium.utswap.screens.finance.balanceActivity.bottomSheet
+package com.zillennium.utswap.screens.finance.balanceScreen.bottomSheet
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable

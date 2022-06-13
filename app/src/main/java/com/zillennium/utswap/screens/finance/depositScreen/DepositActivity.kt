@@ -1,4 +1,4 @@
-package com.zillennium.utswap.screens.finance.depositActivity
+package com.zillennium.utswap.screens.finance.depositScreen
 
 
 import android.content.Intent
@@ -9,9 +9,9 @@ import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityFinanceDepositBinding
 import com.zillennium.utswap.models.DepositModel
-import com.zillennium.utswap.screens.finance.depositActivity.adapter.DepositAdapter
-import com.zillennium.utswap.screens.finance.depositActivity.addCard.DepositAddCardActivity
-import com.zillennium.utswap.screens.finance.depositActivity.depositBottomSheet.BottomSheetFinanceDepositPayment
+import com.zillennium.utswap.screens.finance.depositScreen.adapter.DepositAdapter
+import com.zillennium.utswap.screens.finance.addCardScreen.DepositAddCardActivity
+import com.zillennium.utswap.screens.finance.depositScreen.depositBottomSheet.BottomSheetFinanceDepositPayment
 
 
 class DepositActivity :
@@ -34,6 +34,11 @@ class DepositActivity :
         super.initView()
         try {
             binding.apply {
+
+                backImage.setOnClickListener {
+                    onBackPressed()
+                }
+
                 imageCard = arrayOf(
                     R.drawable.aba_pay,
                     R.drawable.visa_mastercard,

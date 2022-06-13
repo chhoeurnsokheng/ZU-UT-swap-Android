@@ -58,7 +58,7 @@
 
         <!--Activity Finance-->
         <activity
-            android:name="com.zillennium.utswap.screens.finance.balanceActivity.FinanceBalanceActivity"
+            android:name="com.zillennium.utswap.screens.finance.balanceScreen.FinanceBalanceActivity"
             android:exported="false"
             android:label="@string/finance"
             android:screenOrientation="portrait" />
@@ -94,10 +94,11 @@
 
 
         <!--  Activity Finance    -->
-        <activity android:name=".screens.finance.depositActivity.DepositActivity"
+        <activity android:name=".screens.finance.depositScreen.DepositActivity"
             android:exported="false"
             android:label="@string/deposit"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize"/>
         <!--End Activity System-->
 
         <!--Activity Project-->
@@ -121,10 +122,11 @@
             android:screenOrientation="portrait" />
         <!--End Activity Trade-->
 
-        <activity android:name=".screens.finance.depositActivity.addCard.DepositAddCardActivity"
+        <activity android:name="com.zillennium.utswap.screens.finance.addCardScreen.DepositAddCardActivity"
             android:exported="false"
             android:label="@string/deposit"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize"/>
     </application>
 
 </manifest>

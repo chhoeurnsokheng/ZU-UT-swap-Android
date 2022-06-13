@@ -3,7 +3,6 @@ package com.zillennium.utswap.screens.navbar.homeTab
 import android.content.Intent
 import android.graphics.BlurMaskFilter
 import android.graphics.MaskFilter
-import android.icu.text.CaseMap
 import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,7 +17,7 @@ import com.zillennium.utswap.screens.navbar.homeTab.bottomSheet.HomeFinanceBotto
 import com.zillennium.utswap.models.HomeMenuModel
 import com.zillennium.utswap.models.HomeRecentNewsModel
 import com.zillennium.utswap.models.HomeWatchlistModel
-import com.zillennium.utswap.screens.finance.depositActivity.DepositActivity
+import com.zillennium.utswap.screens.finance.depositScreen.DepositActivity
 import com.zillennium.utswap.screens.navbar.portfolioTab.PortfolioFragment
 
 

@@ -9,6 +9,7 @@
         android:background="?android:attr/selectableItemBackground"
         android:clickable="true"
         android:focusable="true"
+        android:paddingHorizontal="@dimen/dimen_20"
         >
         <LinearLayout
             android:id="@+id/layDepositItem"

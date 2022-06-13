@@ -1,4 +1,4 @@
-package com.zillennium.utswap.screens.finance.depositActivity.addCard
+package com.zillennium.utswap.screens.finance.addCardScreen
 
 import android.content.Context
 import android.os.Bundle

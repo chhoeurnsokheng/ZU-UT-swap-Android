@@ -1,19 +1,24 @@
-package com.zillennium.utswap.screens.finance.depositActivity.depositBottomSheet
+package com.zillennium.utswap.screens.finance.depositScreen.depositBottomSheet
 
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.Editable
+import android.text.InputFilter
+import android.text.Spanned
 import android.text.TextWatcher
 import android.view.*
 import android.widget.AdapterView
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.zillennium.utswap.R
+import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.databinding.BottomSheetFinanceDepositPaymentBinding
-import com.zillennium.utswap.screens.navbar.projectTab.subscriptionScreen.bottomSheet.SubscriptionBottomSheet
-import com.zillennium.utswap.screens.navbar.projectTab.subscriptionScreen.dialog.SubscriptionConfirmDialog
 import com.zillennium.utswap.utils.groupingSeparator
+import java.util.regex.Matcher
+import java.util.regex.Pattern
 
 
 class BottomSheetFinanceDepositPayment: BottomSheetDialogFragment(), AdapterView.OnItemSelectedListener{
@@ -40,19 +45,20 @@ class BottomSheetFinanceDepositPayment: BottomSheetDialogFragment(), AdapterView
         binding?.apply {
             (view.parent as View).setBackgroundColor(resources.getColor(android.R.color.transparent))
 
+            nextBtnFinace.isEnabled = false
             nextBtnFinace.setOnClickListener {
                 if(!etMountPayment.text.isNullOrEmpty()){
                     if(etMountPayment.text.toString().toLong() > 0){
-                        val subscriptionConfirmDialog: SubscriptionConfirmDialog = SubscriptionConfirmDialog.newInstance(etMountPayment.text.toString(),arguments?.get("title").toString())
-                        subscriptionConfirmDialog.show(requireActivity().supportFragmentManager, "Finance Deposit Dialog")
                         dismiss()
                     }
                 }
             }
 
             arguments?.getInt("imgCard")?.let { imgCard.setImageResource(it.toInt()) }
-            arguments?.getString("titleCard").let { titleCard.setText(it.toString()) }
+            arguments?.getString("titleCard").let { titleCard.text = it.toString() }
 
+            etMountPayment.filters = arrayOf<InputFilter>(DecimalDigitsInputFilter(10, 2))
+            etMountPayment.requestFocus()
             etMountPayment.addTextChangedListener(object : TextWatcher{
                 override fun beforeTextChanged(
                     s: CharSequence?,
@@ -63,17 +69,34 @@ class BottomSheetFinanceDepositPayment: BottomSheetDialogFragment(), AdapterView
 
                 }
 
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                    val totalVolume = if(!etMountPayment.text.toString().isNullOrEmpty()){
-                        etMountPayment.text.toString().toLong()
-                    }else{
-                        0
+                override fun onTextChanged(char: CharSequence?, start: Int, before: Int, count: Int) {
+
+
+                    val amount: Double = if (!char.isNullOrEmpty()) {
+                        char.toString().toDouble()
+                    } else {
+                        '0'.toString().toDouble()
                     }
 
-                    val name: String = etMountPayment.getText().toString()
-                    tvAmount.setText(name);
-                    val amount_total = (totalVolume * 2.00)
-                    tvTotal.text = groupingSeparator(amount_total)
+                    val fee = amount.toString().toDouble() * 0.01
+                    val total = amount.toString().toDouble() + fee
+
+                    tvAmount.text = "$${groupingSeparator(amount)}"
+                    tvFee.text = "$${groupingSeparator(fee)}"
+                    tvTotal.text = "$${groupingSeparator(total)}"
+
+
+                    nextBtnFinace.apply {
+                        if(amount > 0){
+                            backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.color_main))
+                            isEnabled = true
+                        }else{
+                            backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.dark_gray))
+                            isEnabled = false
+                        }
+                    }
+
+
                 }
 
                 override fun afterTextChanged(s: Editable?) {
@@ -107,5 +130,28 @@ class BottomSheetFinanceDepositPayment: BottomSheetDialogFragment(), AdapterView
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
 
+    }
+
+
+}
+
+internal class DecimalDigitsInputFilter(digitsBeforeZero: Int, digitsAfterZero: Int) :
+    InputFilter {
+    private val mPattern: Pattern
+    override fun filter(
+        source: CharSequence,
+        start: Int,
+        end: Int,
+        dest: Spanned,
+        dstart: Int,
+        dend: Int
+    ): CharSequence? {
+        val matcher: Matcher = mPattern.matcher(dest)
+        return if (!matcher.matches()) "" else null
+    }
+
+    init {
+        mPattern =
+            Pattern.compile("[0-9]{0," + (digitsBeforeZero - 1) + "}+((\\.[0-9]{0," + (digitsAfterZero - 1) + "})?)||(\\.)?")
     }
 }
