@@ -15,6 +15,7 @@ import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.databinding.BottomSheetHomeFinanceBinding
 import com.zillennium.utswap.screens.finance.balanceActivity.FinanceBalanceActivity
 import com.zillennium.utswap.screens.finance.balanceActivity.bottomSheet.FinanceExportFileBottomSheet
+import com.zillennium.utswap.screens.finance.lockUpActivity.FinanceLockUpActivity
 import com.zillennium.utswap.screens.navbar.portfolioTab.PortfolioFragment
 
 class HomeFinanceBottomSheet : BottomSheetDialogFragment(), AdapterView.OnItemSelectedListener {
@@ -52,7 +53,10 @@ class HomeFinanceBottomSheet : BottomSheetDialogFragment(), AdapterView.OnItemSe
 
             subscriptionButton.setOnClickListener {}
 
-            lockUpButton.setOnClickListener {}
+            lockUpButton.setOnClickListener {
+                val intent = Intent(UTSwapApp.instance, FinanceLockUpActivity::class.java)
+                startActivity(intent)
+            }
 
             historicalButton.setOnClickListener {}
         }
