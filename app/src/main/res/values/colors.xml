@@ -35,4 +35,6 @@
     <color name="black_333333">#333333</color>
     <color name="backgroundHint">#808080</color>
     <color name="simple_green">#08B471</color>
+    <color name="yellow">#E3C82F</color>
+    <color name="blue"> #194DE0</color>
 </resources>

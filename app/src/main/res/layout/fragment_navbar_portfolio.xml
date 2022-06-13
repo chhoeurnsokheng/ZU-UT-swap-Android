@@ -82,7 +82,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:layout_marginTop="@dimen/dimen_18"
                 android:paddingHorizontal="@dimen/dimen_20"
@@ -120,26 +120,26 @@
 
                 </LinearLayout>
 
-<!--                <WebView-->
-<!--                    android:id="@+id/web_view"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="196dp"-->
-<!--                    android:layout_marginTop="@dimen/dimen_10"-->
-<!--                    tools:ignore="WebViewLayout" />-->
-
-                <com.anychart.AnyChartView
-                    android:id="@+id/any_chart_view_pie_chart"
+                <com.zillennium.utswap.chart.PieChartLinearLayout
+                    android:id="@+id/chart_pie"
                     android:layout_width="match_parent"
                     android:layout_height="196dp"
+                    android:visibility="gone"
+                    android:layout_marginTop="@dimen/dimen_10"/>
+
+                <com.github.mikephil.charting.charts.LineChart
+                    android:layout_width="match_parent"
+                    android:layout_height="196dp"
+                    android:visibility="visible"
                     android:layout_marginTop="@dimen/dimen_10"
-                    />
+                    android:id="@+id/line_chart"/>
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_filter"
                     android:layout_width="match_parent"
                     android:layout_height="42dp"
                     android:background="@drawable/bg_circular"
-                    android:layout_marginTop="@dimen/dimen_10"
+                    android:layout_marginTop="@dimen/dimen_25"
                     android:paddingStart="@dimen/dimen_50"
                     android:hint="@string/performance"
                     app:paddingEnd="@dimen/dimen_20"
