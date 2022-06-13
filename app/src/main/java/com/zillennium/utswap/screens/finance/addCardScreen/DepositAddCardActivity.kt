@@ -45,6 +45,11 @@ class DepositAddCardActivity :
 //                    startActivity(intent)
                 }
 
+                btnAddCardConfirm.isEnabled = false
+                btnAddCardConfirm.setOnClickListener {
+                    finish()
+                }
+
 
 
                 etCardNumber.addTextChangedListener(object : TextWatcher {
@@ -71,13 +76,6 @@ class DepositAddCardActivity :
                     }
 
                     override fun afterTextChanged(s: Editable?) {
-                        txtShowMessage.visibility = View.GONE
-                        etCardNumber.backgroundTintList = ColorStateList.valueOf(
-                            ContextCompat.getColor(
-                                UTSwapApp.instance,
-                                R.color.gray_999999
-                            )
-                        )
                     }
 
                 })
@@ -101,13 +99,6 @@ class DepositAddCardActivity :
                     }
 
                     override fun afterTextChanged(s: Editable?) {
-                        txtShowMessage.visibility = View.GONE
-                        etDate.backgroundTintList = ColorStateList.valueOf(
-                            ContextCompat.getColor(
-                                UTSwapApp.instance,
-                                R.color.gray_999999
-                            )
-                        )
 
                     }
 
@@ -133,13 +124,6 @@ class DepositAddCardActivity :
                     }
 
                     override fun afterTextChanged(s: Editable?) {
-                        txtShowMessage.visibility = View.GONE
-                        etCvv.backgroundTintList = ColorStateList.valueOf(
-                            ContextCompat.getColor(
-                                UTSwapApp.instance,
-                                R.color.gray_999999
-                            )
-                        )
 
                     }
 
@@ -165,18 +149,11 @@ class DepositAddCardActivity :
                     }
 
                     override fun afterTextChanged(s: Editable?) {
-                        txtShowMessage.visibility = View.GONE
-                        etCardHolderName.backgroundTintList = ColorStateList.valueOf(
-                            ContextCompat.getColor(
-                                UTSwapApp.instance,
-                                R.color.gray_999999
-                            )
-                        )
 
                     }
                 })
 
-                btnAddCardConfirm.isEnabled = false
+
             }
 
 
@@ -195,103 +172,16 @@ class DepositAddCardActivity :
                 inputCardNumber = etCardNumber.text.toString().trim()
                 inputDate = etDate.text.toString()
                 inputCvv = etCvv.text.toString()
-                inputCardholder = etCardHolderName.toString()
-                btnAddCardConfirm.isEnabled =
-                    inputCardNumber.isNotEmpty() && inputDate.isNotEmpty() && inputCvv.isNotEmpty() && inputCardholder.isNotEmpty()
-                btnAddCardConfirm.setOnClickListener {
-                    var isHaveError = false
-                    if (inputCardNumber.length > 19) {
-                        txtShowMessage.text = "Card number is invalid"
-                        txtShowMessage.visibility = View.VISIBLE
-                        etCardNumber.backgroundTintList = ColorStateList.valueOf(
-                            ContextCompat.getColor(
-                                UTSwapApp.instance,
-                                R.color.red
-                            )
-                        )
-                        isHaveError = true
-                        return@setOnClickListener
-                    }
+                inputCardholder = etCardHolderName.text.toString()
 
-                    if (inputDate.isEmpty()) {
-                        txtShowMessage.text = "Date is invalid"
-                        txtShowMessage.visibility = View.VISIBLE
-                        etDate.backgroundTintList = ColorStateList.valueOf(
-                            ContextCompat.getColor(
-                                UTSwapApp.instance,
-                                R.color.red
-                            )
-                        )
-                        isHaveError = true
-                        return@setOnClickListener
-                    }
-
-                    if (inputCvv.length > 3) {
-                        txtShowMessage.text = "CVV is invalid"
-                        txtShowMessage.visibility = View.VISIBLE
-                        etCvv.backgroundTintList = ColorStateList.valueOf(
-                            ContextCompat.getColor(
-                                UTSwapApp.instance,
-                                R.color.red
-                            )
-                        )
-                        isHaveError = true
-                        return@setOnClickListener
-                    }
-
-                    if (inputCardholder.isEmpty()) {
-                        txtShowMessage.text = "Cardholder Name is invalid"
-                        txtShowMessage.visibility = View.VISIBLE
-                        etCardHolderName.backgroundTintList = ColorStateList.valueOf(
-                            ContextCompat.getColor(
-                                UTSwapApp.instance,
-                                R.color.red
-                            )
-                        )
-                        isHaveError = true
-                        return@setOnClickListener
-                    }
-
-                    //use to check condition with DepositActivity to make bottomSheet popup on DepositActivity
-                    val intent = Intent()
-//                    intent.putExtra(Intent.EXTRA_TEXT, "Hello")
-                    setResult(RESULT_OK, intent)
-                    finish()
-
-                }
+                btnAddCardConfirm.isEnabled = inputCardNumber.length >= 16 && inputDate.length == 5 && inputCvv.length == 3 && inputCardholder.isNotEmpty()
+                println(btnAddCardConfirm.isEnabled)
             }
         }
 
         @SuppressLint("SetTextI18n")
         override fun afterTextChanged(s: Editable?) {
-            var count = 0
-            binding.apply {
 
-                val inputNumberLength: Int = etCardNumber.text.toString().length
-
-                if (count <= inputNumberLength && inputNumberLength == 4 ||
-                    inputNumberLength == 9 || inputNumberLength == 14 || inputNumberLength == 19
-                ) {
-
-                    etCardNumber.setText(etCardNumber.text.toString() + " ")
-
-                    val pos = etCardNumber.text.length
-                    etCardNumber.setSelection(pos)
-
-                } else if (count >= inputNumberLength && (inputNumberLength == 4 ||
-                            inputNumberLength == 9 || inputNumberLength == 14 || inputNumberLength == 19)
-                ) {
-                    etCardNumber.setText(
-                        etCardNumber.text.toString()
-                            .substring(0, etCardNumber.text.toString().length - 1)
-                    )
-
-                    val pos = etCardNumber.text.length
-                    etCardNumber.setSelection(pos)
-                }
-                count = etCardNumber.text.toString().length
-
-            }
         }
 
     }

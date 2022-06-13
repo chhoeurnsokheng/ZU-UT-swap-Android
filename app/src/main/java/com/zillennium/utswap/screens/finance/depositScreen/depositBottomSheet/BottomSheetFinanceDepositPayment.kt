@@ -16,6 +16,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.databinding.BottomSheetFinanceDepositPaymentBinding
+import com.zillennium.utswap.utils.DecimalDigitsInputFilter
 import com.zillennium.utswap.utils.groupingSeparator
 import java.util.regex.Matcher
 import java.util.regex.Pattern
@@ -111,7 +112,6 @@ class BottomSheetFinanceDepositPayment: BottomSheetDialogFragment(), AdapterView
         fun newInstance(cardTitle: String?,cardImg: Int?): BottomSheetFinanceDepositPayment {
             val depositBottomSheetDialog = BottomSheetFinanceDepositPayment()
             val args = Bundle()
-//            args.putString("imgTitle",cardTitle)
 
             if (cardImg != null) {
                 args.putInt("imgCard", cardImg)
@@ -135,23 +135,3 @@ class BottomSheetFinanceDepositPayment: BottomSheetDialogFragment(), AdapterView
 
 }
 
-internal class DecimalDigitsInputFilter(digitsBeforeZero: Int, digitsAfterZero: Int) :
-    InputFilter {
-    private val mPattern: Pattern
-    override fun filter(
-        source: CharSequence,
-        start: Int,
-        end: Int,
-        dest: Spanned,
-        dstart: Int,
-        dend: Int
-    ): CharSequence? {
-        val matcher: Matcher = mPattern.matcher(dest)
-        return if (!matcher.matches()) "" else null
-    }
-
-    init {
-        mPattern =
-            Pattern.compile("[0-9]{0," + (digitsBeforeZero - 1) + "}+((\\.[0-9]{0," + (digitsAfterZero - 1) + "})?)||(\\.)?")
-    }
-}
