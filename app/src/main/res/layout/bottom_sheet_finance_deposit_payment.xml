@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/btn_sheet_dialog_popup">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/payment"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_150"
+                android:background="@drawable/deposit_blue_layout"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="@dimen/dimen_36"
+                    android:layout_height="@dimen/dimen_4"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/dimen_15"
+                    android:background="@drawable/deposite_head_line" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_10"
+                    android:gravity="center"
+                    android:text="@string/payment_amount"
+                    android:textAppearance="@style/regular_12"
+                    android:textColor="@color/write_ECECEC" />
+
+                <EditText
+                    android:id="@+id/et_mount_payment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginHorizontal="@dimen/dimen_20"
+                    android:layout_marginTop="@dimen/dimen_15"
+                    android:background="@color/blur_0E1C6B"
+                    android:cursorVisible="true"
+                    android:gravity="center"
+                    android:inputType="number"
+                    android:maxLength="15"
+                    android:singleLine="true"
+                    android:textAppearance="@style/medium_32"
+                    android:textColor="@color/white"
+                    android:textCursorDrawable="@color/white" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/payment"
+                android:layout_margin="@dimen/dimen_20"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/payment_method"
+                        android:textAppearance="@style/regular_12"
+                        android:textColor="@color/dark_gray" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/imgCard"
+                            android:layout_width="@dimen/dimen_40"
+                            android:layout_height="@dimen/dimen_24"
+                            android:src="@drawable/ic_home" />
+
+                        <TextView
+                            android:id="@+id/titleCard"
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/dimen_24"
+                            android:textAppearance="@style/medium_12"
+                            android:layout_marginStart="@dimen/dimen_3"
+                            android:textColor="@color/black_000000"
+                            android:gravity="center"
+                            android:text="" />
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_15">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/amount"
+                        android:textAppearance="@style/regular_12"
+                        android:textColor="@color/dark_gray" />
+
+                    <TextView
+                        android:id="@+id/tv_amount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:text=""
+                        android:textAppearance="@style/medium_14"
+                        android:textColor="@color/black_000000" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_15">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/fee"
+                        android:textAppearance="@style/regular_12"
+                        android:textColor="@color/dark_gray" />
+
+                    <TextView
+                        android:id="@+id/tv_fee"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:text="$2.00"
+                        android:textAppearance="@style/medium_14"
+                        android:textColor="@color/black_000000" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_1"
+                    android:layout_marginTop="@dimen/dimen_15"
+                    android:background="@color/thirst_text" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/dimen_20"
+                    android:layout_marginTop="@dimen/dimen_15">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/total"
+                        android:textAppearance="@style/regular_12"
+                        android:textColor="@color/dark_gray" />
+
+                    <TextView
+                        android:id="@+id/tv_total"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:text=""
+                        android:textAppearance="@style/medium_14"
+                        android:textColor="@color/black_000000" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/next_btn_finace"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_48"
+                    android:background="@drawable/finance_deposit_next_btn"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/next"
+                        android:textAppearance="@style/medium_16"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+
+</layout>

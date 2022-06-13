@@ -1,7 +1,9 @@
 package com.zillennium.utswap.screens.navbar.homeTab
 
+import android.content.Intent
 import android.graphics.BlurMaskFilter
 import android.graphics.MaskFilter
+import android.icu.text.CaseMap
 import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,6 +18,8 @@ import com.zillennium.utswap.screens.navbar.homeTab.bottomSheet.HomeFinanceBotto
 import com.zillennium.utswap.models.HomeMenuModel
 import com.zillennium.utswap.models.HomeRecentNewsModel
 import com.zillennium.utswap.models.HomeWatchlistModel
+import com.zillennium.utswap.screens.finance.depositActivity.DepositActivity
+import com.zillennium.utswap.screens.navbar.portfolioTab.PortfolioFragment
 
 
 class HomeFragment :
@@ -24,7 +28,7 @@ class HomeFragment :
 
     override var mPresenter: HomeView.Presenter = HomePresenter()
     override val layoutResource: Int = R.layout.fragment_navbar_home
-
+    private var homeAdapter: HomeMenuAdapter? = null
     var blurCondition = true
 
     override fun initView() {
@@ -81,7 +85,9 @@ class HomeFragment :
                 }
 
                 rvHomeMenu.layoutManager = GridLayoutManager(UTSwapApp.instance, 3)
-                rvHomeMenu.adapter = HomeMenuAdapter(HomeArrayList, R.layout.item_list_home_grid)
+                homeAdapter = HomeMenuAdapter(HomeArrayList, R.layout.item_list_home_grid, onclickHome)
+                rvHomeMenu.adapter = homeAdapter
+//                rvHomeMenu.adapter = HomeMenuAdapter(HomeArrayList, R.layout.item_list_home_grid)
 
 
                 /* bottom sheet dialog on finance button */
@@ -89,6 +95,10 @@ class HomeFragment :
                     showBottomSheetDialog()
                 }
 
+//                rvHomeMenu.setOnClickListener {
+//                    val intent = Intent(this@HomeFragment.requireContext(), DepositActivity::class.java)
+//                    startActivity(intent)
+//                }
 
                 /* Watchlist Recycle View */
                 val locationProject = arrayOf(
@@ -177,15 +187,36 @@ class HomeFragment :
 
             }
 
+
+
         } catch (error: Exception) {
             // Must be safe
         }
     }
-
     private fun showBottomSheetDialog() {
         HomeFinanceBottomSheet().show(
             requireActivity().supportFragmentManager,
             HomeFinanceBottomSheet.TAG
         )
+    }
+
+    //click to move to new screen
+    val onclickHome: HomeMenuAdapter.OnclickHome = object : HomeMenuAdapter.OnclickHome {
+        override fun ClickDeposit(title: String?) {
+
+            when (title.toString()) {
+                "Portfolio" -> {}
+                "Trade" -> {}
+                "News" -> {}
+                "Deposit" -> {val intent = Intent(UTSwapApp.instance, DepositActivity::class.java)
+                startActivity(intent)}
+                "Withdraw" -> {}
+                "Transfer" -> {}
+                else -> {
+                    val intent = Intent(UTSwapApp.instance, PortfolioFragment::class.java)
+                    startActivity(intent)
+                }
+            }
+        }
     }
 }

@@ -111,7 +111,7 @@
                     android:overScrollMode="never"
                     android:paddingHorizontal="@dimen/dimen_10"
                     android:scrollbars="none"
-                    android:visibility="invisible" />
+                    android:visibility="visible" />
 
                 <RelativeLayout
                     android:id="@+id/pg_loading"

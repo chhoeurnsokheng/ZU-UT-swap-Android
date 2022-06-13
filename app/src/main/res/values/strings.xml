@@ -8,7 +8,11 @@
     <string name="register_now">Register Now</string>
     <string name="reset_your_password">Reset Your Password</string>
     <string name="or">OR</string>
+    <string name="add_visa_or_master_card">Add Visa/ Master Card</string>
+    <string name="card_number">Card Number</string>
+    <string name="cardholder_name">Cardholder Name</string>
     <string name="next">Next</string>
+    <string name="cvv">CVV</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="referral">Referral Id (Optional)</string>
     <string name="i_accept_terms_and_conditions">I accept Terms and Conditions</string>
@@ -34,6 +38,7 @@
     <string name="ut_issued">UT Issued</string>
     <string name="setting">Setting</string>
     <string name="term">Term</string>
+    <string name="select_payment_method">Select Payment Method</string>
     <string name="reset_password">Reset Password</string>
     <string name="sign_up">Sign Up</string>
     <string name="btn_yes">Yes</string>
