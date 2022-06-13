@@ -125,6 +125,12 @@
             android:exported="false"
             android:label="@string/deposit"
             android:screenOrientation="portrait"/>
+
+<!--        Notification screen-->
+        <activity android:name=".screens.system.notification.NotificationActivity"
+            android:exported="false"
+            android:label="@string/notification"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
