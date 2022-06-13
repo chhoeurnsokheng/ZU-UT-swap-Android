@@ -3,14 +3,18 @@ package com.zillennium.utswap.screens.navbar.portfolioTab
 import android.annotation.SuppressLint
 import android.graphics.BlurMaskFilter
 import android.graphics.MaskFilter
+import android.os.Handler
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.anychart.AnyChart
-import com.anychart.chart.common.dataentry.DataEntry
-import com.anychart.chart.common.dataentry.ValueDataEntry
+import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.data.LineData
+import com.github.mikephil.charting.data.LineDataSet
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import com.zillennium.utswap.Datas.GlobalVariable.SettingVariable
 import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
+import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentNavbarPortfolioBinding
 import com.zillennium.utswap.models.portfolio.*
@@ -38,26 +42,59 @@ class PortfolioFragment :
     var blurCondition = true
     private var filter: Int = 0 // 0 = no sort, 1 = asc sort, 2 = desc sort
 
-    @SuppressLint("UseCompatLoadingForDrawables", "NotifyDataSetChanged")
+    private var dataSets = ArrayList<ILineDataSet>()
+    private var data: LineData? = null
+
+    @SuppressLint("UseCompatLoadingForDrawables", "NotifyDataSetChanged", "SetTextI18n")
     override fun initView() {
         super.initView()
         try {
             binding.apply {
+
+                val yValues = ArrayList<Entry>()
+
+                yValues.add(Entry(0f, 60f))
+                yValues.add(Entry(1f, 50f))
+                yValues.add(Entry(2f, 70f))
+                yValues.add(Entry(3f, 30f))
+                yValues.add(Entry(4f, 50f))
+                yValues.add(Entry(5f, 60f))
+                yValues.add(Entry(6f, 65f))
+
+                val set1 = LineDataSet(yValues, "")
+
+                set1.fillAlpha = 110
+                set1.color = R.color.color_main
+
+                dataSets.add(set1)
+
+                data = LineData(dataSets)
+
+                lineChart.data = data
 
                 if(SessionPreferences().SESSION_STATUS  == true && SessionPreferences().SESSION_KYC  == true){
                     txtMessage.visibility = View.GONE
                     linearLayoutPortfolio.visibility = View.VISIBLE
                 }
 
-                //pie chart
-                val pie = AnyChart.pie()
+                //pass value to pie chart of another class
+                var listData = ArrayList<Double>()
 
-                val data: MutableList<DataEntry> = ArrayList()
-                data.add(ValueDataEntry("UT Projects", 12000))
-                data.add(ValueDataEntry("Trading Balance", 3400))
+                listData.add(83.20)
+                listData.add(16.80)
+                listData.add(12.0)
 
-                pie.data(data)
-                anyChartViewPieChart.setChart(pie)
+                chartPie.setDataOfChart(listData)
+
+                //set attribute of line chart
+                lineChart.description.isEnabled = false
+                lineChart.axisLeft.isEnabled = false
+                lineChart.xAxis.isEnabled = false
+                data!!.setDrawValues(false)
+                lineChart.legend.isEnabled = false
+                set1.color = ContextCompat.getColor(UTSwapApp.instance, R.color.simple_green)
+                lineChart.isDragEnabled = true
+                lineChart.setScaleEnabled(true)
 
                 /* Show or Hide Trading Balance */
                 val blurMask: MaskFilter = BlurMaskFilter(50f, BlurMaskFilter.Blur.NORMAL)
@@ -71,10 +108,15 @@ class PortfolioFragment :
                         txtBalance.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
                         txtBalance.paint.maskFilter = null
                         imgVisibility.setImageResource(R.drawable.ic_baseline_remove_red_eye_24)
+
+                        lineChart.axisRight.isEnabled = false
+
                     } else {
                         txtBalance.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
                         txtBalance.paint.maskFilter = blurMask
                         imgVisibility.setImageResource(R.drawable.ic_baseline_visibility_off_24)
+
+                        lineChart.axisRight.isEnabled = true
                     }
                 }
 
@@ -86,6 +128,15 @@ class PortfolioFragment :
                    btnFilter.text = SettingVariable.portfolio_selected.value.toString()
 
                    filter = 0
+
+                   linearLayoutChange.visibility = View.GONE
+                   linearLayoutPrice.visibility = View.GONE
+                   linearLayoutPerformance.visibility = View.GONE
+                   linearLayoutBalance.visibility = View.GONE
+                   linearLayoutWeight.visibility = View.GONE
+
+                   lineChart.visibility = View.GONE
+                   chartPie.visibility = View.GONE
 
                    linearLayoutChange.visibility = View.GONE
                    linearLayoutPrice.visibility = View.GONE
@@ -145,6 +196,8 @@ class PortfolioFragment :
                                rvFilter.adapter = changeAdapter
 
                            }
+
+                           lineChart.visibility = View.VISIBLE
                        }
                        "Weight" -> {
                            //list data of performance
@@ -198,6 +251,7 @@ class PortfolioFragment :
 
                            }
 
+                           chartPie.visibility = View.VISIBLE
                        }
                        "Balance" -> {
                            //list data of balance
@@ -250,6 +304,8 @@ class PortfolioFragment :
                                rvFilter.adapter = balanceAdapter
 
                            }
+
+                           lineChart.visibility = View.VISIBLE
                        }
                        "Price" -> {
                            //list data of price
@@ -265,6 +321,8 @@ class PortfolioFragment :
                            rvFilter.adapter = PriceAdapter(priceList)
 
                            txtTradingBalance.text = "$6 420.99"
+
+                           lineChart.visibility = View.VISIBLE
                        }
                        "Performance" -> {
                            //list data of performance
@@ -317,15 +375,19 @@ class PortfolioFragment :
                                performanceAdapter = PerformanceAdapter(list)
                                rvFilter.adapter = performanceAdapter
                            }
+
+                           lineChart.visibility = View.VISIBLE
                        }
                    }
 
                }
 
                 layFilter.setOnClickListener {
-                    val filterPortfolioDialogBottomSheet: FilterPortfolioDialogBottomSheet = FilterPortfolioDialogBottomSheet.newInstance(btnFilter.text.toString())
+                    layFilter.isEnabled = false
+                    layFilter.postDelayed(Runnable { layFilter.isEnabled = true }, 300)
+                    val filterPortfolioDialogBottomSheet: FilterPortfolioDialogBottomSheet =
+                        FilterPortfolioDialogBottomSheet.newInstance(btnFilter.text.toString())
                     filterPortfolioDialogBottomSheet.show(requireActivity().supportFragmentManager, "filter_portfolio")
-
                 }
             }
 
@@ -333,5 +395,4 @@ class PortfolioFragment :
             // Must be safe
         }
     }
-
 }

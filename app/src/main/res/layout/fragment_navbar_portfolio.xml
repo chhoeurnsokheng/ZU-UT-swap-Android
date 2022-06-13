@@ -7,63 +7,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:background="@color/white">
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:id="@+id/img_menu"
-                android:layout_width="@dimen/dimen_64"
-                android:layout_height="@dimen/dimen_64"
-                android:layout_centerVertical="true"
-                android:contentDescription="@string/menu"
-                android:padding="@dimen/dimen_20"
-                android:src="@drawable/ic_bars"
-                app:tint="@color/color_main" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_toStartOf="@+id/lay_notification"
-                android:layout_toEndOf="@+id/img_menu"
-                android:text="@string/portfolio"
-                android:textAlignment="center"
-                android:textAppearance="@style/medium_21"
-                android:textColor="@color/color_main" />
-
-            <RelativeLayout
-                android:id="@+id/lay_notification"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/dimen_18"
-                android:layout_centerVertical="true"
-                android:layout_alignParentEnd="true">
-                <ImageView
-                    android:id="@+id/img_notification"
-                    android:layout_width="@dimen/dimen_26"
-                    android:layout_height="@dimen/dimen_26"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/ic_notifications_black_24dp"
-                    app:tint="@color/color_main"
-                    android:contentDescription="@string/notification" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="4"
-                    android:textColor="@color/white"
-                    android:textAppearance="@style/regular_6"
-                    android:background="@drawable/bg_circular"
-                    android:backgroundTint="@color/red"
-                    android:paddingHorizontal="@dimen/dimen_4"
-                    android:paddingVertical="@dimen/dimen_2"
-                    android:layout_alignEnd="@+id/img_notification"/>
-
-            </RelativeLayout>
-
-        </RelativeLayout>
-
         <TextView
             android:id="@+id/txt_message"
             android:layout_width="match_parent"
@@ -84,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginTop="@dimen/dimen_18"
+                android:paddingTop="@dimen/dimen_18"
                 android:paddingHorizontal="@dimen/dimen_20"
                 android:paddingBottom="@dimen/dimen_30">
 
@@ -120,26 +63,25 @@
 
                 </LinearLayout>
 
-<!--                <WebView-->
-<!--                    android:id="@+id/web_view"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="196dp"-->
-<!--                    android:layout_marginTop="@dimen/dimen_10"-->
-<!--                    tools:ignore="WebViewLayout" />-->
-
-                <com.anychart.AnyChartView
-                    android:id="@+id/any_chart_view_pie_chart"
+                <com.zillennium.utswap.chart.PieChartLinearLayout
+                    android:id="@+id/chart_pie"
                     android:layout_width="match_parent"
                     android:layout_height="196dp"
+                    android:visibility="gone"
+                    android:layout_marginTop="@dimen/dimen_10"/>
+
+                <com.github.mikephil.charting.charts.LineChart
+                    android:layout_width="match_parent"
+                    android:layout_height="196dp"
+                    android:visibility="visible"
                     android:layout_marginTop="@dimen/dimen_10"
-                    />
+                    android:id="@+id/line_chart"/>
 
                 <RelativeLayout
                     android:id="@+id/lay_filter"
                     android:layout_width="match_parent"
                     android:layout_height="42dp"
                     android:background="@drawable/bg_circular"
-
                     android:layout_marginTop="@dimen/dimen_10">
                     <TextView
                         android:id="@+id/btn_filter"

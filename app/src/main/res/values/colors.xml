@@ -48,4 +48,6 @@
     <color name="simple_green">#08B471</color>
     <color name="light_white">#ECECEC</color>
     <color name="gray_97">#F7F7F7</color>
+    <color name="yellow">#E3C82F</color>
+    <color name="blue"> #194DE0</color>
 </resources>
