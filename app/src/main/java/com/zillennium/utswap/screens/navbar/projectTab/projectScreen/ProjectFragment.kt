@@ -244,6 +244,7 @@ class ProjectFragment :
 //            findNavController().navigate(R.id.action_to_project_info, bundle)
                 val intent: Intent = Intent(UTSwapApp.instance, ProjectInfoActivity::class.java)
                 startActivity(intent)
+
         }
 
     }
