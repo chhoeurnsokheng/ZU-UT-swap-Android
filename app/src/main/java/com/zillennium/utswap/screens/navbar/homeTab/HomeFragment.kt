@@ -19,6 +19,7 @@ import com.zillennium.utswap.models.HomeRecentNewsModel
 import com.zillennium.utswap.models.HomeWatchlistModel
 import com.zillennium.utswap.screens.finance.depositScreen.DepositActivity
 import com.zillennium.utswap.screens.navbar.portfolioTab.PortfolioFragment
+import com.zillennium.utswap.screens.navbar.tradeTab.tradeExchangeScreen.TradeExchangeActivity
 
 
 class HomeFragment :
@@ -90,6 +91,9 @@ class HomeFragment :
 
 
                 /* bottom sheet dialog on finance button */
+
+
+
                 financeBottom.setOnClickListener {
                     showBottomSheetDialog()
                 }
@@ -144,7 +148,7 @@ class HomeFragment :
 
                 rvHomeWatchlist.layoutManager =
                     LinearLayoutManager(UTSwapApp.instance, LinearLayoutManager.HORIZONTAL, false)
-                rvHomeWatchlist.adapter = HomeWatchlistAdapter(homeWatchlist)
+                rvHomeWatchlist.adapter = HomeWatchlistAdapter(homeWatchlist, onClickWatch)
 
 
                 /* Recent News Recycle View */
@@ -217,5 +221,14 @@ class HomeFragment :
                 }
             }
         }
+    }
+
+    //click to trade exchange
+    val onClickWatch: HomeWatchlistAdapter.OnclickWatch = object : HomeWatchlistAdapter.OnclickWatch {
+        override fun ClickWatch() {
+            val intent: Intent = Intent(UTSwapApp.instance, TradeExchangeActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 }
