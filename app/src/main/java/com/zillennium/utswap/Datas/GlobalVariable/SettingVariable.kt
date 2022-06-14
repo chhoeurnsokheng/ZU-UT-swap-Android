@@ -11,5 +11,10 @@ class SettingVariable {
         val balance_date_end: MutableLiveData<String> = MutableLiveData()
 
         val finance_lock_up_selected: MutableLiveData<String> = MutableLiveData("Buy Back")
+
+        val finance_subscription_filter: MutableLiveData<String> = MutableLiveData("All Projects")
+        val finance_subscription_date_start: MutableLiveData<String> = MutableLiveData()
+        val finance_subscription_date_end: MutableLiveData<String> = MutableLiveData()
+
     }
 }

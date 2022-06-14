@@ -1,4 +1,4 @@
-package com.zillennium.utswap.screens.finance.lockUpActivity.bottomSheet
+package com.zillennium.utswap.screens.finance.lockUpScreen.bottomSheet
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -12,7 +12,6 @@ import com.zillennium.utswap.Datas.GlobalVariable.SettingVariable
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.databinding.BottomSheetFinanceLockUpBinding
-import com.zillennium.utswap.screens.navbar.portfolioTab.dialog.FilterPortfolioDialogBottomSheet
 
 class FinanceLockUpBottomSheet: BottomSheetDialogFragment(), AdapterView.OnItemSelectedListener {
 

@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <eightbitlab.com.blurview.BlurView
+        android:id="@+id/blurView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_blur_bg_dialog_balance">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+
+                <LinearLayout
+                    android:layout_width="@dimen/dimen_350"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/close_image"
+                        android:layout_width="@dimen/dimen_26"
+                        android:layout_height="@dimen/dimen_26"
+                        android:layout_gravity="end"
+                        android:layout_marginTop="@dimen/dimen_100"
+                        android:layout_marginBottom="@dimen/dimen_30"
+                        android:src="@drawable/ic_sharp_close_24"
+                        app:tint="@color/white" />
+
+                    <LinearLayout
+                        android:id="@+id/balance_dialog_box"
+                        android:layout_width="@dimen/dimen_350"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_gravity="center"
+                        android:background="@drawable/bg_balance_dialog"
+                        android:orientation="vertical"
+                        android:paddingVertical="@dimen/dimen_30">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:paddingHorizontal="@dimen/dimen_20">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_marginBottom="@dimen/dimen_8">
+
+                                <TextView
+                                    android:id="@+id/txt_title"
+                                    android:layout_width="@dimen/dimen_0"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="80"
+                                    android:textColor="@color/black"
+                                    android:textAppearance="@style/medium_18"
+                                    android:text="UT Kampot"/>
+
+                                <LinearLayout
+                                    android:layout_width="@dimen/dimen_0"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="20">
+
+                                    <ImageView
+                                        android:id="@+id/img_icon"
+                                        android:layout_width="0dp"
+                                        android:layout_height="@dimen/dimen_20"
+                                        android:layout_weight="20"
+                                        android:scaleType="fitEnd"
+                                        android:src="@drawable/ic_locked"
+                                        android:layout_gravity="end"/>
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/subscription"
+                                android:textAppearance="@style/medium_12"
+                                android:textColor="@color/dark_gray"/>
+
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dimen_1"
+                            android:layout_marginVertical="@dimen/dimen_20"
+                            android:background="@color/light_gray" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:paddingHorizontal="@dimen/dimen_20">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:gravity="center_vertical"
+                                android:layout_marginBottom="@dimen/dimen_16">
+
+                                <TextView
+                                    android:layout_width="@dimen/dimen_0"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="30"
+                                    android:textColor="@color/black_333333"
+                                    android:textAppearance="@style/regular_12"
+                                    android:text="@string/status"/>
+
+                                <TextView
+                                    android:id="@+id/txt_status"
+                                    android:layout_width="@dimen/dimen_0"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="70"
+                                    android:textAppearance="@style/medium_12"
+                                    android:text="Locked"
+                                    android:textColor="@color/main_red"
+                                    android:gravity="end"/>
+
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical"
+                                android:layout_marginBottom="@dimen/dimen_16"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="@dimen/dimen_0"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="30"
+                                    android:textColor="@color/black_333333"
+                                    android:textAppearance="@style/regular_12"
+                                    android:text="@string/transaction_id"/>
+
+                                <LinearLayout
+                                    android:layout_width="@dimen/dimen_0"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    android:gravity="end"
+                                    android:layout_weight="70">
+
+                                    <TextView
+                                        android:id="@+id/txt_transaction_id"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:textAppearance="@style/medium_12"
+                                        android:text="TR2203-1648192105941929"                                       android:textColor="@color/black"
+                                        android:gravity="end"/>
+
+                                </LinearLayout>
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical"
+                                android:layout_marginBottom="@dimen/dimen_16"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="@dimen/dimen_0"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="30"
+                                    android:textColor="@color/black_333333"
+                                    android:textAppearance="@style/regular_12"
+                                    android:text="@string/price"/>
+
+                                <LinearLayout
+                                    android:layout_width="@dimen/dimen_0"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    android:gravity="end"
+                                    android:layout_weight="70">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:textAppearance="@style/medium_12"
+                                        android:text="$"
+                                        android:textColor="@color/black"/>
+
+                                    <TextView
+                                        android:id="@+id/txt_price"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:textAppearance="@style/medium_12"
+                                        android:text="0.80"
+                                        android:textColor="@color/black"
+                                        android:gravity="end"/>
+
+                                </LinearLayout>
+
+
+
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical"
+                                android:layout_marginBottom="@dimen/dimen_16"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="@dimen/dimen_0"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="30"
+                                    android:textColor="@color/black_333333"
+                                    android:textAppearance="@style/regular_12"
+                                    android:text="@string/volume"/>
+
+                                <LinearLayout
+                                    android:layout_width="@dimen/dimen_0"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    android:gravity="end"
+                                    android:layout_weight="70">
+
+                                    <TextView
+                                        android:id="@+id/txt_volume"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:textAppearance="@style/medium_12"
+                                        android:text="500"
+                                        android:textColor="@color/black_333333"/>
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical"
+                                android:layout_marginBottom="@dimen/dimen_16"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="@dimen/dimen_0"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="30"
+                                    android:textColor="@color/black_333333"
+                                    android:textAppearance="@style/regular_12"
+                                    android:text="@string/value"/>
+
+                                <LinearLayout
+                                    android:layout_width="@dimen/dimen_0"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    android:gravity="end"
+                                    android:layout_weight="70">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:textAppearance="@style/medium_12"
+                                        android:text="$"
+                                        android:textColor="@color/black_333333"/>
+
+                                    <TextView
+                                        android:id="@+id/txt_amount"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:textAppearance="@style/medium_12"
+                                        android:text="400.00"
+                                        android:textColor="@color/black_333333"
+                                        android:gravity="end"/>
+
+                                </LinearLayout>
+
+
+
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical"
+                                android:layout_marginBottom="@dimen/dimen_16"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="@dimen/dimen_0"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="30"
+                                    android:textColor="@color/black_333333"
+                                    android:textAppearance="@style/regular_12"
+                                    android:text="@string/start"/>
+
+                                <LinearLayout
+                                    android:layout_width="@dimen/dimen_0"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    android:gravity="end"
+                                    android:layout_weight="70">
+
+                                    <TextView
+                                        android:id="@+id/txt_start_date"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:textAppearance="@style/medium_12"
+                                        android:text="02-May-2022"
+                                        android:textColor="@color/black_333333"/>
+
+                                    <TextView
+                                        android:id="@+id/hour_start"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:textAppearance="@style/medium_12"
+                                        android:text=" 09:37:33"
+                                        android:textColor="@color/black_333333"/>
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical"
+                                android:layout_marginBottom="@dimen/dimen_16"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="@dimen/dimen_0"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="30"
+                                    android:textColor="@color/black_333333"
+                                    android:textAppearance="@style/regular_12"
+                                    android:text="@string/end"/>
+
+                                <LinearLayout
+                                    android:layout_width="@dimen/dimen_0"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    android:gravity="end"
+                                    android:layout_weight="70">
+
+                                    <TextView
+                                        android:id="@+id/txt_end_date"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:textAppearance="@style/medium_12"
+                                        android:text="02-June-2022"
+                                        android:textColor="@color/black_333333"/>
+                                    <TextView
+                                        android:id="@+id/hour_end"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:textAppearance="@style/medium_12"
+                                        android:text=" 09:00:00"
+                                        android:textColor="@color/black_333333"/>
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical"
+                                android:layout_marginBottom="@dimen/dimen_10"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="@dimen/dimen_0"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="45"
+                                    android:textColor="@color/black_333333"
+                                    android:textAppearance="@style/regular_12"
+                                    android:text="@string/day_remaining"/>
+
+                                <TextView
+                                    android:id="@+id/txt_duration"
+                                    android:layout_width="@dimen/dimen_0"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="55"
+                                    android:textAppearance="@style/medium_12"
+                                    android:text="30 Day(s)"
+                                    android:textColor="@color/black_333333"
+                                    android:gravity="end"/>
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </eightbitlab.com.blurview.BlurView>
+
+</layout>

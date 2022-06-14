@@ -69,7 +69,12 @@
             android:label="@string/finance"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.zillennium.utswap.screens.finance.lockUpActivity.FinanceLockUpActivity"
+            android:name="com.zillennium.utswap.screens.finance.lockUpScreen.FinanceLockUpActivity"
+            android:exported="false"
+            android:label="@string/finance"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.zillennium.utswap.screens.finance.subscriptionsActivity.FinanceSubscriptionsActivity"
             android:exported="false"
             android:label="@string/finance"
             android:screenOrientation="portrait" />

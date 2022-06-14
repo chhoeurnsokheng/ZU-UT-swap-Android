@@ -1,9 +1,8 @@
-package com.zillennium.utswap.screens.finance.lockUpActivity
+package com.zillennium.utswap.screens.finance.lockUpScreen
 
 import android.content.Context
 import android.os.Bundle
 import com.zillennium.utswap.bases.mvp.BaseMvpPresenterImpl
-import com.zillennium.utswap.simple.SimpleView
 
 class FinanceLockUpPresenter : BaseMvpPresenterImpl<FinanceLockUpView.View>(),
     FinanceLockUpView.Presenter {

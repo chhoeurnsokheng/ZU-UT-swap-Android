@@ -329,5 +329,8 @@
     <string name="start">Start</string>
     <string name="ends">Ends</string>
     <string name="dates_remaining">Date(s) Remaining</string>
+    <string name="all_projects">All Projects</string>
+    <string name="end">End</string>
+    <string name="day_remaining">Day(s) Remaining</string>
 
 </resources>

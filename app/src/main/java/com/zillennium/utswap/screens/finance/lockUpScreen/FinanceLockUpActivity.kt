@@ -1,4 +1,4 @@
-package com.zillennium.utswap.screens.finance.lockUpActivity
+package com.zillennium.utswap.screens.finance.lockUpScreen
 
 import android.os.Build
 import androidx.annotation.RequiresApi
@@ -9,9 +9,9 @@ import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.databinding.ActivityFinanceLockUpBinding
 import com.zillennium.utswap.models.FinanceLockUpModel
-import com.zillennium.utswap.screens.finance.lockUpActivity.adapter.LockUpAdapter
-import com.zillennium.utswap.screens.finance.lockUpActivity.bottomSheet.FinanceLockUpBottomSheet
-import com.zillennium.utswap.screens.finance.lockUpActivity.dialog.FinanceLockUpDialog
+import com.zillennium.utswap.screens.finance.lockUpScreen.adapter.LockUpAdapter
+import com.zillennium.utswap.screens.finance.lockUpScreen.bottomSheet.FinanceLockUpBottomSheet
+import com.zillennium.utswap.screens.finance.lockUpScreen.dialog.FinanceLockUpDialog
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 

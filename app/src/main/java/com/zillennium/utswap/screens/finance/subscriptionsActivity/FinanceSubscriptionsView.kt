@@ -1,11 +1,11 @@
-package com.zillennium.utswap.screens.finance.lockUpActivity
+package com.zillennium.utswap.screens.finance.subscriptionsActivity
 
 import android.content.Context
 import android.os.Bundle
 import com.zillennium.utswap.bases.mvp.BaseMvpPresenter
 import com.zillennium.utswap.bases.mvp.BaseMvpView
 
-class FinanceLockUpView {
+class FinanceSubscriptionsView {
     interface View : BaseMvpView {
         override fun initView()
     }

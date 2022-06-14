@@ -1,4 +1,4 @@
-package com.zillennium.utswap.screens.finance.lockUpActivity.adapter
+package com.zillennium.utswap.screens.finance.lockUpScreen.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
