@@ -6,7 +6,6 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.Editable
 import android.text.InputFilter
-import android.text.Spanned
 import android.text.TextWatcher
 import android.view.*
 import android.widget.AdapterView
@@ -18,8 +17,7 @@ import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.databinding.BottomSheetFinanceDepositPaymentBinding
 import com.zillennium.utswap.utils.DecimalDigitsInputFilter
 import com.zillennium.utswap.utils.groupingSeparator
-import java.util.regex.Matcher
-import java.util.regex.Pattern
+import com.zillennium.utswap.utils.intentOtherApp
 
 
 class BottomSheetFinanceDepositPayment: BottomSheetDialogFragment(), AdapterView.OnItemSelectedListener{
@@ -50,7 +48,18 @@ class BottomSheetFinanceDepositPayment: BottomSheetDialogFragment(), AdapterView
             nextBtnFinace.setOnClickListener {
                 if(!etMountPayment.text.isNullOrEmpty()){
                     if(etMountPayment.text.toString().toLong() > 0){
-                        dismiss()
+                        when(arguments?.getString("titleCard")){
+                            "ABA Pay" -> {
+                                intentOtherApp(UTSwapApp.instance, "com.paygo24.ibank")
+                            }
+                            "Acleda Bank" -> {
+                                intentOtherApp(UTSwapApp.instance, "com.domain.acledabankqr")
+                            }
+                            "Sathapana" -> {
+                                intentOtherApp(UTSwapApp.instance, "kh.com.sathapana.consumer")
+                            }
+                        }
+//                        dismiss()
                     }
                 }
             }
@@ -131,6 +140,11 @@ class BottomSheetFinanceDepositPayment: BottomSheetDialogFragment(), AdapterView
     override fun onNothingSelected(parent: AdapterView<*>?) {
 
     }
+
+    interface OnEventBottomSheet {
+        fun startNewActivity(packageName: String)
+    }
+
 
 
 }
