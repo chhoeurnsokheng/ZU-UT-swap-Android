@@ -62,6 +62,11 @@
             android:exported="false"
             android:label="@string/finance"
             android:screenOrientation="portrait" />
+        <activity
+            android:name="com.zillennium.utswap.screens.finance.subscriptionsActivity.FinanceSubscriptionsActivity"
+            android:exported="false"
+            android:label="@string/finance"
+            android:screenOrientation="portrait" />
         <!--End Activity Finance-->
 
         <!--Activity Security-->

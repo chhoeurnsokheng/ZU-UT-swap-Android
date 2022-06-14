@@ -318,5 +318,9 @@
     <string name="to__">to</string>
     <string name="hint_date">DD-MM-YYYY</string>
     <string name="money_out">Money Out</string>
+    <string name="all_projects">All Projects</string>
+    <string name="start">Start</string>
+    <string name="end">End</string>
+    <string name="day_remaining">Day(s) Remaining</string>
 
 </resources>
