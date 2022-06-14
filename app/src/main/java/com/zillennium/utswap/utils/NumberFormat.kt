@@ -26,3 +26,15 @@ fun groupingSeparatorInt(number: Any): String{
 
     return df.format(number)
 }
+
+fun groupingSeparatorPhoneNumber(number: Any): String{
+    val symbols = DecimalFormatSymbols()
+    symbols.groupingSeparator = ' '
+    val df = DecimalFormat("### ### ####", symbols)
+//    val df = DecimalFormat()
+//    df.decimalFormatSymbols = symbols
+//    df.groupingSize = 3
+//    df.maximumFractionDigits = 2
+
+    return df.format(number)
+}

@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/lay_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/img_close"
+                android:layout_width="@dimen/dimen_64"
+                android:layout_height="@dimen/dimen_64"
+                android:layout_centerVertical="true"
+                android:contentDescription="@string/menu"
+                android:padding="@dimen/dimen_20"
+                android:src="@drawable/ic_baseline_arrow_back_24"
+                app:tint="@color/color_main" />
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_toStartOf="@+id/lay_notification"
+                android:layout_toEndOf="@+id/img_close"
+                android:text="@string/referral_information"
+                android:textAlignment="center"
+                android:textAppearance="@style/medium_21"
+                android:textColor="@color/color_main" />
+
+            <RelativeLayout
+                android:id="@+id/lay_notification"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dimen_18"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true">
+
+                <ImageView
+                    android:id="@+id/img_notification"
+                    android:layout_width="@dimen/dimen_26"
+                    android:layout_height="@dimen/dimen_26"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@string/notification"
+                    android:src="@drawable/ic_notifications_black_24dp"
+                    app:tint="@color/color_main" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="4"
+                    android:textColor="@color/white"
+                    android:textAppearance="@style/regular_6"
+                    android:background="@drawable/bg_circular"
+                    android:backgroundTint="@color/red_EE1111"
+                    android:paddingHorizontal="@dimen/dimen_4"
+                    android:paddingVertical="@dimen/dimen_2"
+                    android:layout_alignEnd="@+id/img_notification"/>
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="@dimen/dimen_20"
+            android:background="@color/blur_0E1C6B"
+            android:paddingBottom="@dimen/dimen_30"
+            android:layout_marginBottom="@dimen/dimen_20"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_30"
+                android:layout_marginBottom="@dimen/dimen_20"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:textAppearance="@style/medium_14"
+                        android:text="@string/estimated"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:textAppearance="@style/medium_14"
+                        android:text="@string/rewards"/>
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:gravity="end"
+                    android:layout_gravity="center_vertical"
+                    android:textAppearance="@style/medium_32"
+                    android:text="$1 680.99"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_1"
+                android:layout_marginBottom="@dimen/dimen_20"
+                android:background="@color/white"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textAppearance="@style/regular_14"
+                    android:text="@string/referral_count"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:gravity="end"
+                    android:textAppearance="@style/medium_18"
+                    android:text="168"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_20"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_56"
+                android:layout_marginBottom="@dimen/dimen_20"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="@string/referral_id_information"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_56"
+                    android:gravity="end">
+
+                    <LinearLayout
+                        android:layout_width="192dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/bg_corner_16dp"
+                        android:backgroundTint="@color/gray_F7F7F7"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/dimen_14"
+                            android:layout_height="@dimen/dimen_14"
+                            app:tint="@color/dark_gray"
+                            android:layout_marginStart="@dimen/dimen_16"
+                            android:layout_marginEnd="@dimen/dimen_31"
+                            android:src="@drawable/ic_copy"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="PQRSTU"
+                            android:textAppearance="@style/medium_18"
+                            android:textColor="@color/blur_0E1C6B"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_56"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="@string/referral_link"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_56"
+                    android:gravity="end">
+
+                    <LinearLayout
+                        android:layout_width="192dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/bg_corner_16dp"
+                        android:backgroundTint="@color/gray_F7F7F7"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/dimen_14"
+                            android:layout_height="@dimen/dimen_14"
+                            app:tint="@color/dark_gray"
+                            android:layout_marginStart="@dimen/dimen_16"
+                            android:layout_marginEnd="@dimen/dimen_31"
+                            android:src="@drawable/ic_copy"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/copy_link"
+                            android:textAppearance="@style/medium_18"
+                            android:textColor="@color/blur_0E1C6B"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>
