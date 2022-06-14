@@ -2,7 +2,10 @@ package com.zillennium.utswap.screens.finance.balanceScreen
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.zillennium.utswap.Datas.GlobalVariable.SettingVariable
+import com.zillennium.utswap.Datas.GlobalVariable.SystemVariable
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
@@ -10,7 +13,7 @@ import com.zillennium.utswap.databinding.ActivityFinanceBalanceBinding
 import com.zillennium.utswap.models.FinanceBalanceModel
 import com.zillennium.utswap.screens.finance.balanceScreen.adapter.FinanceBalanceAdapter
 import com.zillennium.utswap.screens.finance.balanceScreen.bottomSheet.FinanceExportFileBottomSheet
-import com.zillennium.utswap.screens.finance.balanceScreen.bottomSheet.FinanceFilterBottonSheet
+import com.zillennium.utswap.screens.finance.balanceScreen.bottomSheet.FinanceFilterBottomSheet
 import com.zillennium.utswap.screens.finance.balanceScreen.bottomSheet.FinanceSelectDateRangeBottonSheet
 import com.zillennium.utswap.screens.finance.balanceScreen.dialog.FinanceBalanceDialog
 import java.time.LocalDate
@@ -22,6 +25,8 @@ class FinanceBalanceActivity :
 
     override var mPresenter: FinanceBalanceView.Presenter = FinanceBalancePresenter()
     override val layoutResource: Int = R.layout.activity_finance_balance
+
+    val filter = SettingVariable.balance_filter
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun initView() {
@@ -42,7 +47,7 @@ class FinanceBalanceActivity :
 
                 /* Filter bottom sheet dialog */
                 filterButton.setOnClickListener {
-                    FinanceFilterBottonSheet.newInstance().show(
+                    FinanceFilterBottomSheet.newInstance().show(
                         supportFragmentManager, "Filter"
                     )
                 }
@@ -91,11 +96,11 @@ class FinanceBalanceActivity :
                 )
 
                 val status = arrayOf(
-                    0,
                     1,
-                    0,
                     1,
-                    0,
+                    3,
+                    4,
+                    5,
                     1
                 )
 
@@ -132,6 +137,38 @@ class FinanceBalanceActivity :
                     )
                 }
 
+
+                filter.observe(this@FinanceBalanceActivity) {
+                    if (filter.value != 0) {
+                        financeBalanceArrayList.clear()
+                        for (i in dateTransaction.indices) {
+                            if (filter.value == status[i]) {
+                                val financeBalance = FinanceBalanceModel(
+                                    imageBalance[i],
+                                    titleTransaction[i],
+                                    dateTransaction[i],
+                                    amountBalance[i],
+                                    status[i]
+                                )
+                                financeBalanceArrayList.add(financeBalance)
+                            }
+                            if (filter.value == status[i]) {
+                                val financeBalance = FinanceBalanceModel(
+                                    imageBalance[i],
+                                    titleTransaction[i],
+                                    dateTransaction[i],
+                                    amountBalance[i],
+                                    status[i]
+                                )
+                                financeBalanceArrayList.add(financeBalance)
+                            }
+
+                            rvFinanceBalance.layoutManager = LinearLayoutManager(UTSwapApp.instance)
+                            rvFinanceBalance.adapter = FinanceBalanceAdapter(financeBalanceArrayList, onClickAdapter)
+                        }
+                    }
+                }
+
                 rvFinanceBalance.layoutManager = LinearLayoutManager(UTSwapApp.instance)
                 rvFinanceBalance.adapter = FinanceBalanceAdapter(financeBalanceArrayList, onClickAdapter)
 
@@ -153,6 +190,14 @@ class FinanceBalanceActivity :
             )
             financeBalanceDialog.show(supportFragmentManager, "Balance Data Detail")
         }
-
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        filter.value = 0
+        filter.removeObservers(this@FinanceBalanceActivity)
+    }
+
+
+
 }

@@ -5,13 +5,13 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.*
 import android.widget.AdapterView
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.zillennium.utswap.Datas.GlobalVariable.SettingVariable
 import com.zillennium.utswap.R
 import com.zillennium.utswap.databinding.BottomSheetBalanceFilterBinding
 
-class FinanceFilterBottonSheet: BottomSheetDialogFragment(), AdapterView.OnItemSelectedListener{
+class FinanceFilterBottomSheet: BottomSheetDialogFragment(), AdapterView.OnItemSelectedListener{
 
     private var binding: BottomSheetBalanceFilterBinding? = null
 
@@ -38,25 +38,38 @@ class FinanceFilterBottonSheet: BottomSheetDialogFragment(), AdapterView.OnItemS
             (view.parent as View).setBackgroundColor(resources.getColor(android.R.color.transparent))
 
             balanceDeposit.setOnClickListener {
-                Toast.makeText(context, "BALANCE DEPOSIT IS CLICKED", Toast.LENGTH_SHORT).show()
+                SettingVariable.balance_filter.value = 5
+                dismiss()
             }
 
-            balanceWithdrawal.setOnClickListener{}
-            balanceTransfer.setOnClickListener{}
-            balanceTransfer.setOnClickListener{}
-            balanceTrading.setOnClickListener{}
-            balanceSubscription.setOnClickListener{}
+            balanceWithdrawal.setOnClickListener{
+                SettingVariable.balance_filter.value = 4
+                dismiss()
+            }
+
+            balanceTransfer.setOnClickListener{
+                SettingVariable.balance_filter.value = 2
+                dismiss()
+            }
+            balanceTrading.setOnClickListener{
+                SettingVariable.balance_filter.value = 1
+                dismiss()
+            }
+            balanceSubscription.setOnClickListener{
+                SettingVariable.balance_filter.value = 3
+                dismiss()
+            }
         }
     }
 
     companion object {
         fun newInstance(
-        ): FinanceFilterBottonSheet {
-            val financeFilterBottonSheet = FinanceFilterBottonSheet()
+        ): FinanceFilterBottomSheet {
+            val financeFilterBottomSheet = FinanceFilterBottomSheet()
             val args = Bundle()
 
-            financeFilterBottonSheet.arguments = args
-            return financeFilterBottonSheet
+            financeFilterBottomSheet.arguments = args
+            return financeFilterBottomSheet
         }
     }
 
