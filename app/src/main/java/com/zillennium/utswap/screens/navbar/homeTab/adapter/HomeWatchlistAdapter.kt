@@ -7,12 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
+import androidx.core.view.marginLeft
 import androidx.recyclerview.widget.RecyclerView
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.models.HomeWatchlistModel
 import com.zillennium.utswap.screens.navbar.tradeTab.tradeExchangeScreen.TradeExchangeActivity
+import com.zillennium.utswap.utils.dpToPx
 
 class HomeWatchlistAdapter(arrayList: ArrayList<HomeWatchlistModel>, onClickWatch: OnclickWatch):
     RecyclerView.Adapter<HomeWatchlistAdapter.ViewHolder>() {
@@ -24,7 +27,8 @@ class HomeWatchlistAdapter(arrayList: ArrayList<HomeWatchlistModel>, onClickWatc
         var txtLocationTitle: TextView = view.findViewById<View>(R.id.location_project) as TextView
         var txtLastValue: TextView = view.findViewById<View>(R.id.last_value) as TextView
         var txtChangeValue: TextView = view.findViewById<View>(R.id.change_value) as TextView
-        var layoutWatchlistCard: LinearLayout = view.findViewById<View>(R.id.layout_watchlist_card) as LinearLayout
+        var layoutWatchlistCard: CardView = view.findViewById<View>(R.id.layout_watchlist_card) as CardView
+        var layoutItem: LinearLayout = view.findViewById<View>(R.id.lay_item) as LinearLayout
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
@@ -45,6 +49,19 @@ class HomeWatchlistAdapter(arrayList: ArrayList<HomeWatchlistModel>, onClickWatc
             holder.txtChangeValue.text = "+" + homeWatchlistList.changeValue + "%"
             holder.txtChangeValue.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.success))
         }
+
+
+
+        when(position){
+            0 -> {
+                holder.layoutItem.setPadding(dpToPx(10), 0, 0, 0)
+            }
+
+            listData.size - 1 -> {
+                holder.layoutItem.setPadding(0, 0, dpToPx(10), 0)
+            }
+        }
+
 
         holder.layoutWatchlistCard.setOnClickListener {
             onClickWatch.ClickWatch()
