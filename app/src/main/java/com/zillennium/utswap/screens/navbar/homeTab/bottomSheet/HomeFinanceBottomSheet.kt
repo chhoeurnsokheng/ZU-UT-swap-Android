@@ -12,7 +12,9 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.databinding.BottomSheetHomeFinanceBinding
+
 import com.zillennium.utswap.screens.finance.balanceScreen.FinanceBalanceActivity
+import com.zillennium.utswap.screens.finance.lockUpActivity.FinanceLockUpActivity
 
 class HomeFinanceBottomSheet : BottomSheetDialogFragment(), AdapterView.OnItemSelectedListener {
 
@@ -50,7 +52,11 @@ class HomeFinanceBottomSheet : BottomSheetDialogFragment(), AdapterView.OnItemSe
 
             subscriptionButton.setOnClickListener {}
 
-            lockUpButton.setOnClickListener {}
+            lockUpButton.setOnClickListener {
+                val intent = Intent(UTSwapApp.instance, FinanceLockUpActivity::class.java)
+                startActivity(intent)
+                dismiss()
+            }
 
             historicalButton.setOnClickListener {}
         }

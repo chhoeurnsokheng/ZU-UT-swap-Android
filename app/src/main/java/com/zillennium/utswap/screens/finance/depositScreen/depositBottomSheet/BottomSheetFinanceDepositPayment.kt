@@ -44,7 +44,7 @@ class BottomSheetFinanceDepositPayment: BottomSheetDialogFragment(), AdapterView
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
        super.onViewCreated(view, savedInstanceState)
         binding?.apply {
-            (view.parent as View).setBackgroundColor(resources.getColor(android.R.color.transparent))
+            (view.parent as View).setBackgroundColor(ContextCompat.getColor(UTSwapApp.instance, android.R.color.transparent))
 
             nextBtnFinace.isEnabled = false
             nextBtnFinace.setOnClickListener {

@@ -9,9 +9,11 @@ import android.text.TextWatcher
 import android.view.*
 import android.widget.AdapterView
 import android.widget.DatePicker
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.zillennium.utswap.R
+import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.databinding.BottomSheetBalanceSelectDateRangeBinding
 import java.text.SimpleDateFormat
 import java.util.*
@@ -46,7 +48,7 @@ class FinanceSelectDateRangeBottonSheet : BottomSheetDialogFragment(),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding?.apply {
-            (view.parent as View).setBackgroundColor(resources.getColor(android.R.color.transparent))
+            (view.parent as View).setBackgroundColor(ContextCompat.getColor(UTSwapApp.instance, android.R.color.transparent))
 
             val calendar = Calendar.getInstance()
 
@@ -102,7 +104,7 @@ class FinanceSelectDateRangeBottonSheet : BottomSheetDialogFragment(),
                 override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
                 override fun afterTextChanged(p0: Editable?) {
-                   etEndDate.setHintTextColor(resources.getColor(R.color.color_main))
+                   etEndDate.setHintTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.color_main))
                 }
 
             })

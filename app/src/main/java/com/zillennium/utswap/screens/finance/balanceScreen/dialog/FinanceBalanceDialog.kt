@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.*
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import com.zillennium.utswap.R
@@ -55,13 +56,13 @@ class FinanceBalanceDialog: DialogFragment() {
             if (status == 1){
                 txtSymbol.visibility = View.GONE
                 txtMoneyType.text = "Money In"
-                txtDollar.setTextColor(resources.getColor(R.color.success))
-                amountBalance.setTextColor(resources.getColor(R.color.success))
+                txtDollar.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.success))
+                amountBalance.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.success))
             }else{
                 txtSymbol.visibility = View.VISIBLE
                 txtMoneyType.text = "Money Out"
-                txtDollar.setTextColor(resources.getColor(R.color.main_red))
-                amountBalance.setTextColor(resources.getColor(R.color.main_red))
+                txtDollar.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.main_red))
+                amountBalance.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.main_red))
             }
 
             val length = arguments?.getDouble("amountBalance").toString().length

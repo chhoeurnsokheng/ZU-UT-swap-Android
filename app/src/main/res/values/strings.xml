@@ -323,5 +323,11 @@
     <string name="to__">to</string>
     <string name="hint_date">DD-MM-YYYY</string>
     <string name="money_out">Money Out</string>
+    <string name="total_locked_balance">Total Locked \nBalance</string>
+    <string name="buy_back">Buy Back</string>
+    <string name="swap">Swap</string>
+    <string name="start">Start</string>
+    <string name="ends">Ends</string>
+    <string name="dates_remaining">Date(s) Remaining</string>
 
 </resources>

@@ -5,10 +5,12 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.*
 import android.widget.AdapterView
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.zillennium.utswap.Datas.GlobalVariable.SettingVariable
 import com.zillennium.utswap.R
+import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.databinding.BottomSheetBalanceFilterBinding
 
 class FinanceFilterBottomSheet: BottomSheetDialogFragment(), AdapterView.OnItemSelectedListener{
@@ -35,7 +37,7 @@ class FinanceFilterBottomSheet: BottomSheetDialogFragment(), AdapterView.OnItemS
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding?.apply {
-            (view.parent as View).setBackgroundColor(resources.getColor(android.R.color.transparent))
+            (view.parent as View).setBackgroundColor(ContextCompat.getColor(UTSwapApp.instance, android.R.color.transparent))
 
             balanceDeposit.setOnClickListener {
                 SettingVariable.balance_filter.value = 5
