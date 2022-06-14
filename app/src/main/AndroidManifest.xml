@@ -132,6 +132,12 @@
             android:label="@string/deposit"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize"/>
+
+            <!--Notification screen-->
+        <activity android:name=".screens.system.notification.NotificationActivity"
+            android:exported="false"
+            android:label="@string/notification"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

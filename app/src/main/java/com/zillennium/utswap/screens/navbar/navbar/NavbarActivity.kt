@@ -25,6 +25,7 @@ import com.zillennium.utswap.screens.navbar.projectTab.projectScreen.ProjectFrag
 import com.zillennium.utswap.screens.navbar.tradeTab.tradeScreen.TradeFragment
 import com.zillennium.utswap.screens.security.securityActivity.registerScreen.RegisterActivity
 import com.zillennium.utswap.screens.security.securityActivity.signInScreen.SignInActivity
+import com.zillennium.utswap.screens.system.notification.NotificationActivity
 import java.lang.Exception
 
 
@@ -226,7 +227,8 @@ class NavbarActivity :
                 }
 
                 imgNotification.setOnClickListener {
-
+                    val intent = Intent(UTSwapApp.instance, NotificationActivity::class.java)
+                    startActivity(intent)
                 }
             }
 
