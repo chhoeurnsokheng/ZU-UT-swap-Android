@@ -1,15 +1,19 @@
 package com.zillennium.utswap.screens.navbar.homeTab.adapter
+import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.zillennium.utswap.R
+import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.models.HomeMenuModel
 
-class HomeMenuAdapter(private val arrayList: ArrayList<HomeMenuModel>,
+class HomeMenuAdapter(
+    private val arrayList: ArrayList<HomeMenuModel>,
     itemListHomeGrid: Int,
     onclickHome: OnclickHome
 ) :
@@ -35,7 +39,18 @@ class HomeMenuAdapter(private val arrayList: ArrayList<HomeMenuModel>,
         val homeInfoDetailList: HomeMenuModel = listdata[position]
         holder.txtTitle.text = homeInfoDetailList.titleHome
         holder.ivImage.setImageResource(homeInfoDetailList.imageHome)
-        holder.layItem.setOnClickListener { onclickHome.ClickDeposit(homeInfoDetailList.titleHome.toString()) }
+        holder.layItem.setOnClickListener { onclickHome.ClickDeposit(homeInfoDetailList.titleHome) }
+
+        if(homeInfoDetailList.isEnabled){
+            holder.txtTitle.setTextColor(ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.color_main)))
+            holder.ivImage.imageTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.color_main))
+            holder.layItem.isEnabled = true
+
+        }else{
+            holder.txtTitle.setTextColor(ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.gray_999999)))
+            holder.ivImage.imageTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.gray_999999))
+            holder.layItem.isEnabled = false
+        }
     }
 
 

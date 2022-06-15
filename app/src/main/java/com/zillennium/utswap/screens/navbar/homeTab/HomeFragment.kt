@@ -1,23 +1,28 @@
 package com.zillennium.utswap.screens.navbar.homeTab
 
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.graphics.BlurMaskFilter
 import android.graphics.MaskFilter
 import android.view.View
+import androidx.core.content.ContextCompat
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
+import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentNavbarHomeBinding
-import com.zillennium.utswap.screens.navbar.homeTab.adapter.HomeMenuAdapter
-import com.zillennium.utswap.screens.navbar.homeTab.adapter.HomeRecentNewsAdapter
-import com.zillennium.utswap.screens.navbar.homeTab.adapter.HomeWatchlistAdapter
-import com.zillennium.utswap.screens.navbar.homeTab.bottomSheet.HomeFinanceBottomSheet
 import com.zillennium.utswap.models.HomeMenuModel
 import com.zillennium.utswap.models.HomeRecentNewsModel
 import com.zillennium.utswap.models.HomeWatchlistModel
 import com.zillennium.utswap.screens.finance.depositScreen.DepositActivity
+import com.zillennium.utswap.screens.navbar.homeTab.adapter.HomeMenuAdapter
+import com.zillennium.utswap.screens.navbar.homeTab.adapter.HomeRecentNewsAdapter
+import com.zillennium.utswap.screens.navbar.homeTab.adapter.HomeWatchlistAdapter
+import com.zillennium.utswap.screens.navbar.homeTab.bottomSheet.HomeFinanceBottomSheet
 import com.zillennium.utswap.screens.navbar.portfolioTab.PortfolioFragment
 import com.zillennium.utswap.screens.navbar.tradeTab.tradeExchangeScreen.TradeExchangeActivity
 
@@ -30,6 +35,8 @@ class HomeFragment :
     override val layoutResource: Int = R.layout.fragment_navbar_home
     private var homeAdapter: HomeMenuAdapter? = null
     var blurCondition = true
+
+    private val HomeArrayList = ArrayList<HomeMenuModel>()
 
     override fun initView() {
         super.initView()
@@ -56,52 +63,19 @@ class HomeFragment :
                 }
 
                 /* Home Menu Grid */
-                rvHomeMenu.visibility = View.VISIBLE
-
-                val imageHome = arrayOf(
-                    R.drawable.ic_portfolio,
-                    R.drawable.ic_trade,
-                    R.drawable.ic_news,
-                    R.drawable.ic_deposit,
-                    R.drawable.ic_withdraw,
-                    R.drawable.ic_transfer
-                )
-                val titleHome = arrayOf(
-                    "Portfolio",
-                    "Trade",
-                    "News",
-                    "Deposit",
-                    "Withdraw",
-                    "Transfer"
-                )
-                val HomeArrayList = ArrayList<HomeMenuModel>()
-
-                for (i in imageHome.indices) {
-                    val home = HomeMenuModel(
-                        imageHome[i],
-                        titleHome[i]
-                    )
-                    HomeArrayList.add(home)
+                onHomeMenuGrid(SessionVariable.SESSION_STATUS.value.toString().toBoolean())
+                SessionVariable.SESSION_STATUS.observe(this@HomeFragment) {
+                    if (SessionVariable.SESSION_STATUS.value == true) {
+                        onHomeMenuGrid(true)
+                    } else {
+                        onHomeMenuGrid(false)
+                    }
                 }
-
-                rvHomeMenu.layoutManager = GridLayoutManager(UTSwapApp.instance, 3)
-                homeAdapter = HomeMenuAdapter(HomeArrayList, R.layout.item_list_home_grid, onclickHome)
-                rvHomeMenu.adapter = homeAdapter
-//                rvHomeMenu.adapter = HomeMenuAdapter(HomeArrayList, R.layout.item_list_home_grid)
 
 
                 /* bottom sheet dialog on finance button */
 
 
-
-                financeBottom.setOnClickListener {
-                    showBottomSheetDialog()
-                }
-
-//                rvHomeMenu.setOnClickListener {
-//                    val intent = Intent(this@HomeFragment.requireContext(), DepositActivity::class.java)
-//                    startActivity(intent)
-//                }
 
                 /* Watchlist Recycle View */
                 val locationProject = arrayOf(
@@ -208,11 +182,17 @@ class HomeFragment :
         override fun ClickDeposit(title: String?) {
 
             when (title.toString()) {
-                "Portfolio" -> {}
-                "Trade" -> {}
+                "Portfolio" -> {
+                    activity?.findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(R.id.nav_view)?.selectedItemId = R.id.navigation_navbar_portfolio
+                }
+                "Trade" -> {
+                    activity?.findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(R.id.nav_view)?.selectedItemId = R.id.navigation_navbar_trade
+                }
                 "News" -> {}
-                "Deposit" -> {val intent = Intent(UTSwapApp.instance, DepositActivity::class.java)
-                startActivity(intent)}
+                "Deposit" -> {
+                    val intent = Intent(UTSwapApp.instance, DepositActivity::class.java)
+                    startActivity(intent)
+                }
                 "Withdraw" -> {}
                 "Transfer" -> {}
                 else -> {
@@ -231,4 +211,38 @@ class HomeFragment :
         }
 
     }
+
+    private fun onHomeMenuGrid(enabled: Boolean){
+
+        HomeArrayList.clear()
+        HomeArrayList.add(HomeMenuModel(R.drawable.ic_portfolio, "Portfolio", enabled))
+        HomeArrayList.add(HomeMenuModel(R.drawable.ic_trade, "Trade", true))
+        HomeArrayList.add(HomeMenuModel(R.drawable.ic_news, "News", enabled))
+        HomeArrayList.add(HomeMenuModel(R.drawable.ic_deposit, "Deposit", enabled))
+        HomeArrayList.add(HomeMenuModel(R.drawable.ic_withdraw, "Withdraw", enabled))
+        HomeArrayList.add(HomeMenuModel(R.drawable.ic_transfer, "Transfer", enabled))
+
+        binding.apply {
+            rvHomeMenu.layoutManager = GridLayoutManager(UTSwapApp.instance, 3)
+            homeAdapter = HomeMenuAdapter(HomeArrayList, R.layout.item_list_home_grid, onclickHome)
+            rvHomeMenu.adapter = homeAdapter
+
+            if(enabled){
+                imgFinance.imageTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.color_main))
+                txtFinance.setTextColor(ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.color_main)))
+                financeBottom.isEnabled = true
+                financeBottom.setOnClickListener {
+                    showBottomSheetDialog()
+                }
+            }else{
+                imgFinance.imageTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.gray_999999))
+                txtFinance.setTextColor(ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.gray_999999)))
+                financeBottom.isEnabled = false
+                financeBottom.setOnClickListener {}
+            }
+        }
+
+
+    }
+
 }
