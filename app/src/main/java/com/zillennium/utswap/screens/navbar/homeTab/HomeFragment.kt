@@ -23,6 +23,8 @@ import com.zillennium.utswap.screens.navbar.homeTab.adapter.HomeMenuAdapter
 import com.zillennium.utswap.screens.navbar.homeTab.adapter.HomeRecentNewsAdapter
 import com.zillennium.utswap.screens.navbar.homeTab.adapter.HomeWatchlistAdapter
 import com.zillennium.utswap.screens.navbar.homeTab.bottomSheet.HomeFinanceBottomSheet
+import com.zillennium.utswap.screens.finance.withdrawActivity.WithdrawActivity
+import com.zillennium.utswap.screens.finance.withdrawActivity.addBank.AddBankActivity
 import com.zillennium.utswap.screens.navbar.portfolioTab.PortfolioFragment
 import com.zillennium.utswap.screens.navbar.tradeTab.tradeExchangeScreen.TradeExchangeActivity
 
@@ -71,7 +73,6 @@ class HomeFragment :
                         onHomeMenuGrid(false)
                     }
                 }
-
 
                 /* bottom sheet dialog on finance button */
 
@@ -165,11 +166,11 @@ class HomeFragment :
             }
 
 
-
         } catch (error: Exception) {
             // Must be safe
         }
     }
+
     private fun showBottomSheetDialog() {
         HomeFinanceBottomSheet().show(
             requireActivity().supportFragmentManager,
@@ -179,7 +180,7 @@ class HomeFragment :
 
     //click to move to new screen
     val onclickHome: HomeMenuAdapter.OnclickHome = object : HomeMenuAdapter.OnclickHome {
-        override fun ClickDeposit(title: String?) {
+        override fun ClickDeposit(title: String) {
 
             when (title.toString()) {
                 "Portfolio" -> {
@@ -193,8 +194,14 @@ class HomeFragment :
                     val intent = Intent(UTSwapApp.instance, DepositActivity::class.java)
                     startActivity(intent)
                 }
-                "Withdraw" -> {}
-                "Transfer" -> {}
+                "Withdraw" -> {
+                    val intent = Intent(UTSwapApp.instance, WithdrawActivity::class.java)
+                    startActivity(intent)
+                }
+                "Transfer" -> {
+                    val intent = Intent(UTSwapApp.instance, AddBankActivity::class.java)
+                    startActivity(intent)
+                }
                 else -> {
                     val intent = Intent(UTSwapApp.instance, PortfolioFragment::class.java)
                     startActivity(intent)

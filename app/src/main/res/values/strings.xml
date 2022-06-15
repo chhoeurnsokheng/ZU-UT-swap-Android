@@ -9,6 +9,8 @@
     <string name="reset_your_password">Reset Your Password</string>
     <string name="or">OR</string>
     <string name="add_visa_or_master_card">Add Visa/ Master Card</string>
+    <string name="add_bank_address">Add Bank Address</string>
+    <string name="add_bank_account">Add Bank Account</string>
     <string name="card_number">Card Number</string>
     <string name="cardholder_name">Cardholder Name</string>
     <string name="next">Next</string>
@@ -70,6 +72,8 @@
     <string name="select_lock_screen_option">Select Lock Screen Option</string>
     <string name="twofa_setup">2FA Setup</string>
     <string name="account_type">Account Type</string>
+    <string name="account_name">Account Name:</string>
+    <string name="account_number">Account Number:</string>
     <string name="details">Details</string>
     <string name="upgrade">Upgrade</string>
     <string name="credit_card">Credit Card</string>
@@ -111,9 +115,11 @@
     <string name="amount">Amount</string>
     <string name="visa_master_card">Visa/Master Card</string>
     <string name="aba_pay">ABA PAY</string>
+    <string name="aba_back">ABA Back</string>
     <string name="acleda_bank">ACLEDA Bank</string>
     <string name="payment_summary">Payment Summary</string>
     <string name="payment_method">Payment Method:</string>
+
     <string name="choose_your_payment_method">Choose your Payment Method</string>
     <string name="amount_">Amount:</string>
     <string name="fee">Fee:</string>
@@ -126,7 +132,10 @@
     <string name="receiving_address">Receiving Address</string>
     <string name="fee_">Fee</string>
     <string name="withdrawal_balance_0_00">Withdrawal Balance: $ 0.00</string>
+    <string name="withdrawal_balance">Withdrawal Balance</string>
     <string name="withdrawal_amount">Withdrawal Amount</string>
+    <string name="pending1">Pending</string>
+
     <string name="withdrawal_fee_1_50">Withdrawal fee 1.50%</string>
     <string name="withdraw">Withdraw</string>
     <string name="sender">Sender</string>
@@ -212,6 +221,7 @@
     <string name="logo_ut_swap">logo ut swap</string>
     <string name="john">JOHN</string>
     <string name="doe">DOE</string>
+    <string name="johnathan_wick">JOHNATHAN WICK</string>
     <string name="indicates_required">indicates required</string>
     <string name="passport_autocomplete">Passport Auto Complete</string>
     <string name="forgot_password_btn">Forgot Password</string>

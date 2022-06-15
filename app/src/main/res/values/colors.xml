@@ -33,9 +33,9 @@
     <color name="secondary_text">#555555</color>
     <color name="gray">#DCDCDC</color>
     <color name="light_gray">#DDDDDD</color>
+    <color name="gray_CCCCCC">#CCCCCC</color>
     <color name="write_ECECEC">#ECECEC</color>
     <color name="dark_gray">#666666</color>
-    <color name="gray_CCCCCC">#CCCCCC</color>
     <color name="gray_EEEEEE">#EEEEEE</color>
     <color name="gray_999999">#999999</color>
     <color name="gray_888888">#888888</color>

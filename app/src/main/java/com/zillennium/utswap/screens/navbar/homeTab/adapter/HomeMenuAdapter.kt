@@ -59,7 +59,7 @@ class HomeMenuAdapter(
     }
 
     interface OnclickHome {
-        fun ClickDeposit(title: String?)
+        fun ClickDeposit(title: String)
     }
 
     init {
