@@ -50,4 +50,7 @@
     <color name="gray_97">#F7F7F7</color>
     <color name="yellow">#E3C82F</color>
     <color name="blue"> #194DE0</color>
+    <color name="dark_yellow">#DFAC1C</color>
+    <color name="yellow_19">#E0AC19</color>
+    <color name="blue_sky">#0088CC</color>
 </resources>

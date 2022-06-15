@@ -149,6 +149,88 @@
             android:exported="false"
             android:label="@string/notification"
             android:screenOrientation="portrait"/>
+
+        <!--Account Screen-->
+        <activity android:name=".screens.account.AccountActivity"
+            android:exported="false"
+            android:label="@string/account"
+            android:screenOrientation="portrait"/>
+
+        <!--Account Detail Screen-->
+        <activity android:name=".screens.account.accountDetail.AccountDetailActivity"
+            android:exported="false"
+            android:label="@string/account"
+            android:screenOrientation="portrait"/>
+
+        <!--Lock Timeout Screen-->
+        <activity android:name=".screens.account.lockTimeOut.LockTimeOutActivity"
+            android:exported="false"
+            android:label="@string/account"
+            android:screenOrientation="portrait"/>
+
+        <!--Add phone number Screen-->
+        <activity android:name=".screens.account.addNumber.AddNumberActivity"
+            android:exported="false"
+            android:label="@string/add_phone_number"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize"/>
+
+        <!--Customer support Screen-->
+        <activity android:name=".screens.account.customerSupport.CustomerSupportActivity"
+            android:exported="false"
+            android:label="@string/customer_support"
+            android:screenOrientation="portrait"/>
+
+        <!--Referral Screen-->
+        <activity android:name=".screens.account.referralInformation.ReferralInformationActivity"
+            android:exported="false"
+            android:label="@string/referral_information"
+            android:screenOrientation="portrait"/>
+
+        <!--Documents account Screen-->
+        <activity android:name=".screens.account.documents.DocumentsActivity"
+            android:exported="false"
+            android:label="@string/documents"
+            android:screenOrientation="portrait"/>
+
+        <!--Terms conditions Screen-->
+        <activity android:name=".screens.account.documents.termsConditions.TermsConditionsActivity"
+            android:exported="false"
+            android:label="@string/documents"
+            android:screenOrientation="portrait"/>
+
+        <!--Add phone number Screen-->
+        <activity android:name=".screens.account.verificationAccunt.VerificationAccountActivity"
+            android:exported="false"
+            android:label="@string/add_phone_number"
+            android:screenOrientation="portrait"/>
+
+        <!--Logs Screen-->
+        <activity android:name=".screens.account.logs.LogsActivity"
+            android:exported="false"
+            android:label="@string/log_s"
+            android:screenOrientation="portrait"/>
+
+        <!--Logs Screen-->
+        <activity android:name="com.zillennium.utswap.screens.security.securityActivity.changeLoginPassword.ChangeLoginPasswordActivity"
+            android:exported="false"
+            android:label="@string/change_login_password"
+            android:windowSoftInputMode="adjustResize"
+            android:screenOrientation="portrait"/>
+
+        <!--Forgot password Screen-->
+        <activity android:name="com.zillennium.utswap.screens.security.securityActivity.forgotPassword.ForgotPasswordActivity"
+            android:exported="false"
+            android:label="@string/forgot_password"
+            android:windowSoftInputMode="adjustResize"
+            android:screenOrientation="portrait"/>
+
+        <!--Change Fund Password Screen-->
+        <activity android:name="com.zillennium.utswap.screens.security.securityActivity.changeFundPassword.ChangeFundPasswordActivity"
+            android:exported="false"
+            android:label="@string/forgot_password"
+            android:windowSoftInputMode="adjustResize"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

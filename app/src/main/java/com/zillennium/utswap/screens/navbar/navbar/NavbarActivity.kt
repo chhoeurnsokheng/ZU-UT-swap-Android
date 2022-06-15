@@ -18,6 +18,7 @@ import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityNavbarBinding
+import com.zillennium.utswap.screens.account.AccountActivity
 import com.zillennium.utswap.screens.kyc.kycActivity.KYCActivity
 import com.zillennium.utswap.screens.navbar.homeTab.HomeFragment
 import com.zillennium.utswap.screens.navbar.portfolioTab.PortfolioFragment
@@ -223,7 +224,8 @@ class NavbarActivity :
                 }
 
                 imgMenu.setOnClickListener {
-
+                    val intent = Intent(UTSwapApp.instance,AccountActivity::class.java)
+                    startActivity(intent)
                 }
 
                 imgNotification.setOnClickListener {

@@ -16,5 +16,6 @@ class SettingVariable {
         val finance_subscription_date_start: MutableLiveData<String> = MutableLiveData()
         val finance_subscription_date_end: MutableLiveData<String> = MutableLiveData()
 
+        val phoneNumber: MutableLiveData<String> = MutableLiveData("")
     }
 }
