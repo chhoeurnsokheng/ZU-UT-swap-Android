@@ -46,6 +46,7 @@ class AccountActivity :
 
                 imgClose.setOnClickListener{
                     finish()
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                 }
 
                 linearLayoutAccount.setOnClickListener {
@@ -117,5 +118,12 @@ class AccountActivity :
         } catch (error: Exception) {
             // Must be safe
         }
+    }
+
+
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
     }
 }

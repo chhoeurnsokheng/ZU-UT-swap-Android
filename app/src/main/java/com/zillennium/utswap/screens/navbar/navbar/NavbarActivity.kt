@@ -6,6 +6,7 @@ import android.os.Handler
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation.findNavController
@@ -36,6 +37,8 @@ class NavbarActivity :
 
     override var mPresenter: NavbarView.Presenter = NavbarPresenter()
     override val layoutResource: Int = R.layout.activity_navbar
+
+    private var doubleBackToExitPressedOnce = false
 
     override fun initView() {
         super.initView()
@@ -226,6 +229,7 @@ class NavbarActivity :
                 imgMenu.setOnClickListener {
                     val intent = Intent(UTSwapApp.instance,AccountActivity::class.java)
                     startActivity(intent)
+                    overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
                 }
 
                 imgNotification.setOnClickListener {
@@ -243,13 +247,13 @@ class NavbarActivity :
     
 
 
-//    override fun onBackPressed() {
-//        if (doubleBackToExitPressedOnce) {
-//            super.onBackPressed()
-//            return
-//        }
-//        doubleBackToExitPressedOnce = true
-//        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show()
-//        Handler().postDelayed(Runnable { doubleBackToExitPressedOnce = false }, 2000)
-//    }
+    override fun onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed()
+            return
+        }
+        doubleBackToExitPressedOnce = true
+        Toast.makeText(UTSwapApp.instance, "Please click BACK again to exit", Toast.LENGTH_SHORT).show()
+        Handler().postDelayed(Runnable { doubleBackToExitPressedOnce = false }, 2000)
+    }
 }
