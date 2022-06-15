@@ -22,6 +22,7 @@ import com.zillennium.utswap.databinding.ActivityNavbarBinding
 import com.zillennium.utswap.screens.account.AccountActivity
 import com.zillennium.utswap.screens.kyc.kycActivity.KYCActivity
 import com.zillennium.utswap.screens.navbar.homeTab.HomeFragment
+import com.zillennium.utswap.screens.navbar.newsTab.NewsTabFragment
 import com.zillennium.utswap.screens.navbar.portfolioTab.PortfolioFragment
 import com.zillennium.utswap.screens.navbar.projectTab.projectScreen.ProjectFragment
 import com.zillennium.utswap.screens.navbar.tradeTab.tradeScreen.TradeFragment
@@ -114,7 +115,7 @@ class NavbarActivity :
                 val HomeFragment = HomeFragment()
                 val PortfolioFragment = PortfolioFragment()
                 val TradeFragment = TradeFragment()
-                val ProjectFragment = ProjectFragment()
+                val NewsTabFragment = NewsTabFragment()
                 val fragmentManager = supportFragmentManager
                 var activeFragment: Fragment = TradeFragment
 
@@ -122,7 +123,7 @@ class NavbarActivity :
                     add(R.id.nav_host_fragment_activity_navbar_home, HomeFragment, "HomeFragment").hide(HomeFragment)
                     add(R.id.nav_host_fragment_activity_navbar_home, PortfolioFragment, "PortfolioFragment").hide(PortfolioFragment)
                     add(R.id.nav_host_fragment_activity_navbar_home, TradeFragment, "TradeFragment").hide(TradeFragment)
-                    add(R.id.nav_host_fragment_activity_navbar_home, ProjectFragment, "ProjectFragment").hide(ProjectFragment)
+                    add(R.id.nav_host_fragment_activity_navbar_home, NewsTabFragment, "NewsFragment").hide(NewsTabFragment)
                 }.commit()
 
                 navView.setOnNavigationItemSelectedListener { item ->
@@ -147,9 +148,9 @@ class NavbarActivity :
                             title.visibility = View.VISIBLE
                         }
                         R.id.navigation_navbar_project -> {
-                            fragmentManager.beginTransaction().hide(activeFragment).show(ProjectFragment).commit()
-                            activeFragment = ProjectFragment
-                            title.text = "Project"
+                            fragmentManager.beginTransaction().hide(activeFragment).show(NewsTabFragment).commit()
+                            activeFragment = NewsTabFragment
+                            title.text = "News"
                             title.visibility = View.VISIBLE
                         }
                     }
