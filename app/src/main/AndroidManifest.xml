@@ -125,6 +125,13 @@
             android:exported="false"
             android:label="@string/deposit"
             android:screenOrientation="portrait"/>
+
+        <!--Activity News Detail-->
+        <activity
+            android:name="com.zillennium.utswap.screens.navbar.newsTab.newsDetail.NewsDetailActivity"
+            android:exported="false"
+            android:label="@string/news"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

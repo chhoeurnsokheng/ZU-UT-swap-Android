@@ -323,5 +323,7 @@
     <string name="to__">to</string>
     <string name="hint_date">DD-MM-YYYY</string>
     <string name="money_out">Money Out</string>
+    <string name="news">News</string>
+    <string name="share">Share</string>
 
 </resources>
