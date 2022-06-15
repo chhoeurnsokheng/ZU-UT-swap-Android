@@ -231,6 +231,13 @@
             android:label="@string/forgot_password"
             android:windowSoftInputMode="adjustResize"
             android:screenOrientation="portrait"/>
+
+        <!--New Fund Password Screen-->
+        <activity android:name="com.zillennium.utswap.screens.security.securityActivity.newFundPassword.NewFundPasswordActivity"
+            android:exported="false"
+            android:label="@string/new_fund_password"
+            android:windowSoftInputMode="adjustResize"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

@@ -1,5 +1,6 @@
 package com.zillennium.utswap.screens.account.dialog
 
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -10,6 +11,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.databinding.BottomSheetChangeProfileBinding
+import com.zillennium.utswap.screens.security.securityActivity.signInScreen.SignInActivity
 
 
 class ChangeProfileBottomSheet : BottomSheetDialogFragment() {

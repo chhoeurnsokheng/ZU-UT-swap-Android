@@ -17,6 +17,7 @@ import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityChangeFundPasswordBinding
 import com.zillennium.utswap.screens.account.verificationAccunt.VerificationAccountActivity
 import com.zillennium.utswap.screens.security.securityActivity.forgotPassword.ForgotPasswordActivity
+import com.zillennium.utswap.screens.security.securityActivity.newFundPassword.NewFundPasswordActivity
 
 class ChangeFundPasswordActivity :
     BaseMvpActivity<ChangeFundPasswordView.View, ChangeFundPasswordView.Presenter, ActivityChangeFundPasswordBinding>(),
@@ -98,8 +99,7 @@ class ChangeFundPasswordActivity :
 
                 btnNext.setOnClickListener {
                     if (editFundPassword.length() == 4){
-                        val intent = Intent(UTSwapApp.instance,VerificationAccountActivity::class.java)
-                        intent.putExtra(Intent.EXTRA_TEXT, "Change Fund Password");
+                        val intent = Intent(UTSwapApp.instance, NewFundPasswordActivity::class.java)
                         startActivity(intent)
                     }else{
                         for(child in numberVerification.children){
