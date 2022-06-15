@@ -8,8 +8,8 @@
 
             <ImageView
                 android:id="@+id/img_menu"
-                android:layout_width="@dimen/dimen_18"
-                android:layout_height="@dimen/dimen_18"
+                android:layout_width="@dimen/dimen_30"
+                android:layout_height="@dimen/dimen_30"
                 android:layout_centerVertical="true"
                 android:contentDescription="@string/menu"
                 android:src="@drawable/ic_baseline_arrow_back_24"

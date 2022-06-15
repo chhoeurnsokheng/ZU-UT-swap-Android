@@ -72,7 +72,7 @@ class DepositActivity :
         }
     }
 
-   private val onClickDeposit: DepositAdapter.OnClickDeposit = object : DepositAdapter.OnClickDeposit {
+    private val onClickDeposit: DepositAdapter.OnClickDeposit = object : DepositAdapter.OnClickDeposit {
         override fun ClickDepositCard(cardTitle: String,cardImg: Int) {
 
             when (cardTitle.toString()) {
@@ -104,7 +104,7 @@ class DepositActivity :
         }
 
 
-   }
+    }
 
 
 

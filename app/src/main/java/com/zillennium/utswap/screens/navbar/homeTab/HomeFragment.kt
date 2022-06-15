@@ -19,6 +19,8 @@ import com.zillennium.utswap.models.HomeMenuModel
 import com.zillennium.utswap.models.HomeRecentNewsModel
 import com.zillennium.utswap.models.HomeWatchlistModel
 import com.zillennium.utswap.screens.finance.depositActivity.DepositActivity
+import com.zillennium.utswap.screens.finance.withdrawActivity.WithdrawActivity
+import com.zillennium.utswap.screens.finance.withdrawActivity.addBank.AddBankActivity
 import com.zillennium.utswap.screens.navbar.portfolioTab.PortfolioFragment
 import com.zillennium.utswap.screens.navbar.tradeTab.fragment.orders.adapter.OrdersAdapter
 import com.zillennium.utswap.screens.navbar.tradeTab.fragment.orders.dialog.DeleteOrdersDialog
@@ -87,7 +89,8 @@ class HomeFragment :
                 }
 
                 rvHomeMenu.layoutManager = GridLayoutManager(UTSwapApp.instance, 3)
-                homeAdapter = HomeMenuAdapter(HomeArrayList, R.layout.item_list_home_grid, onclickHome)
+                homeAdapter =
+                    HomeMenuAdapter(HomeArrayList, R.layout.item_list_home_grid, onclickHome)
                 rvHomeMenu.adapter = homeAdapter
 //                rvHomeMenu.adapter = HomeMenuAdapter(HomeArrayList, R.layout.item_list_home_grid)
 
@@ -190,11 +193,11 @@ class HomeFragment :
             }
 
 
-
         } catch (error: Exception) {
             // Must be safe
         }
     }
+
     private fun showBottomSheetDialog() {
         HomeFinanceBottomSheet().show(
             requireActivity().supportFragmentManager,
@@ -204,16 +207,24 @@ class HomeFragment :
 
     //click to move to new screen
     val onclickHome: HomeMenuAdapter.OnclickHome = object : HomeMenuAdapter.OnclickHome {
-        override fun ClickDeposit(title: String?) {
+        override fun ClickDeposit(title: String) {
 
             when (title.toString()) {
                 "Portfolio" -> {}
                 "Trade" -> {}
                 "News" -> {}
-                "Deposit" -> {val intent = Intent(UTSwapApp.instance, DepositActivity::class.java)
-                startActivity(intent)}
-                "Withdraw" -> {}
-                "Transfer" -> {}
+                "Deposit" -> {
+                    val intent = Intent(UTSwapApp.instance, DepositActivity::class.java)
+                    startActivity(intent)
+                }
+                "Withdraw" -> {
+                    val intent = Intent(UTSwapApp.instance, WithdrawActivity::class.java)
+                    startActivity(intent)
+                }
+                "Transfer" -> {
+                    val intent = Intent(UTSwapApp.instance, AddBankActivity::class.java)
+                    startActivity(intent)
+                }
                 else -> {
                     val intent = Intent(UTSwapApp.instance, PortfolioFragment::class.java)
                     startActivity(intent)

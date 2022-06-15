@@ -44,7 +44,7 @@ class HomeMenuAdapter(private val arrayList: ArrayList<HomeMenuModel>,
     }
 
     interface OnclickHome {
-        fun ClickDeposit(title: String?)
+        fun ClickDeposit(title: String)
     }
 
     init {

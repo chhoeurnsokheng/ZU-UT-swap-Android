@@ -35,7 +35,7 @@ class DepositAdapter(private val arrayList: ArrayList<DepositModel>, onclickDepo
 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-       val  depositCurrentItemList: DepositModel = listData[position]
+        val  depositCurrentItemList: DepositModel = listData[position]
         holder.card_image.setImageResource(depositCurrentItemList.cardImg)
         holder.card_name.text = depositCurrentItemList.cardTitle
         when(depositCurrentItemList.cardTitle)
@@ -58,7 +58,7 @@ class DepositAdapter(private val arrayList: ArrayList<DepositModel>, onclickDepo
             }
         }
 
-        holder.layDepositItem.setOnClickListener { onclickDeposit.ClickDepositCard(depositCurrentItemList.cardTitle, depositCurrentItemList.cardImg) }
+        holder.layDepositItem.setOnClickListener { onclickDeposit.ClickDepositCard(depositCurrentItemList.cardTitle, depositCurrentItemList.cardImg)}
 
     }
     override fun getItemCount(): Int {
