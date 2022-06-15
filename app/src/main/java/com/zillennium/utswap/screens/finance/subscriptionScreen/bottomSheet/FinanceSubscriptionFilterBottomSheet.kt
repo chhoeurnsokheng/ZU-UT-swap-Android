@@ -1,4 +1,4 @@
-package com.zillennium.utswap.screens.finance.subscriptionsActivity.bottomSheet
+package com.zillennium.utswap.screens.finance.subscriptionScreen.bottomSheet
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -13,7 +13,7 @@ import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.databinding.BottomSheetSubscriptionFilterBinding
 import com.zillennium.utswap.models.financeSubscription.FinanceSubscriptionFilterModel
-import com.zillennium.utswap.screens.finance.subscriptionsActivity.adapter.FinanceSubscriptionFilterAdapter
+import com.zillennium.utswap.screens.finance.subscriptionScreen.adapter.FinanceSubscriptionFilterAdapter
 
 class FinanceSubscriptionFilterBottomSheet : BottomSheetDialogFragment(),
     AdapterView.OnItemSelectedListener {

@@ -1,4 +1,4 @@
-package com.zillennium.utswap.screens.finance.subscriptionsActivity
+package com.zillennium.utswap.screens.finance.subscriptionScreen
 
 import android.annotation.SuppressLint
 import android.os.Build
@@ -10,13 +10,12 @@ import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityFinanceSubscriptionsBinding
 import com.zillennium.utswap.models.financeSubscription.FinanceSubscriptionsModel
-import com.zillennium.utswap.screens.finance.subscriptionsActivity.adapter.FinanceSubscriptionsAdapter
-import com.zillennium.utswap.screens.finance.subscriptionsActivity.bottomSheet.FinanceSubscriptionDateRangeBottomSheet
-import com.zillennium.utswap.screens.finance.subscriptionsActivity.bottomSheet.FinanceSubscriptionFilterBottomSheet
-import com.zillennium.utswap.screens.finance.subscriptionsActivity.dialog.FinanceSubscriptionsDialog
+import com.zillennium.utswap.screens.finance.subscriptionScreen.adapter.FinanceSubscriptionsAdapter
+import com.zillennium.utswap.screens.finance.subscriptionScreen.bottomSheet.FinanceSubscriptionDateRangeBottomSheet
+import com.zillennium.utswap.screens.finance.subscriptionScreen.bottomSheet.FinanceSubscriptionFilterBottomSheet
+import com.zillennium.utswap.screens.finance.subscriptionScreen.dialog.FinanceSubscriptionsDialog
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
-import java.time.temporal.ChronoUnit
 import java.util.*
 
 

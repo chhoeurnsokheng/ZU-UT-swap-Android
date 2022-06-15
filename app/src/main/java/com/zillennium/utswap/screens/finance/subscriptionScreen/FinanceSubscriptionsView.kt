@@ -1,4 +1,4 @@
-package com.zillennium.utswap.screens.finance.subscriptionsActivity
+package com.zillennium.utswap.screens.finance.subscriptionScreen
 
 import android.content.Context
 import android.os.Bundle

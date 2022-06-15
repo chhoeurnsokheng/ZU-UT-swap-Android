@@ -1,4 +1,4 @@
-package com.zillennium.utswap.screens.finance.subscriptionsActivity.adapter
+package com.zillennium.utswap.screens.finance.subscriptionScreen.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -9,7 +9,6 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.zillennium.utswap.R
-import com.zillennium.utswap.models.financeSubscription.FinanceSubscriptionFilterModel
 import com.zillennium.utswap.models.financeSubscription.FinanceSubscriptionsModel
 import com.zillennium.utswap.utils.groupingSeparator
 

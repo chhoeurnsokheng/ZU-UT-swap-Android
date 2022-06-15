@@ -1,4 +1,4 @@
-package com.zillennium.utswap.screens.finance.subscriptionsActivity.dialog
+package com.zillennium.utswap.screens.finance.subscriptionScreen.dialog
 
 import android.annotation.SuppressLint
 import android.graphics.Color

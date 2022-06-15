@@ -15,7 +15,7 @@ import com.zillennium.utswap.databinding.BottomSheetHomeFinanceBinding
 
 import com.zillennium.utswap.screens.finance.balanceScreen.FinanceBalanceActivity
 import com.zillennium.utswap.screens.finance.lockUpScreen.FinanceLockUpActivity
-import com.zillennium.utswap.screens.finance.subscriptionsActivity.FinanceSubscriptionsActivity
+import com.zillennium.utswap.screens.finance.subscriptionScreen.FinanceSubscriptionsActivity
 
 class HomeFinanceBottomSheet : BottomSheetDialogFragment(), AdapterView.OnItemSelectedListener {
 

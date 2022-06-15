@@ -1,4 +1,4 @@
-package com.zillennium.utswap.screens.finance.subscriptionsActivity.bottomSheet
+package com.zillennium.utswap.screens.finance.subscriptionScreen.bottomSheet
 
 import android.app.DatePickerDialog
 import android.graphics.Color
@@ -9,12 +9,10 @@ import android.text.TextWatcher
 import android.view.*
 import android.widget.AdapterView
 import android.widget.DatePicker
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.zillennium.utswap.Datas.GlobalVariable.SettingVariable
 import com.zillennium.utswap.R
-import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.databinding.BottomSheetSubscriptionSelectDateRangeBinding
 import java.text.SimpleDateFormat
 import java.util.*
