@@ -1,4 +1,4 @@
-package com.zillennium.utswap.screens.finance.withdrawActivity.addBank
+package com.zillennium.utswap.screens.finance.withdrawScreen.addBank
 
 import android.content.Context
 import android.os.Bundle

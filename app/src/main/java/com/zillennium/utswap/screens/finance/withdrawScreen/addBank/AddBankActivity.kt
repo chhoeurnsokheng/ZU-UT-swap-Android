@@ -1,17 +1,14 @@
-package com.zillennium.utswap.screens.finance.withdrawActivity.addBank
+package com.zillennium.utswap.screens.finance.withdrawScreen.addBank
 
-import android.content.Intent
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.databinding.ActivityFinanceAddBankBinding
 import com.zillennium.utswap.models.WithdrawAddbankModel
-import com.zillennium.utswap.screens.finance.withdrawActivity.WithdrawActivity
-import com.zillennium.utswap.screens.finance.withdrawActivity.adapter.WithdrawAdapter
-import com.zillennium.utswap.screens.finance.withdrawActivity.withdrawBottomSheet.BottomSheetFinanceAddBank
+import com.zillennium.utswap.screens.finance.withdrawScreen.adapter.WithdrawAdapter
+import com.zillennium.utswap.screens.finance.withdrawScreen.withdrawBottomSheet.BottomSheetFinanceAddBank
 
 
 class AddBankActivity :

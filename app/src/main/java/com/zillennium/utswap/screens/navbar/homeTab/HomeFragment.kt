@@ -6,11 +6,9 @@ import android.graphics.BlurMaskFilter
 import android.graphics.MaskFilter
 import android.view.View
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
-import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
@@ -19,12 +17,13 @@ import com.zillennium.utswap.models.HomeMenuModel
 import com.zillennium.utswap.models.HomeRecentNewsModel
 import com.zillennium.utswap.models.HomeWatchlistModel
 import com.zillennium.utswap.screens.finance.depositScreen.DepositActivity
+import com.zillennium.utswap.screens.finance.transferScreen.TransferActivity
 import com.zillennium.utswap.screens.navbar.homeTab.adapter.HomeMenuAdapter
 import com.zillennium.utswap.screens.navbar.homeTab.adapter.HomeRecentNewsAdapter
 import com.zillennium.utswap.screens.navbar.homeTab.adapter.HomeWatchlistAdapter
 import com.zillennium.utswap.screens.navbar.homeTab.bottomSheet.HomeFinanceBottomSheet
-import com.zillennium.utswap.screens.finance.withdrawActivity.WithdrawActivity
-import com.zillennium.utswap.screens.finance.withdrawActivity.addBank.AddBankActivity
+import com.zillennium.utswap.screens.finance.withdrawScreen.WithdrawActivity
+import com.zillennium.utswap.screens.finance.withdrawScreen.addBank.AddBankActivity
 import com.zillennium.utswap.screens.navbar.portfolioTab.PortfolioFragment
 import com.zillennium.utswap.screens.navbar.tradeTab.tradeExchangeScreen.TradeExchangeActivity
 import com.zillennium.utswap.screens.project.projectScreen.ProjectActivity
@@ -203,7 +202,7 @@ class HomeFragment :
                     startActivity(intent)
                 }
                 "Transfer" -> {
-                    val intent = Intent(UTSwapApp.instance, AddBankActivity::class.java)
+                    val intent = Intent(UTSwapApp.instance, TransferActivity::class.java)
                     startActivity(intent)
                 }
             }

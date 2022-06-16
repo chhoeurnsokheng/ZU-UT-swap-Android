@@ -94,6 +94,8 @@
     <string name="historical">Historical</string>
     <string name="trade_exchange">Trade Exchange</string>
     <string name="scan_qrcode">Scan QRCode</string>
+    <string name="scan_qr">Scan QR</string>
+    <string name="my_qr_code">My QR Code</string>
     <string name="notification">Notification</string>
     <string name="profile_qrcode">Profile QRCode</string>
     <string name="from">From</string>
@@ -112,6 +114,7 @@
     <string name="pending_balance">Pending Balance</string>
     <string name="export_pdf">Export PDF</string>
     <string name="payment_amount">Payment Amount</string>
+
     <string name="amount">Amount</string>
     <string name="visa_master_card">Visa/Master Card</string>
     <string name="aba_pay">ABA PAY</string>
@@ -141,6 +144,7 @@
     <string name="sender">Sender</string>
     <string name="receiver">Receiver</string>
     <string name="transfer_balance_0_00">Transfer Balance: $ 0.00</string>
+    <string name="zero">000 000 000</string>
     <string name="enter_receiver_s_phone_number">Enter Receiver\'s phone number</string>
     <string name="transfer_amount">Transfer Amount:</string>
     <string name="receiver_s_phone_number">Receiver\'s Phone Number:</string>
@@ -327,6 +331,7 @@
     <string name="pending_">Pending</string>
     <string name="select_date_range">Select Date Range</string>
     <string name="transfer_">Transfer</string>
+    <string name="transfer_balance">Transfer Balance</string>
     <string name="trading">Trading</string>
     <string name="subscriptions">Subscriptions</string>
     <string name="export_data_as_pdf">Export data as PDF</string>
