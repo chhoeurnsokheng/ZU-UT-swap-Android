@@ -1,9 +1,8 @@
-package com.zillennium.utswap.screens.finance.withdrawActivity.adapter
+package com.zillennium.utswap.screens.finance.withdrawScreen.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -15,7 +14,7 @@ import com.zillennium.utswap.utils.dpToPx
 class WithdrawAdapter(private val arrayList: ArrayList<WithdrawAddbankModel>, onClickBank: OnClickBank): RecyclerView.Adapter<WithdrawAdapter.ViewHolder>() {
 
     private val listData: ArrayList<WithdrawAddbankModel> = arrayList
-    private lateinit var onclickWithdrawBank: OnClickBank
+    private var onclickWithdrawBank: OnClickBank
 
     class ViewHolder(view: View): RecyclerView.ViewHolder(view){
         var layWithdrawAddbankItem: LinearLayout = view.findViewById(R.id.layDepositItem) as LinearLayout

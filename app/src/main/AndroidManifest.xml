@@ -152,14 +152,14 @@
             android:label="@string/deposit"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".screens.finance.withdrawActivity.WithdrawActivity"
+            android:name=".screens.finance.withdrawScreen.WithdrawActivity"
             android:exported="false"
             android:label="@string/deposit"
             android:windowSoftInputMode="adjustResize"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".screens.finance.withdrawActivity.addBank.AddBankActivity"
+            android:name=".screens.finance.withdrawScreen.addBank.AddBankActivity"
             android:exported="false"
             android:label="@string/deposit"
             android:screenOrientation="portrait"
@@ -266,6 +266,13 @@
             android:exported="false"
             android:label="@string/news"
             android:screenOrientation="portrait" />
+
+        <!--Activity Finance Transfer-->
+        <activity android:name=".screens.finance.transferScreen.TransferActivity"
+            android:exported="false"
+            android:label="@string/transfer_"
+            android:windowSoftInputMode="adjustResize"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

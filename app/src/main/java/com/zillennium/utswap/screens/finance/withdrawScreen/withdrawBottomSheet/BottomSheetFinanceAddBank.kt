@@ -1,7 +1,5 @@
-package com.zillennium.utswap.screens.finance.withdrawActivity.withdrawBottomSheet
+package com.zillennium.utswap.screens.finance.withdrawScreen.withdrawBottomSheet
 
-import android.app.Activity
-import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -15,9 +13,6 @@ import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
 import com.zillennium.utswap.R
 import com.zillennium.utswap.databinding.BottomSheetFinanceAddBankBinding
 import com.zillennium.utswap.models.FinanceBankModel
-import com.zillennium.utswap.models.WithdrawAddbankModel
-import com.zillennium.utswap.screens.finance.withdrawActivity.WithdrawActivity
-import com.zillennium.utswap.screens.finance.withdrawActivity.addBank.AddBankActivity
 
 class BottomSheetFinanceAddBank : BottomSheetDialogFragment(), AdapterView.OnItemSelectedListener {
     private val SECOND_ACTIVITY_REQUEST_CODE = 0
@@ -34,8 +29,6 @@ class BottomSheetFinanceAddBank : BottomSheetDialogFragment(), AdapterView.OnIte
         binding?.apply {
 
         }
-
-
         dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)

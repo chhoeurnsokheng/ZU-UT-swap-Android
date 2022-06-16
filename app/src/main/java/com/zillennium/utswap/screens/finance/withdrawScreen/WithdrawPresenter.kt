@@ -1,9 +1,8 @@
-package com.zillennium.utswap.screens.finance.withdrawActivity
+package com.zillennium.utswap.screens.finance.withdrawScreen
 
 import android.content.Context
 import android.os.Bundle
 import com.zillennium.utswap.bases.mvp.BaseMvpPresenterImpl
-import com.zillennium.utswap.simple.SimpleView
 
 class WithdrawPresenter : BaseMvpPresenterImpl<WithdrawView.View>(),
         WithdrawView.Presenter {

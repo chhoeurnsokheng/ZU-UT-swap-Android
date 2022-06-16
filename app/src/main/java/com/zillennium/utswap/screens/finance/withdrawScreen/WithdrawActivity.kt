@@ -1,4 +1,4 @@
-package com.zillennium.utswap.screens.finance.withdrawActivity
+package com.zillennium.utswap.screens.finance.withdrawScreen
 
 import android.content.Intent
 import android.text.Editable
@@ -9,7 +9,8 @@ import com.zillennium.utswap.R
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityFinanceWithdrawBinding
 
-import com.zillennium.utswap.screens.finance.withdrawActivity.addBank.AddBankActivity
+import com.zillennium.utswap.screens.finance.withdrawScreen.addBank.AddBankActivity
+import com.zillennium.utswap.screens.security.securityDialog.FundPasswordDialog
 
 class WithdrawActivity :
     BaseMvpActivity<WithdrawView.View, WithdrawView.Presenter, ActivityFinanceWithdrawBinding>(),
@@ -75,10 +76,10 @@ class WithdrawActivity :
                         nextBtnFinace.isEnabled = true
                         layTransactions.visibility = View.VISIBLE
 
-//                        nextBtnFinace.setOnClickListener{
-//                            val intent = Intent(this@WithdrawActivity, FundPasswordDialog::class.java)
-//                            startActivity(intent)
-//                        }
+                        nextBtnFinace.setOnClickListener{
+                            val fundPasswordDialog: FundPasswordDialog = FundPasswordDialog()
+                            fundPasswordDialog.show(this@WithdrawActivity.supportFragmentManager, "balanceHistoryDetailDialog")
+                        }
                     }
 
                     override fun afterTextChanged(s: Editable?) {
@@ -92,19 +93,4 @@ class WithdrawActivity :
             // Must be safe
         }
     }
-
-
-//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//        binding.apply {
-//            val message = data!!.getStringExtra("key")
-//            if (requestCode === SECOND_ACTIVITY_REQUEST_CODE) {
-//                if (resultCode === RESULT_OK) {
-//                    val financeWithdraw = BottomSheetFinanceWithdraw.newInstance(message.toString())
-//                    financeWithdraw.show(this@WithdrawActivity.supportFragmentManager, "withdraw Dialog")
-//
-//                }
-//            }
-//            super.onActivityResult(requestCode, resultCode, data)
-//        }
-//    }
 }
