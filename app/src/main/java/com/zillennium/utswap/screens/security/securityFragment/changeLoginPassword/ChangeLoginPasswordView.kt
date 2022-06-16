@@ -1,11 +1,11 @@
-package com.zillennium.utswap.screens.security.securityActivity.forgotPassword
+package com.zillennium.utswap.screens.security.securityFragment.changeLoginPassword
 
 import android.content.Context
 import android.os.Bundle
 import com.zillennium.utswap.bases.mvp.BaseMvpPresenter
 import com.zillennium.utswap.bases.mvp.BaseMvpView
 
-class ForgotPasswordView {
+class ChangeLoginPasswordView {
     interface View : BaseMvpView {
         override fun initView()
     }

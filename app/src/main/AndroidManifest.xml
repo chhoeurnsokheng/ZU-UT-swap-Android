@@ -225,12 +225,6 @@
             android:label="@string/documents"
             android:screenOrientation="portrait"/>
 
-        <!--Add phone number Screen-->
-        <activity android:name=".screens.account.verificationAccunt.VerificationAccountActivity"
-            android:exported="false"
-            android:label="@string/add_phone_number"
-            android:screenOrientation="portrait"/>
-
         <!--Logs Screen-->
         <activity android:name=".screens.account.logs.LogsActivity"
             android:exported="false"
@@ -244,24 +238,10 @@
             android:windowSoftInputMode="adjustResize"
             android:screenOrientation="portrait"/>
 
-        <!--Forgot password Screen-->
-        <activity android:name="com.zillennium.utswap.screens.security.securityActivity.forgotPassword.ForgotPasswordActivity"
-            android:exported="false"
-            android:label="@string/forgot_password"
-            android:windowSoftInputMode="adjustResize"
-            android:screenOrientation="portrait"/>
-
         <!--Change Fund Password Screen-->
         <activity android:name="com.zillennium.utswap.screens.security.securityActivity.changeFundPassword.ChangeFundPasswordActivity"
             android:exported="false"
             android:label="@string/forgot_password"
-            android:windowSoftInputMode="adjustResize"
-            android:screenOrientation="portrait"/>
-
-        <!--New Fund Password Screen-->
-        <activity android:name="com.zillennium.utswap.screens.security.securityActivity.newFundPassword.NewFundPasswordActivity"
-            android:exported="false"
-            android:label="@string/new_fund_password"
             android:windowSoftInputMode="adjustResize"
             android:screenOrientation="portrait"/>
 

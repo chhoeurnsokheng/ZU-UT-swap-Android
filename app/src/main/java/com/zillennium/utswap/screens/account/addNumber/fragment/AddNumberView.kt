@@ -1,11 +1,11 @@
-package com.zillennium.utswap.screens.security.securityActivity.newFundPassword
+package com.zillennium.utswap.screens.account.addNumber.fragment
 
 import android.content.Context
 import android.os.Bundle
 import com.zillennium.utswap.bases.mvp.BaseMvpPresenter
 import com.zillennium.utswap.bases.mvp.BaseMvpView
 
-class NewFundPasswordView {
+class AddNumberView {
     interface View : BaseMvpView {
         override fun initView()
     }

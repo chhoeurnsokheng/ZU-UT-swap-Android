@@ -1,4 +1,4 @@
-package com.zillennium.utswap.screens.security.securityActivity.forgotPassword
+package com.zillennium.utswap.screens.security.securityFragment.forgotPassword
 
 import android.content.Context
 import android.os.Bundle

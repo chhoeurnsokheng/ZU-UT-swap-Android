@@ -1,11 +1,11 @@
-package com.zillennium.utswap.screens.account.verificationAccunt
+package com.zillennium.utswap.screens.security.securityFragment.changeFundPassword
 
 import android.content.Context
 import android.os.Bundle
 import com.zillennium.utswap.bases.mvp.BaseMvpPresenter
 import com.zillennium.utswap.bases.mvp.BaseMvpView
 
-class VerificationAccountView {
+class ChangeFundPasswordView {
     interface View : BaseMvpView {
         override fun initView()
     }

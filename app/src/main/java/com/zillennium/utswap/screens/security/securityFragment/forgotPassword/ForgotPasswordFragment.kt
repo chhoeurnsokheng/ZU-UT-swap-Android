@@ -1,39 +1,52 @@
-package com.zillennium.utswap.screens.security.securityActivity.forgotPassword
+package com.zillennium.utswap.screens.security.securityFragment.forgotPassword
 
-import android.content.Intent
 import android.content.res.ColorStateList
+import android.os.Bundle
 import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import androidx.core.content.ContextCompat
+import androidx.navigation.fragment.findNavController
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
-import com.zillennium.utswap.bases.mvp.BaseMvpActivity
-import com.zillennium.utswap.databinding.ActivityForgotPasswordBinding
-import com.zillennium.utswap.screens.account.verificationAccunt.VerificationAccountActivity
+import com.zillennium.utswap.bases.mvp.BaseMvpFragment
+import com.zillennium.utswap.databinding.FragmentAccountForgotPasswordBinding
 import com.zillennium.utswap.utils.validate
 
-class ForgotPasswordActivity :
-    BaseMvpActivity<ForgotPasswordView.View, ForgotPasswordView.Presenter, ActivityForgotPasswordBinding>(),
+
+class ForgotPasswordFragment :
+    BaseMvpFragment<ForgotPasswordView.View, ForgotPasswordView.Presenter, FragmentAccountForgotPasswordBinding>(),
     ForgotPasswordView.View {
 
     override var mPresenter: ForgotPasswordView.Presenter = ForgotPasswordPresenter()
-    override val layoutResource: Int = R.layout.activity_forgot_password
+    override val layoutResource: Int = R.layout.fragment_account_forgot_password
 
     override fun initView() {
         super.initView()
         try {
             binding.apply {
                 imgClose.setOnClickListener {
-                    finish()
+                    findNavController().popBackStack()
                 }
 
-                val intent = intent
-                val text = intent.getStringExtra(Intent.EXTRA_TEXT)
+                val bundle = Bundle()
 
-                title.text = text.toString()
-
+                when (arguments?.getString("title")) {
+                    "forgot login password" -> {
+                        title.text = "Forgot Login Password"
+                        bundle.putString("title", "Forgot Login Password")
+                        title.visibility = View.VISIBLE
+                    }
+                    "forgot fund password" -> {
+                        title.text = "Forgot Fund Password"
+                        bundle.putString("title", "Forgot Fund Password")
+                        title.visibility = View.VISIBLE
+                    }
+                    else -> {
+                        title.visibility = View.GONE
+                    }
+                }
 
                 btnNext.setOnClickListener {
                     var isHaveError = false
@@ -65,9 +78,7 @@ class ForgotPasswordActivity :
                         val status: Int = 0
                         if(status == 1 || inputEmail.text.toString().trim() == "utswap@gmail.com"){
                             textEmpty.visibility = View.INVISIBLE
-                            val intent = Intent(UTSwapApp.instance, VerificationAccountActivity::class.java)
-                            intent.putExtra(Intent.EXTRA_TEXT, text.toString());
-                            startActivity(intent)
+                            findNavController().navigate(R.id.action_to_verification_security_fragment,bundle)
                         }else{
                             textEmpty.visibility = View.VISIBLE
                             textEmpty.text = "Invalid email or phone number"
@@ -101,13 +112,15 @@ class ForgotPasswordActivity :
 
                     override fun afterTextChanged(editable: Editable) {
                         textEmpty.visibility = View.GONE
-                        inputEmail.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text))
+                        inputEmail.backgroundTintList = ColorStateList.valueOf(
+                            ContextCompat.getColor(
+                                UTSwapApp.instance, R.color.secondary_text))
                     }
                 })
             }
+            // Code
         } catch (error: Exception) {
             // Must be safe
         }
     }
-
 }
