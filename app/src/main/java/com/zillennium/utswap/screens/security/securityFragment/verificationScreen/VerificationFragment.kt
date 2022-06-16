@@ -2,28 +2,25 @@ package com.zillennium.utswap.screens.security.securityFragment.verificationScre
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.Intent
+import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
-import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.view.children
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
 import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentSecurityVerificationBinding
+
 
 class VerificationFragment :
     BaseMvpFragment<VerificationView.View, VerificationView.Presenter, FragmentSecurityVerificationBinding>(),
@@ -48,6 +45,38 @@ class VerificationFragment :
                     findNavController().popBackStack()
 
                 }
+
+                when (arguments?.getString("title")) {
+                    "change login password"->{
+                        title.text = "Change Login Password"
+                        title.visibility = View.VISIBLE
+                    }
+                    "Change Fund Password" -> {
+                        title.text = "Change Fund Password"
+                        title.visibility = View.VISIBLE
+                    }
+                    "Forgot Login Password"->{
+                        title.text = "Forgot Login Password"
+                        title.visibility = View.VISIBLE
+                    }
+                    "forgot fund password" -> {
+                        title.text = "Change Fund Password"
+                        title.visibility = View.VISIBLE
+                    }
+                    "Forgot Fund Password" -> {
+                        title.text = "Forgot Fund Password"
+                        title.visibility = View.VISIBLE
+                    }
+                    "add number" -> {
+                        title.text = "Account"
+                        title.visibility = View.VISIBLE
+                    }
+                    else -> {
+                        title.visibility = View.GONE
+                    }
+                }
+
+
 
                 startTimer()
 
@@ -168,6 +197,23 @@ class VerificationFragment :
                                     }
                                     "register" -> {
                                         findNavController().navigate(R.id.action_to_term_condition_security_fragment)
+                                    }
+                                    "change login password"->{
+                                        activity?.finish()
+                                    }
+                                    "forgot fund password" -> {
+                                        activity?.finish()
+                                    }
+                                    "Forgot Fund Password" -> {
+                                        val bundle = Bundle()
+                                        bundle.putString("title", "Finish")
+                                        findNavController().navigate(R.id.action_from_verify_to_new_fund_password,bundle)
+                                    }
+                                    "Forgot Login Password"-> {
+                                        findNavController().navigate(R.id.action_to_new_account_login_password)
+                                    }
+                                    "add number" -> {
+                                        activity?.finish()
                                     }
                                 }
                             }else{

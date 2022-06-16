@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/add_number_navigation"
+    app:startDestination="@id/AddNumberFragment">
+
+    <fragment
+        android:id="@+id/AddNumberFragment"
+        android:name="com.zillennium.utswap.screens.account.addNumber.fragment.AddNumberFragment"
+        android:label="AddNumberFragment"
+        tools:layout="@layout/fragment_account_add_number">
+        <action
+            android:id="@+id/action_to_verification_security_fragment"
+            app:destination="@id/VerificationSecurityFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/VerificationSecurityFragment"
+        android:name="com.zillennium.utswap.screens.security.securityFragment.verificationScreen.VerificationFragment"
+        android:label="VerificationSecurityFragment"
+        tools:layout="@layout/fragment_security_verification">
+
+        <argument
+            android:name="title"
+            android:defaultValue="add number"
+            app:argType="string" />
+
+    </fragment>
+
+</navigation>

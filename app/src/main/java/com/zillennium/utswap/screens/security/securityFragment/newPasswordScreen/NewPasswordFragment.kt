@@ -36,6 +36,16 @@ class NewPasswordFragment :
                     findNavController().popBackStack()
                 }
 
+                when (arguments?.getString("title")) {
+                    "change login password"->{
+                        title.text = "Change Login Password"
+                        title.visibility = View.VISIBLE
+                    }
+                    else -> {
+                        title.visibility = View.GONE
+                    }
+                }
+
                 btnNext.setOnClickListener {
                     var isHaveError = false
                     txtPasswordMessage.text = "Invalid Email or Password"

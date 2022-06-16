@@ -1,8 +1,9 @@
-package com.zillennium.utswap.screens.security.securityActivity.newFundPassword
+package com.zillennium.utswap.screens.security.securityFragment.newFundPassword
+
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.Intent
+import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.text.method.HideReturnsTransformationMethod
@@ -12,37 +13,33 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.view.children
 import androidx.navigation.fragment.findNavController
-import com.zillennium.utswap.Datas.StoredPreferences.KYCPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
-import com.zillennium.utswap.bases.mvp.BaseMvpActivity
-import com.zillennium.utswap.databinding.ActivityNewFundPasswordBinding
-import com.zillennium.utswap.databinding.ActivitySimpleBinding
-import com.zillennium.utswap.screens.account.verificationAccunt.VerificationAccountActivity
+import com.zillennium.utswap.bases.mvp.BaseMvpFragment
+import com.zillennium.utswap.databinding.FragmentAccountNewFundPasswordBinding
 
-class NewFundPasswordActivity :
-    BaseMvpActivity<NewFundPasswordView.View, NewFundPasswordView.Presenter, ActivityNewFundPasswordBinding>(),
+class NewFundPasswordFragment:
+    BaseMvpFragment<NewFundPasswordView.View, NewFundPasswordView.Presenter, FragmentAccountNewFundPasswordBinding>(),
     NewFundPasswordView.View {
 
     override var mPresenter: NewFundPasswordView.Presenter = NewFundPasswordPresenter()
-    override val layoutResource: Int = R.layout.activity_new_fund_password
+    override val layoutResource: Int = R.layout.fragment_account_new_fund_password
 
     private var clickCountPassword = 1
     private var clickCountConfirmPassword = 1
-    var view = this.currentFocus
 
     override fun initView() {
         super.initView()
         try {
             binding.apply {
                 imgClose.setOnClickListener {
-                    finish()
+                    findNavController().popBackStack()
                 }
 
                 /* Fund Password Code */
                 numberVerification.setOnClickListener {
                     editFundPassword.requestFocus()
-                    val inputManager1 = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                    val inputManager1 = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                     inputManager1.showSoftInput(editFundPassword, InputMethodManager.SHOW_IMPLICIT)
 
                     if(editFundPassword.text.isEmpty()){
@@ -89,7 +86,7 @@ class NewFundPasswordActivity :
                 /* Confirm Fund Password code */
                 confirmNumberVerification.setOnClickListener {
                     editConfirmFundPassword.requestFocus()
-                    val inputManager2 = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                    val inputManager2 = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                     inputManager2.showSoftInput(editConfirmFundPassword, InputMethodManager.SHOW_IMPLICIT)
 
                     if(editConfirmFundPassword.text.isEmpty()){
@@ -104,7 +101,7 @@ class NewFundPasswordActivity :
                     }
                 }
 
-                editConfirmFundPassword.addTextChangedListener(object: TextWatcher{
+                editConfirmFundPassword.addTextChangedListener(object: TextWatcher {
                     override fun beforeTextChanged(ch: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
                     override fun onTextChanged(chr: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -126,7 +123,7 @@ class NewFundPasswordActivity :
                             val textInput2 = confirmNumberVerification.getChildAt(index) as TextView
                             textInput2.text = chr[index].toString()
                             if(index == numberVerification.childCount - 1){
-                                val inputManager2 = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                                val inputManager2 = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                                 inputManager2.hideSoftInputFromWindow(view?.windowToken, 0)
                             }
                         }
@@ -137,9 +134,14 @@ class NewFundPasswordActivity :
 
                 btnNext.setOnClickListener {
                     if (editFundPassword.text.toString() == editConfirmFundPassword.text.toString() && editFundPassword.length() == 4 && editConfirmFundPassword.length() == 4){
-                        val intent = Intent(UTSwapApp.instance, VerificationAccountActivity::class.java)
-                        intent.putExtra(Intent.EXTRA_TEXT, "Change Fund Password");
-                        startActivity(intent)
+                        when (arguments?.getString("title")) {
+                            "Finish" -> {
+                                activity?.finish()
+                            }
+                            "navigate to verify" -> {
+                                findNavController().navigate(R.id.action_to_verification_security_fragment)
+                            }
+                        }
                     }else{
                         for(child in numberVerification.children){
                             child.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_border_bottom_red)
@@ -168,7 +170,6 @@ class NewFundPasswordActivity :
         }
     }
 
-    @SuppressLint("UseCompatLoadingForDrawables")
     private fun showPassword(clickPassword: Int) {
         binding.apply {
             if (clickPassword % 2 == 0) {

@@ -1,11 +1,11 @@
-package com.zillennium.utswap.screens.security.securityActivity.newFundPassword
+package com.zillennium.utswap.screens.security.securityFragment.changeFundPassword
 
 import android.content.Context
 import android.os.Bundle
 import com.zillennium.utswap.bases.mvp.BaseMvpPresenterImpl
 
-class NewFundPasswordPresenter : BaseMvpPresenterImpl<NewFundPasswordView.View>(),
-    NewFundPasswordView.Presenter {
+class ChangeFundPasswordPresenter : BaseMvpPresenterImpl<ChangeFundPasswordView.View>(),
+    ChangeFundPasswordView.Presenter {
     override fun initViewPresenter(context: Context, bundle: Bundle?) {
         mBundle = bundle
         mContext = context
