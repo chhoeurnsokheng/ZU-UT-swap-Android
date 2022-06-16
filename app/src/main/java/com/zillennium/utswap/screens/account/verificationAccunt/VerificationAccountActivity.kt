@@ -17,7 +17,7 @@ import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityVerifictionAccountBinding
-import com.zillennium.utswap.screens.account.accountDetail.AccountDetailActivity
+import com.zillennium.utswap.screens.account.activity.accountDetail.AccountDetailActivity
 
 class VerificationAccountActivity :
     BaseMvpActivity<VerificationAccountView.View, VerificationAccountView.Presenter, ActivityVerifictionAccountBinding>(),

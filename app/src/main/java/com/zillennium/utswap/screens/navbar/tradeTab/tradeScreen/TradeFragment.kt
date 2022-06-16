@@ -11,8 +11,8 @@ import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentNavbarTradeBinding
 import com.zillennium.utswap.models.TradeModel
-import com.zillennium.utswap.screens.navbar.projectTab.projectInfoScreen.ProjectInfoActivity
-import com.zillennium.utswap.screens.navbar.projectTab.subscriptionScreen.SubscriptionActivity
+import com.zillennium.utswap.screens.project.projectInfoScreen.ProjectInfoActivity
+import com.zillennium.utswap.screens.project.subscriptionScreen.SubscriptionActivity
 import com.zillennium.utswap.screens.navbar.tradeTab.tradeExchangeScreen.TradeExchangeActivity
 import com.zillennium.utswap.screens.navbar.tradeTab.tradeScreen.adapter.TradeAdapter
 import java.util.*

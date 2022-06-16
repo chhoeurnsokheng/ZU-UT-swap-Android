@@ -119,12 +119,17 @@
 
         <!--Activity Project-->
         <activity
-            android:name="com.zillennium.utswap.screens.navbar.projectTab.projectInfoScreen.ProjectInfoActivity"
+            android:name="com.zillennium.utswap.screens.project.projectScreen.ProjectActivity"
+            android:exported="false"
+            android:label="@string/project"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.zillennium.utswap.screens.project.projectInfoScreen.ProjectInfoActivity"
             android:exported="false"
             android:label="@string/project_info"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.zillennium.utswap.screens.navbar.projectTab.subscriptionScreen.SubscriptionActivity"
+            android:name="com.zillennium.utswap.screens.project.subscriptionScreen.SubscriptionActivity"
             android:exported="false"
             android:label="@string/subscription"
             android:screenOrientation="portrait" />
@@ -178,7 +183,7 @@
             android:screenOrientation="portrait"/>
 
         <!--Account Detail Screen-->
-        <activity android:name=".screens.account.accountDetail.AccountDetailActivity"
+        <activity android:name="com.zillennium.utswap.screens.account.activity.accountDetail.AccountDetailActivity"
             android:exported="false"
             android:label="@string/account"
             android:screenOrientation="portrait"/>

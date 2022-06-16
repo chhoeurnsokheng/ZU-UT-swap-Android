@@ -12,7 +12,7 @@ import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityTradeExchangeBinding
-import com.zillennium.utswap.screens.navbar.projectTab.projectInfoScreen.ProjectInfoActivity
+import com.zillennium.utswap.screens.project.projectInfoScreen.ProjectInfoActivity
 import com.zillennium.utswap.screens.navbar.tradeTab.tradeExchangeScreen.fragment.Transactions.TransactionsFragment
 import com.zillennium.utswap.screens.navbar.tradeTab.tradeExchangeScreen.fragment.allTransactions.AllTransactionsFragment
 import com.zillennium.utswap.screens.navbar.tradeTab.tradeExchangeScreen.fragment.chart.ChartFragment

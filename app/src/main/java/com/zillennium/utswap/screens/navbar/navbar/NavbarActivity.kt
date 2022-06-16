@@ -13,7 +13,6 @@ import androidx.navigation.Navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
-import com.zillennium.utswap.Datas.GlobalVariable.SettingVariable
 import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
@@ -24,7 +23,6 @@ import com.zillennium.utswap.screens.kyc.kycActivity.KYCActivity
 import com.zillennium.utswap.screens.navbar.homeTab.HomeFragment
 import com.zillennium.utswap.screens.navbar.newsTab.NewsTabFragment
 import com.zillennium.utswap.screens.navbar.portfolioTab.PortfolioFragment
-import com.zillennium.utswap.screens.navbar.projectTab.projectScreen.ProjectFragment
 import com.zillennium.utswap.screens.navbar.tradeTab.tradeScreen.TradeFragment
 import com.zillennium.utswap.screens.security.securityActivity.registerScreen.RegisterActivity
 import com.zillennium.utswap.screens.security.securityActivity.signInScreen.SignInActivity

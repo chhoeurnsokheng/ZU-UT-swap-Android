@@ -6,12 +6,9 @@ import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentNewsTabBinding
-import com.zillennium.utswap.models.ProjectModel
 import com.zillennium.utswap.models.newsTab.News
 import com.zillennium.utswap.screens.navbar.newsTab.adapter.NewsAdapter
 import com.zillennium.utswap.screens.navbar.newsTab.newsDetail.NewsDetailActivity
-import com.zillennium.utswap.screens.navbar.projectTab.projectInfoScreen.ProjectInfoActivity
-import com.zillennium.utswap.screens.navbar.projectTab.projectScreen.adapter.ProjectAdapter
 
 class NewsTabFragment :
     BaseMvpFragment<NewsTabView.View, NewsTabView.Presenter, FragmentNewsTabBinding>(),

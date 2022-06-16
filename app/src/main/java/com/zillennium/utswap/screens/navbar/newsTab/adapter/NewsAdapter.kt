@@ -10,7 +10,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.zillennium.utswap.R
 import com.zillennium.utswap.models.newsTab.News
-import com.zillennium.utswap.screens.navbar.projectTab.projectScreen.adapter.ProjectAdapter
 
 
 class NewsAdapter (

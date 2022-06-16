@@ -27,6 +27,7 @@ import com.zillennium.utswap.screens.finance.withdrawActivity.WithdrawActivity
 import com.zillennium.utswap.screens.finance.withdrawActivity.addBank.AddBankActivity
 import com.zillennium.utswap.screens.navbar.portfolioTab.PortfolioFragment
 import com.zillennium.utswap.screens.navbar.tradeTab.tradeExchangeScreen.TradeExchangeActivity
+import com.zillennium.utswap.screens.project.projectScreen.ProjectActivity
 
 
 class HomeFragment :
@@ -189,7 +190,10 @@ class HomeFragment :
                 "Trade" -> {
                     activity?.findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(R.id.nav_view)?.selectedItemId = R.id.navigation_navbar_trade
                 }
-                "News" -> {}
+                "Projects" -> {
+                    val intent = Intent(UTSwapApp.instance, ProjectActivity::class.java)
+                    startActivity(intent)
+                }
                 "Deposit" -> {
                     val intent = Intent(UTSwapApp.instance, DepositActivity::class.java)
                     startActivity(intent)
@@ -200,10 +204,6 @@ class HomeFragment :
                 }
                 "Transfer" -> {
                     val intent = Intent(UTSwapApp.instance, AddBankActivity::class.java)
-                    startActivity(intent)
-                }
-                else -> {
-                    val intent = Intent(UTSwapApp.instance, PortfolioFragment::class.java)
                     startActivity(intent)
                 }
             }
@@ -224,7 +224,7 @@ class HomeFragment :
         HomeArrayList.clear()
         HomeArrayList.add(HomeMenuModel(R.drawable.ic_portfolio, "Portfolio", enabled))
         HomeArrayList.add(HomeMenuModel(R.drawable.ic_trade, "Trade", true))
-        HomeArrayList.add(HomeMenuModel(R.drawable.ic_news, "News", enabled))
+        HomeArrayList.add(HomeMenuModel(R.drawable.ic_land_ut, "Projects", enabled))
         HomeArrayList.add(HomeMenuModel(R.drawable.ic_deposit, "Deposit", enabled))
         HomeArrayList.add(HomeMenuModel(R.drawable.ic_withdraw, "Withdraw", enabled))
         HomeArrayList.add(HomeMenuModel(R.drawable.ic_transfer, "Transfer", enabled))

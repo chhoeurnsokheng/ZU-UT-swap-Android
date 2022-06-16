@@ -15,7 +15,7 @@ import androidx.fragment.app.DialogFragment
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.databinding.DialogSecurityFundPasswordBinding
-import com.zillennium.utswap.screens.navbar.projectTab.subscriptionScreen.dialog.SubscriptionConfirmDialog
+import com.zillennium.utswap.screens.project.subscriptionScreen.dialog.SubscriptionConfirmDialog
 import eightbitlab.com.blurview.RenderScriptBlur
 import java.lang.Exception
 
