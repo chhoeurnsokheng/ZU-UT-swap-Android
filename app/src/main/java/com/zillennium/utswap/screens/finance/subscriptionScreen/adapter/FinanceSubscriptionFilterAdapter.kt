@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.zillennium.utswap.Datas.GlobalVariable.SettingVariable
 import com.zillennium.utswap.R
 import com.zillennium.utswap.models.financeSubscription.FinanceSubscriptionFilterModel
 
@@ -51,6 +52,11 @@ class FinanceSubscriptionFilterAdapter(arrayList: ArrayList<FinanceSubscriptionF
                 }
             }
         }
+
+        if (SettingVariable.finance_subscription_filter.value == financeSubscriptionFilterList.titleFilter){
+            holder.layIconCheck.visibility = View.VISIBLE
+        }
+
 
         holder.layoutFilter.setOnClickListener {
             onClickAdapter.onClickMe(financeSubscriptionFilterList)
