@@ -1,6 +1,7 @@
 package com.zillennium.utswap.screens.finance.transferScreen
 
 import android.text.Editable
+import android.text.InputFilter
 import android.text.TextWatcher
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,6 +13,7 @@ import com.zillennium.utswap.databinding.ActivityFinanceTransferBinding
 import com.zillennium.utswap.models.FinanceTransferModel
 import com.zillennium.utswap.screens.finance.transferScreen.adapter.TransferAdapter
 import com.zillennium.utswap.screens.security.securityDialog.FundPasswordDialog
+import com.zillennium.utswap.utils.DecimalDigitsInputFilter
 
 
 class TransferActivity :
@@ -31,6 +33,12 @@ class TransferActivity :
         super.initView()
         try {
             binding.apply {
+
+                layNavbar.txtTitle.text = UTSwapApp.instance.getString(R.string.transfer)
+                layNavbar.imgBack.setOnClickListener {
+                    finish()
+                }
+
                 etMountTransfer.addTextChangedListener(textWatcher)
                 etPhoneNumberScanQR.addTextChangedListener(textWatcher)
                 nextBtnTransfer.isEnabled = false
@@ -67,6 +75,7 @@ class TransferActivity :
 //                rvUserReceiving.adapter = transferAdapter
 
                 //Transfer Amount
+                etMountTransfer.filters = arrayOf<InputFilter>(DecimalDigitsInputFilter(10, 2))
                 etMountTransfer.addTextChangedListener(object : TextWatcher {
                     override fun beforeTextChanged(
                         s: CharSequence?,

@@ -9,23 +9,22 @@
         <RelativeLayout
             android:id="@+id/lay_fragment"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="@dimen/dimen_20">
+            android:layout_height="match_parent">
 
             <include
-                android:id="@+id/add_bank"
-                layout="@layout/fragment_finance_navbar_add_bank"
+                android:id="@+id/lay_navbar"
+                layout="@layout/layout_navbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
             <androidx.recyclerview.widget.RecyclerView
-                android:layout_below="@+id/add_bank"
+                android:layout_below="@+id/lay_navbar"
                 android:id="@+id/rv_addBank"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:scrollbars="none"
                 android:overScrollMode="never"
                 android:nestedScrollingEnabled="false"
-                android:layout_marginTop="@dimen/dimen_20"/>
+                android:layout_marginTop="@dimen/dimen_30"/>
         </RelativeLayout>
     </RelativeLayout>
 

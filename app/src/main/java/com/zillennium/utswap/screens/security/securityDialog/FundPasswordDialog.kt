@@ -20,7 +20,7 @@ import eightbitlab.com.blurview.RenderScriptBlur
 import java.lang.Exception
 
 
-class FundPasswordDialog: DialogFragment() {
+class FundPasswordDialog() : DialogFragment() {
 
     private var binding: DialogSecurityFundPasswordBinding? = null
     private var codes: String = ""
@@ -54,10 +54,21 @@ class FundPasswordDialog: DialogFragment() {
                         .setHasFixedTransformationMatrix(true)
 
                     imgBack.setOnClickListener {
-                        val subscriptionConfirmDialog: SubscriptionConfirmDialog = SubscriptionConfirmDialog.newInstance(arguments?.get("volume").toString(),arguments?.get("title").toString())
-                        subscriptionConfirmDialog.show(requireActivity().supportFragmentManager, "balanceHistoryDetailDialog")
-                        dismiss()
+                        when(javaClass.simpleName.toString()){
+                            "WithdrawActivity" -> {
+                                dismiss()
+                            }
+                            "TransferActivity" -> {
+                                dismiss()
+                            }
+                            else -> {
+                                val subscriptionConfirmDialog: SubscriptionConfirmDialog = SubscriptionConfirmDialog.newInstance(arguments?.get("volume").toString(),arguments?.get("title").toString())
+                                subscriptionConfirmDialog.show(requireActivity().supportFragmentManager, "balanceHistoryDetailDialog")
+                                dismiss()
+                            }
+                        }
                     }
+
 
                     val numberList = arrayListOf(
                         number0,
@@ -79,8 +90,9 @@ class FundPasswordDialog: DialogFragment() {
                     }
 
                     removeNumber.setOnClickListener { removeNumber()  }
-
                 }
+
+
 
             }
         }catch (error: Exception){

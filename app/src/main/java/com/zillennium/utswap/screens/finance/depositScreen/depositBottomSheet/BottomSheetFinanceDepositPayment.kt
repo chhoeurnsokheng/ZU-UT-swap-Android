@@ -141,11 +141,5 @@ class BottomSheetFinanceDepositPayment: BottomSheetDialogFragment(), AdapterView
 
     }
 
-    interface OnEventBottomSheet {
-        fun startNewActivity(packageName: String)
-    }
-
-
-
 }
 

@@ -88,7 +88,7 @@
     <string name="balance">Balance</string>
     <string name="deposit">Deposit</string>
     <string name="withdrawal">Withdrawal</string>
-    <string name="transfer">transfer</string>
+    <string name="transfer">Transfer</string>
     <string name="subscription">Subscription</string>
     <string name="lock_up">Lock-up</string>
     <string name="historical">Historical</string>

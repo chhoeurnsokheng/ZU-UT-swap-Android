@@ -15,7 +15,7 @@
             <LinearLayout
                 android:id="@+id/payment"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_150"
+                android:layout_height="wrap_content"
                 android:background="@drawable/deposit_blue_layout"
                 android:orientation="vertical">
 
@@ -23,34 +23,53 @@
                     android:layout_width="@dimen/dimen_36"
                     android:layout_height="@dimen/dimen_4"
                     android:layout_gravity="center"
-                    android:layout_marginTop="@dimen/dimen_15"
-                    android:background="@drawable/deposite_head_line" />
+                    android:layout_marginTop="@dimen/dimen_8"
+                    android:background="@drawable/deposite_head_line"
+                    android:layout_marginBottom="@dimen/dimen_24"/>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dimen_10"
                     android:gravity="center"
                     android:text="@string/payment_amount"
                     android:textAppearance="@style/regular_12"
-                    android:textColor="@color/write_ECECEC" />
+                    android:textColor="@color/write_ECECEC"
+                    android:layout_marginBottom="@dimen/dimen_10"/>
 
-                <EditText
-                    android:id="@+id/et_mount_payment"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
+                    android:orientation="horizontal"
                     android:layout_marginHorizontal="@dimen/dimen_20"
-                    android:layout_marginTop="@dimen/dimen_15"
-                    android:background="@null"
-                    android:cursorVisible="true"
-                    android:gravity="center"
-                    android:inputType="numberDecimal"
-                    android:maxLength="10"
-                    android:singleLine="true"
-                    android:textAppearance="@style/medium_32"
-                    android:textColor="@color/white"
-                    android:textCursorDrawable="@color/white" />
+                    android:layout_marginBottom="@dimen/dimen_12"
+                    android:gravity="center">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="$"
+                        android:textColor="@color/white"
+                        android:textAppearance="@style/medium_32"
+                        android:visibility="visible">
+                    </TextView>
+                    <EditText
+                        android:id="@+id/et_mount_payment"
+                        android:layout_width="wrap_content"
+                        android:minWidth="@dimen/dimen_20"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@null"
+                        android:cursorVisible="true"
+                        android:gravity="center"
+                        android:inputType="numberDecimal"
+                        android:maxLength="10"
+                        android:text="0.00"
+                        android:singleLine="true"
+                        android:textAppearance="@style/medium_32"
+                        android:textColor="@color/white"
+                        android:textCursorDrawable="@color/white" />
+                </LinearLayout>
+
+
             </LinearLayout>
 
             <LinearLayout

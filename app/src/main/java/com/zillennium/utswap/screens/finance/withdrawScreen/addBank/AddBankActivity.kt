@@ -32,6 +32,11 @@ class AddBankActivity :
 
             binding.apply {
 
+                layNavbar.txtTitle.text = resources.getString(R.string.add_bank_address)
+                layNavbar.imgBack.setOnClickListener {
+                    finish()
+                }
+
 
                 imageBank = arrayOf(
                     R.drawable.aba_pay,
