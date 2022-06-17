@@ -53,6 +53,11 @@ class DepositAddCardActivity :
 
 
                 etCardNumber.addTextChangedListener(object : TextWatcher {
+                    var count = 0
+
+                    private val EMPTY_STRING = ""
+                    private val WHITE_SPACE = " "
+                    private var lastSource = EMPTY_STRING
                     override fun beforeTextChanged(
                         s: CharSequence?,
                         start: Int,
@@ -69,13 +74,40 @@ class DepositAddCardActivity :
                         count: Int
                     ) {
                         inputCardNumber = char.toString().trim()
-//                        if (char != null) {
-//                            if(p2 == 0 && (char.length == 4 || char.length == 9 || char.length == 16))
-//                                etCardNumber.append(" ")
-//                        }
+
                     }
 
                     override fun afterTextChanged(s: Editable?) {
+
+                        //Use to format edittext to display spaces after every 4 characters of Card Number
+                        val inputlength: Int = etCardNumber.text.toString().length;
+
+                        if (count <= inputlength && (inputlength == 4 ||
+                            inputlength == 9 || inputlength == 14 || inputlength == 19)){
+                            etCardNumber.setText(etCardNumber.text.toString() + " ");
+                            val pos = etCardNumber.text.length;
+                            etCardNumber.setSelection(pos);
+                        } else if (count >= inputlength && (inputlength == 4 ||
+                        inputlength == 9 || inputlength == 14 || inputlength == 19)) {
+                            etCardNumber.setText(etCardNumber.text.toString().substring(0, etCardNumber.text.toString().length - 1));
+                            val pos = etCardNumber.text.length
+                            etCardNumber.setSelection(pos);
+                        }
+                        count = etCardNumber.text.toString().length
+
+//                        var source = s.toString()
+//                        if (lastSource != source) {
+//                            source = source.replace(WHITE_SPACE, EMPTY_STRING)
+//                            val stringBuilder = StringBuilder()
+//                            for (i in source.indices) {
+//                                if (i > 0 && i % 4 == 0) {
+//                                    stringBuilder.append(WHITE_SPACE)
+//                                }
+//                                stringBuilder.append(source[i])
+//                            }
+//                            lastSource = stringBuilder.toString()
+//                            s!!.replace(0, s.length, lastSource)
+//                        }
                     }
 
                 })
@@ -185,6 +217,7 @@ class DepositAddCardActivity :
         }
 
     }
+
 }
 
 
