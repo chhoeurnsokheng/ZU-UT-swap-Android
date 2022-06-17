@@ -8,10 +8,10 @@ class validate {
         return !TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }
 
-        fun isValidPhoneNumber(number: String): Boolean {
-            if (number.length >= 8){
-                return !TextUtils.isEmpty(number) && Patterns.PHONE.matcher(number).matches()
-            }
-            return false
+    fun isValidPhoneNumber(number: String): Boolean {
+        if (number.length >= 8){
+            return !TextUtils.isEmpty(number) && Patterns.PHONE.matcher(number).matches()
         }
+        return false
+    }
 }
