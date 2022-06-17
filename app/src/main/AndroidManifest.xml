@@ -66,12 +66,17 @@
         <activity
             android:name="com.zillennium.utswap.screens.finance.balanceScreen.FinanceBalanceActivity"
             android:exported="false"
-            android:label="@string/finance"
+            android:label="@string/finance_balance"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.zillennium.utswap.screens.finance.lockUpActivity.FinanceLockUpActivity"
             android:exported="false"
-            android:label="@string/finance"
+            android:label="@string/finance_lock_up"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.zillennium.utswap.screens.finance.historicalScreen.FinanceHistoricalActivity"
+            android:exported="false"
+            android:label="@string/finance_historical"
             android:screenOrientation="portrait" />
         <!--End Activity Finance-->
 

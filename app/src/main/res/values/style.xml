@@ -32,4 +32,20 @@
         <item name="android:backgroundDimEnabled">true</item>
         <item name="android:background">@android:color/transparent</item>
     </style>
+
+    //Spinner custom for finance history
+    <style name="customTheme" parent="@android:style/Theme.Light">
+        <item name="android:spinnerItemStyle">@style/spinnerItemStyle</item>
+        <item name="android:spinnerDropDownItemStyle">@style/SpinnerDropDownItem</item>
+    </style>
+
+    <style name="spinnerItemStyle">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@drawable/bg_item_spinner</item>
+    </style>
+
+    <style name="SpinnerDropDownItem">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@drawable/bg_dropdown_item_spinner</item>
+    </style>
 </resources>
