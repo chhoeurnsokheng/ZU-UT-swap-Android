@@ -88,27 +88,20 @@ class BottomSheetFinanceAddBank : BottomSheetDialogFragment(), AdapterView.OnIte
                     //Use to format space every 3 character of Bank Account Number
                     val inputNumberLength: Int = etAccountNumber.text.toString().length
 
-                    if (count <= inputNumberLength && inputNumberLength == 3 ||
+                    if (count <= inputNumberLength && (inputNumberLength == 3 ||
                         inputNumberLength == 7 || inputNumberLength == 11
-                    ) {
-
+                    )) {
                         etAccountNumber.setText(etAccountNumber.text.toString() + " ")
-
                         val pos = etAccountNumber.text.length
                         etAccountNumber.setSelection(pos)
-
                     } else if (count >= inputNumberLength && (inputNumberLength == 3 ||
                                 inputNumberLength == 7 || inputNumberLength == 11)
                     ) {
                         etAccountNumber.setText(
-                            etAccountNumber.text.toString()
-                                .substring(0, etAccountNumber.text.toString().length - 1)
+                            etAccountNumber.text.toString().substring(0, etAccountNumber.text.toString().length - 1)
                         )
-
                         val pos = etAccountNumber.text.length
                         etAccountNumber.setSelection(pos)
-                    } else {
-
                     }
                     count = etAccountNumber.text.toString().length
 
