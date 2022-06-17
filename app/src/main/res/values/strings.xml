@@ -392,4 +392,15 @@
     <string name="news">News</string>
     <string name="share">Share</string>
     <string name="current_address">Current Address</string>
+=======
+    <string name="finance_balance">Finance Balance</string>
+    <string name="finance_lock_up">Finance Lock-Up</string>
+    <string name="finance_historical">Finance Historical</string>
+    <string name="my_transactions">My Transactions</string>
+    <string name="all_transactions">All Transactions</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <string name="high">High</string>
+    <string name="low">Low</string>
+    <string name="gross">Gross</string>
 </resources>
