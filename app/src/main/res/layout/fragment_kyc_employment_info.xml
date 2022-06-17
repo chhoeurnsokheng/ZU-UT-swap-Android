@@ -142,90 +142,99 @@
 
             </LinearLayout>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_20"
-                android:text="@string/other_information"
-                android:textAppearance="@style/medium_16"
-                android:textColor="@color/color_main" />
-
             <LinearLayout
+                android:id="@+id/lay_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_15"
-                android:layout_marginEnd="@dimen/dimen_10"
-                android:orientation="vertical">
-
+                android:orientation="vertical"
+                android:visibility="gone">
                 <TextView
-                    android:id="@+id/txt_phone_number"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/dimen_7"
-                    android:text="@string/additional_phone_number_optional"
-                    android:textAppearance="@style/regular_12" />
-
-                <EditText
-                    android:id="@+id/etphone_number"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dimen_50"
-                    android:backgroundTint="@color/secondary_text"
-                    android:singleLine="true"
-                    android:textAppearance="@style/regular_16"
-                    android:textColor="@color/secondary_text" />
-
-                <TextView
-                    android:id="@+id/txt_error_phone"
-                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dimen_5"
-                    android:ellipsize="end"
-                    android:singleLine="true"
-                    android:text="Invalid Phone"
-                    android:textAppearance="@style/regular_10"
-                    android:textColor="@color/red"
-                    android:visibility="gone" />
+                    android:layout_marginTop="@dimen/dimen_20"
+                    android:text="@string/other_information"
+                    android:textAppearance="@style/medium_16"
+                    android:textColor="@color/color_main" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_15"
+                    android:layout_marginEnd="@dimen/dimen_10"
+                    android:visibility="gone"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/txt_phone_number"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dimen_7"
+                        android:text="@string/additional_phone_number_optional"
+                        android:textAppearance="@style/regular_12" />
+
+                    <EditText
+                        android:id="@+id/etphone_number"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dimen_50"
+                        android:backgroundTint="@color/secondary_text"
+                        android:singleLine="true"
+                        android:textAppearance="@style/regular_16"
+                        android:textColor="@color/secondary_text" />
+
+                    <TextView
+                        android:id="@+id/txt_error_phone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dimen_5"
+                        android:ellipsize="end"
+                        android:singleLine="true"
+                        android:text="Invalid Phone"
+                        android:textAppearance="@style/regular_10"
+                        android:textColor="@color/red"
+                        android:visibility="gone" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_15"
+                    android:layout_marginEnd="@dimen/dimen_10"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/txtEmail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dimen_7"
+                        android:text="@string/email_address_optional"
+                        android:textAppearance="@style/regular_12" />
+
+                    <EditText
+                        android:id="@+id/etemail"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dimen_50"
+                        android:backgroundTint="@color/secondary_text"
+                        android:singleLine="true"
+                        android:textAppearance="@style/regular_16"
+                        android:textColor="@color/secondary_text" />
+
+                    <TextView
+                        android:id="@+id/txt_error_email"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dimen_5"
+                        android:ellipsize="end"
+                        android:singleLine="true"
+                        android:text="Invalid Email"
+                        android:textAppearance="@style/regular_10"
+                        android:textColor="@color/red"
+                        android:visibility="gone" />
+
+                </LinearLayout>
+
 
             </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_15"
-                android:layout_marginEnd="@dimen/dimen_10"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/txtEmail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/dimen_7"
-                    android:text="@string/email_address_optional"
-                    android:textAppearance="@style/regular_12" />
-
-                <EditText
-                    android:id="@+id/etemail"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dimen_50"
-                    android:backgroundTint="@color/secondary_text"
-                    android:singleLine="true"
-                    android:textAppearance="@style/regular_16"
-                    android:textColor="@color/secondary_text" />
-
-                <TextView
-                    android:id="@+id/txt_error_email"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dimen_5"
-                    android:ellipsize="end"
-                    android:singleLine="true"
-                    android:text="Invalid Email"
-                    android:textAppearance="@style/regular_10"
-                    android:textColor="@color/red"
-                    android:visibility="gone" />
-
-            </LinearLayout>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -248,6 +257,7 @@
                     android:textAppearance="@style/regular_12" />
 
             </LinearLayout>
+
 
         </LinearLayout>
 

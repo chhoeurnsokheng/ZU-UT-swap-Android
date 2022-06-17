@@ -9,6 +9,7 @@ import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import com.zillennium.utswap.Datas.StoredPreferences.KYCPreferences
+import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
@@ -57,6 +58,10 @@ class EmploymentInfoFragment :
 
                 imgBack.setOnClickListener {
                     findNavController().popBackStack()
+                }
+
+                if(validate().isValidPhoneNumber(SessionPreferences().SESSION_USERNAME.toString())){
+                    layEmail.visibility = View.VISIBLE
                 }
 
                 btnNext.setOnClickListener {

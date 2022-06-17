@@ -81,7 +81,7 @@
                                 android:layout_height="@dimen/dimen_50"
                                 android:autofillHints="no"
                                 android:backgroundTint="@color/secondary_text"
-                                android:hint="@string/john"
+                                android:hint="@string/first_name"
                                 android:inputType="textNoSuggestions"
                                 android:nextFocusDown="@+id/et_last_name"
                                 android:singleLine="true"
@@ -117,7 +117,7 @@
                                 android:layout_height="@dimen/dimen_50"
                                 android:autofillHints="no"
                                 android:backgroundTint="@color/secondary_text"
-                                android:hint="@string/doe"
+                                android:hint="@string/last_name"
                                 android:inputType="textNoSuggestions"
                                 android:singleLine="true"
                                 android:textAppearance="@style/regular_16"
@@ -231,7 +231,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dimen_20"
-                        android:text="@string/address_information"
+                        android:text="@string/current_address"
                         android:textAppearance="@style/medium_16"
                         android:textColor="@color/color_main" />
 

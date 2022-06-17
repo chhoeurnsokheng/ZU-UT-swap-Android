@@ -391,4 +391,5 @@
     <string name="forgot_login_password">Forgot Login Password</string>
     <string name="news">News</string>
     <string name="share">Share</string>
+    <string name="current_address">Current Address</string>
 </resources>
