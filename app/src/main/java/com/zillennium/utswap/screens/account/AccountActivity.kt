@@ -3,6 +3,7 @@ package com.zillennium.utswap.screens.account
 import android.content.Intent
 import android.text.Html
 import android.view.View
+import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
 import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
@@ -105,9 +106,10 @@ class AccountActivity :
                 }
 
                 txtYes.setOnClickListener {
-                    this@AccountActivity.finish()
-                    val intent = Intent(UTSwapApp.instance,SignInActivity::class.java)
-                    startActivity(intent)
+                    SessionPreferences().SESSION_STATUS = false
+                    SessionVariable.SESSION_STATUS.value = false
+                    finish()
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                 }
 
             }

@@ -51,8 +51,17 @@ class NavbarActivity :
                     if(SessionVariable.SESSION_STATUS.value == true){
                         layAuth.visibility = GONE
                         layVerify.visibility = VISIBLE
+                        imgMenu.setOnClickListener {
+                            val intent = Intent(UTSwapApp.instance,AccountActivity::class.java)
+                            startActivity(intent)
+                            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+                        }
                     }else{
                         layAuth.visibility = VISIBLE
+                        imgMenu.setOnClickListener {
+                            val intent = Intent(UTSwapApp.instance,SignInActivity::class.java)
+                            startActivity(intent)
+                        }
                     }
                 }
 
@@ -226,9 +235,8 @@ class NavbarActivity :
                 }
 
                 imgMenu.setOnClickListener {
-                    val intent = Intent(UTSwapApp.instance,AccountActivity::class.java)
+                    val intent = Intent(UTSwapApp.instance,SignInActivity::class.java)
                     startActivity(intent)
-                    overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
                 }
 
                 imgNotification.setOnClickListener {

@@ -13,10 +13,10 @@
 
             <ImageView
                 android:id="@+id/img_close"
-                android:layout_width="@dimen/dimen_26"
-                android:layout_height="@dimen/dimen_26"
+                android:layout_width="@dimen/dimen_60"
+                android:layout_height="@dimen/dimen_60"
                 android:layout_centerVertical="true"
-                android:layout_marginStart="@dimen/dimen_20"
+                android:padding="@dimen/dimen_16"
                 android:src="@drawable/ic_sharp_close_24"
                 app:tint="@color/white" />
 
@@ -313,14 +313,16 @@
 
         <TextView
             android:id="@+id/txt_sign_out"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="@dimen/dimen_30"
+            android:layout_marginBottom="@dimen/dimen_10"
             android:gravity="center"
             android:text="@string/sign_out"
             android:textAppearance="@style/medium_18"
             android:textColor="@color/white"
+            android:padding="@dimen/dimen_20"
+            android:layout_centerHorizontal="true"
             android:visibility="visible" />
 
         <LinearLayout
@@ -331,7 +333,7 @@
             android:layout_marginHorizontal="@dimen/dimen_20"
             android:orientation="horizontal"
             android:visibility="gone"
-            android:layout_marginBottom="@dimen/dimen_30">
+            android:layout_marginBottom="@dimen/dimen_10">
 
             <TextView
                 android:id="@+id/txt_question"
@@ -339,6 +341,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
                 android:textAppearance="@style/medium_18"
+                android:paddingVertical="@dimen/dimen_20"
                 android:text="@string/are_you_sure_for_logout"/>
 
             <LinearLayout
@@ -353,7 +356,8 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/white"
                     android:textAppearance="@style/medium_18"
-                    android:layout_marginEnd="@dimen/dimen_20"
+                    android:paddingVertical="@dimen/dimen_20"
+                    android:paddingHorizontal="@dimen/dimen_10"
                     android:text="@string/no"/>
 
                 <TextView
@@ -362,6 +366,8 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/yellow_19"
                     android:textAppearance="@style/medium_18"
+                    android:paddingVertical="@dimen/dimen_20"
+                    android:paddingHorizontal="@dimen/dimen_10"
                     android:text="@string/yes"/>
 
             </LinearLayout>
