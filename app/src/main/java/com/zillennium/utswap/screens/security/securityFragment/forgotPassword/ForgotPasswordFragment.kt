@@ -70,6 +70,7 @@ class ForgotPasswordFragment :
                         return@setOnClickListener
                     }
 
+                    pbNext.visibility = View.VISIBLE
                     btnNext.isClickable = false
                     btnNext.alpha = 0.6F
 
@@ -89,7 +90,8 @@ class ForgotPasswordFragment :
 
                         btnNext.isClickable = true
                         btnNext.alpha = 1F
-                    }, 500)
+                        pbNext.visibility = View.GONE
+                    }, 3000)
 
                 }
 

@@ -1,7 +1,9 @@
 package com.zillennium.utswap.screens.account.addNumber.fragment
 
+import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import com.zillennium.utswap.Datas.GlobalVariable.SettingVariable
@@ -37,10 +39,20 @@ class AddNumberFragment :
                     if (isHaveError) {
                         return@setOnClickListener
                     } else {
+                        pbNext.visibility = View.VISIBLE
+                        btnNext.isClickable = false
+                        btnNext.alpha = 0.6F
+
                         SettingVariable.phoneNumber.value = etInputPhoneNumber.text.toString()
                         SessionPreferences().SESSION_PHONE_NUMBER = etInputPhoneNumber.text.toString()
 
-                        findNavController().navigate(R.id.action_to_verification_security_fragment)
+                        Handler().postDelayed({
+                            pbNext.visibility = View.GONE
+                            btnNext.isClickable = true
+                            btnNext.alpha = 1F
+
+                            findNavController().navigate(R.id.action_to_verification_security_fragment)
+                        },3000)
                     }
                 }
 

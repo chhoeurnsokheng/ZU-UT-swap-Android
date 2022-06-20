@@ -68,7 +68,6 @@
             android:layout_below="@+id/lay_header"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@id/btn_next"
             android:orientation="vertical">
 
             <TextView
@@ -98,35 +97,55 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/btn_next"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/dimen_50"
             android:layout_alignParentBottom="true"
             android:layout_marginHorizontal="@dimen/dimen_30"
             android:layout_marginVertical="@dimen/dimen_30"
-            android:background="@drawable/bg_circular_condition"
-            android:backgroundTint="@color/yellow_19"
-            android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <LinearLayout
+                android:id="@+id/btn_next"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_50"
+                android:background="@drawable/bg_circular_condition"
+                android:backgroundTint="@color/yellow_19"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/dimen_12"
+                    android:clickable="false"
+                    android:text="@string/next"
+                    android:textAllCaps="true"
+                    android:textAppearance="@style/bold_18"
+                    android:textColor="@color/white" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_baseline_arrow_forward_24"
+                    app:tint="@color/white" />
+
+            </LinearLayout>
+
+            <ProgressBar
+                android:id="@+id/pb_next"
+                android:layout_width="@dimen/dimen_30"
+                android:layout_height="@dimen/dimen_30"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
                 android:layout_marginEnd="@dimen/dimen_12"
-                android:clickable="false"
-                android:text="@string/next"
-                android:textAllCaps="true"
-                android:textAppearance="@style/bold_18"
-                android:textColor="@color/white" />
+                android:elevation="@dimen/dimen_10"
+                android:indeterminate="true"
+                android:indeterminateTint="@color/white"
+                android:visibility="gone" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_baseline_arrow_forward_24"
-                app:tint="@color/white" />
+        </RelativeLayout>
 
-        </LinearLayout>
 
     </RelativeLayout>
 </layout>
