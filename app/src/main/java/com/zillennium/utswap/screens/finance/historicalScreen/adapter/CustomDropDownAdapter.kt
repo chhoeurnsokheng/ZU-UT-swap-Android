@@ -17,16 +17,49 @@ class CustomDropDownAdapter(context: Context, dataSource: List<String>) : ArrayA
     }
 
     override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
-        return initView(position, convertView, parent)
+        return initDropDownView(position, convertView, parent)
     }
 
-    private fun initView(position: Int, convertView: View?, parent: ViewGroup): View {
+    private fun initDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
         val title = getItem(position)
 
         val view = LayoutInflater.from(context).inflate(R.layout.item_list_finance_historical_spinner_dropdown, parent, false)
 
         val txtTitle = view.findViewById<TextView>(R.id.txt_title)
-        val layItem = view.findViewById<LinearLayout>(R.id.lay_item)
+        val layItem = view.findViewById<RelativeLayout>(R.id.lay_item)
+        val imgIcon = view.findViewById<ImageView>(R.id.img_icon)
+
+        txtTitle.text = title
+
+
+        when(title){
+            "BUY" -> {
+                layItem.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.success))
+                imgIcon.visibility = View.GONE
+
+            }
+            "SELL" -> {
+                layItem.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.drop_radius_bottom)
+                layItem.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.main_red))
+                imgIcon.visibility = View.GONE
+            }
+            else -> {
+                layItem.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.drop_radius_top)
+                layItem.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.color_main))
+                imgIcon.visibility = View.VISIBLE
+            }
+        }
+
+        return view
+    }
+
+    private fun initView(position: Int, convertView: View?, parent: ViewGroup): View {
+        val title = getItem(position)
+
+        val view = LayoutInflater.from(context).inflate(R.layout.item_list_finance_historical_spinner, parent, false)
+
+        val txtTitle = view.findViewById<TextView>(R.id.txt_title)
+        val layItem = view.findViewById<RelativeLayout>(R.id.lay_item)
 
         txtTitle.text = title
 

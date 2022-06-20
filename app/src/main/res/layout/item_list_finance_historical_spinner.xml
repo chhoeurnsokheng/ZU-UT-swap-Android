@@ -1,10 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@android:id/text1"
-    style="@style/spinnerItemStyle"
-    android:padding="@dimen/dimen_5"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:ellipsize="marquee"
-    android:maxLength="5"
-    android:singleLine="true" />
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <RelativeLayout
+        android:id="@+id/lay_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_spinner_border"
+        android:gravity="center">
+        <TextView
+            android:id="@+id/txt_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Buy"
+            android:textAllCaps="true"
+            android:textAppearance="@style/regular_12"
+            android:paddingVertical="@dimen/dimen_8"
+            android:textColor="@color/white"
+            android:layout_marginEnd="@dimen/dimen_5"/>
+        <ImageView
+            android:id="@+id/img_icon"
+            android:layout_width="@dimen/dimen_10"
+            android:layout_height="@dimen/dimen_10"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_baseline_drop"
+            app:tint="@color/white"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/txt_title"/>
+    </RelativeLayout>
+</layout>

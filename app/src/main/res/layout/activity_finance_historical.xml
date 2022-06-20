@@ -201,7 +201,7 @@
                 </LinearLayout>
 
                 <!-- Header My transaction -->
-                <LinearLayout
+                <RelativeLayout
                     android:id="@+id/lay_my_transactions"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -211,82 +211,49 @@
                     android:orientation="horizontal"
                     android:visibility="visible">
 
-                    <LinearLayout
-                        android:layout_width="@dimen/dimen_0"
+                    <TextView
+                        android:id="@+id/txt_history_my_trans"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="60">
+                        android:gravity="start"
+                        android:text="UT All Projects"
+                        android:textAppearance="@style/medium_18"
+                        android:textColor="@color/black" />
 
-                        <TextView
-                            android:id="@+id/txt_history_my_trans"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="start"
-                            android:text="UT All Projects"
-                            android:textAppearance="@style/medium_18"
-                            android:textColor="@color/black" />
 
-                    </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="@dimen/dimen_0"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="25"
-                        android:gravity="end">
+                    <RelativeLayout
+                        android:layout_width="56dp"
+                        android:layout_height="@dimen/dimen_32"
+                        android:layout_toStartOf="@+id/export_as_pdf"
+                        android:layout_marginEnd="@dimen/dimen_15">
 
-                        <RelativeLayout
-                            android:layout_width="68dp"
-                            android:layout_height="@dimen/dimen_32"
-                            android:layout_marginEnd="@dimen/dimen_3"
-                            android:layout_weight="20"
-                            android:background="@drawable/bg_spinner_border"
-                            android:orientation="horizontal"
-                            android:gravity="center_vertical"
-                            android:paddingHorizontal="@dimen/dimen_10">
+                        <androidx.appcompat.widget.AppCompatSpinner
+                            android:id="@+id/historical_spinner_dropdown"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@android:color/transparent"
+                            android:scrollbars="none"
+                            android:overScrollMode="never"
+                            android:spinnerMode="dropdown"
+                            android:dropDownWidth="match_parent"
+                            android:dropDownSelector="@color/success"
+                            android:layout_centerInParent="true"
+                            android:popupBackground="@color/transparent"/>
 
-                            <androidx.appcompat.widget.AppCompatSpinner
-                                android:id="@+id/historical_spinner_dropdown"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_centerVertical="true"
-                                android:layout_gravity="center"
-                                android:autofillHints="All"
-                                android:background="@android:color/transparent"
-                                android:gravity="center"
-                                android:scrollbars="none"
-                                android:overScrollMode="never"
-                                android:spinnerMode="dropdown" />
 
-                            <ImageView
-                                android:layout_width="@dimen/dimen_6"
-                                android:layout_height="@dimen/dimen_3"
-                                android:layout_alignParentEnd="true"
-                                android:layout_centerVertical="true"
-                                android:layout_gravity="center"
-                                android:src="@drawable/ic_baseline_drop"
-                                app:tint="@color/white" />
 
-                        </RelativeLayout>
+                    </RelativeLayout>
 
-                    </LinearLayout>
+                    <ImageView
+                        android:id="@+id/export_as_pdf"
+                        android:layout_width="@dimen/dimen_30"
+                        android:layout_height="@dimen/dimen_30"
+                        android:src="@drawable/ic_export"
+                        android:layout_alignParentEnd="true"
+                        app:tint="@color/color_main" />
 
-                    <LinearLayout
-                        android:layout_width="@dimen/dimen_0"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="15"
-                        android:gravity="end">
-
-                        <ImageView
-                            android:id="@+id/export_as_pdf"
-                            android:layout_width="@dimen/dimen_30"
-                            android:layout_height="@dimen/dimen_30"
-                            android:src="@drawable/ic_export"
-                            app:tint="@color/color_main" />
-
-                    </LinearLayout>
-
-                </LinearLayout>
+                </RelativeLayout>
 
                 <!-- Header Trade -->
                 <LinearLayout
