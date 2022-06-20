@@ -12,17 +12,23 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.models.HomeRecentNewsModel
+import com.zillennium.utswap.screens.navbar.newsTab.adapter.NewsAdapter
 
-class HomeRecentNewsAdapter(arrayList: ArrayList<HomeRecentNewsModel>):
+class HomeRecentNewsAdapter(arrayList: ArrayList<HomeRecentNewsModel>, onClickNews: onclickNews):
     RecyclerView.Adapter<HomeRecentNewsAdapter.ViewHolder>() {
 
     val listData: ArrayList<HomeRecentNewsModel> = arrayList
+    val onClickNews = onClickNews
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var imageImageView: ImageView = view.findViewById<View>(R.id.image_view) as ImageView
         var txtTitleProject: TextView = view.findViewById<View>(R.id.title_project) as TextView
         var txtNewDate: TextView = view.findViewById<View>(R.id.news_date) as TextView
         var layoutRecentNewsCard: LinearLayout = view.findViewById<View>(R.id.linear_news_card) as LinearLayout
+    }
+
+    interface onclickNews {
+        fun ClickNews()
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
@@ -41,6 +47,9 @@ class HomeRecentNewsAdapter(arrayList: ArrayList<HomeRecentNewsModel>):
             .into(holder.imageImageView)
         holder.txtTitleProject.text = homeRecentNewsList.titleNews
         holder.txtNewDate.text = homeRecentNewsList.dateNews
+        holder.layoutRecentNewsCard.setOnClickListener {
+            onClickNews.ClickNews()
+        }
     }
 
     override fun getItemCount(): Int {

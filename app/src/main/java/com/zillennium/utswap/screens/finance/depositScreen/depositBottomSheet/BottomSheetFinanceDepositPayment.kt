@@ -50,13 +50,13 @@ class BottomSheetFinanceDepositPayment: BottomSheetDialogFragment(), AdapterView
                     if(etMountPayment.text.toString().toLong() > 0){
                         when(arguments?.getString("titleCard")){
                             "ABA Pay" -> {
-                                intentOtherApp(UTSwapApp.instance, "com.paygo24.ibank")
+                                intentOtherApp(UTSwapApp.instance, "com.paygo24.ibank", "C102577521")
                             }
                             "Acleda Bank" -> {
-                                intentOtherApp(UTSwapApp.instance, "com.domain.acledabankqr")
+                                intentOtherApp(UTSwapApp.instance, "com.domain.acledabankqr", "C103006903")
                             }
                             "Sathapana" -> {
-                                intentOtherApp(UTSwapApp.instance, "kh.com.sathapana.consumer")
+                                intentOtherApp(UTSwapApp.instance, "kh.com.sathapana.consumer", null)
                             }
                         }
 //                        dismiss()

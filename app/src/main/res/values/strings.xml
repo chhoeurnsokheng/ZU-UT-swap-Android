@@ -392,7 +392,6 @@
     <string name="news">News</string>
     <string name="share">Share</string>
     <string name="current_address">Current Address</string>
-=======
     <string name="finance_balance">Finance Balance</string>
     <string name="finance_lock_up">Finance Lock-Up</string>
     <string name="finance_historical">Finance Historical</string>

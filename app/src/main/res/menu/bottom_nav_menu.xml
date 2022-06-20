@@ -20,7 +20,7 @@
         android:title="@string/trade" />
 
     <item
-        android:id="@+id/navigation_navbar_project"
+        android:id="@+id/navigation_navbar_news"
         android:enabled="true"
         android:icon="@drawable/ic_news"
         android:title="@string/news" />

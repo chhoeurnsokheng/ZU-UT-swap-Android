@@ -164,11 +164,11 @@
                     android:scrollbars="none" />
 
                 <LinearLayout
+                    android:id="@+id/lay_news_loading"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dimen_10"
+                    android:layout_marginBottom="@dimen/dimen_15"
                     android:paddingHorizontal="@dimen/dimen_20"
-                    android:layout_marginBottom="@dimen/dimen_50"
                     android:gravity="center">
 
                     <LinearLayout

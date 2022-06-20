@@ -23,8 +23,7 @@ import com.zillennium.utswap.screens.navbar.homeTab.adapter.HomeRecentNewsAdapte
 import com.zillennium.utswap.screens.navbar.homeTab.adapter.HomeWatchlistAdapter
 import com.zillennium.utswap.screens.navbar.homeTab.bottomSheet.HomeFinanceBottomSheet
 import com.zillennium.utswap.screens.finance.withdrawScreen.WithdrawActivity
-import com.zillennium.utswap.screens.finance.withdrawScreen.addBank.AddBankActivity
-import com.zillennium.utswap.screens.navbar.portfolioTab.PortfolioFragment
+import com.zillennium.utswap.screens.navbar.newsTab.newsDetail.NewsDetailActivity
 import com.zillennium.utswap.screens.navbar.tradeTab.tradeExchangeScreen.TradeExchangeActivity
 import com.zillennium.utswap.screens.project.projectScreen.ProjectActivity
 
@@ -161,7 +160,12 @@ class HomeFragment :
                 }
 
                 rvHomeNews.layoutManager = LinearLayoutManager(UTSwapApp.instance)
-                rvHomeNews.adapter = HomeRecentNewsAdapter(homeRecentNewsList)
+                rvHomeNews.adapter = HomeRecentNewsAdapter(homeRecentNewsList, onClickNews)
+
+
+                layNewsLoading.setOnClickListener {
+                    activity?.findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(R.id.nav_view)?.selectedItemId = R.id.navigation_navbar_news
+                }
 
             }
 
@@ -213,6 +217,13 @@ class HomeFragment :
     val onClickWatch: HomeWatchlistAdapter.OnclickWatch = object : HomeWatchlistAdapter.OnclickWatch {
         override fun ClickWatch() {
             val intent: Intent = Intent(UTSwapApp.instance, TradeExchangeActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
+    val onClickNews: HomeRecentNewsAdapter.onclickNews = object : HomeRecentNewsAdapter.onclickNews {
+        override fun ClickNews() {
+            val intent: Intent = Intent(UTSwapApp.instance, NewsDetailActivity::class.java)
             startActivity(intent)
         }
 

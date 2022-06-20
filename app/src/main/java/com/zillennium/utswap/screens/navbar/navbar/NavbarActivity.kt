@@ -110,7 +110,7 @@ class NavbarActivity :
                     R.id.navigation_navbar_home,
                     R.id.navigation_navbar_portfolio,
                     R.id.navigation_navbar_trade,
-                    R.id.navigation_navbar_project,
+                    R.id.navigation_navbar_news,
                 )
                     .build()
 
@@ -154,7 +154,7 @@ class NavbarActivity :
                             title.text = "Trade"
                             title.visibility = View.VISIBLE
                         }
-                        R.id.navigation_navbar_project -> {
+                        R.id.navigation_navbar_news -> {
                             fragmentManager.beginTransaction().hide(activeFragment).show(NewsTabFragment).commit()
                             activeFragment = NewsTabFragment
                             title.text = "News"
