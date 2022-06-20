@@ -10,7 +10,8 @@ import androidx.core.content.ContextCompat
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 
-class CustomDropDownAdapter(context: Context, dataSource: List<String>) : ArrayAdapter<String>(context, 0, dataSource) {
+class CustomDropDownAdapter(context: Context, val dataSource: List<String>) : ArrayAdapter<String>(context, 0, dataSource) {
+
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         return initView(position, convertView, parent)
@@ -51,6 +52,10 @@ class CustomDropDownAdapter(context: Context, dataSource: List<String>) : ArrayA
         }
 
         return view
+    }
+
+    override fun getCount(): Int {
+        return dataSource.size
     }
 
     private fun initView(position: Int, convertView: View?, parent: ViewGroup): View {
