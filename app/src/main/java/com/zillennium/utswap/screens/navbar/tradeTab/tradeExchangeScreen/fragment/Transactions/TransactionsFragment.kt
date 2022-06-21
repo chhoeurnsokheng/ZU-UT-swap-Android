@@ -1,12 +1,12 @@
 package com.zillennium.utswap.screens.navbar.tradeTab.tradeExchangeScreen.fragment.Transactions
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Build
 import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
-import androidx.core.os.bundleOf
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.zillennium.utswap.Datas.ListDatas.transactionsData.TransactionsData
 import com.zillennium.utswap.R
@@ -14,9 +14,11 @@ import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentTransactionsBinding
 import com.zillennium.utswap.models.orders.Orders
+import com.zillennium.utswap.screens.navbar.tradeTab.tradeDetailScreen.TransactionDetailActivity
 import com.zillennium.utswap.screens.navbar.tradeTab.tradeExchangeScreen.fragment.Transactions.adapter.TransactionsAdapter
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+
 
 class TransactionsFragment :
     BaseMvpFragment<TransactionsView.View, TransactionsView.Presenter, FragmentTransactionsBinding>(),
@@ -292,8 +294,15 @@ class TransactionsFragment :
 
     private val onClickTransactions: TransactionsAdapter.OnClickTransactions = object : TransactionsAdapter.OnClickTransactions{
         override fun onClickMe(orders: Orders) {
-            val bundle = bundleOf("date" to orders.txtDate,"price" to orders.txtPrice,"status" to orders.txtStatus, "ut" to orders.txtUT)
+//            val bundle = bundleOf( "ut" to orders.txtUT)
 //            findNavController().navigate(R.id.action_to_navigation_navbar_transaction_detail,bundle)
+
+            val i = Intent(UTSwapApp.instance, TransactionDetailActivity::class.java)
+            i.putExtra("date", orders.txtDate)
+            i.putExtra("price", orders.txtPrice)
+            i.putExtra("status", orders.txtStatus)
+            i.putExtra("ut", orders.txtUT)
+            startActivity(i)
         }
 
     }

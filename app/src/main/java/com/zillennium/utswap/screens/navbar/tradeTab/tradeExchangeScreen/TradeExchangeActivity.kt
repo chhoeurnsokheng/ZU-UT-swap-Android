@@ -37,6 +37,7 @@ class TradeExchangeActivity :
     private var pageAdapter: FragmentStateAdapter? = null
     private var pageTableAdapter: FragmentStateAdapter? = null
     val NUM_PAGES_TABLE = 3
+    var remember: Boolean = true
 
 //    @SuppressLint("UseCompatLoadingForDrawables", "ResourceAsColor")
     override fun initView() {
@@ -49,6 +50,15 @@ class TradeExchangeActivity :
 
                 SessionVariable.SESSION_KYC.observe(this@TradeExchangeActivity){
                     onCheckSessionStatusAndKYC()
+                }
+
+                imgRemember.setOnClickListener {
+                    remember = !remember
+                    if(remember){
+                        imgRemember.imageTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.orange))
+                    }else{
+                        imgRemember.imageTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.dark_gray))
+                    }
                 }
 
                 SessionVariable.SESSION_KYC_STATUS.observe(this@TradeExchangeActivity){

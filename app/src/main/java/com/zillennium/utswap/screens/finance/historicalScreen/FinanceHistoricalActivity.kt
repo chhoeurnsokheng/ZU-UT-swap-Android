@@ -1,17 +1,17 @@
 package com.zillennium.utswap.screens.finance.historicalScreen
 
+
 import android.annotation.SuppressLint
 import android.os.Build
 import android.util.Log
 import android.view.View
 import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.zillennium.utswap.Datas.GlobalVariable.SettingVariable
-import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
+import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityFinanceHistoricalBinding
 import com.zillennium.utswap.models.financeHistorical.HistoricalAllTransactionsModel
 import com.zillennium.utswap.models.financeHistorical.HistoricalMyTransactionsModel
@@ -27,6 +27,7 @@ import com.zillennium.utswap.screens.finance.historicalScreen.bottomSheet.Financ
 import okhttp3.internal.notify
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+
 
 class FinanceHistoricalActivity :
     BaseMvpActivity<FinanceHistoricalView.View, FinanceHistoricalView.Presenter, ActivityFinanceHistoricalBinding>(),

@@ -92,6 +92,7 @@
                         android:gravity="end">
 
                         <ImageView
+                            android:id="@+id/img_remember"
                             android:layout_width="@dimen/dimen_22"
                             android:layout_height="@dimen/dimen_22"
                             android:src="@drawable/ic_baseline_star_24"

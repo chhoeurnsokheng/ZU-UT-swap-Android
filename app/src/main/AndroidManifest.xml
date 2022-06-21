@@ -146,6 +146,11 @@
             android:exported="false"
             android:label="@string/trade_exchange"
             android:screenOrientation="portrait" />
+        <activity
+            android:name="com.zillennium.utswap.screens.navbar.tradeTab.tradeDetailScreen.TransactionDetailActivity"
+            android:exported="false"
+            android:label="@string/trade_exchange"
+            android:screenOrientation="portrait" />
         <!--End Activity Trade-->
 
 <!--        <activity-->
