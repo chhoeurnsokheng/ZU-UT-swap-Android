@@ -202,9 +202,9 @@
                         android:gravity="center"
                         android:inputType="numberDecimal"
                         android:maxLength="10"
-                        android:minWidth="@dimen/dimen_20"
+                        android:minWidth="@dimen/dimen_40"
                         android:singleLine="true"
-                        android:text="0.00"
+                        android:text=""
                         android:textAppearance="@style/medium_32"
                         android:textColor="@color/white"
                         android:textCursorDrawable="@color/white" />

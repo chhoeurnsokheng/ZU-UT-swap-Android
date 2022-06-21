@@ -4,10 +4,12 @@ package com.zillennium.utswap.screens.security.securityFragment.newFundPassword
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
+import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
+import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import androidx.core.content.ContextCompat
@@ -134,14 +136,24 @@ class NewFundPasswordFragment:
 
                 btnNext.setOnClickListener {
                     if (editFundPassword.text.toString() == editConfirmFundPassword.text.toString() && editFundPassword.length() == 4 && editConfirmFundPassword.length() == 4){
-                        when (arguments?.getString("title")) {
-                            "Finish" -> {
-                                activity?.finish()
+                        pbNext.visibility = View.VISIBLE
+                        btnNext.isClickable = false
+                        btnNext.alpha = 0.6F
+                        Handler().postDelayed({
+
+                            when (arguments?.getString("title")) {
+                                "Finish" -> {
+                                    activity?.finish()
+                                }
+                                "navigate to verify" -> {
+                                    findNavController().navigate(R.id.action_to_verification_security_fragment)
+                                }
                             }
-                            "navigate to verify" -> {
-                                findNavController().navigate(R.id.action_to_verification_security_fragment)
-                            }
-                        }
+
+                            pbNext.visibility = View.GONE
+                            btnNext.isClickable = true
+                            btnNext.alpha = 1F
+                        },3000)
                     }else{
                         for(child in numberVerification.children){
                             child.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_border_bottom_red)

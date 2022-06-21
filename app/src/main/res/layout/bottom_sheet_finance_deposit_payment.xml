@@ -54,7 +54,7 @@
                     <EditText
                         android:id="@+id/et_mount_payment"
                         android:layout_width="wrap_content"
-                        android:minWidth="@dimen/dimen_20"
+                        android:minWidth="@dimen/dimen_40"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:background="@null"
@@ -62,7 +62,7 @@
                         android:gravity="center"
                         android:inputType="numberDecimal"
                         android:maxLength="10"
-                        android:text="0.00"
+                        android:text=""
                         android:singleLine="true"
                         android:textAppearance="@style/medium_32"
                         android:textColor="@color/white"

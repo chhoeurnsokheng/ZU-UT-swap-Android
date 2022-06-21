@@ -292,8 +292,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="@string/next"
-                    android:textColor="@color/white"
-                    android:textAppearance="@style/bold_18" />
+                    android:textAppearance="@style/bold_18"
+                    android:textColor="@color/white" />
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -308,13 +308,13 @@
                 android:id="@+id/pb_next"
                 android:layout_width="@dimen/dimen_30"
                 android:layout_height="@dimen/dimen_30"
-                android:indeterminateTint="@color/white"
-                android:indeterminate="true"
-                android:layout_centerVertical="true"
                 android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
                 android:layout_marginEnd="@dimen/dimen_12"
                 android:elevation="@dimen/dimen_10"
-                android:visibility="gone"/>
+                android:indeterminate="true"
+                android:indeterminateTint="@color/white"
+                android:visibility="gone" />
 
         </RelativeLayout>
 

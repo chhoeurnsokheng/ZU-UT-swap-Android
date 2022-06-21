@@ -1,19 +1,25 @@
 package com.zillennium.utswap.screens.security.securityFragment.changeFundPassword
 
 import android.content.Context
+import android.os.Bundle
+import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
+import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.view.children
 import androidx.navigation.fragment.findNavController
+import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
+import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentAccountChangeFundPasswordBinding
+
 
 class ChangeFundPasswordFragment :
     BaseMvpFragment<ChangeFundPasswordView.View, ChangeFundPasswordView.Presenter, FragmentAccountChangeFundPasswordBinding>(),
@@ -28,6 +34,7 @@ class ChangeFundPasswordFragment :
         super.initView()
         try {
             binding.apply {
+
                 imgClose.setOnClickListener {
                     activity?.finish()
                 }
@@ -93,8 +100,23 @@ class ChangeFundPasswordFragment :
                 })
 
                 btnNext.setOnClickListener {
-                    if (editFundPassword.length() == 4){
-                        findNavController().navigate(R.id.action_to_new_fund_password)
+
+                    if (editFundPassword.text.isNotEmpty() && editFundPassword.length() == 4){
+                        pbNext.visibility = View.VISIBLE
+                        btnNext.isClickable = false
+                        btnNext.alpha = 0.6F
+                        Handler().postDelayed({
+                            if (editFundPassword.length() == 4 && editFundPassword.text.toString() == "1111"){
+                                findNavController().navigate(R.id.action_to_new_fund_password)
+                            }else{
+                                for(child in numberVerification.children){
+                                    child.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_border_bottom_red)
+                                }
+                            }
+                            pbNext.visibility = View.GONE
+                            btnNext.isClickable = true
+                            btnNext.alpha = 1F
+                        },3000)
                     }else{
                         for(child in numberVerification.children){
                             child.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_border_bottom_red)

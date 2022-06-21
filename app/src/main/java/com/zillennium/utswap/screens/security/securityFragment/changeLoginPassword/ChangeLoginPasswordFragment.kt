@@ -52,6 +52,17 @@ class ChangeLoginPasswordFragment :
                         isHaveError = true
                     }
 
+                    if(etNewPassword.text.toString().trim() == etOldPassword.text.toString().trim())
+                    {
+                        txtPasswordMessage.text = "Old Password And New Password Must Not Be The Same"
+                        txtPasswordMessage.visibility = View.VISIBLE
+                        etNewPassword.backgroundTintList =
+                                ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.main_red))
+                        etOldPassword.backgroundTintList =
+                                ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.main_red))
+                        isHaveError = true
+                    }
+
                     if (etOldPassword.text.toString().length < 8) {
                         txtPasswordMessage.text = "Your Old Password Longer Than 8 Digits"
                         txtPasswordMessage.visibility = View.VISIBLE
@@ -69,6 +80,7 @@ class ChangeLoginPasswordFragment :
                     }
 
                     if (!isHaveError) {
+                        pbNext.visibility = View.VISIBLE
                         btnNext.isClickable = false
                         btnNext.alpha = 0.6F
 
@@ -81,11 +93,12 @@ class ChangeLoginPasswordFragment :
                             etConfirmPassword.backgroundTintList =
                                 ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text))
 
+                            pbNext.visibility = View.GONE
                             btnNext.isClickable = true
                             btnNext.alpha = 1F
 
                             findNavController().navigate(R.id.action_to_verification_security_fragment)
-                        }, 500)
+                        }, 3000)
                     }
                 }
 

@@ -11,6 +11,7 @@ import com.zillennium.utswap.UTSwapApp
 
 
 fun intentOtherApp(content: Context, packagePlayStore: String, packageAppGallery: String?) {
+    try {
         var intent: Intent? = content.packageManager?.getLaunchIntentForPackage(packagePlayStore)
         if (intent != null) {
             // We found the activity now start the activity
@@ -43,4 +44,8 @@ fun intentOtherApp(content: Context, packagePlayStore: String, packageAppGallery
 
 
         }
+    }   catch (e: Exception){
+
+    }
+
 }
