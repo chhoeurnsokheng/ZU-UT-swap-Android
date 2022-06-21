@@ -438,7 +438,7 @@
             android:background="@drawable/dialog_bg"
             android:elevation="@dimen/dimen_10"
             android:orientation="vertical"
-            android:visibility="visible">
+            android:visibility="gone">
 
             <View
                 android:layout_width="@dimen/dimen_40"
@@ -550,6 +550,98 @@
 
 
         </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/lay_bottom_note"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_alignParentBottom="true"
+            >
+            <LinearLayout
+                android:id="@+id/lay_verify"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/dimen_12"
+                android:visibility="gone">
+                <LinearLayout
+                    android:id="@+id/lay_kyc_status"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_38"
+                    android:background="@color/main_red"
+                    android:orientation="horizontal"
+                    android:visibility="gone"
+                    android:gravity="center">
+                    <ImageView
+                        android:layout_width="@dimen/dimen_18"
+                        android:layout_height="@dimen/dimen_18"
+                        android:src="@drawable/ic_circle_exclamation_soild"
+                        app:tint="@color/white"
+                        android:layout_marginEnd="@dimen/dimen_12"
+                        android:rotation="180"/>
+                    <TextView
+                        android:id="@+id/txt_status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@style/medium_14"
+                        android:text="Invalid Verification. Please Try Again."
+                        android:textColor="@color/white"/>
+                </LinearLayout>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_verify"
+                    android:layout_width="240dp"
+                    android:layout_height="@dimen/dimen_48"
+                    android:layout_marginBottom="@dimen/dimen_6"
+                    android:background="@drawable/bg_circular"
+                    android:hint="Verify Your Identity"
+                    android:textAppearance="@style/bold_14"
+                    android:textColorHint="@color/white"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_marginTop="@dimen/dimen_20"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Please verify your identity to start trading."
+                    android:textAppearance="@style/regular_10" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lay_auth"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/dimen_20"
+                android:paddingVertical="@dimen/dimen_26"
+                android:background="@color/white"
+                android:visibility="gone">
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_signIn"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_48"
+                    android:layout_marginEnd="@dimen/dimen_8"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_circular"
+                    android:hint="@string/login"
+                    android:textAppearance="@style/bold_16"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:textColorHint="@color/white" />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_register"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_48"
+                    android:layout_marginStart="@dimen/dimen_8"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_circular_border_button"
+                    android:hint="@string/register"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:textAppearance="@style/bold_16"
+                    android:textColorHint="@color/color_main" />
+            </LinearLayout>
+        </RelativeLayout>
 
     </RelativeLayout>
 </layout>

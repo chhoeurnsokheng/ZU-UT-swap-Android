@@ -46,6 +46,7 @@ class NavbarActivity :
 
                 SessionPreferences().removeValue("SESSION_STATUS")
                 SessionPreferences().removeValue("SESSION_KYC")
+                SessionPreferences().removeValue("SESSION_KYC_STATUS")
 
                 SessionVariable.SESSION_STATUS.observe(this@NavbarActivity) {
                     if(SessionVariable.SESSION_STATUS.value == true){
