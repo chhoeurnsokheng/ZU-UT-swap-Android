@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.core.content.ContextCompat
+import com.zillennium.utswap.Datas.GlobalVariable.SettingVariable
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 
@@ -32,25 +33,23 @@ class CustomDropDownAdapter(context: Context, val dataSource: List<String>) : Ar
 
         txtTitle.text = title
 
-
-        when(title){
-            "BUY" -> {
-                layItem.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.success))
-                imgIcon.visibility = View.GONE
-
-            }
-            "SELL" -> {
-                layItem.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.drop_radius_bottom)
-                layItem.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.main_red))
-                imgIcon.visibility = View.GONE
-            }
-            else -> {
+        when(position){
+            0 -> {
                 layItem.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.drop_radius_top)
-                layItem.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.color_main))
                 imgIcon.visibility = View.VISIBLE
             }
+            count - 1 -> {
+                layItem.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.drop_radius_bottom)
+                imgIcon.visibility = View.GONE
+            }
+            else -> imgIcon.visibility = View.GONE
         }
 
+        when(title){
+            "ALL" -> layItem.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.color_main))
+            "BUY" -> layItem.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.success))
+            "SELL" -> layItem.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.main_red))
+        }
         return view
     }
 
