@@ -81,7 +81,8 @@
                     android:textAllCaps="true"
                     android:textAlignment="textEnd"
                     android:textColor="@color/dark_gray"
-                    android:hint="Johnathan Wick"
+                    android:hint="Full Name"
+                    android:textColorHint="@color/light_gray"
                     android:background="@null"
                     android:textAppearance="@style/medium_16" />
             </LinearLayout>
@@ -107,10 +108,15 @@
                     android:layout_height="@dimen/dimen_42"
                     android:layout_marginStart="@dimen/dimen_10"
                     android:background="@drawable/outline_finance_addbank"
+                    android:backgroundTint="@color/blur_0E1C6B"
+                    android:textColor="@color/black_000000"
+                    android:hint="000 000 000"
+                    android:textColorHint="@color/light_gray"
                     android:inputType="number"
                     android:maxLength="12"
                     android:padding="@dimen/dimen_10"
                     android:singleLine="true"
+
                     android:textAlignment="center" />
 
             </LinearLayout>
