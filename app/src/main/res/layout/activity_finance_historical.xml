@@ -215,6 +215,7 @@
                         android:id="@+id/txt_history_my_trans"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
                         android:gravity="start"
                         android:text="UT All Projects"
                         android:textAppearance="@style/medium_18"
@@ -249,8 +250,8 @@
                         android:id="@+id/export_as_pdf"
                         android:layout_width="@dimen/dimen_30"
                         android:layout_height="@dimen/dimen_30"
-                        android:src="@drawable/ic_export"
                         android:layout_alignParentEnd="true"
+                        android:src="@drawable/ic_export"
                         app:tint="@color/color_main" />
 
                 </RelativeLayout>

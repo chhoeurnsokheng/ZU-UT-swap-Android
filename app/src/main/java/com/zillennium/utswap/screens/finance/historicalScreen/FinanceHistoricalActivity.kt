@@ -2,6 +2,7 @@ package com.zillennium.utswap.screens.finance.historicalScreen
 
 import android.annotation.SuppressLint
 import android.os.Build
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -23,6 +24,7 @@ import com.zillennium.utswap.screens.finance.historicalScreen.adapter.Historical
 import com.zillennium.utswap.screens.finance.historicalScreen.bottomSheet.FinanceHistoricalFilterBottomSheet
 import com.zillennium.utswap.screens.finance.historicalScreen.bottomSheet.FinanceHistoricalSelectDateRangeBottomSheet
 import com.zillennium.utswap.screens.finance.historicalScreen.bottomSheet.FinanceHistoricalTransactionBottomSheet
+import okhttp3.internal.notify
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -40,6 +42,7 @@ class FinanceHistoricalActivity :
     private var historicalMyTransactionsAdapter: HistoricalMyTransactionsAdapter? = null
     private var historicalTradeAdapter: HistoricalTradeAdapter? = null
     private var historicalAllTransactionsAdapter: HistoricalAllTransactionsAdapter? = null
+    private var customDropDownAdapter: CustomDropDownAdapter? = null
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun initView() {
@@ -78,19 +81,64 @@ class FinanceHistoricalActivity :
                 }
 
                 /* Spinner */
-                val items = listOf("ALL", "BUY", "SELL")
-//                val adapterSpinner = ArrayAdapter(this@FinanceHistoricalActivity,  R.layout.item_list_finance_historical_spinner,items)
-//                adapterSpinner.setDropDownViewResource(R.layout.item_list_finance_historical_spinner_dropdown);
-                historicalSpinnerDropdown.adapter = CustomDropDownAdapter(this@FinanceHistoricalActivity, items)
+                val data = ArrayList<String>()
+                data.add("ALL")
+                data.add("BUY")
+                data.add("SELL")
+
+                historicalSpinnerDropdown.adapter = CustomDropDownAdapter(this@FinanceHistoricalActivity, data)
                 historicalSpinnerDropdown.onItemSelectedListener = object :
                     AdapterView.OnItemSelectedListener{
-                    override fun onItemSelected(adapterView: AdapterView<*>?, p1: View?, position: Int, p3: Long) {
+                    override fun onItemSelected(adapterView: AdapterView<*>?, view: View?, position: Int, id: Long) {
                         SettingVariable.finance_historical_spinner_item.value = position
+//                    val dataNew = ArrayList<String>()
+//                    println("1235${adapterView?.selectedItemPosition.toString()}")
+//                    when (adapterView?.selectedItemPosition.toString()){
+//                        "SELL" ->{
+//                            SettingVariable.finance_historical_spinner_item.value = 1
+//                            data.remove("SELL")
+//                            data.add(0, "SELL")
+//                        }
+//                        "ALL" ->{
+//                            SettingVariable.finance_historical_spinner_item.value = 0
+//                            data.remove("ALL")
+//                            data.add(0, "ALL")
+//                        }
+//                        else -> {
+//                            SettingVariable.finance_historical_spinner_item.value = 2
+//                            data.remove("BUY")
+//                            data.add(0, "BUY")
+//                        }
+//                    }
+////                        data.clear()
+////                        data.addAll(dataNew)
+//                    customDropDownAdapter?.notifyDataSetChanged()
                     }
 
-                    override fun onNothingSelected(p0: AdapterView<*>?) {
-
-                    }
+//                    SettingVariable.finance_historical_spinner_item.value = position
+//                    val dataNew = ArrayList<String>()
+//                    println("1235${adapterView?.selectedItemPosition.toString()}")
+//                    when (adapterView?.selectedItemPosition.toString()){
+//                        "SELL" ->{
+//                            SettingVariable.finance_historical_spinner_item.value = 1
+//                            data.remove("SELL")
+//                            data.add(0, "SELL")
+//                        }
+//                        "ALL" ->{
+//                            SettingVariable.finance_historical_spinner_item.value = 0
+//                            data.remove("ALL")
+//                            data.add(0, "ALL")
+//                        }
+//                        else -> {
+//                            SettingVariable.finance_historical_spinner_item.value = 2
+//                            data.remove("BUY")
+//                            data.add(0, "BUY")
+//                        }
+//                    }
+////                        data.clear()
+////                        data.addAll(dataNew)
+//                    customDropDownAdapter?.notifyDataSetChanged()
+                    override fun onNothingSelected(p0: AdapterView<*>?) {}
                 }
 
                 /* count list */
