@@ -191,6 +191,7 @@
     <string name="city_province">City/Province</string>
     <string name="accept">Accept</string>
     <string name="declaration">Declaration</string>
+    <string name="e_agreement">E-Agreement</string>
     <string name="enter_fund_password">Enter Fund Password</string>
     <string name="_4_digit_number">4-digit number</string>
     <string name="the_4_digit_password_will_be_used_n_for_transfers_amp_withdrawals"><![CDATA[The 4-digit password will be used \n for transfers & withdrawals]]></string>
@@ -224,6 +225,10 @@
     <string name="zillion_united_co_ltd">Zillion United Co.,Ltd.</string>
     <string name="logo_ut_swap">logo ut swap</string>
     <string name="john">JOHN</string>
+    <string name="kyc_navbar_number">1/4</string>
+    <string name="kyc_selfie_navbar_number">2/4</string>
+    <string name="kyc_employee_navbar_number">3/4</string>
+    <string name="register_declaration_navbar_number">4/4</string>
     <string name="doe">DOE</string>
     <string name="johnathan_wick">JOHNATHAN WICK</string>
     <string name="indicates_required">indicates required</string>

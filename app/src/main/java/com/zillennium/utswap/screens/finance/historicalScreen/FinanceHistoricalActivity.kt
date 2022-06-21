@@ -1,16 +1,16 @@
 package com.zillennium.utswap.screens.finance.historicalScreen
 
+
 import android.annotation.SuppressLint
 import android.os.Build
 import android.view.View
 import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.zillennium.utswap.Datas.GlobalVariable.SettingVariable
-import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
+import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityFinanceHistoricalBinding
 import com.zillennium.utswap.models.financeHistorical.HistoricalAllTransactionsModel
 import com.zillennium.utswap.models.financeHistorical.HistoricalMyTransactionsModel
@@ -25,6 +25,7 @@ import com.zillennium.utswap.screens.finance.historicalScreen.bottomSheet.Financ
 import com.zillennium.utswap.screens.finance.historicalScreen.bottomSheet.FinanceHistoricalTransactionBottomSheet
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+
 
 class FinanceHistoricalActivity :
     BaseMvpActivity<FinanceHistoricalView.View, FinanceHistoricalView.Presenter, ActivityFinanceHistoricalBinding>(),
@@ -86,6 +87,11 @@ class FinanceHistoricalActivity :
                     AdapterView.OnItemSelectedListener{
                     override fun onItemSelected(adapterView: AdapterView<*>?, p1: View?, position: Int, p3: Long) {
                         SettingVariable.finance_historical_spinner_item.value = position
+
+
+                        if (position == 0){
+
+                        }
                     }
 
                     override fun onNothingSelected(p0: AdapterView<*>?) {

@@ -103,21 +103,23 @@
                 android:layout_height="wrap_content"
                 android:paddingHorizontal="@dimen/dimen_20"
                 android:paddingBottom="@dimen/dimen_15">
+
                 <LinearLayout
                     android:id="@+id/btn_addCard_Confirm"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dimen_48"
+                    android:layout_alignParentBottom="true"
                     android:layout_marginTop="@dimen/dimen_80"
                     android:background="@drawable/btn_deposit_add_card_condition"
-                    android:gravity="center"
-                    android:layout_alignParentBottom="true">
+                    android:gravity="center">
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:text="@string/confirm"
                         android:textAppearance="@style/medium_16"
-                        android:textColor="@color/white"/>
+                        android:textColor="@color/white" />
                 </LinearLayout>
             </RelativeLayout>
         </LinearLayout>

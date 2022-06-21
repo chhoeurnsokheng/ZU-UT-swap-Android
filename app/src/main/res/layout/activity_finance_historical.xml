@@ -232,14 +232,14 @@
                             android:id="@+id/historical_spinner_dropdown"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:layout_centerInParent="true"
                             android:background="@android:color/transparent"
-                            android:scrollbars="none"
-                            android:overScrollMode="never"
-                            android:spinnerMode="dropdown"
                             android:dropDownWidth="match_parent"
                             android:dropDownSelector="@color/success"
-                            android:layout_centerInParent="true"
-                            android:popupBackground="@color/transparent"/>
+                            android:overScrollMode="never"
+                            android:popupBackground="@color/transparent"
+                            android:scrollbars="none"
+                            android:spinnerMode="dropdown" />
 
 
 
