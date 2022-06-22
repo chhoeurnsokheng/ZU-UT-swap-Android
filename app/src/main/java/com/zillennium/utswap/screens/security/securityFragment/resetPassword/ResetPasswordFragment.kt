@@ -9,6 +9,7 @@ import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
@@ -44,7 +45,7 @@ class ResetPasswordFragment :
                     if(inputEmail.text.isNullOrEmpty()) {
                         textEmpty.text = "Field can't be empty"
                         textEmpty.visibility = View.VISIBLE
-                        inputEmail.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.red))
+                        inputEmail.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.main_red))
                         isHaveError = true
                         return@setOnClickListener
                     }
@@ -53,7 +54,7 @@ class ResetPasswordFragment :
                         textEmpty.text = "Please input a valid email/phone number."
                         textEmpty.visibility = View.VISIBLE
                         inputEmail.backgroundTintList =
-                            ColorStateList.valueOf(resources.getColor(R.color.red))
+                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.main_red))
                         isHaveError = true
                         return@setOnClickListener
                     }
@@ -72,7 +73,7 @@ class ResetPasswordFragment :
                         }else{
                             textEmpty.visibility = View.VISIBLE
                             textEmpty.text = "Invalid email or phone number"
-                            inputEmail.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.red))
+                            inputEmail.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.main_red))
                         }
 
                         pbNext.visibility = View.GONE
@@ -101,7 +102,7 @@ class ResetPasswordFragment :
 
                     override fun afterTextChanged(editable: Editable) {
                         textEmpty.visibility = View.GONE
-                        inputEmail.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.secondary_text))
+                        inputEmail.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text))
                     }
                 })
             }

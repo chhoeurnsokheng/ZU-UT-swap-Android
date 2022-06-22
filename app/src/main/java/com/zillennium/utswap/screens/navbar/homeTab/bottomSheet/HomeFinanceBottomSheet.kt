@@ -1,15 +1,22 @@
 package com.zillennium.utswap.screens.navbar.homeTab.bottomSheet
 
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.*
 import android.widget.AdapterView
-import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.zillennium.utswap.R
+import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.databinding.BottomSheetHomeFinanceBinding
+
+import com.zillennium.utswap.screens.finance.balanceScreen.FinanceBalanceActivity
+import com.zillennium.utswap.screens.finance.lockUpScreen.FinanceLockUpActivity
+import com.zillennium.utswap.screens.finance.subscriptionScreen.FinanceSubscriptionsActivity
+import com.zillennium.utswap.screens.finance.historicalScreen.FinanceHistoricalActivity
 
 class HomeFinanceBottomSheet : BottomSheetDialogFragment(), AdapterView.OnItemSelectedListener {
 
@@ -37,17 +44,31 @@ class HomeFinanceBottomSheet : BottomSheetDialogFragment(), AdapterView.OnItemSe
         super.onViewCreated(view, savedInstanceState)
         binding?.apply {
 
-            (view.parent as View).setBackgroundColor(resources.getColor(android.R.color.transparent))
+            (view.parent as View).setBackgroundColor(ContextCompat.getColor(UTSwapApp.instance, android.R.color.transparent))
 
             balanceButton.setOnClickListener {
-                Toast.makeText(context, "BALANCE IS CLICKED", Toast.LENGTH_SHORT).show()
+                val intent = Intent(UTSwapApp.instance, FinanceBalanceActivity::class.java)
+                startActivity(intent)
+                dismiss()
             }
 
-            subscriptionButton.setOnClickListener {}
+            subscriptionButton.setOnClickListener {
+                val intent = Intent(UTSwapApp.instance, FinanceSubscriptionsActivity::class.java)
+                startActivity(intent)
+                dismiss()
+            }
 
-            lockUpButton.setOnClickListener {}
+            lockUpButton.setOnClickListener {
+                val intent = Intent(UTSwapApp.instance, FinanceLockUpActivity::class.java)
+                startActivity(intent)
+                dismiss()
+            }
 
-            historicalButton.setOnClickListener {}
+            historicalButton.setOnClickListener {
+                val intent = Intent(UTSwapApp.instance, FinanceHistoricalActivity::class.java)
+                startActivity(intent)
+                dismiss()
+            }
         }
     }
 

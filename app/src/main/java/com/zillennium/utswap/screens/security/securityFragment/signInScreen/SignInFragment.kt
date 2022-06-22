@@ -13,6 +13,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.clearFragmentResultListener
 import androidx.navigation.fragment.findNavController
 import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
@@ -83,7 +84,7 @@ class SignInFragment :
                         txtMessage.text = "Please Enter Email or Phone Number"
                         txtMessage.visibility = View.VISIBLE
                         textInputEmail.backgroundTintList =
-                            ColorStateList.valueOf(resources.getColor(R.color.red))
+                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.main_red))
                         isHaveError = true
                         return@setOnClickListener
                     }
@@ -92,7 +93,7 @@ class SignInFragment :
                         txtMessage.text = "Please Enter a Password Longer Than 8 Digits"
                         txtMessage.visibility = View.VISIBLE
                         textInputPassword.backgroundTintList =
-                            ColorStateList.valueOf(resources.getColor(R.color.red))
+                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.main_red))
                         isHaveError = true
                         return@setOnClickListener
                     }
@@ -107,7 +108,7 @@ class SignInFragment :
                             val status: Int = 0
                             if(status == 1 || (textInputEmail.text.toString().trim() == "utswap@gmail.com" && textInputPassword.text.toString().trim() == "12345678")){
                                 txtMessage.visibility = View.VISIBLE
-                                txtMessage.background.setTint(resources.getColor(R.color.success))
+                                txtMessage.background.setTint(ContextCompat.getColor(UTSwapApp.instance, R.color.success))
                                 txtMessage.text = "Successfully logged in"
                                 SessionPreferences().SESSION_USERNAME = textInputEmail.text.toString().trim()
                                 SessionPreferences().SESSION_PASSWORD = textInputPassword.text.toString().trim()
@@ -147,7 +148,7 @@ class SignInFragment :
                     override fun afterTextChanged(editable: Editable) {
                         txtMessage.visibility = View.INVISIBLE
                         textInputEmail.backgroundTintList =
-                            ColorStateList.valueOf(resources.getColor(R.color.secondary_text))
+                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text))
                     }
                 })
 
@@ -171,7 +172,7 @@ class SignInFragment :
                     override fun afterTextChanged(editable: Editable) {
                         txtMessage.visibility = View.INVISIBLE
                         textInputPassword.backgroundTintList =
-                            ColorStateList.valueOf(resources.getColor(R.color.secondary_text))
+                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text))
 
                     }
                 })
@@ -218,12 +219,12 @@ class SignInFragment :
 //            if (isConnected) {
 //                imageWifi.setImageResource(R.drawable.ic_baseline_wifi_24)
 //                textView.text = "Connected"
-//                textView.setTextColor(Color.parseColor("#ffffff"))
+//                textView.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.color_main))
 //                mainWifi.setBackgroundColor(Color.GREEN)
 //            } else {
 //                imageWifi.setImageResource(R.drawable.ic_baseline_wifi_off_24)
 //                textView.text = "Please Check your connection"
-//                textView.setTextColor(Color.parseColor("#ffffff"))
+//                textView.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.color_main))
 //                mainWifi.setBackgroundColor(Color.RED)
 //            }
 //        }

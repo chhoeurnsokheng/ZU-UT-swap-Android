@@ -20,7 +20,6 @@ class ContractFragment :
         super.initView()
         try {
             binding.apply {
-
                 imgBack.setOnClickListener {
                     findNavController().popBackStack()
                 }

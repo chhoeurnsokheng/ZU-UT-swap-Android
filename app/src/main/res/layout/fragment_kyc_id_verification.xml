@@ -8,21 +8,28 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/tool_bar"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:id="@+id/tool_bar">
 
             <ImageView
-                android:id="@+id/btn_back"
+                android:id="@+id/btnBack"
                 android:layout_width="@dimen/dimen_60"
                 android:layout_height="@dimen/dimen_60"
                 android:padding="@dimen/dimen_14"
                 android:src="@drawable/ic_baseline_arrow_back_24"
                 app:tint="@color/color_main" />
 
-        </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:text="@string/kyc_navbar_number"
+                android:textAppearance="@style/regular_16"
+                android:textColor="@color/dark_gray" />
+        </RelativeLayout>
 
         <ScrollView
             android:layout_width="match_parent"
@@ -81,7 +88,7 @@
                                 android:layout_height="@dimen/dimen_50"
                                 android:autofillHints="no"
                                 android:backgroundTint="@color/secondary_text"
-                                android:hint="@string/john"
+                                android:hint="@string/first_name"
                                 android:inputType="textNoSuggestions"
                                 android:nextFocusDown="@+id/et_last_name"
                                 android:singleLine="true"
@@ -117,7 +124,7 @@
                                 android:layout_height="@dimen/dimen_50"
                                 android:autofillHints="no"
                                 android:backgroundTint="@color/secondary_text"
-                                android:hint="@string/doe"
+                                android:hint="@string/last_name"
                                 android:inputType="textNoSuggestions"
                                 android:singleLine="true"
                                 android:textAppearance="@style/regular_16"
@@ -231,7 +238,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dimen_20"
-                        android:text="@string/address_information"
+                        android:text="@string/current_address"
                         android:textAppearance="@style/medium_16"
                         android:textColor="@color/color_main" />
 
@@ -371,7 +378,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/star"
                                 android:textColor="@color/red"
-                                android:textSize="@dimen/font_size_10"/>
+                                android:textAppearance="@style/regular_10"/>
 
                         </LinearLayout>
 
@@ -415,7 +422,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/star"
                             android:textColor="@color/red"
-                            android:textSize="@dimen/font_size_10"
+                            android:textAppearance="@style/regular_10"
                             android:layout_marginEnd="@dimen/dimen_4"/>
 
                         <TextView
@@ -449,10 +456,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:fontFamily="@font/avenirnextcyr_bold"
                 android:text="@string/next"
                 android:textColor="@color/white"
-                android:textSize="@dimen/font_size_18" />
+                android:textAppearance="@style/bold_18" />
 
             <ImageView
                 android:layout_width="wrap_content"

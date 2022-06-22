@@ -15,7 +15,7 @@ import android.widget.Toast
 
 object BasePassedActivity {
     fun onPassedBack(activity: Activity, button: ImageView) {
-        button.setOnClickListener { view: View? ->
+        button.setOnClickListener {
             val intent = Intent()
             activity.setResult(Activity.RESULT_OK, intent)
             activity.finish()

@@ -8,53 +8,50 @@
 
         <TextView
             android:id="@+id/txt_date"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="24-03-2022"
             android:textAlignment="textStart"
-            android:textColor="@color/black_222222"
-            android:textSize="@dimen/font_size_14" />
+            android:textColor="@color/black_333333"
+            android:layout_weight="30"
+            android:textAppearance="@style/regular_14" />
 
         <TextView
             android:id="@+id/txt_time"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="01:02:22 PM"
             android:textAlignment="textStart"
-            android:textColor="@color/black_222222"
-            android:layout_marginStart="@dimen/dimen_8"
-            android:textSize="@dimen/font_size_14" />
+            android:textColor="@color/black_333333"
+            android:textAppearance="@style/regular_14"
+            android:layout_weight="30"/>
 
         <TextView
             android:id="@+id/txt_volume"
-            android:layout_width="58dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="200 000"
+            android:layout_weight="15"
             android:textAlignment="textStart"
-            android:textColor="@color/black_222222"
-            android:layout_marginStart="@dimen/dimen_10"
-            android:textSize="@dimen/font_size_14"
+            android:textColor="@color/black_333333"
+            android:textAppearance="@style/regular_14"
             />
 
         <TextView
             android:id="@+id/txt_price"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="1.31"
+            android:layout_weight="15"
             android:textAlignment="textStart"
-            android:textColor="@color/black_222222"
-            android:textSize="@dimen/font_size_14"
+            android:textColor="@color/black_333333"
+            android:textAppearance="@style/regular_14"
             />
 
         <TextView
             android:id="@+id/txt_gross"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="13 000.91"
-            android:layout_marginStart="@dimen/dimen_25"
+            android:layout_weight="15"
             android:textAlignment="textStart"
-            android:textColor="@color/black_222222"
-            android:textSize="@dimen/font_size_14"
+            android:textColor="@color/black_333333"
+            android:textAppearance="@style/regular_14"
             />
 
     </LinearLayout>

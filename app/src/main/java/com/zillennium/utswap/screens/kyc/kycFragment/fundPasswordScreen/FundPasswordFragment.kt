@@ -12,6 +12,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources.getDrawable
+import androidx.core.content.ContextCompat
 import androidx.core.view.children
 import androidx.navigation.fragment.findNavController
 import com.zillennium.utswap.Datas.StoredPreferences.KYCPreferences
@@ -67,7 +68,7 @@ class FundPasswordFragment :
 
                         for(child in numberVerification.children){
                             val children = child as TextView
-                            children.background = resources.getDrawable(R.drawable.bg_border_bottom)
+                            children.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_border_bottom)
                             children.text = ""
                             showPassword(clickCountPassword)
                         }
@@ -115,7 +116,7 @@ class FundPasswordFragment :
 
                         for(child in confirmNumberVerification.children){
                             val children = child as TextView
-                            children.background = resources.getDrawable(R.drawable.bg_border_bottom)
+                            children.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_border_bottom)
                             children.text = ""
                             showConfirmPassword(clickCountConfirmPassword)
                         }
@@ -146,10 +147,10 @@ class FundPasswordFragment :
                         findNavController().navigate(R.id.action_to_contract_kyc_fragment)
                     }else{
                         for(child in numberVerification.children){
-                            child.background = resources.getDrawable(R.drawable.bg_border_bottom_red)
+                            child.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_border_bottom_red)
                         }
                         for(child in confirmNumberVerification.children){
-                            child.background = resources.getDrawable(R.drawable.bg_border_bottom_red)
+                            child.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_border_bottom_red)
                         }
                     }
                 }

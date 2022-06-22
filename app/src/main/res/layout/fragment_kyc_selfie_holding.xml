@@ -8,21 +8,30 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingHorizontal="@dimen/dimen_15">
+            android:orientation="vertical">
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:id="@+id/tool_bar">
+
                 <ImageView
-                    android:id="@+id/iv_back"
+                    android:id="@+id/ivBack"
                     android:layout_width="@dimen/dimen_60"
                     android:layout_height="@dimen/dimen_60"
                     android:padding="@dimen/dimen_14"
                     android:src="@drawable/ic_baseline_arrow_back_24"
                     app:tint="@color/color_main" />
-            </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:text="@string/kyc_selfie_navbar_number"
+                    android:textAppearance="@style/regular_16"
+                    android:textColor="@color/dark_gray" />
+            </RelativeLayout>
 
 
             <LinearLayout
@@ -30,7 +39,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:paddingHorizontal="@dimen/dimen_15">
+                android:paddingHorizontal="@dimen/dimen_30">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -42,8 +51,9 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/black_333333"
                         android:text="Selfie Holding National ID"
-                        android:textAppearance="@style/medium_18" />
+                        android:textAppearance="@style/medium_16" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -132,7 +142,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Open Camera"
-                        android:textAppearance="@style/bold_16"
+                        android:textAppearance="@style/bold_18"
                         android:textColor="@color/white" />
 
                     <ImageView
@@ -162,10 +172,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:fontFamily="@font/avenirnextcyr_bold"
                 android:text="@string/next"
                 android:textColor="@color/white"
-                android:textSize="@dimen/font_size_18" />
+                android:textAppearance="@style/bold_18" />
 
             <ImageView
                 android:layout_width="wrap_content"

@@ -5,5 +5,6 @@ import java.io.Serializable
 class HomeMenuModel (
     val imageHome: Int,
     val titleHome: String,
+    val isEnabled: Boolean
 ) :
     Serializable

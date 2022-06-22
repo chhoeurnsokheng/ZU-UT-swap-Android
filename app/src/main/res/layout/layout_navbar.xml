@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/img_back"
+            android:layout_width="@dimen/dimen_60"
+            android:layout_height="@dimen/dimen_60"
+            android:layout_centerVertical="true"
+            android:padding="@dimen/dimen_16"
+            android:src="@drawable/ic_baseline_arrow_back_24"
+            app:tint="@color/color_main" />
+
+        <TextView
+            android:id="@+id/txt_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_toStartOf="@+id/lay_notification"
+            android:layout_toEndOf="@+id/img_back"
+            android:text="Title"
+            android:textAlignment="center"
+            android:textAppearance="@style/medium_21"
+            android:textColor="@color/color_main" />
+
+        <RelativeLayout
+            android:id="@+id/lay_notification"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:padding="@dimen/dimen_18">
+
+            <ImageView
+                android:id="@+id/img_notification"
+                android:layout_width="@dimen/dimen_26"
+                android:layout_height="@dimen/dimen_26"
+                android:layout_centerVertical="true"
+                android:contentDescription="@string/notification"
+                android:src="@drawable/ic_notifications_black_24dp"
+                app:tint="@color/color_main" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@+id/img_notification"
+                android:background="@drawable/bg_circular"
+                android:backgroundTint="@color/red"
+                android:paddingHorizontal="@dimen/dimen_4"
+                android:paddingVertical="@dimen/dimen_2"
+                android:text="4"
+                android:textAppearance="@style/regular_6"
+                android:textColor="@color/white" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</layout>

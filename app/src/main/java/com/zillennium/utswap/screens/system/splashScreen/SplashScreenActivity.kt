@@ -2,17 +2,15 @@ package com.zillennium.utswap.screens.system.splashScreen
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.os.Build
 import android.os.Handler
-import androidx.annotation.RequiresApi
-import com.google.gson.Gson
-import com.google.gson.JsonObject
-import com.zillennium.utswap.Datas.StoredPreferences.SystemPreferences
+import android.util.Log
+import android.widget.TextView
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivitySplashScreenBinding
 import com.zillennium.utswap.screens.navbar.navbar.NavbarActivity
+import eightbitlab.com.blurview.BlurView
 
 
 @SuppressLint("CustomSplashScreen")
@@ -38,4 +36,6 @@ class SplashScreenActivity :
             // Must be safe
         }
     }
+
+
 }

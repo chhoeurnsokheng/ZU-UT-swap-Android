@@ -10,10 +10,16 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
 
+    <queries>
+        <package android:name="com.paygo24.ibank" />
+        <package android:name="com.domain.acledabankqr" />
+        <package android:name="kh.com.sathapana.consumer" />
+    </queries>
+
     <application
         android:name=".UTSwapApp"
         android:allowBackup="true"
-        android:configChanges="keyboardHidden|orientation"
+        android:configChanges="keyboardHidden|orientation|screenSize|screenLayout"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:requestLegacyExternalStorage="true"
@@ -46,7 +52,7 @@
             android:exported="false"
             android:label="@string/home"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateVisible|adjustNothing"/>
+            android:windowSoftInputMode="stateVisible|adjustNothing" />
 
         <!--Activity KYC-->
         <activity
@@ -56,25 +62,48 @@
             android:screenOrientation="portrait" />
         <!--End Activity KYC-->
 
+        <!--Activity Finance-->
+        <activity
+            android:name="com.zillennium.utswap.screens.finance.balanceScreen.FinanceBalanceActivity"
+            android:exported="false"
+            android:label="@string/finance_balance"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.zillennium.utswap.screens.finance.lockUpScreen.FinanceLockUpActivity"
+            android:exported="false"
+            android:label="@string/finance"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.zillennium.utswap.screens.finance.subscriptionScreen.FinanceSubscriptionsActivity"
+            android:exported="false"
+            android:label="@string/finance_lock_up"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.zillennium.utswap.screens.finance.historicalScreen.FinanceHistoricalActivity"
+            android:exported="false"
+            android:label="@string/finance_historical"
+            android:screenOrientation="portrait" />
+        <!--End Activity Finance-->
+
         <!--Activity Security-->
         <activity
             android:name="com.zillennium.utswap.screens.security.securityActivity.registerScreen.RegisterActivity"
             android:exported="false"
             android:label="@string/register"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize"/>
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name="com.zillennium.utswap.screens.security.securityActivity.signInScreen.SignInActivity"
             android:exported="false"
             android:label="@string/sign_in"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize"/>
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name="com.zillennium.utswap.screens.security.securityActivity.resetPasswordScreen.ResetPasswordActivity"
             android:exported="false"
             android:label="@string/reset_password"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize"/>
+            android:windowSoftInputMode="adjustResize" />
         <!--End Activity Security-->
 
         <!--Activity System-->
@@ -83,7 +112,162 @@
             android:exported="false"
             android:label="@string/welcome"
             android:screenOrientation="portrait" />
+
+
+        <!--  Activity Finance    -->
+        <activity android:name=".screens.finance.depositScreen.DepositActivity"
+            android:exported="false"
+            android:label="@string/deposit"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize"/>
         <!--End Activity System-->
+
+        <!--Activity Project-->
+        <activity
+            android:name="com.zillennium.utswap.screens.project.projectScreen.ProjectActivity"
+            android:exported="false"
+            android:label="@string/project"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.zillennium.utswap.screens.project.projectInfoScreen.ProjectInfoActivity"
+            android:exported="false"
+            android:label="@string/project_info"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.zillennium.utswap.screens.project.subscriptionScreen.SubscriptionActivity"
+            android:exported="false"
+            android:label="@string/subscription"
+            android:screenOrientation="portrait" />
+        <!--End Activity Project-->
+
+        <!--Activity Trade-->
+        <activity
+            android:name="com.zillennium.utswap.screens.navbar.tradeTab.tradeExchangeScreen.TradeExchangeActivity"
+            android:exported="false"
+            android:label="@string/trade_exchange"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.zillennium.utswap.screens.navbar.tradeTab.tradeDetailScreen.TransactionDetailActivity"
+            android:exported="false"
+            android:label="@string/trade_exchange"
+            android:screenOrientation="portrait" />
+        <!--End Activity Trade-->
+
+<!--        <activity-->
+<!--            android:name=".screens.finance.depositScreen.DepositActivity"-->
+<!--            android:exported="false"-->
+<!--            android:label="@string/deposit"-->
+<!--            android:screenOrientation="portrait" />-->
+        <!--End Activity System-->
+
+        <activity
+            android:name="com.zillennium.utswap.screens.finance.addCardScreen.DepositAddCardActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize"
+            android:label="@string/deposit"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".screens.finance.withdrawScreen.WithdrawActivity"
+            android:exported="false"
+            android:label="@string/deposit"
+            android:windowSoftInputMode="adjustResize"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".screens.finance.withdrawScreen.addBank.AddBankActivity"
+            android:exported="false"
+            android:label="@string/deposit"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize"/>
+
+            <!--Notification screen-->
+        <activity android:name=".screens.system.notification.NotificationActivity"
+            android:exported="false"
+            android:label="@string/notification"
+            android:screenOrientation="portrait"/>
+
+        <!--Account Screen-->
+        <activity android:name=".screens.account.AccountActivity"
+            android:exported="false"
+            android:label="@string/account"
+            android:screenOrientation="portrait"/>
+
+        <!--Account Detail Screen-->
+        <activity android:name="com.zillennium.utswap.screens.account.activity.accountDetail.AccountDetailActivity"
+            android:exported="false"
+            android:label="@string/account"
+            android:screenOrientation="portrait"/>
+
+        <!--Lock Timeout Screen-->
+        <activity android:name=".screens.account.lockTimeOut.LockTimeOutActivity"
+            android:exported="false"
+            android:label="@string/account"
+            android:screenOrientation="portrait"/>
+
+        <!--Add phone number Screen-->
+        <activity android:name=".screens.account.addNumber.AddNumberActivity"
+            android:exported="false"
+            android:label="@string/add_phone_number"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize"/>
+
+        <!--Customer support Screen-->
+        <activity android:name=".screens.account.customerSupport.CustomerSupportActivity"
+            android:exported="false"
+            android:label="@string/customer_support"
+            android:screenOrientation="portrait"/>
+
+        <!--Referral Screen-->
+        <activity android:name=".screens.account.referralInformation.ReferralInformationActivity"
+            android:exported="false"
+            android:label="@string/referral_information"
+            android:screenOrientation="portrait"/>
+
+        <!--Documents account Screen-->
+        <activity android:name=".screens.account.documents.DocumentsActivity"
+            android:exported="false"
+            android:label="@string/documents"
+            android:screenOrientation="portrait"/>
+
+        <!--Terms conditions Screen-->
+        <activity android:name=".screens.account.documents.termsConditions.TermsConditionsActivity"
+            android:exported="false"
+            android:label="@string/documents"
+            android:screenOrientation="portrait"/>
+
+        <!--Logs Screen-->
+        <activity android:name=".screens.account.logs.LogsActivity"
+            android:exported="false"
+            android:label="@string/log_s"
+            android:screenOrientation="portrait"/>
+
+        <!--Logs Screen-->
+        <activity android:name="com.zillennium.utswap.screens.security.securityActivity.changeLoginPassword.ChangeLoginPasswordActivity"
+            android:exported="false"
+            android:label="@string/change_login_password"
+            android:windowSoftInputMode="adjustResize"
+            android:screenOrientation="portrait"/>
+
+        <!--Change Fund Password Screen-->
+        <activity android:name="com.zillennium.utswap.screens.security.securityActivity.changeFundPassword.ChangeFundPasswordActivity"
+            android:exported="false"
+            android:label="@string/forgot_password"
+            android:windowSoftInputMode="adjustResize"
+            android:screenOrientation="portrait"/>
+
+        <!--Activity News Detail-->
+        <activity
+            android:name="com.zillennium.utswap.screens.navbar.newsTab.newsDetail.NewsDetailActivity"
+            android:exported="false"
+            android:label="@string/news"
+            android:screenOrientation="portrait" />
+
+        <!--Activity Finance Transfer-->
+        <activity android:name=".screens.finance.transferScreen.TransferActivity"
+            android:exported="false"
+            android:label="@string/transfer_"
+            android:windowSoftInputMode="adjustResize"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

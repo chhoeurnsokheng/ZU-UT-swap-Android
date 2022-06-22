@@ -2,6 +2,7 @@ package com.zillennium.utswap.bases.mvp
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -58,9 +59,9 @@ abstract class BaseMvpFragment<in V : BaseMvpView, T : BaseMvpPresenter<V>, M : 
 
     override fun onDestroy() {
         mPresenter.detachView()
+        binding.unbind()
+        Runtime.getRuntime().gc()
         super.onDestroy()
-//        Runtime.getRuntime().gc()
-//        System.gc()
     }
 
     override fun onNext(page: Int) {

@@ -34,11 +34,10 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/avenirnextcyr_bold"
                 android:gravity="center"
                 android:text="@string/contract"
                 android:textColor="@color/color_main"
-                android:textSize="@dimen/font_size_20" />
+                android:textAppearance="@style/bold_18" />
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"

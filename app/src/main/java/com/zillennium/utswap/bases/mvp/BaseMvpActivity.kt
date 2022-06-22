@@ -2,12 +2,15 @@ package com.zillennium.utswap.bases.mvp
 
 import android.content.Context
 import android.os.Bundle
+import android.text.TextWatcher
 import android.view.Window
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
+import okhttp3.internal.notifyAll
 
 abstract class BaseMvpActivity<in V : BaseMvpView, T : BaseMvpPresenter<V>, M : ViewDataBinding>
     : AppCompatActivity(), BaseMvpView {
@@ -20,15 +23,14 @@ abstract class BaseMvpActivity<in V : BaseMvpView, T : BaseMvpPresenter<V>, M : 
         if (onSetThem() != -1) {
             setTheme(onSetThem())
         }
-        this.mPresenter.attachView(this@BaseMvpActivity as V)
-        this.binding = DataBindingUtil.setContentView(this, layoutResource)
-        this.mPresenter.initViewPresenter(this, savedInstanceState)
+        mPresenter.attachView(this@BaseMvpActivity as V)
+        binding = DataBindingUtil.setContentView(this, layoutResource)
+        mPresenter.initViewPresenter(this, savedInstanceState)
     }
 
     override fun getContext(): Context = this
 
     override fun initView() {
-
     }
 
     protected abstract var mPresenter: T
@@ -46,7 +48,7 @@ abstract class BaseMvpActivity<in V : BaseMvpView, T : BaseMvpPresenter<V>, M : 
     }
 
     override fun onWillBeDisplayed() {
-
+        println("test_onWillBeDisplayed")
     }
 
     override fun onRefresh() {
@@ -67,8 +69,12 @@ abstract class BaseMvpActivity<in V : BaseMvpView, T : BaseMvpPresenter<V>, M : 
 
     override fun onDestroy() {
         mPresenter.detachView()
+        binding.unbind()
+        Runtime.getRuntime().gc()
         super.onDestroy()
     }
+
+
 
     override fun onSetThem(): Int {
         return -1

@@ -46,7 +46,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dimen_6"
                         android:text="@string/filter_"
-                        android:textSize="@dimen/font_size_16" />
+                        android:textAppearance="@style/regular_16" />
 
                 </LinearLayout>
 
@@ -71,7 +71,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dimen_6"
                         android:text="@string/sort"
-                        android:textSize="@dimen/font_size_16" />
+                        android:textAppearance="@style/regular_16"  />
 
                 </LinearLayout>
 
@@ -99,7 +99,7 @@
                         android:gravity="center"
                         android:text="ALL"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/font_size_14" />
+                        android:textAppearance="@style/regular_14"  />
                 </LinearLayout>
 
                 <LinearLayout
@@ -116,7 +116,7 @@
                         android:gravity="center"
                         android:text="BUY"
                         android:textColor="@color/success"
-                        android:textSize="@dimen/font_size_14" />
+                        android:textAppearance="@style/regular_14" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -132,8 +132,8 @@
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:text="SELL"
-                        android:textColor="@color/red"
-                        android:textSize="@dimen/font_size_14" />
+                        android:textColor="@color/main_red"
+                        android:textAppearance="@style/regular_14"/>
                 </LinearLayout>
 
             </LinearLayout>
@@ -167,7 +167,7 @@
                             android:gravity="center"
                             android:text="Latest"
                             android:textColor="@color/white"
-                            android:textSize="@dimen/font_size_14" />
+                            android:textAppearance="@style/regular_14" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -184,7 +184,7 @@
                             android:gravity="center"
                             android:text="Oldest"
                             android:textColor="@color/color_main"
-                            android:textSize="@dimen/font_size_14" />
+                            android:textAppearance="@style/regular_14"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -201,7 +201,7 @@
                             android:gravity="center"
                             android:text="$$$ -> $"
                             android:textColor="@color/color_main"
-                            android:textSize="@dimen/font_size_14" />
+                            android:textAppearance="@style/regular_14"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -218,7 +218,7 @@
                             android:gravity="center"
                             android:text="$ -> $$$"
                             android:textColor="@color/color_main"
-                            android:textSize="@dimen/font_size_14" />
+                            android:textAppearance="@style/regular_14" />
                     </LinearLayout>
 
                 </LinearLayout>

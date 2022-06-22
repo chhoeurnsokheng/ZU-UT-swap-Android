@@ -12,7 +12,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/dimen_10"
+            android:layout_marginHorizontal="@dimen/dimen_20"
             android:layout_marginTop="@dimen/dimen_2"
             android:orientation="vertical">
 
@@ -20,15 +20,16 @@
                 android:layout_width="@dimen/dimen_40"
                 android:layout_height="@dimen/dimen_4"
                 android:layout_gravity="center"
-                android:background="@drawable/btn_bar" />
+                android:background="@drawable/btn_bar"
+                android:layout_marginBottom="@dimen/dimen_20"/>
 
             <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fillViewport="true"
                 android:overScrollMode="never"
-                android:layout_marginTop="@dimen/dimen_20"
-                android:scrollbars="none">
+                android:scrollbars="none"
+                android:layout_marginBottom="@dimen/dimen_20">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -38,7 +39,7 @@
                     <LinearLayout
                         android:id="@+id/btn_limit"
                         android:layout_width="wrap_content"
-                        android:layout_height="@dimen/dimen_40"
+                        android:layout_height="@dimen/dimen_31"
                         android:layout_marginEnd="@dimen/dimen_8"
                         android:paddingHorizontal="@dimen/dimen_20"
                         android:background="@drawable/bg_circular">
@@ -50,13 +51,13 @@
                             android:gravity="center"
                             android:text="Limit"
                             android:textColor="@color/white"
-                            android:textSize="@dimen/font_size_14" />
+                            android:textAppearance="@style/regular_12" />
                     </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/btn_market"
                         android:layout_width="wrap_content"
-                        android:layout_height="@dimen/dimen_40"
+                        android:layout_height="@dimen/dimen_31"
                         android:layout_marginEnd="@dimen/dimen_8"
                         android:paddingHorizontal="@dimen/dimen_20"
                         android:backgroundTint="@color/gray"
@@ -69,15 +70,15 @@
                             android:gravity="center"
                             android:text="Market"
                             android:textColor="@color/color_main"
-                            android:textSize="@dimen/font_size_14" />
+                            android:textAppearance="@style/regular_12"/>
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="@dimen/dimen_40"
+                        android:layout_height="@dimen/dimen_31"
                         android:layout_marginEnd="@dimen/dimen_8"
                         android:paddingHorizontal="@dimen/dimen_20"
-                        android:backgroundTint="@color/gray"
+                        android:backgroundTint="@color/gray_EEEEEE"
                         android:background="@drawable/bg_circular">
 
                         <TextView
@@ -85,16 +86,16 @@
                             android:layout_height="match_parent"
                             android:gravity="center"
                             android:text="Conditional"
-                            android:textColor="@color/thirst_text"
-                            android:textSize="@dimen/font_size_14" />
+                            android:textColor="@color/light_gray"
+                            android:textAppearance="@style/regular_12" />
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="@dimen/dimen_40"
+                        android:layout_height="@dimen/dimen_31"
                         android:layout_marginEnd="@dimen/dimen_8"
                         android:paddingHorizontal="@dimen/dimen_20"
-                        android:backgroundTint="@color/gray"
+                        android:backgroundTint="@color/gray_EEEEEE"
                         android:background="@drawable/bg_circular">
 
                         <TextView
@@ -102,8 +103,8 @@
                             android:layout_height="match_parent"
                             android:gravity="center"
                             android:text="Loss"
-                            android:textColor="@color/thirst_text"
-                            android:textSize="@dimen/font_size_14" />
+                            android:textColor="@color/light_gray"
+                            android:textAppearance="@style/regular_12" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -111,24 +112,24 @@
             </HorizontalScrollView>
 
             <LinearLayout
-                android:layout_marginTop="@dimen/dimen_15"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginBottom="@dimen/dimen_16">
 
                 <TextView
                     android:layout_width="@dimen/dimen_80"
                     android:layout_height="wrap_content"
                     android:text="Volume"
-                    android:textColor="@color/secondary"
-                    android:textSize="@dimen/font_size_18"/>
+                    android:textColor="@color/dark_gray"
+                    android:textAppearance="@style/regular_12"/>
 
                 <EditText
                     android:id="@+id/et_volume"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dimen_40"
+                    android:layout_height="@dimen/dimen_36"
                     android:inputType="number"
-                    android:textSize="@dimen/font_size_16"
+                    android:textAppearance="@style/medium_16"
                     android:paddingEnd="@dimen/dimen_15"
                     android:textAlignment="textEnd"
                     android:background="@drawable/outline_edittext_change_color_focus"/>
@@ -137,24 +138,24 @@
 
             <LinearLayout
                 android:id="@+id/linear_price"
-                android:layout_marginTop="@dimen/dimen_15"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginBottom="@dimen/dimen_16">
 
                 <TextView
                     android:layout_width="@dimen/dimen_80"
                     android:layout_height="wrap_content"
                     android:text="Price"
-                    android:textColor="@color/secondary"
-                    android:textSize="@dimen/font_size_18"/>
+                    android:textColor="@color/dark_gray"
+                    android:textAppearance="@style/regular_12"/>
 
                 <EditText
                     android:id="@+id/et_price_of_volume"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dimen_40"
+                    android:layout_height="@dimen/dimen_36"
                     android:inputType="number"
-                    android:textSize="@dimen/font_size_16"
+                    android:textAppearance="@style/medium_16"
                     android:paddingEnd="@dimen/dimen_15"
                     android:textAlignment="textEnd"
                     android:visibility="visible"
@@ -169,7 +170,6 @@
                 android:orientation="horizontal"
                 android:paddingStart="@dimen/dimen_5"
                 android:paddingEnd="@dimen/dimen_5"
-                android:paddingVertical="@dimen/dimen_26"
                 android:background="@color/white"
                 android:visibility="visible">
 
@@ -178,25 +178,42 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
+                    android:paddingEnd="@dimen/dimen_3"
                     android:orientation="vertical">
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btn_buy"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dimen_48"
-                        android:layout_marginStart="@dimen/dimen_3"
-                        android:layout_marginEnd="@dimen/dimen_4"
                         app:backgroundTint="@color/success"
                         android:background="@drawable/bg_circular"
                         android:hint="BUY"
                         android:textAppearance="@style/bold_16"
-                        android:textColorHint="@color/white" />
+                        android:textColorHint="@color/white"
+                        style="?android:attr/borderlessButtonStyle"
+                        android:layout_marginBottom="@dimen/dimen_6"/>
 
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dimen_10"
-                        android:text="Avail.Balance: $5 000.00"/>
+                        android:orientation="horizontal"
+                        android:gravity="center_horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Avail.Balance:"
+                            android:textColor="@color/black_333333"
+                            android:textAppearance="@style/regular_10"
+                            android:layout_marginEnd="@dimen/dimen_3"/>
+                        <TextView
+                            android:id="@+id/txt_available"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textStyle=""
+                            android:textColor="@color/black_333333"
+                            android:textAppearance="@style/regular_10"
+                            android:text="$0.00" />
+                    </LinearLayout>
 
                 </LinearLayout>
 
@@ -205,25 +222,41 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
+                    android:paddingStart="@dimen/dimen_3"
                     android:orientation="vertical">
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btn_sell"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dimen_48"
-                        android:layout_marginStart="@dimen/dimen_4"
-                        android:layout_marginEnd="@dimen/dimen_3"
                         android:background="@drawable/bg_circular"
                         app:backgroundTint="@color/main_red"
                         android:hint="SELL"
                         android:textAppearance="@style/bold_16"
-                        android:textColorHint="@color/white" />
+                        android:textColorHint="@color/white"
+                        style="?android:attr/borderlessButtonStyle"
+                        android:layout_marginBottom="@dimen/dimen_6"/>
 
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dimen_10"
-                        android:text="UT: 0"/>
+                        android:orientation="horizontal"
+                        android:gravity="center">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black_333333"
+                            android:textAppearance="@style/regular_10"
+                            android:text="UT:"
+                            android:layout_marginEnd="@dimen/dimen_3"/>
+                        <TextView
+                            android:id="@+id/txt_ut"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black_333333"
+                            android:textAppearance="@style/regular_10"
+                            android:text="0" />
+                    </LinearLayout>
 
                 </LinearLayout>
 

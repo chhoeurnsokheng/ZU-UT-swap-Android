@@ -3,50 +3,47 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
+        android:id="@+id/lay_item"
         android:layout_width="match_parent"
-        android:layout_marginTop="@dimen/dimen_15"
-        android:layout_height="@dimen/dimen_100">
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/dimen_5">
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/dimen_3"
+            android:layout_height="@dimen/dimen_105"
+            android:layout_marginTop="@dimen/dimen_10"
             android:layout_marginStart="@dimen/dimen_10"
             android:layout_marginEnd="@dimen/dimen_10"
-            android:layout_marginBottom="@dimen/dimen_5"
+            android:layout_marginBottom="@dimen/dimen_10"
             android:elevation="@dimen/dimen_16"
+            app:cardElevation="@dimen/dimen_8"
             app:cardCornerRadius="@dimen/dimen_8">
 
             <LinearLayout
                 android:gravity="center"
                 android:id="@+id/linear_card"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_100"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
                 <ImageView
                     android:id="@+id/image_homeview"
-                    android:layout_width="@dimen/dimen_40"
-                    android:layout_height="@dimen/dimen_40"
-                    android:padding="@dimen/dimen_5"
+                    android:layout_width="@dimen/dimen_30"
+                    android:layout_height="@dimen/dimen_25"
                     android:layout_gravity="center"
-                    android:layout_marginBottom="@dimen/dimen_10"
-                    android:adjustViewBounds="true"
-                    android:scaleType="centerCrop"
+                    android:layout_marginBottom="@dimen/dimen_12"
                     android:src="@drawable/ic_deposit"
-                    app:tint="@color/color_main" />
+                    app:tint="@color/gray_999999" />
 
                 <TextView
                     android:gravity="center"
                     android:id="@+id/title_home"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/dimen_8"
-                    android:paddingHorizontal="@dimen/dimen_10"
                     android:singleLine="true"
                     android:text="Portfolio"
                     android:textAppearance="@style/medium_14"
-                    android:textColor="@color/color_main" />
+                    android:textColor="@color/gray_999999" />
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>

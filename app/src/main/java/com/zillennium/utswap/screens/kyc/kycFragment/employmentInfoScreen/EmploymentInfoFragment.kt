@@ -6,8 +6,10 @@ import android.content.res.ColorStateList
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import com.zillennium.utswap.Datas.StoredPreferences.KYCPreferences
+import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
@@ -58,17 +60,21 @@ class EmploymentInfoFragment :
                     findNavController().popBackStack()
                 }
 
+                if(validate().isValidPhoneNumber(SessionPreferences().SESSION_USERNAME.toString())){
+                    layEmail.visibility = View.VISIBLE
+                }
+
                 btnNext.setOnClickListener {
 
                     var isHaveError = false
                     if (info.occupation.isEmpty()) {
                         txtErrorOccupation.visibility = View.VISIBLE
-                        etOccupation.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.red))
+                        etOccupation.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.red))
                         isHaveError = true
                     }
                     if (info.occupation.isEmpty()) {
                         txtErrorCompany.visibility = View.VISIBLE
-                        etCompany.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.red))
+                        etCompany.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.red))
                         isHaveError = true
                     }
 
@@ -76,7 +82,7 @@ class EmploymentInfoFragment :
                         if(!validate().isValidEmail(info.email_emp.trim())){
                             txtErrorEmail.visibility = View.VISIBLE
                             etemail.backgroundTintList =
-                                ColorStateList.valueOf(resources.getColor(R.color.red))
+                                ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.red))
                             isHaveError = true
                         }
                     }
@@ -85,7 +91,7 @@ class EmploymentInfoFragment :
                         if(!validate().isValidPhoneNumber(info.phone_number.trim())){
                             txtErrorPhone.visibility = View.VISIBLE
                             etphoneNumber.backgroundTintList =
-                                ColorStateList.valueOf(resources.getColor(R.color.red))
+                                ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.red))
                             isHaveError = true
                         }
                     }
@@ -121,7 +127,7 @@ class EmploymentInfoFragment :
 
                     override fun afterTextChanged(editable: Editable) {
                         txtErrorOccupation.visibility = View.GONE
-                        etOccupation.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.secondary_text))
+                        etOccupation.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text))
                     }
                 })
 
@@ -145,7 +151,7 @@ class EmploymentInfoFragment :
 
                     override fun afterTextChanged(editable: Editable) {
                         txtErrorCompany.visibility = View.GONE
-                        etCompany.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.secondary_text))
+                        etCompany.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text))
                     }
                 })
 
@@ -153,7 +159,7 @@ class EmploymentInfoFragment :
                     override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                         txtErrorPhone.visibility = View.GONE
                         etphoneNumber.backgroundTintList =
-                            ColorStateList.valueOf(resources.getColor(R.color.secondary_text))
+                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text))
                     }
 
                     override fun onTextChanged(charSequence: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -170,7 +176,7 @@ class EmploymentInfoFragment :
                     override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                         txtErrorEmail.visibility = View.GONE
                         etemail.backgroundTintList =
-                            ColorStateList.valueOf(resources.getColor(R.color.secondary_text))
+                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text))
                     }
 
                     override fun onTextChanged(charSequence: CharSequence?, p1: Int, p2: Int, p3: Int) {

@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="btn_fund_password">
         <item name="backgroundTint">@color/black_333333</item>
         <item name="cornerRadius">@dimen/dimen_100</item>
         <item name="strokeColor">@color/gray</item>
         <item name="strokeWidth">@dimen/dimen_2</item>
     </style>
+
     <style name="FullScreenDialog" parent="Theme.AppCompat.Light.Dialog">
         <item name="android:windowNoTitle">true</item>
         <item name="android:padding">0dp</item>
@@ -15,10 +17,35 @@
         <item name="android:backgroundDimAmount">0.25</item>
         <item name="android:backgroundDimEnabled">true</item>
     </style>
-    <style name="BottomSheetStyle" parent="Theme.Design.Light.BottomSheetDialog">
+
+    <style name="BottomSheetStyle" parent="Theme.Design.BottomSheetDialog">
         <item name="android:windowIsFloating">false</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:windowSoftInputMode">adjustResize|stateVisible</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
         <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="AlertDialog" parent="android:style/Theme.Translucent">
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    //Spinner custom for finance history
+    <style name="customTheme" parent="@android:style/Theme.Light">
+        <item name="android:spinnerItemStyle">@style/spinnerItemStyle</item>
+        <item name="android:spinnerDropDownItemStyle">@style/SpinnerDropDownItem</item>
+    </style>
+
+    <style name="spinnerItemStyle">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@drawable/bg_item_spinner</item>
+    </style>
+
+    <style name="SpinnerDropDownItem">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@drawable/bg_dropdown_item_spinner</item>
     </style>
 </resources>

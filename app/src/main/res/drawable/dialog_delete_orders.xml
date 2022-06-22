@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+            <androidx.cardview.widget.CardView
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="@dimen/dimen_10"
+                android:padding="@dimen/dimen_15">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/dimen_15"
+                    android:orientation="vertical"
+                    android:gravity="center|top">
+
+                    <ImageView
+                        android:layout_width="@dimen/dimen_30"
+                        android:layout_height="@dimen/dimen_30"
+                        android:src="@drawable/ic_baseline_delete_24"
+                        app:tint="@color/main_red"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/font_size_18"
+                        android:textColor="@color/black"
+                        android:layout_marginTop="@dimen/dimen_15"
+                        android:textAlignment="center"
+                        android:text="Are you sure you want to cancel the order?"/>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_confirm"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dimen_48"
+                        app:backgroundTint="@color/main_red"
+                        android:background="@drawable/bg_circular"
+                        android:hint="Confirm"
+                        android:layout_marginTop="@dimen/dimen_15"
+                        android:textAppearance="@style/bold_16"
+                        android:textColorHint="@color/white" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_cancel"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dimen_48"
+                        app:backgroundTint="@color/gray"
+                        android:background="@drawable/bg_circular"
+                        android:hint="Back"
+                        android:layout_marginTop="@dimen/dimen_15"
+                        android:textAppearance="@style/bold_16"
+                        android:textColorHint="@color/color_main" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+    </RelativeLayout>
+
+</layout>

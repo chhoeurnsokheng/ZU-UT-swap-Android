@@ -9,6 +9,7 @@ import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.util.Log
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
@@ -35,6 +36,16 @@ class NewPasswordFragment :
                     findNavController().popBackStack()
                 }
 
+                when (arguments?.getString("title")) {
+                    "change login password"->{
+                        title.text = "Change Login Password"
+                        title.visibility = View.VISIBLE
+                    }
+                    else -> {
+                        title.visibility = View.GONE
+                    }
+                }
+
                 btnNext.setOnClickListener {
                     var isHaveError = false
                     txtPasswordMessage.text = "Invalid Email or Password"
@@ -43,9 +54,9 @@ class NewPasswordFragment :
                         txtPasswordMessage.text = "Password didn't match"
                         txtPasswordMessage.visibility = View.VISIBLE
                         inputPassword.backgroundTintList =
-                            ColorStateList.valueOf(resources.getColor(R.color.red))
+                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.main_red))
                         inputConfirmPassword.backgroundTintList =
-                            ColorStateList.valueOf(resources.getColor(R.color.red))
+                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.main_red))
                         isHaveError = true
                     }
 
@@ -53,7 +64,7 @@ class NewPasswordFragment :
                         txtPasswordMessage.text = "Please Enter a Confirm Password Longer Than 8 Digits"
                         txtPasswordMessage.visibility = View.VISIBLE
                         inputConfirmPassword.backgroundTintList =
-                            ColorStateList.valueOf(resources.getColor(R.color.red))
+                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.main_red))
                         isHaveError = true
                     }
 
@@ -61,7 +72,7 @@ class NewPasswordFragment :
                         txtPasswordMessage.text = "Please Enter a Password Longer Than 8 Digits"
                         txtPasswordMessage.visibility = View.VISIBLE
                         inputPassword.backgroundTintList =
-                            ColorStateList.valueOf(resources.getColor(R.color.red))
+                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.main_red))
                         isHaveError = true
                     }
 
@@ -73,18 +84,26 @@ class NewPasswordFragment :
                         Handler().postDelayed({
                             txtPasswordMessage.visibility = View.GONE
                             inputPassword.backgroundTintList =
-                                ColorStateList.valueOf(resources.getColor(R.color.secondary_text))
+                                ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text))
                             inputConfirmPassword.backgroundTintList =
-                                ColorStateList.valueOf(resources.getColor(R.color.secondary_text))
+                                ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text))
 //                            SessionPreferences().SESSION_STATUS = true
 
                             pbNext.visibility = View.GONE
                             btnNext.isClickable = true
                             btnNext.alpha = 1F
 
-                            activity?.finish()
-                            val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
-                            startActivity(intent)
+
+                            when (arguments?.getString("title")) {
+                                "change login password"->{
+                                    activity?.finish()
+                                }
+                                else -> {
+                                    activity?.finish()
+                                    val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
+                                    startActivity(intent)
+                                }
+                            }
                         }, 3000)
                     }
                 }
@@ -109,7 +128,7 @@ class NewPasswordFragment :
                     override fun afterTextChanged(editable: Editable) {
                         txtPasswordMessage.visibility = View.GONE
                         inputPassword.backgroundTintList =
-                            ColorStateList.valueOf(resources.getColor(R.color.secondary_text))
+                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text))
 
                     }
                 })
@@ -134,7 +153,7 @@ class NewPasswordFragment :
                     override fun afterTextChanged(editable: Editable) {
                         txtPasswordMessage.visibility = View.GONE
                         inputConfirmPassword.backgroundTintList =
-                            ColorStateList.valueOf(resources.getColor(R.color.secondary_text))
+                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text))
                     }
                 })
 

@@ -3,12 +3,14 @@ package com.zillennium.utswap.screens.kyc.kycFragment.idTypeScreen
 import android.app.AlertDialog
 import android.view.View
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.zillennium.utswap.Datas.StoredPreferences.KYCPreferences
 import com.zillennium.utswap.R
+import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentKycIdTypeBinding
 import com.zillennium.utswap.screens.kyc.kycFragment.idTypeScreen.fragment.nationalID.NationalIDFragment
@@ -128,11 +130,11 @@ open class IdTypeFragment :
         binding.apply {
             if (view.id == R.id.national_id) {
                 tabSelect.animate()?.x(0f)?.duration = 100
-                nationalId.setTextColor(resources.getColor(R.color.white))
-                passport.setTextColor(resources.getColor(R.color.color_main))
+                nationalId.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.white))
+                passport.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.color_main))
             } else if (view.id == R.id.passport) {
-                nationalId.setTextColor(resources.getColor(R.color.color_main))
-                passport.setTextColor(resources.getColor(R.color.white))
+                nationalId.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.color_main))
+                passport.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.white))
                 val size: Int = passport.width ?: 0
                 tabSelect.animate().x(size.toFloat()).duration = 100
             }

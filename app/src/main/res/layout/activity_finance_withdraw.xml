@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/lay_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <include
+                android:id="@+id/lay_navbar"
+                layout="@layout/layout_navbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:id="@+id/withdraw_balance_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/lay_navbar"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_100"
+                    android:paddingHorizontal="@dimen/dimen_20"
+                    >
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_centerVertical="true">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/withdraw"
+                            android:textAppearance="@style/medium_14"
+                            android:textColor="@color/black_000000" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/balance"
+                            android:textAppearance="@style/medium_14"
+                            android:textColor="@color/black_000000" />
+
+                    </LinearLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:text="$6 320.31"
+                        android:textAppearance="@style/medium_32"
+                        android:textColor="@color/blur_0E1C6B" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_1"
+                    android:background="@color/light_gray"
+                    android:layout_marginBottom="@dimen/dimen_25"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="@dimen/dimen_20"
+                    android:layout_marginBottom="@dimen/dimen_16"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="@string/available"
+                        android:textAppearance="@style/regular_12"
+                        android:textColor="@color/dark_gray" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:text="$6 320.31"
+                        android:textAppearance="@style/regular_16"
+                        android:textColor="@color/black_000000" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="@dimen/dimen_20"
+                    android:layout_marginBottom="@dimen/dimen_16"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="@string/pending1"
+                        android:textAppearance="@style/regular_12"
+                        android:textColor="@color/dark_gray" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:text="$0.00"
+                        android:textAppearance="@style/regular_16"
+                        android:textColor="@color/black_000000" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="@dimen/dimen_20"
+                    android:layout_marginBottom="@dimen/dimen_16"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="@string/lock_up"
+                        android:textAppearance="@style/regular_12"
+                        android:textColor="@color/dark_gray" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:text="$100.68"
+                        android:textAppearance="@style/regular_16"
+                        android:textColor="@color/black_000000" />
+                </RelativeLayout>
+            </LinearLayout>
+        </RelativeLayout>
+
+<!--        <RelativeLayout-->
+<!--            android:id="@+id/lay_transactions"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:background="@color/black"-->
+<!--            android:visibility="gone"-->
+<!--            android:alpha="0.4"/>-->
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/btn_sheet_dialog_popup">
+
+            <LinearLayout
+                android:id="@+id/payment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/deposit_blue_layout"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="@dimen/dimen_36"
+                    android:layout_height="@dimen/dimen_4"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/dimen_8"
+                    android:layout_marginBottom="@dimen/dimen_26"
+                    android:background="@drawable/deposite_head_line" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dimen_8"
+                    android:gravity="center"
+                    android:text="@string/payment_amount"
+                    android:textAppearance="@style/regular_12"
+                    android:textColor="@color/write_ECECEC" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/dimen_20"
+                    android:layout_marginBottom="@dimen/dimen_18"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="$"
+                        android:textAppearance="@style/medium_32"
+                        android:textColor="@color/white"
+                        android:visibility="visible"/>
+
+                    <EditText
+                        android:id="@+id/et_mount_payment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@color/blur_0E1C6B"
+                        android:cursorVisible="true"
+                        android:gravity="center"
+                        android:inputType="numberDecimal"
+                        android:maxLength="10"
+                        android:minWidth="@dimen/dimen_40"
+                        android:singleLine="true"
+                        android:textAlignment="center"
+                        android:hint="0.00"
+                        android:textColorHint="@color/white"
+                        android:text=""
+                        android:textAppearance="@style/medium_32"
+                        android:textColor="@color/white"
+                        android:textCursorDrawable="@color/white" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/payment"
+                android:layout_marginStart="@dimen/dimen_20"
+                android:layout_marginTop="@dimen/dimen_20"
+                android:layout_marginEnd="@dimen/dimen_20"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:id="@+id/add_bankAccount"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_63"
+                    android:layout_marginBottom="@dimen/dimen_20"
+                    android:background="@drawable/outline_subscription"
+                    android:gravity="center"
+                    android:visibility="visible">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/layBackAccount"
+                            android:layout_width="@dimen/dimen_32"
+                            android:layout_height="@dimen/dimen_32"
+                            android:adjustViewBounds="true"
+                            android:src="@drawable/ic_baseline_add_circle_finance_withdraw"
+                            app:tint="@color/gray_CCCCCC" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/dimen_32"
+                            android:layout_marginStart="@dimen/dimen_10"
+                            android:adjustViewBounds="true"
+                            android:gravity="center"
+                            android:text="@string/add_bank_account"
+                            android:textAppearance="@style/medium_14"
+                            android:textColor="@color/black_000000" />
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/receive_add"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:visibility="gone"
+                    android:layout_marginBottom="@dimen/dimen_20">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:orientation="vertical"
+                        android:paddingEnd="@dimen/dimen_15">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="6"
+                            android:text="@string/receiving_address"
+                            android:textAppearance="@style/regular_12"
+                            android:textColor="@color/dark_gray"
+                            android:layout_marginBottom="@dimen/dimen_15"/>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="29"
+                            android:orientation="horizontal">
+
+                            <androidx.cardview.widget.CardView
+                                android:layout_width="@dimen/dimen_32"
+                                android:layout_height="@dimen/dimen_32"
+                                android:layout_gravity="center"
+                                app:cardCornerRadius="@dimen/dimen_32"
+                                app:cardElevation="@dimen/dimen_0"
+                                android:layout_marginEnd="@dimen/dimen_6">
+
+                                <ImageView
+                                    android:id="@+id/iv_bank"
+                                    android:layout_width="@dimen/dimen_32"
+                                    android:layout_height="@dimen/dimen_32"
+                                    android:scaleType="centerCrop"
+                                    android:src="@drawable/aba_bank" />
+                            </androidx.cardview.widget.CardView>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/tv_user"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:singleLine="true"
+                                    android:text=""
+                                    android:textAppearance="@style/medium_14"
+                                    android:textColor="@color/black_000000" />
+
+                                <TextView
+                                    android:id="@+id/tv_titleBank"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:singleLine="true"
+                                    android:text=""
+                                    android:textAppearance="@style/regular_12"
+                                    android:textColor="@color/dark_gray" />
+                            </LinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="6"
+                        android:orientation="vertical">
+                        <TextView
+                            android:id="@+id/titleCard"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="4"
+                            android:text="@string/fee_"
+                            android:textAppearance="@style/regular_12"
+                            android:textColor="@color/dark_gray"
+                            android:layout_marginBottom="@dimen/dimen_15"/>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="60"
+                            android:layout_marginTop="@dimen/dimen_6"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="$5 or 1.25%"
+                                android:textAppearance="@style/medium_14"
+                                android:textColor="@color/black_000000" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/next_btn_finace"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_48"
+                    android:layout_marginBottom="@dimen/dimen_12"
+                    android:background="@drawable/btn_withdraw_payment_amount"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/withdraw"
+                        android:textAppearance="@style/medium_16"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+            </LinearLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+</layout>
