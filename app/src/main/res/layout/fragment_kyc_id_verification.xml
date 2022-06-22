@@ -103,7 +103,7 @@
                                 android:layout_marginTop="@dimen/dimen_5"
                                 android:ellipsize="end"
                                 android:singleLine="true"
-                                android:text="@string/cannot_leave_black"
+                                android:text="@string/cannot_leave_blank"
                                 android:textAppearance="@style/regular_10"
                                 android:textColor="@color/red"
                                 android:visibility="gone" />
@@ -137,7 +137,7 @@
                                 android:layout_marginTop="@dimen/dimen_5"
                                 android:ellipsize="end"
                                 android:singleLine="true"
-                                android:text="@string/cannot_leave_black"
+                                android:text="@string/cannot_leave_blank"
                                 android:textAppearance="@style/regular_10"
                                 android:textColor="@color/red"
                                 android:visibility="gone" />
@@ -190,7 +190,7 @@
                                 android:layout_marginTop="@dimen/dimen_5"
                                 android:ellipsize="end"
                                 android:singleLine="true"
-                                android:text="@string/cannot_leave_black"
+                                android:text="@string/cannot_leave_blank"
                                 android:textAppearance="@style/regular_10"
                                 android:textColor="@color/red"
                                 android:visibility="gone" />
@@ -227,7 +227,7 @@
                                 android:layout_marginTop="@dimen/dimen_5"
                                 android:ellipsize="end"
                                 android:singleLine="true"
-                                android:text="@string/cannot_leave_black"
+                                android:text="@string/cannot_leave_blank"
                                 android:textAppearance="@style/regular_10"
                                 android:textColor="@color/red"
                                 android:visibility="gone" />
@@ -272,7 +272,7 @@
                             android:layout_marginTop="5dp"
                             android:ellipsize="end"
                             android:singleLine="true"
-                            android:text="@string/cannot_leave_black"
+                            android:text="@string/cannot_leave_blank"
                             android:textAppearance="@style/regular_10"
                             android:textColor="@color/red"
                             android:visibility="gone" />
@@ -309,7 +309,7 @@
                             android:layout_marginTop="5dp"
                             android:ellipsize="end"
                             android:singleLine="true"
-                            android:text="@string/cannot_leave_black"
+                            android:text="@string/cannot_leave_blank"
                             android:textAppearance="@style/regular_10"
                             android:textColor="@color/red"
                             android:visibility="gone" />
@@ -347,7 +347,7 @@
                             android:layout_marginTop="5dp"
                             android:ellipsize="end"
                             android:singleLine="true"
-                            android:text="@string/cannot_leave_black"
+                            android:text="@string/cannot_leave_blank"
                             android:textAppearance="@style/regular_10"
                             android:textColor="@color/red"
                             android:visibility="gone" />
@@ -400,7 +400,7 @@
                             android:layout_marginTop="5dp"
                             android:ellipsize="end"
                             android:singleLine="true"
-                            android:text="@string/cannot_leave_black"
+                            android:text="@string/cannot_leave_blank"
                             android:textAppearance="@style/regular_10"
                             android:textColor="@color/red"
                             android:visibility="gone" />
