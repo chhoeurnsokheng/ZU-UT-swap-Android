@@ -4,16 +4,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.zillennium.utswap.Datas.ListDatas.allTransactions.AllTransactionsData
 import com.zillennium.utswap.R
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
-import com.zillennium.utswap.databinding.FragmentAllTransactionsBinding
+import com.zillennium.utswap.databinding.FragmentExchangeAllTransactionsBinding
 import com.zillennium.utswap.screens.navbar.tradeTab.tradeExchangeScreen.fragment.allTransactions.adapter.AllTransactionsAdapter
 
 
 class AllTransactionsFragment :
-    BaseMvpFragment<AllTransactionsView.View, AllTransactionsView.Presenter, FragmentAllTransactionsBinding>(),
+    BaseMvpFragment<AllTransactionsView.View, AllTransactionsView.Presenter, FragmentExchangeAllTransactionsBinding>(),
     AllTransactionsView.View {
 
     override var mPresenter: AllTransactionsView.Presenter = AllTransactionsPresenter()
-    override val layoutResource: Int = R.layout.fragment_all_transactions
+    override val layoutResource: Int = R.layout.fragment_exchange_all_transactions
 
 
     override fun initView() {

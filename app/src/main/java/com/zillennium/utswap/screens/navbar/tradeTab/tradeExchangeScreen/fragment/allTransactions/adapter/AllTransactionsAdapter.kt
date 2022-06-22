@@ -18,7 +18,7 @@ class AllTransactionsAdapter (
         viewType: Int
     ): ViewHolder {
         val view: View = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_list_all_transactions, parent, false)
+            .inflate(R.layout.item_list_exchange_all_transactions, parent, false)
         return ViewHolder(
             view
         )

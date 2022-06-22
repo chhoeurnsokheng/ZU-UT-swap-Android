@@ -17,7 +17,6 @@ import androidx.annotation.AttrRes
 import androidx.core.content.ContextCompat
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
-import com.zillennium.utswap.utils.groupingSeparator
 import java.math.RoundingMode
 import java.text.DecimalFormat
 
@@ -40,7 +39,7 @@ class PieChartLinearLayout : LinearLayout {
 
     private fun init(){
         val parentView: View =
-            LayoutInflater.from(context).inflate(R.layout.chart_pie, this, true)
+            LayoutInflater.from(context).inflate(R.layout.layout_portfolio_chart_pie, this, true)
         txtUtProject = parentView.findViewById(R.id.txt_percent_ut_projects)
         txtTrading = parentView.findViewById(R.id.txt_percent_trading_balance)
         imageView = parentView.findViewById(R.id.imageView)

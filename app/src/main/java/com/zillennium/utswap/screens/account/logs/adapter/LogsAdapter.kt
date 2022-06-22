@@ -18,7 +18,7 @@ class LogsAdapter  (
         viewType: Int
     ): ViewHolder {
         val view: View = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_list_logs, parent, false)
+            .inflate(R.layout.item_list_account_logs, parent, false)
         return ViewHolder(
             view
         )

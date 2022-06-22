@@ -13,11 +13,11 @@ import androidx.databinding.DataBindingUtil
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
-import com.zillennium.utswap.databinding.DialogBuySellBottomSheetBinding
+import com.zillennium.utswap.databinding.BottomSheetExchangeBuySellBinding
 
 class BuyAndSellBottomSheetDialog : BottomSheetDialogFragment() {
 
-    private var binding: DialogBuySellBottomSheetBinding? = null
+    private var binding: BottomSheetExchangeBuySellBinding? = null
 
     override fun getTheme(): Int {
         return R.style.BottomSheetStyle
@@ -30,7 +30,7 @@ class BuyAndSellBottomSheetDialog : BottomSheetDialogFragment() {
     ): View? {
         dialog!!.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        binding = DataBindingUtil.inflate(inflater, R.layout.dialog_buy_sell_bottom_sheet, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.bottom_sheet_exchange_buy_sell, container, false)
         return binding?.root
 
     }

@@ -4,15 +4,15 @@ import android.content.Intent
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
-import com.zillennium.utswap.databinding.ActivityDocumentsAccountBinding
+import com.zillennium.utswap.databinding.ActivityAccountDocumentsBinding
 import com.zillennium.utswap.screens.account.documents.termsConditions.TermsConditionsActivity
 
 class DocumentsActivity :
-    BaseMvpActivity<DocumentsView.View, DocumentsView.Presenter, ActivityDocumentsAccountBinding>(),
+    BaseMvpActivity<DocumentsView.View, DocumentsView.Presenter, ActivityAccountDocumentsBinding>(),
     DocumentsView.View {
 
     override var mPresenter: DocumentsView.Presenter = DocumentsPresenter()
-    override val layoutResource: Int = R.layout.activity_documents_account
+    override val layoutResource: Int = R.layout.activity_account_documents
 
     override fun initView() {
         super.initView()

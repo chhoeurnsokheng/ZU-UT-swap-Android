@@ -19,7 +19,7 @@ class BalanceAdapter (
         viewType: Int
     ): ViewHolder {
         val view: View = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_list_price, parent, false)
+            .inflate(R.layout.item_list_portfolio_price, parent, false)
         return ViewHolder(
             view
         )

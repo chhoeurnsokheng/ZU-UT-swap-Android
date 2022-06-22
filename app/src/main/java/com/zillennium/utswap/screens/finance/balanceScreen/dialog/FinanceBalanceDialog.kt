@@ -9,12 +9,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
-import com.zillennium.utswap.databinding.DialogBalanceBinding
+import com.zillennium.utswap.databinding.DialogFinanceBalanceBinding
 import eightbitlab.com.blurview.RenderScriptBlur
 
 class FinanceBalanceDialog: DialogFragment() {
 
-    private var binding: DialogBalanceBinding? = null
+    private var binding: DialogFinanceBalanceBinding? = null
 
     override fun getTheme(): Int {
         return R.style.AlertDialog
@@ -29,7 +29,7 @@ class FinanceBalanceDialog: DialogFragment() {
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
         binding =
-            DataBindingUtil.inflate(inflater, R.layout.dialog_balance, container, false)
+            DataBindingUtil.inflate(inflater, R.layout.dialog_finance_balance, container, false)
         return binding?.root
     }
 

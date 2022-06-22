@@ -9,12 +9,12 @@ import androidx.databinding.DataBindingUtil
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
-import com.zillennium.utswap.databinding.BottomSheetChangeProfileBinding
+import com.zillennium.utswap.databinding.BottomSheetAccountChangeProfileBinding
 
 
 class ChangeProfileBottomSheet : BottomSheetDialogFragment() {
 
-    private var binding: BottomSheetChangeProfileBinding? = null
+    private var binding: BottomSheetAccountChangeProfileBinding? = null
 
 
     override fun getTheme(): Int {
@@ -29,7 +29,7 @@ class ChangeProfileBottomSheet : BottomSheetDialogFragment() {
         dialog!!.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
-        binding = DataBindingUtil.inflate(inflater, R.layout.bottom_sheet_change_profile, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.bottom_sheet_account_change_profile, container, false)
         return binding?.root
 
     }

@@ -26,7 +26,7 @@ class SubscriptionAdapter(arrayList: ArrayList<SubscriptionModel>, onclickAdapte
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.item_navbar_project_subscription, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.item_list_project_subscription, parent, false)
         )
     }
 

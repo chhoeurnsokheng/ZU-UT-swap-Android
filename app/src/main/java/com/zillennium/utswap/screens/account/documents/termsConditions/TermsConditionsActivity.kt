@@ -2,14 +2,14 @@ package com.zillennium.utswap.screens.account.documents.termsConditions
 
 import com.zillennium.utswap.R
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
-import com.zillennium.utswap.databinding.ActivityTermsConditionsBinding
+import com.zillennium.utswap.databinding.ActivityAccountTermsConditionsBinding
 
 class TermsConditionsActivity :
-    BaseMvpActivity<TermsConditionsView.View, TermsConditionsView.Presenter, ActivityTermsConditionsBinding>(),
+    BaseMvpActivity<TermsConditionsView.View, TermsConditionsView.Presenter, ActivityAccountTermsConditionsBinding>(),
     TermsConditionsView.View {
 
     override var mPresenter: TermsConditionsView.Presenter = TermsConditionsPresenter()
-    override val layoutResource: Int = R.layout.activity_terms_conditions
+    override val layoutResource: Int = R.layout.activity_account_terms_conditions
 
     override fun initView() {
         super.initView()

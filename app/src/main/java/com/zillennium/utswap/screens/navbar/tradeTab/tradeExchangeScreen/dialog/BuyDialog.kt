@@ -30,7 +30,7 @@ class BuyDialog : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        view = inflater.inflate(R.layout.dialog_buy, container, false)
+        view = inflater.inflate(R.layout.dialog_finance_buy, container, false)
         dialog!!.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog!!.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 

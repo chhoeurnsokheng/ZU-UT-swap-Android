@@ -11,7 +11,7 @@ import com.zillennium.utswap.Datas.ListDatas.ordersData.OrdersData
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
-import com.zillennium.utswap.databinding.FragmentOrdersBinding
+import com.zillennium.utswap.databinding.FragmentExchangeOrdersBinding
 import com.zillennium.utswap.models.orders.Orders
 import com.zillennium.utswap.screens.navbar.tradeTab.tradeExchangeScreen.fragment.orders.adapter.OrdersAdapter
 import com.zillennium.utswap.screens.navbar.tradeTab.tradeExchangeScreen.fragment.orders.dialog.DeleteOrdersDialog
@@ -19,11 +19,11 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 class OrdersFragment :
-    BaseMvpFragment<OrdersView.View, OrdersView.Presenter, FragmentOrdersBinding>(),
+    BaseMvpFragment<OrdersView.View, OrdersView.Presenter, FragmentExchangeOrdersBinding>(),
     OrdersView.View {
 
     override var mPresenter: OrdersView.Presenter = OrdersPresenter()
-    override val layoutResource: Int = R.layout.fragment_orders
+    override val layoutResource: Int = R.layout.fragment_exchange_orders
     private var ordersAdapter: OrdersAdapter? = null
     var clickFilter = 1
     var clickSort = 1

@@ -33,7 +33,7 @@ class TradeAdapter(arrayList: ArrayList<TradeModel>, onclickTrade: OnclickTrade)
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder {
         return ViewHolder(
             LayoutInflater.from(viewGroup.context)
-                .inflate(R.layout.item_list_trade, viewGroup, false)
+                .inflate(R.layout.item_list_portfolio_trade, viewGroup, false)
         )
     }
 

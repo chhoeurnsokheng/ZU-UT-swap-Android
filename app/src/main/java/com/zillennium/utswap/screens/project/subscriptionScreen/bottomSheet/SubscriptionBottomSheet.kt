@@ -13,7 +13,7 @@ import androidx.databinding.DataBindingUtil
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
-import com.zillennium.utswap.databinding.BottomSheetNavbarProjectSubscriptionBinding
+import com.zillennium.utswap.databinding.BottomSheetProjectSubscriptionBinding
 
 import com.zillennium.utswap.screens.project.subscriptionScreen.dialog.SubscriptionConfirmDialog
 import com.zillennium.utswap.utils.groupingSeparator
@@ -21,7 +21,7 @@ import com.zillennium.utswap.utils.groupingSeparator
 
 class SubscriptionBottomSheet : BottomSheetDialogFragment(), AdapterView.OnItemSelectedListener {
 
-    private var binding: BottomSheetNavbarProjectSubscriptionBinding? = null
+    private var binding: BottomSheetProjectSubscriptionBinding? = null
 
     override fun getTheme(): Int {
         return R.style.BottomSheetStyle
@@ -35,7 +35,7 @@ class SubscriptionBottomSheet : BottomSheetDialogFragment(), AdapterView.OnItemS
         dialog!!.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
-        binding = DataBindingUtil.inflate(inflater, R.layout.bottom_sheet_navbar_project_subscription, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.bottom_sheet_project_subscription, container, false)
         return binding?.root
 
     }

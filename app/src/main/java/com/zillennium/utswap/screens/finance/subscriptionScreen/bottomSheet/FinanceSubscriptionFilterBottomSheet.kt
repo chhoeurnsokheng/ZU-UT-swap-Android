@@ -11,14 +11,14 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.zillennium.utswap.Datas.GlobalVariable.SettingVariable
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
-import com.zillennium.utswap.databinding.BottomSheetSubscriptionFilterBinding
+import com.zillennium.utswap.databinding.BottomSheetFinanceSubscriptionFilterBinding
 import com.zillennium.utswap.models.financeSubscription.FinanceSubscriptionFilterModel
 import com.zillennium.utswap.screens.finance.subscriptionScreen.adapter.FinanceSubscriptionFilterAdapter
 
 class FinanceSubscriptionFilterBottomSheet : BottomSheetDialogFragment(),
     AdapterView.OnItemSelectedListener {
 
-    private var binding: BottomSheetSubscriptionFilterBinding? = null
+    private var binding: BottomSheetFinanceSubscriptionFilterBinding? = null
     private var filterBottomSheetList = ArrayList<FinanceSubscriptionFilterModel>()
 
     override fun getTheme(): Int {
@@ -36,7 +36,7 @@ class FinanceSubscriptionFilterBottomSheet : BottomSheetDialogFragment(),
         binding =
             DataBindingUtil.inflate(
                 inflater,
-                R.layout.bottom_sheet_subscription_filter,
+                R.layout.bottom_sheet_finance_subscription_filter,
                 container,
                 false
             )

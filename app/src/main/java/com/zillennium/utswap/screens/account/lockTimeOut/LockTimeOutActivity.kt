@@ -3,14 +3,14 @@ package com.zillennium.utswap.screens.account.lockTimeOut
 import android.view.View
 import com.zillennium.utswap.R
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
-import com.zillennium.utswap.databinding.ActivityLockTimeOutBinding
+import com.zillennium.utswap.databinding.ActivityAccountLockTimeOutBinding
 
 class LockTimeOutActivity :
-    BaseMvpActivity<LockTimeOutView.View, LockTimeOutView.Presenter, ActivityLockTimeOutBinding>(),
+    BaseMvpActivity<LockTimeOutView.View, LockTimeOutView.Presenter, ActivityAccountLockTimeOutBinding>(),
     LockTimeOutView.View {
 
     override var mPresenter: LockTimeOutView.Presenter = LockTimeOutPresenter()
-    override val layoutResource: Int = R.layout.activity_lock_time_out
+    override val layoutResource: Int = R.layout.activity_account_lock_time_out
 
     override fun initView() {
         super.initView()

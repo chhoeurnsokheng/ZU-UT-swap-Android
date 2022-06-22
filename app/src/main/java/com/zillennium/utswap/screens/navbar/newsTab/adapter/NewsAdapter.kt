@@ -24,7 +24,7 @@ class NewsAdapter (
         viewType: Int
     ): ViewHolder {
         val view: View = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_list_news, parent, false)
+            .inflate(R.layout.item_list_navbar_news, parent, false)
         return ViewHolder(
             view
         )

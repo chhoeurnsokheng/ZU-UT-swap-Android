@@ -7,14 +7,14 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import com.zillennium.utswap.R
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
-import com.zillennium.utswap.databinding.FragmentChartBinding
+import com.zillennium.utswap.databinding.FragmentPortfolioChartBinding
 
 class ChartFragment :
-    BaseMvpFragment<ChartView.View, ChartView.Presenter, FragmentChartBinding>(),
+    BaseMvpFragment<ChartView.View, ChartView.Presenter, FragmentPortfolioChartBinding>(),
     ChartView.View {
 
     override var mPresenter: ChartView.Presenter = ChartPresenter()
-    override val layoutResource: Int = R.layout.fragment_chart
+    override val layoutResource: Int = R.layout.fragment_portfolio_chart
 
 
     @SuppressLint("SetJavaScriptEnabled")

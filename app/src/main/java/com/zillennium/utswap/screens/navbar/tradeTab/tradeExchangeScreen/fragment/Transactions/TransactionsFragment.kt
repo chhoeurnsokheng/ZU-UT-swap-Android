@@ -12,7 +12,7 @@ import com.zillennium.utswap.Datas.ListDatas.transactionsData.TransactionsData
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
-import com.zillennium.utswap.databinding.FragmentTransactionsBinding
+import com.zillennium.utswap.databinding.FragmentExchangeTransactionsBinding
 import com.zillennium.utswap.models.orders.Orders
 import com.zillennium.utswap.screens.navbar.tradeTab.tradeDetailScreen.TransactionDetailActivity
 import com.zillennium.utswap.screens.navbar.tradeTab.tradeExchangeScreen.fragment.Transactions.adapter.TransactionsAdapter
@@ -21,11 +21,11 @@ import java.time.format.DateTimeFormatter
 
 
 class TransactionsFragment :
-    BaseMvpFragment<TransactionsView.View, TransactionsView.Presenter, FragmentTransactionsBinding>(),
+    BaseMvpFragment<TransactionsView.View, TransactionsView.Presenter, FragmentExchangeTransactionsBinding>(),
     TransactionsView.View {
 
     override var mPresenter: TransactionsView.Presenter = TransactionsPresenter()
-    override val layoutResource: Int = R.layout.fragment_transactions
+    override val layoutResource: Int = R.layout.fragment_exchange_transactions
     private var transactionsAdapter: TransactionsAdapter? = null
     var clickFilter = 1
     var clickSort = 1

@@ -7,15 +7,15 @@ import android.text.ClipboardManager
 import android.widget.Toast
 import com.zillennium.utswap.R
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
-import com.zillennium.utswap.databinding.ActivityReferralInformationBinding
+import com.zillennium.utswap.databinding.ActivityAccountReferralInformationBinding
 
 
 class ReferralInformationActivity :
-    BaseMvpActivity<ReferralInformationView.View, ReferralInformationView.Presenter, ActivityReferralInformationBinding>(),
+    BaseMvpActivity<ReferralInformationView.View, ReferralInformationView.Presenter, ActivityAccountReferralInformationBinding>(),
     ReferralInformationView.View {
 
     override var mPresenter: ReferralInformationView.Presenter = ReferralInformationPresenter()
-    override val layoutResource: Int = R.layout.activity_referral_information
+    override val layoutResource: Int = R.layout.activity_account_referral_information
 
     override fun initView() {
         super.initView()
