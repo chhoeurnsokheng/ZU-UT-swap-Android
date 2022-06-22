@@ -18,7 +18,7 @@ import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityNavbarBinding
-import com.zillennium.utswap.screens.account.AccountActivity
+import com.zillennium.utswap.screens.account.accountScreen.AccountActivity
 import com.zillennium.utswap.screens.kyc.kycActivity.KYCActivity
 import com.zillennium.utswap.screens.navbar.homeTab.HomeFragment
 import com.zillennium.utswap.screens.navbar.newsTab.NewsTabFragment
@@ -53,7 +53,7 @@ class NavbarActivity :
                         layAuth.visibility = GONE
                         layVerify.visibility = VISIBLE
                         imgMenu.setOnClickListener {
-                            val intent = Intent(UTSwapApp.instance,AccountActivity::class.java)
+                            val intent = Intent(UTSwapApp.instance, AccountActivity::class.java)
                             startActivity(intent)
                             overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
                         }

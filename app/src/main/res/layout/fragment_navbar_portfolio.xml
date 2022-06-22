@@ -63,7 +63,7 @@
 
                 </LinearLayout>
 
-                <com.zillennium.utswap.chart.PieChartLinearLayout
+                <com.zillennium.utswap.bases.chart.PieChartLinearLayout
                     android:id="@+id/chart_pie"
                     android:layout_width="match_parent"
                     android:layout_height="196dp"
