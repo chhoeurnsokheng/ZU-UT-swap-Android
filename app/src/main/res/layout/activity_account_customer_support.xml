@@ -76,7 +76,7 @@
                 android:layout_height="54dp"
                 android:layout_marginBottom="@dimen/dimen_30"
                 android:src="@drawable/ic_telephone"
-                app:tint="@color/blur_0E1C6B" />
+                app:tint="@color/color_main" />
 
             <TextView
                 android:layout_width="wrap_content"

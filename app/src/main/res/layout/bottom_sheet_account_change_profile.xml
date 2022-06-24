@@ -19,7 +19,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:textAppearance="@style/medium_16"
-                android:textColor="@color/blur_0E1C6B"
+                android:textColor="@color/color_main"
                 android:text="@string/change_profile_photo"
                 android:layout_marginBottom="@dimen/dimen_20"/>
 

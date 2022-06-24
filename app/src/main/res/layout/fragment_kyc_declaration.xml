@@ -51,7 +51,7 @@
                     android:layout_centerVertical="true"
                     android:text="@string/declaration"
                     android:textAppearance="@style/medium_18"
-                    android:textColor="@color/blur_0E1C6B" />
+                    android:textColor="@color/color_main" />
 
                 <CheckBox
                     android:id="@+id/cb_Declaration"
@@ -126,7 +126,7 @@
                     android:layout_centerVertical="true"
                     android:text="@string/e_agreement"
                     android:textAppearance="@style/medium_18"
-                    android:textColor="@color/blur_0E1C6B" />
+                    android:textColor="@color/color_main" />
 
                 <CheckBox
                     android:id="@+id/cb_eAgreement"

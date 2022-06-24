@@ -42,7 +42,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="@style/medium_16"
-                    android:textColor="@color/blur_0E1C6B"
+                    android:textColor="@color/color_main"
                     android:text="@string/share"/>
 
             </LinearLayout>
@@ -86,7 +86,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dimen_1"
-                        android:background="@color/blur_0E1C6B"
+                        android:background="@color/color_main"
                         android:layout_marginBottom="@dimen/dimen_12"/>
 
                     <TextView
