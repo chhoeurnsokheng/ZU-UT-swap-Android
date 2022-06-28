@@ -40,6 +40,7 @@ class PortfolioFragment :
     private var weightAdapter: WeightAdapter? = null
 
     var blurCondition = true
+    val blurMask: MaskFilter = BlurMaskFilter(50f, BlurMaskFilter.Blur.NORMAL)
     private var filter: Int = 0 // 0 = no sort, 1 = asc sort, 2 = desc sort
 
     private var dataSets = ArrayList<ILineDataSet>()
@@ -97,27 +98,14 @@ class PortfolioFragment :
                 lineChart.setScaleEnabled(true)
 
                 /* Show or Hide Trading Balance */
-                val blurMask: MaskFilter = BlurMaskFilter(50f, BlurMaskFilter.Blur.NORMAL)
                 txtBalance.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
                 txtBalance.paint.maskFilter = blurMask
 
                 imgVisibility.setOnClickListener {
-                    blurCondition = !blurCondition
-
-                    if (blurCondition) {
-                        txtBalance.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
-                        txtBalance.paint.maskFilter = null
-                        imgVisibility.setImageResource(R.drawable.ic_baseline_remove_red_eye_24)
-
-                        lineChart.axisRight.isEnabled = false
-
-                    } else {
-                        txtBalance.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
-                        txtBalance.paint.maskFilter = blurMask
-                        imgVisibility.setImageResource(R.drawable.ic_baseline_visibility_off_24)
-
-                        lineChart.axisRight.isEnabled = true
-                    }
+                    showBalanceClick()
+                }
+                txtBalance.setOnClickListener {
+                    showBalanceClick()
                 }
 
                 val linearLayoutManager = LinearLayoutManager(requireContext())
@@ -393,6 +381,27 @@ class PortfolioFragment :
 
         } catch (error: Exception) {
             // Must be safe
+        }
+    }
+
+    private fun showBalanceClick(){
+        binding.apply {
+            blurCondition = !blurCondition
+
+            if (blurCondition) {
+                txtBalance.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
+                txtBalance.paint.maskFilter = null
+                imgVisibility.setImageResource(R.drawable.ic_baseline_remove_red_eye_24)
+
+                lineChart.axisRight.isEnabled = false
+
+            } else {
+                txtBalance.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
+                txtBalance.paint.maskFilter = blurMask
+                imgVisibility.setImageResource(R.drawable.ic_baseline_visibility_off_24)
+
+                lineChart.axisRight.isEnabled = true
+            }
         }
     }
 }
