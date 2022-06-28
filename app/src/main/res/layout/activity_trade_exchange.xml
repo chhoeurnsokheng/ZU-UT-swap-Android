@@ -83,8 +83,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dimen_8"
                         android:text="New Airport 38Ha"
-                        android:textColor="@color/black"
-                        android:textAppearance="@style/medium_18" />
+                        android:textAppearance="@style/medium_18"
+                        android:textColor="@color/black" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -118,16 +118,16 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Last"
-                            android:textColor="@color/black"
-                            android:textAppearance="@style/regular_14" />
+                            android:textAppearance="@style/regular_14"
+                            android:textColor="@color/black" />
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="end"
                             android:text="9.21"
-                            android:textColor="@color/black"
-                            android:textAppearance="@style/medium_14" />
+                            android:textAppearance="@style/medium_14"
+                            android:textColor="@color/black" />
 
                     </LinearLayout>
 
@@ -142,16 +142,16 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="24H High"
-                            android:textColor="@color/black"
-                            android:textAppearance="@style/regular_14" />
+                            android:textAppearance="@style/regular_14"
+                            android:textColor="@color/black" />
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="end"
                             android:text="7.73"
-                            android:textColor="@color/black"
-                            android:textAppearance="@style/medium_14" />
+                            android:textAppearance="@style/medium_14"
+                            android:textColor="@color/black" />
 
                     </LinearLayout>
 
@@ -173,16 +173,16 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="24H Change"
-                            android:textColor="@color/black"
-                            android:textAppearance="@style/regular_14" />
+                            android:textAppearance="@style/regular_14"
+                            android:textColor="@color/black" />
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="end"
                             android:text="+1.68%"
-                            android:textColor="@color/success"
-                            android:textAppearance="@style/medium_14" />
+                            android:textAppearance="@style/medium_14"
+                            android:textColor="@color/success" />
 
                     </LinearLayout>
 
@@ -197,16 +197,16 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="24H Low"
-                            android:textColor="@color/black"
-                            android:textAppearance="@style/regular_14" />
+                            android:textAppearance="@style/regular_14"
+                            android:textColor="@color/black" />
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="end"
                             android:text="7.03"
-                            android:textColor="@color/black"
-                            android:textAppearance="@style/medium_14"/>
+                            android:textAppearance="@style/medium_14"
+                            android:textColor="@color/black" />
 
                     </LinearLayout>
 
@@ -228,16 +228,16 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="24H Volume"
-                            android:textColor="@color/black"
-                            android:textAppearance="@style/regular_14"/>
+                            android:textAppearance="@style/regular_14"
+                            android:textColor="@color/black" />
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="end"
                             android:text="111"
-                            android:textColor="@color/black"
-                            android:textAppearance="@style/medium_14"/>
+                            android:textAppearance="@style/medium_14"
+                            android:textColor="@color/black" />
 
                     </LinearLayout>
 
@@ -246,22 +246,23 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dimen_20"
                         android:layout_weight="1"
+                        android:gravity="center_vertical"
                         android:orientation="horizontal">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Target Price"
-                            android:textColor="@color/black"
-                            android:textAppearance="@style/regular_14" />
+                            android:textAppearance="@style/medium_14"
+                            android:textColor="@color/orange" />
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="end"
                             android:text="11.02"
-                            android:textColor="@color/black"
-                            android:textAppearance="@style/medium_14"/>
+                            android:textAppearance="@style/bold_14"
+                            android:textColor="@color/orange" />
 
                     </LinearLayout>
 
@@ -289,15 +290,15 @@
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:background="@drawable/bg_tab_select"
-                                android:textAppearance="@style/regular_16"
-                                android:text="" />
+                                android:text=""
+                                android:textAppearance="@style/regular_16" />
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:textAppearance="@style/regular_16"
-                                android:text="" />
+                                android:text=""
+                                android:textAppearance="@style/regular_16" />
 
                         </LinearLayout>
 
@@ -361,23 +362,23 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:textAppearance="@style/regular_14"
                                 android:background="@drawable/bg_tab_select"
-                                android:text="" />
+                                android:text=""
+                                android:textAppearance="@style/regular_14" />
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:textAppearance="@style/regular_14"
-                                android:text="" />
+                                android:text=""
+                                android:textAppearance="@style/regular_14" />
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:textAppearance="@style/regular_14"
-                                android:text="" />
+                                android:text=""
+                                android:textAppearance="@style/regular_14" />
 
                         </LinearLayout>
 
