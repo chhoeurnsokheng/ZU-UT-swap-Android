@@ -47,7 +47,7 @@ class HistoricalMyTransactionsAdapter (arrayList: ArrayList<HistoricalMyTransact
                     holder.amountBalance.text = "-$" + groupingSeparator(financeHistoricalList.amountMyTrans).substring(1, length)
                 }
             }
-            holder.amountBalance.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.red))
+            holder.amountBalance.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.red_ee1111))
         }else {
             holder.amountBalance.text = "$" + groupingSeparator(financeHistoricalList.amountMyTrans)
             holder.amountBalance.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.success))

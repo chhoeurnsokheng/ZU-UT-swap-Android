@@ -45,7 +45,7 @@ class FinanceBalanceAdapter (arrayList: ArrayList<FinanceBalanceModel>, onClickA
                     holder.amountBalance.text = "-$" + financeBalanceList.amountBalance.toString().substring(1, length)
                 }
             }
-            holder.amountBalance.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.red))
+            holder.amountBalance.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.red_ee1111))
         }else {
             holder.amountBalance.text = "$" + financeBalanceList.amountBalance
             holder.amountBalance.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.success))

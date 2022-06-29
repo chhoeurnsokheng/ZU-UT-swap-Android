@@ -109,7 +109,7 @@ class TransactionsFragment :
                 btnSell.setOnClickListener{
                     btnAll.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_circular_border_blue)
                     btnSell.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_circular)
-                    btnSell.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.red))
+                    btnSell.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.red_ee1111))
                     btnBuy.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_border_green_correct)
                     txtAll.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
                     txtBuy.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.success))

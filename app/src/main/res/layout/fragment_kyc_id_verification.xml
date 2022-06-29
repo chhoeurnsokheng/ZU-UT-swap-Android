@@ -105,7 +105,7 @@
                                 android:singleLine="true"
                                 android:text="@string/cannot_leave_blank"
                                 android:textAppearance="@style/regular_10"
-                                android:textColor="@color/red"
+                                android:textColor="@color/red_ee1111"
                                 android:visibility="gone" />
 
                         </LinearLayout>
@@ -139,7 +139,7 @@
                                 android:singleLine="true"
                                 android:text="@string/cannot_leave_blank"
                                 android:textAppearance="@style/regular_10"
-                                android:textColor="@color/red"
+                                android:textColor="@color/red_ee1111"
                                 android:visibility="gone" />
 
 
@@ -192,7 +192,7 @@
                                 android:singleLine="true"
                                 android:text="@string/cannot_leave_blank"
                                 android:textAppearance="@style/regular_10"
-                                android:textColor="@color/red"
+                                android:textColor="@color/red_ee1111"
                                 android:visibility="gone" />
 
                         </LinearLayout>
@@ -229,7 +229,7 @@
                                 android:singleLine="true"
                                 android:text="@string/cannot_leave_blank"
                                 android:textAppearance="@style/regular_10"
-                                android:textColor="@color/red"
+                                android:textColor="@color/red_ee1111"
                                 android:visibility="gone" />
                         </LinearLayout>
                     </LinearLayout>
@@ -274,7 +274,7 @@
                             android:singleLine="true"
                             android:text="@string/cannot_leave_blank"
                             android:textAppearance="@style/regular_10"
-                            android:textColor="@color/red"
+                            android:textColor="@color/red_ee1111"
                             android:visibility="gone" />
 
                     </LinearLayout>
@@ -311,7 +311,7 @@
                             android:singleLine="true"
                             android:text="@string/cannot_leave_blank"
                             android:textAppearance="@style/regular_10"
-                            android:textColor="@color/red"
+                            android:textColor="@color/red_ee1111"
                             android:visibility="gone" />
 
                     </LinearLayout>
@@ -349,7 +349,7 @@
                             android:singleLine="true"
                             android:text="@string/cannot_leave_blank"
                             android:textAppearance="@style/regular_10"
-                            android:textColor="@color/red"
+                            android:textColor="@color/red_ee1111"
                             android:visibility="gone" />
 
                     </LinearLayout>
@@ -377,7 +377,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/star"
-                                android:textColor="@color/red"
+                                android:textColor="@color/red_ee1111"
                                 android:textAppearance="@style/regular_10"/>
 
                         </LinearLayout>
@@ -402,7 +402,7 @@
                             android:singleLine="true"
                             android:text="@string/cannot_leave_blank"
                             android:textAppearance="@style/regular_10"
-                            android:textColor="@color/red"
+                            android:textColor="@color/red_ee1111"
                             android:visibility="gone" />
 
                     </LinearLayout>
@@ -421,7 +421,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/star"
-                            android:textColor="@color/red"
+                            android:textColor="@color/red_ee1111"
                             android:textAppearance="@style/regular_10"
                             android:layout_marginEnd="@dimen/dimen_4"/>
 

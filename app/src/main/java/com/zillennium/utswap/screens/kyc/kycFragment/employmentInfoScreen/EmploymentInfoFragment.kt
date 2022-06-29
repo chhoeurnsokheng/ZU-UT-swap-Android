@@ -1,7 +1,6 @@
 package com.zillennium.utswap.screens.kyc.kycFragment.employmentInfoScreen
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.content.res.ColorStateList
 import android.text.Editable
 import android.text.TextWatcher
@@ -14,7 +13,6 @@ import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentKycEmploymentInfoBinding
-import com.zillennium.utswap.screens.kyc.kycFragment.declarationScreen.DeclarationFragment
 import com.zillennium.utswap.utils.validate
 
 
@@ -69,12 +67,12 @@ class EmploymentInfoFragment :
                     var isHaveError = false
                     if (info.occupation.isEmpty()) {
                         txtErrorOccupation.visibility = View.VISIBLE
-                        etOccupation.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.red))
+                        etOccupation.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.red_ee1111))
                         isHaveError = true
                     }
                     if (info.occupation.isEmpty()) {
                         txtErrorCompany.visibility = View.VISIBLE
-                        etCompany.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.red))
+                        etCompany.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.red_ee1111))
                         isHaveError = true
                     }
 
@@ -82,7 +80,7 @@ class EmploymentInfoFragment :
                         if(!validate().isValidEmail(info.email_emp.trim())){
                             txtErrorEmail.visibility = View.VISIBLE
                             etemail.backgroundTintList =
-                                ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.red))
+                                ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.red_ee1111))
                             isHaveError = true
                         }
                     }
@@ -91,7 +89,7 @@ class EmploymentInfoFragment :
                         if(!validate().isValidPhoneNumber(info.phone_number.trim())){
                             txtErrorPhone.visibility = View.VISIBLE
                             etphoneNumber.backgroundTintList =
-                                ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.red))
+                                ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.red_ee1111))
                             isHaveError = true
                         }
                     }
