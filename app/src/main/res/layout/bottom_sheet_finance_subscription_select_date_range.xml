@@ -59,8 +59,8 @@
                         android:inputType="none"
                         android:singleLine="true"
                         android:textAppearance="@style/medium_14"
-                        android:textColor="@color/color_main"
-                        android:textColorHint="@color/color_main"
+                        android:textColor="@color/primary"
+                        android:textColorHint="@color/primary"
                         tools:ignore="TextFields" />
 
                 </LinearLayout>
@@ -101,7 +101,7 @@
                         android:inputType="none"
                         android:singleLine="true"
                         android:textAppearance="@style/medium_14"
-                        android:textColor="@color/color_main"
+                        android:textColor="@color/primary"
                         android:textColorHint="@color/light_gray"
                         tools:ignore="TextFields" />
 

@@ -134,7 +134,7 @@
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:text="SELL"
-                        android:textColor="@color/main_red"
+                        android:textColor="@color/danger"
                         android:textAppearance="@style/regular_14"/>
                 </LinearLayout>
 
@@ -185,7 +185,7 @@
                             android:layout_height="match_parent"
                             android:gravity="center"
                             android:text="Oldest"
-                            android:textColor="@color/color_main"
+                            android:textColor="@color/primary"
                             android:textAppearance="@style/regular_14"/>
                     </LinearLayout>
 
@@ -202,7 +202,7 @@
                             android:layout_height="match_parent"
                             android:gravity="center"
                             android:text="$$$ -> $"
-                            android:textColor="@color/color_main"
+                            android:textColor="@color/primary"
                             android:textAppearance="@style/regular_14"/>
                     </LinearLayout>
 
@@ -219,7 +219,7 @@
                             android:layout_height="match_parent"
                             android:gravity="center"
                             android:text="$ -> $$$"
-                            android:textColor="@color/color_main"
+                            android:textColor="@color/primary"
                             android:textAppearance="@style/regular_14" />
                     </LinearLayout>
 

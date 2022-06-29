@@ -19,7 +19,7 @@
                 android:contentDescription="@string/menu"
                 android:padding="@dimen/dimen_15"
                 android:src="@drawable/ic_baseline_arrow_back_24"
-                app:tint="@color/color_main" />
+                app:tint="@color/primary" />
 
 
             <LinearLayout
@@ -42,7 +42,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="@style/medium_16"
-                    android:textColor="@color/color_main"
+                    android:textColor="@color/primary"
                     android:text="@string/share"/>
 
             </LinearLayout>
@@ -86,7 +86,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dimen_1"
-                        android:background="@color/color_main"
+                        android:background="@color/primary"
                         android:layout_marginBottom="@dimen/dimen_12"/>
 
                     <TextView

@@ -10,7 +10,7 @@
             android:id="@+id/lay_header"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dimen_60"
-            android:background="@color/color_main">
+            android:background="@color/primary">
 
             <ImageView
                 android:id="@+id/img_close"

@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="color_main">#1B2266</color>
-    <color name="color_main_blur">#251B2266</color>
-    <color name="color_blur_bg_dialog_balance">#75000000</color>
-    <color name="main_red">#E25757</color>
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#1B2266</color>
@@ -12,13 +8,14 @@
     <color name="black">#FF000000</color>
     <color name="black_000000">#000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="orange">#EEA300</color>
     <color name="transparent">#00FFFFFF</color>
-    <color name="primary">#007bff</color>
-    <color name="secondary">#6c757d</color>
-    <color name="success">#08B471</color>
-    <color name="danger">#dc3545</color>
-    <color name="warning">#ffc107</color>
+    <color name="primary">#1B2266</color>
+    <color name="color_main_blur">#251B2266</color>
+    <color name="color_blur_bg_dialog_balance">#75000000</color>
+    <color name="secondary">#E0AC19</color>
+    <color name="success">#068453</color>
+    <color name="danger">#DD3636</color>
+    <color name="warning">#E0AC19</color>
     <color name="info">#17a2b8</color>
     <color name="light">#f8f9fa</color>
     <color name="dark">#343a40</color>

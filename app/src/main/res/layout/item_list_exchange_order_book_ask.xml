@@ -11,7 +11,7 @@
             android:layout_height="wrap_content"
             android:text="18.89"
             android:textAppearance="@style/regular_14"
-            android:textColor="@color/main_red"/>
+            android:textColor="@color/danger"/>
 
         <TextView
             android:id="@+id/txt_volume_ask"
@@ -20,7 +20,7 @@
             android:text="130"
             android:textAppearance="@style/regular_14"
             android:gravity="end"
-            android:textColor="@color/main_red"/>
+            android:textColor="@color/danger"/>
 
     </LinearLayout>
 </layout>

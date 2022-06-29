@@ -48,7 +48,7 @@
                         android:id="@+id/txt_balance"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/color_main"
+                        android:textColor="@color/primary"
                         android:textAppearance="@style/medium_28"
                         android:text="$ 127 910.62"/>
 
@@ -376,7 +376,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/trading_balance"
-                        android:textColor="@color/color_main"
+                        android:textColor="@color/primary"
                         android:textAppearance="@style/medium_14"/>
 
                     <TextView

@@ -4,29 +4,24 @@ import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Handler
 import android.text.Editable
-import android.text.TextUtils
 import android.text.TextWatcher
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
-import android.util.Patterns
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.clearFragmentResultListener
 import androidx.navigation.fragment.findNavController
 import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentSecuritySignInBinding
-import com.zillennium.utswap.screens.navbar.navbar.NavbarActivity
 import com.zillennium.utswap.screens.security.securityActivity.registerScreen.RegisterActivity
 import com.zillennium.utswap.screens.security.securityActivity.resetPasswordScreen.ResetPasswordActivity
 import com.zillennium.utswap.screens.security.securityFragment.signInScreen.CheckNetworkConnection.CheckNetworkConnection
 import com.zillennium.utswap.utils.validate
-import kotlin.system.exitProcess
 
 
 class SignInFragment :
@@ -84,7 +79,7 @@ class SignInFragment :
                         txtMessage.text = "Please Enter Email or Phone Number"
                         txtMessage.visibility = View.VISIBLE
                         textInputEmail.backgroundTintList =
-                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.main_red))
+                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
                         isHaveError = true
                         return@setOnClickListener
                     }
@@ -93,7 +88,7 @@ class SignInFragment :
                         txtMessage.text = "Please Enter a Password Longer Than 8 Digits"
                         txtMessage.visibility = View.VISIBLE
                         textInputPassword.backgroundTintList =
-                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.main_red))
+                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
                         isHaveError = true
                         return@setOnClickListener
                     }

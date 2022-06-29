@@ -61,8 +61,8 @@ class FinanceBalanceDialog: DialogFragment() {
             }else{
                 txtSymbol.visibility = View.VISIBLE
                 txtMoneyType.text = "Money Out"
-                txtDollar.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.main_red))
-                amountBalance.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.main_red))
+                txtDollar.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
+                amountBalance.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
             }
 
             val length = arguments?.getDouble("amountBalance").toString().length

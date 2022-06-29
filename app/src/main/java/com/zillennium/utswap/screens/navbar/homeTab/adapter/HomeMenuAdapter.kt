@@ -42,8 +42,8 @@ class HomeMenuAdapter(
         holder.layItem.setOnClickListener { onclickHome.ClickDeposit(homeInfoDetailList.titleHome) }
 
         if(homeInfoDetailList.isEnabled){
-            holder.txtTitle.setTextColor(ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.color_main)))
-            holder.ivImage.imageTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.color_main))
+            holder.txtTitle.setTextColor(ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.primary)))
+            holder.ivImage.imageTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
             holder.layItem.isEnabled = true
 
         }else{

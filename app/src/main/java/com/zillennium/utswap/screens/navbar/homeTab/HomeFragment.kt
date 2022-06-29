@@ -245,8 +245,8 @@ class HomeFragment :
             rvHomeMenu.adapter = homeAdapter
 
             if(enabled){
-                imgFinance.imageTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.color_main))
-                txtFinance.setTextColor(ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.color_main)))
+                imgFinance.imageTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
+                txtFinance.setTextColor(ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.primary)))
                 financeBottom.isEnabled = true
                 financeBottom.setOnClickListener {
                     showBottomSheetDialog()

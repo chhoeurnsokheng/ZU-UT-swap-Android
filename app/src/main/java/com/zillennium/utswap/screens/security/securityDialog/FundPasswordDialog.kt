@@ -135,9 +135,9 @@ class FundPasswordDialog() : DialogFragment() {
                     }else{
                         imgIcon.setImageResource(R.drawable.ic_fund_key_invalid)
                         txtMessage.text = "Invalid"
-                        txtMessage.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.main_red))
+                        txtMessage.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
                         for (pingCode in layPingCode.children){
-                            pingCode.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.main_red))
+                            pingCode.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
                         }
                         layProgressBar.visibility = View.GONE
                     }
@@ -148,9 +148,9 @@ class FundPasswordDialog() : DialogFragment() {
             }else{
                 imgIcon.setImageResource(R.drawable.ic_fund_key_normal)
                 txtMessage.text = "Enter Fund Password"
-                txtMessage.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.color_main))
+                txtMessage.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
                 for (pingCode in layPingCode.children){
-                    pingCode.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.color_main))
+                    pingCode.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
                 }
             }
 

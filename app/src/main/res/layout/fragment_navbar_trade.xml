@@ -51,7 +51,7 @@
                     android:layout_height="wrap_content"
                     android:text="Upcoming"
                     android:textAppearance="@style/medium_12"
-                    android:textColor="@color/orange"/>
+                    android:textColor="@color/warning"/>
 
                 <RelativeLayout
                     android:id="@+id/linear_layout"
@@ -93,11 +93,11 @@
                                 android:layout_marginEnd="@dimen/dimen_5"
                                 android:layout_weight="1"
                                 android:background="@drawable/bg_circular_border_blue"
-                                android:backgroundTint="@color/color_main"
+                                android:backgroundTint="@color/primary"
                                 android:gravity="center"
                                 android:text="@string/details"
                                 android:textAppearance="@style/regular_12"
-                                android:textColor="@color/color_main" />
+                                android:textColor="@color/primary" />
 
                             <TextView
                                 android:id="@+id/txt_subscribe"
@@ -106,7 +106,7 @@
                                 android:layout_marginStart="@dimen/dimen_5"
                                 android:layout_weight="1"
                                 android:background="@drawable/bg_circular"
-                                android:backgroundTint="@color/orange"
+                                android:backgroundTint="@color/warning"
                                 android:gravity="center"
                                 android:text="@string/subscribe"
                                 android:textAppearance="@style/regular_12"

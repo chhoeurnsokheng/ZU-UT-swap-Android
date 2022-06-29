@@ -69,7 +69,7 @@
                             android:layout_height="match_parent"
                             android:gravity="center"
                             android:text="Market"
-                            android:textColor="@color/color_main"
+                            android:textColor="@color/primary"
                             android:textAppearance="@style/regular_12"/>
                     </LinearLayout>
 
@@ -230,7 +230,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dimen_48"
                         android:background="@drawable/bg_circular"
-                        app:backgroundTint="@color/main_red"
+                        app:backgroundTint="@color/danger"
                         android:hint="SELL"
                         android:textAppearance="@style/bold_16"
                         android:textColorHint="@color/white"

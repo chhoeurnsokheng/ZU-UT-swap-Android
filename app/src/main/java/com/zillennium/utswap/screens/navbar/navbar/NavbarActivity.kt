@@ -80,7 +80,7 @@ class NavbarActivity :
                             2 -> {
                                 layKycStatus.visibility = View.VISIBLE
                                 layKycStatus.backgroundTintList = ColorStateList.valueOf(
-                                    ContextCompat.getColor(UTSwapApp.instance, R.color.orange))
+                                    ContextCompat.getColor(UTSwapApp.instance, R.color.warning))
                                 txtStatus.text = "Pending Review."
                                 btnVerify.isClickable = false
                                 btnVerify.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.gray_999999))
@@ -91,10 +91,10 @@ class NavbarActivity :
                             }
                             1 -> {
                                 layKycStatus.visibility = View.VISIBLE
-                                layKycStatus.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.main_red))
+                                layKycStatus.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
                                 txtStatus.text = "Invalid Verification. Please Try Again."
                                 btnVerify.isClickable = true
-                                btnVerify.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.color_main))
+                                btnVerify.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
                             }
                             else -> {
                                 layKycStatus.visibility = View.GONE

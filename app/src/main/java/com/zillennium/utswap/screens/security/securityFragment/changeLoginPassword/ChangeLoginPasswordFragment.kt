@@ -1,7 +1,6 @@
 package com.zillennium.utswap.screens.security.securityFragment.changeLoginPassword
 
 import android.content.res.ColorStateList
-import android.os.Bundle
 import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
@@ -38,9 +37,9 @@ class ChangeLoginPasswordFragment :
                         txtPasswordMessage.text = "Password didn't match"
                         txtPasswordMessage.visibility = View.VISIBLE
                         etConfirmPassword.backgroundTintList =
-                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.main_red))
+                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
                         etNewPassword.backgroundTintList =
-                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.main_red))
+                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
                         isHaveError = true
                     }
 
@@ -48,7 +47,7 @@ class ChangeLoginPasswordFragment :
                         txtPasswordMessage.text = "Please Enter a Confirm Password Longer Than 8 Digits"
                         txtPasswordMessage.visibility = View.VISIBLE
                         etConfirmPassword.backgroundTintList =
-                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.main_red))
+                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
                         isHaveError = true
                     }
 
@@ -57,9 +56,9 @@ class ChangeLoginPasswordFragment :
                         txtPasswordMessage.text = "Old Password And New Password Must Not Be The Same"
                         txtPasswordMessage.visibility = View.VISIBLE
                         etNewPassword.backgroundTintList =
-                                ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.main_red))
+                                ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
                         etOldPassword.backgroundTintList =
-                                ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.main_red))
+                                ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
                         isHaveError = true
                     }
 
@@ -67,7 +66,7 @@ class ChangeLoginPasswordFragment :
                         txtPasswordMessage.text = "Your Old Password Longer Than 8 Digits"
                         txtPasswordMessage.visibility = View.VISIBLE
                         etOldPassword.backgroundTintList =
-                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.main_red))
+                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
                         isHaveError = true
                     }
 
@@ -75,7 +74,7 @@ class ChangeLoginPasswordFragment :
                         txtPasswordMessage.text = "Please Enter a Password Longer Than 8 Digits"
                         txtPasswordMessage.visibility = View.VISIBLE
                         etNewPassword.backgroundTintList =
-                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.main_red))
+                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
                         isHaveError = true
                     }
 

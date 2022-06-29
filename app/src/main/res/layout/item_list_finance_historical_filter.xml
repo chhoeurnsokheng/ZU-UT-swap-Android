@@ -37,7 +37,7 @@
                     android:layout_height="@dimen/dimen_20"
                     android:layout_gravity="center"
                     android:src="@drawable/ic_baseline_check_24"
-                    app:tint="@color/color_main" />
+                    app:tint="@color/primary" />
 
             </LinearLayout>
         </LinearLayout>

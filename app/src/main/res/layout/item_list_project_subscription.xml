@@ -38,7 +38,7 @@
                         android:layout_marginStart="@dimen/dimen_5"
                         android:layout_width="wrap_content"
                         android:text=""
-                        android:textColor="@color/color_main"
+                        android:textColor="@color/primary"
                         android:textAppearance="@style/medium_16" />
                 </LinearLayout>
 

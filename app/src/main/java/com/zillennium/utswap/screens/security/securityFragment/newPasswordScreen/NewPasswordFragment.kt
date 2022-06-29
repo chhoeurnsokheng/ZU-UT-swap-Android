@@ -7,18 +7,14 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
-import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
-import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentSecurityNewPasswordBinding
-import com.zillennium.utswap.screens.security.securityActivity.registerScreen.RegisterActivity
 import com.zillennium.utswap.screens.security.securityActivity.signInScreen.SignInActivity
-import com.zillennium.utswap.screens.security.securityFragment.signInScreen.SignInFragment
 
 class NewPasswordFragment :
     BaseMvpFragment<NewPasswordView.View, NewPasswordView.Presenter, FragmentSecurityNewPasswordBinding>(),
@@ -54,9 +50,9 @@ class NewPasswordFragment :
                         txtPasswordMessage.text = "Password didn't match"
                         txtPasswordMessage.visibility = View.VISIBLE
                         inputPassword.backgroundTintList =
-                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.main_red))
+                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
                         inputConfirmPassword.backgroundTintList =
-                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.main_red))
+                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
                         isHaveError = true
                     }
 
@@ -64,7 +60,7 @@ class NewPasswordFragment :
                         txtPasswordMessage.text = "Please Enter a Confirm Password Longer Than 8 Digits"
                         txtPasswordMessage.visibility = View.VISIBLE
                         inputConfirmPassword.backgroundTintList =
-                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.main_red))
+                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
                         isHaveError = true
                     }
 
@@ -72,7 +68,7 @@ class NewPasswordFragment :
                         txtPasswordMessage.text = "Please Enter a Password Longer Than 8 Digits"
                         txtPasswordMessage.visibility = View.VISIBLE
                         inputPassword.backgroundTintList =
-                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.main_red))
+                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
                         isHaveError = true
                     }
 

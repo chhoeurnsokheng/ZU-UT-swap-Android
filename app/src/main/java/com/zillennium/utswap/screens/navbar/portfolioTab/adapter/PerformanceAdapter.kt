@@ -52,8 +52,8 @@ class PerformanceAdapter (
         }
         else
         {
-            holder.txtPercent.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.main_red))
-            holder.percent.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.main_red))
+            holder.txtPercent.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
+            holder.percent.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
         }
 
         if (arrayList.size == 1) {

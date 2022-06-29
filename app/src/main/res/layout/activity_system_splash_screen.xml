@@ -30,7 +30,7 @@
                 android:layout_marginEnd="@dimen/dimen_8"
                 android:text="@string/copyright_2020"
                 android:textAppearance="@style/regular_14"
-                android:textColor="@color/orange" />
+                android:textColor="@color/warning" />
 
             <TextView
                 android:id="@+id/txt_company"
@@ -38,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/zillion_united_co_ltd"
                 android:textAppearance="@style/regular_14"
-                android:textColor="@color/color_main" />
+                android:textColor="@color/primary" />
         </LinearLayout>
     </RelativeLayout>
 </layout>

@@ -106,9 +106,9 @@ class TradeFragment :
                 etSearch.setOnFocusChangeListener { _, hasFocus ->
                     if (hasFocus) {
                         imgSearch.imageTintList =
-                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.color_main))
+                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
                         laySearch.backgroundTintList =
-                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.color_main))
+                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
                     } else {
                         imgSearch.imageTintList =
                             ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.light_gray))

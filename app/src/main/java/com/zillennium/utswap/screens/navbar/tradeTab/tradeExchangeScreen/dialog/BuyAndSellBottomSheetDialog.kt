@@ -149,9 +149,9 @@ class BuyAndSellBottomSheetDialog : BottomSheetDialogFragment() {
             btnMarket.setOnClickListener {
                 linearPrice.visibility = View.GONE
                 btnMarket.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_circular)
-                btnMarket.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.color_main))
+                btnMarket.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
                 txtMarket.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.white))
-                txtLimit.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.color_main))
+                txtLimit.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
                 btnLimit.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.gray))
                 etVolume.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.outline_edittext_change_color_focus)
                 click = false
@@ -160,9 +160,9 @@ class BuyAndSellBottomSheetDialog : BottomSheetDialogFragment() {
             btnLimit.setOnClickListener {
                 linearPrice.visibility = View.VISIBLE
                 btnLimit.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_circular)
-                btnLimit.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.color_main))
+                btnLimit.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
                 txtLimit.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.white))
-                txtMarket.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.color_main))
+                txtMarket.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
                 btnMarket.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.gray))
                 etPriceOfVolume.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.outline_edittext_change_color_focus)
                 etVolume.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.outline_edittext_change_color_focus)

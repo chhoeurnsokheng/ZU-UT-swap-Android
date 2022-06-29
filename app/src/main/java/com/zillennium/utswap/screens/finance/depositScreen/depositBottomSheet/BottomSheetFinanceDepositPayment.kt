@@ -98,7 +98,7 @@ class BottomSheetFinanceDepositPayment: BottomSheetDialogFragment(), AdapterView
 
                     nextBtnFinace.apply {
                         if(amount > 0){
-                            backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.color_main))
+                            backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
                             isEnabled = true
                         }else{
                             backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.dark_gray))

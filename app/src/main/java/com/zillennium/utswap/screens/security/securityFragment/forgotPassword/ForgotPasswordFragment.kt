@@ -56,7 +56,7 @@ class ForgotPasswordFragment :
                         textEmpty.visibility = View.VISIBLE
                         inputEmail.backgroundTintList = ColorStateList.valueOf(
                             ContextCompat.getColor(
-                                UTSwapApp.instance, R.color.main_red))
+                                UTSwapApp.instance, R.color.danger))
                         isHaveError = true
                         return@setOnClickListener
                     }
@@ -65,7 +65,7 @@ class ForgotPasswordFragment :
                         textEmpty.text = "Please input a valid email/phone number."
                         textEmpty.visibility = View.VISIBLE
                         inputEmail.backgroundTintList =
-                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.main_red))
+                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
                         isHaveError = true
                         return@setOnClickListener
                     }
@@ -85,7 +85,7 @@ class ForgotPasswordFragment :
                             textEmpty.text = "Invalid email or phone number"
                             inputEmail.backgroundTintList = ColorStateList.valueOf(
                                 ContextCompat.getColor(
-                                    UTSwapApp.instance, R.color.main_red))
+                                    UTSwapApp.instance, R.color.danger))
                         }
 
                         btnNext.isClickable = true

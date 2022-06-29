@@ -66,7 +66,7 @@ class OrdersFragment :
                     btnSell.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_border_green_correct)
                     txtAll.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.white))
                     txtBuy.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.success))
-                    txtSell.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.main_red))
+                    txtSell.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
 
                     ordersAdapter!!.notifyDataSetChanged()
 
@@ -84,9 +84,9 @@ class OrdersFragment :
                         ContextCompat.getColor(
                             UTSwapApp.instance, R.color.success))
                     btnSell.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_border_red_transparent)
-                    txtAll.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.color_main))
+                    txtAll.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
                     txtBuy.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.white))
-                    txtSell.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.main_red))
+                    txtSell.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
 
                     val list = arrayListOf<Orders>()
 
@@ -113,7 +113,7 @@ class OrdersFragment :
                     btnSell.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_circular)
                     btnSell.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.red))
                     btnBuy.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_border_green_correct)
-                    txtAll.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.color_main))
+                    txtAll.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
                     txtBuy.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.success))
                     txtSell.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.white))
 
@@ -142,9 +142,9 @@ class OrdersFragment :
                     btnBigToSmall.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_circular_border_blue)
                     btnSmallToBig.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_circular_border_blue)
                     txtLatest.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.white))
-                    txtBigToSmall.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.color_main))
-                    txtSmallToBig.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.color_main))
-                    txtOldest.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.color_main))
+                    txtBigToSmall.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
+                    txtSmallToBig.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
+                    txtOldest.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
 
                     val list = arrayListOf<Orders>()
 
@@ -177,9 +177,9 @@ class OrdersFragment :
                     btnLatest.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_circular_border_blue)
                     btnBigToSmall.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_circular_border_blue)
                     btnSmallToBig.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_circular_border_blue)
-                    txtLatest.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.color_main))
-                    txtBigToSmall.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.color_main))
-                    txtSmallToBig.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.color_main))
+                    txtLatest.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
+                    txtBigToSmall.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
+                    txtSmallToBig.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
                     txtOldest.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.white))
 
                     val list = arrayListOf<Orders>()
@@ -211,10 +211,10 @@ class OrdersFragment :
                     btnLatest.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_circular_border_blue)
                     btnBigToSmall.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_circular_border_blue)
                     btnOldest.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_circular_border_blue)
-                    txtLatest.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.color_main))
-                    txtBigToSmall.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.color_main))
+                    txtLatest.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
+                    txtBigToSmall.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
                     txtSmallToBig.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.white))
-                    txtOldest.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.color_main))
+                    txtOldest.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
 
                     val list = arrayListOf<Orders>()
 
@@ -241,10 +241,10 @@ class OrdersFragment :
                     btnLatest.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_circular_border_blue)
                     btnSmallToBig.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_circular_border_blue)
                     btnOldest.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_circular_border_blue)
-                    txtLatest.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.color_main))
+                    txtLatest.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
                     txtBigToSmall.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.white))
-                    txtSmallToBig.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.color_main))
-                    txtOldest.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.color_main))
+                    txtSmallToBig.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
+                    txtOldest.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
 
                     val list = arrayListOf<Orders>()
 
@@ -276,7 +276,7 @@ class OrdersFragment :
         binding.apply {
             if(click % 2 == 0)
             {
-                icFilter.imageTintList =  ColorStateList.valueOf(R.color.color_main)
+                icFilter.imageTintList =  ColorStateList.valueOf(R.color.primary)
                 linearContainerFilter.visibility = View.VISIBLE
                 linearContainerSort.visibility = View.GONE
             }else{

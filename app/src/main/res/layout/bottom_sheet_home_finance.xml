@@ -28,7 +28,7 @@
                     android:layout_width="@dimen/dimen_18"
                     android:layout_height="@dimen/dimen_18"
                     android:src="@drawable/ic_finance"
-                    app:tint="@color/color_main" />
+                    app:tint="@color/primary" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -57,7 +57,7 @@
                     android:layout_width="@dimen/dimen_18"
                     android:layout_height="@dimen/dimen_18"
                     android:src="@drawable/ic_subscribtion"
-                    app:tint="@color/color_main" />
+                    app:tint="@color/primary" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -87,7 +87,7 @@
                     android:layout_width="@dimen/dimen_18"
                     android:layout_height="@dimen/dimen_18"
                     android:src="@drawable/ic_fund_key_normal"
-                    app:tint="@color/color_main" />
+                    app:tint="@color/primary" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -117,7 +117,7 @@
                     android:layout_width="@dimen/dimen_18"
                     android:layout_height="@dimen/dimen_18"
                     android:src="@drawable/ic_clock_rotate_left_regular"
-                    app:tint="@color/color_main" />
+                    app:tint="@color/primary" />
 
                 <TextView
                     android:layout_width="wrap_content"

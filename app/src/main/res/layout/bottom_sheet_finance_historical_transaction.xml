@@ -39,7 +39,7 @@
                         android:layout_width="@dimen/dimen_20"
                         android:layout_height="match_parent"
                         android:src="@drawable/ic_baseline_check_24"
-                        app:tint="@color/color_main" />
+                        app:tint="@color/primary" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -76,7 +76,7 @@
                         android:layout_width="@dimen/dimen_20"
                         android:layout_height="match_parent"
                         android:src="@drawable/ic_baseline_check_24"
-                        app:tint="@color/color_main" />
+                        app:tint="@color/primary" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -113,7 +113,7 @@
                         android:layout_width="@dimen/dimen_20"
                         android:layout_height="match_parent"
                         android:src="@drawable/ic_baseline_check_24"
-                        app:tint="@color/color_main" />
+                        app:tint="@color/primary" />
                 </LinearLayout>
 
             </LinearLayout>

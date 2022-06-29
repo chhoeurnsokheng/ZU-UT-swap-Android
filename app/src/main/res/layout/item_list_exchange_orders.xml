@@ -41,7 +41,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="10"
-                            android:textColor="@color/color_main"
+                            android:textColor="@color/primary"
                             android:textAppearance="@style/regular_14"/>
 
                         <TextView
@@ -49,7 +49,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/dimen_5"
                             android:text="UT"
-                            android:textColor="@color/color_main"
+                            android:textColor="@color/primary"
                             android:textAppearance="@style/regular_14"/>
 
                     </LinearLayout>
@@ -76,7 +76,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="end"
                         android:text="$ 19.90"
-                        android:textColor="@color/color_main"
+                        android:textColor="@color/primary"
                         android:textAppearance="@style/regular_14"/>
 
                 </LinearLayout>
@@ -87,7 +87,7 @@
                 android:id="@+id/btn_delete"
                 android:layout_width="@dimen/dimen_52"
                 android:layout_height="@dimen/dimen_20"
-                android:background="@color/main_red"
+                android:background="@color/danger"
                 android:visibility="gone"
                 android:gravity="center"
                 android:layout_gravity="center"

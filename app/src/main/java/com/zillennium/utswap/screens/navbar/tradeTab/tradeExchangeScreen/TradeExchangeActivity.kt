@@ -55,7 +55,7 @@ class TradeExchangeActivity :
                 imgRemember.setOnClickListener {
                     remember = !remember
                     if(remember){
-                        imgRemember.imageTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.orange))
+                        imgRemember.imageTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.warning))
                     }else{
                         imgRemember.imageTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.dark_gray))
                     }
@@ -67,7 +67,7 @@ class TradeExchangeActivity :
                             2 -> {
                                 layKycStatus.visibility = View.VISIBLE
                                 layKycStatus.backgroundTintList = ColorStateList.valueOf(
-                                    ContextCompat.getColor(UTSwapApp.instance, R.color.orange))
+                                    ContextCompat.getColor(UTSwapApp.instance, R.color.warning))
                                 txtStatus.text = "Pending Review."
                                 btnVerify.isClickable = false
                                 btnVerify.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.gray_999999))
@@ -78,10 +78,10 @@ class TradeExchangeActivity :
                             }
                             1 -> {
                                 layKycStatus.visibility = View.VISIBLE
-                                layKycStatus.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.main_red))
+                                layKycStatus.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
                                 txtStatus.text = "Invalid Verification. Please Try Again."
                                 btnVerify.isClickable = true
-                                btnVerify.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.color_main))
+                                btnVerify.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
                             }
                             else -> {
                                 layKycStatus.visibility = View.GONE
@@ -202,9 +202,9 @@ class TradeExchangeActivity :
             if (view.id == R.id.order_book) {
                 tabSelect.animate()?.x(0f)?.duration = 100
                 orderBook.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.white))
-                chart.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.color_main))
+                chart.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
             } else if (view.id == R.id.chart) {
-                orderBook.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.color_main))
+                orderBook.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
                 chart.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.white))
                 val size: Int = chart.width
                 tabSelect.animate().x(size.toFloat()).duration = 100
@@ -219,19 +219,19 @@ class TradeExchangeActivity :
                 R.id.txt_orders -> {
                     tabSelectOrders.animate()?.x(0f)?.duration = 100
                     txtOrders.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.white))
-                    txtAllTransactions.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.color_main))
-                    txtTransactions.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.color_main))
+                    txtAllTransactions.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
+                    txtTransactions.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
                 }
                 R.id.txt_transactions -> {
-                    txtOrders.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.color_main))
-                    txtAllTransactions.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.color_main))
+                    txtOrders.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
+                    txtAllTransactions.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
                     txtTransactions.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.white))
                     val size: Int = txtTransactions.width
                     tabSelectOrders.animate().x(size.toFloat()).duration = 100
                 }
                 R.id.txt_all_transactions -> {
-                    txtOrders.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.color_main))
-                    txtTransactions.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.color_main))
+                    txtOrders.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
+                    txtTransactions.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
                     txtAllTransactions.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.white))
                     val sizeAllTrans: Int = (txtAllTransactions.x.toInt())
 

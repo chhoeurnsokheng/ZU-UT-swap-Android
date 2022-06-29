@@ -3,7 +3,6 @@ package com.zillennium.utswap.screens.navbar.portfolioTab
 import android.annotation.SuppressLint
 import android.graphics.BlurMaskFilter
 import android.graphics.MaskFilter
-import android.os.Handler
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -64,7 +63,7 @@ class PortfolioFragment :
                 val set1 = LineDataSet(yValues, "")
 
                 set1.fillAlpha = 110
-                set1.color = R.color.color_main
+                set1.color = R.color.primary
 
                 dataSets.add(set1)
 

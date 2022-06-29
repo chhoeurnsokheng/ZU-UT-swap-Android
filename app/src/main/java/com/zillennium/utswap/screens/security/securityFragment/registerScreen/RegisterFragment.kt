@@ -1,7 +1,6 @@
 package com.zillennium.utswap.screens.security.securityFragment.registerScreen
 
 import android.content.Context
-import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Handler
 import android.text.Editable
@@ -11,9 +10,7 @@ import android.text.method.PasswordTransformationMethod
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.core.content.ContextCompat
-import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
-import com.zillennium.utswap.Datas.StoredPreferences.KYCPreferences
 import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
@@ -54,13 +51,13 @@ class RegisterFragment :
 
                     var isHaveError = false
                     txtMessage.text = "Invalid. Please Try Again"
-                    txtMessage.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.main_red))
+                    txtMessage.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
 
                     if(!validate().isValidEmail(inputEmail.text.toString().trim()) && !validate().isValidPhoneNumber(inputEmail.text.toString().trim())){
                         txtMessage.text = "Please Enter Email or Phone Number"
                         txtMessage.visibility = View.VISIBLE
                         inputEmail.backgroundTintList =
-                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.main_red))
+                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
                         isHaveError = true
                         return@setOnClickListener
                     }
@@ -69,7 +66,7 @@ class RegisterFragment :
                         txtMessage.text = "Please Enter a Password Longer Than 8 Digits"
                         txtMessage.visibility = View.VISIBLE
                         inputPassword.backgroundTintList =
-                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.main_red))
+                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
                         isHaveError = true
                         return@setOnClickListener
                     }
@@ -78,7 +75,7 @@ class RegisterFragment :
                         txtMessage.text = "Invalid. Please Try Again"
                         txtMessage.visibility = View.VISIBLE
                         inputConfirmPassword.backgroundTintList =
-                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.main_red))
+                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
                         isHaveError = true
                         return@setOnClickListener
                     }
@@ -87,9 +84,9 @@ class RegisterFragment :
                         txtMessage.text = "Password didn't match"
                         txtMessage.visibility = View.VISIBLE
                         inputPassword.backgroundTintList =
-                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.main_red))
+                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
                         inputConfirmPassword.backgroundTintList =
-                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.main_red))
+                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
                         isHaveError = true
                         return@setOnClickListener
                     }

@@ -19,7 +19,7 @@
                         android:layout_width="@dimen/dimen_18"
                         android:layout_height="@dimen/dimen_22"
                         android:src="@drawable/ic_trash_can_soild"
-                        app:tint="@color/main_red"
+                        app:tint="@color/danger"
                         android:layout_marginBottom="@dimen/dimen_16"
                         android:layout_gravity="center"/>
 
@@ -37,7 +37,7 @@
                         android:id="@+id/btn_confirm"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dimen_48"
-                        app:backgroundTint="@color/main_red"
+                        app:backgroundTint="@color/danger"
                         android:background="@drawable/bg_circular"
                         android:hint="Confirm"
                         android:textAppearance="@style/regular_16"
@@ -53,7 +53,7 @@
                         android:background="@drawable/bg_circular"
                         android:hint="Back"
                         android:textAppearance="@style/regular_16"
-                        android:textColorHint="@color/color_main"
+                        android:textColorHint="@color/primary"
                         style="?android:attr/borderlessButtonStyle"/>
 
                 </LinearLayout>

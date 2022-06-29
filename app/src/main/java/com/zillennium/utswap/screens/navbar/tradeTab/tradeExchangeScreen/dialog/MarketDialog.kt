@@ -40,7 +40,7 @@ class MarketDialog : DialogFragment() {
 
         if(arguments?.get("status") == "SELL")
         {
-            btnBuy?.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.main_red))
+            btnBuy?.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
         }else{
             btnBuy?.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.success))
         }

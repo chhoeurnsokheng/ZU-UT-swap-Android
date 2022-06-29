@@ -64,7 +64,7 @@ class PriceAdapter (
 
         if(position == 2)
         {
-            holder.txtMkt.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.main_red))
+            holder.txtMkt.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
         }
 
     }
