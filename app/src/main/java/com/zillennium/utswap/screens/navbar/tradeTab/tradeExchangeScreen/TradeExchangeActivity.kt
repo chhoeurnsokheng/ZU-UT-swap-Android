@@ -322,7 +322,7 @@ class TradeExchangeActivity :
 
             if(SessionVariable.SESSION_STATUS.value == true && SessionVariable.SESSION_KYC.value == true){
                 persistentBottomSheet.root.visibility = View.VISIBLE
-                layTransactions.visibility = View.GONE
+                layTransactions.visibility = View.VISIBLE
             }else{
                 persistentBottomSheet.root.visibility = View.GONE
                 layTransactions.visibility = View.GONE
