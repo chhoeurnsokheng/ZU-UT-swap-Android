@@ -1,5 +1,6 @@
 package com.zillennium.utswap.screens.navbar.homeTab
 
+
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.BlurMaskFilter
@@ -8,6 +9,8 @@ import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.tabs.TabLayoutMediator
 import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
@@ -15,14 +18,16 @@ import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentNavbarHomeBinding
 import com.zillennium.utswap.models.HomeMenuModel
 import com.zillennium.utswap.models.HomeRecentNewsModel
+import com.zillennium.utswap.models.HomeTabSlideImageModel
 import com.zillennium.utswap.models.HomeWatchlistModel
 import com.zillennium.utswap.screens.finance.depositScreen.DepositActivity
 import com.zillennium.utswap.screens.finance.transferScreen.TransferActivity
+import com.zillennium.utswap.screens.finance.withdrawScreen.WithdrawActivity
 import com.zillennium.utswap.screens.navbar.homeTab.adapter.HomeMenuAdapter
 import com.zillennium.utswap.screens.navbar.homeTab.adapter.HomeRecentNewsAdapter
+import com.zillennium.utswap.screens.navbar.homeTab.adapter.HomeTabSlideImageAdapter
 import com.zillennium.utswap.screens.navbar.homeTab.adapter.HomeWatchlistAdapter
 import com.zillennium.utswap.screens.navbar.homeTab.bottomSheet.HomeFinanceBottomSheet
-import com.zillennium.utswap.screens.finance.withdrawScreen.WithdrawActivity
 import com.zillennium.utswap.screens.navbar.newsTab.newsDetail.NewsDetailActivity
 import com.zillennium.utswap.screens.navbar.tradeTab.tradeExchangeScreen.TradeExchangeActivity
 import com.zillennium.utswap.screens.project.projectScreen.ProjectActivity
@@ -72,9 +77,35 @@ class HomeFragment :
                         onHomeMenuGrid(false)
                     }
                 }
+                /* Image Slider with View Pager and TabLayout */
+                val img_Slider = arrayOf(
+                    "https://utswap.io/Upload/article/62a956f59997f.jpg",
+                    "https://utswap.io/Upload/article/62b28f4e18eb0.jpg",
+                    "https://utswap.io/Upload/article/62bad61c5d0e5.jpg",
+
+                    )
+                val homeTabSlideImage = arrayListOf<HomeTabSlideImageModel>()
+
+                for (i in img_Slider.indices) {
+                    val homeTabImage = HomeTabSlideImageModel(
+                        img_Slider[i],
+                    )
+                    homeTabSlideImage.add(homeTabImage)
+                }
+
+                val adapterHomeSlideImage =
+                    HomeTabSlideImageAdapter(homeTabSlideImage, onclickAdapter)
+                vpSlideImage.adapter = adapterHomeSlideImage
+
+                /*  TabLayout dot */
+                TabLayoutMediator(tabLayoutDot, vpSlideImage) { tab, position ->
+
+                }.attach()
+                vpSlideImage.registerOnPageChangeCallback(object :
+                    ViewPager2.OnPageChangeCallback() {})
+
 
                 /* bottom sheet dialog on finance button */
-
 
 
                 /* Watchlist Recycle View */
@@ -164,7 +195,9 @@ class HomeFragment :
 
 
                 layNewsLoading.setOnClickListener {
-                    activity?.findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(R.id.nav_view)?.selectedItemId = R.id.navigation_navbar_news
+                    activity?.findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(
+                        R.id.nav_view
+                    )?.selectedItemId = R.id.navigation_navbar_news
                 }
 
             }
@@ -188,10 +221,14 @@ class HomeFragment :
 
             when (title.toString()) {
                 "Portfolio" -> {
-                    activity?.findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(R.id.nav_view)?.selectedItemId = R.id.navigation_navbar_portfolio
+                    activity?.findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(
+                        R.id.nav_view
+                    )?.selectedItemId = R.id.navigation_navbar_portfolio
                 }
                 "Trade" -> {
-                    activity?.findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(R.id.nav_view)?.selectedItemId = R.id.navigation_navbar_trade
+                    activity?.findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(
+                        R.id.nav_view
+                    )?.selectedItemId = R.id.navigation_navbar_trade
                 }
                 "Projects" -> {
                     val intent = Intent(UTSwapApp.instance, ProjectActivity::class.java)
@@ -213,23 +250,35 @@ class HomeFragment :
         }
     }
 
+    // Onclick Slide Image
+    private val onclickAdapter: HomeTabSlideImageAdapter.OnclickAdapter =
+        object : HomeTabSlideImageAdapter.OnclickAdapter {
+            override fun onClickSlidetab(homeTabSlideImageModel: HomeTabSlideImageModel) {
+                val intent = Intent(UTSwapApp.instance, NewsDetailActivity::class.java)
+                startActivity(intent)
+            }
+        }
+
+
     //click to trade exchange
-    val onClickWatch: HomeWatchlistAdapter.OnclickWatch = object : HomeWatchlistAdapter.OnclickWatch {
-        override fun ClickWatch() {
-            val intent: Intent = Intent(UTSwapApp.instance, TradeExchangeActivity::class.java)
-            startActivity(intent)
-        }
-    }
-
-    val onClickNews: HomeRecentNewsAdapter.onclickNews = object : HomeRecentNewsAdapter.onclickNews {
-        override fun ClickNews() {
-            val intent: Intent = Intent(UTSwapApp.instance, NewsDetailActivity::class.java)
-            startActivity(intent)
+    val onClickWatch: HomeWatchlistAdapter.OnclickWatch =
+        object : HomeWatchlistAdapter.OnclickWatch {
+            override fun ClickWatch() {
+                val intent: Intent = Intent(UTSwapApp.instance, TradeExchangeActivity::class.java)
+                startActivity(intent)
+            }
         }
 
-    }
+    val onClickNews: HomeRecentNewsAdapter.onclickNews =
+        object : HomeRecentNewsAdapter.onclickNews {
+            override fun ClickNews() {
+                val intent: Intent = Intent(UTSwapApp.instance, NewsDetailActivity::class.java)
+                startActivity(intent)
+            }
 
-    private fun onHomeMenuGrid(enabled: Boolean){
+        }
+
+    private fun onHomeMenuGrid(enabled: Boolean) {
 
         HomeArrayList.clear()
         HomeArrayList.add(HomeMenuModel(R.drawable.ic_portfolio, "Portfolio", enabled))
@@ -244,16 +293,40 @@ class HomeFragment :
             homeAdapter = HomeMenuAdapter(HomeArrayList, R.layout.item_list_home_grid, onclickHome)
             rvHomeMenu.adapter = homeAdapter
 
-            if(enabled){
-                imgFinance.imageTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.color_main))
-                txtFinance.setTextColor(ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.color_main)))
+            if (enabled) {
+                imgFinance.imageTintList = ColorStateList.valueOf(
+                    ContextCompat.getColor(
+                        UTSwapApp.instance,
+                        R.color.color_main
+                    )
+                )
+                txtFinance.setTextColor(
+                    ColorStateList.valueOf(
+                        ContextCompat.getColor(
+                            UTSwapApp.instance,
+                            R.color.color_main
+                        )
+                    )
+                )
                 financeBottom.isEnabled = true
                 financeBottom.setOnClickListener {
                     showBottomSheetDialog()
                 }
-            }else{
-                imgFinance.imageTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.gray_999999))
-                txtFinance.setTextColor(ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.gray_999999)))
+            } else {
+                imgFinance.imageTintList = ColorStateList.valueOf(
+                    ContextCompat.getColor(
+                        UTSwapApp.instance,
+                        R.color.gray_999999
+                    )
+                )
+                txtFinance.setTextColor(
+                    ColorStateList.valueOf(
+                        ContextCompat.getColor(
+                            UTSwapApp.instance,
+                            R.color.gray_999999
+                        )
+                    )
+                )
                 financeBottom.isEnabled = false
                 financeBottom.setOnClickListener {}
             }

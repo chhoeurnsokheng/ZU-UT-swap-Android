@@ -21,6 +21,52 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:paddingTop="@dimen/dimen_15">
+                <!-- Image Slider with View Pager and rectangle indicator -->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dimen_20"
+                        android:layout_marginTop="@dimen/dimen_10"
+                        android:layout_marginEnd="@dimen/dimen_20"
+                        android:layout_marginBottom="@dimen/dimen_10"
+                        android:elevation="@dimen/dimen_0"
+                        app:cardCornerRadius="@dimen/dimen_8"
+                        app:cardElevation="@dimen/dimen_0">
+
+                        <androidx.viewpager2.widget.ViewPager2
+                            android:id="@+id/vp_SlideImage"
+                            android:layout_width="match_parent"
+                            android:layout_height="114dp"
+                            android:overScrollMode="never"
+                            android:scrollbars="none"/>
+                    </androidx.cardview.widget.CardView>
+
+<!--                    <ImageView-->
+<!--                        android:id="@+id/iv_dialog"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:src="@drawable/ic_zoom_image"-->
+<!--                        android:padding="5dp"-->
+<!--                        android:layout_alignParentEnd="true"-->
+<!--                        android:layout_alignParentBottom="true"-->
+<!--                        app:tint="@color/success" />-->
+
+                </RelativeLayout>
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tabLayout_dot"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dimen_4"
+                    app:tabBackground="@drawable/dot_circle_tab_selector"
+                    app:tabGravity="center"
+                    android:layout_marginBottom="@dimen/dimen_15"
+                    app:tabPaddingStart="@dimen/dimen_9"
+                    app:tabPaddingEnd="@dimen/dimen_9"
+                    app:tabIndicatorHeight="0dp"/>
 
                 <TextView
                     android:layout_width="match_parent"

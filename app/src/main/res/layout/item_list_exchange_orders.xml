@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -28,8 +30,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Buy"
-                        android:textColor="@color/success"
-                        android:textAppearance="@style/regular_14"/>
+                        android:textAppearance="@style/regular_14"
+                        android:textColor="@color/success" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -41,16 +43,16 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="10"
-                            android:textColor="@color/color_main"
-                            android:textAppearance="@style/regular_14"/>
+                            android:textAppearance="@style/regular_14"
+                            android:textColor="@color/color_main" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/dimen_5"
                             android:text="UT"
-                            android:textColor="@color/color_main"
-                            android:textAppearance="@style/regular_14"/>
+                            android:textAppearance="@style/regular_14"
+                            android:textColor="@color/color_main" />
 
                     </LinearLayout>
 
@@ -59,16 +61,16 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="@dimen/dimen_10">
+                    android:layout_marginTop="@dimen/dimen_10"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/txt_date"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="01:02:22 PM  24-03-2022"
-                        android:textColor="@color/gray_888888"
-                        android:textAppearance="@style/regular_12"/>
+                        android:textAppearance="@style/regular_12"
+                        android:textColor="@color/gray_888888" />
 
                     <TextView
                         android:id="@+id/txt_price"
@@ -76,8 +78,8 @@
                         android:layout_height="wrap_content"
                         android:gravity="end"
                         android:text="$ 19.90"
-                        android:textColor="@color/color_main"
-                        android:textAppearance="@style/regular_14"/>
+                        android:textAppearance="@style/regular_14"
+                        android:textColor="@color/color_main" />
 
                 </LinearLayout>
 
@@ -87,47 +89,48 @@
                 android:id="@+id/btn_delete"
                 android:layout_width="@dimen/dimen_52"
                 android:layout_height="@dimen/dimen_20"
-                android:background="@color/main_red"
-                android:visibility="gone"
-                android:gravity="center"
                 android:layout_gravity="center"
-                android:orientation="horizontal"
                 android:layout_marginStart="-15dp"
                 android:layout_marginEnd="-17dp"
-                android:rotation="-90">
+                android:background="@color/main_red"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:rotation="-90"
+                android:visibility="gone">
+
                 <ImageView
                     android:layout_width="@dimen/dimen_8"
                     android:layout_height="@dimen/dimen_8"
                     android:layout_gravity="center"
-                    app:tint="@color/white"
                     android:layout_marginEnd="@dimen/dimen_3"
                     android:src="@drawable/ic_trash_can_soild"
-                    />
+                    app:tint="@color/white" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="Cancel"
                     android:singleLine="true"
-                    android:textColor="@color/white"
-                    android:textAppearance="@style/regular_10"/>
+                    android:text="Cancel"
+                    android:textAppearance="@style/regular_10"
+                    android:textColor="@color/white" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/img_arrow"
                 android:layout_width="@dimen/dimen_10"
                 android:layout_height="@dimen/dimen_33"
-                android:gravity="center"
-                android:visibility="visible"
                 android:layout_gravity="center_vertical"
-                android:background="@drawable/bg_top_left_bottom_left">
+                android:background="@drawable/bg_top_left_bottom_left"
+                android:gravity="center"
+                android:visibility="visible">
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:src="@drawable/ic_baseline_arrow_back_ios_new_24"
                     android:visibility="visible"
-                    app:tint="@color/white"
-                    android:src="@drawable/ic_baseline_arrow_back_ios_new_24"/>
+                    app:tint="@color/white" />
 
             </LinearLayout>
 
@@ -137,7 +140,7 @@
             android:id="@+id/line"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dimen_1"
-            android:background="@color/light_gray"/>
+            android:background="@color/light_gray" />
 
     </LinearLayout>
 

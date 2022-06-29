@@ -104,4 +104,8 @@ dependencies {
     implementation "androidx.compose.ui:ui-tooling-preview:1.1.1"
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 
+    //swipe
+    implementation "com.daimajia.swipelayout:library:1.2.0@aar"
+    implementation 'com.nineoldandroids:library:2.4.0'
+
 }
