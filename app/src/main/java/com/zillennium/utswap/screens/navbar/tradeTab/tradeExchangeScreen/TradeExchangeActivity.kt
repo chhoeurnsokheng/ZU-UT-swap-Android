@@ -146,13 +146,8 @@ class TradeExchangeActivity :
                     startActivity(intent)
                 }
 
-                btnSignIn.setOnClickListener {
+                layAuth.setOnClickListener {
                     val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
-                    startActivity(intent)
-                }
-
-                btnRegister.setOnClickListener {
-                    val intent = Intent(UTSwapApp.instance, RegisterActivity::class.java)
                     startActivity(intent)
                 }
 
