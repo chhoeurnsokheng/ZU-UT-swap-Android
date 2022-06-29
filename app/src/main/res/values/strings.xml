@@ -414,4 +414,6 @@
     <string name="buy">BUY</string>
     <string name="sell">SELL</string>
     <string name="please_sign_in_to_continue">Please Sign in to Continue</string>
+    <string name="please_ensure_you_have_deposited_a_sufficient_amount_in_your_balance">Please ensure you have deposited a sufficient amount in your balance.</string>
+    <string name="insufficient_funds">Insufficient Funds</string>
 </resources>
