@@ -43,80 +43,80 @@ class BuyAndSellBottomSheetDialog : BottomSheetDialogFragment() {
             (view.parent as View).setBackgroundColor(ContextCompat.getColor(UTSwapApp.instance, android.R.color.transparent))
             var click = true
 
-            btnBuy.setOnClickListener {
-                var isHaveError = false
-                if(etVolume.text.isEmpty())
-                {
-                    etVolume.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_error_red)
-                    isHaveError = true
-                }
-
-                if(linearPrice.visibility == View.VISIBLE)
-                {
-                    if(etPriceOfVolume.text.isEmpty())
-                    {
-                        etPriceOfVolume.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_error_red)
-                        isHaveError = true
-                    }
-                }
-
-                if (isHaveError) return@setOnClickListener
-
-                if(click)
-                {
-                    val buyDialog: BuyDialog =
-                        BuyDialog.newInstance(
-                            etVolume.text.toString(),
-                            etPriceOfVolume.text.toString()
-                        )
-                    activity?.supportFragmentManager?.let { buyDialog.show(it, "asaf") }
-
-                    dismiss()
-                }else{
-                    val marketDialog: MarketDialog =
-                        MarketDialog.newInstance(etVolume.text.toString(), "BUY")
-                    activity?.supportFragmentManager?.let { marketDialog.show(it, "asaf") }
-                    dismiss()
-                }
-
-            }
-
-            btnSell.setOnClickListener {
-                var isHaveError = false
-                if(etVolume.text.isEmpty())
-                {
-                    etVolume.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_error_red)
-                    isHaveError = true
-                }
-
-                if(linearPrice.visibility == View.VISIBLE)
-                {
-                    if(etPriceOfVolume.text.isEmpty())
-                    {
-                        etPriceOfVolume.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_error_red)
-                        isHaveError = true
-                    }
-                }
-
-                if (isHaveError) return@setOnClickListener
-
-                if(click)
-                {
-                    val sellDialog: SellDialog =
-                        SellDialog.newInstance(
-                            etVolume.text.toString(),
-                            etPriceOfVolume.text.toString()
-                        )
-                    activity?.supportFragmentManager?.let { sellDialog.show(it, "asaf") }
-
-                    dismiss()
-                }else{
-                    val marketDialog: MarketDialog =
-                        MarketDialog.newInstance(etVolume.text.toString(), "SELL")
-                    activity?.supportFragmentManager?.let { marketDialog.show(it, "asaf") }
-                    dismiss()
-                }
-            }
+//            btnBuy.setOnClickListener {
+//                var isHaveError = false
+//                if(etVolume.text.isEmpty())
+//                {
+//                    etVolume.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_error_red)
+//                    isHaveError = true
+//                }
+//
+//                if(linearPrice.visibility == View.VISIBLE)
+//                {
+//                    if(etPriceOfVolume.text.isEmpty())
+//                    {
+//                        etPriceOfVolume.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_error_red)
+//                        isHaveError = true
+//                    }
+//                }
+//
+//                if (isHaveError) return@setOnClickListener
+//
+//                if(click)
+//                {
+//                    val buyDialog: BuyDialog =
+//                        BuyDialog.newInstance(
+//                            etVolume.text.toString(),
+//                            etPriceOfVolume.text.toString()
+//                        )
+//                    activity?.supportFragmentManager?.let { buyDialog.show(it, "asaf") }
+//
+//                    dismiss()
+//                }else{
+//                    val marketDialog: MarketDialog =
+//                        MarketDialog.newInstance(etVolume.text.toString(), "BUY")
+//                    activity?.supportFragmentManager?.let { marketDialog.show(it, "asaf") }
+//                    dismiss()
+//                }
+//
+//            }
+//
+//            btnSell.setOnClickListener {
+//                var isHaveError = false
+//                if(etVolume.text.isEmpty())
+//                {
+//                    etVolume.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_error_red)
+//                    isHaveError = true
+//                }
+//
+//                if(linearPrice.visibility == View.VISIBLE)
+//                {
+//                    if(etPriceOfVolume.text.isEmpty())
+//                    {
+//                        etPriceOfVolume.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_error_red)
+//                        isHaveError = true
+//                    }
+//                }
+//
+//                if (isHaveError) return@setOnClickListener
+//
+//                if(click)
+//                {
+//                    val sellDialog: SellDialog =
+//                        SellDialog.newInstance(
+//                            etVolume.text.toString(),
+//                            etPriceOfVolume.text.toString()
+//                        )
+//                    activity?.supportFragmentManager?.let { sellDialog.show(it, "asaf") }
+//
+//                    dismiss()
+//                }else{
+//                    val marketDialog: MarketDialog =
+//                        MarketDialog.newInstance(etVolume.text.toString(), "SELL")
+//                    activity?.supportFragmentManager?.let { marketDialog.show(it, "asaf") }
+//                    dismiss()
+//                }
+//            }
 
             etVolume.addTextChangedListener(object :TextWatcher{
                 override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {

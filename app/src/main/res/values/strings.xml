@@ -407,4 +407,10 @@
     <string name="high">High</string>
     <string name="low">Low</string>
     <string name="gross">Gross</string>
+    <string name="avail_balance">Avail.Balance:</string>
+    <string name="ut_">UT:</string>
+    <string name="limit">Limit</string>
+    <string name="market">Market</string>
+    <string name="buy">BUY</string>
+    <string name="sell">SELL</string>
 </resources>
