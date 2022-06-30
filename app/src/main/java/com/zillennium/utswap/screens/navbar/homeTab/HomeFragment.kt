@@ -36,6 +36,7 @@ class HomeFragment :
     override val layoutResource: Int = R.layout.fragment_navbar_home
     private var homeAdapter: HomeMenuAdapter? = null
     var blurCondition = true
+    val blurMask: MaskFilter = BlurMaskFilter(50f, BlurMaskFilter.Blur.NORMAL)
 
     private val HomeArrayList = ArrayList<HomeMenuModel>()
 
@@ -45,22 +46,14 @@ class HomeFragment :
             binding.apply {
 
                 /* Show or Hide Trading Balance */
-                val blurMask: MaskFilter = BlurMaskFilter(50f, BlurMaskFilter.Blur.NORMAL)
                 tradingBalance.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
                 tradingBalance.paint.maskFilter = blurMask
 
                 buttonShowToggle.setOnClickListener {
-                    blurCondition = !blurCondition
-
-                    if (blurCondition) {
-                        tradingBalance.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
-                        tradingBalance.paint.maskFilter = null
-                        eyeImage.setImageResource(R.drawable.ic_baseline_remove_red_eye_24)
-                    } else {
-                        tradingBalance.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
-                        tradingBalance.paint.maskFilter = blurMask
-                        eyeImage.setImageResource(R.drawable.ic_baseline_visibility_off_24)
-                    }
+                    showBalanceClick()
+                }
+                tradingBalance.setOnClickListener {
+                    showBalanceClick()
                 }
 
                 /* Home Menu Grid */
@@ -262,4 +255,20 @@ class HomeFragment :
 
     }
 
+    private fun showBalanceClick(){
+        binding.apply {
+
+            blurCondition = !blurCondition
+
+            if (blurCondition) {
+                tradingBalance.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
+                tradingBalance.paint.maskFilter = null
+                eyeImage.setImageResource(R.drawable.ic_baseline_remove_red_eye_24)
+            } else {
+                tradingBalance.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
+                tradingBalance.paint.maskFilter = blurMask
+                eyeImage.setImageResource(R.drawable.ic_baseline_visibility_off_24)
+            }
+        }
+    }
 }
