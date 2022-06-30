@@ -9,6 +9,7 @@ import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityAccountDetailBinding
+import com.zillennium.utswap.screens.account.accountDetailScreen.dialog.DialogAccountUTType
 import com.zillennium.utswap.screens.account.addNumberScreen.AddNumberActivity
 import com.zillennium.utswap.screens.account.logsScreen.LogsActivity
 import com.zillennium.utswap.screens.security.securityActivity.changeFundPassword.ChangeFundPasswordActivity
@@ -64,6 +65,11 @@ class AccountDetailActivity :
                 btnCheckAccountLogs.setOnClickListener {
                     val intent = Intent(UTSwapApp.instance,LogsActivity::class.java)
                     startActivity(intent)
+                }
+
+                imgUtType.setOnClickListener {
+                    val dialogAccountUTType: DialogAccountUTType = DialogAccountUTType.newInstance()
+                    dialogAccountUTType.show(supportFragmentManager, "dialogAccountUTType")
                 }
 
             }
