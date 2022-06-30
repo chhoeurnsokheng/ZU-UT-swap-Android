@@ -124,15 +124,33 @@
                     android:textColor="@color/dark_gray"
                     android:textAppearance="@style/regular_12"/>
 
-                <EditText
-                    android:id="@+id/et_volume"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dimen_36"
-                    android:inputType="number"
-                    android:textAppearance="@style/medium_16"
-                    android:paddingEnd="@dimen/dimen_15"
-                    android:textAlignment="textEnd"
-                    android:background="@drawable/outline_edittext_change_color_focus"/>
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/et_volume"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dimen_36"
+                        android:background="@drawable/outline_edittext_change_color_focus"
+                        android:inputType="number"
+                        android:paddingHorizontal="@dimen/dimen_35"
+                        android:maxLength="10"
+                        android:textAlignment="textEnd"
+                        android:textAppearance="@style/medium_16"
+                        android:textColor="@color/black_333333" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="UT"
+                        android:textAppearance="@style/regular_14"
+                        android:textColor="@color/dark_gray"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="@dimen/dimen_12"/>
+
+                </RelativeLayout>
 
             </LinearLayout>
 
@@ -150,16 +168,34 @@
                     android:textColor="@color/dark_gray"
                     android:textAppearance="@style/regular_12"/>
 
-                <EditText
-                    android:id="@+id/et_price_of_volume"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dimen_36"
-                    android:inputType="number"
-                    android:textAppearance="@style/medium_16"
-                    android:paddingEnd="@dimen/dimen_15"
-                    android:textAlignment="textEnd"
-                    android:visibility="visible"
-                    android:background="@drawable/outline_edittext_change_color_focus"/>
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/et_price_of_volume"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dimen_36"
+                        android:inputType="number"
+                        android:textAppearance="@style/medium_16"
+                        android:textAlignment="textEnd"
+                        android:visibility="visible"
+                        android:maxLength="10"
+                        android:paddingHorizontal="@dimen/dimen_35"
+                        android:textColor="@color/black_333333"
+                        android:background="@drawable/outline_edittext_change_color_focus"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="UT"
+                        android:textAppearance="@style/regular_14"
+                        android:textColor="@color/dark_gray"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="@dimen/dimen_12"/>
+
+                </RelativeLayout>
 
             </LinearLayout>
 
