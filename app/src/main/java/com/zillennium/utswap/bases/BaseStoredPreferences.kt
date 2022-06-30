@@ -4,20 +4,6 @@ import android.content.Context
 import android.content.SharedPreferences
 import kotlin.reflect.KProperty
 
-/**
- * Represents a single [SharedPreferences] file.
- *
- * Usage:
- *
- * ```kotlin
- * class UserPreferences : Preferences() {
- *   var emailAccount by stringPref()
- *   var showSystemAppsPreference by booleanPref()
- * }
- * ```
- */
-// Ignore unused warning. This class needs to handle all data types, regardless of whether the method is used.
-// Allow unchecked casts - we can blindly trust that data we read is the same type we saved it as..
 @Suppress("UNCHECKED_CAST", "unused")
 abstract class BaseStoredPreferences(private var context: Context, private val name: String? = null) {
     private val prefs: SharedPreferences by lazy {
