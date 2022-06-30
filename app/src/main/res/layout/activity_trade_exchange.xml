@@ -2,15 +2,14 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            >
 
             <RelativeLayout
                 android:id="@+id/lay_btn_back"
@@ -61,7 +60,6 @@
             <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_above="@+id/lay_buy_and_sell"
                 android:layout_below="@+id/lay_btn_back"
                 android:overScrollMode="never"
                 android:scrollbars="none">
@@ -432,7 +430,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginTop="@dimen/dimen_15"
-                            android:layout_marginBottom="@dimen/dimen_100"
                             android:touchscreenBlocksFocus="true" />
                     </LinearLayout>
                 </LinearLayout>
@@ -506,47 +503,43 @@
                 <LinearLayout
                     android:id="@+id/lay_auth"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white"
+                    android:layout_height="@dimen/dimen_38"
                     android:orientation="horizontal"
-                    android:paddingHorizontal="@dimen/dimen_20"
-                    android:paddingVertical="@dimen/dimen_26"
+                    android:gravity="center"
+                    android:background="@color/danger"
                     android:visibility="gone">
 
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btn_signIn"
-                        style="?android:attr/borderlessButtonStyle"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/dimen_48"
-                        android:layout_marginEnd="@dimen/dimen_8"
-                        android:layout_weight="1"
-                        android:background="@drawable/bg_circular"
-                        android:hint="@string/login"
-                        android:textAppearance="@style/bold_16"
-                        android:textColorHint="@color/white" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btn_register"
-                        style="?android:attr/borderlessButtonStyle"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/dimen_48"
-                        android:layout_marginStart="@dimen/dimen_8"
-                        android:layout_weight="1"
-                        android:background="@drawable/bg_circular_border_button"
-                        android:hint="@string/register"
-                        android:textAppearance="@style/bold_16"
-                        android:textColorHint="@color/primary" />
+                    <ImageView
+                        android:layout_width="@dimen/dimen_18"
+                        android:layout_height="@dimen/dimen_18"
+                        android:src="@drawable/ic_exclamation_mark"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dimen_10"
+                        android:textColor="@color/white"
+                        android:textAppearance="@style/medium_14"
+                        android:text="@string/please_sign_in_to_continue"/>
                 </LinearLayout>
             </RelativeLayout>
 
         </RelativeLayout>
 
-        <!-- Persistent Bottom Sheet -->
-        <include
-            android:id="@+id/persistent_bottom_sheet"
-            layout="@layout/bottom_sheet_exchange_buy_sell"
-            tools:ignore="TooManyViews"/>
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:id="@+id/lay_coord"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true">
+            <!-- Persistent Bottom Sheet -->
+            <include
+                android:id="@+id/persistent_bottom_sheet"
+                layout="@layout/bottom_sheet_exchange_buy_sell"
+                tools:ignore="TooManyViews" />
 
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </RelativeLayout>
+
+
+
 </layout>
