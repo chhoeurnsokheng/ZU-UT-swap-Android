@@ -35,8 +35,7 @@ class WithdrawActivity :
                     startActivity(intent)
                 }
 
-                layNavbar.txtTitle.text = resources.getString(R.string.withdraw)
-                layNavbar.imgBack.setOnClickListener {
+                imgClose.setOnClickListener {
                     finish()
                 }
 

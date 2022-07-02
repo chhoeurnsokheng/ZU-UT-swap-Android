@@ -34,8 +34,7 @@ class TransferActivity :
         try {
             binding.apply {
 
-                layNavbar.txtTitle.text = UTSwapApp.instance.getString(R.string.transfer)
-                layNavbar.imgBack.setOnClickListener {
+                imgClose.setOnClickListener {
                     finish()
                 }
 
