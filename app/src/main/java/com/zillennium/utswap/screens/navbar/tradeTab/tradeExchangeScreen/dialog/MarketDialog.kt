@@ -26,7 +26,7 @@ class MarketDialog : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        view = inflater.inflate(R.layout.dialog_market, container, false)
+        view = inflater.inflate(R.layout.dialog_exchange_market, container, false)
         dialog!!.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog!!.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
@@ -40,7 +40,7 @@ class MarketDialog : DialogFragment() {
 
         if(arguments?.get("status") == "SELL")
         {
-            btnBuy?.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.main_red))
+            btnBuy?.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
         }else{
             btnBuy?.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.success))
         }

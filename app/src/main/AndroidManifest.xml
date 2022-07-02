@@ -187,56 +187,56 @@
             android:screenOrientation="portrait"/>
 
         <!--Account Screen-->
-        <activity android:name=".screens.account.AccountActivity"
+        <activity android:name=".screens.account.accountScreen.AccountActivity"
             android:exported="false"
             android:label="@string/account"
             android:screenOrientation="portrait"/>
 
         <!--Account Detail Screen-->
-        <activity android:name="com.zillennium.utswap.screens.account.activity.accountDetail.AccountDetailActivity"
+        <activity android:name="com.zillennium.utswap.screens.account.accountDetailScreen.AccountDetailActivity"
             android:exported="false"
             android:label="@string/account"
             android:screenOrientation="portrait"/>
 
         <!--Lock Timeout Screen-->
-        <activity android:name=".screens.account.lockTimeOut.LockTimeOutActivity"
+        <activity android:name=".screens.account.lockTimeOutScreen.LockTimeOutActivity"
             android:exported="false"
             android:label="@string/account"
             android:screenOrientation="portrait"/>
 
         <!--Add phone number Screen-->
-        <activity android:name=".screens.account.addNumber.AddNumberActivity"
+        <activity android:name=".screens.account.addNumberScreen.AddNumberActivity"
             android:exported="false"
             android:label="@string/add_phone_number"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize"/>
 
         <!--Customer support Screen-->
-        <activity android:name=".screens.account.customerSupport.CustomerSupportActivity"
+        <activity android:name=".screens.account.customerSupportScreen.CustomerSupportActivity"
             android:exported="false"
             android:label="@string/customer_support"
             android:screenOrientation="portrait"/>
 
         <!--Referral Screen-->
-        <activity android:name=".screens.account.referralInformation.ReferralInformationActivity"
+        <activity android:name=".screens.account.referralInformationScreen.ReferralInformationActivity"
             android:exported="false"
             android:label="@string/referral_information"
             android:screenOrientation="portrait"/>
 
         <!--Documents account Screen-->
-        <activity android:name=".screens.account.documents.DocumentsActivity"
+        <activity android:name=".screens.account.documentsScreen.DocumentsActivity"
             android:exported="false"
             android:label="@string/documents"
             android:screenOrientation="portrait"/>
 
         <!--Terms conditions Screen-->
-        <activity android:name=".screens.account.documents.termsConditions.TermsConditionsActivity"
+        <activity android:name=".screens.account.documentsScreen.termsConditions.TermsConditionsActivity"
             android:exported="false"
             android:label="@string/documents"
             android:screenOrientation="portrait"/>
 
         <!--Logs Screen-->
-        <activity android:name=".screens.account.logs.LogsActivity"
+        <activity android:name=".screens.account.logsScreen.LogsActivity"
             android:exported="false"
             android:label="@string/log_s"
             android:screenOrientation="portrait"/>

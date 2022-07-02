@@ -20,7 +20,7 @@ class TradeOrderBookAskAdapter  (
         viewType: Int
     ): ViewHolder {
         val view: View = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_list_order_book_ask, parent, false)
+            .inflate(R.layout.item_list_exchange_order_book_ask, parent, false)
         return ViewHolder(
             view
         )

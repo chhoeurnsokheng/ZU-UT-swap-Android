@@ -5,16 +5,16 @@ import com.zillennium.utswap.Datas.ListDatas.orderBookListAskData.OrderBookListA
 import com.zillennium.utswap.Datas.ListDatas.orderBookListBidData.OrderBookListBidData
 import com.zillennium.utswap.R
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
-import com.zillennium.utswap.databinding.FragmentOrderBookBinding
+import com.zillennium.utswap.databinding.FragmentExchangeOrderBookBinding
 import com.zillennium.utswap.screens.navbar.tradeTab.tradeExchangeScreen.fragment.orderBook.adapter.TradeOrderBookAskAdapter
 import com.zillennium.utswap.screens.navbar.tradeTab.tradeExchangeScreen.fragment.orderBook.adapter.TradeOrderBookBidAdapter
 
 class OrderBookFragment :
-    BaseMvpFragment<OrderBookView.View, OrderBookView.Presenter, FragmentOrderBookBinding>(),
+    BaseMvpFragment<OrderBookView.View, OrderBookView.Presenter, FragmentExchangeOrderBookBinding>(),
     OrderBookView.View {
 
     override var mPresenter: OrderBookView.Presenter = OrderBookPresenter()
-    override val layoutResource: Int = R.layout.fragment_order_book
+    override val layoutResource: Int = R.layout.fragment_exchange_order_book
 
 
     override fun initView() {

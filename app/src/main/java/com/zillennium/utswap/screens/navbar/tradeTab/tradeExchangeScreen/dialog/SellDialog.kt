@@ -30,7 +30,7 @@ class SellDialog : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        view = inflater.inflate(R.layout.dialog_sell, container, false)
+        view = inflater.inflate(R.layout.dialog_exchange_sell, container, false)
         dialog!!.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog!!.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 

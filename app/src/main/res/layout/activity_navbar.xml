@@ -32,7 +32,7 @@
                 android:contentDescription="@string/menu"
                 android:padding="@dimen/dimen_20"
                 android:src="@drawable/ic_bars"
-                app:tint="@color/color_main" />
+                app:tint="@color/primary" />
 
             <ImageView
                 android:id="@+id/img_logo"
@@ -54,7 +54,7 @@
                 android:text="@string/trade"
                 android:textAlignment="center"
                 android:textAppearance="@style/medium_21"
-                android:textColor="@color/color_main" />
+                android:textColor="@color/primary" />
 
             <RelativeLayout
                 android:id="@+id/lay_notification"
@@ -71,14 +71,14 @@
                     android:layout_centerVertical="true"
                     android:contentDescription="@string/notification"
                     android:src="@drawable/ic_notifications_black_24dp"
-                    app:tint="@color/color_main" />
+                    app:tint="@color/primary" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignEnd="@+id/img_notification"
                     android:background="@drawable/bg_circular"
-                    android:backgroundTint="@color/red_EE1111"
+                    android:backgroundTint="@color/red_ee1111"
                     android:paddingHorizontal="@dimen/dimen_4"
                     android:paddingVertical="@dimen/dimen_2"
                     android:text="4"
@@ -128,7 +128,7 @@
                     android:id="@+id/lay_kyc_status"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dimen_38"
-                    android:background="@color/main_red"
+                    android:background="@color/danger"
                     android:orientation="horizontal"
                     android:visibility="gone"
                     android:gravity="center">
@@ -169,34 +169,24 @@
             <LinearLayout
                 android:id="@+id/lay_auth"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/dimen_38"
                 android:orientation="horizontal"
-                android:paddingHorizontal="@dimen/dimen_20"
-                android:paddingVertical="@dimen/dimen_26"
-                android:background="@color/white"
+                android:gravity="center"
+                android:background="@color/danger"
                 android:visibility="gone">
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btn_signIn"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dimen_48"
-                    android:layout_marginEnd="@dimen/dimen_8"
-                    android:layout_weight="1"
-                    android:background="@drawable/bg_circular"
-                    android:hint="@string/login"
-                    android:textAppearance="@style/bold_16"
-                    style="?android:attr/borderlessButtonStyle"
-                    android:textColorHint="@color/white" />
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btn_register"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dimen_48"
-                    android:layout_marginStart="@dimen/dimen_8"
-                    android:layout_weight="1"
-                    android:background="@drawable/bg_circular_border_button"
-                    android:hint="@string/register"
-                    style="?android:attr/borderlessButtonStyle"
-                    android:textAppearance="@style/bold_16"
-                    android:textColorHint="@color/color_main" />
+
+                <ImageView
+                    android:layout_width="@dimen/dimen_18"
+                    android:layout_height="@dimen/dimen_18"
+                    android:src="@drawable/ic_exclamation_mark"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_10"
+                    android:textColor="@color/white"
+                    android:textAppearance="@style/medium_14"
+                    android:text="@string/please_sign_in_to_continue"/>
+
             </LinearLayout>
         </RelativeLayout>
 

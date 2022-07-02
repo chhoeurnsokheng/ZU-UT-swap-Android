@@ -16,12 +16,13 @@ class NotificationActivity :
     override var mPresenter: NotificationView.Presenter = NotificationPresenter()
     override val layoutResource: Int = R.layout.activity_system_notification
 
-    private var notificationList = ArrayList<Notification>()
+    private val notificationList = ArrayList<Notification>()
 
     override fun initView() {
         super.initView()
         try {
             binding.apply {
+
                 imgClose.setOnClickListener{
                     finish()
                 }
@@ -51,6 +52,13 @@ class NotificationActivity :
         } catch (error: Exception) {
             // Must be safe
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        notificationList.clear()
+        binding.rvNotification.adapter?.notifyDataSetChanged()
+        binding.unbind()
     }
 
 

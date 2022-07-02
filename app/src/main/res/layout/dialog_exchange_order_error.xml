@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:cardCornerRadius="@dimen/dimen_10">
+
+        <LinearLayout
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/dimen_24"
+            android:paddingHorizontal="@dimen/dimen_24"
+            android:paddingBottom="@dimen/dimen_20"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="@dimen/dimen_32"
+                android:layout_height="@dimen/dimen_32"
+                android:src="@drawable/ic_exclamation_mark_red"
+                app:tint="@color/danger"
+                android:layout_marginBottom="@dimen/dimen_16"
+                android:layout_gravity="center"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/medium_14"
+                android:textColor="@color/black_333333"
+                android:textAlignment="center"
+                android:layout_marginHorizontal="@dimen/dimen_20"
+                android:text="@string/insufficient_funds"
+                android:layout_marginBottom="@dimen/dimen_32"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/regular_10"
+                android:textColor="@color/black_333333"
+                android:textAlignment="center"
+                android:layout_marginHorizontal="@dimen/dimen_20"
+                android:text="@string/please_ensure_you_have_deposited_a_sufficient_amount_in_your_balance"
+                android:layout_marginBottom="@dimen/dimen_32"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_cancel"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_48"
+                app:backgroundTint="@color/gray_F7F7F7"
+                android:background="@drawable/bg_circular"
+                android:hint="@string/back"
+                android:textAppearance="@style/regular_14"
+                android:textColorHint="@color/primary"
+                style="?android:attr/borderlessButtonStyle"/>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</layout>

@@ -19,7 +19,7 @@
                 android:layout_height="@dimen/dimen_60"
                 android:padding="@dimen/dimen_14"
                 android:src="@drawable/ic_baseline_arrow_back_24"
-                app:tint="@color/color_main" />
+                app:tint="@color/primary" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -51,7 +51,7 @@
                     android:layout_centerVertical="true"
                     android:text="@string/declaration"
                     android:textAppearance="@style/medium_18"
-                    android:textColor="@color/blur_0E1C6B" />
+                    android:textColor="@color/primary" />
 
                 <CheckBox
                     android:id="@+id/cb_Declaration"
@@ -126,7 +126,7 @@
                     android:layout_centerVertical="true"
                     android:text="@string/e_agreement"
                     android:textAppearance="@style/medium_18"
-                    android:textColor="@color/blur_0E1C6B" />
+                    android:textColor="@color/primary" />
 
                 <CheckBox
                     android:id="@+id/cb_eAgreement"

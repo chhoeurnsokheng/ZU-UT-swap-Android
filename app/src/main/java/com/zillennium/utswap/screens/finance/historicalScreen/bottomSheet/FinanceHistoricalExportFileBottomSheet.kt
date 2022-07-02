@@ -113,7 +113,7 @@ class FinanceHistoricalExportFileBottomSheet : BottomSheetDialogFragment(),
                     etEndDate.setHintTextColor(
                         ContextCompat.getColor(
                             UTSwapApp.instance,
-                            R.color.color_main
+                            R.color.primary
                         )
                     )
                     etEndDate.isEnabled = true

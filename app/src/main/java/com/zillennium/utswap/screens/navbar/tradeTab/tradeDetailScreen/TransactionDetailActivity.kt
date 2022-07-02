@@ -36,7 +36,7 @@ class TransactionDetailActivity :
                 txtStatus.text = arguments?.getString("status")
                 if(txtStatus.text.toString() == "SELL")
                 {
-                    txtStatus.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.main_red))
+                    txtStatus.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
                 }
 
                 volume = arguments?.getInt("ut")

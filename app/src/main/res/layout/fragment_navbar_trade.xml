@@ -51,7 +51,7 @@
                     android:layout_height="wrap_content"
                     android:text="Upcoming"
                     android:textAppearance="@style/medium_12"
-                    android:textColor="@color/orange"/>
+                    android:textColor="@color/warning"/>
 
                 <RelativeLayout
                     android:id="@+id/linear_layout"
@@ -93,11 +93,11 @@
                                 android:layout_marginEnd="@dimen/dimen_5"
                                 android:layout_weight="1"
                                 android:background="@drawable/bg_circular_border_blue"
-                                android:backgroundTint="@color/color_main"
+                                android:backgroundTint="@color/primary"
                                 android:gravity="center"
                                 android:text="@string/details"
                                 android:textAppearance="@style/regular_12"
-                                android:textColor="@color/color_main" />
+                                android:textColor="@color/primary" />
 
                             <TextView
                                 android:id="@+id/txt_subscribe"
@@ -106,7 +106,7 @@
                                 android:layout_marginStart="@dimen/dimen_5"
                                 android:layout_weight="1"
                                 android:background="@drawable/bg_circular"
-                                android:backgroundTint="@color/orange"
+                                android:backgroundTint="@color/warning"
                                 android:gravity="center"
                                 android:text="@string/subscribe"
                                 android:textAppearance="@style/regular_12"
@@ -215,13 +215,98 @@
                             android:src="@drawable/ic_sort_arrow_up_down" />
                     </LinearLayout>
                 </LinearLayout>
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_trade"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scrollbars="none"
                     android:overScrollMode="never"
+                    android:visibility="visible"
                     />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    android:id="@+id/item_list_project_loading"
+                    android:layout_height="wrap_content">
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="64dp">
+                        <View
+                            android:background="@color/light_gray"
+                            android:layout_width="128dp"
+                            android:layout_height="18dp"
+                            android:layout_centerVertical="true"/>
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/light_gray"
+                            android:layout_alignParentBottom="true"/>
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="64dp">
+                        <View
+                            android:layout_width="88dp"
+                            android:layout_height="18dp"
+                            android:background="@color/light_gray"
+                            android:layout_centerVertical="true"/>
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/light_gray"
+                            android:layout_alignParentBottom="true"/>
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="64dp">
+                        <View
+                            android:background="@color/light_gray"
+                            android:layout_width="58dp"
+                            android:layout_height="18dp"
+                            android:layout_centerVertical="true"/>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/light_gray"
+                            android:layout_alignParentBottom="true"/>
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="64dp">
+                        <View
+                            android:background="@color/light_gray"
+                            android:layout_width="120dp"
+                            android:layout_height="18dp"
+                            android:layout_centerVertical="true"/>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_alignParentBottom="true"
+                            android:background="@color/light_gray"/>
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="64dp">
+                        <View
+                            android:background="@color/light_gray"
+                            android:layout_width="114dp"
+                            android:layout_height="18dp"
+                            android:layout_centerVertical="true"/>
+
+                        <View
+                            android:id="@+id/view_line5"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/light_gray"
+                            android:layout_alignParentBottom="true"/>
+                    </RelativeLayout>
+                </LinearLayout>
+
             </LinearLayout>
         </LinearLayout>
 </layout>

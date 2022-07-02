@@ -1,26 +1,18 @@
 package com.zillennium.utswap.screens.security.securityFragment.resetPassword
 
-import android.content.Intent
 import android.content.res.ColorStateList
-import android.graphics.Color
-import android.graphics.PorterDuff
-import android.graphics.drawable.Drawable
 import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import androidx.core.content.ContextCompat
-import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
-import com.zillennium.utswap.databinding.ActivitySecurityResetPasswordBinding
 
 import com.zillennium.utswap.UTSwapApp
-import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.R
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentSecurityResetPasswordBinding
-import com.zillennium.utswap.screens.security.securityFragment.verificationScreen.VerificationFragment
 import com.zillennium.utswap.utils.validate
 
 
@@ -45,7 +37,7 @@ class ResetPasswordFragment :
                     if(inputEmail.text.isNullOrEmpty()) {
                         textEmpty.text = "Field can't be empty"
                         textEmpty.visibility = View.VISIBLE
-                        inputEmail.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.main_red))
+                        inputEmail.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
                         isHaveError = true
                         return@setOnClickListener
                     }
@@ -54,7 +46,7 @@ class ResetPasswordFragment :
                         textEmpty.text = "Please input a valid email/phone number."
                         textEmpty.visibility = View.VISIBLE
                         inputEmail.backgroundTintList =
-                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.main_red))
+                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
                         isHaveError = true
                         return@setOnClickListener
                     }
@@ -73,7 +65,7 @@ class ResetPasswordFragment :
                         }else{
                             textEmpty.visibility = View.VISIBLE
                             textEmpty.text = "Invalid email or phone number"
-                            inputEmail.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.main_red))
+                            inputEmail.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
                         }
 
                         pbNext.visibility = View.GONE

@@ -1,25 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="color_main">#252552</color>
-    <color name="blur_0E1C6B">#0E1C6B</color>
-    <color name="color_main_blur">#25252552</color>
-    <color name="color_blur_bg_dialog_balance">#75000000</color>
-    <color name="main_red">#E25757</color>
+    <color name="color_main_blur_persistent_bottom_sheet">#201B2266</color>
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#252552</color>
+    <color name="purple_700">#1B2266</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="black_000000">#000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="orange">#EEA300</color>
     <color name="transparent">#00FFFFFF</color>
-    <color name="primary">#007bff</color>
-    <color name="secondary">#6c757d</color>
-    <color name="success">#08B471</color>
-    <color name="danger">#dc3545</color>
-    <color name="warning">#ffc107</color>
+    <color name="primary">#1B2266</color>
+    <color name="color_main_blur">#251B2266</color>
+    <color name="color_blur_bg_dialog_balance">#75000000</color>
+    <color name="secondary">#E0AC19</color>
+    <color name="success">#068453</color>
+    <color name="danger">#DD3636</color>
+    <color name="warning">#E0AC19</color>
     <color name="info">#17a2b8</color>
     <color name="light">#f8f9fa</color>
     <color name="dark">#343a40</color>
@@ -27,8 +24,7 @@
     <color name="muted">#AEAED5</color>
     <color name="pale_green">#90EE90</color>
     <color name="dark_green">#006400</color>
-    <color name="red">#FF0000</color>
-    <color name="red_EE1111">#EE1111</color>
+    <color name="red_ee1111">#EE1111</color>
     <color name="thirst_text">#B1B1B1</color>
     <color name="secondary_text">#555555</color>
     <color name="gray">#DCDCDC</color>

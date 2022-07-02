@@ -4,11 +4,16 @@ import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Paint
 import android.os.Handler
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
+import android.widget.*
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.button.MaterialButton
 import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
@@ -21,7 +26,9 @@ import com.zillennium.utswap.screens.navbar.tradeTab.tradeExchangeScreen.fragmen
 import com.zillennium.utswap.screens.navbar.tradeTab.tradeExchangeScreen.fragment.chart.ChartFragment
 import com.zillennium.utswap.screens.navbar.tradeTab.tradeExchangeScreen.fragment.orderBook.OrderBookFragment
 import com.zillennium.utswap.screens.navbar.tradeTab.tradeExchangeScreen.fragment.orders.OrdersFragment
-import com.zillennium.utswap.screens.navbar.tradeTab.tradeExchangeScreen.dialog.BuyAndSellBottomSheetDialog
+import com.zillennium.utswap.screens.navbar.tradeTab.tradeExchangeScreen.dialog.BuyDialog
+import com.zillennium.utswap.screens.navbar.tradeTab.tradeExchangeScreen.dialog.MarketDialog
+import com.zillennium.utswap.screens.navbar.tradeTab.tradeExchangeScreen.dialog.SellDialog
 import com.zillennium.utswap.screens.security.securityActivity.registerScreen.RegisterActivity
 import com.zillennium.utswap.screens.security.securityActivity.signInScreen.SignInActivity
 
@@ -39,11 +46,15 @@ class TradeExchangeActivity :
     val NUM_PAGES_TABLE = 3
     var remember: Boolean = true
 
-//    @SuppressLint("UseCompatLoadingForDrawables", "ResourceAsColor")
+    var click = true
+    private var mBottomSheetBehavior: BottomSheetBehavior<*>? = null
+
+    //    @SuppressLint("UseCompatLoadingForDrawables", "ResourceAsColor")
     override fun initView() {
         super.initView()
         try {
             binding.apply {
+
                 SessionVariable.SESSION_STATUS.observe(this@TradeExchangeActivity) {
                     onCheckSessionStatusAndKYC()
                 }
@@ -55,7 +66,7 @@ class TradeExchangeActivity :
                 imgRemember.setOnClickListener {
                     remember = !remember
                     if(remember){
-                        imgRemember.imageTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.orange))
+                        imgRemember.imageTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.warning))
                     }else{
                         imgRemember.imageTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.dark_gray))
                     }
@@ -67,7 +78,7 @@ class TradeExchangeActivity :
                             2 -> {
                                 layKycStatus.visibility = View.VISIBLE
                                 layKycStatus.backgroundTintList = ColorStateList.valueOf(
-                                    ContextCompat.getColor(UTSwapApp.instance, R.color.orange))
+                                    ContextCompat.getColor(UTSwapApp.instance, R.color.warning))
                                 txtStatus.text = "Pending Review."
                                 btnVerify.isClickable = false
                                 btnVerify.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.gray_999999))
@@ -78,10 +89,10 @@ class TradeExchangeActivity :
                             }
                             1 -> {
                                 layKycStatus.visibility = View.VISIBLE
-                                layKycStatus.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.main_red))
+                                layKycStatus.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
                                 txtStatus.text = "Invalid Verification. Please Try Again."
                                 btnVerify.isClickable = true
-                                btnVerify.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.color_main))
+                                btnVerify.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
                             }
                             else -> {
                                 layKycStatus.visibility = View.GONE
@@ -91,9 +102,11 @@ class TradeExchangeActivity :
                     }
                 }
 
+                persistentBottomSheet.txtAvailable.paintFlags = persistentBottomSheet.txtAvailable.paintFlags or Paint.UNDERLINE_TEXT_FLAG
+                persistentBottomSheet.txtAvailableClick.paintFlags = persistentBottomSheet.txtAvailableClick.paintFlags or Paint.UNDERLINE_TEXT_FLAG
+                persistentBottomSheet.txtUt.paintFlags = persistentBottomSheet.txtUt.paintFlags or Paint.UNDERLINE_TEXT_FLAG
+                persistentBottomSheet.txtUtClick.paintFlags = persistentBottomSheet.txtUtClick.paintFlags or Paint.UNDERLINE_TEXT_FLAG
 
-                txtAvailable.paintFlags = txtAvailable.paintFlags or Paint.UNDERLINE_TEXT_FLAG
-                txtUt.paintFlags = txtUt.paintFlags or Paint.UNDERLINE_TEXT_FLAG
 
                 pageAdapter = ScreenSlidePageAdapter(this@TradeExchangeActivity, NUM_PAGES)
                 vpVerify.adapter = pageAdapter
@@ -135,32 +148,13 @@ class TradeExchangeActivity :
                     onBackPressed()
                 }
 
-                btnBuy.setOnClickListener {
-                    val buyAndSellBottomSheetDialog: BuyAndSellBottomSheetDialog =
-                        BuyAndSellBottomSheetDialog.newInstance(
-                        )
-                    buyAndSellBottomSheetDialog.show(supportFragmentManager, "dgdgdg")
-                }
-
-                btnSell.setOnClickListener {
-                    val buyAndSellBottomSheetDialog: BuyAndSellBottomSheetDialog =
-                        BuyAndSellBottomSheetDialog.newInstance(
-                        )
-                    buyAndSellBottomSheetDialog.show(supportFragmentManager, "dgdgdg")
-                }
-
                 layProject.setOnClickListener {
                     val intent: Intent = Intent(UTSwapApp.instance, ProjectInfoActivity::class.java)
                     startActivity(intent)
                 }
 
-                btnSignIn.setOnClickListener {
+                layAuth.setOnClickListener {
                     val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
-                    startActivity(intent)
-                }
-
-                btnRegister.setOnClickListener {
-                    val intent = Intent(UTSwapApp.instance, RegisterActivity::class.java)
                     startActivity(intent)
                 }
 
@@ -168,6 +162,157 @@ class TradeExchangeActivity :
                     val intent = Intent(UTSwapApp.instance, KYCActivity::class.java)
                     startActivity(intent)
                 }
+
+                // Bottom sheet persistent
+                mBottomSheetBehavior = BottomSheetBehavior.from(persistentBottomSheet.bottomSheetBuySell)
+
+                (mBottomSheetBehavior as BottomSheetBehavior<*>).addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback(){
+                    override fun onStateChanged(bottomSheet: View, newState: Int) {
+                        if (mBottomSheetBehavior?.state == BottomSheetBehavior.STATE_DRAGGING){
+                            persistentBottomSheet.layBuyAndSellClick.visibility = View.GONE
+                        }
+                        else if (mBottomSheetBehavior?.state == BottomSheetBehavior.STATE_COLLAPSED){
+                            persistentBottomSheet.layBuyAndSellClick.visibility = View.VISIBLE
+                        }
+                    }
+                    override fun onSlide(bottomSheet: View, slideOffset: Float) {} })
+
+                persistentBottomSheet.btnBuyBottomSheetClick.setOnClickListener{
+                    if (mBottomSheetBehavior?.state == BottomSheetBehavior.STATE_COLLAPSED){
+                        persistentBottomSheet.layBuyAndSellClick.visibility = View.GONE
+                        mBottomSheetBehavior?.state = BottomSheetBehavior.STATE_EXPANDED
+                    }
+                }
+                persistentBottomSheet.btnSellBottomSheetClick.setOnClickListener {
+                    if (mBottomSheetBehavior?.state == BottomSheetBehavior.STATE_COLLAPSED){
+                        persistentBottomSheet.layBuyAndSellClick.visibility = View.GONE
+                        mBottomSheetBehavior?.state = BottomSheetBehavior.STATE_EXPANDED
+
+                    }
+                }
+
+                persistentBottomSheet.btnBuyBottomSheet.setOnClickListener {
+                    var isHaveError = false
+                    if(persistentBottomSheet.etVolume.text.isEmpty())
+                    {
+                        persistentBottomSheet.etVolume.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_error_red)
+                        isHaveError = true
+                    }
+
+                    if(persistentBottomSheet.linearPrice.visibility == View.VISIBLE)
+                    {
+                        if(persistentBottomSheet.etPriceOfVolume.text.isEmpty())
+                        {
+                            persistentBottomSheet.etPriceOfVolume.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_error_red)
+                            isHaveError = true
+                        }
+                    }
+
+                    if (isHaveError) return@setOnClickListener
+
+                    if(click)
+                    {
+                        mBottomSheetBehavior?.state = BottomSheetBehavior.STATE_COLLAPSED
+                        val buyDialog: BuyDialog =
+                            BuyDialog.newInstance(
+                                persistentBottomSheet.etVolume.text.toString(),
+                                persistentBottomSheet.etPriceOfVolume.text.toString()
+                            )
+                        buyDialog.show(supportFragmentManager, "limitBuy")
+                    }else{
+                        mBottomSheetBehavior?.state = BottomSheetBehavior.STATE_COLLAPSED
+                        val marketDialog: MarketDialog =
+                            MarketDialog.newInstance(persistentBottomSheet.etVolume.text.toString(), "BUY")
+                        marketDialog.show(supportFragmentManager, "marketBuy")
+                    }
+
+                }
+                persistentBottomSheet.btnSellBottomSheet.setOnClickListener {
+                    var isHaveError = false
+                    if(persistentBottomSheet.etVolume.text.isEmpty())
+                    {
+                        persistentBottomSheet.etVolume.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_error_red)
+                        isHaveError = true
+                    }
+
+                    if(persistentBottomSheet.linearPrice.visibility == View.VISIBLE)
+                    {
+                        if(persistentBottomSheet.etPriceOfVolume.text.isEmpty())
+                        {
+                            persistentBottomSheet.etPriceOfVolume.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_error_red)
+                            isHaveError = true
+                        }
+                    }
+
+                    if (isHaveError) return@setOnClickListener
+
+                    if(click)
+                    {
+                        mBottomSheetBehavior?.state = BottomSheetBehavior.STATE_COLLAPSED
+                        val sellDialog: SellDialog =
+                            SellDialog.newInstance(
+                                persistentBottomSheet.etVolume.text.toString(),
+                                persistentBottomSheet.etPriceOfVolume.text.toString()
+                            )
+                        sellDialog.show(supportFragmentManager, "limitSell")
+                    }else{
+                        mBottomSheetBehavior?.state = BottomSheetBehavior.STATE_COLLAPSED
+                        val marketDialog: MarketDialog =
+                            MarketDialog.newInstance(persistentBottomSheet.etVolume.text.toString(), "SELL")
+                        marketDialog.show(supportFragmentManager, "marketSell")
+                    }
+                }
+
+                persistentBottomSheet.etVolume.addTextChangedListener(object : TextWatcher {
+                    override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+                    }
+
+                    override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                        persistentBottomSheet.etVolume.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.outline_edittext_change_color_focus)
+                    }
+
+                    override fun afterTextChanged(p0: Editable?) {
+
+                    }
+                })
+                persistentBottomSheet.etPriceOfVolume.addTextChangedListener(object : TextWatcher {
+                    override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+                    }
+
+                    override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                        persistentBottomSheet.etPriceOfVolume.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.outline_edittext_change_color_focus)
+                    }
+
+                    override fun afterTextChanged(p0: Editable?) {
+
+                    }
+                })
+
+                persistentBottomSheet.btnMarket.setOnClickListener {
+                    persistentBottomSheet.linearPrice.visibility = View.GONE
+                    persistentBottomSheet.btnMarket.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_circular)
+                    persistentBottomSheet.btnMarket.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
+                    persistentBottomSheet.txtMarket.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.white))
+                    persistentBottomSheet.txtLimit.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
+                    persistentBottomSheet.btnLimit.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.gray))
+                    persistentBottomSheet.etVolume.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.outline_edittext_change_color_focus)
+                    click = false
+                }
+                persistentBottomSheet.btnLimit.setOnClickListener {
+                    persistentBottomSheet.linearPrice.visibility = View.VISIBLE
+                    persistentBottomSheet.btnLimit.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_circular)
+                    persistentBottomSheet.btnLimit.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
+                    persistentBottomSheet.txtLimit.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.white))
+                    persistentBottomSheet.txtMarket.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
+                    persistentBottomSheet.btnMarket.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.gray))
+                    persistentBottomSheet.etPriceOfVolume.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.outline_edittext_change_color_focus)
+                    persistentBottomSheet.etVolume.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.outline_edittext_change_color_focus)
+                    click = true
+                }
+//  end of bottom sheet persistent
+
             }
         } catch (error: Exception) {
             // Must be safe
@@ -176,14 +321,13 @@ class TradeExchangeActivity :
 
     private fun onCheckSessionStatusAndKYC(){
         binding.apply {
+
             if(SessionVariable.SESSION_STATUS.value == true && SessionVariable.SESSION_KYC.value == true){
-                layBuyAndSell.visibility = View.VISIBLE
+                persistentBottomSheet.root.visibility = View.VISIBLE
                 layTransactions.visibility = View.VISIBLE
             }else{
-                layBuyAndSell.visibility = View.GONE
+                persistentBottomSheet.root.visibility = View.GONE
                 layTransactions.visibility = View.GONE
-
-
 
                 if(SessionVariable.SESSION_KYC.value == false){
                     layAuth.visibility = View.GONE
@@ -202,9 +346,9 @@ class TradeExchangeActivity :
             if (view.id == R.id.order_book) {
                 tabSelect.animate()?.x(0f)?.duration = 100
                 orderBook.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.white))
-                chart.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.color_main))
+                chart.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
             } else if (view.id == R.id.chart) {
-                orderBook.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.color_main))
+                orderBook.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
                 chart.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.white))
                 val size: Int = chart.width
                 tabSelect.animate().x(size.toFloat()).duration = 100
@@ -219,19 +363,19 @@ class TradeExchangeActivity :
                 R.id.txt_orders -> {
                     tabSelectOrders.animate()?.x(0f)?.duration = 100
                     txtOrders.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.white))
-                    txtAllTransactions.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.color_main))
-                    txtTransactions.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.color_main))
+                    txtAllTransactions.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
+                    txtTransactions.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
                 }
                 R.id.txt_transactions -> {
-                    txtOrders.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.color_main))
-                    txtAllTransactions.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.color_main))
+                    txtOrders.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
+                    txtAllTransactions.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
                     txtTransactions.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.white))
                     val size: Int = txtTransactions.width
                     tabSelectOrders.animate().x(size.toFloat()).duration = 100
                 }
                 R.id.txt_all_transactions -> {
-                    txtOrders.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.color_main))
-                    txtTransactions.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.color_main))
+                    txtOrders.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
+                    txtTransactions.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
                     txtAllTransactions.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.white))
                     val sizeAllTrans: Int = (txtAllTransactions.x.toInt())
 
@@ -275,6 +419,7 @@ class TradeExchangeActivity :
             return NUM_PAGES_TABLE
         }
     }
+
 
 //    override fun onResume() {
 //        super.onResume()

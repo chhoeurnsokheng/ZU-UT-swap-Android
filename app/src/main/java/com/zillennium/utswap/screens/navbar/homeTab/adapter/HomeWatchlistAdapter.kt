@@ -1,7 +1,5 @@
 package com.zillennium.utswap.screens.navbar.homeTab.adapter
 
-import android.annotation.SuppressLint
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,12 +7,10 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
-import androidx.core.view.marginLeft
 import androidx.recyclerview.widget.RecyclerView
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.models.HomeWatchlistModel
-import com.zillennium.utswap.screens.navbar.tradeTab.tradeExchangeScreen.TradeExchangeActivity
 import com.zillennium.utswap.utils.dpToPx
 
 class HomeWatchlistAdapter(arrayList: ArrayList<HomeWatchlistModel>, onClickWatch: OnclickWatch):
@@ -44,7 +40,7 @@ class HomeWatchlistAdapter(arrayList: ArrayList<HomeWatchlistModel>, onClickWatc
         holder.txtLastValue.text = homeWatchlistList.lastValue.toString()
         if(homeWatchlistList.changeValue < 0){
             holder.txtChangeValue.text = homeWatchlistList.changeValue.toString() + "%"
-            holder.txtChangeValue.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.main_red))
+            holder.txtChangeValue.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
         }else {
             holder.txtChangeValue.text = "+" + homeWatchlistList.changeValue + "%"
             holder.txtChangeValue.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.success))

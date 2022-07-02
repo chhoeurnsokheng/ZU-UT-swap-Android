@@ -2,7 +2,6 @@ package com.zillennium.utswap.screens.kyc.kycFragment.idTypeScreen
 
 import android.app.AlertDialog
 import android.view.View
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -131,9 +130,9 @@ open class IdTypeFragment :
             if (view.id == R.id.national_id) {
                 tabSelect.animate()?.x(0f)?.duration = 100
                 nationalId.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.white))
-                passport.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.color_main))
+                passport.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
             } else if (view.id == R.id.passport) {
-                nationalId.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.color_main))
+                nationalId.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
                 passport.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.white))
                 val size: Int = passport.width ?: 0
                 tabSelect.animate().x(size.toFloat()).duration = 100

@@ -28,7 +28,7 @@
         android:id="@+id/navigation_navbar_news"
         android:name="com.zillennium.utswap.screens.navbar.newsTab.NewsTabFragment"
         android:label="@string/news"
-        tools:layout="@layout/fragment_news_tab">
+        tools:layout="@layout/fragment_navbar_news">
     </fragment>
 
 </navigation>

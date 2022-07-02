@@ -18,7 +18,7 @@ import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityNavbarBinding
-import com.zillennium.utswap.screens.account.AccountActivity
+import com.zillennium.utswap.screens.account.accountScreen.AccountActivity
 import com.zillennium.utswap.screens.kyc.kycActivity.KYCActivity
 import com.zillennium.utswap.screens.navbar.homeTab.HomeFragment
 import com.zillennium.utswap.screens.navbar.newsTab.NewsTabFragment
@@ -53,7 +53,7 @@ class NavbarActivity :
                         layAuth.visibility = GONE
                         layVerify.visibility = VISIBLE
                         imgMenu.setOnClickListener {
-                            val intent = Intent(UTSwapApp.instance,AccountActivity::class.java)
+                            val intent = Intent(UTSwapApp.instance, AccountActivity::class.java)
                             startActivity(intent)
                             overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
                         }
@@ -80,7 +80,7 @@ class NavbarActivity :
                             2 -> {
                                 layKycStatus.visibility = View.VISIBLE
                                 layKycStatus.backgroundTintList = ColorStateList.valueOf(
-                                    ContextCompat.getColor(UTSwapApp.instance, R.color.orange))
+                                    ContextCompat.getColor(UTSwapApp.instance, R.color.warning))
                                 txtStatus.text = "Pending Review."
                                 btnVerify.isClickable = false
                                 btnVerify.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.gray_999999))
@@ -91,10 +91,10 @@ class NavbarActivity :
                             }
                             1 -> {
                                 layKycStatus.visibility = View.VISIBLE
-                                layKycStatus.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.main_red))
+                                layKycStatus.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
                                 txtStatus.text = "Invalid Verification. Please Try Again."
                                 btnVerify.isClickable = true
-                                btnVerify.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.color_main))
+                                btnVerify.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
                             }
                             else -> {
                                 layKycStatus.visibility = View.GONE
@@ -220,13 +220,8 @@ class NavbarActivity :
 
 
 
-                btnSignIn.setOnClickListener {
+                layAuth.setOnClickListener {
                     val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
-                    startActivity(intent)
-                }
-
-                btnRegister.setOnClickListener {
-                    val intent = Intent(UTSwapApp.instance, RegisterActivity::class.java)
                     startActivity(intent)
                 }
 

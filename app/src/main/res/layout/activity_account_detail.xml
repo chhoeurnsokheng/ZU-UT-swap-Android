@@ -17,7 +17,7 @@
                 android:layout_height="@dimen/dimen_64"
                 android:padding="@dimen/dimen_16"
                 android:src="@drawable/ic_baseline_arrow_back_24"
-                app:tint="@color/color_main" />
+                app:tint="@color/primary" />
 
             <TextView
                 android:id="@+id/title"
@@ -29,7 +29,7 @@
                 android:text="@string/account"
                 android:textAlignment="center"
                 android:textAppearance="@style/medium_21"
-                android:textColor="@color/color_main" />
+                android:textColor="@color/primary" />
 
             <RelativeLayout
                 android:id="@+id/lay_notification"
@@ -46,7 +46,7 @@
                     android:layout_centerVertical="true"
                     android:contentDescription="@string/notification"
                     android:src="@drawable/ic_notifications_black_24dp"
-                    app:tint="@color/color_main" />
+                    app:tint="@color/primary" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -54,7 +54,7 @@
                     android:textColor="@color/white"
                     android:textAppearance="@style/regular_6"
                     android:background="@drawable/bg_circular"
-                    android:backgroundTint="@color/red_EE1111"
+                    android:backgroundTint="@color/red_ee1111"
                     android:paddingHorizontal="@dimen/dimen_4"
                     android:paddingVertical="@dimen/dimen_2"
                     android:layout_alignEnd="@+id/img_notification"/>
@@ -70,9 +70,12 @@
             android:orientation="horizontal">
 
             <ImageView
+                android:id="@+id/img_ut_type"
                 android:layout_width="88dp"
                 android:layout_height="88dp"
                 android:src="@drawable/utprofessional"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
                 android:layout_marginEnd="17dp"/>
 
             <LinearLayout

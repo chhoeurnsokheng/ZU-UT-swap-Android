@@ -1,7 +1,6 @@
 package com.zillennium.utswap.screens.navbar.portfolioTab.adapter
 
 import android.annotation.SuppressLint
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,7 +21,7 @@ class PerformanceAdapter (
         viewType: Int
     ): ViewHolder {
         val view: View = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_list_performance, parent, false)
+            .inflate(R.layout.item_list_portfolio_performance, parent, false)
         return ViewHolder(
             view
         )
@@ -53,8 +52,8 @@ class PerformanceAdapter (
         }
         else
         {
-            holder.txtPercent.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.main_red))
-            holder.percent.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.main_red))
+            holder.txtPercent.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
+            holder.percent.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
         }
 
         if (arrayList.size == 1) {

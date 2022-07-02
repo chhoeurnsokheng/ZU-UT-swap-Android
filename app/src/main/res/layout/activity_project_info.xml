@@ -20,7 +20,7 @@
                 android:layout_height="@dimen/dimen_60"
                 android:padding="@dimen/dimen_14"
                 android:src="@drawable/ic_baseline_arrow_back_24"
-                app:tint="@color/color_main" />
+                app:tint="@color/primary" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_subscript_trade"
@@ -35,7 +35,7 @@
                 android:textAppearance="@style/regular_14"
                 android:textColorHint="@color/white"
                 style="?android:attr/borderlessButtonStyle"
-                app:backgroundTint="@color/color_main" />
+                app:backgroundTint="@color/primary" />
 
         </RelativeLayout>
 
@@ -132,7 +132,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginRight="@dimen/dimen_5"
                             android:src="@drawable/ic_map"
-                            app:tint="@color/color_main" />
+                            app:tint="@color/primary" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -140,7 +140,7 @@
                             android:gravity="center"
                             android:text="View in Google Maps"
                             android:textAppearance="@style/medium_14"
-                            android:textColor="@color/color_main" />
+                            android:textColor="@color/primary" />
                     </LinearLayout>
 
                 </RelativeLayout>
@@ -170,7 +170,7 @@
                         android:gravity="center"
                         android:text="@string/UT"
                         android:textAppearance="@style/regular_16"
-                        android:textColor="@color/color_main" />
+                        android:textColor="@color/primary" />
 
                     <TextView
                         android:id="@+id/invest_value"
@@ -181,7 +181,7 @@
                         android:gravity="center"
                         android:text="@string/value"
                         android:textAppearance="@style/regular_16"
-                        android:textColor="@color/color_main" />
+                        android:textColor="@color/primary" />
 
                     <TextView
                         android:id="@+id/invest_sqm"
@@ -192,7 +192,7 @@
                         android:gravity="center"
                         android:text="@string/sqm"
                         android:textAppearance="@style/regular_16"
-                        android:textColor="@color/color_main" />
+                        android:textColor="@color/primary" />
 
                 </LinearLayout>
 
@@ -255,7 +255,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:src="@drawable/ic_baseline_circle_24"
-                                app:tint="@color/orange" />
+                                app:tint="@color/warning" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -277,7 +277,7 @@
                         android:gravity="center|right"
                         android:text="17% Minimum \n Expected Return"
                         android:textAppearance="@style/medium_16"
-                        android:textColor="@color/color_main" />
+                        android:textColor="@color/primary" />
                 </LinearLayout>
 
                 <RelativeLayout
@@ -293,7 +293,7 @@
                         android:layout_height="wrap_content"
                         android:text="Term &amp; Condition"
                         android:textAppearance="@style/regular_16"
-                        android:textColor="@color/color_main" />
+                        android:textColor="@color/primary" />
 
                     <ImageView
                         android:id="@+id/arrow_down_term_condition"
@@ -301,7 +301,7 @@
                         android:layout_height="@dimen/dimen_32"
                         android:layout_alignParentEnd="true"
                         android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
-                        app:tint="@color/color_main" />
+                        app:tint="@color/primary" />
 
                 </RelativeLayout>
 
@@ -336,7 +336,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/documents"
                         android:textAppearance="@style/regular_16"
-                        android:textColor="@color/color_main" />
+                        android:textColor="@color/primary" />
 
                     <ImageView
                         android:id="@+id/arrow_down_document"
@@ -344,7 +344,7 @@
                         android:layout_height="@dimen/dimen_32"
                         android:layout_alignParentEnd="true"
                         android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
-                        app:tint="@color/color_main" />
+                        app:tint="@color/primary" />
 
                 </RelativeLayout>
 
@@ -374,7 +374,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:src="@drawable/ic_baseline_picture_as_pdf_24"
-                            app:tint="@color/color_main" />
+                            app:tint="@color/primary" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -395,7 +395,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:src="@drawable/ic_baseline_picture_as_pdf_24"
-                            app:tint="@color/color_main" />
+                            app:tint="@color/primary" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -416,7 +416,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:src="@drawable/ic_baseline_picture_as_pdf_24"
-                            app:tint="@color/color_main" />
+                            app:tint="@color/primary" />
 
                         <TextView
                             android:layout_width="wrap_content"

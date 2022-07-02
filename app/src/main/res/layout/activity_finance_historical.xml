@@ -18,7 +18,7 @@
                 android:layout_height="@dimen/dimen_64"
                 android:padding="@dimen/dimen_16"
                 android:src="@drawable/ic_baseline_arrow_back_24"
-                app:tint="@color/color_main" />
+                app:tint="@color/primary" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -29,7 +29,7 @@
                 android:text="@string/historical"
                 android:textAlignment="center"
                 android:textAppearance="@style/medium_21"
-                android:textColor="@color/color_main" />
+                android:textColor="@color/primary" />
 
             <RelativeLayout
                 android:id="@+id/lay_notification"
@@ -46,14 +46,14 @@
                     android:layout_centerVertical="true"
                     android:contentDescription="@string/notification"
                     android:src="@drawable/ic_notifications_black_24dp"
-                    app:tint="@color/color_main" />
+                    app:tint="@color/primary" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignEnd="@+id/img_notification"
                     android:background="@drawable/bg_circular"
-                    android:backgroundTint="@color/red"
+                    android:backgroundTint="@color/red_ee1111"
                     android:paddingHorizontal="@dimen/dimen_4"
                     android:paddingVertical="@dimen/dimen_2"
                     android:text="4"
@@ -130,7 +130,7 @@
                                 android:layout_width="@dimen/dimen_18"
                                 android:layout_height="@dimen/dimen_18"
                                 android:src="@drawable/ic_filter"
-                                app:tint="@color/color_main" />
+                                app:tint="@color/primary" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -138,7 +138,7 @@
                                 android:layout_marginStart="@dimen/dimen_10"
                                 android:text="@string/filter_"
                                 android:textAppearance="@style/medium_14"
-                                android:textColor="@color/color_main" />
+                                android:textColor="@color/primary" />
 
                         </LinearLayout>
 
@@ -166,7 +166,7 @@
                                 android:layout_width="@dimen/dimen_18"
                                 android:layout_height="@dimen/dimen_18"
                                 android:src="@drawable/ic_calendar"
-                                app:tint="@color/color_main" />
+                                app:tint="@color/primary" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -174,7 +174,7 @@
                                 android:layout_marginStart="@dimen/dimen_10"
                                 android:text="test"
                                 android:textAppearance="@style/medium_12"
-                                android:textColor="@color/color_main"
+                                android:textColor="@color/primary"
                                 android:visibility="gone" />
 
                             <TextView
@@ -184,7 +184,7 @@
                                 android:layout_marginStart="@dimen/dimen_10"
                                 android:text="@string/select_date_range"
                                 android:textAppearance="@style/medium_14"
-                                android:textColor="@color/color_main" />
+                                android:textColor="@color/primary" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -192,7 +192,7 @@
                                 android:layout_marginStart="@dimen/dimen_10"
                                 android:text="Test"
                                 android:textAppearance="@style/medium_12"
-                                android:textColor="@color/color_main"
+                                android:textColor="@color/primary"
                                 android:visibility="gone" />
                         </LinearLayout>
 
@@ -252,7 +252,7 @@
                         android:layout_height="@dimen/dimen_30"
                         android:layout_alignParentEnd="true"
                         android:src="@drawable/ic_export"
-                        app:tint="@color/color_main" />
+                        app:tint="@color/primary" />
 
                 </RelativeLayout>
 
@@ -444,12 +444,12 @@
                             android:layout_height="wrap_content"
                             android:text="1"
                             android:textAppearance="@style/medium_16"
-                            android:textColor="@color/color_main" />
+                            android:textColor="@color/primary" />
 
                         <View
                             android:layout_width="@dimen/dimen_10"
                             android:layout_height="@dimen/dimen_1"
-                            android:background="@color/color_main" />
+                            android:background="@color/primary" />
 
                     </LinearLayout>
 

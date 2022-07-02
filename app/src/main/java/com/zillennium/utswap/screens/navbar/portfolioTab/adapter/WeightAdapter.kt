@@ -19,7 +19,7 @@ class WeightAdapter (
         viewType: Int
     ): ViewHolder {
         val view: View = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_list_performance, parent, false)
+            .inflate(R.layout.item_list_portfolio_performance, parent, false)
         return ViewHolder(
             view
         )

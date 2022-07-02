@@ -1,23 +1,21 @@
 package com.zillennium.utswap.screens.navbar.portfolioTab.dialog
 
-import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.*
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.zillennium.utswap.Datas.GlobalVariable.SettingVariable
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
-import com.zillennium.utswap.databinding.BottomSheetFilterPortfolioBinding
+import com.zillennium.utswap.databinding.BottomSheetPortfolioFilterBinding
 
 
 class FilterPortfolioDialogBottomSheet : BottomSheetDialogFragment(){
 
-    private var binding: BottomSheetFilterPortfolioBinding? = null
+    private var binding: BottomSheetPortfolioFilterBinding? = null
 
     override fun getTheme(): Int {
         return R.style.BottomSheetStyle
@@ -31,7 +29,7 @@ class FilterPortfolioDialogBottomSheet : BottomSheetDialogFragment(){
         dialog!!.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
-        binding = DataBindingUtil.inflate(inflater, R.layout.bottom_sheet_filter_portfolio, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.bottom_sheet_portfolio_filter, container, false)
         return binding?.root
 
     }

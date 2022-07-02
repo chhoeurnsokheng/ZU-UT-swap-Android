@@ -1,12 +1,10 @@
 package com.zillennium.utswap.screens.kyc.kycFragment.idVerificationScreen
 
-import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
 import android.content.res.ColorStateList
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.DatePicker
@@ -112,7 +110,7 @@ class IDVerificationFragment :
                 if (etFirstName.text.toString().isEmpty()) {
                     txtErrorFirstName.visibility = View.VISIBLE
                     etFirstName.backgroundTintList =
-                        ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.main_red))
+                        ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
                     isHaveError = true
                 }
 
@@ -120,7 +118,7 @@ class IDVerificationFragment :
                 if (etLastName.text.toString().isEmpty()) {
                     txtErrorLastName.visibility = View.VISIBLE
                     etLastName.backgroundTintList =
-                        ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.main_red))
+                        ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
                     isHaveError = true
                 }
 
@@ -128,34 +126,34 @@ class IDVerificationFragment :
                 if (etDate.text.toString().isEmpty()) {
                     txtErrorDate.visibility = View.VISIBLE
                     etDate.backgroundTintList =
-                        ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.main_red))
+                        ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
                     isHaveError = true
                 }
 
                 //Gender Error
                 if (info.gender == 0) {
-                    spinnerGender.underlineColor = ContextCompat.getColor(UTSwapApp.instance, R.color.main_red)
+                    spinnerGender.underlineColor = ContextCompat.getColor(UTSwapApp.instance, R.color.danger)
                     txtErrorGender.visibility = View.VISIBLE
                     isHaveError = true
                 }
 
                 // City/Province Error
                 if (info.city == 0) {
-                    spinnerCityProvince.underlineColor = ContextCompat.getColor(UTSwapApp.instance, R.color.main_red)
+                    spinnerCityProvince.underlineColor = ContextCompat.getColor(UTSwapApp.instance, R.color.danger)
                     txtErrorCity.visibility = View.VISIBLE
                     isHaveError = true
                 }
 
                 // District Error
                 if (info.district == 0) {
-                    spinnerDistrictKhan.underlineColor = ContextCompat.getColor(UTSwapApp.instance, R.color.main_red)
+                    spinnerDistrictKhan.underlineColor = ContextCompat.getColor(UTSwapApp.instance, R.color.danger)
                     txtErrorDistrict.visibility = View.VISIBLE
                     isHaveError = true
                }
 
                 // Commune Error
                 if (info.commune == 0) {
-                    spinnerCommuneSangkat.underlineColor = ContextCompat.getColor(UTSwapApp.instance, R.color.main_red)
+                    spinnerCommuneSangkat.underlineColor = ContextCompat.getColor(UTSwapApp.instance, R.color.danger)
                     txtErrorCommune.visibility = View.VISIBLE
                     isHaveError = true
                 }
@@ -164,7 +162,7 @@ class IDVerificationFragment :
                 if (etHouse.text.toString().isEmpty()) {
                     txtErrorHouse.visibility = View.VISIBLE
                     etHouse.backgroundTintList =
-                        ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.main_red))
+                        ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
                     isHaveError = true
                 }
 

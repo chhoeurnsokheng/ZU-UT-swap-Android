@@ -1,7 +1,6 @@
 package com.zillennium.utswap.screens.navbar.portfolioTab.adapter
 
 import android.annotation.SuppressLint
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,7 +21,7 @@ class PriceAdapter (
         viewType: Int
     ): ViewHolder {
         val view: View = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_list_price, parent, false)
+            .inflate(R.layout.item_list_portfolio_price, parent, false)
         return ViewHolder(
             view
         )
@@ -65,7 +64,7 @@ class PriceAdapter (
 
         if(position == 2)
         {
-            holder.txtMkt.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.main_red))
+            holder.txtMkt.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
         }
 
     }

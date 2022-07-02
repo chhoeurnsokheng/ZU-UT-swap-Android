@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <eightbitlab.com.blurview.BlurView
+        android:id="@+id/blurView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_blur_bg_dialog_balance">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+
+                <LinearLayout
+                    android:layout_width="@dimen/dimen_350"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/close_image"
+                        android:layout_width="@dimen/dimen_26"
+                        android:layout_height="@dimen/dimen_26"
+                        android:layout_gravity="end"
+                        android:layout_marginTop="@dimen/dimen_100"
+                        android:layout_marginBottom="@dimen/dimen_30"
+                        android:src="@drawable/ic_sharp_close_24"
+                        app:tint="@color/white" />
+
+                    <LinearLayout
+                        android:id="@+id/balance_dialog_box"
+                        android:layout_width="@dimen/dimen_350"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_gravity="center"
+                        android:background="@drawable/bg_balance_dialog"
+                        android:orientation="vertical"
+                        android:paddingVertical="@dimen/dimen_30">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:paddingHorizontal="@dimen/dimen_16">
+
+                            <ImageView
+                                android:layout_width="@dimen/dimen_110"
+                                android:layout_height="@dimen/dimen_64"
+                                android:layout_gravity="center"
+                                android:layout_marginBottom="@dimen/dimen_20"
+                                android:src="@drawable/ic_ut_swap_logo_vertical" />
+
+                            <TextView
+                                android:id="@+id/title_transaction"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="start"
+                                android:text="Bought 29 UT New Airpot 38Ha @ 17.83"
+                                android:textAppearance="@style/medium_18"
+                                android:textColor="@color/black" />
+
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dimen_1"
+                            android:layout_marginVertical="@dimen/dimen_20"
+                            android:background="@color/light_gray" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:paddingHorizontal="@dimen/dimen_20">
+
+                            <LinearLayout
+                                android:layout_width="@dimen/dimen_0"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="35"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginVertical="@dimen/dimen_10"
+                                    android:text="@string/date"
+                                    android:textAppearance="@style/regular_12"
+                                    android:textColor="@color/black_333333" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginVertical="@dimen/dimen_10"
+                                    android:text="@string/transaction_id"
+                                    android:textAppearance="@style/regular_12"
+                                    android:textColor="@color/black_333333" />
+
+                                <TextView
+                                    android:id="@+id/txt_money_type"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginVertical="@dimen/dimen_10"
+                                    android:text="@string/money_out"
+                                    android:textAppearance="@style/regular_12"
+                                    android:textColor="@color/black_333333" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginVertical="@dimen/dimen_10"
+                                    android:text="@string/balance"
+                                    android:textAppearance="@style/regular_12"
+                                    android:textColor="@color/black_333333" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="@dimen/dimen_0"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="65"
+                                android:gravity="end"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/date_transaction"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginVertical="@dimen/dimen_10"
+                                    android:text="19-May-2022"
+                                    android:textAppearance="@style/regular_12"
+                                    android:textColor="@color/black" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginVertical="@dimen/dimen_10"
+                                    android:text="TR2203-1648192105941929"
+                                    android:textAppearance="@style/regular_12"
+                                    android:textColor="@color/black" />
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content">
+
+                                    <TextView
+                                        android:id="@+id/txt_symbol"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginVertical="@dimen/dimen_10"
+                                        android:text="-"
+                                        android:visibility="gone"
+                                        android:textAppearance="@style/regular_12"
+                                        android:textColor="@color/danger" />
+
+                                    <TextView
+                                        android:id="@+id/txt_dollar"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginVertical="@dimen/dimen_10"
+                                        android:text="$"
+                                        android:textAppearance="@style/regular_12"
+                                        android:textColor="@color/danger" />
+
+                                    <TextView
+                                        android:id="@+id/amount_balance"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginVertical="@dimen/dimen_10"
+                                        android:text="517.07"
+                                        android:textAppearance="@style/regular_12"
+                                        android:textColor="@color/danger" />
+
+                                </LinearLayout>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginVertical="@dimen/dimen_10"
+                                    android:text="$6 320.31"
+                                    android:textAppearance="@style/regular_12"
+                                    android:textColor="@color/black" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/screen_shot"
+                android:layout_width="@dimen/dimen_36"
+                android:layout_height="@dimen/dimen_36"
+                android:src="@drawable/ic_screenshot"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/dimen_30"
+                app:tint="@color/white" />
+        </LinearLayout>
+
+
+
+    </eightbitlab.com.blurview.BlurView>
+</layout>

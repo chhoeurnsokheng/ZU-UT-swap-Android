@@ -60,21 +60,6 @@ object APIInstance {
 
   val hostingAPI: APIService by lazy { retrofitBuild(debug).create(APIService::class.java) }
 
-  val firebaseAPI: APIService by lazy { retrofitBuild(firebase).create(APIService::class.java) }
-
-  fun rxJava3LiveData(apiService: Observable<JsonObject>) : MutableLiveData<JsonObject> {
-    val data: MutableLiveData<JsonObject> = MutableLiveData<JsonObject>()
-    CompositeDisposable()
-      .add(apiService
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe{ JsonObject ->
-          Log.d("hello world", JsonObject.toString())
-          data.value = JsonObject
-        }
-      )
-    return data
-  }
 
 
 }

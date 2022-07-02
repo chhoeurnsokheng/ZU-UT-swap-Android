@@ -266,7 +266,7 @@
     <string name="invalid_email_or_password">Invalid Email or Password</string>
     <string name="field_can_t_be_empty">Field can\'t be empty</string>
     <string name="password_not_matching">Password Not matching</string>
-    <string name="cannot_leave_black">Cannot leave black</string>
+    <string name="cannot_leave_blank">Cannot leave blank</string>
     <string name="project_info">Project Info</string>
     <string name="investment_information">Investment Information</string>
     <string name="UT">$/UT</string>
@@ -407,4 +407,13 @@
     <string name="high">High</string>
     <string name="low">Low</string>
     <string name="gross">Gross</string>
+    <string name="avail_balance">Avail.Balance:</string>
+    <string name="ut_">UT:</string>
+    <string name="limit">Limit</string>
+    <string name="market">Market</string>
+    <string name="buy">BUY</string>
+    <string name="sell">SELL</string>
+    <string name="please_sign_in_to_continue">Please Sign in to Continue</string>
+    <string name="please_ensure_you_have_deposited_a_sufficient_amount_in_your_balance">Please ensure you have deposited a sufficient amount in your balance.</string>
+    <string name="insufficient_funds">Insufficient Funds</string>
 </resources>

@@ -99,7 +99,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:src="@drawable/ic_baseline_delete_24"
-                        app:tint="@color/red" />
+                        app:tint="@color/red_ee1111" />
 
                 </androidx.cardview.widget.CardView>
 

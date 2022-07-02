@@ -123,7 +123,7 @@
                                     android:layout_weight="70"
                                     android:textAppearance="@style/medium_12"
                                     android:text="Locked"
-                                    android:textColor="@color/main_red"
+                                    android:textColor="@color/danger"
                                     android:gravity="end"/>
 
                             </LinearLayout>

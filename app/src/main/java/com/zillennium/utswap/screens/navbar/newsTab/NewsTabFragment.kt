@@ -5,17 +5,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
-import com.zillennium.utswap.databinding.FragmentNewsTabBinding
+import com.zillennium.utswap.databinding.FragmentNavbarNewsBinding
 import com.zillennium.utswap.models.newsTab.News
 import com.zillennium.utswap.screens.navbar.newsTab.adapter.NewsAdapter
 import com.zillennium.utswap.screens.navbar.newsTab.newsDetail.NewsDetailActivity
 
 class NewsTabFragment :
-    BaseMvpFragment<NewsTabView.View, NewsTabView.Presenter, FragmentNewsTabBinding>(),
+    BaseMvpFragment<NewsTabView.View, NewsTabView.Presenter, FragmentNavbarNewsBinding>(),
     NewsTabView.View {
 
     override var mPresenter: NewsTabView.Presenter = NewsTabPresenter()
-    override val layoutResource: Int = R.layout.fragment_news_tab
+    override val layoutResource: Int = R.layout.fragment_navbar_news
 
     private var newsList = ArrayList<News>()
     private var newsAdapter: NewsAdapter? = null

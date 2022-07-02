@@ -55,7 +55,7 @@
                         android:layout_centerVertical="true"
                         android:text="$6 320.31"
                         android:textAppearance="@style/medium_32"
-                        android:textColor="@color/blur_0E1C6B" />
+                        android:textColor="@color/primary" />
                 </RelativeLayout>
 
                 <View
@@ -197,7 +197,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:background="@color/blur_0E1C6B"
+                        android:background="@color/primary"
                         android:cursorVisible="true"
                         android:gravity="center"
                         android:inputType="numberDecimal"

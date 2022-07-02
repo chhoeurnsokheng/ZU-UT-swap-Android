@@ -13,7 +13,7 @@ import androidx.databinding.DataBindingUtil
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.zillennium.utswap.Datas.GlobalVariable.SettingVariable
 import com.zillennium.utswap.R
-import com.zillennium.utswap.databinding.BottomSheetSubscriptionSelectDateRangeBinding
+import com.zillennium.utswap.databinding.BottomSheetFinanceSubscriptionSelectDateRangeBinding
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -21,7 +21,7 @@ import java.util.*
 class FinanceSubscriptionDateRangeBottomSheet : BottomSheetDialogFragment(),
     AdapterView.OnItemSelectedListener {
 
-    private var binding: BottomSheetSubscriptionSelectDateRangeBinding? = null
+    private var binding: BottomSheetFinanceSubscriptionSelectDateRangeBinding? = null
 
     override fun getTheme(): Int {
         return R.style.BottomSheetStyle
@@ -38,7 +38,7 @@ class FinanceSubscriptionDateRangeBottomSheet : BottomSheetDialogFragment(),
         binding =
             DataBindingUtil.inflate(
                 inflater,
-                R.layout.bottom_sheet_subscription_select_date_range,
+                R.layout.bottom_sheet_finance_subscription_select_date_range,
                 container,
                 false
             )
@@ -104,7 +104,7 @@ class FinanceSubscriptionDateRangeBottomSheet : BottomSheetDialogFragment(),
                 override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
                 override fun afterTextChanged(p0: Editable?) {
-                    etEndDate.setHintTextColor(resources.getColor(R.color.color_main))
+                    etEndDate.setHintTextColor(resources.getColor(R.color.primary))
                     etEndDate.isEnabled = true
                 }
 
