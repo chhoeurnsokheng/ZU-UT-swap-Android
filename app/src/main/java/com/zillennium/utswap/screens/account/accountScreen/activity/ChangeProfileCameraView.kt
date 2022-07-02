@@ -1,11 +1,11 @@
-package com.zillennium.utswap.simple
+package com.zillennium.utswap.screens.account.accountScreen.activity
 
 import android.content.Context
 import android.os.Bundle
 import com.zillennium.utswap.bases.mvp.BaseMvpPresenter
 import com.zillennium.utswap.bases.mvp.BaseMvpView
 
-class SimpleView {
+class ChangeProfileCameraView {
     interface View : BaseMvpView {
         override fun initView()
     }

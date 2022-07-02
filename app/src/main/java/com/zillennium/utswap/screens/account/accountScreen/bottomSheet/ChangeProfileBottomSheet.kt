@@ -3,22 +3,22 @@ package com.zillennium.utswap.screens.account.accountScreen.bottomSheet
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.net.Uri
 import android.os.Bundle
 import android.view.*
-import android.widget.ImageView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.databinding.BottomSheetAccountChangeProfileBinding
+import com.zillennium.utswap.screens.account.accountScreen.activity.ChangeProfileCameraActivity
 
 
 class ChangeProfileBottomSheet : BottomSheetDialogFragment() {
 
     private var binding: BottomSheetAccountChangeProfileBinding? = null
+    private val PICK_IMAGE_FROM_GALLERY =1
+    private val SECOND_ACTIVITY_REQUEST_CODE = 0
 
 
     override fun getTheme(): Int {
@@ -45,32 +45,19 @@ class ChangeProfileBottomSheet : BottomSheetDialogFragment() {
             (view.parent as View).setBackgroundColor(ContextCompat.getColor(UTSwapApp.instance, android.R.color.transparent))
 
             txtTakePhoto.setOnClickListener {
-
+                val intent = Intent(UTSwapApp.instance, ChangeProfileCameraActivity::class.java)
+                startActivity(intent)
+                dismiss()
             }
 
 
             //Choose Image From gallery
             txtChooseFromGallery.setOnClickListener {
-                val intent  = Intent(Intent.ACTION_PICK);
+                val intent  = Intent(Intent.ACTION_PICK)
                 intent.type = "image/*"
                 startActivityForResult(intent,PICK_IMAGE_FROM_GALLERY)
+                dismiss()
             }
-
-        }
-    }
-
-    private val PICK_IMAGE_FROM_GALLERY =1
-    private var pathImage : Uri? = null
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (data!=null){
-            // Case user select Image from Gallery
-            if (requestCode == PICK_IMAGE_FROM_GALLERY && requestCode == AppCompatActivity.RESULT_OK){
-                val profileUser = activity?.findViewById<ImageView>(R.id.img_profile)
-                pathImage = data.data
-                profileUser?.setImageURI(pathImage)
-            }
-
 
         }
     }

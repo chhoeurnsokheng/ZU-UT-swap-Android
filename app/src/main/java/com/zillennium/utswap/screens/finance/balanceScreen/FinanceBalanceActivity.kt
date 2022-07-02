@@ -2,10 +2,8 @@ package com.zillennium.utswap.screens.finance.balanceScreen
 
 import android.os.Build
 import androidx.annotation.RequiresApi
-import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.zillennium.utswap.Datas.GlobalVariable.SettingVariable
-import com.zillennium.utswap.Datas.GlobalVariable.SystemVariable
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
