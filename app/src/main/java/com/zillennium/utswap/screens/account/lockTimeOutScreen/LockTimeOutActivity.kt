@@ -37,11 +37,6 @@ class LockTimeOutActivity :
                     imgCheck5Minutes.visibility = View.GONE
                     imgCheck30Minutes.visibility = View.VISIBLE
                 }
-
-                imgNotification.setOnClickListener {
-                    //intent to notification screen
-                    //from branch notification in git
-                }
             }
             // Code
         } catch (error: Exception) {
