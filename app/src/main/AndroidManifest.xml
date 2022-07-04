@@ -268,6 +268,12 @@
             android:label="@string/transfer_"
             android:windowSoftInputMode="adjustResize"
             android:screenOrientation="portrait"/>
+
+<!--        Activity Open Camera Change Profile-->
+        <activity android:name=".screens.account.accountScreen.activity.ChangeProfileCameraActivity"
+            android:exported="false"
+            android:label="@string/referral_information"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
