@@ -48,7 +48,7 @@ android {
             applicationIdSuffix ".debug"
             versionNameSuffix ".$build"
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-
+            buildConfigField "String", "SERVER_URL", '"https://api-pre.z1platform.com/api/' + STR_VERSION + '/api/v2/"'
         }
         stage {
             debuggable true
@@ -120,7 +120,14 @@ dependencies {
     implementation 'com.eightbitlab:supportrenderscriptblur:1.0.2'
     implementation 'com.eightbitlab:blurview:1.6.6'
 
-    // Retrofit RxJava WebSocket
+    // Retrofit RxJava
+
+    implementation "com.squareup.retrofit2:adapter-rxjava:$rxJavaVersion"
+    implementation "io.reactivex:rxandroid:$rxandroidVersion"
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+    implementation "com.squareup.retrofit2:converter-moshi:$convertermoshiVersion"
+    implementation "com.squareup.okhttp3:logging-interceptor:$logginginterceptorVersion"
+
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation 'com.squareup.retrofit2:adapter-rxjava3:2.9.0'

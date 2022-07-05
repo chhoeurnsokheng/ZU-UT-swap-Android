@@ -8,3 +8,17 @@ plugins {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+ext {
+    APP_NAME_PRO = "Z1 App"
+    APP_NAME_PRE = "Z1 App"
+    APP_NAME_STAG  = "Z1 App"
+    rxandroidVersion = '1.2.1'
+    convertermoshiVersion = '2.1.0'
+    logginginterceptorVersion = '4.4.0'
+    rxJavaVersion = '2.9.0'
+    glide = '4.11.0'
+    archLifecycle = '2.2.0'
+    lifecycle   = '2.2.0'
+    STR_VERSION = 's51'
+}

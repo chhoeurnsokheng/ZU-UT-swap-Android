@@ -1,0 +1,138 @@
+package com.zillennium.utswap.api.manager
+
+
+import android.annotation.SuppressLint
+import android.content.Context
+import com.zillennium.utswap.BuildConfig
+import okhttp3.Interceptor
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Retrofit
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
+import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.moshi.MoshiConverterFactory
+import java.security.SecureRandom
+import java.security.cert.CertificateException
+import java.security.cert.X509Certificate
+import java.util.concurrent.atomic.AtomicInteger
+import javax.net.ssl.*
+
+open class ApiManager {
+
+    private val mServerUrl = getBaseServerUrl()
+    protected lateinit var mContext: Context
+
+
+
+
+    companion object {
+        var mRetryCounter: AtomicInteger = AtomicInteger(0)
+    }
+
+    init {
+        initServices(initRetrofit())
+    }
+
+    open fun getBaseServerUrl(): String {
+      //  return
+      //  BuildConfig.SERVER_URL
+        return  BuildConfig.APPLICATION_ID
+    }
+
+    //INIT ALL PROFIT OBJECT
+    private fun initServices(retrofit: Retrofit) {
+
+    }
+
+    private fun initRetrofit(): Retrofit {
+        val logging = HttpLoggingInterceptor(object : HttpLoggingInterceptor.Logger {
+            override fun log(message: String) {
+              //  LoggerUtil.debug("RAW_BODY", "$message")
+            }
+        })
+        logging.level =  HttpLoggingInterceptor.Level.BODY
+        val client = OkHttpClient.Builder().apply {
+            try {
+                // Create a trust manager that does not validate certificate chains
+                val trustAllCerts: Array<TrustManager> = arrayOf<TrustManager>(
+                    object : X509TrustManager {
+                        @SuppressLint("TrustAllX509TrustManager")
+                        @Throws(CertificateException::class)
+                        override fun checkClientTrusted(
+                            chain: Array<X509Certificate?>?,
+                            authType: String?
+                        ) {
+                        }
+
+                        @SuppressLint("TrustAllX509TrustManager")
+                        @Throws(CertificateException::class)
+                        override fun checkServerTrusted(
+                            chain: Array<X509Certificate?>?,
+                            authType: String?
+                        ) {
+                        }
+
+                        override fun getAcceptedIssuers(): Array<X509Certificate> {
+                            return arrayOf()
+                        }
+                    }
+                )
+
+                // Install the all-trusting trust manager
+                val sslContext: SSLContext = SSLContext.getInstance("SSL")
+                sslContext.init(null, trustAllCerts, SecureRandom())
+                // Create an ssl socket factory with our all-trusting manager
+                val sslSocketFactory: SSLSocketFactory = sslContext.socketFactory
+                this.sslSocketFactory(sslSocketFactory, trustAllCerts[0] as X509TrustManager)
+                this.hostnameVerifier(HostnameVerifier { _, _ -> true })
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+            networkInterceptors().add(Interceptor { chain ->
+                val original = chain.request()
+                val request = original.newBuilder()
+                    .method(original.method, original.body)
+                    .build()
+                chain.proceed(request)
+            })
+            if (BuildConfig.DEBUG) {
+                addInterceptor(logging)
+                //addInterceptor(interceptor)
+            }
+        }
+
+        /*return Retrofit.Builder().baseUrl(mServerUrl)
+            .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+            //.addConverterFactory(createMoshiConverter())
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(client.build())
+            .build()*/
+
+        return Retrofit.Builder().baseUrl(mServerUrl)
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                //.addConverterFactory(createMoshiConverter())
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(client.build())
+                .build()
+    }
+
+    /**
+     * Implement Observable for retry to handle error 401 only.
+     *
+     * @param o Throwable when error by pass to Observable to resolve error.
+     * @return Observable type object.
+     */
+
+
+    private fun createMoshiConverter(): MoshiConverterFactory = MoshiConverterFactory.create()
+
+    enum class NetworkErrorStatus {
+        UnProcessableEntity,
+        ON_UNKNOW_ERROR,
+        ON_ERROR,
+        UNAUTHORIZED,
+        ON_TIMEOUT,
+        ON_NETWORK_ERROR,
+        NOT_FOUND
+    }
+}
