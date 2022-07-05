@@ -18,9 +18,52 @@ android {
 //        renderscriptTargetApi 32
 //        renderscriptSupportModeEnabled true
     }
-    buildTypes {
+
+    signingConfigs {
+        debug {
+            storeFile file("$rootProject.projectDir/keystores/debug.jks")
+            storePassword "password"
+            keyAlias "debug"
+            keyPassword "password"
+        }
+        stage {
+            storeFile file("$rootProject.projectDir/keystores/debug.jks")
+            storePassword "password"
+            keyAlias "debug"
+            keyPassword "password"
+        }
         release {
+            storeFile file("$rootProject.projectDir/keystores/release.jks")
+            storePassword "P@ssw0rd"
+            keyAlias "release"
+            keyPassword "P@ssw0rd"
+        }
+    }
+
+
+    buildTypes {
+
+        debug {
             minifyEnabled false
+            applicationIdSuffix ".debug"
+            versionNameSuffix ".$build"
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+        }
+        stage {
+            debuggable true
+            minifyEnabled false
+            applicationIdSuffix ".stage"
+            versionNameSuffix ".$build"
+            signingConfig signingConfigs.stage
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+        }
+        release {
+            debuggable false
+            minifyEnabled true
+            shrinkResources true
+            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }

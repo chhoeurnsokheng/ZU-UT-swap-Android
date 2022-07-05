@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".screens.kyc.verificationScreen.VerificationActivity">
+        tools:context=".module.kyc.verificationScreen.VerificationActivity">
 
         <RelativeLayout
             android:id="@+id/lay_header"

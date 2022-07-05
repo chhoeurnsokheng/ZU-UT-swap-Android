@@ -6,7 +6,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".screens.kyc.kycFragment.declarationScreen.DeclarationFragment">
+        tools:context=".module.kyc.kycFragment.declarationScreen.DeclarationFragment">
 
         <RelativeLayout
             android:id="@+id/tool_bar"

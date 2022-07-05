@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/AddNumberFragment"
-        android:name="com.zillennium.utswap.screens.account.addNumberScreen.fragment.AddNumberFragment"
+        android:name="com.zillennium.utswap.module.account.addNumberScreen.fragment.AddNumberFragment"
         android:label="AddNumberFragment"
         tools:layout="@layout/fragment_account_add_number">
         <action
@@ -22,7 +22,7 @@
 
     <fragment
         android:id="@+id/VerificationSecurityFragment"
-        android:name="com.zillennium.utswap.screens.security.securityFragment.verificationScreen.VerificationFragment"
+        android:name="com.zillennium.utswap.module.security.securityFragment.verificationScreen.VerificationFragment"
         android:label="VerificationSecurityFragment"
         tools:layout="@layout/fragment_security_verification">
 

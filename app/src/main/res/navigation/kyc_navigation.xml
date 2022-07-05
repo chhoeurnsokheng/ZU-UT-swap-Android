@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/IDTypeKycFragment"
-        android:name="com.zillennium.utswap.screens.kyc.kycFragment.idTypeScreen.IdTypeFragment"
+        android:name="com.zillennium.utswap.module.kyc.kycFragment.idTypeScreen.IdTypeFragment"
         android:label="IDTypeKycFragment"
         tools:layout="@layout/fragment_kyc_id_type">
         <action
@@ -28,7 +28,7 @@
 
     <fragment
         android:id="@+id/IDCardCameraKYCFragment"
-        android:name="com.zillennium.utswap.screens.kyc.kycFragment.idTypeScreen.camera.idCardCameraFragment.IDCardCameraFragment"
+        android:name="com.zillennium.utswap.module.kyc.kycFragment.idTypeScreen.camera.idCardCameraFragment.IDCardCameraFragment"
         android:label="IDTypeKycFragment"
         tools:layout="@layout/fragment_kyc_camera_id_card">
         <action
@@ -46,7 +46,7 @@
 
     <fragment
         android:id="@+id/SelfieCameraKYCFragment"
-        android:name="com.zillennium.utswap.screens.kyc.idTypeScreen.camera.selfieCameraActivity.SelfieCameraFragment"
+        android:name="com.zillennium.utswap.module.kyc.idTypeScreen.camera.selfieCameraActivity.SelfieCameraFragment"
         android:label="IDTypeKycFragment"
         tools:layout="@layout/fragment_kyc_camera_selfie">
         <action
@@ -60,7 +60,7 @@
 
     <fragment
         android:id="@+id/IDVerificationKycFragment"
-        android:name="com.zillennium.utswap.screens.kyc.kycFragment.idVerificationScreen.IDVerificationFragment"
+        android:name="com.zillennium.utswap.module.kyc.kycFragment.idVerificationScreen.IDVerificationFragment"
         android:label="IDVerificationKycFragment"
         tools:layout="@layout/fragment_kyc_id_verification">
         <action
@@ -83,7 +83,7 @@
 
     <fragment
         android:id="@+id/SelfieHoldingKycFragment"
-        android:name="com.zillennium.utswap.screens.kyc.kycFragment.selfieHoldingScreen.SelfieHoldingFragment"
+        android:name="com.zillennium.utswap.module.kyc.kycFragment.selfieHoldingScreen.SelfieHoldingFragment"
         android:label="SelfieHoldingKycFragment"
         tools:layout="@layout/fragment_kyc_selfie_holding">
         <action
@@ -114,7 +114,7 @@
 
     <fragment
         android:id="@+id/EmploymentInfoKycFragment"
-        android:name="com.zillennium.utswap.screens.kyc.kycFragment.employmentInfoScreen.EmploymentInfoFragment"
+        android:name="com.zillennium.utswap.module.kyc.kycFragment.employmentInfoScreen.EmploymentInfoFragment"
         android:label="EmploymentInfoKycFragment"
         tools:layout="@layout/fragment_kyc_employment_info">
         <action
@@ -136,7 +136,7 @@
 
     <fragment
         android:id="@+id/DeclarationKycFragment"
-        android:name="com.zillennium.utswap.screens.kyc.kycFragment.declarationScreen.DeclarationFragment"
+        android:name="com.zillennium.utswap.module.kyc.kycFragment.declarationScreen.DeclarationFragment"
         android:label="DeclarationKycFragment"
         tools:layout="@layout/fragment_kyc_declaration">
         <action
@@ -158,7 +158,7 @@
 
     <fragment
         android:id="@+id/FundPasswordKycFragment"
-        android:name="com.zillennium.utswap.screens.kyc.kycFragment.fundPasswordScreen.FundPasswordFragment"
+        android:name="com.zillennium.utswap.module.kyc.kycFragment.fundPasswordScreen.FundPasswordFragment"
         android:label="FundPasswordKycFragment"
         tools:layout="@layout/fragment_kyc_fund_password">
         <action
@@ -180,7 +180,7 @@
 
     <fragment
         android:id="@+id/ContractKycFragment"
-        android:name="com.zillennium.utswap.screens.kyc.kycFragment.contractScreen.ContractFragment"
+        android:name="com.zillennium.utswap.module.kyc.kycFragment.contractScreen.ContractFragment"
         android:label="ContractKycFragment"
         tools:layout="@layout/fragment_kyc_contract">
         <action
@@ -202,7 +202,7 @@
 
     <fragment
         android:id="@+id/KycApplicationKycFragment"
-        android:name="com.zillennium.utswap.screens.kyc.kycFragment.kycApplicationScreen.KycApplicationFragment"
+        android:name="com.zillennium.utswap.module.kyc.kycFragment.kycApplicationScreen.KycApplicationFragment"
         android:label="KycApplicationKycFragment"
         tools:layout="@layout/fragment_kyc_application">
 <!--        <action-->

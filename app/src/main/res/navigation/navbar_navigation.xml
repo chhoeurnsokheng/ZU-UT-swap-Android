@@ -7,28 +7,28 @@
 
     <fragment
         android:id="@+id/navigation_navbar_home"
-        android:name="com.zillennium.utswap.screens.navbar.homeTab.HomeFragment"
+        android:name="com.zillennium.utswap.module.main.home.HomeFragment"
         android:label="@string/project"
-        tools:layout="@layout/fragment_navbar_home" />
+        tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/navigation_navbar_portfolio"
-        android:name="com.zillennium.utswap.screens.navbar.portfolioTab.PortfolioFragment"
+        android:name="com.zillennium.utswap.module.main.portfolio.PortfolioFragment"
         android:label="@string/portfolio"
         tools:layout="@layout/fragment_navbar_portfolio" />
 
     <fragment
         android:id="@+id/navigation_navbar_trade"
-        android:name="com.zillennium.utswap.screens.navbar.tradeTab.tradeScreen.TradeFragment"
+        android:name="com.zillennium.utswap.module.main.trade.tradeScreen.TradeFragment"
         android:label="@string/trade"
         tools:layout="@layout/fragment_navbar_trade">
     </fragment>
 
     <fragment
         android:id="@+id/navigation_navbar_news"
-        android:name="com.zillennium.utswap.screens.navbar.newsTab.NewsTabFragment"
+        android:name="com.zillennium.utswap.module.main.news.NewsFragment"
         android:label="@string/news"
-        tools:layout="@layout/fragment_navbar_news">
+        tools:layout="@layout/fragment_news">
     </fragment>
 
 </navigation>

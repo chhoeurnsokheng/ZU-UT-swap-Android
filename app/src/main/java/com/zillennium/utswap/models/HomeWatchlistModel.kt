@@ -6,5 +6,4 @@ class HomeWatchlistModel(
     var locationProject: String,
     var lastValue: Double,
     var changeValue: Double
-) :
-    Serializable
+) : Serializable

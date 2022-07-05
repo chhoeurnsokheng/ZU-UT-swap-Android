@@ -1,6 +1,7 @@
 package com.zillennium.utswap.models
 
 import java.io.Serializable
+import java.util.*
 
 class FinanceBalanceModel(
 //    var iconBalance: String,

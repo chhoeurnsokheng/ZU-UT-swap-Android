@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/SignUpSecurityFragment"
-        android:name="com.zillennium.utswap.screens.security.securityFragment.registerScreen.RegisterFragment"
+        android:name="com.zillennium.utswap.module.security.securityFragment.registerScreen.RegisterFragment"
         android:label="SignUpSecurityFragment"
         tools:layout="@layout/fragment_security_register">
         <action
@@ -30,7 +30,7 @@
 
     <fragment
         android:id="@+id/VerificationSecurityFragment"
-        android:name="com.zillennium.utswap.screens.security.securityFragment.verificationScreen.VerificationFragment"
+        android:name="com.zillennium.utswap.module.security.securityFragment.verificationScreen.VerificationFragment"
         android:label="VerificationSecurityFragment"
         tools:layout="@layout/fragment_security_verification">
         <action
@@ -57,7 +57,7 @@
 
     <fragment
         android:id="@+id/TermConditionSecurityFragment"
-        android:name="com.zillennium.utswap.screens.security.securityFragment.termConditionScreen.TermConditionFragment"
+        android:name="com.zillennium.utswap.module.security.securityFragment.termConditionScreen.TermConditionFragment"
         android:label="SignUpSecurityFragment"
         tools:layout="@layout/fragment_security_register">
         <action
@@ -80,7 +80,7 @@
 
     <fragment
         android:id="@+id/PromptSecurityFragment"
-        android:name="com.zillennium.utswap.screens.security.securityFragment.PromptScreen.PromptFragment"
+        android:name="com.zillennium.utswap.module.security.securityFragment.PromptScreen.PromptFragment"
         android:label="SignUpSecurityFragment"
         tools:layout="@layout/fragment_security_register">
         <action

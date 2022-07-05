@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/SignInSecurityFragment"
-        android:name="com.zillennium.utswap.screens.security.securityFragment.signInScreen.SignInFragment"
+        android:name="com.zillennium.utswap.module.security.securityFragment.signInScreen.SignInFragment"
         android:label="SignInSecurityFragment"
         tools:layout="@layout/fragment_security_sign_in">
         <action
@@ -30,7 +30,7 @@
 
     <fragment
         android:id="@+id/VerificationSecurityFragment"
-        android:name="com.zillennium.utswap.screens.security.securityFragment.verificationScreen.VerificationFragment"
+        android:name="com.zillennium.utswap.module.security.securityFragment.verificationScreen.VerificationFragment"
         android:label="VerificationSecurityFragment"
         tools:layout="@layout/fragment_security_verification">
         <action
