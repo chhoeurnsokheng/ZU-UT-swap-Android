@@ -48,4 +48,16 @@
         <item name="android:textColor">@color/white</item>
         <item name="android:background">@drawable/bg_dropdown_item_spinner</item>
     </style>
+
+    <style name="SelectableItemTheme">
+        <item name="colorControlHighlight">@color/bg_ripple</item>
+    </style>
+
+    <style name="rippleStyle">
+        <item name="android:theme">@style/SelectableItemTheme</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
+    </style>
+
+
+
 </resources>

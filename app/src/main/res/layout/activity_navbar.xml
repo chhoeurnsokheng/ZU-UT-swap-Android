@@ -29,6 +29,7 @@
                 android:layout_width="@dimen/dimen_64"
                 android:layout_height="@dimen/dimen_64"
                 android:layout_centerVertical="true"
+                android:background="@drawable/bg_ripple"
                 android:contentDescription="@string/menu"
                 android:padding="@dimen/dimen_20"
                 android:src="@drawable/ic_bars"
@@ -62,6 +63,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
+                android:background="@drawable/bg_ripple"
                 android:padding="@dimen/dimen_18">
 
                 <ImageView

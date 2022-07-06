@@ -235,7 +235,7 @@ class NavbarActivity :
                     startActivity(intent)
                 }
 
-                imgNotification.setOnClickListener {
+                layNotification.setOnClickListener {
                     val intent = Intent(UTSwapApp.instance, NotificationActivity::class.java)
                     startActivity(intent)
                 }

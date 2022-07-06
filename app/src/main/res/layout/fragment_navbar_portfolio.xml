@@ -2,18 +2,20 @@
 <layout xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:background="@color/white">
+
         <TextView
             android:id="@+id/txt_message"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
             android:visibility="gone"
-            android:text="Please login and verify your account"/>
+            android:text="Please login and verify your account" />
 
         <ScrollView
             android:id="@+id/linearLayout_portfolio"
@@ -36,7 +38,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/portfolio"
                     android:textColor="@color/dark_gray"
-                    android:textAppearance="@style/regular_12"/>
+                    android:textAppearance="@style/regular_12" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -50,7 +52,7 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/primary"
                         android:textAppearance="@style/medium_28"
-                        android:text="$ 127 910.62"/>
+                        android:text="$ 127 910.62" />
 
                     <ImageView
                         android:id="@+id/img_visibility"
@@ -59,7 +61,7 @@
                         android:layout_gravity="center"
                         app:tint="@color/dark_gray"
                         android:layout_marginStart="@dimen/dimen_8"
-                        android:src="@drawable/ic_baseline_visibility_off_24"/>
+                        android:src="@drawable/ic_baseline_visibility_off_24" />
 
                 </LinearLayout>
 
@@ -68,53 +70,63 @@
                     android:layout_width="match_parent"
                     android:layout_height="196dp"
                     android:visibility="gone"
-                    android:layout_marginTop="@dimen/dimen_10"/>
+                    android:layout_marginTop="@dimen/dimen_10" />
 
                 <com.github.mikephil.charting.charts.LineChart
                     android:layout_width="match_parent"
                     android:layout_height="196dp"
                     android:visibility="visible"
                     android:layout_marginTop="@dimen/dimen_10"
-                    android:id="@+id/line_chart"/>
+                    android:id="@+id/line_chart" />
 
-                <RelativeLayout
-                    android:id="@+id/lay_filter"
+                <!--                <com.google.android.material.button.MaterialButton-->
+                <!--                    android:id="@+id/btn_filter"-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="42dp"-->
+                <!--                    android:background="@drawable/bg_circular"-->
+                <!--                    android:layout_marginTop="@dimen/dimen_10"-->
+                <!--                    android:paddingStart="@dimen/dimen_50"-->
+                <!--                    android:hint="@string/performance"-->
+                <!--                    app:paddingEnd="@dimen/dimen_20"-->
+                <!--                    android:drawableEnd="@drawable/ic_baseline_filter_list_24"-->
+                <!--                    app:drawableTint="@color/white"-->
+                <!--                    android:textAppearance="@style/regular_18"-->
+                <!--                    android:textColorHint="@color/white" />-->
+
+                <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
-                    android:layout_height="42dp"
-                    android:background="@drawable/bg_circular"
-                    android:layout_marginTop="@dimen/dimen_10">
-                    <TextView
-                        android:id="@+id/btn_filter"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/performance"
-                        android:textAppearance="@style/regular_18"
-                        android:textColor="@color/white"
-                        android:layout_centerInParent="true"/>
-                    <ImageView
-                        android:layout_width="@dimen/dimen_18"
-                        android:layout_height="@dimen/dimen_18"
-                        android:src="@drawable/ic_baseline_filter_list_24"
-                        app:tint="@color/white"
-                        android:layout_centerVertical="true"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginEnd="@dimen/dimen_20"/>
+                    android:layout_height="@dimen/dimen_42"
+                    android:backgroundTint="@color/primary"
+                    app:cardCornerRadius="@dimen/dimen_100">
 
-                </RelativeLayout>
+                    <RelativeLayout
+                        android:id="@+id/lay_filter"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        style="@style/rippleStyle">
 
-<!--                <com.google.android.material.button.MaterialButton-->
-<!--                    android:id="@+id/btn_filter"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="42dp"-->
-<!--                    android:background="@drawable/bg_circular"-->
-<!--                    android:layout_marginTop="@dimen/dimen_10"-->
-<!--                    android:paddingStart="@dimen/dimen_50"-->
-<!--                    android:hint="@string/performance"-->
-<!--                    app:paddingEnd="@dimen/dimen_20"-->
-<!--                    android:drawableEnd="@drawable/ic_baseline_filter_list_24"-->
-<!--                    app:drawableTint="@color/white"-->
-<!--                    android:textAppearance="@style/regular_18"-->
-<!--                    android:textColorHint="@color/white" />-->
+
+                        <TextView
+                            android:id="@+id/btn_filter"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text="@string/performance"
+                            android:textAppearance="@style/regular_18"
+                            android:textColor="@color/white" />
+
+                        <ImageView
+                            android:layout_width="@dimen/dimen_18"
+                            android:layout_height="@dimen/dimen_18"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="@dimen/dimen_20"
+                            android:src="@drawable/ic_baseline_filter_list_24"
+                            app:tint="@color/white" />
+
+                    </RelativeLayout>
+                </androidx.cardview.widget.CardView>
+
 
                 <LinearLayout
                     android:id="@+id/linearLayout_price"
@@ -132,7 +144,7 @@
                         android:layout_weight="1"
                         android:textColor="@color/dark_gray"
                         android:paddingVertical="@dimen/dimen_8"
-                        android:textAppearance="@style/regular_12"/>
+                        android:textAppearance="@style/regular_12" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -156,7 +168,7 @@
                             android:text="@string/mkt_dollar"
                             android:paddingVertical="@dimen/dimen_8"
                             android:textColor="@color/dark_gray"
-                            android:textAppearance="@style/regular_12"/>
+                            android:textAppearance="@style/regular_12" />
 
                     </LinearLayout>
 
@@ -176,7 +188,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/asset"
                         android:textColor="@color/dark_gray"
-                        android:textAppearance="@style/regular_12"/>
+                        android:textAppearance="@style/regular_12" />
 
                     <LinearLayout
                         android:id="@+id/lay_sort_performance"
@@ -193,7 +205,7 @@
                             android:gravity="end"
                             android:text="@string/performance"
                             android:textColor="@color/dark_gray"
-                            android:textAppearance="@style/regular_12"/>
+                            android:textAppearance="@style/regular_12" />
 
                         <ImageView
                             android:id="@+id/img_sort_performance"
@@ -201,7 +213,7 @@
                             android:layout_height="@dimen/dimen_10"
                             android:layout_gravity="center"
                             android:layout_marginStart="@dimen/dimen_2"
-                            android:src="@drawable/ic_sort_arrow_up_down"/>
+                            android:src="@drawable/ic_sort_arrow_up_down" />
 
                     </LinearLayout>
 
@@ -221,7 +233,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/asset"
                         android:textColor="@color/dark_gray"
-                        android:textAppearance="@style/regular_12"/>
+                        android:textAppearance="@style/regular_12" />
 
                     <LinearLayout
                         android:id="@+id/lay_sort_change"
@@ -238,7 +250,7 @@
                             android:gravity="end"
                             android:text="@string/change"
                             android:textColor="@color/dark_gray"
-                            android:textAppearance="@style/regular_12"/>
+                            android:textAppearance="@style/regular_12" />
 
                         <ImageView
                             android:id="@+id/img_sort_change"
@@ -246,7 +258,7 @@
                             android:layout_height="@dimen/dimen_10"
                             android:layout_gravity="center"
                             android:layout_marginStart="@dimen/dimen_2"
-                            android:src="@drawable/ic_sort_arrow_up_down"/>
+                            android:src="@drawable/ic_sort_arrow_up_down" />
 
                     </LinearLayout>
 
@@ -266,7 +278,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/asset"
                         android:textColor="@color/dark_gray"
-                        android:textAppearance="@style/regular_12"/>
+                        android:textAppearance="@style/regular_12" />
 
                     <LinearLayout
                         android:id="@+id/lay_weight"
@@ -283,7 +295,7 @@
                             android:gravity="end"
                             android:text="@string/weight"
                             android:textColor="@color/dark_gray"
-                            android:textAppearance="@style/regular_12"/>
+                            android:textAppearance="@style/regular_12" />
 
                         <ImageView
                             android:id="@+id/img_sort_weight"
@@ -291,7 +303,7 @@
                             android:layout_height="@dimen/dimen_10"
                             android:layout_gravity="center"
                             android:layout_marginStart="@dimen/dimen_2"
-                            android:src="@drawable/ic_sort_arrow_up_down"/>
+                            android:src="@drawable/ic_sort_arrow_up_down" />
 
                     </LinearLayout>
 
@@ -311,7 +323,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/asset"
                         android:textColor="@color/dark_gray"
-                        android:textAppearance="@style/regular_12"/>
+                        android:textAppearance="@style/regular_12" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -326,7 +338,7 @@
                             android:text="@string/volume_ut"
                             android:textColor="@color/dark_gray"
                             android:layout_marginEnd="@dimen/dimen_40"
-                            android:textAppearance="@style/regular_12"/>
+                            android:textAppearance="@style/regular_12" />
 
                         <LinearLayout
                             android:id="@+id/lay_balance"
@@ -341,7 +353,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/value_dollar"
                                 android:textColor="@color/dark_gray"
-                                android:textAppearance="@style/regular_12"/>
+                                android:textAppearance="@style/regular_12" />
 
                             <ImageView
                                 android:id="@+id/img_sort_balance"
@@ -349,7 +361,7 @@
                                 android:layout_height="@dimen/dimen_10"
                                 android:layout_gravity="center"
                                 android:layout_marginStart="@dimen/dimen_2"
-                                android:src="@drawable/ic_sort_arrow_up_down"/>
+                                android:src="@drawable/ic_sort_arrow_up_down" />
 
                         </LinearLayout>
 
@@ -363,8 +375,7 @@
                     android:layout_height="wrap_content"
                     android:scrollbars="none"
                     android:overScrollMode="never"
-                    android:nestedScrollingEnabled="false"
-                    />
+                    android:nestedScrollingEnabled="false" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -377,7 +388,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/trading_balance"
                         android:textColor="@color/primary"
-                        android:textAppearance="@style/medium_14"/>
+                        android:textAppearance="@style/medium_14" />
 
                     <TextView
                         android:id="@+id/txt_trading_balance"
@@ -386,7 +397,7 @@
                         android:gravity="end"
                         android:text="$6 420.99"
                         android:textColor="@color/black_333333"
-                        android:textAppearance="@style/medium_14"/>
+                        android:textAppearance="@style/medium_14" />
 
                 </LinearLayout>
 
