@@ -45,7 +45,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dimen_6"
-                        android:text="@string/filter_"
+                        android:text="@string/order_type"
                         android:textAppearance="@style/regular_14"/>
 
                 </LinearLayout>
@@ -74,70 +74,6 @@
                         android:text="@string/sort"
                         android:textAppearance="@style/regular_14" />
 
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/linear_container_filter"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_10"
-                android:visibility="visible"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:id="@+id/btn_all"
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/dimen_38"
-                    android:paddingHorizontal="@dimen/dimen_20"
-                    android:layout_marginEnd="@dimen/dimen_8"
-                    android:background="@drawable/bg_circular">
-
-                    <TextView
-                        android:id="@+id/txt_all"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:text="ALL"
-                        android:textColor="@color/white"
-                        android:textAppearance="@style/regular_14" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/btn_buy"
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/dimen_38"
-                    android:paddingHorizontal="@dimen/dimen_20"
-                    android:layout_marginEnd="@dimen/dimen_8"
-                    android:background="@drawable/bg_border_green_correct">
-
-                    <TextView
-                        android:id="@+id/txt_buy"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:text="BUY"
-                        android:textColor="@color/success"
-                        android:textAppearance="@style/regular_14" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/btn_sell"
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/dimen_38"
-                    android:paddingHorizontal="@dimen/dimen_20"
-                    android:layout_marginEnd="@dimen/dimen_8"
-                    android:background="@drawable/bg_border_red_transparent">
-
-                    <TextView
-                        android:id="@+id/txt_sell"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:text="SELL"
-                        android:textColor="@color/danger"
-                        android:textAppearance="@style/regular_14" />
                 </LinearLayout>
 
             </LinearLayout>

@@ -1,20 +1,30 @@
 package com.zillennium.utswap.screens.navbar.tradeTab.tradeScreen
 
+import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
+import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentNavbarTradeBinding
 import com.zillennium.utswap.models.TradeModel
+import com.zillennium.utswap.screens.account.accountScreen.AccountActivity
 import com.zillennium.utswap.screens.project.projectInfoScreen.ProjectInfoActivity
 import com.zillennium.utswap.screens.project.subscriptionScreen.SubscriptionActivity
 import com.zillennium.utswap.screens.navbar.tradeTab.tradeExchangeScreen.TradeExchangeActivity
 import com.zillennium.utswap.screens.navbar.tradeTab.tradeScreen.adapter.TradeAdapter
+import com.zillennium.utswap.screens.security.securityActivity.signInScreen.SignInActivity
+import com.zillennium.utswap.screens.system.notification.NotificationActivity
 import java.util.*
 
 class TradeFragment :
@@ -37,6 +47,21 @@ class TradeFragment :
         try {
             binding.apply {
 
+                //check share preference
+                SessionVariable.SESSION_STATUS.observe(this@TradeFragment) {
+                    if(SessionVariable.SESSION_STATUS.value == true){
+                        imgMenu.setOnClickListener {
+                            val intent = Intent(UTSwapApp.instance, AccountActivity::class.java)
+                            startActivity(intent)
+                            requireActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+                        }
+                    }else{
+                        imgMenu.setOnClickListener {
+                            val intent = Intent(UTSwapApp.instance,SignInActivity::class.java)
+                            startActivity(intent)
+                        }
+                    }
+                }
 
 
                 val project = arrayOf(
@@ -105,13 +130,9 @@ class TradeFragment :
 
                 etSearch.setOnFocusChangeListener { _, hasFocus ->
                     if (hasFocus) {
-                        imgSearch.imageTintList =
-                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
                         laySearch.backgroundTintList =
                             ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
                     } else {
-                        imgSearch.imageTintList =
-                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.light_gray))
                         laySearch.backgroundTintList =
                             ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.light_gray))
                     }
@@ -175,6 +196,26 @@ class TradeFragment :
                     startActivity(intent)
 //                    Navigation.findNavController(requireView()).navigate(R.id.action_to_navigation_navbar_project_info)
                 }
+
+                imgMenu.setOnClickListener {
+                    val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
+                    startActivity(intent)
+                }
+
+                imgNotification.setOnClickListener {
+                    val intent = Intent(UTSwapApp.instance, NotificationActivity::class.java)
+                    startActivity(intent)
+                }
+
+                icSearch.setOnClickListener {
+                    linearLayoutSearch.visibility = View.VISIBLE
+                }
+
+                txtCancel.setOnClickListener {
+                    linearLayoutSearch.visibility = View.GONE
+                    etSearch.text.clear()
+                    hideKeyboard()
+                }
             }
 
         } catch (error: Exception) {
@@ -186,7 +227,7 @@ class TradeFragment :
         override fun clickMe() {
 //            findNavController().navigate(R.id.action_to_trade_detail)
 //            Navigation.findNavController(requireView()).navigate(R.id.trade_detail)
-            val intent: Intent = Intent(UTSwapApp.instance, TradeExchangeActivity::class.java)
+            val intent = Intent(UTSwapApp.instance, TradeExchangeActivity::class.java)
             startActivity(intent)
         }
     }
@@ -259,12 +300,12 @@ class TradeFragment :
         }
     }
 
-//    fun Fragment.hideKeyboard() {
-//        view?.let { activity?.hideKeyboard(it) }
-//    }
-//
-//    fun Context.hideKeyboard(view: View) {
-//        val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-//        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
-//    }
+    fun Fragment.hideKeyboard() {
+        view?.let { activity?.hideKeyboard(it) }
+    }
+
+    fun Context.hideKeyboard(view: View) {
+        val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+    }
 }
