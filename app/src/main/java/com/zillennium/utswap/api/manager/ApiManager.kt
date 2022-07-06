@@ -1,6 +1,12 @@
 package com.zillennium.utswap.api.manager
 
 
+/**
+ * @author chhoeurnsokheng
+ * Created 5/7/22 at 3:14 PM
+ * By Mac
+ */
+
 import android.annotation.SuppressLint
 import android.content.Context
 import com.zillennium.utswap.BuildConfig
@@ -101,12 +107,7 @@ open class ApiManager {
             }
         }
 
-        /*return Retrofit.Builder().baseUrl(mServerUrl)
-            .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-            //.addConverterFactory(createMoshiConverter())
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(client.build())
-            .build()*/
+
 
         return Retrofit.Builder().baseUrl(mServerUrl)
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
