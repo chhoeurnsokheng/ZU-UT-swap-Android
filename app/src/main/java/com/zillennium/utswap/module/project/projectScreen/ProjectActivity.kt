@@ -8,6 +8,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
@@ -20,10 +21,9 @@ import com.zillennium.utswap.models.ProjectModel
 import com.zillennium.utswap.models.TestModel
 import com.zillennium.utswap.module.project.projectInfoScreen.ProjectInfoActivity
 import com.zillennium.utswap.module.project.projectScreen.adapter.ProjectAdapter
+import com.zillennium.utswap.module.system.notification.NotificationActivity
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
-import java.util.*
-
 
 class ProjectActivity :
     BaseMvpActivity<ProjectView.View, ProjectView.Presenter, ActivityProjectBinding>(),
@@ -60,6 +60,10 @@ class ProjectActivity :
                 finish()
             }
 
+            imgNotification.setOnClickListener {
+                val intent = Intent(UTSwapApp.instance, NotificationActivity::class.java)
+                startActivity(intent)
+            }
 
             val publicDate = arrayOf(
                 "05-05-2021",
@@ -153,13 +157,9 @@ class ProjectActivity :
 
             etSearch.setOnFocusChangeListener { _, hasFocus ->
                 if (hasFocus) {
-                    imgSearch.imageTintList =
-                        ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
                     laySearch.backgroundTintList =
                         ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
                 } else {
-                    imgSearch.imageTintList =
-                        ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.light_gray))
                     laySearch.backgroundTintList =
                         ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.light_gray))
                 }
@@ -179,6 +179,17 @@ class ProjectActivity :
                 }
 
             })
+
+            icSearch.setOnClickListener {
+                linearLayoutSearch.visibility = View.VISIBLE
+            }
+
+            txtCancel.setOnClickListener {
+                linearLayoutSearch.visibility = View.GONE
+                etSearch.text.clear()
+                val inputMethodManager = UTSwapApp.instance.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+                inputMethodManager.hideSoftInputFromWindow(etSearch.windowToken, 0)
+            }
         }
 //            }, 5000)
 

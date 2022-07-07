@@ -1,6 +1,7 @@
 package com.zillennium.utswap.module.main.portfolio
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.graphics.BlurMaskFilter
 import android.graphics.MaskFilter
 import android.view.View
@@ -10,6 +11,7 @@ import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
+import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
 import com.zillennium.utswap.Datas.GlobalVariable.SettingVariable
 import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
@@ -17,9 +19,11 @@ import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentNavbarPortfolioBinding
 import com.zillennium.utswap.models.portfolio.*
+import com.zillennium.utswap.module.account.accountScreen.AccountActivity
 import com.zillennium.utswap.module.main.portfolio.adapter.*
 import com.zillennium.utswap.module.main.portfolio.dialog.FilterPortfolioDialogBottomSheet
-
+import com.zillennium.utswap.module.security.securityActivity.signInScreen.SignInActivity
+import com.zillennium.utswap.module.system.notification.NotificationActivity
 
 class PortfolioFragment :
     BaseMvpFragment<PortfolioView.View, PortfolioView.Presenter, FragmentNavbarPortfolioBinding>(),
@@ -50,6 +54,22 @@ class PortfolioFragment :
         super.initView()
         try {
             binding.apply {
+
+                //check share preference
+                SessionVariable.SESSION_STATUS.observe(this@PortfolioFragment) {
+                    if(SessionVariable.SESSION_STATUS.value == true){
+                        imgMenu.setOnClickListener {
+                            val intent = Intent(UTSwapApp.instance, AccountActivity::class.java)
+                            startActivity(intent)
+                            requireActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+                        }
+                    }else{
+                        imgMenu.setOnClickListener {
+                            val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
+                            startActivity(intent)
+                        }
+                    }
+                }
 
                 val yValues = ArrayList<Entry>()
 
@@ -375,6 +395,16 @@ class PortfolioFragment :
                     val filterPortfolioDialogBottomSheet: FilterPortfolioDialogBottomSheet =
                         FilterPortfolioDialogBottomSheet.newInstance(btnFilter.text.toString())
                     filterPortfolioDialogBottomSheet.show(requireActivity().supportFragmentManager, "filter_portfolio")
+                }
+
+                imgMenu.setOnClickListener {
+                    val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
+                    startActivity(intent)
+                }
+
+                imgNotification.setOnClickListener {
+                    val intent = Intent(UTSwapApp.instance, NotificationActivity::class.java)
+                    startActivity(intent)
                 }
             }
 

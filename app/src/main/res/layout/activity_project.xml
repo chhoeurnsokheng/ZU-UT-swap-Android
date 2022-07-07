@@ -22,13 +22,53 @@
                 app:tint="@color/primary" />
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
+                android:layout_centerVertical="true"
                 android:text="@string/project"
+                android:layout_toEndOf="@+id/back_image"
                 android:textAlignment="center"
                 android:textAppearance="@style/medium_21"
                 android:textColor="@color/primary" />
+
+            <ImageView
+                android:id="@+id/ic_search"
+                android:layout_width="@dimen/dimen_64"
+                android:layout_height="@dimen/dimen_64"
+                android:layout_toStartOf="@+id/lay_notification"
+                android:padding="@dimen/dimen_16"
+                android:src="@drawable/ic_baseline_search_24"
+                app:tint="@color/primary" />
+
+            <RelativeLayout
+                android:id="@+id/lay_notification"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:padding="@dimen/dimen_18">
+
+                <ImageView
+                    android:id="@+id/img_notification"
+                    android:layout_width="@dimen/dimen_26"
+                    android:layout_height="@dimen/dimen_26"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@string/notification"
+                    android:src="@drawable/ic_notifications_black_24dp"
+                    app:tint="@color/primary" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignEnd="@+id/img_notification"
+                    android:background="@drawable/bg_circular"
+                    android:backgroundTint="@color/red_ee1111"
+                    android:paddingHorizontal="@dimen/dimen_4"
+                    android:paddingVertical="@dimen/dimen_2"
+                    android:text="4"
+                    android:textAppearance="@style/regular_6"
+                    android:textColor="@color/white" />
+            </RelativeLayout>
 
         </RelativeLayout>
 
@@ -36,38 +76,53 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-            <RelativeLayout
-                android:id="@+id/lay_search"
+
+            <LinearLayout
+                android:id="@+id/linear_layout_search"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_40"
-                android:background="@drawable/bg_circular_border_search"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:visibility="gone"
                 android:layout_marginHorizontal="@dimen/dimen_20"
                 android:layout_marginBottom="@dimen/dimen_28">
-                <ImageView
-                    android:id="@+id/img_search"
-                    android:layout_width="@dimen/dimen_16"
-                    android:layout_height="@dimen/dimen_16"
-                    android:src="@drawable/ic_magnifying_glass"
-                    app:tint="@color/light_gray"
-                    android:layout_centerVertical="true"
-                    android:layout_marginEnd="@dimen/dimen_12"
-                    android:layout_alignParentEnd="true"
-                    android:contentDescription="@string/search" />
 
-                <EditText
-                    android:id="@+id/et_search"
+                <RelativeLayout
+                    android:id="@+id/lay_search"
+                    android:layout_width="@dimen/dimen_270"
+                    android:layout_height="@dimen/dimen_40"
+                    android:background="@drawable/bg_circular_border_search">
+
+                    <EditText
+                        android:id="@+id/et_search"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerVertical="true"
+                        android:background="@null"
+                        android:inputType="textVisiblePassword"
+                        android:paddingHorizontal="@dimen/dimen_15"
+                        android:singleLine="true"
+                        android:textAppearance="@style/medium_14"
+                        android:textColor="@color/dark_gray" />
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/txt_cancel"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_centerVertical="true"
-                    android:layout_toStartOf="@+id/img_search"
-                    android:background="@null"
-                    android:inputType="textVisiblePassword"
-                    android:paddingHorizontal="@dimen/dimen_15"
-                    android:singleLine="true"
-                    android:textAppearance="@style/medium_14"
-                    android:textColor="@color/dark_gray" />
+                    android:gravity="end">
 
-            </RelativeLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="@string/cancel"
+                        android:textAppearance="@style/medium_12"
+                        android:textColor="@color/primary" />
+
+                </LinearLayout>
+
+            </LinearLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"

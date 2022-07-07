@@ -7,7 +7,7 @@ import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivitySplashScreenBinding
-import com.zillennium.utswap.module.main.MainActivity
+import com.zillennium.utswap.screens.navbar.navbar.MainActivity
 
 
 @SuppressLint("CustomSplashScreen")

@@ -1,4 +1,4 @@
-package com.zillennium.utswap.module.main
+package com.zillennium.utswap.screens.navbar.navbar
 
 import android.content.Intent
 import android.content.res.ColorStateList
@@ -18,14 +18,14 @@ import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityMainBinding
-import com.zillennium.utswap.module.account.accountScreen.AccountActivity
 import com.zillennium.utswap.module.kyc.kycActivity.KYCActivity
+import com.zillennium.utswap.module.main.MainPresenter
+import com.zillennium.utswap.module.main.MainView
 import com.zillennium.utswap.module.main.home.HomeFragment
 import com.zillennium.utswap.module.main.news.NewsFragment
 import com.zillennium.utswap.module.main.portfolio.PortfolioFragment
 import com.zillennium.utswap.module.main.trade.tradeScreen.TradeFragment
 import com.zillennium.utswap.module.security.securityActivity.signInScreen.SignInActivity
-import com.zillennium.utswap.module.system.notification.NotificationActivity
 import java.lang.Exception
 
 
@@ -40,28 +40,33 @@ class MainActivity :
 
     override fun initView() {
         super.initView()
+        SessionPreferences().removeValue("SESSION_STATUS")
+        SessionPreferences().removeValue("SESSION_KYC")
+        SessionPreferences().removeValue("SESSION_KYC_STATUS")
+
+        onCheckSession()
+        onSetUpNavBar()
+    }
+
+    override fun onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed()
+            return
+        }
+        doubleBackToExitPressedOnce = true
+        Toast.makeText(UTSwapApp.instance, "Please click BACK again to exit", Toast.LENGTH_SHORT).show()
+        Handler().postDelayed(Runnable { doubleBackToExitPressedOnce = false }, 2000)
+    }
+
+    private fun onCheckSession(){
         try {
             binding.apply {
-
-                SessionPreferences().removeValue("SESSION_STATUS")
-                SessionPreferences().removeValue("SESSION_KYC")
-                SessionPreferences().removeValue("SESSION_KYC_STATUS")
-
                 SessionVariable.SESSION_STATUS.observe(this@MainActivity) {
                     if(SessionVariable.SESSION_STATUS.value == true){
                         layAuth.visibility = GONE
                         layVerify.visibility = VISIBLE
-                        imgMenu.setOnClickListener {
-                            val intent = Intent(UTSwapApp.instance, AccountActivity::class.java)
-                            startActivity(intent)
-                            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
-                        }
                     }else{
                         layAuth.visibility = VISIBLE
-                        imgMenu.setOnClickListener {
-                            val intent = Intent(UTSwapApp.instance,SignInActivity::class.java)
-                            startActivity(intent)
-                        }
                     }
                 }
 
@@ -103,6 +108,26 @@ class MainActivity :
                     }
                 }
 
+                layAuth.setOnClickListener {
+                    val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
+                    startActivity(intent)
+                }
+
+                btnVerify.setOnClickListener {
+                    val intent = Intent(UTSwapApp.instance, KYCActivity::class.java)
+                    startActivity(intent)
+                }
+            }
+        }catch (e: Exception){
+
+        }
+    }
+
+    private fun onSetUpNavBar(){
+        try {
+            binding.apply {
+                // Passing each menu ID as a set of Ids because each
+                // menu should be considered as top level destinations.
                 val appBarConfiguration = AppBarConfiguration.Builder(
                     R.id.navigation_navbar_home,
                     R.id.navigation_navbar_portfolio,
@@ -116,93 +141,48 @@ class MainActivity :
                 // This Theme haven't use NoActionBar
                 setupWithNavController(navView, navController)
 
-                val HomeFragment = HomeFragment()
-                val PortfolioFragment = PortfolioFragment()
-                val TradeFragment = TradeFragment()
-                val NewsFragment = NewsFragment()
+                val homeFragment = HomeFragment()
+                val portfolioFragment = PortfolioFragment()
+                val tradeFragment = TradeFragment()
+                val newsTabFragment = NewsFragment()
                 val fragmentManager = supportFragmentManager
-                var activeFragment: Fragment = TradeFragment
+                var activeFragment: Fragment = tradeFragment
 
                 fragmentManager.beginTransaction().apply {
-                    add(R.id.nav_host_fragment_activity_navbar_home, HomeFragment, "HomeFragment").hide(HomeFragment)
-                    add(R.id.nav_host_fragment_activity_navbar_home, PortfolioFragment, "PortfolioFragment").hide(PortfolioFragment)
-                    add(R.id.nav_host_fragment_activity_navbar_home, TradeFragment, "TradeFragment").hide(TradeFragment)
-                    add(R.id.nav_host_fragment_activity_navbar_home, NewsFragment, "NewsFragment").hide(NewsFragment)
+                    add(R.id.nav_host_fragment_activity_navbar_home, homeFragment, "HomeFragment").hide(homeFragment)
+                    add(R.id.nav_host_fragment_activity_navbar_home, portfolioFragment, "PortfolioFragment").hide(portfolioFragment)
+                    add(R.id.nav_host_fragment_activity_navbar_home, tradeFragment, "TradeFragment").hide(tradeFragment)
+                    add(R.id.nav_host_fragment_activity_navbar_home, newsTabFragment, "NewsFragment").hide(newsTabFragment)
                 }.commit()
 
                 navView.setOnNavigationItemSelectedListener { item ->
-                    imgLogo.visibility = View.GONE
-                    title.visibility = View.GONE
                     when (item.itemId) {
                         R.id.navigation_navbar_home -> {
-                            fragmentManager.beginTransaction().hide(activeFragment).show(HomeFragment).commit()
-                            activeFragment = HomeFragment
-                            imgLogo.visibility = View.VISIBLE
+                            fragmentManager.beginTransaction().hide(activeFragment).show(homeFragment).commit()
+                            activeFragment = homeFragment
                         }
                         R.id.navigation_navbar_portfolio -> {
-                            fragmentManager.beginTransaction().hide(activeFragment).show(PortfolioFragment).commit()
-                            activeFragment = PortfolioFragment
-                            title.text = "Portfolio"
-                            title.visibility = View.VISIBLE
+                            fragmentManager.beginTransaction().hide(activeFragment).show(portfolioFragment).commit()
+                            activeFragment = portfolioFragment
                         }
                         R.id.navigation_navbar_trade -> {
-                            fragmentManager.beginTransaction().hide(activeFragment).show(TradeFragment).commit()
-                            activeFragment = TradeFragment
-                            title.text = "Trade"
-                            title.visibility = View.VISIBLE
+                            fragmentManager.beginTransaction().hide(activeFragment).show(tradeFragment).commit()
+                            activeFragment = tradeFragment
                         }
                         R.id.navigation_navbar_news -> {
-                            fragmentManager.beginTransaction().hide(activeFragment).show(NewsFragment).commit()
-                            activeFragment = NewsFragment
-                            title.text = "News"
-                            title.visibility = View.VISIBLE
+                            fragmentManager.beginTransaction().hide(activeFragment).show(newsTabFragment).commit()
+                            activeFragment = newsTabFragment
                         }
                     }
                     true
                 }
 
-                fragmentManager.beginTransaction().hide(activeFragment).show(TradeFragment).commit()
-                activeFragment = TradeFragment
+                fragmentManager.beginTransaction().hide(activeFragment).show(tradeFragment).commit()
+                activeFragment = tradeFragment
                 navView.selectedItemId = R.id.navigation_navbar_trade
-
-
-                layAuth.setOnClickListener {
-                    val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
-                    startActivity(intent)
-                }
-
-                btnVerify.setOnClickListener {
-                    val intent = Intent(UTSwapApp.instance, KYCActivity::class.java)
-                    startActivity(intent)
-                }
-
-                imgMenu.setOnClickListener {
-                    val intent = Intent(UTSwapApp.instance,SignInActivity::class.java)
-                    startActivity(intent)
-                }
-
-                imgNotification.setOnClickListener {
-                    val intent = Intent(UTSwapApp.instance, NotificationActivity::class.java)
-                    startActivity(intent)
-                }
             }
+        }catch (e: Exception){
 
-
-        } catch (error: Exception) {
-            // Must be safe
         }
-    }
-
-    
-
-
-    override fun onBackPressed() {
-        if (doubleBackToExitPressedOnce) {
-            super.onBackPressed()
-            return
-        }
-        doubleBackToExitPressedOnce = true
-        Toast.makeText(UTSwapApp.instance, "Please click BACK again to exit", Toast.LENGTH_SHORT).show()
-        Handler().postDelayed(Runnable { doubleBackToExitPressedOnce = false }, 2000)
     }
 }

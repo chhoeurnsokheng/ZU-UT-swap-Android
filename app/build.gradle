@@ -5,14 +5,14 @@ plugins {
 }
 
 
-def major = 1, minor = 0, patch = 3, build = 10
-
-if (major > 209) throw new GradleException("Major version ${major} exceeds limit")
-if (minor > 99) throw new GradleException("Minor version ${minor} exceeds limit")
-if (patch > 99) throw new GradleException("Patch version ${patch} exceeds limit")
-if (build > 999) throw new GradleException("Build version ${patch} exceeds limit")
-def code = (major * 10000000) + (minor * 100000) + (patch * 1000) + build
-def name = "$major.$minor.$patch"
+//def major = 1, minor = 0, patch = 3, build = 10
+//
+//if (major > 209) throw new GradleException("Major version ${major} exceeds limit")
+//if (minor > 99) throw new GradleException("Minor version ${minor} exceeds limit")
+//if (patch > 99) throw new GradleException("Patch version ${patch} exceeds limit")
+//if (build > 999) throw new GradleException("Build version ${patch} exceeds limit")
+//def code = (major * 10000000) + (minor * 100000) + (patch * 1000) + build
+//def name = "$major.$minor.$patch"
 
 android {
     compileSdk 32
@@ -21,8 +21,8 @@ android {
         applicationId "com.zillennium.utswap"
         minSdk 24
         targetSdk 32
-        versionCode    code //1
-        versionName    name // "1.0.0"
+        versionCode    1
+        versionName    "1.0.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
 //        renderscriptTargetApi 32
