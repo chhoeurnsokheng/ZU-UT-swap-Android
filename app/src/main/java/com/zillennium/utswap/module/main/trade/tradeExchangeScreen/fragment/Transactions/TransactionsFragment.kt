@@ -3,11 +3,11 @@ package com.zillennium.utswap.module.main.trade.tradeExchangeScreen.fragment.Tra
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Build
-import android.view.View
 import androidx.annotation.RequiresApi
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.zillennium.utswap.Datas.ListDatas.ordersData.OrdersData
 import com.zillennium.utswap.Datas.ListDatas.transactionsData.TransactionsData
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
@@ -27,8 +27,12 @@ class TransactionsFragment :
     override var mPresenter: TransactionsView.Presenter = TransactionsPresenter()
     override val layoutResource: Int = R.layout.fragment_exchange_transactions
     private var transactionsAdapter: TransactionsAdapter? = null
-    var clickFilter = 1
-    var clickSort = 1
+
+    private var filter: Int = 0 //0: no filter
+                                // 1: filter by buy , 2: filter by sell,
+
+    private var sort: Int = 0 // 0: sort from latest to oldest
+                             // 1: sort from oldest to latest
 
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("UseCompatLoadingForDrawables", "NotifyDataSetChanged")
@@ -41,14 +45,21 @@ class TransactionsFragment :
 //                    linearTransactionsHistory.visibility = View.VISIBLE
 //                }
 
-                imgFilter.setOnClickListener{
-                    countClickFilter(clickFilter)
-                    clickFilter++
+                imgFilter.setOnClickListener {
+                    filter = when(filter){
+                        0-> 1
+                        1-> 2
+                        else -> 0
+                    }
+                    getFilter(filter)
                 }
 
                 imgSort.setOnClickListener {
-                    countClickSort(clickSort)
-                    clickSort++
+                    sort = when(sort){
+                        0 -> 1
+                        else -> 0
+                    }
+                    getSort(sort)
                 }
 
                 val linearLayoutManager = LinearLayoutManager(requireContext())
@@ -59,65 +70,54 @@ class TransactionsFragment :
                 )
 
                 rvTransactions.adapter = transactionsAdapter
+            }
 
-                btnAll.setOnClickListener{
-                    btnAll.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_circular)
-                    btnBuy.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_border_red_transparent)
-                    btnSell.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_border_green_correct)
-                    txtAll.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.white))
-                    txtBuy.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.success))
-                    txtSell.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
+        } catch (error: Exception) {
+            // Must be safe
+        }
+    }
 
+    @SuppressLint("NotifyDataSetChanged")
+    private fun getFilter(filter: Int){
+        binding.apply {
+            when(filter){
+                0 -> {
                     transactionsAdapter!!.notifyDataSetChanged()
 
                     transactionsAdapter = TransactionsAdapter(
-                        TransactionsData.LIST_OF_TRANSACTIONS(),onClickTransactions
+                        OrdersData.LIST_OF_ORDERS(),
+                        onClickTransactions
                     )
-
                     rvTransactions.adapter = transactionsAdapter
+                    icFilter.imageTintList =  ColorStateList.valueOf(UTSwapApp.instance.getColor(R.color.backgroundHint))
+                    txtFilter.setTextColor(Color.parseColor("#808080"))
                 }
-
-                btnBuy.setOnClickListener{
-                    btnAll.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_circular_border_blue)
-                    btnBuy.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_circular)
-                    btnBuy.backgroundTintList = ColorStateList.valueOf(
-                        ContextCompat.getColor(
-                            UTSwapApp.instance, R.color.success))
-                    btnSell.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_border_red_transparent)
-                    txtAll.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
-                    txtBuy.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.white))
-                    txtSell.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
-
+                1 -> {
                     val list = arrayListOf<Orders>()
 
-                    TransactionsData.LIST_OF_TRANSACTIONS().map {
+                    OrdersData.LIST_OF_ORDERS().map {
                         if(it.txtStatus == "BUY"){
                             list.add(Orders(it.txtStatus, it.txtUT,it.txtDate, it.txtPrice))
                         }
                     }
 
+
                     transactionsAdapter!!.notifyDataSetChanged()
 
                     transactionsAdapter = TransactionsAdapter(
-                        list,onClickTransactions
+                        list,
+                        onClickTransactions
                     )
 
                     rvTransactions.adapter = transactionsAdapter
+                    icFilter.imageTintList =  ColorStateList.valueOf(UTSwapApp.instance.getColor(R.color.primary))
+                    txtFilter.setTextColor(Color.parseColor("#1B2266"))
 
                 }
-
-                btnSell.setOnClickListener{
-                    btnAll.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_circular_border_blue)
-                    btnSell.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_circular)
-                    btnSell.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.red_ee1111))
-                    btnBuy.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_border_green_correct)
-                    txtAll.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
-                    txtBuy.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.success))
-                    txtSell.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.white))
-
+                2 -> {
                     val list = arrayListOf<Orders>()
 
-                    TransactionsData.LIST_OF_TRANSACTIONS().map {
+                    OrdersData.LIST_OF_ORDERS().map {
                         if(it.txtStatus == "SELL"){
                             list.add(Orders(it.txtStatus, it.txtUT,it.txtDate, it.txtPrice))
                         }
@@ -126,26 +126,27 @@ class TransactionsFragment :
                     transactionsAdapter!!.notifyDataSetChanged()
 
                     transactionsAdapter = TransactionsAdapter(
-                        list,onClickTransactions
+                        list,
+                        onClickTransactions
                     )
 
                     rvTransactions.adapter = transactionsAdapter
-
+                    icFilter.imageTintList =  ColorStateList.valueOf(UTSwapApp.instance.getColor(R.color.primary))
+                    txtFilter.setTextColor(Color.parseColor("#1B2266"))
                 }
+            }
+        }
+    }
 
-                btnLatest.setOnClickListener{
-                    btnLatest.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_circular)
-                    btnOldest.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_circular_border_blue)
-                    btnBigToSmall.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_circular_border_blue)
-                    btnSmallToBig.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_circular_border_blue)
-                    txtLatest.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.white))
-                    txtBigToSmall.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
-                    txtSmallToBig.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
-                    txtOldest.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
-
+    @RequiresApi(Build.VERSION_CODES.O)
+    @SuppressLint("NotifyDataSetChanged", "UseCompatLoadingForDrawables")
+    private fun getSort(sort: Int){
+        binding.apply {
+            when(sort){
+                0 -> {
                     val list = arrayListOf<Orders>()
 
-                    TransactionsData.LIST_OF_TRANSACTIONS().map {
+                    OrdersData.LIST_OF_ORDERS().map {
                         list.add(Orders(it.txtStatus, it.txtUT,it.txtDate, it.txtPrice))
                     }
 
@@ -160,27 +161,18 @@ class TransactionsFragment :
                     transactionsAdapter!!.notifyDataSetChanged()
 
                     transactionsAdapter = TransactionsAdapter(
-                        list,onClickTransactions
+                        list,
+                        onClickTransactions
                     )
 
                     rvTransactions.adapter = transactionsAdapter
-
-
+                    icSort.setImageDrawable(UTSwapApp.instance.getDrawable(R.drawable.ic_sort))
                 }
 
-                btnOldest.setOnClickListener{
-                    btnOldest.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_circular)
-                    btnLatest.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_circular_border_blue)
-                    btnBigToSmall.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_circular_border_blue)
-                    btnSmallToBig.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_circular_border_blue)
-                    txtLatest.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
-                    txtBigToSmall.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
-                    txtSmallToBig.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
-                    txtOldest.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.white))
-
+                1 -> {
                     val list = arrayListOf<Orders>()
 
-                    TransactionsData.LIST_OF_TRANSACTIONS().map {
+                    OrdersData.LIST_OF_ORDERS().map {
                         list.add(Orders(it.txtStatus, it.txtUT,it.txtDate, it.txtPrice))
                     }
 
@@ -195,99 +187,13 @@ class TransactionsFragment :
                     transactionsAdapter!!.notifyDataSetChanged()
 
                     transactionsAdapter = TransactionsAdapter(
-                        list,onClickTransactions
+                        list,
+                        onClickTransactions
                     )
 
                     rvTransactions.adapter = transactionsAdapter
+                    icSort.setImageDrawable(UTSwapApp.instance.getDrawable(R.drawable.ic_sort_up))
                 }
-
-                btnSmallToBig.setOnClickListener{
-                    btnSmallToBig.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_circular)
-                    btnLatest.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_circular_border_blue)
-                    btnBigToSmall.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_circular_border_blue)
-                    btnOldest.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_circular_border_blue)
-                    txtLatest.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
-                    txtBigToSmall.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
-                    txtSmallToBig.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.white))
-                    txtOldest.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
-
-                    val list = arrayListOf<Orders>()
-
-                    TransactionsData.LIST_OF_TRANSACTIONS().map {
-                        list.add(Orders(it.txtStatus, it.txtUT,it.txtDate, it.txtPrice))
-                    }
-
-                    list.sortByDescending {
-                        it.txtPrice
-                    }
-
-                    transactionsAdapter!!.notifyDataSetChanged()
-
-                    transactionsAdapter = TransactionsAdapter(
-                        list,onClickTransactions
-                    )
-
-                    rvTransactions.adapter = transactionsAdapter
-                }
-
-                btnBigToSmall.setOnClickListener{
-                    btnBigToSmall.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_circular)
-                    btnLatest.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_circular_border_blue)
-                    btnSmallToBig.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_circular_border_blue)
-                    btnOldest.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_circular_border_blue)
-                    txtLatest.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
-                    txtBigToSmall.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.white))
-                    txtSmallToBig.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
-                    txtOldest.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
-
-                    val list = arrayListOf<Orders>()
-
-                    TransactionsData.LIST_OF_TRANSACTIONS().map {
-                        list.add(Orders(it.txtStatus, it.txtUT,it.txtDate, it.txtPrice))
-                    }
-
-                    list.sortBy {
-                        it.txtPrice
-                    }
-
-                    transactionsAdapter!!.notifyDataSetChanged()
-
-                    transactionsAdapter = TransactionsAdapter(
-                        list,onClickTransactions
-                    )
-
-                    rvTransactions.adapter = transactionsAdapter
-                }
-            }
-
-        } catch (error: Exception) {
-            // Must be safe
-        }
-    }
-
-    @SuppressLint("ResourceAsColor")
-    private fun countClickFilter(click : Int){
-        binding.apply {
-            if(click % 2 == 0)
-            {
-                linearContainerFilter.visibility = View.VISIBLE
-                linearContainerSort.visibility = View.GONE
-            }else{
-                linearContainerFilter.visibility = View.GONE
-                linearContainerSort.visibility = View.GONE
-            }
-        }
-    }
-
-    private fun countClickSort(click : Int){
-        binding.apply {
-            if(click % 2 == 0)
-            {
-                linearContainerSort.visibility = View.VISIBLE
-                linearContainerFilter.visibility = View.GONE
-            }else{
-                linearContainerSort.visibility = View.GONE
-                linearContainerFilter.visibility = View.GONE
             }
         }
     }
