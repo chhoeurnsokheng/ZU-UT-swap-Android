@@ -7,13 +7,11 @@ import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
-import android.widget.*
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.button.MaterialButton
 import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
@@ -29,7 +27,6 @@ import com.zillennium.utswap.screens.navbar.tradeTab.tradeExchangeScreen.fragmen
 import com.zillennium.utswap.screens.navbar.tradeTab.tradeExchangeScreen.dialog.BuyDialog
 import com.zillennium.utswap.screens.navbar.tradeTab.tradeExchangeScreen.dialog.MarketDialog
 import com.zillennium.utswap.screens.navbar.tradeTab.tradeExchangeScreen.dialog.SellDialog
-import com.zillennium.utswap.screens.security.securityActivity.registerScreen.RegisterActivity
 import com.zillennium.utswap.screens.security.securityActivity.signInScreen.SignInActivity
 
 
@@ -138,10 +135,6 @@ class TradeExchangeActivity :
                 txtTransactions.setOnClickListener { view ->
                     onChangeTabsTable(view)
                     vpTable.setCurrentItem(1, false)
-                }
-                txtAllTransactions.setOnClickListener { view ->
-                    onChangeTabsTable(view)
-                    vpTable.setCurrentItem(2, false)
                 }
 
                 btnBack.setOnClickListener {
@@ -363,23 +356,13 @@ class TradeExchangeActivity :
                 R.id.txt_orders -> {
                     tabSelectOrders.animate()?.x(0f)?.duration = 100
                     txtOrders.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.white))
-                    txtAllTransactions.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
                     txtTransactions.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
                 }
                 R.id.txt_transactions -> {
                     txtOrders.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
-                    txtAllTransactions.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
                     txtTransactions.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.white))
                     val size: Int = txtTransactions.width
                     tabSelectOrders.animate().x(size.toFloat()).duration = 100
-                }
-                R.id.txt_all_transactions -> {
-                    txtOrders.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
-                    txtTransactions.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
-                    txtAllTransactions.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.white))
-                    val sizeAllTrans: Int = (txtAllTransactions.x.toInt())
-
-                    tabSelectOrders.animate().x(sizeAllTrans.toFloat()).duration = 100
                 }
             }
         }

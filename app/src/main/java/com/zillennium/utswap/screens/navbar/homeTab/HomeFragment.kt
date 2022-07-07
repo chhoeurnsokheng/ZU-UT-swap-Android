@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
+import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
@@ -20,6 +21,7 @@ import com.zillennium.utswap.models.HomeMenuModel
 import com.zillennium.utswap.models.HomeRecentNewsModel
 import com.zillennium.utswap.models.HomeTabSlideImageModel
 import com.zillennium.utswap.models.HomeWatchlistModel
+import com.zillennium.utswap.screens.account.accountScreen.AccountActivity
 import com.zillennium.utswap.screens.finance.depositScreen.DepositActivity
 import com.zillennium.utswap.screens.finance.transferScreen.TransferActivity
 import com.zillennium.utswap.screens.finance.withdrawScreen.WithdrawActivity
@@ -31,6 +33,8 @@ import com.zillennium.utswap.screens.navbar.homeTab.bottomSheet.HomeFinanceBotto
 import com.zillennium.utswap.screens.navbar.newsTab.newsDetail.NewsDetailActivity
 import com.zillennium.utswap.screens.navbar.tradeTab.tradeExchangeScreen.TradeExchangeActivity
 import com.zillennium.utswap.screens.project.projectScreen.ProjectActivity
+import com.zillennium.utswap.screens.security.securityActivity.signInScreen.SignInActivity
+import com.zillennium.utswap.screens.system.notification.NotificationActivity
 
 
 class HomeFragment :
@@ -49,6 +53,32 @@ class HomeFragment :
         super.initView()
         try {
             binding.apply {
+
+                //check share preference
+                SessionVariable.SESSION_STATUS.observe(this@HomeFragment) {
+                    if(SessionVariable.SESSION_STATUS.value == true){
+                        imgMenu.setOnClickListener {
+                            val intent = Intent(UTSwapApp.instance, AccountActivity::class.java)
+                            startActivity(intent)
+                            requireActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+                        }
+                    }else{
+                        imgMenu.setOnClickListener {
+                            val intent = Intent(UTSwapApp.instance,SignInActivity::class.java)
+                            startActivity(intent)
+                        }
+                    }
+                }
+
+                imgMenu.setOnClickListener {
+                    val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
+                    startActivity(intent)
+                }
+
+                imgNotification.setOnClickListener {
+                    val intent = Intent(UTSwapApp.instance, NotificationActivity::class.java)
+                    startActivity(intent)
+                }
 
                 /* Show or Hide Trading Balance */
                 tradingBalance.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
