@@ -58,7 +58,7 @@ android {
             applicationIdSuffix ".debug"
             versionNameSuffix ".$build"
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField "String", "SERVER_URL", '"https://api-pre.z1platform.com/api/' + STR_VERSION + '/api/v2/"'
+          //  buildConfigField "String", "SERVER_URL", '"https://api-pre.z1platform.com/api/' + STR_VERSION + '/api/v2/"'
         }
         stage {
             debuggable true
@@ -67,7 +67,7 @@ android {
             versionNameSuffix ".$build"
             signingConfig signingConfigs.stage
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField "String", "SERVER_URL", '"https://api.z1platform.com/api/' + STR_VERSION + '/api/v2/"'
+         //   buildConfigField "String", "SERVER_URL", '"https://api.z1platform.com/api/' + STR_VERSION + '/api/v2/"'
 
         }
         release {
@@ -76,7 +76,7 @@ android {
             shrinkResources true
             signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField "String", "SERVER_URL", '"https://api.z1platform.com/api/' + STR_VERSION + '/api/v2/"'
+          //  buildConfigField "String", "SERVER_URL", '"https://api.z1platform.com/api/' + STR_VERSION + '/api/v2/"'
         }
     }
 
