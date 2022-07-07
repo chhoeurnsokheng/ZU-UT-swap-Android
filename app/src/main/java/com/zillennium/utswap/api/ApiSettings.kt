@@ -6,5 +6,6 @@ package com.zillennium.utswap.api
  * By Mac
  */
 object ApiSettings {
-
+    const val VERSION = ""
+    const val PATH_USER_LOGIN = "${VERSION}customer/login"
 }

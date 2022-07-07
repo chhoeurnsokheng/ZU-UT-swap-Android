@@ -1,13 +1,15 @@
 package com.zillennium.utswap.api
 
 import android.content.Context
+import com.google.gson.Gson
+import com.zillennium.utswap.models.user.ShowProfile
+import com.zillennium.utswap.utils.Util
 
 /**
  * @author chhoeurnsokheng
  * Created 6/7/22 at 9:20 AM
  * By Mac
  */
-
 
 object MockUpData {
     var IS_SIGN_UP = false
@@ -73,7 +75,7 @@ object MockUpData {
         INVITATION_CODE = null
         CREATE_PIN = null
         if (isSuccessSignUp) {
-           // setAccessToken(ACCESS_TOKEN_SIGN_UP, context)
+            setAccessToken(ACCESS_TOKEN_SIGN_UP, context)
             IS_SIGN_UP = true
         }
         ACCESS_TOKEN_SIGN_UP = null
@@ -92,50 +94,91 @@ object MockUpData {
         CREATE_PIN = null
     }
 
-
-
-
-
-
-
-
-
-
-
-    fun setUserID(userID: String?, context: Context?) {
-     //   Util.saveData("userID", userID, context)
+    fun setDeviceToken(deviceToken: String?, context: Context?) {
+        if (context != null) {
+            Util.saveData("deviceToken", deviceToken, context)
+        }
     }
 
-    fun getUserID(context: Context?): String {
-      //  return Util.getData("userID", context)
-        return  ""
+    fun getDeviceToken(context: Context?): String? {
+        return context?.let { Util.getData("deviceToken", it) }
+    }
+
+    fun removeUserData(context: Context?) {
+        if (context != null) {
+            Util.saveData("userData", "", context)
+        }
+
+        //Theara, remove userID
+        if (context != null) {
+            Util.saveData("userID", "", context)
+        }
+    }
+
+    fun setUserData(userData: ShowProfile?, context: Context?) {
+        val gson = Gson()
+        val userDataObject = gson.toJson(userData)
+        if (context != null) {
+            Util.saveData("userData", userDataObject, context)
+        }
+    }
+
+    fun getUserData(context: Context?): ShowProfile {
+        return try {
+            val gson = Gson()
+            val userDataObject: String? = context?.let { Util.getData("userData", it) }
+            gson.fromJson(userDataObject, ShowProfile::class.java)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            ShowProfile()
+        }
+    }
+
+    fun setUserID(userID: String?, context: Context?) {
+        if (context != null) {
+            Util.saveData("userID", userID, context)
+        }
+    }
+
+    fun getUserID(context: Context?): String? {
+        return context?.let { Util.getData("userID", it) }
     }
 
     fun removeAccessToken(context: Context?) {
-     //   Util.saveData("token", "", context)
+        if (context != null) {
+            Util.saveData("token", "", context)
+        }
         removeRecentSavedSearchLocal()
-     //   resetBadgeCounterOfPushMessages()
+      //  resetBadgeCounterOfPushMessages()
     }
 
     fun removeRecentSavedSearchLocal() {
-      //  BuySellSearchActivity().removeAllRecentSavedSearch(Z1App.instance)
-      //  GeneralSearchActivity().removeAllRecentSavedSearch(Z1App.instance)
+//        BuySellSearchActivity().removeAllRecentSavedSearch(Z1App.instance)
+//        GeneralSearchActivity().removeAllRecentSavedSearch(Z1App.instance)
     }
 
 //    fun resetBadgeCounterOfPushMessages() {
 //        val notificationManager: NotificationManager
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//            notificationManager = Z1App.instance.getSystemService(AppCompatActivity.NOTIFICATION_SERVICE)
+//            notificationManager =
+//                UTSwapApp.instance.getSystemService(AppCompatActivity.NOTIFICATION_SERVICE)
 //            if (notificationManager != null) {
 //                notificationManager.cancelAll()
 //            }
 //        }
 //    }
 
-
+    fun setAccessToken(accessToken: String?, context: Context?) {
+        if (context != null) {
+            Util.saveData("token", accessToken, context)
+        }
+    }
 
     /**
      * Note : if(getAccessToken.equals("")) meaning it hasn't access token
      */
-
+    fun getAccessToken(context: Context?): String? {
+        return context?.let { Util.getData("token", it) }
+    }
 }
+

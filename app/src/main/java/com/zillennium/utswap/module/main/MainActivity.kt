@@ -3,7 +3,6 @@ package com.zillennium.utswap.screens.navbar.navbar
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Handler
-import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.Toast
@@ -12,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI.setupWithNavController
+import com.zillennium.utswap.BuildConfig
 import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
 import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
@@ -26,7 +26,6 @@ import com.zillennium.utswap.module.main.news.NewsFragment
 import com.zillennium.utswap.module.main.portfolio.PortfolioFragment
 import com.zillennium.utswap.module.main.trade.tradeScreen.TradeFragment
 import com.zillennium.utswap.module.security.securityActivity.signInScreen.SignInActivity
-import java.lang.Exception
 
 
 class MainActivity :
@@ -61,6 +60,11 @@ class MainActivity :
     private fun onCheckSession(){
         try {
             binding.apply {
+//                txtVersion.text = getString(
+//                   R.string.app_version_pattern,
+//                    BuildConfig.VERSION_NAME,
+//                      BuildConfig.VERSION_CODE
+//                )
                 SessionVariable.SESSION_STATUS.observe(this@MainActivity) {
                     if(SessionVariable.SESSION_STATUS.value == true){
                         layAuth.visibility = GONE
@@ -82,7 +86,7 @@ class MainActivity :
                     if(SessionVariable.SESSION_KYC.value == false && SessionVariable.SESSION_STATUS.value == true){
                         when(SessionVariable.SESSION_KYC_STATUS.value){
                             2 -> {
-                                layKycStatus.visibility = View.VISIBLE
+                                layKycStatus.visibility = VISIBLE
                                 layKycStatus.backgroundTintList = ColorStateList.valueOf(
                                     ContextCompat.getColor(UTSwapApp.instance, R.color.warning))
                                 txtStatus.text = "Pending Review."
@@ -94,14 +98,14 @@ class MainActivity :
 
                             }
                             1 -> {
-                                layKycStatus.visibility = View.VISIBLE
+                                layKycStatus.visibility = VISIBLE
                                 layKycStatus.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
                                 txtStatus.text = "Invalid Verification. Please Try Again."
                                 btnVerify.isClickable = true
                                 btnVerify.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
                             }
                             else -> {
-                                layKycStatus.visibility = View.GONE
+                                layKycStatus.visibility = GONE
                                 SessionVariable.SESSION_KYC.value = true
                             }
                         }

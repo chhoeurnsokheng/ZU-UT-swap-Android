@@ -2,10 +2,11 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-android'
+    id 'kotlin-kapt'
 }
 
 
-def major = 1, minor = 0, patch = 3, build = 10
+def major = 1, minor = 0, patch = 0, build = 1
 
 if (major > 209) throw new GradleException("Major version ${major} exceeds limit")
 if (minor > 99) throw new GradleException("Minor version ${minor} exceeds limit")
@@ -27,6 +28,9 @@ android {
         multiDexEnabled true
 //        renderscriptTargetApi 32
 //        renderscriptSupportModeEnabled true
+
+        buildConfigField('String', 'SOCKET_URL', '"http://socket.iserp.cloud"')
+        buildConfigField "String", "SERVER_URL", '"https://api.z1platform.com/api/' + STR_VERSION + '/api/v2/"'
     }
 
     signingConfigs {

@@ -10,6 +10,8 @@ package com.zillennium.utswap.api.manager
 import android.annotation.SuppressLint
 import android.content.Context
 import com.zillennium.utswap.BuildConfig
+import com.zillennium.utswap.api.service.UserService
+import com.zillennium.utswap.utils.LoggerUtil
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -26,9 +28,9 @@ import javax.net.ssl.*
 open class ApiManager {
 
     private val mServerUrl = getBaseServerUrl()
+
+    protected lateinit var mUserService: UserService
     protected lateinit var mContext: Context
-
-
 
 
     companion object {
@@ -40,20 +42,21 @@ open class ApiManager {
     }
 
     open fun getBaseServerUrl(): String {
-      //  return
-      //  BuildConfig.SERVER_URL
-        return  BuildConfig.APPLICATION_ID
+
+        return  BuildConfig.SERVER_URL
     }
 
     //INIT ALL PROFIT OBJECT
     private fun initServices(retrofit: Retrofit) {
+        mUserService = retrofit.create(UserService::class.java)
+
 
     }
 
     private fun initRetrofit(): Retrofit {
         val logging = HttpLoggingInterceptor(object : HttpLoggingInterceptor.Logger {
             override fun log(message: String) {
-              //  LoggerUtil.debug("RAW_BODY", "$message")
+                LoggerUtil.debug("RAW_BODY", "$message")
             }
         })
         logging.level =  HttpLoggingInterceptor.Level.BODY
