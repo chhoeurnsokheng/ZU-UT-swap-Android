@@ -112,16 +112,6 @@
                             android:scrollbars="none"/>
                     </androidx.cardview.widget.CardView>
 
-<!--                    <ImageView-->
-<!--                        android:id="@+id/iv_dialog"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:src="@drawable/ic_zoom_image"-->
-<!--                        android:padding="5dp"-->
-<!--                        android:layout_alignParentEnd="true"-->
-<!--                        android:layout_alignParentBottom="true"-->
-<!--                        app:tint="@color/success" />-->
-
                 </RelativeLayout>
 
                 <com.google.android.material.tabs.TabLayout
