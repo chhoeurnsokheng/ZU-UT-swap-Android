@@ -2,11 +2,9 @@ package com.zillennium.utswap.module.main.home
 
 
 import android.content.Intent
-import android.content.res.ColorStateList
 import android.graphics.BlurMaskFilter
 import android.graphics.MaskFilter
 import android.view.View
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
@@ -228,31 +226,20 @@ class HomeFragment :
         }
     }
 
-    private fun showBottomSheetDialog() {
-        HomeFinanceBottomSheet().show(
-            requireActivity().supportFragmentManager,
-            HomeFinanceBottomSheet.TAG
-        )
-    }
-
     //click to move to new screen
     val onclickHome: HomeMenuAdapter.OnclickHome = object : HomeMenuAdapter.OnclickHome {
         override fun ClickDeposit(title: String) {
 
             when (title.toString()) {
-                "Portfolio" -> {
-                    activity?.findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(
-                        R.id.nav_view
-                    )?.selectedItemId = R.id.navigation_navbar_portfolio
-                }
-                "Trade" -> {
-                    activity?.findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(
-                        R.id.nav_view
-                    )?.selectedItemId = R.id.navigation_navbar_trade
-                }
                 "Projects" -> {
                     val intent = Intent(UTSwapApp.instance, ProjectActivity::class.java)
                     startActivity(intent)
+                }
+                "Finance" -> {
+                    HomeFinanceBottomSheet().show(
+                        requireActivity().supportFragmentManager,
+                        HomeFinanceBottomSheet.TAG
+                    )
                 }
                 "Deposit" -> {
                     val intent = Intent(UTSwapApp.instance, DepositActivity::class.java)
@@ -301,43 +288,18 @@ class HomeFragment :
     private fun onHomeMenuGrid(enabled: Boolean) {
 
         HomeArrayList.clear()
-        HomeArrayList.add(HomeMenuModel(R.drawable.ic_portfolio, "Portfolio", enabled))
-        HomeArrayList.add(HomeMenuModel(R.drawable.ic_trade, "Trade", true))
-        HomeArrayList.add(HomeMenuModel(R.drawable.ic_land_ut, "Projects", enabled))
+//        HomeArrayList.add(HomeMenuModel(R.drawable.ic_portfolio, "Portfolio", enabled))
+//        HomeArrayList.add(HomeMenuModel(R.drawable.ic_trade, "Trade", true))
         HomeArrayList.add(HomeMenuModel(R.drawable.ic_deposit, "Deposit", enabled))
         HomeArrayList.add(HomeMenuModel(R.drawable.ic_withdraw, "Withdraw", enabled))
         HomeArrayList.add(HomeMenuModel(R.drawable.ic_transfer, "Transfer", enabled))
+        HomeArrayList.add(HomeMenuModel(R.drawable.ic_finance, "Finance", enabled))
+        HomeArrayList.add(HomeMenuModel(R.drawable.ic_land_ut, "Projects", enabled))
 
         binding.apply {
             rvHomeMenu.layoutManager = GridLayoutManager(UTSwapApp.instance, 3)
             homeAdapter = HomeMenuAdapter(HomeArrayList, R.layout.item_list_home_grid, onclickHome)
             rvHomeMenu.adapter = homeAdapter
-
-            if(enabled){
-                imgFinance.imageTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
-                txtFinance.setTextColor(ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.primary)))
-                financeBottom.isEnabled = true
-                financeBottom.setOnClickListener {
-                    showBottomSheetDialog()
-                }
-            } else {
-                imgFinance.imageTintList = ColorStateList.valueOf(
-                    ContextCompat.getColor(
-                        UTSwapApp.instance,
-                        R.color.gray_999999
-                    )
-                )
-                txtFinance.setTextColor(
-                    ColorStateList.valueOf(
-                        ContextCompat.getColor(
-                            UTSwapApp.instance,
-                            R.color.gray_999999
-                        )
-                    )
-                )
-                financeBottom.isEnabled = false
-                financeBottom.setOnClickListener {}
-            }
         }
 
 
