@@ -1,5 +1,8 @@
 package com.zillennium.utswap.module.account.documentsScreen.termsConditions
 
+import android.os.Build
+import android.view.WindowManager
+import androidx.core.content.ContextCompat
 import com.zillennium.utswap.R
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityAccountTermsConditionsBinding
@@ -15,9 +18,7 @@ class TermsConditionsActivity :
         super.initView()
         try {
             binding.apply {
-                imgClose.setOnClickListener {
-                    finish()
-                }
+              toolBar()
 
                 txtHeader1.text = "1. IMPORTANT & MUST READ"
                 txtContentHeader1.text = "You shall and are advised to read our Private Policy (herein called the \"Terms\") carefully before continuing to use Services UT Swap website and app (herein called \"UT Swap\") All Terms shall govern the use of UT Swap and apply to all users and recipients (herein called \"You\") of UT Swap, a platform owned and managed by Zillion United (herein called \"We\", \"Us\" or \"Our\"). By accessing or continuing to use UT Swap, You unconditionally consent to all Terms stated herein. Your use of UT Swap signifies Your agreement with these Terms. IF YOU DO NOT AGREE WITH ANY OF THESE TERMS, DO NOT USE UT SWAP. "
@@ -39,4 +40,18 @@ class TermsConditionsActivity :
             // Must be safe
         }
     }
+
+    private fun toolBar(){
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        binding.includeLayout.apply {
+            tbTitle.setText(R.string.terms_and_conditions)
+            tb.setLogo(R.drawable.ic_baseline_arrow_back_24)
+        }
+        binding.includeLayout.tb.setNavigationOnClickListener {
+            finish()
+        }
+    }
+
 }
