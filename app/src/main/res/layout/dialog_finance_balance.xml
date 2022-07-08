@@ -197,7 +197,7 @@
             </LinearLayout>
 
             <ImageView
-                android:id="@+id/screen_shot"
+                android:id="@+id/img_screen_shot"
                 android:layout_width="@dimen/dimen_36"
                 android:layout_height="@dimen/dimen_36"
                 android:src="@drawable/ic_screenshot"

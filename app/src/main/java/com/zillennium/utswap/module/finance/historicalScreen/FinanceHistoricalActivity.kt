@@ -90,53 +90,8 @@ class FinanceHistoricalActivity :
                     AdapterView.OnItemSelectedListener{
                     override fun onItemSelected(adapterView: AdapterView<*>?, view: View?, position: Int, id: Long) {
                         SettingVariable.finance_historical_spinner_item.value = position
-//                    val dataNew = ArrayList<String>()
-//                    println("1235${adapterView?.selectedItemPosition.toString()}")
-//                    when (adapterView?.selectedItemPosition.toString()){
-//                        "SELL" ->{
-//                            SettingVariable.finance_historical_spinner_item.value = 1
-//                            data.remove("SELL")
-//                            data.add(0, "SELL")
-//                        }
-//                        "ALL" ->{
-//                            SettingVariable.finance_historical_spinner_item.value = 0
-//                            data.remove("ALL")
-//                            data.add(0, "ALL")
-//                        }
-//                        else -> {
-//                            SettingVariable.finance_historical_spinner_item.value = 2
-//                            data.remove("BUY")
-//                            data.add(0, "BUY")
-//                        }
-//                    }
-////                        data.clear()
-////                        data.addAll(dataNew)
-//                    customDropDownAdapter?.notifyDataSetChanged()
                     }
 
-//                    SettingVariable.finance_historical_spinner_item.value = position
-//                    val dataNew = ArrayList<String>()
-//                    println("1235${adapterView?.selectedItemPosition.toString()}")
-//                    when (adapterView?.selectedItemPosition.toString()){
-//                        "SELL" ->{
-//                            SettingVariable.finance_historical_spinner_item.value = 1
-//                            data.remove("SELL")
-//                            data.add(0, "SELL")
-//                        }
-//                        "ALL" ->{
-//                            SettingVariable.finance_historical_spinner_item.value = 0
-//                            data.remove("ALL")
-//                            data.add(0, "ALL")
-//                        }
-//                        else -> {
-//                            SettingVariable.finance_historical_spinner_item.value = 2
-//                            data.remove("BUY")
-//                            data.add(0, "BUY")
-//                        }
-//                    }
-////                        data.clear()
-////                        data.addAll(dataNew)
-//                    customDropDownAdapter?.notifyDataSetChanged()
                     override fun onNothingSelected(p0: AdapterView<*>?) {}
                 }
 
