@@ -4,6 +4,9 @@ import android.content.Intent
 import com.zillennium.utswap.R
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityNewsDetailBinding
+import com.zillennium.utswap.databinding.LayoutBaseNoInternetBinding
+import com.zillennium.utswap.utils.DialogUtil
+import com.zillennium.utswap.utils.NoInternetLayoutUtil
 
 class NewsDetailActivity:
     BaseMvpActivity<NewsDetailView.View, NewsDetailView.Presenter, ActivityNewsDetailBinding>(),
@@ -33,6 +36,7 @@ class NewsDetailActivity:
                     }
                     startActivity(shareIntent)
                 }
+                NoInternetLayoutUtil().noInternetLayoutUtil(binding.rlNoInt)
             }
         } catch (error: Exception) {
             // Must be safe

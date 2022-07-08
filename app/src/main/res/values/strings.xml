@@ -418,4 +418,7 @@
     <string name="insufficient_funds">Insufficient Funds</string>
     <string name="cancel">Cancel</string>
     <string name="order_type">Order Type</string>
+    <string name="no_connection">No Connection</string>
+    <string name="please_check_your_internet_connection">Please check your internet connection.</string>
+    <string name="try_again">Try Again</string>
 </resources>
