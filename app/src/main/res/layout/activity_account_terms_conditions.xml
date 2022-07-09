@@ -1,21 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <include
             android:id="@+id/includeLayout"
-            android:layout_height="wrap_content"
+            layout="@layout/appbar_layout"
             android:layout_width="match_parent"
-            layout="@layout/appbar_layout" />
+            android:layout_height="wrap_content" />
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:backgroundTint="@color/white"
-            android:scrollbars="none"
             android:overScrollMode="never"
-            android:paddingHorizontal="@dimen/dimen_20">
+            android:paddingHorizontal="@dimen/dimen_20"
+            android:scrollbars="none">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -26,81 +29,81 @@
                     android:id="@+id/txt_header_1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dimen_20"
                     android:text="content loading"
                     android:textAppearance="@style/medium_16"
-                    android:layout_marginBottom="@dimen/dimen_20"
-                    android:textColor="@color/black_000000"/>
+                    android:textColor="@color/black_000000" />
 
                 <TextView
                     android:id="@+id/txt_content_header_1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dimen_20"
                     android:text="content loading"
                     android:textAppearance="@style/regular_12"
-                    android:layout_marginBottom="@dimen/dimen_20"
                     android:textColor="@color/black_000000" />
 
                 <TextView
                     android:id="@+id/txt_content_header_1_2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dimen_20"
                     android:text="content loading"
                     android:textAppearance="@style/regular_12"
-                    android:layout_marginBottom="@dimen/dimen_20"
-                    android:textColor="@color/black_000000"/>
+                    android:textColor="@color/black_000000" />
 
                 <TextView
                     android:id="@+id/txt_header_2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dimen_20"
                     android:text="content loading"
                     android:textAppearance="@style/medium_16"
-                    android:layout_marginBottom="@dimen/dimen_20"
-                    android:textColor="@color/black_000000"/>
+                    android:textColor="@color/black_000000" />
 
                 <TextView
                     android:id="@+id/txt_content_header_2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dimen_20"
                     android:text="content loading"
                     android:textAppearance="@style/regular_12"
-                    android:layout_marginBottom="@dimen/dimen_20"
                     android:textColor="@color/black_000000" />
 
                 <TextView
                     android:id="@+id/txt_header_3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dimen_20"
                     android:text="content loading"
                     android:textAppearance="@style/medium_16"
-                    android:layout_marginBottom="@dimen/dimen_20"
-                    android:textColor="@color/black_000000"/>
+                    android:textColor="@color/black_000000" />
 
                 <TextView
                     android:id="@+id/txt_content_header_3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dimen_20"
                     android:text="content loading"
                     android:textAppearance="@style/regular_12"
-                    android:layout_marginBottom="@dimen/dimen_20"
                     android:textColor="@color/black_000000" />
 
                 <TextView
                     android:id="@+id/txt_header_4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dimen_20"
                     android:text="content loading"
                     android:textAppearance="@style/medium_16"
-                    android:layout_marginBottom="@dimen/dimen_20"
-                    android:textColor="@color/black_000000"/>
+                    android:textColor="@color/black_000000" />
 
                 <TextView
                     android:id="@+id/txt_content_header_4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dimen_20"
                     android:text="content loading"
                     android:textAppearance="@style/regular_12"
-                    android:layout_marginBottom="@dimen/dimen_20"
                     android:textColor="@color/black_000000" />
 
             </LinearLayout>

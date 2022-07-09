@@ -16,8 +16,8 @@ import com.zillennium.utswap.module.security.securityActivity.changeFundPassword
 import com.zillennium.utswap.module.security.securityActivity.changeLoginPassword.ChangeLoginPasswordActivity
 
 class AccountDetailActivity :
-    BaseMvpActivity<AccountDetailView.View, AccountDetailView.Presenter, ActivityAccountDetailBinding>(),
-    AccountDetailView.View {
+        BaseMvpActivity<AccountDetailView.View, AccountDetailView.Presenter, ActivityAccountDetailBinding>(),
+        AccountDetailView.View {
 
     override var mPresenter: AccountDetailView.Presenter = AccountDetailPresenter()
     override val layoutResource: Int = R.layout.activity_account_detail
@@ -31,38 +31,36 @@ class AccountDetailActivity :
             binding.apply {
                 txtAddPhoneNumber.text = Html.fromHtml("<u>Add Phone Number</u>")
 
-                if(SessionPreferences().SESSION_PHONE_NUMBER.toString() != "")
-                {
+                if (SessionPreferences().SESSION_PHONE_NUMBER.toString() != "") {
                     txtAddPhoneNumber.text = SessionPreferences().SESSION_PHONE_NUMBER.toString()
                     txtAddPhoneNumber.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.black_000000))
                     txtAddPhoneNumber.isEnabled = false
                 }
 
                 SettingVariable.phoneNumber.observe(this@AccountDetailActivity) {
-                    if(SettingVariable.phoneNumber.value.toString() != "")
-                    {
+                    if (SettingVariable.phoneNumber.value.toString() != "") {
 //                        txtAddPhoneNumber.text = groupingSeparatorPhoneNumber(SettingVariable.phoneNumber.value.toString().toInt())
                         txtAddPhoneNumber.text = SettingVariable.phoneNumber.value.toString()
                     }
                 }
 
                 btnChangeLoginPassword.setOnClickListener {
-                    val intent = Intent(UTSwapApp.instance,ChangeLoginPasswordActivity::class.java)
+                    val intent = Intent(UTSwapApp.instance, ChangeLoginPasswordActivity::class.java)
                     startActivity(intent)
                 }
 
                 btnChangeFundPassword.setOnClickListener {
-                    val intent = Intent(UTSwapApp.instance,ChangeFundPasswordActivity::class.java)
+                    val intent = Intent(UTSwapApp.instance, ChangeFundPasswordActivity::class.java)
                     startActivity(intent)
                 }
 
                 txtAddPhoneNumber.setOnClickListener {
-                    val intent = Intent(UTSwapApp.instance,AddNumberActivity::class.java)
+                    val intent = Intent(UTSwapApp.instance, AddNumberActivity::class.java)
                     startActivity(intent)
                 }
 
                 btnCheckAccountLogs.setOnClickListener {
-                    val intent = Intent(UTSwapApp.instance,LogsActivity::class.java)
+                    val intent = Intent(UTSwapApp.instance, LogsActivity::class.java)
                     startActivity(intent)
                 }
 
@@ -78,7 +76,7 @@ class AccountDetailActivity :
         }
     }
 
-    private fun toolBar(){
+    private fun toolBar() {
         setSupportActionBar(binding.includeLayout.tb)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24)
