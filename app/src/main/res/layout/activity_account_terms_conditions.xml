@@ -8,38 +8,7 @@
             android:id="@+id/includeLayout"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            layout="@layout/appbar_layout"
-            />
-
-<!--        <RelativeLayout-->
-<!--            android:id="@+id/lay_header"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginBottom="@dimen/dimen_20">-->
-
-<!--            <ImageView-->
-<!--                android:id="@+id/img_close"-->
-<!--                android:layout_width="@dimen/dimen_64"-->
-<!--                android:layout_height="@dimen/dimen_64"-->
-<!--                android:layout_centerVertical="true"-->
-<!--                android:contentDescription="@string/menu"-->
-<!--                android:padding="@dimen/dimen_20"-->
-<!--                android:src="@drawable/ic_baseline_arrow_back_24"-->
-<!--                app:tint="@color/primary" />-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/title"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_centerInParent="true"-->
-<!--                android:text="@string/terms_and_conditions"-->
-<!--                android:textAlignment="center"-->
-<!--                android:textAppearance="@style/medium_21"-->
-<!--                android:textColor="@color/primary" />-->
-
-<!--        </RelativeLayout>-->
-
-
+            layout="@layout/appbar_layout" />
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"

@@ -1,8 +1,5 @@
 package com.zillennium.utswap.module.account.documentsScreen.termsConditions
 
-import android.os.Build
-import android.view.WindowManager
-import androidx.core.content.ContextCompat
 import com.zillennium.utswap.R
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityAccountTermsConditionsBinding
@@ -42,15 +39,15 @@ class TermsConditionsActivity :
     }
 
     private fun toolBar(){
+        setSupportActionBar(binding.includeLayout.tb)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24)
         supportActionBar?.setDisplayShowTitleEnabled(false)
         binding.includeLayout.apply {
             tbTitle.setText(R.string.terms_and_conditions)
-            tb.setLogo(R.drawable.ic_baseline_arrow_back_24)
-        }
-        binding.includeLayout.tb.setNavigationOnClickListener {
-            finish()
+            tb.setNavigationOnClickListener {
+                finish()
+            }
         }
     }
 

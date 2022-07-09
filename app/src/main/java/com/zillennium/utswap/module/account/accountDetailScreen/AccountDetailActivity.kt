@@ -24,6 +24,9 @@ class AccountDetailActivity :
 
     override fun initView() {
         super.initView()
+
+        toolBar()
+
         try {
             binding.apply {
                 txtAddPhoneNumber.text = Html.fromHtml("<u>Add Phone Number</u>")
@@ -53,10 +56,6 @@ class AccountDetailActivity :
                     startActivity(intent)
                 }
 
-                imgClose.setOnClickListener {
-                    finish()
-                }
-
                 txtAddPhoneNumber.setOnClickListener {
                     val intent = Intent(UTSwapApp.instance,AddNumberActivity::class.java)
                     startActivity(intent)
@@ -78,4 +77,18 @@ class AccountDetailActivity :
             // Must be safe
         }
     }
+
+    private fun toolBar(){
+        setSupportActionBar(binding.includeLayout.tb)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        binding.includeLayout.apply {
+            tbTitle.setText(R.string.account)
+            tb.setNavigationOnClickListener {
+                finish()
+            }
+        }
+    }
+
 }

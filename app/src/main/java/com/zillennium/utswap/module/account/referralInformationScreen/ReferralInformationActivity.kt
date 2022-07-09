@@ -19,13 +19,10 @@ class ReferralInformationActivity :
 
     override fun initView() {
         super.initView()
+
+        toolBar()
         try {
             binding.apply {
-
-                imgClose.setOnClickListener {
-                    finish()
-                }
-
                 layReferralId.setOnClickListener {
                     val sdk = Build.VERSION.SDK_INT
                     if (sdk < Build.VERSION_CODES.HONEYCOMB) {
@@ -60,6 +57,20 @@ class ReferralInformationActivity :
             // Code
         } catch (error: Exception) {
             // Must be safe
+        }
+    }
+
+
+    private fun toolBar(){
+        setSupportActionBar(binding.includeLayout.tb)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        binding.includeLayout.apply {
+            tbTitle.setText(R.string.referral_information)
+            tb.setNavigationOnClickListener {
+                finish()
+            }
         }
     }
 }
