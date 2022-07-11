@@ -2,6 +2,7 @@ package com.zillennium.utswap.module.finance.balanceScreen
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.zillennium.utswap.Datas.GlobalVariable.SettingVariable
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
@@ -14,6 +15,8 @@ import com.zillennium.utswap.module.finance.balanceScreen.bottomSheet.FinanceExp
 import com.zillennium.utswap.module.finance.balanceScreen.bottomSheet.FinanceFilterBottomSheet
 import com.zillennium.utswap.module.finance.balanceScreen.bottomSheet.FinanceSelectDateRangeBottonSheet
 import com.zillennium.utswap.module.finance.balanceScreen.dialog.FinanceBalanceDialog
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 class FinanceBalanceActivity :
     BaseMvpActivity<FinanceBalanceView.View, FinanceBalanceView.Presenter, ActivityFinanceBalanceBinding>(),
@@ -27,17 +30,19 @@ class FinanceBalanceActivity :
     @RequiresApi(Build.VERSION_CODES.O)
     override fun initView() {
         super.initView()
+
+
+        toolBar()
+
+
+
         try {
             binding.apply {
-
-                backImage.setOnClickListener {
-                    finish()
-                }
 
                 /* Export as File bottom sheet dialog */
                 exportAsPdf.setOnClickListener {
                     FinanceExportFileBottomSheet.newInstance().show(
-                        supportFragmentManager,"Export File"
+                        supportFragmentManager, "Export File"
                     )
                 }
 
@@ -51,7 +56,8 @@ class FinanceBalanceActivity :
                 /* Select Date Range bottom sheet dialog */
                 selectDateRange.setOnClickListener {
                     FinanceSelectDateRangeBottonSheet.newInstance().show(
-                        supportFragmentManager, "Select Date Range")
+                        supportFragmentManager, "Select Date Range"
+                    )
                 }
 
                 /* Recycle view of transaction balance */
@@ -125,13 +131,13 @@ class FinanceBalanceActivity :
                 }
 
                 /* Sorted Date */
-//                val dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MMMM-yyyy")
-//                financeBalanceArrayList.sortByDescending {
-//                    LocalDate.parse(
-//                        it.dateTransaction,
-//                        dateTimeFormatter
-//                    )
-//                }
+                val dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MMMM-yyyy")
+                financeBalanceArrayList.sortByDescending {
+                    LocalDate.parse(
+                        it.dateTransaction,
+                        dateTimeFormatter
+                    )
+                }
 
 
                 filter.observe(this@FinanceBalanceActivity) {
@@ -160,14 +166,15 @@ class FinanceBalanceActivity :
                             }
 
                             rvFinanceBalance.layoutManager = LinearLayoutManager(UTSwapApp.instance)
-                            rvFinanceBalance.adapter = FinanceBalanceAdapter(financeBalanceArrayList, onClickAdapter)
+                            rvFinanceBalance.adapter =
+                                FinanceBalanceAdapter(financeBalanceArrayList, onClickAdapter)
                         }
                     }
                 }
 
                 rvFinanceBalance.layoutManager = LinearLayoutManager(UTSwapApp.instance)
-                rvFinanceBalance.adapter = FinanceBalanceAdapter(financeBalanceArrayList, onClickAdapter)
-
+                rvFinanceBalance.adapter =
+                    FinanceBalanceAdapter(financeBalanceArrayList, onClickAdapter)
 
 
             }
@@ -176,17 +183,18 @@ class FinanceBalanceActivity :
         }
     }
 
-    private val onClickAdapter: FinanceBalanceAdapter.OnClickAdapter = object : FinanceBalanceAdapter.OnClickAdapter {
-        override fun onClickMe(financeBalanceModel: FinanceBalanceModel) {
-            val financeBalanceDialog: FinanceBalanceDialog = FinanceBalanceDialog.newInstance(
-                financeBalanceModel.titleTransaction,
-                financeBalanceModel.dateTransaction,
-                financeBalanceModel.amountBalance,
-                financeBalanceModel.status,
-            )
-            financeBalanceDialog.show(supportFragmentManager, "Balance Data Detail")
+    private val onClickAdapter: FinanceBalanceAdapter.OnClickAdapter =
+        object : FinanceBalanceAdapter.OnClickAdapter {
+            override fun onClickMe(financeBalanceModel: FinanceBalanceModel) {
+                val financeBalanceDialog: FinanceBalanceDialog = FinanceBalanceDialog.newInstance(
+                    financeBalanceModel.titleTransaction,
+                    financeBalanceModel.dateTransaction,
+                    financeBalanceModel.amountBalance,
+                    financeBalanceModel.status,
+                )
+                financeBalanceDialog.show(supportFragmentManager, "Balance Data Detail")
+            }
         }
-    }
 
     override fun onDestroy() {
         super.onDestroy()
@@ -195,5 +203,18 @@ class FinanceBalanceActivity :
     }
 
 
+    private fun toolBar() {
+        setSupportActionBar(binding.includeLayout.tb)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_arrow_left)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        binding.includeLayout.apply {
+            tbTitle.setText(R.string.terms_and_conditions)
+            tbTitle.setTextColor(ContextCompat.getColor(applicationContext, R.color.primary))
+            tb.setNavigationOnClickListener {
+                finish()
+            }
+        }
+    }
 
 }

@@ -79,10 +79,11 @@ class AccountDetailActivity :
     private fun toolBar() {
         setSupportActionBar(binding.includeLayout.tb)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_arrow_left)
         supportActionBar?.setDisplayShowTitleEnabled(false)
         binding.includeLayout.apply {
             tbTitle.setText(R.string.account)
+            tbTitle.setTextColor(ContextCompat.getColor(applicationContext,R.color.primary))
             tb.setNavigationOnClickListener {
                 finish()
             }

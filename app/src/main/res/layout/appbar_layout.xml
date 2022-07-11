@@ -32,16 +32,20 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
                 android:layout_marginEnd="@dimen/dimen_16"
-                android:text=""
+                android:text="@string/share"
+                android:textColor="@color/primary"
+                android:drawableLeft="@drawable/ic_baseline_share_24"
+                android:drawablePadding="@dimen/dimen_4"
                 android:textSize="@dimen/dimen_15"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:visibility="invisible"/>
         </androidx.appcompat.widget.Toolbar>
 
-        <View
-            android:id="@+id/line"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_alignParentBottom="true"
-            android:background="@color/color_main_blur" />
+<!--        <View-->
+<!--            android:id="@+id/line"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="1dp"-->
+<!--            android:layout_alignParentBottom="true"-->
+<!--            android:background="@color/color_main_blur" />-->
     </LinearLayout>
 </layout>

@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.models.FinanceBalanceModel
-import com.zillennium.utswap.utils.formatter.DateFormatter
 
 class FinanceBalanceAdapter (arrayList: ArrayList<FinanceBalanceModel>, onClickAdapter: OnClickAdapter):
     RecyclerView.Adapter<FinanceBalanceAdapter.ViewHolder>() {
@@ -38,7 +37,7 @@ class FinanceBalanceAdapter (arrayList: ArrayList<FinanceBalanceModel>, onClickA
         val financeBalanceList: FinanceBalanceModel = listData[position]
         holder.imageImageView.setImageResource(financeBalanceList.imageBalance)
         holder.titleTransaction.text = financeBalanceList.titleTransaction
-        holder.dateTransaction.text = "${DateFormatter.parse(financeBalanceList.dateTransaction,DateFormatter.DATE_FORMAT)}"
+        holder.dateTransaction.text =   financeBalanceList.dateTransaction //"${DateFormatter.parse(financeBalanceList.dateTransaction,DateFormatter.DATE_FORMAT)}"
         if(financeBalanceList.amountBalance < 0){
             val length = financeBalanceList.amountBalance.toString().length
             if ((financeBalanceList.amountBalance.toString()[0] == '-')) {

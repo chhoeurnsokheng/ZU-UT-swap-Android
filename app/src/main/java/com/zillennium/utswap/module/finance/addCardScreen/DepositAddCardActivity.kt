@@ -3,6 +3,7 @@ package com.zillennium.utswap.module.finance.addCardScreen
 import android.annotation.SuppressLint
 import android.text.Editable
 import android.text.TextWatcher
+import androidx.core.content.ContextCompat
 import com.zillennium.utswap.R
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityFinanceDepositAddCardBinding
@@ -23,6 +24,7 @@ class DepositAddCardActivity :
     @SuppressLint("ResourceAsColor", "SetTextI18n")
     override fun initView() {
         super.initView()
+        toolBar()
         try {
 
             binding.apply {
@@ -33,12 +35,12 @@ class DepositAddCardActivity :
                 etDate.addTextChangedListener(cardTextWatcher)
                 etCardHolderName.addTextChangedListener(cardTextWatcher)
 
-
-                backImage.setOnClickListener {
-                    onBackPressed()
-//                    val intent = Intent(this@DepositAddCardActivity, DepositActivity::class.java)
-//                    startActivity(intent)
-                }
+//
+//                backImage.setOnClickListener {
+//                    onBackPressed()
+////                    val intent = Intent(this@DepositAddCardActivity, DepositActivity::class.java)
+////                    startActivity(intent)
+//                }
 
                 btnAddCardConfirm.isEnabled = false
                 btnAddCardConfirm.setOnClickListener {
@@ -78,13 +80,18 @@ class DepositAddCardActivity :
                         val inputlength: Int = etCardNumber.text.toString().length;
 
                         if (count <= inputlength && (inputlength == 4 ||
-                            inputlength == 9 || inputlength == 14 || inputlength == 19)){
+                                    inputlength == 9 || inputlength == 14 || inputlength == 19)
+                        ) {
                             etCardNumber.setText(etCardNumber.text.toString() + " ");
                             val pos = etCardNumber.text.length;
                             etCardNumber.setSelection(pos);
                         } else if (count >= inputlength && (inputlength == 4 ||
-                        inputlength == 9 || inputlength == 14 || inputlength == 19)) {
-                            etCardNumber.setText(etCardNumber.text.toString().substring(0, etCardNumber.text.toString().length - 1));
+                                    inputlength == 9 || inputlength == 14 || inputlength == 19)
+                        ) {
+                            etCardNumber.setText(
+                                etCardNumber.text.toString()
+                                    .substring(0, etCardNumber.text.toString().length - 1)
+                            );
                             val pos = etCardNumber.text.length
                             etCardNumber.setSelection(pos);
                         }
@@ -189,6 +196,20 @@ class DepositAddCardActivity :
         }
     }
 
+    private fun toolBar() {
+        setSupportActionBar(binding.includeLayout.tb)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_arrow_left)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        binding.includeLayout.apply {
+            tbTitle.setText(R.string.add_visa_or_master_card)
+            tbTitle.setTextColor(ContextCompat.getColor(applicationContext, R.color.primary))
+            tb.setNavigationOnClickListener {
+                finish()
+            }
+        }
+    }
+
     private val cardTextWatcher = object : TextWatcher {
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
@@ -201,7 +222,8 @@ class DepositAddCardActivity :
                 inputCvv = etCvv.text.toString()
                 inputCardholder = etCardHolderName.text.toString()
 
-                btnAddCardConfirm.isEnabled = inputCardNumber.length >= 16 && inputDate.length == 5 && inputCvv.length == 3 && inputCardholder.isNotEmpty()
+                btnAddCardConfirm.isEnabled =
+                    inputCardNumber.length >= 16 && inputDate.length == 5 && inputCvv.length == 3 && inputCardholder.isNotEmpty()
 
             }
         }

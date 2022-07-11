@@ -5,6 +5,7 @@ import android.content.Context
 import android.os.Build
 import android.text.ClipboardManager
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import com.zillennium.utswap.R
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityAccountReferralInformationBinding
@@ -64,10 +65,11 @@ class ReferralInformationActivity :
     private fun toolBar(){
         setSupportActionBar(binding.includeLayout.tb)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_arrow_left)
         supportActionBar?.setDisplayShowTitleEnabled(false)
         binding.includeLayout.apply {
             tbTitle.setText(R.string.referral_information)
+            tbTitle.setTextColor(ContextCompat.getColor(applicationContext,R.color.primary))
             tb.setNavigationOnClickListener {
                 finish()
             }

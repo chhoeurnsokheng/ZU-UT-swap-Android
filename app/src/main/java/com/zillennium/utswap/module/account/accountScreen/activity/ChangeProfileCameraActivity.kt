@@ -45,11 +45,14 @@ class ChangeProfileCameraActivity  :
     @RequiresApi(Build.VERSION_CODES.M)
     override fun initView() {
         super.initView()
+
+        toolBar()
+
         try {
             binding.apply {
-                ivBack.setOnClickListener{
-                    finish()
-                }
+//                ivBack.setOnClickListener{
+//                    finish()
+//                }
 
                 viewFinder.minimumHeight = viewFinder.width
                 imgPhotoTest.minimumHeight = viewFinder.width
@@ -69,7 +72,17 @@ class ChangeProfileCameraActivity  :
             // Must be safe
         }
     }
-
+    private fun toolBar() {
+        setSupportActionBar(binding.includeLayout.tb)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_arrow_left)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        binding.includeLayout.apply {
+            tb.setNavigationOnClickListener {
+                finish()
+            }
+        }
+    }
     private fun setupCamera() {
         providerListenableFuture = ProcessCameraProvider.getInstance(UTSwapApp.instance)
         providerListenableFuture!!.addListener({
