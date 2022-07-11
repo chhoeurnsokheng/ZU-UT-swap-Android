@@ -9,6 +9,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
+            android:layout_marginBottom="@dimen/dimen_120"
             >
 
             <RelativeLayout
@@ -61,6 +62,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@+id/lay_btn_back"
+                android:fillViewport="true"
                 android:overScrollMode="never"
                 android:scrollbars="none">
 

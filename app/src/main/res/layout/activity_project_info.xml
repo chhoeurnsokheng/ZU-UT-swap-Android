@@ -127,20 +127,22 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true">
 
-                        <ImageView
+                        <!--<ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="@dimen/dimen_5"
                             android:src="@drawable/ic_map"
-                            app:tint="@color/primary" />
+                            app:tint="@color/primary" />-->
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:gravity="center"
-                            android:text="View in Google Maps"
+                            android:text="@string/view_in_google_maps"
                             android:textAppearance="@style/medium_14"
-                            android:textColor="@color/primary" />
+                            android:textColor="@color/primary"
+                            android:drawablePadding="@dimen/dimen_5"
+                            android:drawableStart="@drawable/ic_map"/>
                     </LinearLayout>
 
                 </RelativeLayout>
