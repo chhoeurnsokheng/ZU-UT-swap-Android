@@ -36,7 +36,7 @@ class NewsDetailActivity:
                     }
                     startActivity(shareIntent)
                 }
-                NoInternetLayoutUtil().noInternetLayoutUtil(binding.rlNoInt)
+//                NoInternetLayoutUtil().noInternetLayoutUtil(binding.rlNoInt)
             }
         } catch (error: Exception) {
             // Must be safe
