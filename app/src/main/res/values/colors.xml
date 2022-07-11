@@ -49,4 +49,6 @@
     <color name="dark_yellow">#DFAC1C</color>
     <color name="yellow_19">#E0AC19</color>
     <color name="blue_sky">#0088CC</color>
+    <color name="dark_pink">#E25757</color>
+    <color name="ripple_color">#1A000000</color>
 </resources>
