@@ -3,13 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     >
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/lay_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/ll_tool_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -23,9 +24,11 @@
         </LinearLayout>
 
         <ScrollView
+            android:layout_below="@+id/ll_tool_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:overScrollMode="never"
+            android:layout_above="@+id/ll_btn_sign_up"
             android:scrollbars="none">
             <LinearLayout
                 android:id="@+id/lay_sign_up"
@@ -142,25 +145,28 @@
             </LinearLayout>
         </ScrollView>
         <LinearLayout
+            android:id="@+id/ll_btn_sign_up"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:gravity="bottom">
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/white"
+            android:orientation="vertical">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dimen_30"
                 android:layout_marginEnd="@dimen/dimen_30"
-                android:layout_marginBottom="@dimen/dimen_30">
+                android:layout_marginBottom="@dimen/dimen_8">
+
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_signup"
+                    style="?android:attr/borderlessButtonStyle"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="@drawable/bg_circular"
                     android:hint="@string/sign_up"
                     android:textAppearance="@style/bold_18"
-                    style="?android:attr/borderlessButtonStyle"
                     android:textColorHint="@color/white" />
                 <ProgressBar
                     android:id="@+id/pb_signup"
@@ -181,5 +187,5 @@
         </LinearLayout>
 
 
-    </LinearLayout>
+    </RelativeLayout>
 </layout>
