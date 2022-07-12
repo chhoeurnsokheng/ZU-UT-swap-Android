@@ -35,13 +35,6 @@ class DepositAddCardActivity :
                 etDate.addTextChangedListener(cardTextWatcher)
                 etCardHolderName.addTextChangedListener(cardTextWatcher)
 
-//
-//                backImage.setOnClickListener {
-//                    onBackPressed()
-////                    val intent = Intent(this@DepositAddCardActivity, DepositActivity::class.java)
-////                    startActivity(intent)
-//                }
-
                 btnAddCardConfirm.isEnabled = false
                 btnAddCardConfirm.setOnClickListener {
                     finish()

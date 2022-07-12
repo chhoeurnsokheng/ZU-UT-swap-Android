@@ -22,8 +22,8 @@
                 android:layout_gravity="center"
                 android:text=""
                 android:textColor="@color/primary"
-                android:textSize="@dimen/dimen_15"
-                android:textStyle="bold"
+                android:textSize="@dimen/dimen_18"
+                android:textAppearance="@style/toolBar_style"
                 android:visibility="visible" />
 
             <com.google.android.material.textview.MaterialTextView
@@ -36,8 +36,7 @@
                 android:textColor="@color/primary"
                 android:drawableLeft="@drawable/ic_baseline_share_24"
                 android:drawablePadding="@dimen/dimen_4"
-                android:textSize="@dimen/dimen_15"
-                android:textStyle="bold"
+                android:textAppearance="@style/toolBar_style"
                 android:visibility="invisible"/>
         </androidx.appcompat.widget.Toolbar>
 

@@ -72,8 +72,8 @@
                     android:layout_marginEnd="@dimen/dimen_50"
                     android:textAppearance="@style/regular_16" />
 
-                <EditText
-                    android:id="@+id/et_userName"
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/txt_userName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:singleLine="true"
@@ -81,7 +81,7 @@
                     android:textAllCaps="true"
                     android:textAlignment="textEnd"
                     android:textColor="@color/dark_gray"
-                    android:hint="Full Name"
+                    android:text="@string/full_name"
                     android:textColorHint="@color/light_gray"
                     android:background="@null"
                     android:textAppearance="@style/medium_16" />
@@ -112,7 +112,7 @@
                     android:textColor="@color/black_000000"
                     android:hint="000 000 000"
                     android:textColorHint="@color/light_gray"
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
                     android:maxLength="12"
                     android:padding="@dimen/dimen_10"
                     android:singleLine="true"

@@ -17,11 +17,10 @@ class DocumentsActivity :
     override fun initView() {
         super.initView()
         try {
-            binding.apply {
-                imgClose.setOnClickListener {
-                    finish()
-                }
 
+            toolBar()
+
+            binding.apply {
                 txtTermsConditions.setOnClickListener {
                     val intent = Intent(UTSwapApp.instance, TermsConditionsActivity::class.java)
                     startActivity(intent)
@@ -32,4 +31,21 @@ class DocumentsActivity :
             // Must be safe
         }
     }
+
+
+
+    private fun toolBar() {
+        setSupportActionBar(binding.includeLayout.tb)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_arrow_left)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        binding.includeLayout.apply {
+            tbTitle.setText(R.string.documents)
+            tb.setNavigationOnClickListener {
+                finish()
+            }
+        }
+    }
+
+
 }

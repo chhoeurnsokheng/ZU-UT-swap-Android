@@ -42,7 +42,7 @@ class BottomSheetFinanceDepositPayment: BottomSheetDialogFragment(), AdapterView
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding?.apply {
-            (view.parent as View).setBackgroundColor(ContextCompat.getColor(UTSwapApp.instance, android.R.color.transparent))
+          //  (view.parent as View).setBackgroundColor(ContextCompat.getColor(UTSwapApp.instance, android.R.color.transparent))
 
             nextBtnFinace.isEnabled = false
             nextBtnFinace.setOnClickListener {
@@ -68,7 +68,8 @@ class BottomSheetFinanceDepositPayment: BottomSheetDialogFragment(), AdapterView
             arguments?.getString("titleCard").let { titleCard.text = it.toString() }
 
             etMountPayment.filters = arrayOf<InputFilter>(DecimalDigitsInputFilter(10, 2))
-            etMountPayment.requestFocus()
+        //    etMountPayment.requestFocus()
+
             etMountPayment.addTextChangedListener(object : TextWatcher{
                 override fun beforeTextChanged(
                     s: CharSequence?,
