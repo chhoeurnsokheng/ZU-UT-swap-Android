@@ -191,5 +191,8 @@ dependencies {
     //Internet Network
     implementation 'com.github.jumadeveloper:networkmanager:0.0.2'
 
+    //
+    implementation 'com.github.kittinunf.fuel:fuel:2.3.1'
+    implementation 'com.google.code.gson:gson:2.8.8'
 
 }
