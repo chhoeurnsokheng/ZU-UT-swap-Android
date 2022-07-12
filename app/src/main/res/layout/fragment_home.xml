@@ -126,6 +126,7 @@
                     app:tabIndicatorHeight="0dp"/>
 
                 <TextView
+                    android:id="@+id/txt_total_balance"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="@dimen/dimen_5"
@@ -135,6 +136,7 @@
                     android:paddingHorizontal="@dimen/dimen_20"/>
 
                 <LinearLayout
+                    android:id="@+id/linear_layout_balance"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/dimen_10"
@@ -178,6 +180,7 @@
                     android:nestedScrollingEnabled="false" />
 
                 <LinearLayout
+                    android:id="@+id/linear_layout_watchlist"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dimen_30"

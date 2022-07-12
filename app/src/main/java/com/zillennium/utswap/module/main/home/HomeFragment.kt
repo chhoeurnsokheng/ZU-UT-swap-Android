@@ -53,6 +53,10 @@ class HomeFragment :
 
                 //check share preference
                 SessionVariable.SESSION_STATUS.observe(this@HomeFragment) {
+                    txtTotalBalance.visibility = View.VISIBLE
+                    linearLayoutBalance.visibility = View.VISIBLE
+                    rvHomeWatchlist.visibility = View.VISIBLE
+                    linearLayoutWatchlist.visibility = View.VISIBLE
                     if(SessionVariable.SESSION_STATUS.value == true){
                         imgMenu.setOnClickListener {
                             val intent = Intent(UTSwapApp.instance, AccountActivity::class.java)
@@ -60,6 +64,10 @@ class HomeFragment :
                             requireActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
                         }
                     }else{
+                        txtTotalBalance.visibility = View.GONE
+                        linearLayoutBalance.visibility = View.GONE
+                        rvHomeWatchlist.visibility = View.GONE
+                        linearLayoutWatchlist.visibility = View.GONE
                         imgMenu.setOnClickListener {
                             val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
                             startActivity(intent)
@@ -288,26 +296,14 @@ class HomeFragment :
     private fun onHomeMenuGrid(enabled: Boolean) {
 
         binding.apply {
-            SessionVariable.SESSION_STATUS.observe(this@HomeFragment) {
-                if(SessionVariable.SESSION_STATUS.value == true){
-                    HomeArrayList.clear()
-                    HomeArrayList.add(HomeMenuModel(R.drawable.ic_deposit, "Deposit", enabled))
-                    HomeArrayList.add(HomeMenuModel(R.drawable.ic_withdraw, "Withdraw", enabled))
-                    HomeArrayList.add(HomeMenuModel(R.drawable.ic_transfer, "Transfer", enabled))
-                    HomeArrayList.add(HomeMenuModel(R.drawable.ic_finance, "Finance", enabled))
-                    HomeArrayList.add(HomeMenuModel(R.drawable.ic_land_ut, "Projects", enabled))
+            HomeArrayList.clear()
+            HomeArrayList.add(HomeMenuModel(R.drawable.ic_deposit, "Deposit", enabled))
+            HomeArrayList.add(HomeMenuModel(R.drawable.ic_withdraw, "Withdraw", enabled))
+            HomeArrayList.add(HomeMenuModel(R.drawable.ic_transfer, "Transfer", enabled))
+            HomeArrayList.add(HomeMenuModel(R.drawable.ic_finance, "Finance", enabled))
+            HomeArrayList.add(HomeMenuModel(R.drawable.ic_land_ut, "Projects", true))
 
-                    homeAdapter = HomeMenuAdapter(HomeArrayList, R.layout.item_list_home_grid, onclickHome)
-                }else{
-                    HomeArrayList.clear()
-                    HomeArrayList.add(HomeMenuModel(R.drawable.ic_deposit, "Deposit", enabled))
-                    HomeArrayList.add(HomeMenuModel(R.drawable.ic_withdraw, "Withdraw", enabled))
-                    HomeArrayList.add(HomeMenuModel(R.drawable.ic_transfer, "Transfer", enabled))
-                    HomeArrayList.add(HomeMenuModel(R.drawable.ic_finance, "Finance", enabled))
-
-                    homeAdapter = HomeMenuAdapter(HomeArrayList, R.layout.item_list_home_grid, onclickHome)
-                }
-            }
+            homeAdapter = HomeMenuAdapter(HomeArrayList, R.layout.item_list_home_grid, onclickHome)
 
             rvHomeMenu.layoutManager = GridLayoutManager(UTSwapApp.instance, 3)
 
