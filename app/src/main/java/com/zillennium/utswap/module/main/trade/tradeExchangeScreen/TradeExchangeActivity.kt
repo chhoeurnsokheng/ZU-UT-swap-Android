@@ -17,6 +17,7 @@ import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityTradeExchangeBinding
+import com.zillennium.utswap.module.account.accountScreen.AccountActivity
 import com.zillennium.utswap.module.kyc.kycActivity.KYCActivity
 import com.zillennium.utswap.module.project.projectInfoScreen.ProjectInfoActivity
 import com.zillennium.utswap.module.main.trade.tradeExchangeScreen.fragment.Transactions.TransactionsFragment
@@ -317,6 +318,7 @@ class TradeExchangeActivity :
         binding.apply {
 
             if(SessionVariable.SESSION_STATUS.value == true && SessionVariable.SESSION_KYC.value == true){
+                imgRemember.visibility = View.VISIBLE
                 persistentBottomSheet.root.visibility = View.VISIBLE
                 layTransactions.visibility = View.VISIBLE
             }else{
@@ -330,6 +332,7 @@ class TradeExchangeActivity :
                 if(SessionVariable.SESSION_STATUS.value == false){
                     layAuth.visibility = View.VISIBLE
                     layVerify.visibility = View.GONE
+                    imgRemember.visibility = View.GONE
                 }
             }
         }
