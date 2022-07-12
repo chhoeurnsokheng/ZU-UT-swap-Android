@@ -287,19 +287,32 @@ class HomeFragment :
 
     private fun onHomeMenuGrid(enabled: Boolean) {
 
-        HomeArrayList.clear()
-//        HomeArrayList.add(HomeMenuModel(R.drawable.ic_portfolio, "Portfolio", enabled))
-//        HomeArrayList.add(HomeMenuModel(R.drawable.ic_trade, "Trade", true))
-        HomeArrayList.add(HomeMenuModel(R.drawable.ic_deposit, "Deposit", enabled))
-        HomeArrayList.add(HomeMenuModel(R.drawable.ic_withdraw, "Withdraw", enabled))
-        HomeArrayList.add(HomeMenuModel(R.drawable.ic_transfer, "Transfer", enabled))
-        HomeArrayList.add(HomeMenuModel(R.drawable.ic_finance, "Finance", enabled))
-        HomeArrayList.add(HomeMenuModel(R.drawable.ic_land_ut, "Projects", enabled))
-
         binding.apply {
+            SessionVariable.SESSION_STATUS.observe(this@HomeFragment) {
+                if(SessionVariable.SESSION_STATUS.value == true){
+                    HomeArrayList.clear()
+                    HomeArrayList.add(HomeMenuModel(R.drawable.ic_deposit, "Deposit", enabled))
+                    HomeArrayList.add(HomeMenuModel(R.drawable.ic_withdraw, "Withdraw", enabled))
+                    HomeArrayList.add(HomeMenuModel(R.drawable.ic_transfer, "Transfer", enabled))
+                    HomeArrayList.add(HomeMenuModel(R.drawable.ic_finance, "Finance", enabled))
+                    HomeArrayList.add(HomeMenuModel(R.drawable.ic_land_ut, "Projects", enabled))
+
+                    homeAdapter = HomeMenuAdapter(HomeArrayList, R.layout.item_list_home_grid, onclickHome)
+                }else{
+                    HomeArrayList.clear()
+                    HomeArrayList.add(HomeMenuModel(R.drawable.ic_deposit, "Deposit", enabled))
+                    HomeArrayList.add(HomeMenuModel(R.drawable.ic_withdraw, "Withdraw", enabled))
+                    HomeArrayList.add(HomeMenuModel(R.drawable.ic_transfer, "Transfer", enabled))
+                    HomeArrayList.add(HomeMenuModel(R.drawable.ic_finance, "Finance", enabled))
+
+                    homeAdapter = HomeMenuAdapter(HomeArrayList, R.layout.item_list_home_grid, onclickHome)
+                }
+            }
+
             rvHomeMenu.layoutManager = GridLayoutManager(UTSwapApp.instance, 3)
-            homeAdapter = HomeMenuAdapter(HomeArrayList, R.layout.item_list_home_grid, onclickHome)
+
             rvHomeMenu.adapter = homeAdapter
+
         }
 
 

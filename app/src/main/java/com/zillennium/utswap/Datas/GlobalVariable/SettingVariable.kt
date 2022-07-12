@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 
 class SettingVariable {
     companion object{
-        val portfolio_selected: MutableLiveData<String> = MutableLiveData("Performance")
+        val portfolio_selected: MutableLiveData<String> = MutableLiveData("Price")
 
         val balance_filter: MutableLiveData<Int> = MutableLiveData(0)
         val balance_date_start: MutableLiveData<String> = MutableLiveData()
