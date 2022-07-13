@@ -69,8 +69,10 @@ class MainActivity :
                     if(SessionVariable.SESSION_STATUS.value == true){
                         layAuth.visibility = GONE
                         layVerify.visibility = VISIBLE
+                        btnVerify.visibility = VISIBLE
                     }else{
                         layAuth.visibility = VISIBLE
+                        btnVerify.visibility = GONE
                     }
                 }
 
