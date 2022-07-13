@@ -60,7 +60,7 @@
                     android:layout_width="@dimen/dimen_26"
                     android:layout_height="@dimen/dimen_26"
                     android:layout_centerVertical="true"
-                    android:contentDescription="@string/notification"
+                    android:contentDescription="@string/notifications"
                     android:src="@drawable/ic_notifications_black_24dp"
                     app:tint="@color/primary" />
 

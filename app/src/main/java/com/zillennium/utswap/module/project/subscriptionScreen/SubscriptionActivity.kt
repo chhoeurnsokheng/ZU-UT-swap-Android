@@ -51,7 +51,7 @@ class SubscriptionActivity :
                     )
                     val tvDayLock = arrayOf(
                         "60",
-                        "40 ",
+                        "40",
                         "No Lock"
                     )
 
@@ -71,7 +71,7 @@ class SubscriptionActivity :
                     for (i in tvTitle.indices) {
                         val subscriptionInfo = SubscriptionModel(
                             tvTitle[i],
-                            tvDollar[i],
+                            tvDollar[i].toInt(),
                             tvDayLock[i],
                             tvUtValue[i],
                             tvUtMainValue[i]

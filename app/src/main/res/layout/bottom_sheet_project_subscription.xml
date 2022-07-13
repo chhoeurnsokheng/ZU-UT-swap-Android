@@ -27,7 +27,7 @@
                 android:layout_marginTop="@dimen/dimen_20"
                 android:text="@string/Premium_Professional"
                 android:textAppearance="@style/medium_24"
-                android:textColor="@color/black_000000"/>
+                android:textColor="@color/primary"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -129,7 +129,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:clickable="false"
-                    android:text="@string/subscribes"
+                    android:text="@string/subscribe"
                     android:textAllCaps="true"
                     android:textAppearance="@style/bold_18"
                     android:textColor="@color/white" />

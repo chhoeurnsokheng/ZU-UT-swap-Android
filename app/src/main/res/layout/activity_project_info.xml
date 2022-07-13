@@ -24,6 +24,7 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_subscript_trade"
+                style="?android:attr/borderlessButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/dimen_36"
                 android:layout_alignParentEnd="true"
@@ -34,7 +35,6 @@
                 android:paddingHorizontal="@dimen/dimen_24"
                 android:textAppearance="@style/regular_14"
                 android:textColorHint="@color/white"
-                style="?android:attr/borderlessButtonStyle"
                 app:backgroundTint="@color/primary" />
 
         </RelativeLayout>

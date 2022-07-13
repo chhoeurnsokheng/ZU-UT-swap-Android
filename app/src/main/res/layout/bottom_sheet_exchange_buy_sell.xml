@@ -188,6 +188,7 @@
                             android:layout_marginEnd="@dimen/dimen_8"
                             android:paddingHorizontal="@dimen/dimen_20"
                             android:backgroundTint="@color/gray_EEEEEE"
+                            android:visibility="gone"
                             android:background="@drawable/bg_circular">
 
                             <TextView
@@ -205,6 +206,7 @@
                             android:layout_marginEnd="@dimen/dimen_8"
                             android:paddingHorizontal="@dimen/dimen_20"
                             android:backgroundTint="@color/gray_EEEEEE"
+                            android:visibility="gone"
                             android:background="@drawable/bg_circular">
 
                             <TextView
@@ -264,7 +266,7 @@
                         android:id="@+id/et_price_of_volume"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dimen_36"
-                        android:inputType="number"
+                        android:inputType="numberDecimal"
                         android:textAppearance="@style/medium_16"
                         android:paddingEnd="@dimen/dimen_15"
                         android:textAlignment="textEnd"

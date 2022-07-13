@@ -7,9 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.zillennium.utswap.R
+import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.models.orders.Orders
+import com.zillennium.utswap.utils.OnSwipeTouchListener
 
 class OrdersAdapter (
     arrayList: ArrayList<Orders>,
@@ -77,20 +80,35 @@ class OrdersAdapter (
             }
         }
 
+        holder.btnArrow.setOnTouchListener(object : OnSwipeTouchListener(UTSwapApp.instance){
+            override fun onSwipeLeft() {
+                holder.btnArrow.visibility = View.GONE
+                holder.btnDelete.visibility = View.VISIBLE
+                holder.btnDelete.setOnClickListener {
+                    onClickDelete.clickMe()
+                    holder.btnDelete.visibility = View.GONE
+                    holder.btnArrow.visibility = View.VISIBLE
+                }
+            }
+
+        })
+
         holder.itemView.setOnClickListener {
             holder.btnArrow.visibility = View.VISIBLE
             holder.btnDelete.visibility = View.GONE
+        }
+
+        holder.btnDelete.setOnClickListener {
+            onClickDelete.clickMe()
+            holder.btnDelete.visibility = View.GONE
+            holder.btnArrow.visibility = View.VISIBLE
         }
 
         holder.btnArrow.setOnClickListener {
             holder.btnArrow.visibility = View.GONE
             holder.btnDelete.visibility = View.VISIBLE
 
-            holder.btnDelete.setOnClickListener {
-                onClickDelete.clickMe()
-                holder.btnDelete.visibility = View.GONE
-                holder.btnArrow.visibility = View.VISIBLE
-            }
+
         }
     }
 
