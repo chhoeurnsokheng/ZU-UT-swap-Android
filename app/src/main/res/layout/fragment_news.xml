@@ -41,7 +41,7 @@
                 android:layout_toEndOf="@+id/img_menu"
                 android:text="@string/news"
                 android:textAlignment="center"
-                android:textAppearance="@style/medium_21"
+                android:textAppearance="@style/toolBar_style"
                 android:textColor="@color/primary" />
 
             <RelativeLayout

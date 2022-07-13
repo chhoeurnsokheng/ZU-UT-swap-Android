@@ -33,11 +33,11 @@ class DepositActivity :
     override fun initView() {
         super.initView()
         try {
+            toolBar()
+
             binding.apply {
 
-                backImage.setOnClickListener {
-                    onBackPressed()
-                }
+
 
                 imageCard = arrayOf(
                     R.drawable.aba_pay,
@@ -52,10 +52,6 @@ class DepositActivity :
                     "Acleda Bank",
                     "Sathapana"
                 )
-
-//                newRecyclerView = view?.findViewById(R.id.rv_payment) as RecyclerView
-//                newRecyclerView.layoutManager = LinearLayoutManager(this@DepositActivity)
-//                newRecyclerView.setHasFixedSize(true)
 
                 newArrayList = arrayListOf<DepositModel>()
                 for (i in imageCard.indices) {
@@ -77,12 +73,25 @@ class DepositActivity :
         }
     }
 
+    private fun toolBar() {
+        setSupportActionBar(binding.includeLayout.tb)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_arrow_left)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        binding.includeLayout.apply {
+            tbTitle.setText(R.string.deposit)
+            tb.setNavigationOnClickListener {
+                finish()
+            }
+        }
+    }
+
     private val onClickDeposit: DepositAdapter.OnClickDeposit = object : DepositAdapter.OnClickDeposit {
         override fun ClickDepositCard(cardTitle: String,cardImg: Int) {
 
-            when (cardTitle.toString()) {
+            when (cardTitle) {
                 "ABA Pay"-> {
-                    val depositDailogPayment = BottomSheetFinanceDepositPayment.newInstance(cardTitle.toString(),cardImg)
+                    val depositDailogPayment = BottomSheetFinanceDepositPayment.newInstance(cardTitle,cardImg)
                     depositDailogPayment.show(this@DepositActivity.supportFragmentManager, "Deposit Dialog")
                 }
                 "Visa/ Master Card"->{

@@ -32,11 +32,10 @@ class FinanceSubscriptionsActivity :
     override fun initView() {
         super.initView()
         try {
-            binding.apply {
 
-                backImage.setOnClickListener {
-                    finish()
-                }
+            toolBar()
+
+            binding.apply {
 
                 /* Filter */
                 filterButton.setOnClickListener {
@@ -136,6 +135,19 @@ class FinanceSubscriptionsActivity :
         }
     }
 
+
+    private fun toolBar() {
+        setSupportActionBar(binding.includeLayout.tb)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_arrow_left)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        binding.includeLayout.apply {
+            tbTitle.setText(R.string.subscriptions)
+            tb.setNavigationOnClickListener {
+                finish()
+            }
+        }
+    }
     /* filter based on selected from bottomSheet dialog */
     private fun filterList(text: String) {
         val newArrayList: ArrayList<FinanceSubscriptionsModel> =

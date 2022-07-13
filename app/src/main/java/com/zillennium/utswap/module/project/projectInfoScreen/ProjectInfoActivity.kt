@@ -31,6 +31,7 @@ class ProjectInfoActivity :
     private var condition = true
 
     override fun initView() {
+
         super.initView()
         try {
             binding.apply {
@@ -87,7 +88,7 @@ class ProjectInfoActivity :
 
                 /* Recycle view of project info detail */
                 val titleInfoDetail = arrayOf(
-                    "Title Deep",
+                    "Tittle Deep",
                     "Land Size",
                     "Total UT",
                     "Base Price",
