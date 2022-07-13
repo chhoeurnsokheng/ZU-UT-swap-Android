@@ -209,7 +209,7 @@ class FinanceBalanceActivity :
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_arrow_left)
         supportActionBar?.setDisplayShowTitleEnabled(false)
         binding.includeLayout.apply {
-            tbTitle.setText(R.string.terms_and_conditions)
+            tbTitle.setText(R.string.balance)
             tbTitle.setTextColor(ContextCompat.getColor(applicationContext, R.color.primary))
             tb.setNavigationOnClickListener {
                 finish()
