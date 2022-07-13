@@ -1,12 +1,15 @@
 package com.zillennium.utswap.module.main.trade.tradeExchangeScreen
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Paint
 import android.os.Handler
 import android.text.Editable
+import android.text.InputFilter
 import android.text.TextWatcher
 import android.view.View
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
@@ -29,7 +32,8 @@ import com.zillennium.utswap.module.main.trade.tradeExchangeScreen.dialog.BuyDia
 import com.zillennium.utswap.module.main.trade.tradeExchangeScreen.dialog.MarketDialog
 import com.zillennium.utswap.module.main.trade.tradeExchangeScreen.dialog.SellDialog
 import com.zillennium.utswap.module.security.securityActivity.signInScreen.SignInActivity
-
+import com.zillennium.utswap.utils.DecimalDigitsInputFilter
+import com.zillennium.utswap.utils.OnSwipeTouchListener
 
 
 class TradeExchangeActivity :
@@ -271,6 +275,9 @@ class TradeExchangeActivity :
 
                     }
                 })
+                persistentBottomSheet.etPriceOfVolume.filters = arrayOf<InputFilter>(
+                    DecimalDigitsInputFilter(10, 2)
+                )
                 persistentBottomSheet.etPriceOfVolume.addTextChangedListener(object : TextWatcher {
                     override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
 

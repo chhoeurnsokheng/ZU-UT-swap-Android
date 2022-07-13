@@ -31,6 +31,9 @@ class RegisterFragment :
             binding.apply {
 
                 btnBack.setOnClickListener {
+                    val inputManager =
+                        requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                    inputManager.hideSoftInputFromWindow(view?.windowToken, 0)
                     activity?.finish()
                 }
 
