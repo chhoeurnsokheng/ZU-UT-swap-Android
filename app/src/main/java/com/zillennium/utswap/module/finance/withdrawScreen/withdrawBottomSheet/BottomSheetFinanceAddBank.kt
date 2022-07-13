@@ -13,6 +13,7 @@ import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
 import com.zillennium.utswap.R
 import com.zillennium.utswap.databinding.BottomSheetFinanceAddBankBinding
 import com.zillennium.utswap.models.FinanceBankModel
+import com.zillennium.utswap.utils.formatter.DecimalDigitsInputFilter
 
 class BottomSheetFinanceAddBank : BottomSheetDialogFragment(), AdapterView.OnItemSelectedListener {
     private val SECOND_ACTIVITY_REQUEST_CODE = 0
@@ -43,62 +44,40 @@ class BottomSheetFinanceAddBank : BottomSheetDialogFragment(), AdapterView.OnIte
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        textChange()
+        btnConfirm()
+
+    }
+
+
+    private fun textChange() {
         binding?.apply {
-            (view.parent as View).setBackgroundColor(resources.getColor(android.R.color.transparent))
-
-            btnConfirm.setOnClickListener {
-
-                val backData = ArrayList<FinanceBankModel>()
-                backData.add(FinanceBankModel(
-                    arguments?.getString("titleCard").toString(),
-                    etUserName.text.toString(),
-                    etAccountNumber.text.toString()
-                ))
-
-                SessionVariable.SESSION_BANK.value = backData
-                dismiss()
-                activity?.onBackPressed()
-//                val intent = Intent(this@BottomSheetFinanceAddBank.requireActivity(), WithdrawActivity::class.java)
-//                val bundle = Bundle()
-//                bundle.putString("key", etUserName.text.toString())
-//                intent.putExtras(bundle)
-//                startActivity(intent)
-            }
-
-            arguments?.getInt("imgCard")?.let { imgCard.setImageResource(it.toInt()) }
-            arguments?.getString("titleCard").let { titleCard.text = it.toString() }
 
             etAccountNumber.addTextChangedListener(object : TextWatcher {
                 var count = 0
                 override fun beforeTextChanged(
-                    s: CharSequence?,
-                    start: Int,
-                    count: Int,
+                    s: CharSequence?, start: Int, count: Int,
                     after: Int
-                ) {
+                ) {}
 
-                }
-
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-
-                }
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
 
                 override fun afterTextChanged(s: Editable?) {
 
                     //Use to format space every 3 character of Bank Account Number
                     val inputNumberLength: Int = etAccountNumber.text.toString().length
 
-                    if (count <= inputNumberLength && (inputNumberLength == 3 ||
-                        inputNumberLength == 7 || inputNumberLength == 11
-                    )) {
+                    if (count <= inputNumberLength && (inputNumberLength == 3 || inputNumberLength == 7 || inputNumberLength == 11)
+                    ) {
                         etAccountNumber.setText(etAccountNumber.text.toString() + " ")
                         val pos = etAccountNumber.text.length
                         etAccountNumber.setSelection(pos)
-                    } else if (count >= inputNumberLength && (inputNumberLength == 3 ||
-                                inputNumberLength == 7 || inputNumberLength == 11)
+                    } else if (count >= inputNumberLength && (inputNumberLength == 3 || inputNumberLength == 7 || inputNumberLength == 11)
                     ) {
                         etAccountNumber.setText(
-                            etAccountNumber.text.toString().substring(0, etAccountNumber.text.toString().length - 1)
+                            etAccountNumber.text.toString()
+                                .substring(0, etAccountNumber.text.toString().length - 1)
                         )
                         val pos = etAccountNumber.text.length
                         etAccountNumber.setSelection(pos)
@@ -111,7 +90,35 @@ class BottomSheetFinanceAddBank : BottomSheetDialogFragment(), AdapterView.OnIte
         }
     }
 
-    // use to save image bank and title bank
+    private fun btnConfirm(){
+
+        binding?.apply {
+            (view?.parent as View).setBackgroundColor(resources.getColor(android.R.color.transparent))
+            btnConfirm.setOnClickListener {
+                val backData = ArrayList<FinanceBankModel>()
+                backData.add(
+                    FinanceBankModel(
+                        arguments?.getString("titleCard").toString(),
+                        txtUserName.text.toString(),
+                        etAccountNumber.text.toString()
+                    )
+                )
+
+                SessionVariable.SESSION_BANK.value = backData
+                dismiss()
+                activity?.onBackPressed()
+
+            }
+
+            arguments?.getInt("imgCard")?.let { imgCard.setImageResource(it.toInt()) }
+            arguments?.getString("titleCard").let { titleCard.text = it.toString() }
+            txtUserName.setText("Te Eangly")
+
+
+        }
+    }
+
+    // ve image bank and title bank
     companion object {
         fun newInstance(titleBank: String, imageBank: Int?): BottomSheetFinanceAddBank {
             val withdrawBankBottomSheetDialog = BottomSheetFinanceAddBank()

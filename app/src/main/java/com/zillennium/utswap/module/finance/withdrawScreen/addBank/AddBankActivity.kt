@@ -79,10 +79,8 @@ class AddBankActivity :
                 when (titleBank.toString()) {
                     "ABA Pay" -> {
 
-                        val withdrawBankDialog =
-                            BottomSheetFinanceAddBank.newInstance(titleBank.toString(), imgBank)
-                        withdrawBankDialog.show(
-                            this@AddBankActivity.supportFragmentManager, "Deposit Dialog"
+                        val withdrawBankDialog = BottomSheetFinanceAddBank.newInstance(titleBank, imgBank)
+                        withdrawBankDialog.show(this@AddBankActivity.supportFragmentManager, "Deposit Dialog"
                         )
                     }
                     "Acleda Bank" -> {
@@ -95,8 +93,7 @@ class AddBankActivity :
                     }
                     "Sathapana" -> {
 
-                        val withdrawBankDialog =
-                            BottomSheetFinanceAddBank.newInstance(titleBank.toString(), imgBank)
+                        val withdrawBankDialog = BottomSheetFinanceAddBank.newInstance(titleBank.toString(), imgBank)
                         withdrawBankDialog.show(
                             this@AddBankActivity.supportFragmentManager, "Deposit Dialog"
                         )

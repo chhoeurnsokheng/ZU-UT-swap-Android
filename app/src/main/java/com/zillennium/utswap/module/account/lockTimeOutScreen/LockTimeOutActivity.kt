@@ -1,6 +1,7 @@
 package com.zillennium.utswap.module.account.lockTimeOutScreen
 
 import android.view.View
+import androidx.core.content.ContextCompat
 import com.zillennium.utswap.R
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityAccountLockTimeOutBinding
@@ -15,10 +16,8 @@ class LockTimeOutActivity :
     override fun initView() {
         super.initView()
         try {
+            toolBar()
             binding.apply {
-                imgClose.setOnClickListener {
-                    finish()
-                }
 
                 btn5Minutes.setOnClickListener {
                     imgCheck10Minutes.visibility = View.GONE
@@ -43,4 +42,20 @@ class LockTimeOutActivity :
             // Must be safe
         }
     }
+
+    private fun toolBar() {
+        setSupportActionBar(binding.includeLayout.tb)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_arrow_left)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        binding.includeLayout.apply {
+            tbTitle.setText(R.string.lock_time_out)
+            tbTitle.setTextColor(ContextCompat.getColor(applicationContext, R.color.primary))
+            tb.setNavigationOnClickListener {
+                finish()
+            }
+        }
+    }
+
+
 }

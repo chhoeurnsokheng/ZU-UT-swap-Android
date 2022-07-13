@@ -43,7 +43,9 @@ open class ApiManager {
 
     open fun getBaseServerUrl(): String {
 
-        return  BuildConfig.SERVER_URL
+        return  BuildConfig.BASE_URL
+      //  return  BuildConfig.CORE_APP_ID
+
     }
 
     //INIT ALL PROFIT OBJECT
@@ -114,7 +116,7 @@ open class ApiManager {
 
         return Retrofit.Builder().baseUrl(mServerUrl)
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                //.addConverterFactory(createMoshiConverter())
+                .addConverterFactory(createMoshiConverter())
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client.build())
                 .build()

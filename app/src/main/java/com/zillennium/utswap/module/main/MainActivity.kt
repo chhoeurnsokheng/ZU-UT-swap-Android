@@ -181,9 +181,9 @@ class MainActivity :
                     true
                 }
 
-                fragmentManager.beginTransaction().hide(activeFragment).show(tradeFragment).commit()
+                fragmentManager.beginTransaction().hide(activeFragment).show(homeFragment).commit()
                 activeFragment = tradeFragment
-                navView.selectedItemId = R.id.navigation_navbar_trade
+                navView.selectedItemId = R.id.navigation_navbar_home
             }
         }catch (e: Exception){
 

@@ -238,7 +238,7 @@ class HomeFragment :
     val onclickHome: HomeMenuAdapter.OnclickHome = object : HomeMenuAdapter.OnclickHome {
         override fun ClickDeposit(title: String) {
 
-            when (title.toString()) {
+            when (title) {
                 "Projects" -> {
                     val intent = Intent(UTSwapApp.instance, ProjectActivity::class.java)
                     startActivity(intent)

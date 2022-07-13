@@ -42,7 +42,7 @@ class BottomSheetFinanceDepositPayment: BottomSheetDialogFragment(), AdapterView
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding?.apply {
-            (view.parent as View).setBackgroundColor(ContextCompat.getColor(UTSwapApp.instance, android.R.color.transparent))
+          //  (view.parent as View).setBackgroundColor(ContextCompat.getColor(UTSwapApp.instance, android.R.color.transparent))
 
             nextBtnFinace.isEnabled = false
             nextBtnFinace.setOnClickListener {
@@ -64,11 +64,12 @@ class BottomSheetFinanceDepositPayment: BottomSheetDialogFragment(), AdapterView
                 }
             }
 
-            arguments?.getInt("imgCard")?.let { imgCard.setImageResource(it.toInt()) }
+            arguments?.getInt("imgCard")?.let { imgCard.setImageResource(it) }
             arguments?.getString("titleCard").let { titleCard.text = it.toString() }
 
             etMountPayment.filters = arrayOf<InputFilter>(DecimalDigitsInputFilter(10, 2))
             etMountPayment.requestFocus()
+
             etMountPayment.addTextChangedListener(object : TextWatcher{
                 override fun beforeTextChanged(
                     s: CharSequence?,
@@ -81,9 +82,16 @@ class BottomSheetFinanceDepositPayment: BottomSheetDialogFragment(), AdapterView
 
                 override fun onTextChanged(char: CharSequence?, start: Int, before: Int, count: Int) {
 
+//                   etMountPayment.setSelection(etMountPayment.length())
+//                    val tvAmountValue = etMountPayment.text.toString().replace(",", "")
+//                    var amountValue = 0.0
+//
+//                    if (tvAmountValue.isNotBlank()){
+//                        amountValue = tvAmountValue.toDouble()
+//                    }
 
-                    val amount: Double = if (!char.isNullOrEmpty()) {
-                        char.toString().toDouble()
+
+                    val amount: Double = if (!char.isNullOrEmpty()) { char.toString().toDouble()
                     } else {
                         '0'.toString().toDouble()
                     }

@@ -104,4 +104,10 @@
         <item name="android:fontFamily">@font/avenirnextcy_regular</item>
         <item name="android:textSize">@dimen/font_size_6</item>
     </style>
+    <!-- ToolBar Style -->
+    <style name="toolBar_style" parent="@android:style/TextAppearance.Small">
+        <item name="android:fontFamily">@font/avenirnextcy_medium</item>
+        <item name="android:textSize">@dimen/dimen_18</item>
+    </style>
+
 </resources>
