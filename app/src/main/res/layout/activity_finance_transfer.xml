@@ -202,12 +202,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/dimen_20"
                     android:layout_marginBottom="@dimen/dimen_18"
-                    android:gravity="center"
                     android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:text="$"
                         android:textAppearance="@style/medium_32"
                         android:textColor="@color/white"
@@ -215,12 +214,12 @@
 
                     <EditText
                         android:id="@+id/et_mount_transfer"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:background="@color/primary"
                         android:cursorVisible="true"
-                        android:gravity="center"
+
                         android:hint="0.00"
                         android:inputType="numberDecimal"
                         android:maxLength="10"

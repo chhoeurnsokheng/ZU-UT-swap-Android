@@ -8,6 +8,8 @@ import android.text.TextWatcher
 import android.view.*
 import android.widget.AdapterView
 import androidx.databinding.DataBindingUtil
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
 import com.zillennium.utswap.R
@@ -27,12 +29,14 @@ class BottomSheetFinanceAddBank : BottomSheetDialogFragment(), AdapterView.OnIte
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding?.apply {
 
+        if (dialog is BottomSheetDialog) {
+            (dialog as BottomSheetDialog).behavior.skipCollapsed = true
+            (dialog as BottomSheetDialog).behavior.state = BottomSheetBehavior.STATE_EXPANDED
         }
-        dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
-        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        dialog?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+//        dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
+//        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+//        dialog?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
         binding = DataBindingUtil.inflate(
             inflater,
             R.layout.bottom_sheet_finance_add_bank,

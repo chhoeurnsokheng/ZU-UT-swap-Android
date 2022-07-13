@@ -10,6 +10,8 @@ import android.view.*
 import android.widget.AdapterView
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
@@ -32,9 +34,16 @@ class SubscriptionBottomSheet : BottomSheetDialogFragment(), AdapterView.OnItemS
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        dialog!!.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        dialog?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+
+        if (dialog is BottomSheetDialog) {
+            (dialog as BottomSheetDialog).behavior.skipCollapsed = true
+            (dialog as BottomSheetDialog).behavior.state = BottomSheetBehavior.STATE_EXPANDED
+        }
+
+
+//        dialog!!.requestWindowFeature(Window.FEATURE_NO_TITLE)
+//        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+//        dialog?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
         binding = DataBindingUtil.inflate(inflater, R.layout.bottom_sheet_project_subscription, container, false)
         return binding?.root
 

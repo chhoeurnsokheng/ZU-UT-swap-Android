@@ -36,8 +36,7 @@ class FundPasswordDialog() : DialogFragment() {
     ): View? {
         dialog?.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        binding =
-            DataBindingUtil.inflate(inflater, R.layout.dialog_security_fund_password, container, true)
+        binding = DataBindingUtil.inflate(inflater, R.layout.dialog_security_fund_password, container, true)
         return binding?.root
     }
 
@@ -50,9 +49,9 @@ class FundPasswordDialog() : DialogFragment() {
                         .setFrameClearDrawable(window.decorView.background)
                         .setBlurAlgorithm(RenderScriptBlur(UTSwapApp.instance))
                         .setBlurRadius(20f)
-                        .setBlurAutoUpdate(true)
-                        .setHasFixedTransformationMatrix(true)
-
+                        .setBlurAutoUpdate(false)
+                        .setHasFixedTransformationMatrix(false)
+                        .setOverlayColor(getColor(R.color.white))
                     imgBack.setOnClickListener {
                         when(javaClass.simpleName.toString()){
                             "WithdrawActivity" -> {
