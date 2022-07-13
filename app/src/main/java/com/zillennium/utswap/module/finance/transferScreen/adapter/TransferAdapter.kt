@@ -14,12 +14,12 @@ class TransferAdapter(private val arrayList: ArrayList<FinanceTransferModel>): R
 
     private val listData: ArrayList<FinanceTransferModel> = arrayList
 
-
     class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
         var layTransferItem: LinearLayout = view.findViewById(R.id.layTransferItem) as LinearLayout
         var user_Profile: ImageView = view.findViewById(R.id.iv_user_profile) as ImageView
         val user_Name: TextView = view.findViewById(R.id.tv_user_name) as TextView
         var user_PhoneNumber: TextView = view.findViewById(R.id.tv_receive_phoneNumber) as TextView
+        var view_line :View =view.findViewById<View>(R.id.view_line)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -30,9 +30,16 @@ class TransferAdapter(private val arrayList: ArrayList<FinanceTransferModel>): R
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val transferCurrentItemList: FinanceTransferModel = listData[position]
+
+
+
         holder.user_Profile.setImageResource(transferCurrentItemList.userProfile)
         holder.user_Name.text = transferCurrentItemList.userName
         holder.user_PhoneNumber.text = transferCurrentItemList.phoneNumber
+
+        if (position ==1){
+            holder.view_line.visibility = View.GONE
+        }
 
     }
 

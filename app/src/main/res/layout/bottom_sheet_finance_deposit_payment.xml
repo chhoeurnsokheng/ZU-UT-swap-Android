@@ -62,7 +62,7 @@
                         android:hint="0.00 "
                         android:inputType="numberDecimal"
                         android:textAlignment="center"
-                        android:textColorHint="@color/gray"
+                        android:textColorHint="@color/gray_CCCCCC"
                         android:singleLine="true"
                         android:textAppearance="@style/medium_32"
                         android:textColor="@color/white" />

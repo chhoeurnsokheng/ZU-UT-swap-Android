@@ -34,8 +34,8 @@ class FundPasswordDialog() : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        dialog!!.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog!!.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog?.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         binding =
             DataBindingUtil.inflate(inflater, R.layout.dialog_security_fund_password, container, true)
         return binding?.root

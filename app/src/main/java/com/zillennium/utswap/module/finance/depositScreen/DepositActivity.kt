@@ -13,7 +13,6 @@ import com.zillennium.utswap.module.finance.depositScreen.adapter.DepositAdapter
 import com.zillennium.utswap.module.finance.addCardScreen.DepositAddCardActivity
 import com.zillennium.utswap.module.finance.depositScreen.depositBottomSheet.BottomSheetFinanceDepositPayment
 
-
 class DepositActivity :
     BaseMvpActivity<DepositView.View, DepositView.Presenter, ActivityFinanceDepositBinding>(),
     DepositView.View {
@@ -36,8 +35,6 @@ class DepositActivity :
             toolBar()
 
             binding.apply {
-
-
 
                 imageCard = arrayOf(
                     R.drawable.aba_pay,
@@ -127,7 +124,6 @@ class DepositActivity :
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode === SECOND_ACTIVITY_REQUEST_CODE) {
             if (resultCode === RESULT_OK) {
-
                 val depositDailogPayment = BottomSheetFinanceDepositPayment.newInstance(cardTitleVisa.toString(), imgCardVisa)
                 depositDailogPayment.show(this@DepositActivity.supportFragmentManager, "Deposit Dialog")
             }

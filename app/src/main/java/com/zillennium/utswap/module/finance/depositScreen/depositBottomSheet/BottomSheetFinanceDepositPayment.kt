@@ -11,6 +11,9 @@ import android.view.*
 import android.widget.AdapterView
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.DialogFragment
+import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_EXPANDED
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
@@ -25,6 +28,7 @@ class BottomSheetFinanceDepositPayment: BottomSheetDialogFragment(), AdapterView
     private var binding: BottomSheetFinanceDepositPaymentBinding? = null
     override fun getTheme(): Int {
         return R.style.BottomSheetStyle
+        
     }
 
     override fun onCreateView(
@@ -32,11 +36,18 @@ class BottomSheetFinanceDepositPayment: BottomSheetDialogFragment(), AdapterView
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
-        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        dialog?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+
+        if (dialog is BottomSheetDialog) {
+            (dialog as BottomSheetDialog).behavior.skipCollapsed = true
+            (dialog as BottomSheetDialog).behavior.state = STATE_EXPANDED
+        }
+
+//        dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
+//        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+//        dialog?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
         binding = DataBindingUtil.inflate(inflater, R.layout.bottom_sheet_finance_deposit_payment, container, false)
         return binding?.root
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -82,13 +93,6 @@ class BottomSheetFinanceDepositPayment: BottomSheetDialogFragment(), AdapterView
 
                 override fun onTextChanged(char: CharSequence?, start: Int, before: Int, count: Int) {
 
-//                   etMountPayment.setSelection(etMountPayment.length())
-//                    val tvAmountValue = etMountPayment.text.toString().replace(",", "")
-//                    var amountValue = 0.0
-//
-//                    if (tvAmountValue.isNotBlank()){
-//                        amountValue = tvAmountValue.toDouble()
-//                    }
 
 
                     val amount: Double = if (!char.isNullOrEmpty()) { char.toString().toDouble()

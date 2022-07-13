@@ -34,8 +34,7 @@ import com.zillennium.utswap.module.security.securityActivity.signInScreen.SignI
 import com.zillennium.utswap.module.system.notification.NotificationActivity
 
 
-class HomeFragment :
-    BaseMvpFragment<HomeView.View, HomeView.Presenter, FragmentHomeBinding>(),
+class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, FragmentHomeBinding>(),
     HomeView.View {
 
     override var mPresenter: HomeView.Presenter = HomePresenter()
