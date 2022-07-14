@@ -74,9 +74,12 @@ class VerificationFragment :
                         title.text = "Account"
                         title.visibility = View.VISIBLE
                     }
+                    "register" -> {
+                        btnNext.visibility = View.GONE
+
+                    }
                     else -> {
                         title.visibility = View.GONE
-                        btnNext.visibility = View.GONE
                     }
                 }
 
@@ -182,8 +185,10 @@ class VerificationFragment :
                             }
                             lifecycleScope.launch {
                                 delay(1000)
-                                findNavController().navigate(R.id.action_to_term_condition_security_fragment)
-                                editBox.setText("")
+                                if (arguments?.getString("title") == "register") {
+                                    findNavController().navigate(R.id.action_to_term_condition_security_fragment)
+                                    editBox.setText("")
+                                }
                             }
                         } else if (editBox.text.toString().length == 6 && editBox.text.toString().isNotEmpty() && editBox.text.toString() != "111111" ){
                             imgCorrect.visibility = View.GONE

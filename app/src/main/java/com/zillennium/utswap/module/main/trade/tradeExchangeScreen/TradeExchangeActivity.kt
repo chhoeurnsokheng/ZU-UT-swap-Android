@@ -263,6 +263,8 @@ class TradeExchangeActivity :
                 }
 
                 persistentBottomSheet.etVolume.addTextChangedListener(object : TextWatcher {
+                    var count = 0
+
                     override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
 
                     }
@@ -272,6 +274,24 @@ class TradeExchangeActivity :
                     }
 
                     override fun afterTextChanged(p0: Editable?) {
+                        val inputNumberLength: Int = persistentBottomSheet.etVolume.text.toString().length
+
+                        if (count <= inputNumberLength && (inputNumberLength == 3 || inputNumberLength == 7 || inputNumberLength == 11 || inputNumberLength == 15 || inputNumberLength == 19)
+                        ) {
+                            persistentBottomSheet.etVolume.setText(persistentBottomSheet.etVolume.text.toString() + " ")
+                            val pos = persistentBottomSheet.etVolume.text.length
+                            persistentBottomSheet.etVolume.setSelection(pos)
+                        } else if (count >= inputNumberLength && (inputNumberLength == 3 || inputNumberLength == 7 || inputNumberLength == 11 || inputNumberLength == 15 || inputNumberLength == 19)
+                        ) {
+                            persistentBottomSheet.etVolume.setText(
+                                persistentBottomSheet.etVolume.text.toString()
+                                    .substring(0, persistentBottomSheet.etVolume.text.toString().length - 1)
+                            )
+                            val pos = persistentBottomSheet.etVolume.text.length
+                            persistentBottomSheet.etVolume.setSelection(pos)
+                        }
+                        count = persistentBottomSheet.etVolume.text.toString().length
+
 
                     }
                 })
