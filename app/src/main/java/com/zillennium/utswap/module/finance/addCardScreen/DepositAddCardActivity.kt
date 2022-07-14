@@ -1,5 +1,6 @@
 package com.zillennium.utswap.module.finance.addCardScreen
 
+import android.R.attr.editable
 import android.annotation.SuppressLint
 import android.text.Editable
 import android.text.TextWatcher
@@ -107,13 +108,14 @@ class DepositAddCardActivity :
 
                 })
                 etDate.addTextChangedListener(object : TextWatcher {
+                    var prevL: Int = 0
                     override fun beforeTextChanged(
                         char: CharSequence?,
                         start: Int,
                         count: Int,
                         after: Int
                     ) {
-
+                        prevL = etDate.text.toString().length
                     }
 
                     override fun onTextChanged(
@@ -122,11 +124,14 @@ class DepositAddCardActivity :
                         before: Int,
                         count: Int
                     ) {
-                        inputDate = char.toString().trim()
+
                     }
 
-                    override fun afterTextChanged(s: Editable?) {
-
+                    override fun afterTextChanged(editable: Editable?) {
+                        val length: Int = editable!!.length
+                        if (prevL < length && (length == 2 || length == 5)) {
+                            editable.append("/")
+                        }
                     }
 
                 })
