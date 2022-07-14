@@ -163,15 +163,15 @@ class TransferActivity :
         }
 
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-           binding.apply {
-               if (etMountTransfer.text.toString().isNotEmpty() && etPhoneNumberScanQR.text.toString().isNotEmpty()){
-                   nextBtnTransfer.isEnabled = true
-                   nextBtnTransfer.setOnClickListener{
-                       val fundPasswordDialog: FundPasswordDialog = FundPasswordDialog()
-                       fundPasswordDialog.show(this@TransferActivity.supportFragmentManager, "balanceHistoryDetailDialog")
-                   }
-               }
-           }
+            binding.apply {
+                if (etMountTransfer.text.toString().isNotEmpty() && etPhoneNumberScanQR.text.toString().isNotEmpty()){
+                    nextBtnTransfer.isEnabled = true
+                    nextBtnTransfer.setOnClickListener{
+                        val fundPasswordDialog: FundPasswordDialog = FundPasswordDialog()
+                        fundPasswordDialog.show(this@TransferActivity.supportFragmentManager, "balanceHistoryDetailDialog")
+                    }
+                }
+            }
         }
 
         override fun afterTextChanged(s: Editable?) {

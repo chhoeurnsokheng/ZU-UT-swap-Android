@@ -94,7 +94,7 @@ class WithdrawActivity :
                         if(amount > 0 && tvUser.text.isNotEmpty() && tvTitleBank.text.isNotEmpty()){
                             nextBtnFinace.isEnabled = true
                             nextBtnFinace.setOnClickListener{
-                                val fundPasswordDialog: FundPasswordDialog = FundPasswordDialog()
+                                val fundPasswordDialog = FundPasswordDialog()
                                 fundPasswordDialog.show(this@WithdrawActivity.supportFragmentManager, "balanceHistoryDetailDialog")
                             }
                         } else{
