@@ -25,6 +25,7 @@ class DocumentsActivity :
                     val intent = Intent(UTSwapApp.instance, TermsConditionsActivity::class.java)
                     startActivity(intent)
                 }
+
             }
             // Code
         } catch (error: Exception) {

@@ -1,11 +1,11 @@
 package com.zillennium.utswap.module.finance.withdrawScreen.withdrawBottomSheet
 
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.AdapterView
 import androidx.databinding.DataBindingUtil
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -15,7 +15,6 @@ import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
 import com.zillennium.utswap.R
 import com.zillennium.utswap.databinding.BottomSheetFinanceAddBankBinding
 import com.zillennium.utswap.models.FinanceBankModel
-import com.zillennium.utswap.utils.formatter.DecimalDigitsInputFilter
 
 class BottomSheetFinanceAddBank : BottomSheetDialogFragment(), AdapterView.OnItemSelectedListener {
     private val SECOND_ACTIVITY_REQUEST_CODE = 0
