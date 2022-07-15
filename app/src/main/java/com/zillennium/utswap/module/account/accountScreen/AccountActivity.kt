@@ -38,7 +38,8 @@ class AccountActivity :
                 txtSignOut.text = Html.fromHtml("<u>Sign Out</u>")
                 txtNo.text = Html.fromHtml("<u>No</u>")
                 txtYes.text = Html.fromHtml("<u>Yes</u>")
-                txtQuestion.text = Html.fromHtml("<u>Are you sure?</u>")
+                txtQuestion.text = "Are you sure?"
+//                    Html.fromHtml("<u>Are you sure?</u>")
 
                 if(SessionPreferences().SESSION_USER_PROFILE != "")
                 {

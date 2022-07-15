@@ -329,13 +329,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
             android:layout_marginBottom="@dimen/dimen_10"
             android:gravity="center"
+            android:padding="@dimen/dimen_20"
             android:text="@string/sign_out"
             android:textAppearance="@style/medium_18"
             android:textColor="@color/white"
-            android:padding="@dimen/dimen_20"
-            android:layout_centerHorizontal="true"
             android:visibility="visible" />
 
         <LinearLayout

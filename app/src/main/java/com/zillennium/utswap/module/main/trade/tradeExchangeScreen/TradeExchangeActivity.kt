@@ -274,7 +274,7 @@ class TradeExchangeActivity :
                     }
 
                     override fun afterTextChanged(p0: Editable?) {
-                        val inputNumberLength: Int = persistentBottomSheet.etVolume.text.toString().length
+                        /*val inputNumberLength: Int = persistentBottomSheet.etVolume.text.toString().length
 
                         if (count <= inputNumberLength && (inputNumberLength == 3 || inputNumberLength == 7 || inputNumberLength == 11 || inputNumberLength == 15 || inputNumberLength == 19)
                         ) {
@@ -290,7 +290,7 @@ class TradeExchangeActivity :
                             val pos = persistentBottomSheet.etVolume.text.length
                             persistentBottomSheet.etVolume.setSelection(pos)
                         }
-                        count = persistentBottomSheet.etVolume.text.toString().length
+                        count = persistentBottomSheet.etVolume.text.toString().length*/
 
 
                     }
