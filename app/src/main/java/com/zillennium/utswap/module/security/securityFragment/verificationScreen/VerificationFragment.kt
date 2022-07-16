@@ -21,6 +21,7 @@ import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentSecurityVerificationBinding
+import com.zillennium.utswap.module.security.securityActivity.registerScreen.RegisterActivity
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -41,6 +42,9 @@ class VerificationFragment :
         try {
             binding.apply {
                 editBox.requestFocus()
+                if (isAdded) {
+                    showKeyboard(requireContext())
+                }
 //                activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
 
                 imgBack.setOnClickListener {
@@ -166,9 +170,9 @@ class VerificationFragment :
                             textInput.text = chr[index].toString()
 
                             if(index == layoutCount.childCount - 1){
-                                val inputManager =
+                               /* val inputManager =
                                     requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                                inputManager.hideSoftInputFromWindow(view?.windowToken, 0)
+                                inputManager.hideSoftInputFromWindow(view?.windowToken, 0)*/
                             }
                         }
                     }
@@ -188,6 +192,8 @@ class VerificationFragment :
                                 if (arguments?.getString("title") == "register") {
                                     findNavController().navigate(R.id.action_to_term_condition_security_fragment)
                                     editBox.setText("")
+                                    hideKeyboard()
+
                                 }
                             }
                         } else if (editBox.text.toString().length == 6 && editBox.text.toString().isNotEmpty() && editBox.text.toString() != "111111" ){
@@ -275,6 +281,7 @@ class VerificationFragment :
                             child.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_red_corner)
                         }
                     }
+                    hideKeyboard()
                 }
             }
         }catch (error: Exception) {
@@ -294,11 +301,14 @@ class VerificationFragment :
                 @SuppressLint("UseCompatLoadingForDrawables")
                 override fun onFinish() {
                     btnNext.isEnabled = false
-                    Toast.makeText(
-                        activity,
-                        "You're run out of time!",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    activity?.apply {
+                        Toast.makeText(
+                            this,
+                            "You're run out of time!",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+
                     editBox.setText("")
                     layoutCount.isEnabled = false
 
@@ -313,6 +323,29 @@ class VerificationFragment :
             }.start()
         }
     }
+
+    override fun onResume() {
+        super.onResume()
+        if (arguments?.getString("title") == "register") {
+            if ((activity as RegisterActivity).fromVerify) {
+                (activity as RegisterActivity).fromVerify = false
+                findNavController().popBackStack()
+            }
+        }
+    }
+
+    private fun showKeyboard(context: Context) {
+        (context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).toggleSoftInput(
+            InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY
+        )
+    }
+
+    private fun hideKeyboard() {
+        val inputManager =
+            requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputManager.hideSoftInputFromWindow(view?.windowToken, 0)
+    }
+
 
     private fun stopTimer() {
         countDownTimer?.cancel()

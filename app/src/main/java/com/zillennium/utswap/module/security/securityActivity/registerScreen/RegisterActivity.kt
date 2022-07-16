@@ -10,6 +10,8 @@ class RegisterActivity :
     BaseMvpActivity<SignInView.View, SignInView.Presenter, ActivitySecurityRegisterBinding>(),
     SignInView.View {
 
+    var fromVerify = false
+
     override var mPresenter: SignInView.Presenter = SIgnInPresenter()
     override val layoutResource: Int = R.layout.activity_security_register
 

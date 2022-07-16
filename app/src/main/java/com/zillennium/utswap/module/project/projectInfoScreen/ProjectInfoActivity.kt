@@ -88,7 +88,7 @@ class ProjectInfoActivity :
 
                 /* Recycle view of project info detail */
                 val titleInfoDetail = arrayOf(
-                    "Tittle Deep",
+                    "Title Deed",
                     "Land Size",
                     "Total UT",
                     "Base Price",
