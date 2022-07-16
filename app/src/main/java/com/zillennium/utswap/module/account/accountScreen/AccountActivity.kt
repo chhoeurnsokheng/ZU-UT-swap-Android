@@ -6,6 +6,7 @@ import android.text.Html
 import android.view.View
 import androidx.core.net.toUri
 import com.bumptech.glide.Glide
+import com.zillennium.utswap.BuildConfig
 import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
 import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
@@ -38,7 +39,9 @@ class AccountActivity :
                 txtSignOut.text = Html.fromHtml("<u>Sign Out</u>")
                 txtNo.text = Html.fromHtml("<u>No</u>")
                 txtYes.text = Html.fromHtml("<u>Yes</u>")
-                txtQuestion.text = Html.fromHtml("<u>Are you sure?</u>")
+                txtQuestion.text = Html.fromHtml("<u>Are you sure?</u>") // "  ${BuildConfig.VERSION_NAME} "+
+
+
 
                 if(SessionPreferences().SESSION_USER_PROFILE != "")
                 {
