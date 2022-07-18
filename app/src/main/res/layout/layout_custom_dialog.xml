@@ -55,7 +55,7 @@
                     android:layout_height="@dimen/dimen_48"
                     android:background="@drawable/bg_gray_ripple_radius_100"
                     android:textAppearance="@style/regular_18"
-                    android:textColor="@color/primary"
+                    android:textColor="@color/white"
                     app:backgroundTint="@color/danger" />
 
                 <TextView

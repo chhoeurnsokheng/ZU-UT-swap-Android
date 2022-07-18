@@ -6,6 +6,7 @@ import android.text.Html
 import android.view.View
 import androidx.core.net.toUri
 import com.bumptech.glide.Glide
+import com.zillennium.utswap.BuildConfig
 import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
 import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
@@ -18,6 +19,7 @@ import com.zillennium.utswap.module.account.customerSupportScreen.CustomerSuppor
 import com.zillennium.utswap.module.account.documentsScreen.DocumentsActivity
 import com.zillennium.utswap.module.account.lockTimeOutScreen.LockTimeOutActivity
 import com.zillennium.utswap.module.account.referralInformationScreen.ReferralInformationActivity
+import com.zillennium.utswap.utils.DialogUtil
 
 class AccountActivity :
     BaseMvpActivity<AccountView.View, AccountView.Presenter, ActivityAccountBinding>(),
@@ -36,10 +38,14 @@ class AccountActivity :
             binding.apply {
 
                 txtSignOut.text = Html.fromHtml("<u>Sign Out</u>")
-                txtNo.text = Html.fromHtml("<u>No</u>")
-                txtYes.text = Html.fromHtml("<u>Yes</u>")
-                txtQuestion.text = "Are you sure?"
-//                    Html.fromHtml("<u>Are you sure?</u>")
+//                txtNo.text = Html.fromHtml("<u>No</u>")
+//                txtYes.text = Html.fromHtml("<u>Yes</u>")
+//
+//                txtQuestion.text = Html.fromHtml("<u>Are you sure?</u>") // "  ${BuildConfig.VERSION_NAME} "+
+                txtVersion.text ="Version" +" APT" + "  ${BuildConfig.VERSION_NAME} "
+
+
+
 
                 if(SessionPreferences().SESSION_USER_PROFILE != "")
                 {
@@ -105,22 +111,27 @@ class AccountActivity :
                     changeProfileBottomSheet.show(supportFragmentManager, "changeProfileBottomSheet")
                 }
 
-                txtNo.setOnClickListener {
-                    linearLayoutSignOut.visibility = View.GONE
-                    txtSignOut.visibility = View.VISIBLE
-                }
-
                 txtSignOut.setOnClickListener {
-                    linearLayoutSignOut.visibility = View.VISIBLE
-                    txtSignOut.visibility = View.GONE
+                    DialogUtil().customDialog( R.drawable.icon_log_out, "Are you sure want to sign out?", "", "Cancel", "Sign Out", object : DialogUtil.OnAlertDialogClick{
+                        override fun onLabelCancelClick() {
+                            SessionPreferences().SESSION_STATUS = false
+                            SessionVariable.SESSION_STATUS.value = false
+                            finish()
+                            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                        }
+                    }, this@AccountActivity
+
+                    )
+//                    linearLayoutSignOut.visibility = View.VISIBLE
+//                    txtSignOut.visibility = View.GONE
                 }
 
-                txtYes.setOnClickListener {
-                    SessionPreferences().SESSION_STATUS = false
-                    SessionVariable.SESSION_STATUS.value = false
-                    finish()
-                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
-                }
+//                txtYes.setOnClickListener {
+//                    SessionPreferences().SESSION_STATUS = false
+//                    SessionVariable.SESSION_STATUS.value = false
+//                    finish()
+//                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+//                }
 
             }
             // Code
