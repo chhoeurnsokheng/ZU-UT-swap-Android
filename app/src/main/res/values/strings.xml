@@ -425,5 +425,6 @@
     <string name="try_again">Try Again</string>
     <string name="view_in_google_maps">View in Google Maps</string>
     <string name="terms_and_and_conditions"><![CDATA[Terms & Condition]]></string>
+    <string name="version">Version</string>
 
 </resources>

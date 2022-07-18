@@ -40,7 +40,7 @@ class AccountActivity :
                 txtNo.text = Html.fromHtml("<u>No</u>")
                 txtYes.text = Html.fromHtml("<u>Yes</u>")
                 txtQuestion.text = Html.fromHtml("<u>Are you sure?</u>") // "  ${BuildConfig.VERSION_NAME} "+
-
+                txtVersion.text ="Version" + "  ${BuildConfig.VERSION_NAME} "
 
 
                 if(SessionPreferences().SESSION_USER_PROFILE != "")
