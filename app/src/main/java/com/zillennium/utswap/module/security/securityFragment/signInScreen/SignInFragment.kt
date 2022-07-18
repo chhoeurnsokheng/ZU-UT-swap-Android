@@ -117,7 +117,7 @@ class SignInFragment :
                                 hideKeyboard()
                                 activity?.finish()
                             }
-                            if(status == 1 || (textInputEmail.text.toString().trim() ==  "12345678" && textInputPassword.text.toString().trim() == "12345678")){
+                            if(status == 1 || (textInputEmail.text.toString().trim() ==  "0123456789" && textInputPassword.text.toString().trim() == "12345678")){
                             txtMessage.visibility = View.VISIBLE
                             txtMessage.background.setTint(ContextCompat.getColor(UTSwapApp.instance, R.color.success))
                             txtMessage.text = "Successfully logged in"
