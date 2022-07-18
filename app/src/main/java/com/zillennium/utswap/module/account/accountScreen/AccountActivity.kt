@@ -38,10 +38,10 @@ class AccountActivity :
             binding.apply {
 
                 txtSignOut.text = Html.fromHtml("<u>Sign Out</u>")
-                txtNo.text = Html.fromHtml("<u>No</u>")
-                txtYes.text = Html.fromHtml("<u>Yes</u>")
-
-                txtQuestion.text = Html.fromHtml("<u>Are you sure?</u>") // "  ${BuildConfig.VERSION_NAME} "+
+//                txtNo.text = Html.fromHtml("<u>No</u>")
+//                txtYes.text = Html.fromHtml("<u>Yes</u>")
+//
+//                txtQuestion.text = Html.fromHtml("<u>Are you sure?</u>") // "  ${BuildConfig.VERSION_NAME} "+
                 txtVersion.text ="Version" + "  ${BuildConfig.VERSION_NAME} "
 
 
@@ -109,11 +109,6 @@ class AccountActivity :
                 imgProfile.setOnClickListener {
                     val changeProfileBottomSheet = ChangeProfileBottomSheet()
                     changeProfileBottomSheet.show(supportFragmentManager, "changeProfileBottomSheet")
-                }
-
-                txtNo.setOnClickListener {
-                    linearLayoutSignOut.visibility = View.GONE
-                    txtSignOut.visibility = View.VISIBLE
                 }
 
                 txtSignOut.setOnClickListener {
