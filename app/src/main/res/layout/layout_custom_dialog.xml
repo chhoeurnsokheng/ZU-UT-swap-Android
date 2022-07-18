@@ -33,6 +33,7 @@
                     android:layout_marginTop="@dimen/dimen_16"
                     android:layout_marginBottom="@dimen/dimen_32"
                     android:textAlignment="center"
+                    android:text=""
                     android:textAppearance="@style/medium_14"
                     android:textColor="@color/black_333333" />
 
@@ -43,18 +44,30 @@
                     android:layout_marginHorizontal="@dimen/dimen_20"
                     android:layout_marginBottom="@dimen/dimen_32"
                     android:textAlignment="center"
+                    android:visibility="gone"
                     android:textAppearance="@style/regular_10"
                     android:textColor="@color/black_333333" />
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btn_cancel"
+                    android:id="@+id/btn_positive"
                     style="?android:attr/borderlessButtonStyle"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dimen_48"
                     android:background="@drawable/bg_gray_ripple_radius_100"
-                    android:textAppearance="@style/regular_14"
+                    android:textAppearance="@style/regular_18"
                     android:textColor="@color/primary"
-                    app:backgroundTint="@color/gray_F7F7F7" />
+                    app:backgroundTint="@color/danger" />
+
+                <TextView
+                    android:id="@+id/tv_cancel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/dimen_20"
+                    android:layout_marginBottom="@dimen/dimen_32"
+                    android:textAlignment="center"
+                    android:layout_marginTop="@dimen/dimen_25"
+                    android:textAppearance="@style/regular_16"
+                    android:textColor="@color/black_000000" />
             </LinearLayout>
 
         </com.google.android.material.card.MaterialCardView>
