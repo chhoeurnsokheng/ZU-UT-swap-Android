@@ -27,7 +27,7 @@ class PrivacyPolicyActivity: BaseMvpActivity<PrivacyPolicyView.View, PrivacyPoli
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_arrow_left)
         supportActionBar?.setDisplayShowTitleEnabled(false)
         binding.includeLayout.apply {
-            tbTitle.setText(R.string.operational_rules)
+            tbTitle.setText(R.string.privacy_policy)
             tb.setNavigationOnClickListener {
                 finish()
             }

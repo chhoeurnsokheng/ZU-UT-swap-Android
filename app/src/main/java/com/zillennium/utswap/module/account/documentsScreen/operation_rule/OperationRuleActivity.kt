@@ -28,7 +28,7 @@ class OperationRuleActivity : BaseMvpActivity<OperationRuleView.View, OperationR
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_arrow_left)
         supportActionBar?.setDisplayShowTitleEnabled(false)
         binding.includeLayout.apply {
-            tbTitle.setText(R.string.privacy_policy)
+            tbTitle.setText(R.string.operational_rules)
             tb.setNavigationOnClickListener {
                 finish()
             }
