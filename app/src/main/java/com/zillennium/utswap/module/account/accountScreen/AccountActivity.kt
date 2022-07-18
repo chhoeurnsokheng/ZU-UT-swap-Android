@@ -42,7 +42,7 @@ class AccountActivity :
 //                txtYes.text = Html.fromHtml("<u>Yes</u>")
 //
 //                txtQuestion.text = Html.fromHtml("<u>Are you sure?</u>") // "  ${BuildConfig.VERSION_NAME} "+
-                txtVersion.text ="Version" + "  ${BuildConfig.VERSION_NAME} "
+                txtVersion.text ="Version" +" APT" + "  ${BuildConfig.VERSION_NAME} "
 
 
 
