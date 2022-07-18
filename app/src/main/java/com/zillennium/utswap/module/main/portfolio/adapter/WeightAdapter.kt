@@ -5,8 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.zillennium.utswap.R
+import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.models.portfolio.Weight
 
 class WeightAdapter (
@@ -33,6 +35,7 @@ class WeightAdapter (
         internal val txtTitleProject: TextView = itemView.findViewById(R.id.txt_title_project)
         internal val txtPercent: TextView = itemView.findViewById(R.id.txt_percent)
         internal val line: View = itemView.findViewById(R.id.line)
+        internal val percent: TextView = itemView.findViewById(R.id.percent)
     }
 
     @SuppressLint("SetTextI18n")
@@ -41,6 +44,8 @@ class WeightAdapter (
 
         holder.txtTitleProject.text = weight.projectName
         holder.txtPercent.text = weight.txtPercent.toString()
+        holder.txtPercent.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.black_222222))
+        holder.percent.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.black_222222))
 
         if (arrayList.size == 1) {
             holder.line.visibility = View.GONE

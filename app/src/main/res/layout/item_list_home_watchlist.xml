@@ -9,8 +9,8 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/layout_watchlist_card"
-            android:layout_width="@dimen/dimen_116"
-            android:layout_height="@dimen/dimen_110"
+            android:layout_width="118dp"
+            android:layout_height="92dp"
             android:layout_marginTop="@dimen/dimen_5"
             android:layout_marginBottom="@dimen/dimen_16"
             android:layout_marginHorizontal="@dimen/dimen_10"

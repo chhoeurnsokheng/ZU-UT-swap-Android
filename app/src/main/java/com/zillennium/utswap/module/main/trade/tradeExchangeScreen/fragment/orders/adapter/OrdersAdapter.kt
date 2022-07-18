@@ -3,13 +3,18 @@ package com.zillennium.utswap.module.main.trade.tradeExchangeScreen.fragment.ord
 import android.annotation.SuppressLint
 import android.graphics.Color
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.zillennium.utswap.R
+import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.models.orders.Orders
+import com.zillennium.utswap.utils.OnSwipeTouchListener
 
 class OrdersAdapter (
     arrayList: ArrayList<Orders>,
@@ -43,7 +48,7 @@ class OrdersAdapter (
         internal val btnDelete: LinearLayout = itemView.findViewById(R.id.btn_delete)
     }
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint("SetTextI18n", "ClickableViewAccessibility")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val orders: Orders = arrayList[position]
 
@@ -76,21 +81,53 @@ class OrdersAdapter (
                 }
             }
         }
+        holder.btnArrow.isEnabled = true
+        holder.btnArrow.isClickable = true
+        holder.btnArrow.isFocusable = true
+        holder.btnArrow.isFocusableInTouchMode = true
+
+        holder.btnArrow.setOnTouchListener(object : OnSwipeTouchListener(UTSwapApp.instance){
+           /* override fun onSwipeLeft() {
+                holder.btnArrow.visibility = View.GONE
+                holder.btnDelete.visibility = View.VISIBLE
+                holder.btnDelete.setOnClickListener {
+                    onClickDelete.clickMe()
+                    holder.btnDelete.visibility = View.GONE
+                    holder.btnArrow.visibility = View.VISIBLE
+                }
+            }*/
+
+            override fun onTouch(v: View, event: MotionEvent): Boolean {
+                if (event.action == MotionEvent.ACTION_UP) {
+                    holder.btnArrow.visibility = View.GONE
+                    holder.btnDelete.visibility = View.VISIBLE
+                    holder.btnDelete.setOnClickListener {
+                        onClickDelete.clickMe()
+                        holder.btnDelete.visibility = View.GONE
+                        holder.btnArrow.visibility = View.VISIBLE
+                    }
+
+                }
+                return true
+            }
+
+        })
 
         holder.itemView.setOnClickListener {
             holder.btnArrow.visibility = View.VISIBLE
             holder.btnDelete.visibility = View.GONE
         }
 
+        holder.btnDelete.setOnClickListener {
+            onClickDelete.clickMe()
+            holder.btnDelete.visibility = View.GONE
+            holder.btnArrow.visibility = View.VISIBLE
+        }
+
+
         holder.btnArrow.setOnClickListener {
             holder.btnArrow.visibility = View.GONE
             holder.btnDelete.visibility = View.VISIBLE
-
-            holder.btnDelete.setOnClickListener {
-                onClickDelete.clickMe()
-                holder.btnDelete.visibility = View.GONE
-                holder.btnArrow.visibility = View.VISIBLE
-            }
         }
     }
 

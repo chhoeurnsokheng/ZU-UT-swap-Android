@@ -1,5 +1,6 @@
 package com.zillennium.utswap.module.security.securityFragment.signInScreen
 
+import android.content.Context
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Handler
@@ -8,11 +9,13 @@ import android.text.TextWatcher
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
+import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
 import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
@@ -107,7 +110,12 @@ class SignInFragment :
                                 txtMessage.text = "Successfully logged in"
                                 SessionPreferences().SESSION_USERNAME = textInputEmail.text.toString().trim()
                                 SessionPreferences().SESSION_PASSWORD = textInputPassword.text.toString().trim()
-                                findNavController().navigate(R.id.action_to_verification_security_fragment)
+                                //findNavController().navigate(R.id.action_to_verification_security_fragment)
+
+                                SessionPreferences().SESSION_STATUS = true
+                                SessionVariable.SESSION_STATUS.value = true
+                                hideKeyboard()
+                                activity?.finish()
                             }else{
                                 txtMessage.visibility = View.VISIBLE
                                 txtMessage.text = "Invalid email and password"
@@ -255,6 +263,12 @@ class SignInFragment :
             }
             textInputPassword.setSelection(textInputPassword.text.length)
         }
+    }
+
+    private fun hideKeyboard() {
+        val inputManager =
+            requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputManager.hideSoftInputFromWindow(view?.windowToken, 0)
     }
 }
 

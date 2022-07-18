@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_marginBottom="@dimen/dimen_120"
-            >
+            android:layout_above="@+id/ll_bottom">
 
             <RelativeLayout
                 android:id="@+id/lay_btn_back"
@@ -281,7 +281,7 @@
 
                         <FrameLayout
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/dimen_42"
+                            android:layout_height="@dimen/dimen_38"
                             android:layout_marginTop="@dimen/dimen_40"
                             android:background="@drawable/bg_tabs">
 
@@ -320,7 +320,7 @@
                                     android:layout_weight="1"
                                     android:gravity="center"
                                     android:text="@string/order_book"
-                                    android:textAppearance="@style/regular_16"
+                                    android:textAppearance="@style/regular_14"
                                     android:textColor="@color/white" />
 
                                 <TextView
@@ -330,7 +330,7 @@
                                     android:layout_weight="1"
                                     android:gravity="center"
                                     android:text="@string/chart"
-                                    android:textAppearance="@style/regular_16"
+                                    android:textAppearance="@style/regular_14"
                                     android:textColor="@color/primary" />
 
                             </LinearLayout>
@@ -354,7 +354,7 @@
 
                         <FrameLayout
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/dimen_42"
+                            android:layout_height="@dimen/dimen_38"
                             android:layout_marginTop="@dimen/dimen_30"
                             android:background="@drawable/bg_tabs">
 
@@ -521,8 +521,8 @@
             android:id="@+id/lay_coord"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="visible"
-            android:layout_alignParentBottom="true">
+            android:layout_alignParentBottom="true"
+            android:visibility="visible">
             <!-- Persistent Bottom Sheet -->
             <include
                 android:id="@+id/persistent_bottom_sheet"
@@ -531,6 +531,14 @@
 
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:id="@+id/ll_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="110dp"
+            android:layout_alignParentBottom="true"
+            />
     </RelativeLayout>
 
 

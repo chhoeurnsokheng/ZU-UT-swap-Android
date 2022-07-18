@@ -15,7 +15,9 @@ class DialogUtil {
         icon: Int,
         title: String,
         message: String,
+        labelCancel: String,
         buttonTitle: String,
+        onAlertDialogClick: OnAlertDialogClick,
         context: Context
     ) {
 
@@ -42,11 +44,16 @@ class DialogUtil {
             }
 
             mBinding?.apply {
-                btnCancel.text = buttonTitle
+                btnPositive.text = buttonTitle
                 tvMessage.text = message
                 tvTitle.text = title
+                tvCancel.text = labelCancel
                 ivIcon.setImageResource(icon)
-                btnCancel.setOnClickListener {
+                btnPositive.setOnClickListener {
+                    onAlertDialogClick.onLabelCancelClick()
+                    builder.dismiss()
+                }
+                tvCancel.setOnClickListener {
                     builder.dismiss()
                 }
             }
@@ -56,5 +63,9 @@ class DialogUtil {
         }
 
 
+    }
+
+    interface OnAlertDialogClick {
+        fun onLabelCancelClick()
     }
 }

@@ -1,9 +1,11 @@
 package com.zillennium.utswap.module.security.securityFragment.termConditionScreen
 
+import android.view.KeyEvent
 import androidx.navigation.fragment.findNavController
 import com.zillennium.utswap.R
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentSecurityTermConditionBinding
+import com.zillennium.utswap.module.security.securityActivity.registerScreen.RegisterActivity
 
 class TermConditionFragment :
     BaseMvpFragment<TermConditionView.View, TermConditionView.Presenter, FragmentSecurityTermConditionBinding>(),
@@ -18,6 +20,7 @@ class TermConditionFragment :
             binding.apply {
 
                 imgBack.setOnClickListener {
+                    (activity as RegisterActivity).fromVerify = true
                     findNavController().popBackStack()
                 }
 
@@ -103,7 +106,27 @@ If You have any inquiry, special request or assistance with regard to any of the
         } catch (error: Exception) {
             // Must be safe
         }
+        activity?.apply {
+
+        }
+
+
+
     }
+
+    override fun onResume() {
+        super.onResume()
+        requireView().isFocusableInTouchMode = true
+        requireView().requestFocus()
+        requireView().setOnKeyListener { v, keyCode, event ->
+            if (event.action === KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
+                (activity as RegisterActivity).fromVerify = true
+            }
+            false
+        }
+    }
+
+
 
 
 

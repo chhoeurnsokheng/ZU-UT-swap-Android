@@ -19,6 +19,7 @@ import com.zillennium.utswap.module.account.customerSupportScreen.CustomerSuppor
 import com.zillennium.utswap.module.account.documentsScreen.DocumentsActivity
 import com.zillennium.utswap.module.account.lockTimeOutScreen.LockTimeOutActivity
 import com.zillennium.utswap.module.account.referralInformationScreen.ReferralInformationActivity
+import com.zillennium.utswap.utils.DialogUtil
 
 class AccountActivity :
     BaseMvpActivity<AccountView.View, AccountView.Presenter, ActivityAccountBinding>(),
@@ -39,8 +40,11 @@ class AccountActivity :
                 txtSignOut.text = Html.fromHtml("<u>Sign Out</u>")
                 txtNo.text = Html.fromHtml("<u>No</u>")
                 txtYes.text = Html.fromHtml("<u>Yes</u>")
+
                 txtQuestion.text = Html.fromHtml("<u>Are you sure?</u>") // "  ${BuildConfig.VERSION_NAME} "+
                 txtVersion.text ="Version" + "  ${BuildConfig.VERSION_NAME} "
+
+
 
 
                 if(SessionPreferences().SESSION_USER_PROFILE != "")
@@ -113,16 +117,26 @@ class AccountActivity :
                 }
 
                 txtSignOut.setOnClickListener {
-                    linearLayoutSignOut.visibility = View.VISIBLE
-                    txtSignOut.visibility = View.GONE
+                    DialogUtil().customDialog( R.drawable.icon_log_out, "Are you sure want to sign out?", "", "Cancel", "Sign Out", object : DialogUtil.OnAlertDialogClick{
+                        override fun onLabelCancelClick() {
+                            SessionPreferences().SESSION_STATUS = false
+                            SessionVariable.SESSION_STATUS.value = false
+                            finish()
+                            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                        }
+                    }, this@AccountActivity
+
+                    )
+//                    linearLayoutSignOut.visibility = View.VISIBLE
+//                    txtSignOut.visibility = View.GONE
                 }
 
-                txtYes.setOnClickListener {
-                    SessionPreferences().SESSION_STATUS = false
-                    SessionVariable.SESSION_STATUS.value = false
-                    finish()
-                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
-                }
+//                txtYes.setOnClickListener {
+//                    SessionPreferences().SESSION_STATUS = false
+//                    SessionVariable.SESSION_STATUS.value = false
+//                    finish()
+//                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+//                }
 
             }
             // Code

@@ -149,12 +149,12 @@
 
                             <com.google.android.material.button.MaterialButton
                                 android:id="@+id/btn_signIn"
+                                style="?android:attr/borderlessButtonStyle"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:alpha="1"
                                 android:background="@drawable/bg_circular"
                                 android:hint="@string/sign_in"
-                                style="?android:attr/borderlessButtonStyle"
                                 android:textAppearance="@style/bold_18"
                                 android:textColorHint="@color/white" />
                             <ProgressBar
