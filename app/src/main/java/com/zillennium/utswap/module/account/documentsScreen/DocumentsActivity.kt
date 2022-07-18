@@ -5,6 +5,9 @@ import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityAccountDocumentsBinding
+import com.zillennium.utswap.module.account.documentsScreen.contract.ContractActivity
+import com.zillennium.utswap.module.account.documentsScreen.operation_rule.OperationRuleActivity
+import com.zillennium.utswap.module.account.documentsScreen.privacy.PrivacyPolicyActivity
 import com.zillennium.utswap.module.account.documentsScreen.termsConditions.TermsConditionsActivity
 
 class DocumentsActivity :
@@ -25,7 +28,16 @@ class DocumentsActivity :
                     val intent = Intent(UTSwapApp.instance, TermsConditionsActivity::class.java)
                     startActivity(intent)
                 }
-
+                txtContract.setOnClickListener {
+                    startActivity(Intent(this@DocumentsActivity,ContractActivity::class.java))
+                }
+                txtOperationRule.setOnClickListener {
+                    startActivity(Intent(this@DocumentsActivity,OperationRuleActivity::class.java))
+                }
+                txtPrivacyPolicy.setOnClickListener {
+                    startActivity(Intent(this@DocumentsActivity,PrivacyPolicyActivity::class.java))
+                }
+                
             }
             // Code
         } catch (error: Exception) {

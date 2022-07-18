@@ -8,6 +8,7 @@ import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivitySplashScreenBinding
 import com.zillennium.utswap.screens.navbar.navbar.MainActivity
+import java.util.*
 
 
 @SuppressLint("CustomSplashScreen")
@@ -22,6 +23,10 @@ class SplashScreenActivity :
         super.initView()
         try {
             binding.apply {
+                val calendar: Calendar = Calendar.getInstance()
+                val year: Int = calendar.get(Calendar.YEAR)
+                txtCopyright.text = "Copyright "+"$year"
+
                 Handler().postDelayed({
                     val intent = Intent(UTSwapApp.instance, MainActivity::class.java)
                     startActivity(intent)
