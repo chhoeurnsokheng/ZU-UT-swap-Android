@@ -24,6 +24,7 @@ class FundPasswordDialog() : DialogFragment() {
 
     private var binding: DialogSecurityFundPasswordBinding? = null
     private var codes: String = ""
+    private var subCode: String = ""
 
     override fun getTheme(): Int {
         return R.style.FullScreenDialog
@@ -112,11 +113,20 @@ class FundPasswordDialog() : DialogFragment() {
                 pingCode.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_circular_border)
             }
 
-            for (i in codes.indices) {
-                layPingCode.getChildAt(i).background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_circular)
+            if (codes.isNotEmpty()) {
+                for (i in codes.indices) {
+                    layPingCode.getChildAt(i).background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_circular)
+                }
+            } else {
+                for (i in subCode.indices) {
+                    layPingCode.getChildAt(i).background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_circular)
+                }
             }
 
+
+
             if(codes.length == 4){
+                subCode = codes
                 layProgressBar.visibility = View.VISIBLE
                 Handler().postDelayed({
                     if(codes == "1111"){
@@ -139,6 +149,7 @@ class FundPasswordDialog() : DialogFragment() {
                             pingCode.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
                         }
                         layProgressBar.visibility = View.GONE
+                        codes = ""
                     }
 
                 }, 3000)
@@ -157,10 +168,18 @@ class FundPasswordDialog() : DialogFragment() {
     }
 
     private fun removeNumber(){
-        if(codes.length in 1..4){
-            codes = codes.substring(0, codes.length -1)
-            setPingCode()
+        if (codes.isNotEmpty()) {
+            if(codes.length in 1..4){
+                codes = codes.substring(0, codes.length -1)
+                setPingCode()
+            }
+        } else {
+            if(subCode.length in 1..4){
+                subCode = subCode.substring(0, subCode.length -1)
+                setPingCode()
+            }
         }
+
 
     }
 
