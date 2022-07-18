@@ -104,7 +104,7 @@ class SignInFragment :
 
                         Handler().postDelayed({
                             val status: Int = 0
-                            if(status == 1 || (textInputEmail.text.toString().trim() == "utswap@gmail.com" && textInputPassword.text.toString().trim() == "12345678")){
+                            if(status == 1 || (textInputEmail.text.toString().trim() ==  "utswap@gmail.com" && textInputPassword.text.toString().trim() == "12345678")){
                                 txtMessage.visibility = View.VISIBLE
                                 txtMessage.background.setTint(ContextCompat.getColor(UTSwapApp.instance, R.color.success))
                                 txtMessage.text = "Successfully logged in"
@@ -116,7 +116,20 @@ class SignInFragment :
                                 SessionVariable.SESSION_STATUS.value = true
                                 hideKeyboard()
                                 activity?.finish()
-                            }else{
+                            }
+                            if(status == 1 || (textInputEmail.text.toString().trim() ==  "12345678" && textInputPassword.text.toString().trim() == "12345678")){
+                            txtMessage.visibility = View.VISIBLE
+                            txtMessage.background.setTint(ContextCompat.getColor(UTSwapApp.instance, R.color.success))
+                            txtMessage.text = "Successfully logged in"
+                            SessionPreferences().SESSION_USERNAME = textInputEmail.text.toString().trim()
+                            SessionPreferences().SESSION_PASSWORD = textInputPassword.text.toString().trim()
+                            //findNavController().navigate(R.id.action_to_verification_security_fragment)
+
+                            SessionPreferences().SESSION_STATUS = true
+                            SessionVariable.SESSION_STATUS.value = true
+                            hideKeyboard()
+                            activity?.finish()
+                        } else{
                                 txtMessage.visibility = View.VISIBLE
                                 txtMessage.text = "Invalid email and password"
                             }
