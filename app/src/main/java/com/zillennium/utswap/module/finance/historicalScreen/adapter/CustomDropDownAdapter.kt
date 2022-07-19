@@ -50,8 +50,8 @@ class CustomDropDownAdapter(context: Context, val dataSource: List<String>) : Ar
 
         when(title){
             "ALL" -> layItem.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
-            "BUY" -> layItem.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.success))
-            "SELL" -> layItem.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
+            "SELL" -> layItem.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.success))
+            "BUY" -> layItem.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
         }
         return view
     }
@@ -72,10 +72,10 @@ class CustomDropDownAdapter(context: Context, val dataSource: List<String>) : Ar
 
 
         when(title){
-            "BUY" -> {
+            "SELL" -> {
                 layItem.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.success))
             }
-            "SELL" -> {
+            "BUY" -> {
                 layItem.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
             }
             else -> {

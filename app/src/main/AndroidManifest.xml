@@ -28,9 +28,11 @@
         android:theme="@style/Theme.UTSwapApp"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
+
         <activity
-           android:name=".module.account.documentsScreen.contract.ContractActivity"
-            android:exported="false"
+            android:name=".module.account.documentsScreen.contract.ContractActivity"
+            android:configChanges="uiMode|keyboardHidden|screenSize|orientation|screenLayout"
+            android:resizeableActivity="true"
             android:screenOrientation="portrait"/>
         <activity
            android:name=".module.account.documentsScreen.operation_rule.OperationRuleActivity"
@@ -72,90 +74,91 @@
         <activity
             android:name="com.zillennium.utswap.module.finance.balanceScreen.FinanceBalanceActivity"
             android:configChanges="uiMode|keyboardHidden|screenSize|orientation|screenLayout"
-            android:exported="false"
+            android:resizeableActivity="true"
             android:label="@string/finance_balance"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.zillennium.utswap.module.finance.lockUpScreen.FinanceLockUpActivity"
             android:configChanges="uiMode|keyboardHidden|screenSize|orientation|screenLayout"
-            android:exported="false"
+            android:resizeableActivity="true"
             android:label="@string/finance"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.zillennium.utswap.module.finance.subscriptionScreen.FinanceSubscriptionsActivity"
             android:configChanges="uiMode|keyboardHidden|screenSize|orientation|screenLayout"
-            android:exported="false"
+            android:resizeableActivity="true"
             android:label="@string/finance_lock_up"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.zillennium.utswap.module.finance.historicalScreen.FinanceHistoricalActivity"
             android:configChanges="uiMode|keyboardHidden|screenSize|orientation|screenLayout"
-            android:exported="false"
+            android:resizeableActivity="true"
             android:label="@string/finance_historical"
             android:screenOrientation="portrait" /> <!-- End Activity Finance -->
         <!-- Activity Security -->
         <activity
             android:name="com.zillennium.utswap.module.security.securityActivity.registerScreen.RegisterActivity"
             android:configChanges="uiMode|keyboardHidden|screenSize|orientation|screenLayout"
-            android:exported="false"
+            android:resizeableActivity="true"
             android:label="@string/register"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name="com.zillennium.utswap.module.security.securityActivity.signInScreen.SignInActivity"
             android:configChanges="uiMode|keyboardHidden|screenSize|orientation|screenLayout"
-            android:exported="false"
+            android:resizeableActivity="true"
             android:label="@string/sign_in"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name="com.zillennium.utswap.module.security.securityActivity.resetPasswordScreen.ResetPasswordActivity"
             android:configChanges="uiMode|keyboardHidden|screenSize|orientation|screenLayout"
-            android:exported="false"
+            android:resizeableActivity="true"
             android:label="@string/reset_password"
             android:screenOrientation="portrait" /> <!-- End Activity Security -->
         <!-- Activity System -->
         <activity
             android:name="com.zillennium.utswap.module.system.welcomeScreen.WelcomeActivity"
             android:configChanges="uiMode|keyboardHidden|screenSize|orientation|screenLayout"
-            android:exported="false"
+            android:resizeableActivity="true"
             android:label="@string/welcome"
             android:screenOrientation="portrait" /> <!-- Activity Finance -->
         <activity
             android:name=".module.finance.depositScreen.DepositActivity"
             android:configChanges="uiMode|keyboardHidden|screenSize|orientation|screenLayout"
-            android:exported="false"
+            android:resizeableActivity="true"
             android:label="@string/deposit"
             android:screenOrientation="portrait" /> <!-- End Activity System -->
         <!-- Activity Project -->
         <activity
             android:name="com.zillennium.utswap.module.project.projectScreen.ProjectActivity"
             android:configChanges="uiMode|keyboardHidden|screenSize|orientation|screenLayout"
-            android:exported="false"
+            android:resizeableActivity="true"
             android:label="@string/project"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.zillennium.utswap.module.project.projectInfoScreen.ProjectInfoActivity"
-            android:exported="false"
+            android:configChanges="uiMode|keyboardHidden|screenSize|orientation|screenLayout"
+            android:resizeableActivity="true"
             android:label="@string/project_info"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.zillennium.utswap.module.project.subscriptionScreen.SubscriptionActivity"
             android:configChanges="uiMode|keyboardHidden|screenSize|orientation|screenLayout"
-            android:exported="false"
+            android:resizeableActivity="true"
             android:label="@string/subscription"
             android:screenOrientation="portrait" /> <!-- End Activity Project -->
         <!-- Activity Trade -->
         <activity
             android:name="com.zillennium.utswap.module.main.trade.tradeExchangeScreen.TradeExchangeActivity"
             android:configChanges="uiMode|keyboardHidden|screenSize|orientation|screenLayout"
-            android:exported="false"
+            android:resizeableActivity="true"
             android:label="@string/trade_exchange"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.zillennium.utswap.module.main.trade.tradeDetailScreen.TransactionDetailActivity"
             android:configChanges="uiMode|keyboardHidden|screenSize|orientation|screenLayout"
-            android:exported="false"
+            android:resizeableActivity="true"
             android:label="@string/trade_exchange"
             android:screenOrientation="portrait" /> <!-- End Activity Trade -->
         <!-- <activity -->
@@ -167,109 +170,109 @@
         <activity
             android:name="com.zillennium.utswap.module.finance.addCardScreen.DepositAddCardActivity"
             android:configChanges="uiMode|keyboardHidden|screenSize|orientation|screenLayout"
-            android:exported="false"
+            android:resizeableActivity="true"
             android:label="@string/deposit"
             android:screenOrientation="portrait" />
         <activity
             android:name=".module.finance.withdrawScreen.WithdrawActivity"
             android:configChanges="uiMode|keyboardHidden|screenSize|orientation|screenLayout"
-            android:exported="false"
+            android:resizeableActivity="true"
             android:label="@string/deposit"
             android:screenOrientation="portrait" />
         <activity
             android:name=".module.finance.withdrawScreen.addBank.AddBankActivity"
             android:configChanges="uiMode|keyboardHidden|screenSize|orientation|screenLayout"
-            android:exported="false"
+            android:resizeableActivity="true"
             android:label="@string/deposit"
             android:screenOrientation="portrait" /> <!-- Notification screen -->
         <activity
             android:name=".module.system.notification.NotificationActivity"
             android:configChanges="uiMode|keyboardHidden|screenSize|orientation|screenLayout"
-            android:exported="false"
+            android:resizeableActivity="true"
             android:label="@string/notifications"
             android:screenOrientation="portrait" /> <!-- Account Screen -->
         <activity
             android:name=".module.account.accountScreen.AccountActivity"
             android:configChanges="uiMode|keyboardHidden|screenSize|orientation|screenLayout"
-            android:exported="false"
+            android:resizeableActivity="true"
             android:label="@string/account"
             android:screenOrientation="portrait" /> <!-- Account Detail Screen -->
         <activity
             android:name="com.zillennium.utswap.module.account.accountDetailScreen.AccountDetailActivity"
             android:configChanges="uiMode|keyboardHidden|screenSize|orientation|screenLayout"
-            android:exported="false"
+            android:resizeableActivity="true"
             android:label="@string/account"
             android:screenOrientation="portrait" /> <!-- Lock Timeout Screen -->
         <activity
             android:name=".module.account.lockTimeOutScreen.LockTimeOutActivity"
             android:configChanges="uiMode|keyboardHidden|screenSize|orientation|screenLayout"
-            android:exported="false"
+            android:resizeableActivity="true"
             android:label="@string/account"
             android:screenOrientation="portrait" /> <!-- Add phone number Screen -->
         <activity
             android:name=".module.account.addNumberScreen.AddNumberActivity"
             android:configChanges="uiMode|keyboardHidden|screenSize|orientation|screenLayout"
-            android:exported="false"
+            android:resizeableActivity="true"
             android:label="@string/add_phone_number"
             android:screenOrientation="portrait" /> <!-- Customer support Screen -->
         <activity
             android:name=".module.account.customerSupportScreen.CustomerSupportActivity"
             android:configChanges="uiMode|keyboardHidden|screenSize|orientation|screenLayout"
-            android:exported="false"
+            android:resizeableActivity="true"
             android:label="@string/customer_support"
             android:screenOrientation="portrait" /> <!-- Referral Screen -->
         <activity
             android:name=".module.account.referralInformationScreen.ReferralInformationActivity"
             android:configChanges="uiMode|keyboardHidden|screenSize|orientation|screenLayout"
-            android:exported="false"
+            android:resizeableActivity="true"
             android:label="@string/referral_information"
             android:screenOrientation="portrait" /> <!-- Documents account Screen -->
         <activity
             android:name=".module.account.documentsScreen.DocumentsActivity"
             android:configChanges="uiMode|keyboardHidden|screenSize|orientation|screenLayout"
-            android:exported="false"
+            android:resizeableActivity="true"
             android:label="@string/documents"
             android:screenOrientation="portrait" /> <!-- Terms conditions Screen -->
         <activity
             android:name=".module.account.documentsScreen.termsConditions.TermsConditionsActivity"
             android:configChanges="uiMode|keyboardHidden|screenSize|orientation|screenLayout"
-            android:exported="false"
+            android:resizeableActivity="true"
             android:label="@string/documents"
             android:screenOrientation="portrait" /> <!-- Logs Screen -->
         <activity
             android:name=".module.account.logsScreen.LogsActivity"
             android:configChanges="uiMode|keyboardHidden|screenSize|orientation|screenLayout"
-            android:exported="false"
+            android:resizeableActivity="true"
             android:label="@string/log_s"
             android:screenOrientation="portrait" /> <!-- Logs Screen -->
         <activity
             android:name="com.zillennium.utswap.module.security.securityActivity.changeLoginPassword.ChangeLoginPasswordActivity"
             android:configChanges="uiMode|keyboardHidden|screenSize|orientation|screenLayout"
-            android:exported="false"
+            android:resizeableActivity="true"
             android:label="@string/change_login_password"
             android:screenOrientation="portrait" /> <!-- Change Fund Password Screen -->
         <activity
             android:name="com.zillennium.utswap.module.security.securityActivity.changeFundPassword.ChangeFundPasswordActivity"
             android:configChanges="uiMode|keyboardHidden|screenSize|orientation|screenLayout"
-            android:exported="false"
+            android:resizeableActivity="true"
             android:label="@string/forgot_password"
             android:screenOrientation="portrait" /> <!-- Activity News Detail -->
         <activity
             android:name="com.zillennium.utswap.module.main.news.newsDetail.NewsDetailActivity"
             android:configChanges="uiMode|keyboardHidden|screenSize|orientation|screenLayout"
-            android:exported="false"
+            android:resizeableActivity="true"
             android:label="@string/news"
             android:screenOrientation="portrait" /> <!-- Activity Finance Transfer -->
         <activity
             android:name=".module.finance.transferScreen.TransferActivity"
             android:configChanges="uiMode|keyboardHidden|screenSize|orientation|screenLayout"
-            android:exported="false"
+            android:resizeableActivity="true"
             android:label="@string/transfer_"
             android:screenOrientation="portrait" /> <!-- Activity Open Camera Change Profile -->
         <activity
             android:name=".module.account.accountScreen.activity.ChangeProfileCameraActivity"
             android:configChanges="uiMode|keyboardHidden|screenSize|orientation|screenLayout"
-            android:exported="false"
+            android:resizeableActivity="true"
             android:label="@string/referral_information"
             android:screenOrientation="portrait" />
     </application>
