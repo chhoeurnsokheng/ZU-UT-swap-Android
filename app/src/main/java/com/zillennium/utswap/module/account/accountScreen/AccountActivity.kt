@@ -34,14 +34,11 @@ class AccountActivity :
 
     override fun initView() {
         super.initView()
-//        try {
+
             binding.apply {
 
                 txtSignOut.text = Html.fromHtml("<u>Sign Out</u>")
-//                txtNo.text = Html.fromHtml("<u>No</u>")
-//                txtYes.text = Html.fromHtml("<u>Yes</u>")
-//
-//                txtQuestion.text = Html.fromHtml("<u>Are you sure?</u>") // "  ${BuildConfig.VERSION_NAME} "+
+
                 txtVersion.text ="Version" +" APT" + "  ${BuildConfig.VERSION_NAME} "
 
 
@@ -122,22 +119,13 @@ class AccountActivity :
                     }, this@AccountActivity
 
                     )
-//                    linearLayoutSignOut.visibility = View.VISIBLE
-//                    txtSignOut.visibility = View.GONE
+
                 }
 
-//                txtYes.setOnClickListener {
-//                    SessionPreferences().SESSION_STATUS = false
-//                    SessionVariable.SESSION_STATUS.value = false
-//                    finish()
-//                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
-//                }
+
 
             }
-            // Code
-//        } catch (error: Exception) {
-//            // Must be safe
-//        }
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

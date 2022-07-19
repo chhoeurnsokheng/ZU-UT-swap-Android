@@ -66,8 +66,8 @@ android {
             buildConfigField "String", 'CORE_SUB_DOMAIN', '"demo"'
             buildConfigField "String", 'CORE_APP_ID', '"37fe30c0-ad17-11ea-b572-31a193d8c9ee"'
             buildConfigField "String", 'CORE_APP_SECRET', '"GPQ6Ccy8EJ25s1xY6bQhZfRToHhnYbHc7oY7"'
-
-            buildConfigField "String", 'BASE_URL', '"https://backend.iserp.cloud/"'
+            
+            buildConfigField "String", 'BASE_URL', '"https://dev-staging.zillionunited.io/"'
         }
         stage {
             debuggable true
@@ -76,13 +76,13 @@ android {
             versionNameSuffix ".$build"
             signingConfig signingConfigs.stage
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-          //  buildConfigField "String", "SERVER_URL", '"https://api.z1platform.com/api/' + STR_VERSION + '/api/v2/"'
+
 
             buildConfigField "String", 'CORE_SUB_DOMAIN', '"demo"'
             buildConfigField "String", 'CORE_APP_ID', '"37fe30c0-ad17-11ea-b572-31a193d8c9ee"'
             buildConfigField "String", 'CORE_APP_SECRET', '"GPQ6Ccy8EJ25s1xY6bQhZfRToHhnYbHc7oY7"'
 
-            buildConfigField "String", 'BASE_URL',  '"https://backend.iserp.cloud/"'
+            buildConfigField "String", 'BASE_URL',  '"https://sandbox.utswap.io/"'
 
         }
         release {
@@ -96,7 +96,7 @@ android {
             buildConfigField "String", 'CORE_APP_ID', '"37fe30c0-ad17-11ea-b572-31a193d8c9ee"'
             buildConfigField "String", 'CORE_APP_SECRET', '"GPQ6Ccy8EJ25s1xY6bQhZfRToHhnYbHc7oY7"'
 
-            buildConfigField "String", 'BASE_URL', '"https://backend.iserp.cloud/"'
+            buildConfigField "String", 'BASE_URL', '"https://sandbox.utswap.io/"'
         }
     }
 
