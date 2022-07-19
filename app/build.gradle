@@ -195,4 +195,10 @@ dependencies {
     implementation 'com.github.kittinunf.fuel:fuel:2.3.1'
     implementation 'com.google.code.gson:gson:2.8.8'
 
+
+    //Banner
+    implementation "ru.tinkoff.scrollingpagerindicator:scrollingpagerindicator:1.0.6"
+    implementation 'com.hejunlin.superindicatorlibray:superindicatorlibray:1.0.3'
+    implementation 'com.asksira.android:loopingviewpager:1.4.1'
+    implementation "com.tbuonomo:dotsindicator:4.3"
 }

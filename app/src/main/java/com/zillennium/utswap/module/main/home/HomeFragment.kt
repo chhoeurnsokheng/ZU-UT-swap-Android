@@ -4,11 +4,11 @@ package com.zillennium.utswap.module.main.home
 import android.content.Intent
 import android.graphics.BlurMaskFilter
 import android.graphics.MaskFilter
+import android.view.MotionEvent
 import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.viewpager2.widget.ViewPager2
-import com.google.android.material.tabs.TabLayoutMediator
+import androidx.viewpager.widget.ViewPager
 import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
@@ -44,7 +44,9 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
     val blurMask: MaskFilter = BlurMaskFilter(50f, BlurMaskFilter.Blur.NORMAL)
 
     private val HomeArrayList = ArrayList<HomeMenuModel>()
-
+    var bannerLoopingPagerAdapter: BannerLoopingPagerAdapter? = null
+    var isUserSwipe = false
+    var currentPosition = 0
     override fun initView() {
         super.initView()
         try {
@@ -104,31 +106,93 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
                         onHomeMenuGrid(false)
                     }
                 }
-                /* Image Slider with View Pager and TabLayout */
-                val img_Slider = arrayOf(
-                    "https://utswap.io/Upload/article/62a956f59997f.jpg",
-                    "https://utswap.io/Upload/article/62b28f4e18eb0.jpg",
-                    "https://utswap.io/Upload/article/62bad61c5d0e5.jpg",
 
-                    )
-                val homeTabSlideImage = arrayListOf<HomeTabSlideImageModel>()
+               val   homeTabSlideImage = arrayListOf(HomeTabSlideImageModel(
+                   "https://i.pinimg.com/564x/fb/0a/23/fb0a237f801f118ccc6050d6b6b0b8e2.jpg"),
+                    HomeTabSlideImageModel(  "https://utswap.io/Upload/article/62b28f4e18eb0.jpg"),
+                    HomeTabSlideImageModel("https://utswap.io/Upload/article/62bad61c5d0e5.jpg"),
+                   HomeTabSlideImageModel(  "https://utswap.io/Upload/article/62b28f4e18eb0.jpg"),
+                   HomeTabSlideImageModel(  "https://utswap.io/Upload/article/62b28f4e18eb0.jpg"),
+                   HomeTabSlideImageModel(  "https://utswap.io/Upload/article/62b28f4e18eb0.jpg"),
+                )
 
-                for (i in img_Slider.indices) {
-                    val homeTabImage = HomeTabSlideImageModel(
-                        img_Slider[i],
-                    )
-                    homeTabSlideImage.add(homeTabImage)
+                bannerLoopingPagerAdapter = object : BannerLoopingPagerAdapter(
+                    requireActivity(),homeTabSlideImage,false
+                ){
+                    override fun onBannerItemClick(data: HomeTabSlideImageModel, position: Int) {}
+
                 }
 
-                val adapterHomeSlideImage = HomeTabSlideImageAdapter(homeTabSlideImage, onclickAdapter)
-                vpSlideImage.adapter = adapterHomeSlideImage
+                bannerLoopingPagerAdapter?.apply {
+                    bannerImage.adapter = bannerLoopingPagerAdapter
+//                    AspectRatioUtil.apply(
+//                        10,
+//                        22,
+//                        UtilConvert.convertDpToPixel(32f, UTSwapApp.instance).roundToInt(),
+//                        requireActivity(),
+//                        bannerImage
+//                    )
+                }
 
-                /*  TabLayout dot */
-                TabLayoutMediator(tabLayoutDot, vpSlideImage) { tab, position ->
+//                indicator.attachToPager(bannerImage)
+//                indicator.visibleDotCount = if ((homeTabSlideImage.size ?: 0) > 6) { 7
+//                } else {
+//                    if ((homeTabSlideImage.size)?.rem(2) ?: 0 == 0) {
+//                        (homeTabSlideImage.size ?: 2) - 1
+//                    } else {
+//                        homeTabSlideImage.size ?: 0
+//                    }
+//                }
+                indicator.setViewPager(bannerImage)
+                bannerImage.setLooperPic(true)
 
-                }.attach()
-                vpSlideImage.registerOnPageChangeCallback(object :
-                    ViewPager2.OnPageChangeCallback() {})
+                bannerImage.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+                    override fun onPageScrolled(
+                        position: Int,
+                        positionOffset: Float,
+                        positionOffsetPixels: Int,
+                    ) {
+                    }
+
+                    override fun onPageSelected(position: Int) {
+                        try {
+                            if (isUserSwipe) {
+                                if (currentPosition < position) {
+//                                    homeTabSlideImage.get(position)?.title?.apply {
+//                                      //  callback.onSwipeBanner("LEFT-$this")
+//                                    }
+                                } else if (currentPosition > position) {
+//                                    homeTabSlideImage.get(position)?.title?.apply {
+//                                       // callback.onSwipeBanner("RIGHT-$this")
+//                                    }
+                                }
+                                isUserSwipe = false
+                            }
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                        }
+
+
+                    }
+
+                    override fun onPageScrollStateChanged(state: Int) {
+
+                    }
+                })
+
+                bannerImage.setOnTouchListener { _, event ->
+                    when (event.action) {
+                        MotionEvent.ACTION_DOWN -> {
+
+                        }
+                        MotionEvent.ACTION_UP -> {
+                            isUserSwipe = true
+                        }
+                    }
+                    false
+                }
+
+
 
 
                 /* bottom sheet dialog on finance button */
@@ -330,3 +394,4 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
         }
     }
 }
+
