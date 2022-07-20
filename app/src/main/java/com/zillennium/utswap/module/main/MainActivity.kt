@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI.setupWithNavController
-import com.zillennium.utswap.BuildConfig
 import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
 import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
@@ -26,6 +25,7 @@ import com.zillennium.utswap.module.main.news.NewsFragment
 import com.zillennium.utswap.module.main.portfolio.PortfolioFragment
 import com.zillennium.utswap.module.main.trade.tradeScreen.TradeFragment
 import com.zillennium.utswap.module.security.securityActivity.signInScreen.SignInActivity
+import com.zillennium.utswap.utils.VerifyClientData
 
 
 class MainActivity :
@@ -59,6 +59,20 @@ class MainActivity :
 
     private fun onCheckSession(){
         try {
+
+            var params: Map<String, String> = emptyMap<String, String>()
+            params = mapOf(
+                "sign_type" to "MD5",
+                "market" to "utpt_usd", // code trade ut
+                "price" to "3.91",
+                "num" to "3", // amount UT
+                "type" to "1", // 1 Buy, 2 Sell
+                "tradeType" to "limit", // limit or
+                "from" to "upTrade"
+            )
+            val key: String = "qYcNjeo9uwcvwFvzAjoeSc22f" // x_api_key
+            val reulst = VerifyClientData.makeSign(params, key)
+
             binding.apply {
 //                txtVersion.text = getString(
 //                   R.string.app_version_pattern,
