@@ -21,14 +21,14 @@ import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentSecuritySignInBinding
+import com.zillennium.utswap.models.user.VerifiyCode
 import com.zillennium.utswap.module.security.securityActivity.registerScreen.RegisterActivity
 import com.zillennium.utswap.module.security.securityActivity.resetPasswordScreen.ResetPasswordActivity
 import com.zillennium.utswap.module.security.securityFragment.signInScreen.CheckNetworkConnection.CheckNetworkConnection
 import com.zillennium.utswap.utils.validate
 
 
-class SignInFragment :
-    BaseMvpFragment<SignInView.View, SignInView.Presenter, FragmentSecuritySignInBinding>(),
+class SignInFragment : BaseMvpFragment<SignInView.View, SignInView.Presenter, FragmentSecuritySignInBinding>(),
     SignInView.View {
 
     object info {
@@ -45,7 +45,7 @@ class SignInFragment :
     var doubleBackToExitPressedOnce = false
 
     override fun initView() {
-        super.initView()
+        //super.initView()
         try {
 //            callNetworkConnection()
 //            IdNeteworkConnection()
@@ -209,6 +209,10 @@ class SignInFragment :
             // Must be safe
         }
     }
+
+    override fun onGetVerifySuccess(data: VerifiyCode) {}
+
+    override fun onGetVerifyFail() { }
 //        @SuppressLint("ServiceCast")
 //        private fun checkWifiOnAndConnected(): Boolean {
 //        val wifiMgr = applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager

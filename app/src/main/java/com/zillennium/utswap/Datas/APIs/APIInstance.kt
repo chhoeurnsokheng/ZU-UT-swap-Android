@@ -53,7 +53,7 @@ object APIInstance {
       .client(okHttpClient)
       .build()
   }
-
+  
   val testAPI: APIService = retrofitBuild("https://jsonplaceholder.typicode.com/").create(APIService::class.java)
 
   val webSocketAPI: APIService by lazy { retrofitBuild(webSocket).create(APIService::class.java) }

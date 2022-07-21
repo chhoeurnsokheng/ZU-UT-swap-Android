@@ -78,7 +78,7 @@ class OrdersFragment :
         binding.apply {
             when(filter){
                 0 -> {
-                    ordersAdapter!!.notifyDataSetChanged()
+                    ordersAdapter?.notifyDataSetChanged()
 
                     ordersAdapter = OrdersAdapter(
                         OrdersData.LIST_OF_ORDERS(), onClickDelete
@@ -97,7 +97,7 @@ class OrdersFragment :
                     }
 
 
-                    ordersAdapter!!.notifyDataSetChanged()
+                    ordersAdapter?.notifyDataSetChanged()
 
                     ordersAdapter = OrdersAdapter(
                         list,
@@ -118,7 +118,7 @@ class OrdersFragment :
                         }
                     }
 
-                    ordersAdapter!!.notifyDataSetChanged()
+                    ordersAdapter?.notifyDataSetChanged()
 
                     ordersAdapter = OrdersAdapter(
                         list,
@@ -179,7 +179,7 @@ class OrdersFragment :
                         )
                     }
 
-                    ordersAdapter!!.notifyDataSetChanged()
+                    ordersAdapter?.notifyDataSetChanged()
 
                     ordersAdapter = OrdersAdapter(
                         list,
