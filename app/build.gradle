@@ -3,6 +3,7 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-android'
     id 'kotlin-kapt'
+//   id 'com.google.gms.google-services'
 }
 
 def major = 1, minor = 0, patch = 0, build = 1
@@ -137,7 +138,6 @@ dependencies {
 
     def multidex_version = "2.0.1"
     implementation "androidx.multidex:multidex:$multidex_version"
-//    implementation 'com.google.guava:guava:31.1-android'
 
     // cameraX
     def camerax_version = "1.2.0-alpha02"
@@ -155,7 +155,6 @@ dependencies {
     implementation 'com.eightbitlab:blurview:1.6.6'
 
     // Retrofit RxJava
-
     implementation "com.squareup.retrofit2:adapter-rxjava:$rxJavaVersion"
     implementation "io.reactivex:rxandroid:$rxandroidVersion"
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
@@ -195,10 +194,16 @@ dependencies {
     implementation 'com.github.kittinunf.fuel:fuel:2.3.1'
     implementation 'com.google.code.gson:gson:2.8.8'
 
-
     //Banner
     implementation "ru.tinkoff.scrollingpagerindicator:scrollingpagerindicator:1.0.6"
     implementation 'com.hejunlin.superindicatorlibray:superindicatorlibray:1.0.3'
     implementation 'com.asksira.android:loopingviewpager:1.4.1'
     implementation "com.tbuonomo:dotsindicator:4.3"
+
+    //Crash Reporting with Firebase
+    implementation 'com.google.firebase:firebase-crash:9.0.0'
+    // firebase core library
+    implementation 'com.google.firebase:firebase-core:9.0.0'
+    // firebase crash library
+    implementation 'com.google.firebase:firebase-crash:9.0.0'
 }

@@ -316,9 +316,11 @@ class TradeExchangeActivity :
             // Must be safe
         }
     }
-
+    
     private fun onCheckSessionStatusAndKYC(){
         binding.apply {
+
+            // When did not verify kyc , button kyc show
 
             if(SessionVariable.SESSION_STATUS.value == true && SessionVariable.SESSION_KYC.value == true){
                 imgRemember.visibility = View.VISIBLE

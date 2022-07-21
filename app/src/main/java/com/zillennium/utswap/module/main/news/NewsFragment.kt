@@ -1,6 +1,7 @@
 package com.zillennium.utswap.module.main.news
 
 import android.content.Intent
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
 import com.zillennium.utswap.R
@@ -38,11 +39,21 @@ class NewsFragment :
                             startActivity(intent)
                             requireActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
                         }
+                        imgNotification.setOnClickListener {
+                            val intent = Intent(UTSwapApp.instance, NotificationActivity::class.java)
+                            startActivity(intent)
+                        }
+                        txtCountNotification.visibility =View.VISIBLE
                     }else{
                         imgMenu.setOnClickListener {
                             val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
                             startActivity(intent)
                         }
+                        imgNotification.setOnClickListener {
+                            val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
+                            startActivity(intent)
+                        }
+                        txtCountNotification.visibility = View.GONE
                     }
                 }
 

@@ -81,10 +81,7 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
                     startActivity(intent)
                 }
 
-                imgNotification.setOnClickListener {
-                    val intent = Intent(UTSwapApp.instance, NotificationActivity::class.java)
-                    startActivity(intent)
-                }
+
 
                 /* Show or Hide Trading Balance */
                 tradingBalance.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
@@ -102,8 +99,18 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
                 SessionVariable.SESSION_STATUS.observe(this@HomeFragment) {
                     if (SessionVariable.SESSION_STATUS.value == true) {
                         onHomeMenuGrid(true)
+                        txtCountNotification.visibility =View.VISIBLE
+                        imgNotification.setOnClickListener {
+                            val intent = Intent(UTSwapApp.instance, NotificationActivity::class.java)
+                            startActivity(intent)
+                        }
                     } else {
                         onHomeMenuGrid(false)
+                        txtCountNotification.visibility =View.INVISIBLE
+                        imgNotification.setOnClickListener {
+                            val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
+                            startActivity(intent)
+                        }
                     }
                 }
 
