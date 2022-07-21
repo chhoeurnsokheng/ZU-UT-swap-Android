@@ -193,15 +193,6 @@ class SignInFragment : BaseMvpFragment<SignInView.View, SignInView.Presenter, Fr
                     }
                 })
 
-//        Glide.with(imgCapCha.getContext())
-//                .load("https://utswap.io/Verify/code")
-//                .into(imgCapCha);
-//
-//        imgCapCha.setOnClickListener(view -> {
-//            Glide.with(imgCapCha.getContext())
-//                    .load("https://utswap.io/Verify/code")
-//                    .into(imgCapCha);
-//        });
 
             }
             // Code

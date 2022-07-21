@@ -33,10 +33,7 @@ abstract class BaseMvpFragment<in V : BaseMvpView, T : BaseMvpPresenter<V>, M : 
     ): View? {
         if (!isRootIsInitialized()) {
             binding = DataBindingUtil.inflate(inflater, layoutResource, container, false)
-            mPresenter.initViewPresenter(
-                context = requireActivity(),
-                savedInstanceState
-            )
+            mPresenter.initViewPresenter(context = requireActivity(), savedInstanceState)
         }
         return binding.root
     }

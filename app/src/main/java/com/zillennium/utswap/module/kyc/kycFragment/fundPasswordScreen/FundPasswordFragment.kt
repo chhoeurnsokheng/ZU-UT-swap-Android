@@ -150,11 +150,6 @@ class FundPasswordFragment :
                     }
                 }
 
-//                if(!KYCPreferences().FUND_PASSWORD.isNullOrEmpty()){
-//                    editFundPassword.setText(KYCPreferences().FUND_PASSWORD.toString())
-//                    editConfirmFundPassword.setText(KYCPreferences().FUND_PASSWORD.toString())
-//                }
-
                 imgShowPassword.setOnClickListener{
                     clickCountPassword++
                     showPassword(clickCountPassword)
@@ -169,9 +164,7 @@ class FundPasswordFragment :
                 imgShowConfirmPassword.callOnClick()
             }
 
-//        } catch (error: Exception) {
-//            // Must be safe
-//        }
+
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
