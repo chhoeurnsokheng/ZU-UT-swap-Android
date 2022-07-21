@@ -5,6 +5,7 @@ import android.graphics.*
 import android.media.ExifInterface
 import android.util.Base64
 import android.util.Log
+import android.util.TypedValue
 import com.zillennium.utswap.R
 import java.io.ByteArrayOutputStream
 import java.io.IOException
@@ -156,6 +157,15 @@ class Util() {
             } catch (e: java.lang.NullPointerException) {
                 ""
             }
+        }
+        fun dpToPx(context: Context, dp: Int): Int {
+            val r = context.resources
+            val px = TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP,
+                dp.toFloat(),
+                r.displayMetrics
+            )
+            return px.toInt()
         }
 
     }

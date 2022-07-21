@@ -82,8 +82,8 @@ class FinanceHistoricalActivity :
                 /* Spinner */
                 val data = ArrayList<String>()
                 data.add("ALL")
-                data.add("BUY")
                 data.add("SELL")
+                data.add("BUY")
 
                 historicalSpinnerDropdown.adapter = CustomDropDownAdapter(this@FinanceHistoricalActivity, data)
                 historicalSpinnerDropdown.onItemSelectedListener = object :

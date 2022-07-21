@@ -12,15 +12,6 @@
             layout="@layout/appbar_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-
-
-        <!--        <ScrollView-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:background="@color/white"-->
-        <!--            android:overScrollMode="never"-->
-        <!--            android:scrollbars="none">-->
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -139,15 +130,16 @@
                     android:layout_marginTop="@dimen/dimen_20"
                     android:layout_marginEnd="@dimen/dimen_6"
                     android:layout_marginBottom="@dimen/dimen_22"
-                    android:elevation="@dimen/dimen_20"
-                    app:cardCornerRadius="@dimen/dimen_100"
+                    app:cardCornerRadius="@dimen/dimen_25"
                     app:cardElevation="@dimen/dimen_8">
 
                     <LinearLayout
                         android:id="@+id/filter_button"
                         android:layout_width="wrap_content"
-                        android:layout_height="@dimen/dimen_52"
+                        android:layout_height="wrap_content"
                         android:gravity="center"
+                        android:layout_marginBottom="@dimen/dimen_16"
+                        android:layout_marginTop="@dimen/dimen_16"
                         android:orientation="horizontal"
                         android:paddingHorizontal="@dimen/dimen_20">
 
@@ -176,14 +168,15 @@
                     android:layout_marginTop="@dimen/dimen_20"
                     android:layout_marginEnd="@dimen/dimen_20"
                     android:layout_marginBottom="@dimen/dimen_22"
-                    android:elevation="@dimen/dimen_20"
-                    app:cardCornerRadius="@dimen/dimen_100"
+                    app:cardCornerRadius="@dimen/dimen_25"
                     app:cardElevation="@dimen/dimen_8">
 
                     <LinearLayout
                         android:id="@+id/select_date_range"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/dimen_52"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dimen_16"
+                        android:layout_marginBottom="@dimen/dimen_16"
                         android:gravity="start|center_vertical"
                         android:orientation="horizontal"
                         android:paddingHorizontal="@dimen/dimen_20">

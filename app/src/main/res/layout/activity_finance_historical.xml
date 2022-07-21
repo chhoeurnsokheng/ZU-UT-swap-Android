@@ -80,11 +80,11 @@
                     <androidx.cardview.widget.CardView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginVertical="@dimen/dimen_10"
                         android:layout_marginStart="@dimen/dimen_20"
+                        android:layout_marginTop="@dimen/dimen_20"
                         android:layout_marginEnd="@dimen/dimen_6"
-                        android:elevation="@dimen/dimen_20"
-                        app:cardCornerRadius="@dimen/dimen_100"
+                        android:layout_marginBottom="@dimen/dimen_22"
+                        app:cardCornerRadius="@dimen/dimen_25"
                         app:cardElevation="@dimen/dimen_8">
 
                         <LinearLayout
@@ -114,13 +114,13 @@
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginVertical="@dimen/dimen_10"
-                        android:layout_marginStart="@dimen/dimen_8"
-                        android:layout_marginEnd="@dimen/dimen_20"
-                        android:elevation="@dimen/dimen_20"
-                        app:cardCornerRadius="@dimen/dimen_100"
+                        android:layout_marginStart="@dimen/dimen_20"
+                        android:layout_marginTop="@dimen/dimen_20"
+                        android:layout_marginEnd="@dimen/dimen_6"
+                        android:layout_marginBottom="@dimen/dimen_22"
+                        app:cardCornerRadius="@dimen/dimen_25"
                         app:cardElevation="@dimen/dimen_8">
 
                         <LinearLayout
