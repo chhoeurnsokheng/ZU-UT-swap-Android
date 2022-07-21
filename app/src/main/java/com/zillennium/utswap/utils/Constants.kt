@@ -21,16 +21,31 @@ interface Constants {
         const val DELAY: Long = 500 //MILI
     }
 
+    interface FundPassword{
+        companion object{
+            const val SignIn = "sign in"
+            const val ResetPassword = "reset password"
+            const val Register = "register"
+            const val ChangeLoginPassword = "change login password"
+            const val forgotFundPassword = "forgot fund password"
+            const val ForgotFundPassword = "Forgot Fund Password"
+            const val ForgotLoginPassword = "Forgot Login Password"
+            const val AddNumber = "add number"
+            const val ChangeFundPassword = "Change Fund Password"
+        }
+    }
+
     interface Key {
         companion object {
             const val ContentType = "Content-Type"
             const val Accept = "Accept"
             const val AcceptLanguage = "Accept-Language"
             const val Authorization = "Authorization"
-            const val Token = "Token"
+            const val Token = "token"
             const val PartnerId = "partner-id"
             const val PartnerSecretKey = "partner-secret-key"
             const val profile = "PROFILE"
+            const val ID = "id"
         }
     }
 

@@ -430,5 +430,9 @@
     <string name="title_deed">Title Deed</string>
     <string name="deposit_amount">Deposit Amount</string>
 
+    <string name="please_enter_email_or_phone_number">Please Enter Email or Phone Number</string>
+    <string name="please_enter_a_password_longer_than_8_digits">Please Enter a Password Longer Than 8 Digits</string>
+
+
 
 </resources>

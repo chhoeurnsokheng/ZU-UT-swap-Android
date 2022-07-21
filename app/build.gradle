@@ -4,7 +4,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
 //    id 'com.android.application'
-    id 'com.google.gms.google-services'
+ //   id 'com.google.gms.google-services'
 }
 
 def major = 1, minor = 0, patch = 0, build = 1
@@ -69,7 +69,11 @@ android {
             buildConfigField "String", 'CORE_APP_ID', '"37fe30c0-ad17-11ea-b572-31a193d8c9ee"'
             buildConfigField "String", 'CORE_APP_SECRET', '"GPQ6Ccy8EJ25s1xY6bQhZfRToHhnYbHc7oY7"'
             
-            buildConfigField "String", 'BASE_URL', '"https://dev-staging.zillionunited.io/api/"'
+
+         //   buildConfigField "String", 'BASE_URL', '"https://dev-staging.zillionunited.io/api/"'
+
+            buildConfigField "String", 'BASE_URL', '"https://sandbox.utswap.io/api/"'
+
         }
         stage {
             debuggable true

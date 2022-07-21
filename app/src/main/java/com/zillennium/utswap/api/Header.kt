@@ -2,6 +2,7 @@ package com.zillennium.utswap.api
 
 import android.content.Context
 import android.util.Log
+import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.utils.Constants
 
 
@@ -22,7 +23,13 @@ class Header {
             PAYMENT_AUTH_TOKEN,
             PAYMENT_TOKEN,
             PAYMENT_Z1_BACKEND_TOKEN,
-            PAYMENT_Z1_BACKEND_CHECKOUT
+            PAYMENT_Z1_BACKEND_CHECKOUT,
+
+            REQUIRED_ID,
+            REQUIRED_TOKEN,
+            REQUIRED_X_TOKEN_API
+
+
         }
 
         fun getHeader(authType: AuthType, context: Context): Map<String, String> {
@@ -77,6 +84,16 @@ class Header {
                     Log.i("header", "data: $map")
                     return map
                 }
+                AuthType.REQUIRED_TOKEN -> {
+                    map = mapOf(
+                        Constants.Key.ContentType to Constants.Value.ContentType,
+                        Constants.Key.Accept to Constants.Value.Accept,
+                        Constants.Key.ID to SessionPreferences().SESSION_ID.toString(),
+                        Constants.Key.Token to SessionPreferences().SESSION_TOKEN.toString()
+                    )
+                    return map
+                }
+
                 else -> {
 
                 }

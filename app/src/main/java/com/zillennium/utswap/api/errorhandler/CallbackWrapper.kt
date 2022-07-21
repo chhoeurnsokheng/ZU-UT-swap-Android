@@ -8,7 +8,7 @@ import org.json.JSONObject
 import retrofit2.HttpException
 import java.io.IOException
 
-abstract class CallbackWrapper(e: Throwable, context: Context, var codesToPass: ArrayList<Int>) {
+abstract class CallbackWrapper(e: Throwable, context: Context) {
     init {
         when (e) {
             is NoConnectivityException -> onCallbackWrapper(
