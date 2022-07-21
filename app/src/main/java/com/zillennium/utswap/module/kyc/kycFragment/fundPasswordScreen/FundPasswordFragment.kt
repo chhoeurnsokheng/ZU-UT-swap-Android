@@ -183,13 +183,14 @@ class FundPasswordFragment :
                     val children = child as TextView
                     children.transformationMethod = PasswordTransformationMethod.getInstance()
                 }
-                imgShowPassword.setImageResource(R.drawable.ic_baseline_remove_red_eye_24)
+                imgShowPassword.setImageResource(R.drawable.ic_baseline_visibility_off_24)
             } else {
                 for (child in numberVerification.children) {
                     val children = child as TextView
                     children.transformationMethod = HideReturnsTransformationMethod.getInstance()
                 }
-                imgShowPassword.setImageResource(R.drawable.ic_baseline_visibility_off_24)
+
+                imgShowPassword.setImageResource(R.drawable.ic_baseline_remove_red_eye_24)
             }
         }
     }
@@ -202,13 +203,14 @@ class FundPasswordFragment :
                     val children = child as TextView
                     children.transformationMethod = PasswordTransformationMethod.getInstance()
                 }
-                imgShowConfirmPassword.setImageResource(R.drawable.ic_baseline_remove_red_eye_24)
+                imgShowConfirmPassword.setImageResource(R.drawable.ic_baseline_visibility_off_24)
             } else {
                 for (child in confirmNumberVerification.children) {
                     val children = child as TextView
                     children.transformationMethod = HideReturnsTransformationMethod.getInstance()
                 }
-                imgShowConfirmPassword.setImageResource(R.drawable.ic_baseline_visibility_off_24)
+                imgShowConfirmPassword.setImageResource(R.drawable.ic_baseline_remove_red_eye_24)
+
             }
         }
 

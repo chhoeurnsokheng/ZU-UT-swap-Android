@@ -81,12 +81,12 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/dimen_50"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="@dimen/dimen_20"
-            android:layout_marginEnd="@dimen/dimen_20"
+            android:layout_marginStart="@dimen/dimen_30"
+            android:layout_marginEnd="@dimen/dimen_30"
             android:layout_marginBottom="@dimen/dimen_30"
             android:background="@drawable/bg_circular_condition"
             android:gravity="center"
-            android:orientation="horizontal">
+            >
 
             <TextView
                 android:layout_width="wrap_content"
