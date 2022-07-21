@@ -8,13 +8,14 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
+import android.util.Patterns
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
-import androidx.navigation.fragment.findNavController
+import androidx.lifecycle.lifecycleScope
 import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
 import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
@@ -25,6 +26,8 @@ import com.zillennium.utswap.module.security.securityActivity.registerScreen.Reg
 import com.zillennium.utswap.module.security.securityActivity.resetPasswordScreen.ResetPasswordActivity
 import com.zillennium.utswap.module.security.securityFragment.signInScreen.CheckNetworkConnection.CheckNetworkConnection
 import com.zillennium.utswap.utils.validate
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 
 class SignInFragment :
@@ -39,6 +42,7 @@ class SignInFragment :
     private lateinit var textView: TextView
     private lateinit var mainWifi: LinearLayout
     private lateinit var checkNetworkConnection: CheckNetworkConnection
+    private var isValidate = false
     override var mPresenter: SignInView.Presenter = SignInPresenter()
     override val layoutResource: Int = R.layout.fragment_security_sign_in
 
@@ -53,6 +57,7 @@ class SignInFragment :
                 imgBack.setOnClickListener {
                     SessionPreferences().removeValue("SESSION_USERNAME")
                     SessionPreferences().removeValue("SESSION_PASSWORD")
+                    hideKeyboard()
                     activity?.finish()
 
                 }
@@ -74,29 +79,85 @@ class SignInFragment :
                 }
 
                 btnSignIn.setOnClickListener {
-                    var isHaveError = false
 
-                    txtMessage.text = "Invalid Email or Password"
+                    if (validateEmailPhoneNumber(
+                            textInputEmail.text.toString().trim()
+                        ) && textInputPassword.text.toString().trim() == "12345678"
+                    ) {
+                        pbSignIn.visibility = View.VISIBLE
+                        btnSignIn.isClickable = false
+                        btnSignIn.alpha = 0.6F
+                        txtMessage.visibility = View.VISIBLE
+                        txtMessage.background.setTint(
+                            ContextCompat.getColor(
+                                UTSwapApp.instance,
+                                R.color.success
+                            )
+                        )
+                        txtMessage.text = "Successfully logged in"
+                        SessionPreferences().SESSION_USERNAME =
+                            textInputEmail.text.toString().trim()
+                        SessionPreferences().SESSION_PASSWORD =
+                            textInputPassword.text.toString().trim()
+                        //findNavController().navigate(R.id.action_to_verification_security_fragment)
 
-                    if(!validate().isValidEmail(textInputEmail.text.toString().trim()) && !validate().isValidPhoneNumber(textInputEmail.text.toString().trim())){
+                        SessionPreferences().SESSION_STATUS = true
+                        SessionVariable.SESSION_STATUS.value = true
+                        hideKeyboard()
+                        lifecycleScope.launch {
+                            delay(3000)
+                            activity?.finish()
+                        }
+                    } else {
+                        txtMessage.text = "Please Enter Email or Phone Number"
+                        txtMessage.visibility = View.VISIBLE
+                        textInputEmail.backgroundTintList =
+                            ColorStateList.valueOf(
+                                ContextCompat.getColor(
+                                    UTSwapApp.instance,
+                                    R.color.danger
+                                )
+                            )
+                        txtMessage.background.setTint(
+                            ContextCompat.getColor(
+                                UTSwapApp.instance,
+                                R.color.danger
+                            )
+                        )
+                        pbSignIn.visibility = View.GONE
+                        btnSignIn.isClickable = true
+                        btnSignIn.alpha = 1F
+                    }
+
+
+//                    var isHaveError = false
+
+//                    txtMessage.text = "Invalid Email or Password"
+
+                    /*if(!validate().isValidEmail(textInputEmail.text.toString().trim()) && !validate().isValidPhoneNumber(textInputEmail.text.toString().trim())){
                         txtMessage.text = "Please Enter Email or Phone Number"
                         txtMessage.visibility = View.VISIBLE
                         textInputEmail.backgroundTintList =
                             ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
                         isHaveError = true
                         return@setOnClickListener
-                    }
+                    }*/
 
-                    if(textInputPassword.text.toString().length < 8){
-                        txtMessage.text = "Please Enter a Password Longer Than 8 Digits"
-                        txtMessage.visibility = View.VISIBLE
-                        textInputPassword.backgroundTintList =
-                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
-                        isHaveError = true
-                        return@setOnClickListener
-                    }
+//                    if (textInputPassword.text.toString().length < 8) {
+//                        txtMessage.text = "Please Enter a Password Longer Than 8 Digits"
+//                        txtMessage.visibility = View.VISIBLE
+//                        textInputPassword.backgroundTintList =
+//                            ColorStateList.valueOf(
+//                                ContextCompat.getColor(
+//                                    UTSwapApp.instance,
+//                                    R.color.danger
+//                                )
+//                            )
+////                        isHaveError = true
+//                        return@setOnClickListener
+//                    }
 
-                    if (!isHaveError){
+                    /*if (!isHaveError) {
 
                         pbSignIn.visibility = View.VISIBLE
                         btnSignIn.isClickable = false
@@ -104,12 +165,22 @@ class SignInFragment :
 
                         Handler().postDelayed({
                             val status: Int = 0
-                            if(status == 1 || (textInputEmail.text.toString().trim() ==  "utswap@gmail.com" && textInputPassword.text.toString().trim() == "12345678")){
+                            if (status == 1 || (textInputEmail.text.toString()
+                                    .trim() == "utswap@gmail.com" && textInputPassword.text.toString()
+                                    .trim() == "12345678")
+                            ) {
                                 txtMessage.visibility = View.VISIBLE
-                                txtMessage.background.setTint(ContextCompat.getColor(UTSwapApp.instance, R.color.success))
+                                txtMessage.background.setTint(
+                                    ContextCompat.getColor(
+                                        UTSwapApp.instance,
+                                        R.color.success
+                                    )
+                                )
                                 txtMessage.text = "Successfully logged in"
-                                SessionPreferences().SESSION_USERNAME = textInputEmail.text.toString().trim()
-                                SessionPreferences().SESSION_PASSWORD = textInputPassword.text.toString().trim()
+                                SessionPreferences().SESSION_USERNAME =
+                                    textInputEmail.text.toString().trim()
+                                SessionPreferences().SESSION_PASSWORD =
+                                    textInputPassword.text.toString().trim()
                                 //findNavController().navigate(R.id.action_to_verification_security_fragment)
 
                                 SessionPreferences().SESSION_STATUS = true
@@ -117,19 +188,29 @@ class SignInFragment :
                                 hideKeyboard()
                                 activity?.finish()
                             }
-                            if(status == 1 || (textInputEmail.text.toString().trim() ==  "0123456789" && textInputPassword.text.toString().trim() == "12345678")){
-                            txtMessage.visibility = View.VISIBLE
-                            txtMessage.background.setTint(ContextCompat.getColor(UTSwapApp.instance, R.color.success))
-                            txtMessage.text = "Successfully logged in"
-                            SessionPreferences().SESSION_USERNAME = textInputEmail.text.toString().trim()
-                            SessionPreferences().SESSION_PASSWORD = textInputPassword.text.toString().trim()
-                            //findNavController().navigate(R.id.action_to_verification_security_fragment)
+                            if (status == 1 || (textInputEmail.text.toString()
+                                    .trim() == "0123456789" && textInputPassword.text.toString()
+                                    .trim() == "12345678")
+                            ) {
+                                txtMessage.visibility = View.VISIBLE
+                                txtMessage.background.setTint(
+                                    ContextCompat.getColor(
+                                        UTSwapApp.instance,
+                                        R.color.success
+                                    )
+                                )
+                                txtMessage.text = "Successfully logged in"
+                                SessionPreferences().SESSION_USERNAME =
+                                    textInputEmail.text.toString().trim()
+                                SessionPreferences().SESSION_PASSWORD =
+                                    textInputPassword.text.toString().trim()
+                                //findNavController().navigate(R.id.action_to_verification_security_fragment)
 
-                            SessionPreferences().SESSION_STATUS = true
-                            SessionVariable.SESSION_STATUS.value = true
-                            hideKeyboard()
-                            activity?.finish()
-                        } else{
+                                SessionPreferences().SESSION_STATUS = true
+                                SessionVariable.SESSION_STATUS.value = true
+                                hideKeyboard()
+                                activity?.finish()
+                            } else {
                                 txtMessage.visibility = View.VISIBLE
                                 txtMessage.text = "Invalid email and password"
                             }
@@ -141,8 +222,7 @@ class SignInFragment :
                         }, 3000)
 
 
-
-                    }
+                    }*/
                 }
                 textInputEmail.addTextChangedListener(object : TextWatcher {
                     override fun beforeTextChanged(
@@ -164,7 +244,12 @@ class SignInFragment :
                     override fun afterTextChanged(editable: Editable) {
                         txtMessage.visibility = View.INVISIBLE
                         textInputEmail.backgroundTintList =
-                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text))
+                            ColorStateList.valueOf(
+                                ContextCompat.getColor(
+                                    UTSwapApp.instance,
+                                    R.color.secondary_text
+                                )
+                            )
                     }
                 })
 
@@ -188,7 +273,12 @@ class SignInFragment :
                     override fun afterTextChanged(editable: Editable) {
                         txtMessage.visibility = View.INVISIBLE
                         textInputPassword.backgroundTintList =
-                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text))
+                            ColorStateList.valueOf(
+                                ContextCompat.getColor(
+                                    UTSwapApp.instance,
+                                    R.color.secondary_text
+                                )
+                            )
 
                     }
                 })
@@ -277,6 +367,25 @@ class SignInFragment :
             textInputPassword.setSelection(textInputPassword.text.length)
         }
     }
+
+    private fun validateEmailPhoneNumber(phoneOrEmail: String): Boolean {
+        var length = phoneOrEmail.length
+        if (Patterns.EMAIL_ADDRESS.matcher(phoneOrEmail).matches()) {
+            if (phoneOrEmail == "utswap@gmail.com") {
+                return true
+            }
+
+        } else {
+            if (phoneOrEmail.startsWith("0") && length >= 9 && phoneOrEmail.matches("[0-9]*".toRegex())) {
+                if (phoneOrEmail == "0123456789") {
+                    return true
+                }
+            }
+        }
+        return false
+
+    }
+
 
     private fun hideKeyboard() {
         val inputManager =
