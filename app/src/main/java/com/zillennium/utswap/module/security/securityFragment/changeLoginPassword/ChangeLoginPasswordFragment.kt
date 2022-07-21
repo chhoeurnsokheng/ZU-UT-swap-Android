@@ -203,12 +203,13 @@ class ChangeLoginPasswordFragment :
         binding.apply {
             if (view.id == R.id.img_old_password) {
                 if (etOldPassword.transformationMethod.equals(PasswordTransformationMethod.getInstance())) {
-                    imgOldPassword.setImageResource(R.drawable.ic_baseline_visibility_off_24)
+                    imgOldPassword.setImageResource(R.drawable.ic_baseline_visibility_24)
                     //Show Password
                     etOldPassword.transformationMethod =
                         HideReturnsTransformationMethod.getInstance()
                 }else{
-                    imgOldPassword.setImageResource(R.drawable.ic_baseline_visibility_24)
+                    imgOldPassword.setImageResource(R.drawable.ic_baseline_visibility_off_24)
+
                     //Hide Password
                     etOldPassword.transformationMethod = PasswordTransformationMethod.getInstance()
                 }
@@ -223,12 +224,13 @@ class ChangeLoginPasswordFragment :
             if (view.id == R.id.img_confirm_password) {
                 if (etConfirmPassword.transformationMethod.equals(PasswordTransformationMethod.getInstance())
                 ) {
-                    imgConfirmPassword.setImageResource(R.drawable.ic_baseline_visibility_off_24)
+                    imgConfirmPassword.setImageResource(R.drawable.ic_baseline_visibility_24)
                     //Show Password
                     etConfirmPassword.transformationMethod =
                         HideReturnsTransformationMethod.getInstance()
                 }else{
-                    imgConfirmPassword.setImageResource(R.drawable.ic_baseline_visibility_24)
+                    imgConfirmPassword.setImageResource(R.drawable.ic_baseline_visibility_off_24)
+
                     //Hide Password
                     etConfirmPassword.transformationMethod =
                         PasswordTransformationMethod.getInstance()
@@ -246,12 +248,13 @@ class ChangeLoginPasswordFragment :
             if (view.id == R.id.img_new_password) {
                 if (etNewPassword.transformationMethod.equals(PasswordTransformationMethod.getInstance())
                 ) {
-                    imgNewPassword.setImageResource(R.drawable.ic_baseline_visibility_off_24)
+                    imgNewPassword.setImageResource(R.drawable.ic_baseline_visibility_24)
                     //Show Password
                     etNewPassword.transformationMethod =
                         HideReturnsTransformationMethod.getInstance()
                 }else{
-                    imgNewPassword.setImageResource(R.drawable.ic_baseline_visibility_24)
+                    imgNewPassword.setImageResource(R.drawable.ic_baseline_visibility_off_24)
+
                     //Hide Password
                     etNewPassword.transformationMethod =
                         PasswordTransformationMethod.getInstance()

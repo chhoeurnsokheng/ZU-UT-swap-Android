@@ -4,11 +4,15 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.res.ColorStateList
+import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.core.content.ContextCompat
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
@@ -37,9 +41,9 @@ class TradeFragment :
 
     private var search: String = ""
     private var filter: Int = 0 // 0 = no sort,
-                                // 1 = asc change, 2 = desc change,
-                                // 3 = asc last, 4 = desc last,
-                                // 5 asc volume, 6 desc volume
+    // 1 = asc change, 2 = desc change,
+    // 3 = asc last, 4 = desc last,
+    // 5 asc volume, 6 desc volume
 
     override fun initView() {
         super.initView()

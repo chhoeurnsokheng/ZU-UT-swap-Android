@@ -135,13 +135,13 @@ class ChangeFundPasswordFragment :
                     val children = child as TextView
                     children.transformationMethod = PasswordTransformationMethod.getInstance()
                 }
-                imgShowPassword.setImageResource(R.drawable.ic_baseline_remove_red_eye_24)
+                imgShowPassword.setImageResource(R.drawable.ic_baseline_visibility_off_24)
             } else {
                 for (child in numberVerification.children) {
                     val children = child as TextView
                     children.transformationMethod = HideReturnsTransformationMethod.getInstance()
                 }
-                imgShowPassword.setImageResource(R.drawable.ic_baseline_visibility_off_24)
+                imgShowPassword.setImageResource(R.drawable.ic_baseline_remove_red_eye_24)
             }
         }
     }
