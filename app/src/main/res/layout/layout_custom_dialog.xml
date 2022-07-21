@@ -27,14 +27,16 @@
 
                 <TextView
                     android:id="@+id/tv_title"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/dimen_20"
                     android:layout_marginTop="@dimen/dimen_16"
                     android:layout_marginBottom="@dimen/dimen_32"
                     android:textAlignment="center"
                     android:text=""
-                    android:textAppearance="@style/medium_14"
+                    android:maxLines="2"
+                    android:ellipsize="end"
+                    android:textAppearance="@style/medium_16"
                     android:textColor="@color/black_333333" />
 
                 <TextView

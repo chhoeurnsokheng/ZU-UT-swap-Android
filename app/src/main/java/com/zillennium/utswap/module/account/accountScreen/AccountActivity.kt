@@ -109,7 +109,7 @@ class AccountActivity :
                 }
 
                 txtSignOut.setOnClickListener {
-                    DialogUtil().customDialog( R.drawable.icon_log_out, "Are you sure want to sign out?", "", "Cancel", "Sign Out", object : DialogUtil.OnAlertDialogClick{
+                    DialogUtil().customDialog( R.drawable.icon_log_out, "Are you sure you want to sign out?", "", "Cancel", "Sign Out", object : DialogUtil.OnAlertDialogClick{
                         override fun onLabelCancelClick() {
                             SessionPreferences().SESSION_STATUS = false
                             SessionVariable.SESSION_STATUS.value = false
