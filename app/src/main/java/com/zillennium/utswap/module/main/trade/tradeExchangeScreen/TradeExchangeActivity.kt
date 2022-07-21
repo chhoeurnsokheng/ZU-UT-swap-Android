@@ -329,32 +329,16 @@ class TradeExchangeActivity :
                 persistentBottomSheet.root.visibility = View.GONE
                 layTransactions.visibility = View.GONE
 
-//                if (SessionVariable.SESSION_KYC.value ==false){
-//                    layAuth.visibility = View.GONE
-//                    layVerify.visibility = View.VISIBLE
-//                    layAuth.visibility = View.GONE
-//                }
                 if (SessionVariable.SESSION_STATUS.value==false){
                     layAuth.visibility = View.VISIBLE
                     layVerify.visibility = View.GONE
                     imgRemember.visibility = View.GONE
                 }
+                if(SessionVariable.SESSION_KYC.value == false){
+                    layAuth.visibility = View.GONE
+                    layVerify.visibility = View.VISIBLE
+                }
 
-
-//                persistentBottomSheet.root.visibility = View.GONE
-//                layTransactions.visibility = View.GONE
-//                layVerify.visibility = View.VISIBLE
-//                layAuth.visibility =View.VISIBLE
-
-//                if(SessionVariable.SESSION_KYC.value == false){
-//                    layAuth.visibility = View.GONE
-//                    layVerify.visibility = View.VISIBLE
-//                }
-//                if(SessionVariable.SESSION_STATUS.value == false){
-//                    layAuth.visibility = View.VISIBLE
-//                    layVerify.visibility = View.GONE
-//                    imgRemember.visibility = View.GONE
-//                }
             }
         }
     }
