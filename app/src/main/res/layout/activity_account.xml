@@ -10,12 +10,12 @@
         <RelativeLayout
             android:id="@+id/app_bar"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dimen_60">
+            android:layout_height="?attr/actionBarSize">
 
             <ImageView
                 android:id="@+id/img_close"
-                android:layout_width="@dimen/dimen_60"
-                android:layout_height="@dimen/dimen_60"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:padding="@dimen/dimen_16"
                 android:src="@drawable/ic_sharp_close_24"
@@ -31,7 +31,7 @@
             android:background="@drawable/bg_border_bottom_red"
             android:backgroundTint="@color/transparent"
             android:orientation="horizontal"
-            android:paddingVertical="@dimen/dimen_30"
+            android:paddingVertical="@dimen/dimen_10"
             android:paddingStart="@dimen/dimen_20">
 
             <de.hdodenhof.circleimageview.CircleImageView

@@ -119,8 +119,7 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
                     }
                 }
 
-               val   homeTabSlideImage = arrayListOf(HomeTabSlideImageModel(
-                   "https://i.pinimg.com/564x/fb/0a/23/fb0a237f801f118ccc6050d6b6b0b8e2.jpg"),
+               val   homeTabSlideImage = arrayListOf(
                     HomeTabSlideImageModel(  "https://utswap.io/Upload/article/62b28f4e18eb0.jpg"),
                     HomeTabSlideImageModel("https://utswap.io/Upload/article/62bad61c5d0e5.jpg"),
                    HomeTabSlideImageModel(  "https://utswap.io/Upload/article/62b28f4e18eb0.jpg"),
@@ -191,7 +190,7 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
 
                     }
                 })
-
+                
                 bannerImage.setOnTouchListener { _, event ->
                     when (event.action) {
                         MotionEvent.ACTION_DOWN -> {
