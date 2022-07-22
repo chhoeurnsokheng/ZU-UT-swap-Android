@@ -64,7 +64,6 @@ class ChangeProfileCameraActivity  :
                     )
                 }
 
-
                 mPreviewView = binding.viewFinder
                 setupCamera()
             }
@@ -85,7 +84,7 @@ class ChangeProfileCameraActivity  :
     }
     private fun setupCamera() {
         providerListenableFuture = ProcessCameraProvider.getInstance(UTSwapApp.instance)
-        providerListenableFuture!!.addListener({
+        providerListenableFuture?.addListener({
             try {
                 val cameraProvider = providerListenableFuture!!.get()
                 val camera = cameraProvider.bindToLifecycle(
@@ -129,6 +128,7 @@ class ChangeProfileCameraActivity  :
         btnTakePhoto!!.setOnClickListener {
             binding.progressBar.visibility = View.VISIBLE
             binding.btnTakePhoto.isClickable = false
+
             val metadata = ImageCapture.Metadata()
             metadata.isReversedHorizontal = true
             val photoFile = FileCreator.createTempImageFile()
@@ -158,8 +158,7 @@ class ChangeProfileCameraActivity  :
                                 // Create a Bitmap with the flip matrix applied to it.
                                 var reflection = Bitmap.createBitmap(bitmap, 0, 0, width, height, mtx, false)
 
-                                val rotatedBitmap =
-                                    FileCreator.rotate(reflection, savedUri!!.toFile().absolutePath ?: "")
+                                val rotatedBitmap = FileCreator.rotate(reflection, savedUri!!.toFile().absolutePath ?: "")
                                 photoFile?.delete()
                                 binding.apply {
 
@@ -183,7 +182,7 @@ class ChangeProfileCameraActivity  :
         return imageCapture
     }
 
-    private fun buildAnalysis(): UseCase? {
+    private fun buildAnalysis(): UseCase {
 
         val metrics = DisplayMetrics()
         this.windowManager.defaultDisplay.getMetrics(metrics)
