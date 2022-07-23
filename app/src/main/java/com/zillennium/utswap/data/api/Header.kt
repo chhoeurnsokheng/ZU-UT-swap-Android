@@ -1,4 +1,4 @@
-package com.zillennium.utswap.api
+package com.zillennium.utswap.data.api
 
 import android.content.Context
 import android.util.Log

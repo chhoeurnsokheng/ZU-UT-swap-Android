@@ -1,7 +1,7 @@
 package com.gis.z1android.api.errorhandler
 
 import android.util.Log
-import com.zillennium.utswap.api.manager.ApiManager
+import com.zillennium.utswap.data.api.manager.ApiManager
 import okhttp3.ResponseBody
 import org.json.JSONObject
 import java.io.IOException

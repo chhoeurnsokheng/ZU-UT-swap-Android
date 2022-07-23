@@ -1,4 +1,4 @@
-package com.zillennium.utswap.api.manager
+package com.zillennium.utswap.data.api.manager
 
 
 /**
@@ -10,7 +10,7 @@ package com.zillennium.utswap.api.manager
 import android.annotation.SuppressLint
 import android.content.Context
 import com.zillennium.utswap.BuildConfig
-import com.zillennium.utswap.api.service.UserService
+import com.zillennium.utswap.data.api.service.UserService
 import com.zillennium.utswap.utils.LoggerUtil
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient

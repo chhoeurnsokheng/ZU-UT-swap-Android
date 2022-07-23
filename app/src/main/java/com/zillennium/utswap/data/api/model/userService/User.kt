@@ -1,4 +1,4 @@
-package com.zillennium.utswap.models.userService
+package com.zillennium.utswap.data.api.model.userService
 
 object User {
 

@@ -1,4 +1,4 @@
-package com.zillennium.utswap.api
+package com.zillennium.utswap.data.api
 
 /**
  * @author chhoeurnsokheng

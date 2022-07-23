@@ -4,7 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import com.zillennium.utswap.bases.mvp.BaseMvpPresenter
 import com.zillennium.utswap.bases.mvp.BaseMvpView
-import com.zillennium.utswap.models.userService.User
+import com.zillennium.utswap.data.api.model.userService.User
 
 class SignInView {
     interface View : BaseMvpView {

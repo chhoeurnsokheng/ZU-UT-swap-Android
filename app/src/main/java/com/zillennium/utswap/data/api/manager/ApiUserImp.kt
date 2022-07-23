@@ -1,10 +1,10 @@
-package com.zillennium.utswap.api.manager
+package com.zillennium.utswap.data.api.manager
 
 import android.content.Context
-import com.zillennium.utswap.api.Header
+import com.zillennium.utswap.data.api.Header
 import com.zillennium.utswap.models.user.LoginVerifyLoginParam
 import com.zillennium.utswap.models.user.VerifiyCode
-import com.zillennium.utswap.models.userService.User
+import com.zillennium.utswap.data.api.model.userService.User
 import rx.Observable
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers

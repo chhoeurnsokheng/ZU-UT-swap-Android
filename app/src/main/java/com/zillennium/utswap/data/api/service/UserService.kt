@@ -1,10 +1,10 @@
-package com.zillennium.utswap.api.service
+package com.zillennium.utswap.data.api.service
 
 
-import com.zillennium.utswap.api.ApiSettings
+import com.zillennium.utswap.data.api.ApiSettings
 import com.zillennium.utswap.models.user.LoginVerifyLoginParam
 import com.zillennium.utswap.models.user.VerifiyCode
-import com.zillennium.utswap.models.userService.User
+import com.zillennium.utswap.data.api.model.userService.User
 import retrofit2.http.Body
 import retrofit2.http.HeaderMap
 import retrofit2.http.POST
