@@ -84,22 +84,6 @@
                             android:scaleType="centerCrop"
                             android:src="@drawable/sample_selfit" />
 
-                        <LinearLayout
-                            android:id="@+id/img_logo_correct"
-                            android:layout_width="@dimen/dimen_60"
-                            android:layout_height="@dimen/dimen_60"
-                            android:layout_centerInParent="true"
-                            android:background="@drawable/bg_correct"
-                            android:backgroundTint="@color/white"
-                            android:visibility="gone">
-
-                            <ImageView
-                                android:layout_width="@dimen/dimen_60"
-                                android:layout_height="@dimen/dimen_60"
-                                android:src="@drawable/ic_baseline_check_24"
-                                app:tint="@color/success" />
-
-                        </LinearLayout>
 
                         <androidx.cardview.widget.CardView
                             android:id="@+id/img_delete"
