@@ -9,15 +9,15 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.zillennium.utswap.R
-import com.zillennium.utswap.models.newsTab.News
+import com.zillennium.utswap.models.newsService.News
 
 
 class NewsAdapter (
-    arrayList: ArrayList<News>,
+    arrayList: List<News.NewsData>,
     onClickNews: OnClickNews
 ) :
     RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
-    private var arrayList: ArrayList<News> = ArrayList()
+    private var arrayList: List<News.NewsData> = ArrayList()
     private var onClickNews: OnClickNews
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -44,11 +44,10 @@ class NewsAdapter (
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val news: News = arrayList[position]
+        val news: News.NewsData = arrayList[position]
 
-        holder.imgNews.setImageResource(news.image)
-        holder.txtDate.text = news.txtDate
-        holder.txtTitle.text = news.txtTile
+        holder.txtDate.text = news.addtime.toString()
+        holder.txtTitle.text = news.title.toString()
 
         if (arrayList.size == 1) {
             holder.line.visibility = View.GONE
@@ -67,12 +66,12 @@ class NewsAdapter (
         }
 
         holder.linearLayoutNews.setOnClickListener {
-            onClickNews.clickNews()
+            onClickNews.clickNews(news.id.toString())
         }
     }
 
     interface OnClickNews{
-        fun clickNews()
+        fun clickNews(id: String)
     }
 
     init {

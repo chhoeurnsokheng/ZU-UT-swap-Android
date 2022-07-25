@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -77,19 +77,73 @@
 
         </RelativeLayout>
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginHorizontal="@dimen/dimen_20">
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lay_header">
 
-            <androidx.recyclerview.widget.RecyclerView
+            <LinearLayout
+                android:id="@+id/layout_recycle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/rv_news"
-                android:scrollbars="none"
-                android:overScrollMode="never"/>
+                android:orientation="vertical"
+                android:layout_marginHorizontal="@dimen/dimen_20">
 
-        </LinearLayout>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/rv_news"
+                    android:scrollbars="none"
+                    android:overScrollMode="never"/>
 
-    </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/lay_news_loading"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginBottom="@dimen/dimen_10"
+                    android:paddingHorizontal="@dimen/dimen_20">
+
+                    <LinearLayout
+                        android:id="@+id/read_more"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/dimen_5">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/read_more"
+                            android:textAppearance="@style/medium_16"
+                            android:textColor="@color/primary" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dimen_5"
+                            android:src="@drawable/ic_arrow_right_long"
+                            app:tint="@color/primary"
+                            android:layout_marginEnd="@dimen/dimen_10"/>
+
+                        <ProgressBar
+                            android:id="@+id/progress_bar_read_more"
+                            android:layout_width="@dimen/dimen_24"
+                            android:layout_height="@dimen/dimen_24" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" />
+
+    </RelativeLayout>
 </layout>

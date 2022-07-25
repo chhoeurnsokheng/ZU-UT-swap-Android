@@ -16,4 +16,7 @@ object ApiSettings {
     /** OTP */
     const val PATH_OTP = "login/verify_code"
 
+    /** News */
+    const val PATH_NEWS = "Art/ArtList"
+    const val PATH_NEWS_DETAIL = "Art/ArtShow"
 }
