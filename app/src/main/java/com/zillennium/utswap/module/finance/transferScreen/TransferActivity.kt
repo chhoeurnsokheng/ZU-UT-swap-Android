@@ -111,7 +111,7 @@ class TransferActivity :
                         before: Int,
                         count: Int
                     ) {
-                        layTransactions.visibility = View.VISIBLE
+                      //  layTransactions.visibility = View.VISIBLE
 
                     }
 
