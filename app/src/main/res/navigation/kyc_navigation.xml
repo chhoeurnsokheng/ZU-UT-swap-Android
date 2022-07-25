@@ -205,13 +205,6 @@
         android:name="com.zillennium.utswap.module.kyc.kycFragment.kycApplicationScreen.KycApplicationFragment"
         android:label="KycApplicationKycFragment"
         tools:layout="@layout/fragment_kyc_application">
-<!--        <action-->
-<!--            android:id="@+id/action_to_id_info_kyc_fragment"-->
-<!--            app:destination="@id/IDInfoKycFragment"-->
-<!--            app:enterAnim="@anim/slide_in_right"-->
-<!--            app:exitAnim="@anim/slide_out_left"-->
-<!--            app:popEnterAnim="@anim/slide_in_left"-->
-<!--            app:popExitAnim="@anim/slide_out_right" />-->
 
         <action
             android:id="@+id/action_to_contract_kyc_fragment"

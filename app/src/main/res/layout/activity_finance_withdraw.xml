@@ -203,7 +203,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/dimen_8"
                     android:gravity="center"
-                    android:text="@string/payment_amount"
+                    android:text="@string/withdrawal_amount"
                     android:textAppearance="@style/regular_12"
                     android:textColor="@color/write_ECECEC" />
 

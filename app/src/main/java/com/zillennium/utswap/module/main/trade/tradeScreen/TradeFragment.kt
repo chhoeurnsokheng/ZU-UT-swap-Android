@@ -7,6 +7,7 @@ import android.content.res.ColorStateList
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import android.view.View.OnTouchListener
 import android.view.inputmethod.InputMethodManager
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -37,9 +38,9 @@ class TradeFragment :
 
     private var search: String = ""
     private var filter: Int = 0 // 0 = no sort,
-                                // 1 = asc change, 2 = desc change,
-                                // 3 = asc last, 4 = desc last,
-                                // 5 asc volume, 6 desc volume
+    // 1 = asc change, 2 = desc change,
+    // 3 = asc last, 4 = desc last,
+    // 5 asc volume, 6 desc volume
 
     override fun initView() {
         super.initView()
@@ -54,11 +55,22 @@ class TradeFragment :
                             startActivity(intent)
                             requireActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
                         }
+                        imgNotification.setOnClickListener {
+                            val intent = Intent(UTSwapApp.instance, NotificationActivity::class.java)
+                            startActivity(intent)
+                        }
+                        txtCountNotification.visibility =View.VISIBLE
+
                     }else{
                         imgMenu.setOnClickListener {
                             val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
                             startActivity(intent)
                         }
+                        imgNotification.setOnClickListener {
+                            val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
+                            startActivity(intent)
+                        }
+                        txtCountNotification.visibility= View.GONE
                     }
                 }
 
@@ -137,8 +149,11 @@ class TradeFragment :
                     }
                 }
 
+
+
                 etSearch.addTextChangedListener(object: TextWatcher {
                     override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
 
                     }
 
@@ -148,6 +163,7 @@ class TradeFragment :
                     }
 
                     override fun afterTextChanged(p0: Editable?) {
+                       // hideKeyboard()
                     }
 
                 })
@@ -198,11 +214,6 @@ class TradeFragment :
 
                 imgMenu.setOnClickListener {
                     val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
-                    startActivity(intent)
-                }
-
-                imgNotification.setOnClickListener {
-                    val intent = Intent(UTSwapApp.instance, NotificationActivity::class.java)
                     startActivity(intent)
                 }
 
@@ -307,4 +318,5 @@ class TradeFragment :
         val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
     }
+
 }

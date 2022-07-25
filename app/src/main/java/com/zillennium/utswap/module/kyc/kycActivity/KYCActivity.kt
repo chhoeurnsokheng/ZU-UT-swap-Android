@@ -20,24 +20,6 @@ class KYCActivity :
         super.initView()
         try {
 
-//            Navigation.findNavController(this, R.id.kyc_nav_host_fragment).addOnDestinationChangedListener{  _, destination, _ ->
-//                when(destination.id){
-//                    R.id.IDVerificationKycFragment,
-//                        R.id.SelfieHoldingKycFragment,
-//                        R.id.EmploymentInfoKycFragment,
-//                        R.id.DeclarationKycFragment,
-//                        R.id.FundPasswordKycFragment,
-//                        R.id.ContractKycFragment,
-//                        R.id.KycApplicationKycFragment,
-//                        -> {
-//
-//                        }
-//                }
-//
-//            }
-
-
-
         } catch (error: Exception) {
             // Must be safe
         }

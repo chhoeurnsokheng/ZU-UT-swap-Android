@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
         <LinearLayout
+            android:id="@+id/layout_whole_screen"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -59,6 +60,7 @@
                         app:tint="@color/primary" />
 
                     <TextView
+                        android:id="@+id/txt_count_notification"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignEnd="@+id/img_notification"
@@ -99,6 +101,7 @@
                         android:inputType="textVisiblePassword"
                         android:paddingHorizontal="@dimen/dimen_15"
                         android:singleLine="true"
+                        android:imeOptions="actionDone"
                         android:textAppearance="@style/medium_14"
                         android:textColor="@color/dark_gray" />
 

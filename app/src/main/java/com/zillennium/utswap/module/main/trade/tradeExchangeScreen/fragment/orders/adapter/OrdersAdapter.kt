@@ -6,10 +6,8 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
@@ -81,21 +79,13 @@ class OrdersAdapter (
                 }
             }
         }
+
         holder.btnArrow.isEnabled = true
         holder.btnArrow.isClickable = true
         holder.btnArrow.isFocusable = true
         holder.btnArrow.isFocusableInTouchMode = true
 
         holder.btnArrow.setOnTouchListener(object : OnSwipeTouchListener(UTSwapApp.instance){
-           /* override fun onSwipeLeft() {
-                holder.btnArrow.visibility = View.GONE
-                holder.btnDelete.visibility = View.VISIBLE
-                holder.btnDelete.setOnClickListener {
-                    onClickDelete.clickMe()
-                    holder.btnDelete.visibility = View.GONE
-                    holder.btnArrow.visibility = View.VISIBLE
-                }
-            }*/
 
             override fun onTouch(v: View, event: MotionEvent): Boolean {
                 if (event.action == MotionEvent.ACTION_UP) {

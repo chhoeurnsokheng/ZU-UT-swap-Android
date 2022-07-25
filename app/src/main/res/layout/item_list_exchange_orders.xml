@@ -97,14 +97,13 @@
                 android:id="@+id/btn_delete"
                 android:layout_width="@dimen/dimen_50"
                 android:layout_height="match_parent"
-                android:background="@color/danger"
+                android:background="@color/red_ee1111"
                 android:visibility="gone"
                 android:gravity="center"
                 android:layout_marginEnd="-12dp"
                 android:layout_marginStart="-12dp"
                 android:layout_gravity="center"
-                android:orientation="horizontal"
-                >
+                android:orientation="horizontal">
                 <ImageView
                     android:layout_width="@dimen/dimen_8"
                     android:layout_height="@dimen/dimen_8"
@@ -131,8 +130,7 @@
                 android:layout_height="match_parent"
                 android:gravity="end"
                 android:visibility="visible"
-                android:layout_gravity="center_vertical"
-                >
+                android:layout_gravity="center_vertical">
 
                 <ImageView
                     android:layout_width="@dimen/dimen_16"

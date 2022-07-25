@@ -44,7 +44,7 @@ open class ApiManager {
     open fun getBaseServerUrl(): String {
 
         return  BuildConfig.BASE_URL
-      //  return  BuildConfig.CORE_APP_ID
+
 
     }
 

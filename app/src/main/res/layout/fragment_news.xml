@@ -9,8 +9,7 @@
         <RelativeLayout
             android:id="@+id/lay_header"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/dimen_15">
+            android:layout_height="?attr/actionBarSize">
 
             <ImageView
                 android:id="@+id/img_menu"
@@ -62,6 +61,7 @@
                     app:tint="@color/primary" />
 
                 <TextView
+                    android:id="@+id/txt_count_notification"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignEnd="@+id/img_notification"
@@ -79,7 +79,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginHorizontal="@dimen/dimen_20">
+           android:layout_marginEnd="@dimen/dimen_20"
+            android:layout_marginStart="@dimen/dimen_20">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"

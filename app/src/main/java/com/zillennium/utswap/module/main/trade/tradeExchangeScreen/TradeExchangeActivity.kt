@@ -1,6 +1,5 @@
 package com.zillennium.utswap.module.main.trade.tradeExchangeScreen
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Paint
@@ -9,7 +8,6 @@ import android.text.Editable
 import android.text.InputFilter
 import android.text.TextWatcher
 import android.view.View
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
@@ -20,20 +18,18 @@ import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityTradeExchangeBinding
-import com.zillennium.utswap.module.account.accountScreen.AccountActivity
 import com.zillennium.utswap.module.kyc.kycActivity.KYCActivity
-import com.zillennium.utswap.module.project.projectInfoScreen.ProjectInfoActivity
+import com.zillennium.utswap.module.main.trade.tradeExchangeScreen.dialog.BuyDialog
+import com.zillennium.utswap.module.main.trade.tradeExchangeScreen.dialog.MarketDialog
+import com.zillennium.utswap.module.main.trade.tradeExchangeScreen.dialog.SellDialog
 import com.zillennium.utswap.module.main.trade.tradeExchangeScreen.fragment.Transactions.TransactionsFragment
 import com.zillennium.utswap.module.main.trade.tradeExchangeScreen.fragment.allTransactions.AllTransactionsFragment
 import com.zillennium.utswap.module.main.trade.tradeExchangeScreen.fragment.chart.ChartFragment
 import com.zillennium.utswap.module.main.trade.tradeExchangeScreen.fragment.orderBook.OrderBookFragment
 import com.zillennium.utswap.module.main.trade.tradeExchangeScreen.fragment.orders.OrdersFragment
-import com.zillennium.utswap.module.main.trade.tradeExchangeScreen.dialog.BuyDialog
-import com.zillennium.utswap.module.main.trade.tradeExchangeScreen.dialog.MarketDialog
-import com.zillennium.utswap.module.main.trade.tradeExchangeScreen.dialog.SellDialog
+import com.zillennium.utswap.module.project.projectInfoScreen.ProjectInfoActivity
 import com.zillennium.utswap.module.security.securityActivity.signInScreen.SignInActivity
 import com.zillennium.utswap.utils.DecimalDigitsInputFilter
-import com.zillennium.utswap.utils.OnSwipeTouchListener
 
 
 class TradeExchangeActivity :
@@ -273,27 +269,7 @@ class TradeExchangeActivity :
                         persistentBottomSheet.etVolume.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.outline_edittext_change_color_focus)
                     }
 
-                    override fun afterTextChanged(p0: Editable?) {
-                        /*val inputNumberLength: Int = persistentBottomSheet.etVolume.text.toString().length
-
-                        if (count <= inputNumberLength && (inputNumberLength == 3 || inputNumberLength == 7 || inputNumberLength == 11 || inputNumberLength == 15 || inputNumberLength == 19)
-                        ) {
-                            persistentBottomSheet.etVolume.setText(persistentBottomSheet.etVolume.text.toString() + " ")
-                            val pos = persistentBottomSheet.etVolume.text.length
-                            persistentBottomSheet.etVolume.setSelection(pos)
-                        } else if (count >= inputNumberLength && (inputNumberLength == 3 || inputNumberLength == 7 || inputNumberLength == 11 || inputNumberLength == 15 || inputNumberLength == 19)
-                        ) {
-                            persistentBottomSheet.etVolume.setText(
-                                persistentBottomSheet.etVolume.text.toString()
-                                    .substring(0, persistentBottomSheet.etVolume.text.toString().length - 1)
-                            )
-                            val pos = persistentBottomSheet.etVolume.text.length
-                            persistentBottomSheet.etVolume.setSelection(pos)
-                        }
-                        count = persistentBottomSheet.etVolume.text.toString().length*/
-
-
-                    }
+                    override fun afterTextChanged(p0: Editable?) {}
                 })
                 persistentBottomSheet.etPriceOfVolume.filters = arrayOf<InputFilter>(
                     DecimalDigitsInputFilter(10, 2)
@@ -340,27 +316,31 @@ class TradeExchangeActivity :
             // Must be safe
         }
     }
-
+    
     private fun onCheckSessionStatusAndKYC(){
         binding.apply {
+
+            // When did not verify kyc , button kyc show
 
             if(SessionVariable.SESSION_STATUS.value == true && SessionVariable.SESSION_KYC.value == true){
                 imgRemember.visibility = View.VISIBLE
                 persistentBottomSheet.root.visibility = View.VISIBLE
                 layTransactions.visibility = View.VISIBLE
+
             }else{
                 persistentBottomSheet.root.visibility = View.GONE
                 layTransactions.visibility = View.GONE
 
-                if(SessionVariable.SESSION_KYC.value == false){
-                    layAuth.visibility = View.GONE
-                    layVerify.visibility = View.VISIBLE
-                }
-                if(SessionVariable.SESSION_STATUS.value == false){
+                if (SessionVariable.SESSION_STATUS.value==false){
                     layAuth.visibility = View.VISIBLE
                     layVerify.visibility = View.GONE
                     imgRemember.visibility = View.GONE
                 }
+                if(SessionVariable.SESSION_KYC.value == false){
+                    layAuth.visibility = View.GONE
+                    layVerify.visibility = View.VISIBLE
+                }
+
             }
         }
     }
@@ -433,19 +413,4 @@ class TradeExchangeActivity :
             return NUM_PAGES_TABLE
         }
     }
-
-
-//    override fun onResume() {
-//        super.onResume()
-//        binding.apply {
-//            if(vpVerify.currentItem == 1){
-//                vpVerify.setCurrentItem(0, false)
-//            }
-//            if(vpTable.currentItem == 1){
-//                vpTable.setCurrentItem(0,false)
-//            }
-//        }
-//
-//    }
-
 }

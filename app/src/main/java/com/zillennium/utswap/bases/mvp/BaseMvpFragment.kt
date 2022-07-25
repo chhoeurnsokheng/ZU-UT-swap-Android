@@ -33,10 +33,7 @@ abstract class BaseMvpFragment<in V : BaseMvpView, T : BaseMvpPresenter<V>, M : 
     ): View? {
         if (!isRootIsInitialized()) {
             binding = DataBindingUtil.inflate(inflater, layoutResource, container, false)
-            mPresenter.initViewPresenter(
-                context = requireActivity(),
-                savedInstanceState
-            )
+            mPresenter.initViewPresenter(context = requireActivity(), savedInstanceState)
         }
         return binding.root
     }
@@ -115,4 +112,69 @@ abstract class BaseMvpFragment<in V : BaseMvpView, T : BaseMvpPresenter<V>, M : 
 
 
 }
+/*
 
+@Suppress("UNCHECKED_CAST")
+abstract class BaseMvpFragment<in V : BaseMvpView, T : BaseMvpPresenter<V>> :
+    androidx.fragment.app.Fragment(), BaseMvpView {
+    protected val DISMISS_TIMEOUT = 500
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        mPresenter.attachView(this as V)
+    }
+
+    override fun getContext(): Context? {
+        if (activity != null) {
+            return activity?.baseContext
+        }
+        return null
+    }
+
+    override fun initView() {
+
+    }
+
+    protected abstract var mPresenter: T
+    override fun onDestroy() {
+        super.onDestroy()
+        mPresenter.detachView()
+    }
+
+    override fun onNext(page: Int) {
+
+    }
+
+    override fun onWillBeHidden() {
+
+    }
+
+    override fun onWillBeDisplayed() {
+
+    }
+
+    override fun onRefresh() {
+
+    }
+
+    override fun onSuccess(any: Any) {
+
+    }
+
+    override fun onFail(any: Any) {
+
+    }
+
+    override fun onSetThem(): Int {
+        return -1
+    }
+
+    override fun onLoading() {
+
+    }
+
+    override fun showError(error: String) {
+
+    }
+}
+
+*/

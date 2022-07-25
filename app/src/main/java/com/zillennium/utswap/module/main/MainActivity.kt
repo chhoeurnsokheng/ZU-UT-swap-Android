@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI.setupWithNavController
-import com.zillennium.utswap.BuildConfig
 import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
 import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
@@ -168,8 +167,16 @@ class MainActivity :
                             activeFragment = homeFragment
                         }
                         R.id.navigation_navbar_portfolio -> {
-                            fragmentManager.beginTransaction().hide(activeFragment).show(portfolioFragment).commit()
-                            activeFragment = portfolioFragment
+                            SessionVariable.SESSION_KYC_STATUS.observe(this@MainActivity){
+                                if (SessionVariable.SESSION_STATUS.value ==true){
+                                    fragmentManager.beginTransaction().hide(activeFragment).show(portfolioFragment).commit()
+                                    activeFragment = portfolioFragment
+                                }else{
+                                    val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
+                                    startActivity(intent)
+                                }
+                            }
+
                         }
                         R.id.navigation_navbar_trade -> {
                             fragmentManager.beginTransaction().hide(activeFragment).show(tradeFragment).commit()

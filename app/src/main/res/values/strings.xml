@@ -428,6 +428,8 @@
     <string name="days">Day(s)</string>
     <string name="terms_and_and_conditions"><![CDATA[Terms & Conditions]]></string>
     <string name="title_deed">Title Deed</string>
+    <string name="deposit_amount">Deposit Amount</string>
+    <string name="lock_balance">Lock Balance</string>
 
 
 </resources>

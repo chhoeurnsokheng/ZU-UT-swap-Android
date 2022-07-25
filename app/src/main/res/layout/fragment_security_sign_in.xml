@@ -196,6 +196,7 @@
                                 android:paddingVertical="@dimen/dimen_12"
                                 android:text="@string/forgot_password_btn"
                                 android:textAppearance="@style/regular_14" />
+
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>

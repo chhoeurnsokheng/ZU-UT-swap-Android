@@ -4,8 +4,12 @@ package com.zillennium.utswap.module.main.home
 import android.content.Intent
 import android.graphics.BlurMaskFilter
 import android.graphics.MaskFilter
+import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
+import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager.widget.ViewPager
@@ -47,6 +51,7 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
     var bannerLoopingPagerAdapter: BannerLoopingPagerAdapter? = null
     var isUserSwipe = false
     var currentPosition = 0
+
     override fun initView() {
         super.initView()
         try {
@@ -81,10 +86,7 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
                     startActivity(intent)
                 }
 
-                imgNotification.setOnClickListener {
-                    val intent = Intent(UTSwapApp.instance, NotificationActivity::class.java)
-                    startActivity(intent)
-                }
+
 
                 /* Show or Hide Trading Balance */
                 tradingBalance.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
@@ -102,13 +104,22 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
                 SessionVariable.SESSION_STATUS.observe(this@HomeFragment) {
                     if (SessionVariable.SESSION_STATUS.value == true) {
                         onHomeMenuGrid(true)
+                        txtCountNotification.visibility =View.VISIBLE
+                        imgNotification.setOnClickListener {
+                            val intent = Intent(UTSwapApp.instance, NotificationActivity::class.java)
+                            startActivity(intent)
+                        }
                     } else {
                         onHomeMenuGrid(false)
+                        txtCountNotification.visibility =View.INVISIBLE
+                        imgNotification.setOnClickListener {
+                            val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
+                            startActivity(intent)
+                        }
                     }
                 }
 
-               val   homeTabSlideImage = arrayListOf(HomeTabSlideImageModel(
-                   "https://i.pinimg.com/564x/fb/0a/23/fb0a237f801f118ccc6050d6b6b0b8e2.jpg"),
+               val   homeTabSlideImage = arrayListOf(
                     HomeTabSlideImageModel(  "https://utswap.io/Upload/article/62b28f4e18eb0.jpg"),
                     HomeTabSlideImageModel("https://utswap.io/Upload/article/62bad61c5d0e5.jpg"),
                    HomeTabSlideImageModel(  "https://utswap.io/Upload/article/62b28f4e18eb0.jpg"),
@@ -179,7 +190,7 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
 
                     }
                 })
-
+                
                 bannerImage.setOnTouchListener { _, event ->
                     when (event.action) {
                         MotionEvent.ACTION_DOWN -> {

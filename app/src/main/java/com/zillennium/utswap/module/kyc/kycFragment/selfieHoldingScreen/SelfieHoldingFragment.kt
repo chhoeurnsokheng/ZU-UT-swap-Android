@@ -33,7 +33,6 @@ class SelfieHoldingFragment :
                     imgDelete.visibility = View.GONE
                     btnCameraSelfie.isClickable = true
                     btnCameraSelfie.visibility = View.VISIBLE
-                    imgLogoCorrect.visibility = View.GONE
                     ivSelfie.setImageResource(R.drawable.sample_selfit)
                     btnNext.isClickable = false
                     btnNext.visibility = View.GONE
@@ -52,7 +51,7 @@ class SelfieHoldingFragment :
         if (!KYCPreferences().SELFIE_HOLDING.isNullOrEmpty()) {
             binding.apply {
                 ivSelfie.setImageURI(KYCPreferences().SELFIE_HOLDING?.toUri())
-                imgLogoCorrect.visibility = View.VISIBLE
+
                 imgDelete.visibility = View.VISIBLE
                 btnCameraSelfie.isClickable = false
                 btnCameraSelfie.visibility = View.GONE
