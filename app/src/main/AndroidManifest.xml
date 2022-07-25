@@ -178,6 +178,7 @@
             android:configChanges="uiMode|keyboardHidden|screenSize|orientation|screenLayout"
             android:resizeableActivity="true"
             android:label="@string/deposit"
+            android:windowSoftInputMode="adjustResize"
             android:screenOrientation="portrait" />
         <activity
             android:name=".module.finance.withdrawScreen.addBank.AddBankActivity"
@@ -267,6 +268,7 @@
             android:name=".module.finance.transferScreen.TransferActivity"
             android:configChanges="uiMode|keyboardHidden|screenSize|orientation|screenLayout"
             android:resizeableActivity="true"
+            android:windowSoftInputMode="adjustResize"
             android:label="@string/transfer_"
             android:screenOrientation="portrait" /> <!-- Activity Open Camera Change Profile -->
         <activity

@@ -98,7 +98,7 @@ class ProjectInfoActivity :
                 )
                 val valueInfo = arrayOf(
                     "Hard Title (10)",
-                    "384 761",
+                    "384 761 sqm",
                     "220 000 UT",
                     "$1 625/sqm",
                     "$1 804/sqm",

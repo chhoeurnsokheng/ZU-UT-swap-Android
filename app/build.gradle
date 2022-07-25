@@ -201,4 +201,7 @@ dependencies {
     implementation 'com.hejunlin.superindicatorlibray:superindicatorlibray:1.0.3'
     implementation 'com.asksira.android:loopingviewpager:1.4.1'
     implementation "com.tbuonomo:dotsindicator:4.3"
+
+    implementation 'net.yslibrary.keyboardvisibilityevent:keyboardvisibilityevent:3.0.0-RC2'
+//    implementation 'com.github.viniciusmo:keyboard-visibility-event-android:1.0.4'
 }

@@ -1,34 +1,82 @@
 package com.zillennium.utswap.module.finance.withdrawScreen
 
+import android.content.Context
 import android.content.Intent
 import android.text.Editable
 import android.text.InputFilter
 import android.text.TextWatcher
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.core.content.ContextCompat
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
-import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityFinanceWithdrawBinding
-
 import com.zillennium.utswap.module.finance.withdrawScreen.addBank.AddBankActivity
 import com.zillennium.utswap.module.security.securityDialog.FundPasswordDialog
 import com.zillennium.utswap.utils.DecimalDigitsInputFilter
+import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent.setEventListener
+import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener
+
 
 class WithdrawActivity :
     BaseMvpActivity<WithdrawView.View, WithdrawView.Presenter, ActivityFinanceWithdrawBinding>(),
     WithdrawView.View {
 
     override var mPresenter: WithdrawView.Presenter = WithdrawPresenter()
-    override val layoutResource: Int = R.layout.activity_finance_withdraw
+    override val layoutResource: Int = com.zillennium.utswap.R.layout.activity_finance_withdraw
+    private var mBottomSheetBehavior: BottomSheetBehavior<*>? = null
+    private var isShow = false
 
 
     override fun initView() {
         super.initView()
         try {
             binding.apply {
+                etMountPayment.requestFocus()
+                showKeyboard(this@WithdrawActivity)
                 nextBtnFinace.isEnabled = false
+//                mBottomSheetBehavior = BottomSheetBehavior.from(rlBottomSheet)
+
+                /*(mBottomSheetBehavior as BottomSheetBehavior<*>).addBottomSheetCallback(object :
+                    BottomSheetBehavior.BottomSheetCallback() {
+                    override fun onStateChanged(bottomSheet: View, newState: Int) {
+                        if (mBottomSheetBehavior?.state == BottomSheetBehavior.STATE_EXPANDED) {
+                            etMountPayment.requestFocus()
+                            showKeyboard(this@WithdrawActivity)
+                        } else {
+                            etMountPayment.clearFocus()
+                            etMountPayment.hideKeyboard()
+                        }
+                    }
+
+                    override fun onSlide(bottomSheet: View, slideOffset: Float) {}
+                })
+
+                val screenHeight = Resources.getSystem().displayMetrics.heightPixels
+                val expandHeight = dpToPx(300) + screenHeight / 2.8
+                val params: ViewGroup.LayoutParams = rlBottomSheet.layoutParams
+                params.height = expandHeight.toInt()
+                rlBottomSheet.requestLayout()
+                mBottomSheetBehavior?.state = BottomSheetBehavior.STATE_EXPANDED*/
+
+//                root.viewTreeObserver.addOnGlobalLayoutListener {
+////                    val r = Rect()
+////                    root.getWindowVisibleDisplayFrame(r)
+////                    val screenHeight: Int = root.rootView.height
+//
+//                }
+
+                setEventListener(this@WithdrawActivity, object : KeyboardVisibilityEventListener {
+                    override fun onVisibilityChanged(isOpen: Boolean) {
+                        if (!isOpen) {
+                            etMountPayment.clearFocus()
+                        }
+                    }
+                })
+
+
 
                 addBankAccount.setOnClickListener {
                     val intent = Intent(this@WithdrawActivity, AddBankActivity::class.java)
@@ -36,7 +84,12 @@ class WithdrawActivity :
                 }
 
                 imgClose.setOnClickListener {
+                    etMountPayment.hideKeyboard()
                     finish()
+                }
+
+                layFragment.setOnClickListener {
+                    etMountPayment.hideKeyboard()
                 }
 
 
@@ -49,15 +102,30 @@ class WithdrawActivity :
                         tvUser.text = value?.bank_fullname
                         tvTitleBank.text = value?.bank_name
 
-                        when(value?.bank_name){
+                        when (value?.bank_name) {
                             "ABA Pay" -> {
-                               ivBank.setImageDrawable(ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.aba_bank))
+                                ivBank.setImageDrawable(
+                                    ContextCompat.getDrawable(
+                                        UTSwapApp.instance,
+                                        com.zillennium.utswap.R.drawable.aba_bank
+                                    )
+                                )
                             }
                             "Acleda Bank" -> {
-                                ivBank.setImageDrawable(ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.acleda))
+                                ivBank.setImageDrawable(
+                                    ContextCompat.getDrawable(
+                                        UTSwapApp.instance,
+                                        com.zillennium.utswap.R.drawable.acleda
+                                    )
+                                )
                             }
                             "Sathapana" -> {
-                                ivBank.setImageDrawable(ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.sathapana))
+                                ivBank.setImageDrawable(
+                                    ContextCompat.getDrawable(
+                                        UTSwapApp.instance,
+                                        com.zillennium.utswap.R.drawable.sathapana
+                                    )
+                                )
                             }
                         }
 
@@ -68,7 +136,9 @@ class WithdrawActivity :
                 }
 
                 etMountPayment.filters = arrayOf<InputFilter>(DecimalDigitsInputFilter(10, 2))
-                etMountPayment.addTextChangedListener(object : TextWatcher{
+                etMountPayment.requestFocus()
+
+                etMountPayment.addTextChangedListener(object : TextWatcher {
                     override fun beforeTextChanged(
                         s: CharSequence?,
                         start: Int,
@@ -91,13 +161,16 @@ class WithdrawActivity :
                             '0'.toString().toDouble()
                         }
 
-                        if(amount > 0 && tvUser.text.isNotEmpty() && tvTitleBank.text.isNotEmpty()){
+                        if (amount > 0 && tvUser.text.isNotEmpty() && tvTitleBank.text.isNotEmpty()) {
                             nextBtnFinace.isEnabled = true
-                            nextBtnFinace.setOnClickListener{
+                            nextBtnFinace.setOnClickListener {
                                 val fundPasswordDialog = FundPasswordDialog()
-                                fundPasswordDialog.show(this@WithdrawActivity.supportFragmentManager, "balanceHistoryDetailDialog")
+                                fundPasswordDialog.show(
+                                    this@WithdrawActivity.supportFragmentManager,
+                                    "balanceHistoryDetailDialog"
+                                )
                             }
-                        } else{
+                        } else {
                             nextBtnFinace.isEnabled = false
                         }
 
@@ -114,4 +187,26 @@ class WithdrawActivity :
             // Must be safe
         }
     }
+
+    private fun View.hideKeyboard() {
+        val inputMethodManager =
+            context.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(windowToken, 0)
+        binding.etMountPayment.clearFocus()
+    }
+
+    private fun showKeyboard(context: Context) {
+        (context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).toggleSoftInput(
+            InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY
+        )
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        binding.apply {
+            etMountPayment.clearFocus()
+            etMountPayment.hideKeyboard()
+        }
+    }
+
 }
