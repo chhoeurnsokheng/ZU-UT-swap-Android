@@ -7,8 +7,11 @@
         android:layout_height="match_parent">
 
         <LinearLayout
+            android:id="@+id/ll_national_id"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/btn_next"
+            android:layout_marginBottom="@dimen/dimen_8"
             android:orientation="vertical">
 
             <RelativeLayout
@@ -49,7 +52,7 @@
 
                 <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dimen_45"
+                    android:layout_height="@dimen/dimen_38"
                     android:background="@drawable/bg_tabs">
 
                     <LinearLayout
@@ -120,7 +123,7 @@
             android:layout_alignParentBottom="true"
             android:layout_marginStart="@dimen/dimen_30"
             android:layout_marginEnd="@dimen/dimen_30"
-            android:layout_marginBottom="@dimen/dimen_30"
+            android:layout_marginBottom="@dimen/dimen_24"
             android:background="@drawable/bg_circular"
             android:gravity="center">
 

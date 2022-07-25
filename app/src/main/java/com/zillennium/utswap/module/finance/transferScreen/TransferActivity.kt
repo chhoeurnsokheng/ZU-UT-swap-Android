@@ -1,9 +1,11 @@
 package com.zillennium.utswap.module.finance.transferScreen
 
+import android.content.Context
 import android.text.Editable
 import android.text.InputFilter
 import android.text.TextWatcher
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.zillennium.utswap.R
@@ -14,6 +16,8 @@ import com.zillennium.utswap.models.FinanceTransferModel
 import com.zillennium.utswap.module.finance.transferScreen.adapter.TransferAdapter
 import com.zillennium.utswap.module.security.securityDialog.FundPasswordDialog
 import com.zillennium.utswap.utils.DecimalDigitsInputFilter
+import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent
+import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener
 
 
 class TransferActivity :
@@ -33,10 +37,26 @@ class TransferActivity :
         super.initView()
         try {
             binding.apply {
+                etMountTransfer.requestFocus()
+                showKeyboard(this@TransferActivity)
 
                 imgClose.setOnClickListener {
+                    etMountTransfer.hideKeyboard()
                     finish()
                 }
+                layFragment.setOnClickListener {
+                    etMountTransfer.hideKeyboard()
+                }
+
+                KeyboardVisibilityEvent.setEventListener(
+                    this@TransferActivity,
+                    object : KeyboardVisibilityEventListener {
+                        override fun onVisibilityChanged(isOpen: Boolean) {
+                            if (!isOpen) {
+                                etMountTransfer.clearFocus()
+                            }
+                        }
+                    })
 
                 etMountTransfer.addTextChangedListener(textWatcher)
                 etPhoneNumberScanQR.addTextChangedListener(textWatcher)
@@ -178,5 +198,18 @@ class TransferActivity :
 
         }
 
+    }
+
+    private fun View.hideKeyboard() {
+        val inputMethodManager =
+            context.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(windowToken, 0)
+        binding.etMountTransfer.clearFocus()
+    }
+
+    private fun showKeyboard(context: Context) {
+        (context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).toggleSoftInput(
+            InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY
+        )
     }
 }

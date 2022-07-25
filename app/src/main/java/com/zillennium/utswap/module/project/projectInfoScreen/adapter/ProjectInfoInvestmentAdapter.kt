@@ -38,11 +38,11 @@ class ProjectInfoInvestmentAdapter (arrayList: ArrayList<ProjectInfoInvestmentMo
         holder.txtValueUT.text = projectInfoInvestmentModelList.valueUT
         holder.txtSqmUT.text = projectInfoInvestmentModelList.sqmUT
 
-        if(position == 2)
+        if(position == 0)
         {
             holder.layoutInvestment.setBackgroundColor(ContextCompat.getColor(UTSwapApp.instance, R.color.gray_CCCCCC))
         }
-        else if(position == 8){
+        else if(position == 1){
             holder.layoutInvestment.setBackgroundColor(ContextCompat.getColor(UTSwapApp.instance, R.color.warning))
         }
     }

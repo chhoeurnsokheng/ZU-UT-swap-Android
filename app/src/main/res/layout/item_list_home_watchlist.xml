@@ -32,7 +32,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="start"
-                        android:text="Siem Reap 17140"
+                        android:maxLines="2"
+                        android:ellipsize="end"
+                        android:text="Siem Reap 17140 Siem Reap 17140 Siem Reap 17140"
                         android:textAppearance="@style/medium_12"
                         android:textColor="@color/black_222222" />
 
@@ -44,35 +46,31 @@
                         android:layout_gravity="center"
                         android:background="@color/light_gray" />
 
-                    <LinearLayout
+                    <RelativeLayout
                         android:id="@+id/layout_value"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingTop="@dimen/dimen_7"
-                        android:gravity="center_vertical"
                         android:layout_alignParentBottom="true"
-                        android:orientation="horizontal">
+                        android:paddingTop="@dimen/dimen_7">
 
                         <TextView
                             android:id="@+id/last_value"
-                            android:layout_width="@dimen/dimen_0"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:textAppearance="@style/medium_12"
                             android:text="0.68"
                             android:textColor="@color/black_222222"/>
 
                         <TextView
                             android:id="@+id/change_value"
-                            android:layout_width="@dimen/dimen_0"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="end"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:textAppearance="@style/medium_12"
+                            android:layout_alignParentEnd="true"
                             android:textColor="@color/simple_green"
                             android:text="+1.05%" />
 
-                    </LinearLayout>
+                    </RelativeLayout>
 
                 </RelativeLayout>
             </LinearLayout>

@@ -208,6 +208,10 @@ dependencies {
     implementation 'com.asksira.android:loopingviewpager:1.4.1'
     implementation "com.tbuonomo:dotsindicator:4.3"
 
+    //Keyboard Action
+    implementation 'net.yslibrary.keyboardvisibilityevent:keyboardvisibilityevent:3.0.0-RC2'
+//    implementation 'com.github.viniciusmo:keyboard-visibility-event-android:1.0.4'
+
     //Crash Reporting with Firebase
     implementation 'com.google.firebase:firebase-crash:9.0.0'
     // firebase core library

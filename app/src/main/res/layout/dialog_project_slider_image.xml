@@ -3,11 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <RelativeLayout
+        android:id="@+id/rl_image"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:padding="@dimen/dimen_0"
-        android:layout_margin="@dimen/dimen_0">
+        android:layout_height="wrap_content"
+        android:gravity="center">
 
         <ImageView
             android:id="@+id/close_image"
@@ -16,6 +15,7 @@
             android:layout_alignEnd="@+id/image_view"
             android:layout_marginBottom="@dimen/dimen_5"
             android:padding="@dimen/dimen_5"
+            android:visibility="gone"
             android:src="@drawable/ic_sharp_close_24"
             app:tint="@color/white" />
 
@@ -24,7 +24,6 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:layout_below="@+id/close_image"
-            android:layout_marginBottom="@dimen/dimen_20"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop"
             android:src="@drawable/image_one" />

@@ -98,7 +98,7 @@ class ProjectInfoActivity :
                 )
                 val valueInfo = arrayOf(
                     "Hard Title (10)",
-                    "384 761",
+                    "384 761 sqm",
                     "220 000 UT",
                     "$1 625/sqm",
                     "$1 804/sqm",
@@ -122,36 +122,16 @@ class ProjectInfoActivity :
 
                 /* Recycle Investment info */
                 val perUT = arrayOf(
-                    "3.90",
-                    "4.00",
+
                     "4.10",
-                    "4.20",
-                    "4.30",
-                    "4.35",
-                    "4.45",
-                    "4.50",
                     "4.55",
                 )
                 val valueUT = arrayOf(
-                    "858 000",
-                    "880 000",
                     "902 000",
-                    "924 000",
-                    "935 000",
-                    "957 000",
-                    "979 000",
-                    "990 000",
                     "1 001 000",
                 )
                 val sqmUT = arrayOf(
-                    "1 546",
-                    "1 586",
                     "1 625",
-                    "1 665",
-                    "1 685",
-                    "1 724",
-                    "1 764",
-                    "1 784",
                     "1 804",
                 )
 
