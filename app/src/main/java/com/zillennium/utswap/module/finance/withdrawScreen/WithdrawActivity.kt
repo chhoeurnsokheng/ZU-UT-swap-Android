@@ -79,6 +79,7 @@ class WithdrawActivity :
 
 
                 addBankAccount.setOnClickListener {
+                    etMountPayment.hideKeyboard()
                     val intent = Intent(this@WithdrawActivity, AddBankActivity::class.java)
                     startActivity(intent)
                 }

@@ -37,7 +37,7 @@ class TransferAdapter(private val arrayList: ArrayList<FinanceTransferModel>): R
         holder.user_Name.text = transferCurrentItemList.userName
         holder.user_PhoneNumber.text = transferCurrentItemList.phoneNumber
 
-        if (position ==1){
+        if (position ==0){
             holder.view_line.visibility = View.GONE
         }
 

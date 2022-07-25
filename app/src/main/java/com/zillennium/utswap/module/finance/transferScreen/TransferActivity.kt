@@ -63,18 +63,18 @@ class TransferActivity :
                 nextBtnTransfer.isEnabled = false
 
                 userProfile = arrayOf(
-                    R.drawable.aba_pay,
+                  //  R.drawable.aba_pay,
                     R.drawable.acleda
 
                 )
 
                 userName = arrayOf(
-                    "JONHATHAN WICK",
+                 //   "JONHATHAN WICK",
                     "ANTHONY EDWARD STARK"
                 )
 
                 userPhoneNumber = arrayOf(
-                    "012 486 378",
+                  //  "012 486 378",
                     "088 998 809"
                 )
 
@@ -144,7 +144,7 @@ class TransferActivity :
                     ) {
                         if (s?.toString()?.length!! >= 9) {
                             receiveUserPhoneNumber.visibility = View.VISIBLE
-                            newArrayList[1].phoneNumber = s.toString()
+                            newArrayList[0].phoneNumber = s.toString()
                             transferAdapter = TransferAdapter(newArrayList)
                             rvUserReceiving.adapter = transferAdapter
                         } else {
