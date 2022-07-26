@@ -37,7 +37,7 @@ class NationalIDFragment :
                     KYCPreferences().removeValue("NATIONAL_ID_FRONT")
                     imgNationalFront.setImageResource(R.drawable.ic_national_id_front)
                     imgLogoCameraFront.visibility = View.VISIBLE
-                    imgLogoCorrectFront.visibility = View.GONE
+                  //  imgLogoCorrectFront.visibility = View.GONE
                     imgDeleteFront.visibility = View.GONE
                     btnCameraFront.isClickable = true
                     (parentFragment as IdTypeFragment).checkValidation()
@@ -47,7 +47,7 @@ class NationalIDFragment :
                     KYCPreferences().removeValue("NATIONAL_ID_BACK")
                     imgNationalBack.setImageResource(R.drawable.ic_national_id_back)
                     imgLogoCameraBack.visibility = View.VISIBLE
-                    imgLogoCorrectBack.visibility = View.GONE
+                 //   imgLogoCorrectBack.visibility = View.GONE
                     imgDeleteBack.visibility = View.GONE
                     btnCameraBack.isClickable = true
                     (parentFragment as IdTypeFragment).checkValidation()
@@ -67,12 +67,12 @@ class NationalIDFragment :
                 imgNationalFront.setImageURI(KYCPreferences().NATIONAL_ID_FRONT?.toUri())
                 btnCameraFront.isClickable = false
                 imgLogoCameraFront.visibility = View.GONE
-                imgLogoCorrectFront.visibility = View.VISIBLE
+              // imgLogoCorrectFront.visibility = View.VISIBLE
                 imgDeleteFront.visibility = View.VISIBLE
             }else{
                 imgNationalFront.setImageResource(R.drawable.ic_national_id_front)
                 imgLogoCameraFront.visibility = View.VISIBLE
-                imgLogoCorrectFront.visibility = View.GONE
+             //   imgLogoCorrectFront.visibility = View.GONE
                 imgDeleteFront.visibility = View.GONE
                 btnCameraFront.isClickable = true
             }
@@ -80,12 +80,12 @@ class NationalIDFragment :
                 imgNationalBack.setImageURI(KYCPreferences().NATIONAL_ID_BACK?.toUri())
                 btnCameraBack.isClickable = false
                 imgLogoCameraBack.visibility = View.GONE
-                imgLogoCorrectBack.visibility = View.VISIBLE
+             //   imgLogoCorrectBack.visibility = View.VISIBLE
                 imgDeleteBack.visibility = View.VISIBLE
             }else{
                 imgNationalBack.setImageResource(R.drawable.ic_national_id_back)
                 imgLogoCameraBack.visibility = View.VISIBLE
-                imgLogoCorrectBack.visibility = View.GONE
+             //   imgLogoCorrectBack.visibility = View.GONE
                 imgDeleteBack.visibility = View.GONE
                 btnCameraBack.isClickable = true
             }
