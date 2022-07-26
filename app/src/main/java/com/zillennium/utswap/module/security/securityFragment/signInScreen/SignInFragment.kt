@@ -118,6 +118,13 @@ class SignInFragment : BaseMvpFragment<SignInView.View, SignInView.Presenter, Fr
                                     R.color.danger
                                 )
                             )
+                        textInputPassword.backgroundTintList =
+                            ColorStateList.valueOf(
+                                ContextCompat.getColor(
+                                    UTSwapApp.instance,
+                                    R.color.danger
+                                )
+                            )
                         txtMessage.background.setTint(
                             ContextCompat.getColor(
                                 UTSwapApp.instance,
@@ -298,15 +305,15 @@ class SignInFragment : BaseMvpFragment<SignInView.View, SignInView.Presenter, Fr
 
     private fun ShowHidePass() {
         binding.apply {
-            if (textInputPassword.transformationMethod
-                    .equals(PasswordTransformationMethod.getInstance())
+            if (textInputPassword.transformationMethod.equals(PasswordTransformationMethod.getInstance())
             ) {
                 showPassBtn.setImageResource(R.drawable.ic_baseline_visibility_24)
                 //Show Password
                 textInputPassword.transformationMethod =
                     HideReturnsTransformationMethod.getInstance()
-            } else {
+            }else{
                 showPassBtn.setImageResource(R.drawable.ic_baseline_visibility_off_24)
+
                 //Hide Password
                 textInputPassword.transformationMethod =
                     PasswordTransformationMethod.getInstance()

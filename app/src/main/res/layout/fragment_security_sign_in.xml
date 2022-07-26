@@ -75,7 +75,7 @@
                             android:paddingEnd="@dimen/dimen_50"
                             android:paddingBottom="@dimen/dimen_25"
                             android:singleLine="true"
-                            android:textAppearance="@style/regular_16"/>
+                            android:textAppearance="@style/regular_16" />
 
                         <ImageView
                             android:id="@+id/show_pass_btn"
@@ -86,7 +86,7 @@
                             android:layout_marginEnd="@dimen/dimen_8"
                             android:alpha=".5"
                             android:padding="@dimen/dimen_5"
-                            android:src="@drawable/ic_baseline_visibility_24" />
+                            android:src="@drawable/ic_baseline_visibility_off_24" />
 
                     </RelativeLayout>
                 </LinearLayout>

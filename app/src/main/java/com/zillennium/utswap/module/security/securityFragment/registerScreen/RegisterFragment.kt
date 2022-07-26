@@ -54,13 +54,26 @@ class RegisterFragment :
 
                     var isHaveError = false
                     txtMessage.text = "Invalid. Please Try Again"
-                    txtMessage.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
+                    txtMessage.backgroundTintList = ColorStateList.valueOf(
+                        ContextCompat.getColor(
+                            UTSwapApp.instance,
+                            R.color.danger
+                        )
+                    )
 
-                    if(!validate().isValidEmail(inputEmail.text.toString().trim()) && !validate().isValidPhoneNumber(inputEmail.text.toString().trim())){
+                    if (!validate().isValidEmail(
+                            inputEmail.text.toString().trim()
+                        ) && !validate().isValidPhoneNumber(inputEmail.text.toString().trim())
+                    ) {
                         txtMessage.text = "Please Enter Email or Phone Number"
                         txtMessage.visibility = View.VISIBLE
                         inputEmail.backgroundTintList =
-                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
+                            ColorStateList.valueOf(
+                                ContextCompat.getColor(
+                                    UTSwapApp.instance,
+                                    R.color.danger
+                                )
+                            )
                         isHaveError = true
                         return@setOnClickListener
                     }
@@ -69,7 +82,12 @@ class RegisterFragment :
                         txtMessage.text = "Please Enter a Password Longer Than 8 Digits"
                         txtMessage.visibility = View.VISIBLE
                         inputPassword.backgroundTintList =
-                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
+                            ColorStateList.valueOf(
+                                ContextCompat.getColor(
+                                    UTSwapApp.instance,
+                                    R.color.danger
+                                )
+                            )
                         isHaveError = true
                         return@setOnClickListener
                     }
@@ -78,18 +96,35 @@ class RegisterFragment :
                         txtMessage.text = "Invalid. Please Try Again"
                         txtMessage.visibility = View.VISIBLE
                         inputConfirmPassword.backgroundTintList =
-                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
+                            ColorStateList.valueOf(
+                                ContextCompat.getColor(
+                                    UTSwapApp.instance,
+                                    R.color.danger
+                                )
+                            )
                         isHaveError = true
                         return@setOnClickListener
                     }
 
-                    if(inputConfirmPassword.text.toString().trim() != inputPassword.text.toString().trim()){
+                    if (inputConfirmPassword.text.toString().trim() != inputPassword.text.toString()
+                            .trim()
+                    ) {
                         txtMessage.text = "Password didn't match"
                         txtMessage.visibility = View.VISIBLE
                         inputPassword.backgroundTintList =
-                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
+                            ColorStateList.valueOf(
+                                ContextCompat.getColor(
+                                    UTSwapApp.instance,
+                                    R.color.danger
+                                )
+                            )
                         inputConfirmPassword.backgroundTintList =
-                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
+                            ColorStateList.valueOf(
+                                ContextCompat.getColor(
+                                    UTSwapApp.instance,
+                                    R.color.danger
+                                )
+                            )
                         isHaveError = true
                         return@setOnClickListener
                     }
@@ -102,13 +137,15 @@ class RegisterFragment :
 
                         Handler().postDelayed({
 
-                            if(inputEmail.text.toString().trim() == "utswap@gmail.com"){
+                            if (inputEmail.text.toString().trim() == "utswap@gmail.com") {
                                 txtMessage.visibility = View.VISIBLE
                                 txtMessage.text = "Email/Phone Number Unavailable"
-                            }else{
+                            } else {
                                 txtMessage.visibility = View.GONE
-                                SessionPreferences().SESSION_USERNAME = inputEmail.text.toString().trim()
-                                SessionPreferences().SESSION_PASSWORD = inputPassword.text.toString().trim()
+                                SessionPreferences().SESSION_USERNAME =
+                                    inputEmail.text.toString().trim()
+                                SessionPreferences().SESSION_PASSWORD =
+                                    inputPassword.text.toString().trim()
                                 findNavController().navigate(R.id.action_to_verification_security_fragment)
                             }
 
@@ -143,7 +180,12 @@ class RegisterFragment :
                     override fun afterTextChanged(editable: Editable) {
                         txtMessage.visibility = View.GONE
                         inputEmail.backgroundTintList =
-                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text))
+                            ColorStateList.valueOf(
+                                ContextCompat.getColor(
+                                    UTSwapApp.instance,
+                                    R.color.secondary_text
+                                )
+                            )
                     }
                 })
 
@@ -167,7 +209,12 @@ class RegisterFragment :
                     override fun afterTextChanged(editable: Editable) {
                         txtMessage.visibility = View.GONE
                         inputPassword.backgroundTintList =
-                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text))
+                            ColorStateList.valueOf(
+                                ContextCompat.getColor(
+                                    UTSwapApp.instance,
+                                    R.color.secondary_text
+                                )
+                            )
 
                     }
                 })
@@ -194,7 +241,12 @@ class RegisterFragment :
                     override fun afterTextChanged(editable: Editable) {
                         txtMessage.visibility = View.GONE
                         inputConfirmPassword.backgroundTintList =
-                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text))
+                            ColorStateList.valueOf(
+                                ContextCompat.getColor(
+                                    UTSwapApp.instance,
+                                    R.color.secondary_text
+                                )
+                            )
                     }
                 })
 
@@ -209,17 +261,19 @@ class RegisterFragment :
 
     //Show Hide Password
     fun ShowHidePassword() {
-        binding.apply{
+        binding.apply {
             if (inputPassword.transformationMethod.equals(PasswordTransformationMethod.getInstance())) {
-                showPassBtn.setImageResource(R.drawable.ic_baseline_visibility_off_24)
-
-                //Show Password
-                inputPassword.transformationMethod= HideReturnsTransformationMethod.getInstance()
-            } else {
                 showPassBtn.setImageResource(R.drawable.ic_baseline_visibility_24)
 
+                //Show Password
+                inputPassword.transformationMethod = HideReturnsTransformationMethod.getInstance()
+            } else {
+                showPassBtn.setImageResource(
+                    R.drawable.ic_baseline_visibility_off_24
+                )
+
                 //Hide Password
-                inputPassword.transformationMethod= PasswordTransformationMethod.getInstance()
+                inputPassword.transformationMethod = PasswordTransformationMethod.getInstance()
             }
             inputPassword.requestFocus()
             inputPassword.setSelection(inputPassword.text.length)
@@ -228,18 +282,21 @@ class RegisterFragment :
 
     //Show Hide confirm password
     fun ShowHidePassConfirmPassword() {
-        binding.apply{
+        binding.apply {
             if (inputConfirmPassword.transformationMethod.equals(PasswordTransformationMethod.getInstance())
             ) {
-                showConfirmPassBtn.setImageResource(R.drawable.ic_baseline_visibility_off_24)
-
-                //Show Password
-                inputConfirmPassword.transformationMethod= HideReturnsTransformationMethod.getInstance()
-            } else {
                 showConfirmPassBtn.setImageResource(R.drawable.ic_baseline_visibility_24)
 
+                //Show Password
+                inputConfirmPassword.transformationMethod =
+                    HideReturnsTransformationMethod.getInstance()
+            } else {
+
+                showConfirmPassBtn.setImageResource(R.drawable.ic_baseline_visibility_off_24)
+
                 //Hide Password
-                inputConfirmPassword.transformationMethod= PasswordTransformationMethod.getInstance()
+                inputConfirmPassword.transformationMethod =
+                    PasswordTransformationMethod.getInstance()
             }
             inputConfirmPassword.requestFocus()
             inputConfirmPassword.setSelection(inputConfirmPassword.text.length)
@@ -247,4 +304,5 @@ class RegisterFragment :
         }
 
     }
+
 }
