@@ -1,32 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
-            android:orientation="horizontal"
-            android:layout_marginBottom="@dimen/dimen_20">
+            android:layout_marginBottom="@dimen/dimen_20"
+            android:orientation="horizontal">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Passport Photo"
-                android:textAppearance="@style/medium_18"/>
+                android:textAppearance="@style/medium_18" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=" *"
-                android:textColor="@color/danger"/>
+                android:textColor="@color/danger" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center_horizontal">
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -38,13 +43,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingTop="@dimen/dimen_10">
+
                     <ImageView
                         android:id="@+id/img_passport"
                         android:layout_width="280dp"
                         android:layout_height="@dimen/dimen_200"
-                        android:scaleType="centerCrop"
                         android:adjustViewBounds="true"
-                        android:src="@drawable/ic_passport_front"/>
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_passport_front" />
 
                     <ImageView
                         android:layout_width="280dp"
@@ -62,22 +68,7 @@
                         android:layout_centerInParent="true"
                         android:src="@drawable/ic_camera_filled"
                         app:tint="@color/white" />
-                    <LinearLayout
-                        android:id="@+id/img_logo_correct"
-                        android:layout_width="@dimen/dimen_60"
-                        android:layout_height="@dimen/dimen_60"
-                        android:layout_centerInParent="true"
-                        android:background="@drawable/bg_correct"
-                        android:visibility="gone"
-                        android:backgroundTint="@color/white">
 
-                        <ImageView
-                            android:layout_width="@dimen/dimen_60"
-                            android:layout_height="@dimen/dimen_60"
-                            android:src="@drawable/ic_baseline_check_24"
-                            app:tint="@color/success" />
-
-                    </LinearLayout>
 
                 </RelativeLayout>
 
@@ -85,13 +76,13 @@
                     android:id="@+id/img_delete_front"
                     android:layout_width="@dimen/dimen_30"
                     android:layout_height="@dimen/dimen_30"
-                    android:backgroundTint="@color/white"
-                    android:elevation="@dimen/dimen_10"
-                    android:layout_marginEnd="@dimen/dimen_5"
-                    android:visibility="gone"
-                    android:layout_toEndOf="@+id/btn_passport"
                     android:layout_marginStart="-15dp"
                     android:layout_marginTop="-2dp"
+                    android:layout_marginEnd="@dimen/dimen_5"
+                    android:layout_toEndOf="@+id/btn_passport"
+                    android:backgroundTint="@color/white"
+                    android:elevation="@dimen/dimen_10"
+                    android:visibility="gone"
                     app:cardCornerRadius="@dimen/dimen_15">
 
                     <ImageView
@@ -104,16 +95,15 @@
                 </androidx.cardview.widget.CardView>
 
 
-
             </RelativeLayout>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_5"
                 android:gravity="center_horizontal"
                 android:text="Front"
-                android:textAppearance="@style/medium_16"
-                android:layout_marginTop="@dimen/dimen_5"/>
+                android:textAppearance="@style/medium_16" />
         </LinearLayout>
 
     </LinearLayout>
