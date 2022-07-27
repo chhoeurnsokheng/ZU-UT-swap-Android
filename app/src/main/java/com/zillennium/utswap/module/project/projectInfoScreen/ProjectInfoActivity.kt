@@ -1,11 +1,13 @@
 package com.zillennium.utswap.module.project.projectInfoScreen
 
+import android.app.ActivityOptions
 import android.content.Intent
 import android.net.Uri
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
+import com.google.gson.Gson
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
@@ -13,6 +15,8 @@ import com.zillennium.utswap.databinding.ActivityProjectInfoBinding
 import com.zillennium.utswap.models.ProjectInfoDetailModel
 import com.zillennium.utswap.models.ProjectInfoInvestmentModel
 import com.zillennium.utswap.models.ProjectInfoSlideImageModel
+import com.zillennium.utswap.models.ViewImageModel
+import com.zillennium.utswap.module.project.ViewImage.ImageViewActivity
 import com.zillennium.utswap.module.project.projectInfoScreen.adapter.ProjectInfoDetailsAdapter
 import com.zillennium.utswap.module.project.projectInfoScreen.adapter.ProjectInfoInvestmentAdapter
 import com.zillennium.utswap.module.project.projectInfoScreen.adapter.ProjectViewPagerAdapter
@@ -29,6 +33,7 @@ class ProjectInfoActivity :
 
     private var termCondition = true
     private var condition = true
+    private var imagesSlider: ArrayList<String> = arrayListOf()
 
     override fun initView() {
 
@@ -49,7 +54,7 @@ class ProjectInfoActivity :
 
 
                 /* Image Slider with View Pager and TabLayout*/
-                val imagesSlider = arrayOf(
+                 imagesSlider = arrayListOf(
                     "https://utswap.io/Upload/issue/624baccd65299.png",
                     "https://utswap.io/Upload/issue/624bacd53d783.jpg",
                     "https://utswap.io/Upload/issue/624baceb728a8.png",
@@ -198,11 +203,22 @@ class ProjectInfoActivity :
     }
 
     private val onclickAdapter: ProjectViewPagerAdapter.OnclickAdapter = object: ProjectViewPagerAdapter.OnclickAdapter{
-        override fun onClickMe(projectInfoSlideImageModel: ProjectInfoSlideImageModel) {
-            val imageSlideDialog: DialogProjectSliderImage = DialogProjectSliderImage.newInstance(
+        override fun onClickMe(projectInfoSlideImageModel: ProjectInfoSlideImageModel, position: Int, view: View) {
+            /*val imageSlideDialog: DialogProjectSliderImage = DialogProjectSliderImage.newInstance(
                 projectInfoSlideImageModel?.imageSlider
             )
-            imageSlideDialog.show(supportFragmentManager, "imageSlideDialog")
+            imageSlideDialog.show(supportFragmentManager, "imageSlideDialog")*/
+
+            val intent = Intent(this@ProjectInfoActivity, ImageViewActivity::class.java)
+            val obj = ViewImageModel.ViewImage()
+            obj.gallery = imagesSlider
+            obj.position = position
+            intent.putExtra("VIEW_IMAGE", Gson().toJson(obj))
+            startActivity(
+                intent, ActivityOptions.makeSceneTransitionAnimation(
+                    this@ProjectInfoActivity, view, "UT Swap"
+                ).toBundle()
+            )
         }
 
     }

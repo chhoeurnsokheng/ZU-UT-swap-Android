@@ -30,6 +30,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.UTSwapApp"
         android:usesCleartextTraffic="true"
+        android:hardwareAccelerated="true"
         tools:targetApi="m">
 
         <activity
@@ -280,6 +281,11 @@
             android:resizeableActivity="true"
             android:label="@string/referral_information"
             android:screenOrientation="portrait" />
+
+        <activity android:name=".module.project.ViewImage.ImageViewActivity"
+            android:configChanges="uiMode|keyboardHidden|screenSize|orientation|screenLayout"
+            android:resizeableActivity="true"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

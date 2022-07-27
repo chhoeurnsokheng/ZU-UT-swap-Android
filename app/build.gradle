@@ -210,6 +210,9 @@ dependencies {
 
     //Keyboard Action
     implementation 'net.yslibrary.keyboardvisibilityevent:keyboardvisibilityevent:3.0.0-RC2'
+    implementation 'com.alexvasilkov:gesture-views:2.7.1'
+    implementation 'com.github.Toxa2033:ScaleAndSwipeDismissImageView:v0.7'
+
 //    implementation 'com.github.viniciusmo:keyboard-visibility-event-android:1.0.4'
 
     //Crash Reporting with Firebase
