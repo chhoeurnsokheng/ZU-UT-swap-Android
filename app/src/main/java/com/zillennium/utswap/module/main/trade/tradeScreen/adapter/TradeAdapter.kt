@@ -56,7 +56,7 @@ class TradeAdapter(arrayList: ArrayList<TradeModel>, onclickTrade: OnclickTrade)
         }
 
         viewHolder.linearLayout.setOnClickListener {
-            onclickTrade.clickMe()
+            onclickTrade.clickMe(tradeList.project)
         }
     }
 
@@ -71,7 +71,7 @@ class TradeAdapter(arrayList: ArrayList<TradeModel>, onclickTrade: OnclickTrade)
     }
 
     interface OnclickTrade{
-        fun clickMe()
+        fun clickMe(projectName:String)
     }
 
     init {

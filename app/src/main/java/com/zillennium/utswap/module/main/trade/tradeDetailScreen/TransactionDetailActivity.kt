@@ -23,10 +23,7 @@ class TransactionDetailActivity :
         super.initView()
         try {
             binding.apply {
-
-                btnBack.setOnClickListener{
-                    finish()
-                }
+               toolBar()
 
                 val arguments = intent.extras
                 txtVolume.text = arguments?.getInt("ut").toString()
@@ -48,6 +45,21 @@ class TransactionDetailActivity :
             }
         } catch (error: Exception) {
             // Must be safe
+        }
+    }
+
+
+
+    private fun toolBar() {
+        setSupportActionBar(binding.includeLayout.tb)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_arrow_left)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        binding.includeLayout.apply {
+          //  tbTitle.setText(R.string.account)
+            tb.setNavigationOnClickListener {
+                finish()
+            }
         }
     }
 }
