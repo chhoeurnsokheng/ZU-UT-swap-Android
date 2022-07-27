@@ -5,7 +5,6 @@ import android.util.Log
 import com.zillennium.utswap.utils.Constants
 
 
-
 /**
  * @author chhoeurnsokheng
  * Created 6/7/22 at 9:15 AM
@@ -18,11 +17,7 @@ class Header {
             REQUIRED,
             NOT_REQUIRED,
             REQUIRED_WITH_OPTION_AUTH,
-            REQUIRED_WITH_OPTION_AUTH_MULTIPATH,
-            PAYMENT_AUTH_TOKEN,
-            PAYMENT_TOKEN,
-            PAYMENT_Z1_BACKEND_TOKEN,
-            PAYMENT_Z1_BACKEND_CHECKOUT
+            REQUIRED_WITH_OPTION_AUTH_MULTIPATH
         }
 
         fun getHeader(authType: AuthType, context: Context): Map<String, String> {
@@ -31,9 +26,7 @@ class Header {
                 AuthType.REQUIRED -> {
                     map = mapOf(
                         Constants.Key.ContentType to Constants.Value.ContentType,
-                        Constants.Key.Accept to Constants.Value.Accept,
-//                        Constants.Key.AcceptLanguage to SpUtil.getObjectFromSp(Constant.CURRENT_LANGUAGE, context
-//                        ).toString()
+                        Constants.Key.Accept to Constants.Value.Accept
                     )
                     return map
                 }
@@ -44,14 +37,10 @@ class Header {
                     } else if (MockUpData.IS_SIGN_UP && null != MockUpData.ACCESS_TOKEN_SIGN_UP) {
                         "Bearer " + MockUpData.ACCESS_TOKEN_SIGN_UP
                     } else "Bearer "  + ""
-                    //MockUpData.getAccessToken(context)
+                    MockUpData.getAccessToken(context)
                     map = mapOf(
                         Constants.Key.ContentType to Constants.Value.ContentType,
                         Constants.Key.Accept to Constants.Value.Accept,
-//                        Constants.Key.AcceptLanguage to SpUtil.getObjectFromSp(
-//                            Constant.CURRENT_LANGUAGE,
-//                            context
-//                        ).toString(),
                         Constants.Key.Authorization to accessToken
                     )
                     Log.i("header", "data: $map")
@@ -64,14 +53,10 @@ class Header {
                     } else if (MockUpData.IS_SIGN_UP && null != MockUpData.ACCESS_TOKEN_SIGN_UP) {
                         "Bearer " + MockUpData.ACCESS_TOKEN_SIGN_UP
                     } else "Bearer " +  " "
-                            //MockUpData.getAccessToken(context)
+                            MockUpData.getAccessToken(context)
                     map = mapOf(
                         Constants.Key.ContentType to Constants.Value.ContentTypeMultipart,
                         Constants.Key.Accept to Constants.Value.Accept,
-//                        Constants.Key.AcceptLanguage to SpUtil.getObjectFromSp(
-//                            Constant.CURRENT_LANGUAGE,
-//                            context
-//                        ).toString(),
                         Constants.Key.Authorization to accessToken
                     )
                     Log.i("header", "data: $map")
