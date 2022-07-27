@@ -2,13 +2,17 @@ package com.gis.z1android.api.errorhandler
 
 import android.content.Context
 import android.util.Log
+import android.view.View
 import com.zillennium.utswap.api.manager.ApiManager
+import com.zillennium.utswap.utils.AlertUtil
 import okhttp3.ResponseBody
 import org.json.JSONObject
 import retrofit2.HttpException
 import java.io.IOException
 
 abstract class CallbackWrapper(e: Throwable, context: Context, var codesToPass: ArrayList<Int>) {
+
+
     init {
         when (e) {
             is NoConnectivityException -> onCallbackWrapper(
@@ -24,52 +28,62 @@ abstract class CallbackWrapper(e: Throwable, context: Context, var codesToPass: 
                 val responseBody = e.message()
                 when (e.code()) {
                     ErrorCode.BadRequest -> {
-//                        if (!codesToPass.contains(e.code())) {
-//                            AlertUtil().alertRequestError(
-//                                context,
-//                                Language.getLang(LanguageKey.error_status_400, context),
-//                                e.code().toString(),
-//                                "BAD REQUEST",
-//                                null,
-//                                false
-//                            )
-//                        }
+                        if (!codesToPass.contains(e.code())) {
+                            AlertUtil().alertRequestError(
+                                context,
+                                "400",
+                                e.code().toString(),
+                                "BAD REQUEST",
+                                null,
+                                false
+                            )
+                        }
                         onCallbackWrapper(ApiManager.NetworkErrorStatus.ON_ERROR, responseBody)
                     }
                     ErrorCode.Unauthorized -> {
-//                        AlertUtil().alertRequestError(context, Language.getLang(LanguageKey.error_status_401, context), e.code().toString(),"UNAUTHORIZED", object : View.OnClickListener {
-//                            override fun onClick(v: View?) {
-//                                onCallbackWrapper(ApiManager.NetworkErrorStatus.UNAUTHORIZED, responseBody)
-//                                popupSessionExpired(context, "")
-//                            }
-//                        }, false)
+                        AlertUtil().alertRequestError(
+                            context,
+                            "401",
+                            e.code().toString(),
+                            "UNAUTHORIZED",
+                            object : View.OnClickListener {
+                                override fun onClick(v: View?) {
+                                    onCallbackWrapper(
+                                        ApiManager.NetworkErrorStatus.UNAUTHORIZED,
+                                        responseBody
+                                    )
+                                    //  popupSessionExpired(context, "")
+                                }
+                            },
+                            false
+                        )
                         onCallbackWrapper(ApiManager.NetworkErrorStatus.UNAUTHORIZED, "")
-                        popupSessionExpired(context, "")
+                        ///   popupSessionExpired(context, "")
                     }
                     ErrorCode.Forbidden -> {
-//                        if (!codesToPass.contains(e.code())) {
-//                            AlertUtil().alertRequestError(
-//                                context,
-//                                Language.getLang(LanguageKey.error_status_403, context),
-//                                e.code().toString(),
-//                                "FORBIDDEN",
-//                                null,
-//                                false
-//                            )
-//                        }
+                        if (!codesToPass.contains(e.code())) {
+                            AlertUtil().alertRequestError(
+                                context,
+                                "403",
+                                e.code().toString(),
+                                "FORBIDDEN",
+                                null,
+                                false
+                            )
+                        }
                         onCallbackWrapper(ApiManager.NetworkErrorStatus.ON_ERROR, responseBody)
                     }
                     ErrorCode.NotFound -> {
-//                        if (!codesToPass.contains(e.code())) {
-//                            AlertUtil().alertRequestError(
-//                                context,
-//                                Language.getLang(LanguageKey.error_status_404, context),
-//                                e.code().toString(),
-//                                "NOT FOUND",
-//                                null,
-//                                false
-//                            )
-//                        }
+                        if (!codesToPass.contains(e.code())) {
+                            AlertUtil().alertRequestError(
+                                context,
+                                "404",
+                                e.code().toString(),
+                                "NOT FOUND",
+                                null,
+                                false
+                            )
+                        }
 
                         val responseBody = e.response()?.errorBody()
                         responseBody?.apply {
@@ -79,45 +93,47 @@ abstract class CallbackWrapper(e: Throwable, context: Context, var codesToPass: 
                             )
                         }
 
-//                        onCallbackWrapper(ApiManager.NetworkErrorStatus.NOT_FOUND, responseBody)
+                        if (responseBody != null) {
+                            onCallbackWrapper(ApiManager.NetworkErrorStatus.NOT_FOUND, responseBody)
+                        }
                     }
                     ErrorCode.MethodNotAllowed -> {
-//                        if (!codesToPass.contains(e.code())) {
-//                            AlertUtil().alertRequestError(
-//                                context,
-//                                Language.getLang(LanguageKey.error_status_405, context),
-//                                e.code().toString(),
-//                                "METHOD NOT ALLOWED",
-//                                null,
-//                                false
-//                            )
-//                        }
+                        if (!codesToPass.contains(e.code())) {
+                            AlertUtil().alertRequestError(
+                                context,
+                                "405",
+                                e.code().toString(),
+                                "METHOD NOT ALLOWED",
+                                null,
+                                false
+                            )
+                        }
                         onCallbackWrapper(ApiManager.NetworkErrorStatus.ON_ERROR, responseBody)
                     }
                     ErrorCode.RequestEntityTooLarge -> {
-//                        if (!codesToPass.contains(e.code())) {
-//                            AlertUtil().alertRequestError(
-//                                context,
-//                                Language.getLang(LanguageKey.error_status_413, context),
-//                                e.code().toString(),
-//                                "REQUEST ENTITY TOO LARGE",
-//                                null,
-//                                false
-//                            )
-//                        }
+                        if (!codesToPass.contains(e.code())) {
+                            AlertUtil().alertRequestError(
+                                context,
+                                "413",
+                                e.code().toString(),
+                                "REQUEST ENTITY TOO LARGE",
+                                null,
+                                false
+                            )
+                        }
                         onCallbackWrapper(ApiManager.NetworkErrorStatus.ON_ERROR, responseBody)
                     }
                     ErrorCode.UnProcessableEntity -> {
-//                        if (!codesToPass.contains(e.code())) {
-//                            AlertUtil().alertRequestError(
-//                                context,
-//                                Language.getLang(LanguageKey.error_status_422, context),
-//                                e.code().toString(),
-//                                "UNPROCESSABLE ENTITY",
-//                                null,
-//                                false
-//                            )
-//                        }
+                        if (!codesToPass.contains(e.code())) {
+                            AlertUtil().alertRequestError(
+                                context,
+                                "422",
+                                e.code().toString(),
+                                "UNPROCESSABLE ENTITY",
+                                null,
+                                false
+                            )
+                        }
                         val responseBody = e.response()?.errorBody()
                         responseBody?.apply {
                             onCallbackWrapper(
@@ -128,46 +144,46 @@ abstract class CallbackWrapper(e: Throwable, context: Context, var codesToPass: 
 //                        onCallbackWrapper(ApiManager.NetworkErrorStatus.ON_ERROR, responseBody)
                     }
                     ErrorCode.InternalServerError -> {
-//                        if (!codesToPass.contains(e.code())) {
-//                            AlertUtil().alertRequestError(
-//                                context,
-//                                Language.getLang(LanguageKey.error_status_500, context),
-//                                e.code().toString(),
-//                                "INTERNAL SERVER ERROR",
-//                                null,
-//                                false
-//                            )
-//                        }
+                        if (!codesToPass.contains(e.code())) {
+                            AlertUtil().alertRequestError(
+                                context,
+                                "500",
+                                e.code().toString(),
+                                "INTERNAL SERVER ERROR",
+                                null,
+                                false
+                            )
+                        }
                         onCallbackWrapper(ApiManager.NetworkErrorStatus.ON_ERROR, responseBody)
                     }
                     ErrorCode.BadGateway -> {
-//                        if (!codesToPass.contains(e.code())) {
-//                            AlertUtil().alertRequestError(
-//                                context,
-//                                Language.getLang(LanguageKey.error_status_502, context),
-//                                e.code().toString(),
-//                                "BAD GATEWAY",
-//                                null,
-//                                false
-//                            )
-//                        }
+                        if (!codesToPass.contains(e.code())) {
+                            AlertUtil().alertRequestError(
+                                context,
+                                "502",
+                                e.code().toString(),
+                                "BAD GATEWAY",
+                                null,
+                                false
+                            )
+                        }
                         onCallbackWrapper(ApiManager.NetworkErrorStatus.ON_ERROR, responseBody)
                     }
                     ErrorCode.GatewayTimeout -> {
-//                        if (!codesToPass.contains(e.code())) {
-//                            AlertUtil().alertRequestError(
-//                                context,
-//                                Language.getLang(LanguageKey.error_status_504, context),
-//                                e.code().toString(),
-//                                "GATEWAY TIME OUT",
-//                                null,
-//                                false
-//                            )
-//                        }
+                        if (!codesToPass.contains(e.code())) {
+                            AlertUtil().alertRequestError(
+                                context,
+                                "504",
+                                e.code().toString(),
+                                "GATEWAY TIME OUT",
+                                null,
+                                false
+                            )
+                        }
                         onCallbackWrapper(ApiManager.NetworkErrorStatus.ON_ERROR, responseBody)
                     }
                     else -> {
-                      //  AlertUtil().alertAppRequestError(context)
+                        //  AlertUtil().alertAppRequestError(context)
                         val responseBody = e.response()?.errorBody()
                         onCallbackWrapper(
                             ApiManager.NetworkErrorStatus.ON_ERROR,
@@ -214,21 +230,6 @@ abstract class CallbackWrapper(e: Throwable, context: Context, var codesToPass: 
         const val SERVER_ERROR_MESSAGE = "We sorry your connection timeout, please try again later!"
     }
 
-    open fun popupSessionExpired(context: Context?, message: String?) {
-        try {
-//            context?.apply {
-//                MockUpData.removeUserData(context)
-//                MockUpData.removeAccessToken(context)
-//                if (BaseCallbackWs.onUnAuthenticationListener != null) BaseCallbackWs.onUnAuthenticationListener.onUnAuth()
-//                Util.saveData("isBankUser", "", context)
-//                val intent = Intent(context, MainZ1AppActivity::class.java)
-//                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-//                context.startActivity(intent)
-//            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-    }
 
     object ErrorCode {
         const val BadRequest = 400
@@ -244,3 +245,4 @@ abstract class CallbackWrapper(e: Throwable, context: Context, var codesToPass: 
     }
 
 }
+
