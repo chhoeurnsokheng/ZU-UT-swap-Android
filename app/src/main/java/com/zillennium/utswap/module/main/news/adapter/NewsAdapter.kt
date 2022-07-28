@@ -1,81 +1,62 @@
 package com.zillennium.utswap.module.main.news.adapter
 
-import android.annotation.SuppressLint
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
-import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.zillennium.utswap.R
+import com.zillennium.utswap.bases.mvp.BaseRecyclerViewAdapterGeneric
+import com.zillennium.utswap.bases.mvp.BaseViewHolder
+import com.zillennium.utswap.databinding.ItemListNavbarNewsBinding
 import com.zillennium.utswap.models.newsService.News
 
+class NewsAdapter(private var listener: Listener) : BaseRecyclerViewAdapterGeneric<News.NewsNew, NewsAdapter.ItemViewHolder>() {
 
-class NewsAdapter (
-    arrayList: List<News.NewsData>,
-    onClickNews: OnClickNews
-) :
-    RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
-    private var arrayList: List<News.NewsData> = ArrayList()
-    private var onClickNews: OnClickNews
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
-    ): ViewHolder {
-        val view: View = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_list_navbar_news, parent, false)
-        return ViewHolder(
-            view
-        )
-    }
+    inner class ItemViewHolder(root: ItemListNavbarNewsBinding): BaseViewHolder<ItemListNavbarNewsBinding>(root)
+    {
+        fun bindData(news: News.NewsNew){
+            binding.txtTitle.text = news.title.toString()
+            binding.txtDate.text = news.addtime.toString()
+            Glide
+                .with(binding.imgNews.context)
+                .load(news.img.toString())
+                .placeholder(R.drawable.ic_placeholder)
+                .into(binding.imgNews)
 
-    override fun getItemCount(): Int {
-        return arrayList.size
-    }
-
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        internal val imgNews: ImageView = itemView.findViewById(R.id.img_news)
-        internal val line: View = itemView.findViewById(R.id.line)
-        internal val txtTitle: TextView = itemView.findViewById(R.id.txt_title)
-        internal val txtDate: TextView = itemView.findViewById(R.id.txt_date)
-        internal val linearLayoutNews: LinearLayout = itemView.findViewById(R.id.linerLayout_news)
-    }
-
-    @SuppressLint("SetTextI18n")
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val news: News.NewsData = arrayList[position]
-
-        holder.txtDate.text = news.addtime.toString()
-        holder.txtTitle.text = news.title.toString()
-
-        if (arrayList.size == 1) {
-            holder.line.visibility = View.GONE
-        } else {
-            when (position) {
-                arrayList.size - 1 -> {
-                    holder.line.visibility = View.GONE
-                }
-                0 -> {
-                    holder.line.visibility = View.VISIBLE
-                }
-                else -> {
-                    holder.line.visibility = View.VISIBLE
+            if (items.size == 1) {
+                binding.line.visibility = View.GONE
+            } else {
+                when (position) {
+                    items.size - 1 -> {
+                        binding.line.visibility = View.GONE
+                    }
+                    0 -> {
+                        binding.line.visibility = View.VISIBLE
+                    }
+                    else -> {
+                        binding.line.visibility = View.VISIBLE
+                    }
                 }
             }
-        }
 
-        holder.linearLayoutNews.setOnClickListener {
-            onClickNews.clickNews(news.id.toString())
+            binding.linerLayoutNews.setOnClickListener {
+                listener.clickNews(news.id.toString())
+            }
         }
     }
 
-    interface OnClickNews{
+    override fun onCreateItemHolder(
+        inflater: LayoutInflater,
+        parent: ViewGroup,
+        viewType: Int
+    ) = ItemViewHolder(ItemListNavbarNewsBinding.inflate(inflater,parent,false))
+
+    override fun onBindItemHolder(holder: NewsAdapter.ItemViewHolder, position: Int, context: Context) {
+        holder.bindData(items[position])
+    }
+
+    interface Listener{
         fun clickNews(id: String)
-    }
-
-    init {
-        this.arrayList = arrayList
-        this.onClickNews = onClickNews
     }
 }

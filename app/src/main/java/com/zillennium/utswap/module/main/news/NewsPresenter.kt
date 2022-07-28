@@ -20,13 +20,13 @@ class NewsPresenter: BaseMvpPresenterImpl<NewsView.View>(),
         mView?.initView()
     }
 
-    override fun onGetNews(context: Context) {
+    override fun onGetNews(context: Context,p : Int) {
         subscription?.unsubscribe()
-        subscription = ApiNewsImp().getNews(context).subscribe({
+        subscription = ApiNewsImp().getNews(context,p).subscribe({
             if(it.status == 1){
-                mView?.onGetNewsSuccess(it)
+                mView?.onGetNewsSuccess(it.data!!)
             }else{
-                mView?.onGetNewsFail(it)
+                mView?.onGetNewsFail(it.data!!)
             }
         },{
             object : CallbackWrapper(it, UTSwapApp.instance){

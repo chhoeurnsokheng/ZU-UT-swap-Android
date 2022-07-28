@@ -213,4 +213,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-bom:30.2.0'
     implementation 'com.google.firebase:firebase-analytics'
 
+    //swipe refresh
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
+
 }

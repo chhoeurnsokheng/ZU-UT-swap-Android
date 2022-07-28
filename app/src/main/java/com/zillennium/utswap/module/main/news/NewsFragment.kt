@@ -3,6 +3,7 @@ package com.zillennium.utswap.module.main.news
 import android.content.Intent
 import android.view.View
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.androidstudy.networkmanager.Tovuti
 import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
@@ -10,7 +11,6 @@ import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentNewsBinding
-import com.zillennium.utswap.models.HomeMenuModel
 import com.zillennium.utswap.models.newsService.News
 import com.zillennium.utswap.module.account.accountScreen.AccountActivity
 import com.zillennium.utswap.module.main.news.adapter.NewsAdapter
@@ -27,52 +27,66 @@ class NewsFragment :
     override val layoutResource: Int = R.layout.fragment_news
 
     private var newsAdapter: NewsAdapter? = null
-    private var listNews =  ArrayList<News.NewsData>()
-    private var totalPage: Int?  = 3
+    private var listNews =  ArrayList<News.NewsNew>()
+    private var totalPage: Int?  = null
     private var page: Int? = 1
 
     override fun initView() {
         super.initView()
-
         onCheckPreference()
-
         onCallApi()
-
         onOrderActivity()
+        onSwipeRefresh()
     }
 
     private fun onCallApi(){
         Tovuti.from(UTSwapApp.instance).monitor{ _, isConnected, _ ->
             if(isConnected)
             {
-                mPresenter.onGetNews(UTSwapApp.instance)
-                binding.progressBar.visibility = View.VISIBLE
+                mPresenter.onGetNews(UTSwapApp.instance,page!!)
             }
         }
     }
 
-    override fun onGetNewsSuccess(data: News.NewsRes) {
+    override fun onGetNewsSuccess(data: News.NewsData) {
         binding.apply {
-
-            page = page!! + 1
-
-            val linearLayoutManager = LinearLayoutManager(requireContext())
-            rvNews.layoutManager = linearLayoutManager
-
-            listNews.addAll(data.data!!)
-
-            newsAdapter = NewsAdapter(listNews as ArrayList,onClickNews)
-
-            rvNews.adapter = newsAdapter
 
             progressBar.visibility = View.GONE
             progressBarReadMore.visibility = View.GONE
+            swipeRefresh.isRefreshing = false
+            layNewsLoading.visibility = View.GONE
+
+            totalPage = data.TOTALPAGE
+
+            if(data.NEW!!.isNotEmpty())
+            {
+                listNews.addAll(data.NEW!!)
+
+                newsAdapter = NewsAdapter(listener = object : NewsAdapter.Listener{
+                    override fun clickNews(id: String) {
+                        val intent = Intent(UTSwapApp.instance, NewsDetailActivity::class.java)
+                        intent.putExtra("id",id)
+                        startActivity(intent)
+                    }
+                })
+                newsAdapter!!.items = listNews
+                rvNews.adapter = newsAdapter
+            }
+
+            if(page!! == totalPage)
+            {
+                txtEnd.visibility = View.VISIBLE
+            }else{
+                layNewsLoading.visibility = View.VISIBLE
+                page = page!! + 1
+            }
         }
     }
 
-    override fun onGetNewsFail(data: News.NewsRes) {
+    override fun onGetNewsFail(data: News.NewsData) {
         binding.apply {
-            progressBar.visibility = View.GONE
+            progressBar.visibility = View.VISIBLE
+            swipeRefresh.isRefreshing = false
         }
     }
 
@@ -107,6 +121,9 @@ class NewsFragment :
 
     private fun onOrderActivity(){
         binding.apply {
+
+            swipeRefresh.setColorSchemeColors(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
+
             imgMenu.setOnClickListener {
                 val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
                 startActivity(intent)
@@ -118,27 +135,25 @@ class NewsFragment :
             }
 
             readMore.setOnClickListener {
-                try {
-                   if(page!! <= totalPage!!){
-                       mPresenter.onGetNews(UTSwapApp.instance)
-                       progressBarReadMore.visibility = View.VISIBLE
-                   }else{
-                       readMore.visibility = View.INVISIBLE
-                       progressBarReadMore.visibility = View.GONE
-                       Toast.makeText(UTSwapApp.instance, "No more content!!", Toast.LENGTH_LONG).show()
-                   }
-                }catch (e: Exception){}
-
+                mPresenter.onGetNews(UTSwapApp.instance,page!!)
+                progressBarReadMore.visibility = View.VISIBLE
             }
+
+            //set layout manager to recycle view
+            val linearLayoutManager = LinearLayoutManager(requireContext())
+            rvNews.layoutManager = linearLayoutManager
         }
     }
 
-    private val onClickNews: NewsAdapter.OnClickNews = object :
-        NewsAdapter.OnClickNews {
-        override fun clickNews(id: String) {
-            val intent = Intent(UTSwapApp.instance, NewsDetailActivity::class.java)
-            intent.putExtra("id",id)
-            startActivity(intent)
+    private fun onSwipeRefresh(){
+        binding.apply {
+            //swipe refresh to get page 1 again
+            swipeRefresh.setOnRefreshListener {
+                page = 1
+                listNews.clear()
+                txtEnd.visibility = View.GONE
+                mPresenter.onGetNews(UTSwapApp.instance,1)
+            }
         }
     }
 }

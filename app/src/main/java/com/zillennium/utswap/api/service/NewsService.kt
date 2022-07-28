@@ -8,7 +8,8 @@ import rx.Observable
 interface NewsService {
     @GET(ApiSettings.PATH_NEWS)
     fun news(
-        @HeaderMap headers: Map<String, String>
+        @HeaderMap headers: Map<String, String>,
+        @Query("p") p: Int
     ): Observable<News.NewsRes>
 
     @FormUrlEncoded

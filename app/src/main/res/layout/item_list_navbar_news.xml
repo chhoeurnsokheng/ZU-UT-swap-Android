@@ -1,56 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/dimen_20"
-    android:orientation="vertical">
-
-    <LinearLayout
-        android:id="@+id/linerLayout_news"
+<layout>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="@dimen/dimen_10">
-
-        <ImageView
-            android:id="@+id/img_news"
-            android:layout_width="@dimen/dimen_100"
-            android:layout_height="70dp"
-            android:src="@drawable/image_one"
-            android:layout_marginEnd="@dimen/dimen_16"
-            android:scaleType="fitXY"/>
+        android:layout_marginBottom="@dimen/dimen_15"
+        android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/linerLayout_news"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="@dimen/dimen_10">
 
-            <TextView
-                android:id="@+id/txt_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="jksejkv dsv dsk vksd vkd vkdskvm kdsmvkdsmlvdsmlvmdlsmvldksmkvdfjmgjdfmgkfdkmg"
-                android:maxLines="2"
-                android:textColor="@color/black_000000"
-                android:textAppearance="@style/medium_14"/>
+            <ImageView
+                android:id="@+id/img_news"
+                android:layout_width="@dimen/dimen_100"
+                android:layout_height="70dp"
+                android:src="@drawable/image_one"
+                android:layout_marginEnd="@dimen/dimen_16"
+                android:scaleType="fitXY"/>
 
-            <TextView
-                android:id="@+id/txt_date"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="@string/news"
-                android:textColor="@color/black_000000"
-                android:gravity="bottom"
-                android:textAppearance="@style/regular_10"/>
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txt_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="jksejkv dsv dsk vksd vkd vkdskvm kdsmvkdsmlvdsmlvmdlsmvldksmkvdfjmgjdfmgkfdkmg"
+                    android:maxLines="2"
+                    android:textColor="@color/black_000000"
+                    android:textAppearance="@style/medium_14"/>
+
+                <TextView
+                    android:id="@+id/txt_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/news"
+                    android:textColor="@color/black_000000"
+                    android:gravity="bottom"
+                    android:textAppearance="@style/regular_10"/>
+
+            </LinearLayout>
 
         </LinearLayout>
 
+        <View
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_1"
+            android:background="@color/light_gray"/>
+
     </LinearLayout>
-
-    <View
-        android:id="@+id/line"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dimen_1"
-        android:background="@color/light_gray"/>
-
-</LinearLayout>
+</layout>

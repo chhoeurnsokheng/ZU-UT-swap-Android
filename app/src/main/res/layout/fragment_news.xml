@@ -10,7 +10,7 @@
             android:id="@+id/lay_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/dimen_15">
+            android:layout_marginBottom="@dimen/dimen_10">
 
             <ImageView
                 android:id="@+id/img_menu"
@@ -77,72 +77,85 @@
 
         </RelativeLayout>
 
-        <ScrollView
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_refresh"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/lay_header">
 
-            <LinearLayout
-                android:id="@+id/layout_recycle"
+            <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginHorizontal="@dimen/dimen_20">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/rv_news"
-                    android:scrollbars="none"
-                    android:overScrollMode="never"/>
+                android:layout_height="match_parent"
+                android:overScrollMode="never"
+                android:scrollbars="none">
 
                 <LinearLayout
-                    android:id="@+id/lay_news_loading"
+                    android:id="@+id/layout_recycle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:layout_marginBottom="@dimen/dimen_10"
-                    android:paddingHorizontal="@dimen/dimen_20">
+                    android:orientation="vertical"
+                    android:layout_marginHorizontal="@dimen/dimen_20">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/rv_news"
+                        android:scrollbars="none"
+                        android:overScrollMode="never"/>
 
                     <LinearLayout
-                        android:id="@+id/read_more"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/lay_news_loading"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:padding="@dimen/dimen_5">
+                        android:gravity="center"
+                        android:visibility="gone"
+                        android:layout_marginBottom="@dimen/dimen_15"
+                        android:paddingHorizontal="@dimen/dimen_20">
 
-                        <TextView
+                        <LinearLayout
+                            android:id="@+id/read_more"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/read_more"
-                            android:textAppearance="@style/medium_16"
-                            android:textColor="@color/primary" />
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
 
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/dimen_5"
-                            android:src="@drawable/ic_arrow_right_long"
-                            app:tint="@color/primary"
-                            android:layout_marginEnd="@dimen/dimen_10"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/read_more"
+                                android:textAppearance="@style/medium_14"
+                                android:layout_marginEnd="@dimen/dimen_10"
+                                android:textColor="@color/primary" />
 
-                        <ProgressBar
-                            android:id="@+id/progress_bar_read_more"
-                            android:layout_width="@dimen/dimen_24"
-                            android:layout_height="@dimen/dimen_24" />
+                            <ProgressBar
+                                android:id="@+id/progress_bar_read_more"
+                                android:layout_width="@dimen/dimen_20"
+                                android:layout_height="@dimen/dimen_20" />
 
+                        </LinearLayout>
                     </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/txt_end"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:visibility="gone"
+                        android:textColor="@color/primary"
+                        android:layout_marginBottom="@dimen/dimen_15"
+                        android:text="======== End ======== "/>
+
                 </LinearLayout>
 
-            </LinearLayout>
+            </androidx.core.widget.NestedScrollView>
 
-        </ScrollView>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
         <ProgressBar
             android:id="@+id/progress_bar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:indeterminateTint="@color/primary"
             android:layout_centerInParent="true" />
 
     </RelativeLayout>
