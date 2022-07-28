@@ -12,7 +12,6 @@ import java.io.IOException
 
 abstract class CallbackWrapper(e: Throwable, context: Context, var codesToPass: ArrayList<Int>) {
 
-
     init {
         when (e) {
             is NoConnectivityException -> onCallbackWrapper(

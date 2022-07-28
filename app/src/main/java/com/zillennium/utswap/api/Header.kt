@@ -2,6 +2,7 @@ package com.zillennium.utswap.api
 
 import android.content.Context
 import android.util.Log
+import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.utils.Constants
 
 
@@ -10,7 +11,6 @@ import com.zillennium.utswap.utils.Constants
  * Created 6/7/22 at 9:15 AM
  * By Mac
  */
-
 class Header {
     companion object {
         enum class AuthType {
@@ -53,7 +53,7 @@ class Header {
                     } else if (MockUpData.IS_SIGN_UP && null != MockUpData.ACCESS_TOKEN_SIGN_UP) {
                         "Bearer " + MockUpData.ACCESS_TOKEN_SIGN_UP
                     } else "Bearer " +  " "
-                            MockUpData.getAccessToken(context)
+                    MockUpData.getAccessToken(context)
                     map = mapOf(
                         Constants.Key.ContentType to Constants.Value.ContentTypeMultipart,
                         Constants.Key.Accept to Constants.Value.Accept,

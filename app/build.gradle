@@ -68,8 +68,9 @@ android {
             buildConfigField "String", 'CORE_SUB_DOMAIN', '"demo"'
             buildConfigField "String", 'CORE_APP_ID', '"37fe30c0-ad17-11ea-b572-31a193d8c9ee"'
             buildConfigField "String", 'CORE_APP_SECRET', '"GPQ6Ccy8EJ25s1xY6bQhZfRToHhnYbHc7oY7"'
-            
+
             buildConfigField "String", 'BASE_URL', '"https://dev-staging.zillionunited.io/api/"'
+
         }
         stage {
             debuggable true

@@ -8,7 +8,10 @@ package com.zillennium.utswap.api
 
 object ApiSettings {
     const val VERSION = ""
-    const val PATH_USER_LOGIN = ""
     const val PATH_VERIFY_CODE = "login/submit"
+    const val PATH_USER_LOGIN = "api/login/submit"
+
+    /** OTP */
+    const val PATH_OTP = "api/login/verify_code"
 
 }

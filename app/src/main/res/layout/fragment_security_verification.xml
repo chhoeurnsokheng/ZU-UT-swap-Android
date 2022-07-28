@@ -22,7 +22,7 @@
                 app:tint="@color/primary" />
 
             <TextView
-                android:id="@+id/title"
+                android:id="@+id/txt_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
