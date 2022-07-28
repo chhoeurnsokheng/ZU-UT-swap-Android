@@ -54,6 +54,8 @@ class ImageViewActivity
             }
             ivClose.setOnClickListener {
                 finish()
+                this@ImageViewActivity.overridePendingTransition(0, 0)
+
             }
 
         }
