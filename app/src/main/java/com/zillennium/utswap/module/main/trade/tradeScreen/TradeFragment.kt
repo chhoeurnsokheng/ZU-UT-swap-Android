@@ -234,11 +234,9 @@ class TradeFragment :
     }
 
     private val onclickTrade: TradeAdapter.OnclickTrade = object : TradeAdapter.OnclickTrade {
-        override fun clickMe() {
-//            findNavController().navigate(R.id.action_to_trade_detail)
-//            Navigation.findNavController(requireView()).navigate(R.id.trade_detail)
-            val intent = Intent(UTSwapApp.instance, TradeExchangeActivity::class.java)
-            startActivity(intent)
+        override fun clickMe(projectName: String) {
+            TradeExchangeActivity.launchTradeExchangeActivity(requireActivity(), projectName)
+
         }
     }
 
