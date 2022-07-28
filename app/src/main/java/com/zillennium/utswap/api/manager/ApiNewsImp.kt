@@ -10,7 +10,7 @@ import rx.schedulers.Schedulers
 class ApiNewsImp: ApiManager() {
     fun getNews(context: Context,p: Int): Observable<News.NewsRes> =
         mNewsService.news(
-            Header.getHeader(Header.Companion.AuthType.REQUIRED_TOKEN, context),
+            Header.getHeader(Header.Companion.AuthType.REQUIRED, context),
             p
         )
             .subscribeOn(Schedulers.io())

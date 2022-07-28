@@ -29,7 +29,7 @@ class NewsPresenter: BaseMvpPresenterImpl<NewsView.View>(),
                 mView?.onGetNewsFail(it.data!!)
             }
         },{
-            object : CallbackWrapper(it, UTSwapApp.instance){
+            object : CallbackWrapper(it, UTSwapApp.instance, arrayListOf()){
                 override fun onCallbackWrapper(status: ApiManager.NetworkErrorStatus, data: Any) {
                     mView?.onFail(data.toString())
                 }

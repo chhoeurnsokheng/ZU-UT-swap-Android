@@ -428,15 +428,9 @@
     <string name="days">Day(s)</string>
     <string name="terms_and_and_conditions"><![CDATA[Terms & Conditions]]></string>
     <string name="title_deed">Title Deed</string>
-<<<<<<< HEAD
-    <string name="deposit_amount">Deposit Amount</string>
-=======
-
     <string name="deposit_amount">Deposit Amount</string>
     <string name="lock_balance">Lock Balance</string>
     <string name="live">Live</string>
->>>>>>> 1fa6275f162583f0e732e5794aa9ee3c617156e7
-
     <string name="please_enter_email_or_phone_number">Please Enter Email or Phone Number</string>
     <string name="please_enter_a_password_longer_than_8_digits">Please Enter a Password Longer Than 8 Digits</string>
 
