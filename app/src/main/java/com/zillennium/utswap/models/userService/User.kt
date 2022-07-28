@@ -36,4 +36,7 @@ object User {
         var otp_code: String?,
         var secure_key: String?
     )
+    class Kyc {
+
+    }
 }
