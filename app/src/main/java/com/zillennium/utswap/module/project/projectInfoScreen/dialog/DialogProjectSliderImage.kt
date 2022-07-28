@@ -11,6 +11,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.databinding.DialogProjectSliderImageBinding
+import com.zillennium.utswap.utils.dpToPx
 
 
 class DialogProjectSliderImage : DialogFragment() {
@@ -18,7 +19,7 @@ class DialogProjectSliderImage : DialogFragment() {
     private var binding: DialogProjectSliderImageBinding? = null
 
     override fun getTheme(): Int {
-        return R.style.FullScreenDialog
+        return R.style.FullScreenDialogWithCancelable
     }
 
     override fun onCreateView(

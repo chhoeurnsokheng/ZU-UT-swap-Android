@@ -3,7 +3,6 @@ package com.zillennium.utswap.module.security.securityFragment.verificationScree
 import android.content.Context
 import android.os.Bundle
 import com.gis.z1android.api.errorhandler.CallbackWrapper
-import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.api.manager.ApiManager
 import com.zillennium.utswap.api.manager.ApiUserImp
 import com.zillennium.utswap.bases.mvp.BaseMvpPresenterImpl
@@ -30,7 +29,7 @@ class VerificationPresenter : BaseMvpPresenterImpl<VerificationView.View>(),
                 mView?.otpFail(it)
             }
         },{
-            object : CallbackWrapper(it, UTSwapApp.instance){
+            object : CallbackWrapper(it, context, arrayListOf()){
                 override fun onCallbackWrapper(status: ApiManager.NetworkErrorStatus, data: Any) {
                     mView?.onFail(data.toString())
                 }

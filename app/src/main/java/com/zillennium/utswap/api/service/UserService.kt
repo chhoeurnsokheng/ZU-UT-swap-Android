@@ -2,8 +2,6 @@ package com.zillennium.utswap.api.service
 
 
 import com.zillennium.utswap.api.ApiSettings
-import com.zillennium.utswap.models.user.LoginVerifyLoginParam
-import com.zillennium.utswap.models.user.VerifiyCode
 import com.zillennium.utswap.models.userService.User
 import retrofit2.http.Body
 import retrofit2.http.HeaderMap
@@ -18,12 +16,6 @@ import rx.Observable
 
 interface UserService {
     @POST(ApiSettings.PATH_USER_LOGIN)
-    fun loginVerifyCode(
-        @HeaderMap headers: Map<String, String>,
-        @Body body: LoginVerifyLoginParam
-    ): Observable<VerifiyCode>
-
-    @POST(ApiSettings.PATH_USER_LOGIN)
     fun loginService(
         @HeaderMap headers: Map<String, String>,
         @Body body: User.LoginObject
@@ -34,5 +26,4 @@ interface UserService {
         @HeaderMap header: Map<String,String>,
         @Body body: User.OtpObject
     ): Observable<User.OtpRes>
-
 }

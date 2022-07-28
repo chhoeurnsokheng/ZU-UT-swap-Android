@@ -55,7 +55,7 @@
                     android:gravity="end"
                     android:layout_gravity="center_vertical"
                     android:textAppearance="@style/medium_32"
-                    android:text="$1 680.99"/>
+                    android:text="$1,680.99"/>
 
             </LinearLayout>
 

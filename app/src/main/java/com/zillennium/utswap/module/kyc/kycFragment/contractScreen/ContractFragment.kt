@@ -1,8 +1,10 @@
 package com.zillennium.utswap.module.kyc.kycFragment.contractScreen
 
 import android.view.ViewTreeObserver.OnScrollChangedListener
+import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import com.zillennium.utswap.R
+import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentKycContractBinding
 
@@ -174,6 +176,7 @@ Parties have read and agreed to all the terms and conditions, sign or issue a th
                     OnScrollChangedListener {
                         if (!scrollViewContract.canScrollVertically(1)) {
                             btnAccept.isEnabled = true
+                            btnAccept.backgroundTintList = ContextCompat.getColorStateList(UTSwapApp.instance, R.color.primary)
                             btnAccept.setOnClickListener {
 
                                 findNavController().navigate(R.id.action_to_kyc_application_kyc_fragment)

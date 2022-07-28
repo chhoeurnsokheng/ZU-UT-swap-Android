@@ -426,25 +426,11 @@ interface Constants {
         }
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    interface TradeExchange {
+        companion object{
+            const val ProjectName = "ProjectName"
+        }
+    }
 
 
 }

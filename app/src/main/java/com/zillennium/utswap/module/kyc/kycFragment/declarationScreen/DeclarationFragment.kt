@@ -1,8 +1,10 @@
 package com.zillennium.utswap.module.kyc.kycFragment.declarationScreen
 
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import com.zillennium.utswap.R
+import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentKycDeclarationBinding
 
@@ -61,31 +63,52 @@ class DeclarationFragment :
                 //Declaration check box
                 svDeclaration.visibility = View.VISIBLE
                 svEAgreement.visibility = View.GONE
+                cbEAgreement.isEnabled = false
+                tvEAgreement.setTextColor(
+                    ContextCompat.getColor(
+                        UTSwapApp.instance,
+                        R.color.dark_gray
+                    )
+                )
                 cbDeclaration.setOnClickListener {
-                    val declarationCheck = cbDeclaration.isEnabled
-                    val check = cbDeclaration.isChecked
-                    if (declarationCheck == check) {
+                    if (cbDeclaration.isChecked) {
                         svDeclaration.visibility = View.GONE
                         svEAgreement.visibility = View.VISIBLE
                         cbEAgreement.isEnabled = true
+                        tvEAgreement.setTextColor(
+                            ContextCompat.getColor(
+                                UTSwapApp.instance,
+                                R.color.primary
+                            )
+                        )
+
                     } else {
-                        cbEAgreement.isEnabled = false
                         svDeclaration.visibility = View.VISIBLE
                         svEAgreement.visibility = View.GONE
-                    }
-                }
-                cbEAgreement.setOnClickListener{
-                    val eAgreementCheck = cbEAgreement.isEnabled
-                    val checkAgrement = cbEAgreement.isChecked
-                    if (eAgreementCheck == checkAgrement){
-                        svEAgreement.visibility = View.VISIBLE
-                        btnAccept.isEnabled = true
-                    }
-                    else{
+                        cbEAgreement.isEnabled = false
+                        cbEAgreement.isChecked = false
                         btnAccept.isEnabled = false
+                        tvEAgreement.setTextColor(
+                            ContextCompat.getColor(
+                                UTSwapApp.instance,
+                                R.color.dark_gray
+                            )
+                        )
 
                     }
                 }
+                cbEAgreement.setOnClickListener {
+                    if (cbDeclaration.isChecked) {
+                        if (cbEAgreement.isChecked) {
+                            svEAgreement.visibility = View.VISIBLE
+                            btnAccept.isEnabled = true
+                        } else {
+                            btnAccept.isEnabled = false
+                        }
+                    }
+                }
+
+
             }
 
 

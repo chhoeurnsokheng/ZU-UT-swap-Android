@@ -59,7 +59,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dimen_5"
-                    android:text="UT Siem Reap 17140"
+                    android:text="Siem Reap 17140"
                     android:textAppearance="@style/medium_20"
                     android:textColor="@color/black" />
 
@@ -139,12 +139,12 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
+                            android:drawableStart="@drawable/ic_map"
+                            android:drawablePadding="@dimen/dimen_5"
                             android:gravity="center"
                             android:text="@string/view_in_google_maps"
                             android:textAppearance="@style/medium_14"
-                            android:textColor="@color/primary"
-                            android:drawablePadding="@dimen/dimen_5"
-                            android:drawableStart="@drawable/ic_map"/>
+                            android:textColor="@color/primary" />
                     </LinearLayout>
 
                 </RelativeLayout>
@@ -158,12 +158,16 @@
                     android:text="@string/investment_information"
                     android:textAppearance="@style/regular_16" />
 
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
                 <LinearLayout
+                    android:id="@+id/ll_ut"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dimen_5"
                     android:layout_marginTop="@dimen/dimen_15"
-                    android:layout_marginBottom="@dimen/dimen_8"
                     android:orientation="horizontal">
 
                     <TextView
@@ -200,20 +204,28 @@
 
                 </LinearLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginStart="@dimen/dimen_5"
-                    android:background="@color/light_gray" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="@dimen/dimen_4"
+                        android:layout_marginStart="@dimen/dimen_5"
+                        android:visibility="gone"
+                        android:background="@color/light_gray" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_project_investment_info"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dimen_5"
-                    android:overScrollMode="never"
-                    android:scrollbars="none"
-                    android:nestedScrollingEnabled="false"/>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_project_investment_info"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/ll_ut"
+                        android:layout_marginStart="@dimen/dimen_5"
+                        android:layout_marginTop="@dimen/dimen_5"
+                        android:overScrollMode="never"
+                        android:scrollbars="none"
+                        android:nestedScrollingEnabled="false"/>
+
+                </RelativeLayout>
+
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -270,7 +282,6 @@
                                 android:textAppearance="@style/regular_14" />
 
                         </LinearLayout>
-
 
                     </LinearLayout>
 

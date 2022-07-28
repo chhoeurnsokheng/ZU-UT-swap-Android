@@ -119,8 +119,7 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
                     }
                 }
 
-               val   homeTabSlideImage = arrayListOf(HomeTabSlideImageModel(
-                   "https://i.pinimg.com/564x/fb/0a/23/fb0a237f801f118ccc6050d6b6b0b8e2.jpg"),
+               val   homeTabSlideImage = arrayListOf(
                     HomeTabSlideImageModel(  "https://utswap.io/Upload/article/62b28f4e18eb0.jpg"),
                     HomeTabSlideImageModel("https://utswap.io/Upload/article/62bad61c5d0e5.jpg"),
                    HomeTabSlideImageModel(  "https://utswap.io/Upload/article/62b28f4e18eb0.jpg"),
@@ -191,7 +190,7 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
 
                     }
                 })
-
+                
                 bannerImage.setOnTouchListener { _, event ->
                     when (event.action) {
                         MotionEvent.ACTION_DOWN -> {
@@ -212,34 +211,34 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
 
                 /* Watchlist Recycle View */
                 val locationProject = arrayOf(
-                    "Siem Reap 17140",
+                    "Siem Reap 17140 Siem Reap 17140",
                     "Muk Kampul 16644",
-                    "KT 1665",
-                    "New Airport 38Ha",
+                    "KT",
+                    "New Airport",
                     "Siem Reap 17140",
                     "Muk Kampul 16644",
                     "KT 1665",
                     "New Airport 38Ha"
                 )
                 val lastValue = doubleArrayOf(
-                    0.68,
-                    1.38,
-                    9.06,
-                    1.20,
-                    19.68,
+                    3.68,
+                    13.38,
+                    29.06,
+                    41.20,
+                    19.64,
                     1.68,
                     2.30,
                     1.68
                 )
                 val changeValue = doubleArrayOf(
                     1.05,
-                    -0.33,
-                    1.00,
-                    -1.68,
-                    1.65,
-                    -0.50,
-                    1.38,
-                    -1.78,
+                    -20.33,
+                    12.00,
+                    -21.68,
+                    12.65,
+                    -20.50,
+                    12.38,
+                    -21.78,
                 )
 
                 val homeWatchlist = ArrayList<HomeWatchlistModel>()

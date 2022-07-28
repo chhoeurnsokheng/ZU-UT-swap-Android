@@ -188,20 +188,43 @@
                     android:layout_marginBottom="@dimen/dimen_26"
                     android:background="@drawable/deposite_head_line" />
 
-                <TextView
+                <RelativeLayout
                     android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/dimen_8"
                     android:gravity="center"
                     android:text="@string/transfer_amount"
+                    android:layout_centerInParent="true"
                     android:textAppearance="@style/regular_12"
                     android:textColor="@color/write_ECECEC" />
+
+                    <TextView
+                        android:id="@+id/tv_cancel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerInParent="true"
+                        android:layout_marginBottom="@dimen/dimen_8"
+                        android:gravity="center"
+                        android:paddingEnd="@dimen/dimen_12"
+                        android:text="@string/cancel"
+                        android:textAppearance="@style/regular_12"
+                        android:visibility="gone"
+                        android:textColor="@color/white" />
+                </RelativeLayout>
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/dimen_20"
                     android:layout_marginBottom="@dimen/dimen_18"
+                    android:background="@color/primary"
+                    android:gravity="center"
                     android:orientation="horizontal">
 
                     <TextView
@@ -209,28 +232,23 @@
                         android:layout_height="match_parent"
                         android:text="$"
                         android:textAppearance="@style/medium_32"
-                        android:textColor="@color/white"
+                        android:textColor="@color/gray_CCCCCC"
                         android:visibility="visible" />
 
                     <EditText
                         android:id="@+id/et_mount_transfer"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:background="@color/primary"
+                        android:background="@null"
                         android:cursorVisible="true"
-
-                        android:hint="0.00"
+                        android:hint="0"
                         android:inputType="numberDecimal"
                         android:maxLength="10"
-                        android:minWidth="@dimen/dimen_40"
                         android:singleLine="true"
-                        android:text=""
-                        android:textAlignment="center"
                         android:textAppearance="@style/medium_32"
                         android:textColor="@color/white"
-                        android:textColorHint="@color/white"
-                        android:textCursorDrawable="@color/white" />
+                        android:textColorHint="@color/gray_CCCCCC"
+                        android:textCursorDrawable="@null" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -281,7 +299,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:backgroundTint="@color/dark_gray"
-                                android:gravity="center"
+                                android:gravity="start"
                                 android:hint="@string/zero"
                                 android:textColorHint="@color/light_gray"
                                 android:inputType="phone"
@@ -289,7 +307,7 @@
                                 android:singleLine="true"
                                 android:textAppearance="@style/medium_28"
                                 android:textColor="@color/black_000000"
-                                android:textCursorDrawable="@color/white" />
+                                android:textCursorDrawable="@null" />
                         </LinearLayout>
 
                     </RelativeLayout>
@@ -317,10 +335,11 @@
                     android:gravity="center">
 
                     <TextView
+                        android:id="@+id/tv_next"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="@string/transfer_"
+                        android:text="@string/next"
                         android:textAppearance="@style/medium_16"
                         android:textColor="@color/white" />
                 </LinearLayout>

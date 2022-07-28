@@ -9,8 +9,12 @@
         <RelativeLayout
             android:id="@+id/lay_header"
             android:layout_width="match_parent"
+<<<<<<< HEAD
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/dimen_10">
+=======
+            android:layout_height="?attr/actionBarSize">
+>>>>>>> 1fa6275f162583f0e732e5794aa9ee3c617156e7
 
             <ImageView
                 android:id="@+id/img_menu"
@@ -80,8 +84,14 @@
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/swipe_refresh"
             android:layout_width="match_parent"
+<<<<<<< HEAD
             android:layout_height="wrap_content"
             android:layout_below="@+id/lay_header">
+=======
+            android:layout_height="match_parent"
+           android:layout_marginEnd="@dimen/dimen_20"
+            android:layout_marginStart="@dimen/dimen_20">
+>>>>>>> 1fa6275f162583f0e732e5794aa9ee3c617156e7
 
             <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/tb"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/white"
+            android:elevation="0dp"
+            app:title="">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tb_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:text=""
+                android:textAppearance="@style/regular_16"
+                android:textColor="@color/black"
+                android:textSize="@dimen/dimen_16"
+                android:visibility="visible" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_raduis_3_color_sucess"
+                    android:padding="@dimen/dimen_4"
+                    android:text="@string/live"
+                    android:textAllCaps="true"
+                    android:textAppearance="@style/regular_12"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/dimen_12" />
+                <ImageView
+                    android:id="@+id/img_remember"
+                    android:layout_width="@dimen/dimen_15"
+                    android:layout_height="@dimen/dimen_15"
+                    android:src="@drawable/ic_baseline_star_24"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="@dimen/dimen_10"
+                    android:layout_marginStart="@dimen/dimen_10"
+                    app:tint="@color/warning" />
+                <ImageView
+                    android:id="@+id/tb_left"
+                    android:layout_width="@dimen/dimen_18"
+                    android:layout_height="@dimen/dimen_18"
+                    android:src="@drawable/ic_project"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="@dimen/dimen_18"
+                    />
+            </LinearLayout>
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <View
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/color_main_blur" />
+    </LinearLayout>
+</layout>
