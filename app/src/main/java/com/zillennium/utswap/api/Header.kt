@@ -17,7 +17,8 @@ class Header {
             REQUIRED,
             NOT_REQUIRED,
             REQUIRED_WITH_OPTION_AUTH,
-            REQUIRED_WITH_OPTION_AUTH_MULTIPATH
+            REQUIRED_WITH_OPTION_AUTH_MULTIPATH,
+            REQUIRED_TOKEN
         }
 
         fun getHeader(authType: AuthType, context: Context): Map<String, String> {
@@ -62,6 +63,16 @@ class Header {
                     Log.i("header", "data: $map")
                     return map
                 }
+                AuthType.REQUIRED_TOKEN -> {
+                    map = mapOf(
+                        Constants.Key.ContentType to Constants.Value.ContentType,
+                        Constants.Key.Accept to Constants.Value.Accept,
+                        Constants.Key.ID to SessionPreferences().SESSION_ID.toString(),
+                        Constants.Key.Token to SessionPreferences().SESSION_TOKEN.toString()
+                    )
+                    return map
+                }
+
                 else -> {
 
                 }
