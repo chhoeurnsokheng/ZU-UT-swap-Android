@@ -1,5 +1,6 @@
 package com.zillennium.utswap.api.service
 
+
 import com.zillennium.utswap.api.ApiSettings
 import com.zillennium.utswap.models.userService.User
 import retrofit2.http.Body
@@ -19,7 +20,6 @@ interface UserService {
         @HeaderMap headers: Map<String, String>,
         @Body body: User.LoginObject
     ): Observable<User.LoginRes>
-
     //OTP
     @POST(ApiSettings.PATH_OTP)
     fun otpService(

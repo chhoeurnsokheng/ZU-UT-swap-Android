@@ -32,5 +32,4 @@ class ApiUserImp:ApiManager() {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
 
-
 }
