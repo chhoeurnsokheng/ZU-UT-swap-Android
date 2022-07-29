@@ -29,9 +29,9 @@ open class IdTypeFragment :
     override fun initView() {
         super.initView()
         try {
+            toolbar()
             binding.apply {
                 checkValidation()
-
                 pageAdapter = ScreenSlidePageAdapter(this@IdTypeFragment, NUM_PAGES)
                 vpVerify.adapter = pageAdapter
                 vpVerify.isSaveEnabled = false
@@ -115,15 +115,27 @@ open class IdTypeFragment :
 
                 }
 
-                // Set Passed Back
-                ivBack.setOnClickListener {
-                    activity?.finish()
-                }
             }
         } catch (error: Exception) {
             // Must be safe
         }
     }
+
+  private fun toolbar(){
+      binding.apply {
+          activity.let {
+              includeLayout.apply {
+                 cdBack.setOnClickListener {
+                     requireActivity().finish()
+                 }
+                  tbTitle.text ="1/4"
+              }
+
+          }
+
+      }
+  }
+
 
     private fun onChangeTabs(view: View) {
         binding.apply {

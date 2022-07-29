@@ -2,6 +2,7 @@ package com.zillennium.utswap.api.service
 
 
 import com.zillennium.utswap.api.ApiSettings
+import com.zillennium.utswap.api.Header
 import com.zillennium.utswap.models.userService.User
 import retrofit2.http.Body
 import retrofit2.http.HeaderMap
@@ -20,10 +21,18 @@ interface UserService {
         @HeaderMap headers: Map<String, String>,
         @Body body: User.LoginObject
     ): Observable<User.LoginRes>
+
     //OTP
     @POST(ApiSettings.PATH_OTP)
     fun otpService(
-        @HeaderMap header: Map<String,String>,
+        @HeaderMap header: Map<String, String>,
         @Body body: User.OtpObject
     ): Observable<User.OtpRes>
+
+    // KYC
+    @POST(ApiSettings.PATH_KYC)
+    fun userAddKyc(
+        @HeaderMap header: Map<String, String>,
+        @Body body: User.Kyc
+    ): Observable<User.Kyc>
 }

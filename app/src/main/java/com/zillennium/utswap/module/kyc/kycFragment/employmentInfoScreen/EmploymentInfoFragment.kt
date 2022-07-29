@@ -34,6 +34,7 @@ class EmploymentInfoFragment :
     override fun initView() {
         super.initView()
         try {
+            toolBar()
             binding.apply {
 
                 /* if Data already input */
@@ -54,9 +55,6 @@ class EmploymentInfoFragment :
                     etemail.setText(info.email_emp)
                 }
 
-                imgBack.setOnClickListener {
-                    findNavController().popBackStack()
-                }
 
                 if(validate().isValidPhoneNumber(SessionPreferences().SESSION_USERNAME.toString())){
                     layEmail.visibility = View.VISIBLE
@@ -192,4 +190,19 @@ class EmploymentInfoFragment :
             // Must be safe
         }
     }
+
+    private fun toolBar(){
+        activity.let {
+            binding.apply {
+                includeLayout.apply {
+                    tbTitle.text = "3/4"
+                    cdBack.setOnClickListener {
+                        requireActivity().finish()
+                    }
+                }
+            }
+        }
+    }
+
+
 }

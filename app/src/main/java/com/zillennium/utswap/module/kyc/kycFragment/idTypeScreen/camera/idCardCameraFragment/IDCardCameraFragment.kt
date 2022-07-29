@@ -52,13 +52,9 @@ class IDCardCameraFragment :
     override fun initView() {
         super.initView()
         try {
+            toolBar()
             binding.apply {
 
-
-
-                ivBack.setOnClickListener {
-                    findNavController().popBackStack()
-                }
 
                 if (ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
                     requestPermissions(
@@ -80,6 +76,17 @@ class IDCardCameraFragment :
 
         } catch (error: Exception) {
             // Must be safe
+        }
+    }
+
+
+    private  fun toolBar(){
+        binding.apply {
+            activity.let {
+                includeLayout.apply {
+                    toolBarLayout.setBackgroundColor(ContextCompat.getColor(requireActivity(),R.color.primary))
+                }
+            }
         }
     }
 

@@ -59,6 +59,7 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
 
                 //check share preference
                 SessionVariable.SESSION_STATUS.observe(this@HomeFragment) {
+
                     txtTotalBalance.visibility = View.VISIBLE
                     linearLayoutBalance.visibility = View.VISIBLE
                     rvHomeWatchlist.visibility = View.VISIBLE

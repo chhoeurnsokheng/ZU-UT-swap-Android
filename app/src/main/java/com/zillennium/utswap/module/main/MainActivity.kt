@@ -41,7 +41,6 @@ class MainActivity :
         SessionPreferences().removeValue("SESSION_STATUS")
         SessionPreferences().removeValue("SESSION_KYC")
         SessionPreferences().removeValue("SESSION_KYC_STATUS")
-
         onCheckSession()
         onSetUpNavBar()
     }
@@ -58,14 +57,11 @@ class MainActivity :
 
     private fun onCheckSession(){
         try {
+
             binding.apply {
-//                txtVersion.text = getString(
-//                   R.string.app_version_pattern,
-//                    BuildConfig.VERSION_NAME,
-//                      BuildConfig.VERSION_CODE
-//                )
+
                 SessionVariable.SESSION_STATUS.observe(this@MainActivity) {
-                    if(SessionVariable.SESSION_STATUS.value == true){
+                    if(SessionVariable.SESSION_STATUS.value == false){
                         layAuth.visibility = GONE
                         layVerify.visibility = VISIBLE
                         btnVerify.visibility = VISIBLE
@@ -76,7 +72,7 @@ class MainActivity :
                 }
 
                 SessionVariable.SESSION_KYC.observe(this@MainActivity) {
-                    if(SessionVariable.SESSION_KYC.value == false && SessionVariable.SESSION_STATUS.value == true && SessionVariable.SESSION_KYC_STATUS.value != 0){
+                    if(SessionVariable.SESSION_KYC.value == false && SessionVariable.SESSION_STATUS.value == false && SessionVariable.SESSION_KYC_STATUS.value != 0){
                         layVerify.visibility = VISIBLE
                     }else{
                         layVerify.visibility = GONE
@@ -84,7 +80,7 @@ class MainActivity :
                 }
 
                 SessionVariable.SESSION_KYC_STATUS.observe(this@MainActivity){
-                    if(SessionVariable.SESSION_KYC.value == false && SessionVariable.SESSION_STATUS.value == true){
+                    if(SessionVariable.SESSION_KYC.value == false && SessionVariable.SESSION_STATUS.value == false){
                         when(SessionVariable.SESSION_KYC_STATUS.value){
                             2 -> {
                                 layKycStatus.visibility = VISIBLE
@@ -131,8 +127,7 @@ class MainActivity :
     private fun onSetUpNavBar(){
         try {
             binding.apply {
-                // Passing each menu ID as a set of Ids because each
-                // menu should be considered as top level destinations.
+
                 val appBarConfiguration = AppBarConfiguration.Builder(
                     R.id.navigation_navbar_home,
                     R.id.navigation_navbar_portfolio,
@@ -143,7 +138,7 @@ class MainActivity :
 
                 val navController = findNavController(this@MainActivity, R.id.nav_host_fragment_activity_navbar_home)
 
-                // This Theme haven't use NoActionBar
+
                 setupWithNavController(navView, navController)
 
                 val homeFragment = HomeFragment()

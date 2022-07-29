@@ -45,7 +45,7 @@ class IDVerificationFragment :
 
     override fun initView() {
         super.initView()
-//        try {
+            toolBar()
             binding.apply {
 
             initSpinnerGender()
@@ -74,9 +74,6 @@ class IDVerificationFragment :
                 etHouse.setText(info.addressHouse)
             }
 
-            btnBack.setOnClickListener {
-                popFragmentNavigation()
-            }
 
             val calendar = Calendar.getInstance()
 
@@ -298,7 +295,18 @@ class IDVerificationFragment :
 //            // Must be safe
 //        }
     }
-
+    private fun toolBar(){
+        activity.let {
+            binding.apply {
+                includeLayout.apply {
+                    tbTitle.text = "1/4"
+                    cdBack.setOnClickListener {
+                        requireActivity().finish()
+                    }
+                }
+            }
+        }
+    }
     private fun initSpinnerGender() {
         binding.apply {
 

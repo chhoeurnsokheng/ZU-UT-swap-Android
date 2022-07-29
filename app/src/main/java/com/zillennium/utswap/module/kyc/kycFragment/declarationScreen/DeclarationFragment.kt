@@ -14,24 +14,16 @@ class DeclarationFragment :
 
     override var mPresenter: DeclarationView.Presenter = DeclarationPresenter()
     override val layoutResource: Int = R.layout.fragment_kyc_declaration
-
+    
     override fun initView() {
         super.initView()
         try {
+            toolBar()
             binding.apply {
 
-                imgBack.setOnClickListener {
-                    findNavController().popBackStack()
-                }
                 btnAccept.isEnabled = false
                 btnAccept.setOnClickListener {
-
                     findNavController().navigate(R.id.action_to_fund_password_kyc_fragment)
-//                    val intent = Intent(
-//                        UTSwapApp.instance,
-//                        FundPasswordFragment::class.java
-//                    )
-//                    startActivity(intent)
                 }
 
                 txtContent.text =
@@ -114,6 +106,18 @@ class DeclarationFragment :
 
         } catch (error: Exception) {
             // Must be safe
+        }
+    }
+    private fun toolBar(){
+        activity.let {
+            binding.apply {
+                includeLayout.apply {
+                    tbTitle.text = "4/4"
+                    cdBack.setOnClickListener {
+                        requireActivity().finish()
+                    }
+                }
+            }
         }
     }
 }

@@ -14,7 +14,7 @@ import rx.schedulers.Schedulers
  * By Mac
  */
 
-class ApiUserImp:ApiManager() {
+class ApiUserImp : ApiManager() {
 
     fun login(body: User.LoginObject, context: Context): Observable<User.LoginRes> =
         mUserService.loginService(
@@ -32,4 +32,10 @@ class ApiUserImp:ApiManager() {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
 
+    fun addKyc(body: User.Kyc, context: Context): Observable<User.Kyc> = mUserService.userAddKyc(
+        Header.getHeader(Header.Companion.AuthType.REQUIRED_TOKEN, context),
+        body
+    )
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
 }

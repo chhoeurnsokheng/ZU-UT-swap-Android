@@ -134,6 +134,7 @@ class SelfieCameraFragment :
         btnTakePhoto!!.setOnClickListener {
             binding.progressBar.visibility = View.VISIBLE
             btnTakePhoto!!.isClickable = false
+
 //            val timestamp = System.currentTimeMillis()
 //            val contentValues = ContentValues()
 //            contentValues.put(MediaStore.MediaColumns.DISPLAY_NAME, timestamp)
@@ -145,6 +146,7 @@ class SelfieCameraFragment :
 //                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
 //                contentValues
 //            ).setMetadata(metadata).build()
+
             val photoFile = FileCreator.createTempImageFile()
             photoFile.apply {
                 val outputOptions =
