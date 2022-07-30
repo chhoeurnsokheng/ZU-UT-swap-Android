@@ -32,4 +32,8 @@ class ApiUserImp:ApiManager() {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
 
+    fun register(body: User.RegisterObject): Observable<User.RegisterRes> =
+        mUserService.registerService(body)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
 }

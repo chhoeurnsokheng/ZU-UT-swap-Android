@@ -433,7 +433,9 @@
     <string name="live">Live</string>
     <string name="please_enter_email_or_phone_number">Please Enter Email or Phone Number</string>
     <string name="please_enter_a_password_longer_than_8_digits">Please Enter a Password Longer Than 8 Digits</string>
-
+    <string name="invalid_try_again">Invalid. Please Try Again</string>
+    <string name="password_did_not_match">Password didn\'t match</string>
+    <string name="email_phone_number_unavaible">Email/Phone Number Unavailable</string>
 
 
 </resources>

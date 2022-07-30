@@ -29,7 +29,7 @@ class SystemPreferences: BaseStoredPreferences(UTSwapApp.instance, "SystemPrefer
     var DEVICE_BRAND by stringPref(defaultValue = Build.BRAND)
     var DEVICE_MODEL by stringPref(defaultValue = Build.MODEL)
     var DEVICE_VERSION by stringPref(defaultValue = Build.VERSION.RELEASE)
-    var DEVICE_SDK by stringPref(defaultValue = Build.VERSION.SDK)
+//    var DEVICE_SDK by stringPref(defaultValue = Build.VERSION.SDK)
     var DEVICE_OS by stringPref(defaultValue = System.getProperty("os.version"))
     var APP_VERSION by stringPref(defaultValue = BuildConfig.VERSION_NAME)
     var APP_VERSION_CODE by intPref(defaultValue = BuildConfig.VERSION_CODE)
