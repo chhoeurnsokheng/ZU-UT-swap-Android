@@ -20,4 +20,7 @@ object ApiSettings {
     const val PATH_NEWS = "Art/ArtList"
     const val PATH_NEWS_DETAIL = "Art/ArtShow"
 
+    /**     Account Logs       **/
+    const val PATH_ACCOUNT_LOGS = "user/accountLogs"
+
 }
