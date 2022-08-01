@@ -32,7 +32,6 @@ class LogsActivity :
                 }
 
                 onCallApi()
-//                onReadMorePage()
                 accountLoadingRefresh()
             }
             // Code
@@ -46,11 +45,11 @@ class LogsActivity :
         binding.apply {
             mainProgressBar.visibility = View.GONE
             progressBarReadMore.visibility = View.VISIBLE
-            layAccountLogsLoading.visibility = View.GONE
+            layAccountLogsLoading.visibility = View.VISIBLE
             accountLogsSwipeRefresh.isRefreshing = false
 
 
-            if (data.toString().isNotEmpty()) {
+            if (data!!.isNotEmpty()) {
 
                 val linearLayoutManager = LinearLayoutManager(this@LogsActivity)
                 rvLogs.layoutManager = linearLayoutManager
@@ -58,8 +57,16 @@ class LogsActivity :
                 logsAdapter!!.items = data!!
                 rvLogs.adapter = logsAdapter
 
-            }
+                //Add more data page
 
+                page = page?.plus(1)
+                readMore.setOnClickListener {
+                    mPresenter.accountLogs(Logs.AccountLogsObject(page), UTSwapApp.instance)
+                    progressBarReadMore.visibility = View.VISIBLE
+                }
+            } else {
+                Toast.makeText(this@LogsActivity, "Not Yet Have Data", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
@@ -78,7 +85,7 @@ class LogsActivity :
         }
     }
 
-    private fun accountLoadingRefresh(){
+    private fun accountLoadingRefresh() {
         binding.apply {
             // Swipe refresh to get page
             accountLogsSwipeRefresh.setOnRefreshListener {

@@ -135,6 +135,16 @@
                                 android:layout_width="@dimen/dimen_20"
                                 android:layout_height="@dimen/dimen_20" />
                         </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/txt_end_data"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/dimen_15"
+                            android:gravity="center"
+                            android:text="======== End ======== "
+                            android:textColor="@color/primary"
+                            android:visibility="gone" />
                     </LinearLayout>
                 </LinearLayout>
             </androidx.core.widget.NestedScrollView>
