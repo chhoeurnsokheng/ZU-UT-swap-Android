@@ -15,7 +15,7 @@
 
             <include
                 android:id="@+id/includeLayout"
-                layout="@layout/trade_appbar_layout"
+                layout="@layout/appbar_layout_with_icon"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 

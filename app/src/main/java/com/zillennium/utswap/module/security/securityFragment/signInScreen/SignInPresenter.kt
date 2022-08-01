@@ -2,7 +2,6 @@ package com.zillennium.utswap.module.security.securityFragment.signInScreen
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import com.gis.z1android.api.errorhandler.CallbackWrapper
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.api.manager.ApiManager

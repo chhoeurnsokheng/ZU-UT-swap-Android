@@ -27,7 +27,8 @@ import com.zillennium.utswap.module.security.securityFragment.signInScreen.Check
 import com.zillennium.utswap.utils.validate
 
 
-class SignInFragment : BaseMvpFragment<SignInView.View, SignInView.Presenter, FragmentSecuritySignInBinding>(),
+class SignInFragment :
+    BaseMvpFragment<SignInView.View, SignInView.Presenter, FragmentSecuritySignInBinding>(),
     SignInView.View {
 
     private lateinit var imageWifi: ImageView
@@ -194,7 +195,55 @@ class SignInFragment : BaseMvpFragment<SignInView.View, SignInView.Presenter, Fr
             }
         }
     }
+//        @SuppressLint("ServiceCast")
+//        private fun checkWifiOnAndConnected(): Boolean {
+//        val wifiMgr = applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
+//        return if (wifiMgr.isWifiEnabled) { // Wi-Fi adapter is ON
+//            val wifiInfo = wifiMgr.connectionInfo
+//            return wifiInfo.networkId != -1
+//            // Connected to an access point
+//        } else {
+//            return false // Wi-Fi adapter is OFF
+//        }
+//    }
 
+
+//private fun IdNeteworkConnection() {
+//    imageWifi = findViewById(R.id.imageWifi)
+//    textView = findViewById(R.id.textView)
+//    mainWifi = findViewById(R.id.main_Wifi)
+//}
+//
+//    @SuppressLint("ResourceType")
+//    private fun callNetworkConnection() {
+//        checkNetworkConnection = CheckNetworkConnection(application)
+//        checkNetworkConnection.observe(this) { isConnected ->
+//            if (isConnected) {
+//                imageWifi.setImageResource(R.drawable.ic_baseline_wifi_24)
+//                textView.text = "Connected"
+//                textView.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.color_main))
+//                mainWifi.setBackgroundColor(Color.GREEN)
+//            } else {
+//                imageWifi.setImageResource(R.drawable.ic_baseline_wifi_off_24)
+//                textView.text = "Please Check your connection"
+//                textView.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.color_main))
+//                mainWifi.setBackgroundColor(Color.RED)
+//            }
+//        }
+//    }
+
+//    override fun onBackPressed() {
+//        if (doubleBackToExitPressedOnce) {
+//            super.onBackPressed()
+//            return
+//        }
+//        this.doubleBackToExitPressedOnce = true
+//        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show()
+//        Handler(Looper.getMainLooper()).postDelayed(
+//            { doubleBackToExitPressedOnce = false },
+//            2000
+//        )
+//    }
 
     private fun ShowHidePass() {
         binding.apply {

@@ -1,14 +1,17 @@
 package com.zillennium.utswap.module.main.news.newsDetail
 
 import android.content.Intent
+import android.os.Handler
+import android.text.Html
 import android.view.View
 import androidx.core.content.ContextCompat
+import com.androidstudy.networkmanager.Tovuti
+import com.bumptech.glide.Glide
 import com.zillennium.utswap.R
+import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityNewsDetailBinding
-import com.zillennium.utswap.databinding.LayoutBaseNoInternetBinding
-import com.zillennium.utswap.utils.DialogUtil
-import com.zillennium.utswap.utils.NoInternetLayoutUtil
+import com.zillennium.utswap.models.newsService.News
 
 class NewsDetailActivity :
     BaseMvpActivity<NewsDetailView.View, NewsDetailView.Presenter, ActivityNewsDetailBinding>(),
@@ -17,24 +20,55 @@ class NewsDetailActivity :
     override var mPresenter: NewsDetailView.Presenter = NewsDetailPresenter()
     override val layoutResource: Int = R.layout.activity_news_detail
 
+    private var id: String? = null
+
     override fun initView() {
         super.initView()
-        try {
-            toolBar()
 
-            binding.apply {
+        val intent = intent
+        id = intent.getStringExtra("id")
 
-                var str: String = "Have you booked your land plots at Laoka (Mondulkiri) at ONLY \$11,000 / plot? We are accepting booking at this special price until Saturday, 05th February 2022. \n" + "\n** P.S. Over 100 plots are SOLD.\n" + "\n Contact us for more information. \n" + "\nSuscipit nulla porro aliquid sunt facilis. Dolores corrupti nobis quis consequatur. Minima autem qui ut qui amet dolores et. Voluptate debitis mollitia doloribus recusandae in vel vitae. Nisi nam quasi fugit molestias dolorem.\n" + "\nAtque consequatur facere laudantium rerum eos consequuntur quam similique. Ducimus facere numquam illo aliquid cumque impedit non. Ea iusto dolorum temporibus recusandae quisquam omnis.\n" + "\nSoluta officia quisquam ea placeat cupiditate. Qui officia eius molestiae quidem delectus impedit quae sed. Qui et et provident et aperiam corrupti. Illum quia ut incidunt aut qui fuga. Mollitia architecto quisquam qui quia voluptates explicabo iusto. Aliquam id voluptatibus quo totam eius sed quaerat. Est ut dolorem adipisci repudiandae. Magnam perspiciatis sit ad at nam. Esse magnam assumenda nisi ex recusandae odio.\n " + "\nQui alias minus facilis et officia omnis voluptates sunt. Rerum fugiat mollitia ipsam voluptatem amet dolores iusto. Qui dolore tenetur voluptatem ex est minus. Vel autem non delectus itaque quo magni impedit. Non eaque repellat rerum vero velit ea quos."
+        toolBar()
 
-                txtContent.text = str
-               NoInternetLayoutUtil().noInternetLayoutUtil(binding.rlNoInt)
+        onCallApi()
 
+        onSwipeRefresh()
+
+        //NoInternetLayoutUtil().noInternetLayoutUtil(binding.rlNoInt)
+    }
+
+    private fun onCallApi(){
+        Tovuti.from(UTSwapApp.instance).monitor{ _, isConnected, _ ->
+            if(isConnected)
+            {
+                mPresenter.onGetNewsDetail(id!!)
+                binding.progressBar.visibility = View.VISIBLE
             }
-        } catch (error: Exception) {
-            // Must be safe
         }
     }
 
+    override fun onGetNewsSuccess(data: News.NewsDetailData) {
+        binding.apply {
+            progressBar.visibility = View.GONE
+            swipeRefresh.isRefreshing = false
+
+            txtTitle.text = data.title.toString()
+            txtDate.text = data.date.toString()
+            txtContent.text = Html.fromHtml(data.content.toString())
+            Glide.with(imgNews.context)
+                .load(data.image.toString())
+                .placeholder(R.drawable.ic_placeholder)
+                .into(imgNews)
+            view.visibility = View.VISIBLE
+        }
+    }
+
+    override fun onGetNewsFail(data: News.NewsDetailData) {
+       binding.apply {
+           progressBar.visibility = View.VISIBLE
+           swipeRefresh.isRefreshing = false
+       }
+    }
 
     private fun toolBar() {
         setSupportActionBar(binding.includeLayout.tb)
@@ -44,16 +78,42 @@ class NewsDetailActivity :
         binding.includeLayout.apply {
             tbTitleLeft.visibility = View.VISIBLE
             tbTitleLeft.setOnClickListener {
+                tbTitleLeft.isEnabled = false
+
                 // Share data to other application
                 val shareIntent = Intent().apply {
                     this.action = Intent.ACTION_SEND
                     this.type = "text/plain"
-                    this.putExtra(Intent.EXTRA_TEXT, "https://utswap.io/Article/detail/id/23")
+                    this.putExtra(Intent.EXTRA_TEXT, "https://utswap.io/Article/detail/id/$id")
                 }
                 startActivity(shareIntent)
+
+                Handler().postDelayed({
+                    tbTitleLeft.isEnabled = true
+                }, 3000)
             }
             tb.setNavigationOnClickListener {
                 finish()
+            }
+
+            binding.swipeRefresh.setColorSchemeColors(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
+        }
+    }
+
+    private fun onSwipeRefresh(){
+        binding.apply {
+            swipeRefresh.setOnRefreshListener {
+                onSwipeRefreshCallApi()
+            }
+        }
+    }
+
+    private fun onSwipeRefreshCallApi(){
+        Tovuti.from(UTSwapApp.instance).monitor{ _, isConnected, _ ->
+            if(isConnected)
+            {
+                mPresenter.onGetNewsDetail(id!!)
+                binding.swipeRefresh.isRefreshing = true
             }
         }
     }
