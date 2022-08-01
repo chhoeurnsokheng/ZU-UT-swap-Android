@@ -140,8 +140,15 @@ class AccountActivity :
                     "Sign Out",
                     object : DialogUtil.OnAlertDialogClick {
                         override fun onLabelCancelClick() {
-                            SessionPreferences().SESSION_STATUS = false
                             SessionVariable.SESSION_STATUS.value = false
+
+                            SessionPreferences().removeValue("SESSION_TOKEN")
+                            SessionPreferences().removeValue("SESSION_ID")
+                            SessionPreferences().removeValue("SESSION_USERNAME")
+                            SessionPreferences().removeValue("SESSION_KYC")
+                            SessionPreferences().removeValue("SESSION_X_TOKEN_API")
+                            SessionPreferences().removeValue("SESSION_STATUS")
+
                             finish()
                             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                         }

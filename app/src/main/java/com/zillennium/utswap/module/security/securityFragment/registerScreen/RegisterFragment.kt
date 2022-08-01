@@ -244,6 +244,8 @@ class RegisterFragment :
             Constants.RegisterData.username = etEmail.text.toString()
             Constants.RegisterData.password = etConfirmPassword.text.toString()
 
+            hideKeyboard()
+
             findNavController().navigate(R.id.action_to_term_condition_security_fragment)
         }
     }
@@ -300,6 +302,7 @@ class RegisterFragment :
                     )
             }
         }
+        hideKeyboard()
     }
 
     private fun onProgressBar(status: Boolean){
@@ -381,6 +384,12 @@ class RegisterFragment :
 
         }
 
+    }
+
+    private fun hideKeyboard() {
+        val inputManager =
+            requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputManager.hideSoftInputFromWindow(view?.windowToken, 0)
     }
 
 }

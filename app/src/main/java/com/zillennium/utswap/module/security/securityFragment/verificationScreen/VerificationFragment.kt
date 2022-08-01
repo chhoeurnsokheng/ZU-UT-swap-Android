@@ -210,6 +210,7 @@ class VerificationFragment :
                 }
                 Constants.FundPassword.Register -> {
                     SessionVariable.SESSION_STATUS.value = true
+                    SessionPreferences().SESSION_STATUS = true
                     SessionPreferences().SESSION_TOKEN = body.data?.TOKEN.toString()
                     SessionPreferences().SESSION_ID = body.data?.ID.toString()
                     SessionPreferences().SESSION_X_TOKEN_API = body.data?.x_api_key.toString()
