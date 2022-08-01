@@ -7,7 +7,3 @@ class SpinnerModel (
     var name: String
 ) : Serializable
 
-class Province (
-    var id: Int,
-    var name: String
-) : Serializable

@@ -22,7 +22,7 @@ class FundPasswordPresenter : BaseMvpPresenterImpl<FundPasswordView.View>(),
         mView?.initView()
     }
 
-    override fun addKyc(data: User.Kyc, context: Context) {
+    override fun addKyc(data: MutableList<User.Kyc>, context: Context) {
         addKYCSubscription?.unsubscribe()
         addKYCSubscription =
             ApiUserImp().addKyc(submitRequestBody(data), context).subscribe({ respone ->
@@ -38,12 +38,11 @@ class FundPasswordPresenter : BaseMvpPresenterImpl<FundPasswordView.View>(),
 
                 }
 
-
             })
 
     }
 
-    private fun submitRequestBody(filePath: User.Kyc): MultipartBody {
+    private fun submitRequestBody(filePath: MutableList<User.Kyc>): MultipartBody {
         val requestBody = MultipartBody.Builder()
         requestBody.setType(MultipartBody.FORM)
         return requestBody.build()

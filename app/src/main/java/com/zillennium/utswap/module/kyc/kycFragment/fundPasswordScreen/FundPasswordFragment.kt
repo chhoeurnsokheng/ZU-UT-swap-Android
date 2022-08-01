@@ -25,7 +25,7 @@ class FundPasswordFragment :
 
     override var mPresenter: FundPasswordView.Presenter = FundPasswordPresenter()
     override val layoutResource: Int = R.layout.fragment_kyc_fund_password
-    var bodyRequest :MutableList<User.Kyc> ? = null
+    var bodyRequest = mutableListOf<User.Kyc>()
     private var clickCountPassword = 1
     private var clickCountConfirmPassword = 1
 
@@ -45,7 +45,27 @@ class FundPasswordFragment :
         KYCPreferences().OCCUPATION.toString()
         KYCPreferences().SELFIE_HOLDING.toString()
         KYCPreferences().DISTRICT_KHAN.toString()
+        bodyRequest.add(
+            User.Kyc(
+                "${KYCPreferences().FIRST_NAME.toString() + KYCPreferences().LAST_NAME.toString()}",
+                "${KYCPreferences().GENDER.toString()}",
+                "${KYCPreferences().OCCUPATION}",
+                "${KYCPreferences().OCCUPATION}",
+                "${KYCPreferences().EMAIL}",
+                "${KYCPreferences().CITY_PROVINCE}",
+                "${KYCPreferences().DISTRICT_KHAN}",
+                "${KYCPreferences().COMMUNE_SANGKAT}",
+                "",
+                "",
+                "${KYCPreferences().NATIONAL_ID_FRONT.toString()}",
+                "${KYCPreferences().NATIONAL_ID_BACK.toString()}",
+                "${KYCPreferences().SELFIE_HOLDING.toString()}","","",
+                          "${KYCPreferences().FUND_PASSWORD.toString()}",
+                          "${KYCPreferences().FUND_PASSWORD.toString()}",
 
+            )
+
+        )
         binding.apply {
 
             numberVerification.setOnClickListener {
@@ -148,7 +168,7 @@ class FundPasswordFragment :
                             HideReturnsTransformationMethod.getInstance()
                     }
 
-                    for (index in chr?.indices!!) {
+                    for (index in chr?.indices) {
                         val textInput2 = confirmNumberVerification.getChildAt(index) as TextView
                         textInput2.text = chr[index].toString()
                         if (index == numberVerification.childCount - 1) {
@@ -163,6 +183,7 @@ class FundPasswordFragment :
             })
 
             btnNext.setOnClickListener {
+                mPresenter.addKyc(bodyRequest,requireContext())
                 if (editFundPassword.text.toString() == editConfirmFundPassword.text.toString() && editFundPassword.length() == 4 && editConfirmFundPassword.length() == 4) {
                     KYCPreferences().FUND_PASSWORD = editFundPassword.text.toString()
                     findNavController().navigate(R.id.action_to_contract_kyc_fragment)
