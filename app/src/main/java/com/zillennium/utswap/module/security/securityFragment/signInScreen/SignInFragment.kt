@@ -160,10 +160,14 @@ class SignInFragment :
     override fun loginSuccess(body: User.LoginRes) {
         onProgressBar(false)
 
+        SessionPreferences().SESSION_STATUS = true
         SessionVariable.SESSION_STATUS.value = true
+
         SessionPreferences().SESSION_TOKEN = body.data?.TOKEN.toString()
         SessionPreferences().SESSION_ID = body.data?.ID.toString()
         SessionPreferences().SESSION_X_TOKEN_API = body.data?.x_api_key.toString()
+
+        hideKeyboard()
 
         activity?.finish()
     }
@@ -176,6 +180,8 @@ class SignInFragment :
             textInputPassword.backgroundTintList =
                 ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
             onMessage(body.message.toString())
+
+            hideKeyboard()
         }
     }
 
