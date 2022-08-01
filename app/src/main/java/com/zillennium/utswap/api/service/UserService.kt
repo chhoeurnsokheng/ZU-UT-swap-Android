@@ -37,4 +37,11 @@ interface UserService {
         @HeaderMap header: Map<String, String>,
         @Body body: MultipartBody
     ): Observable<User.Kyc>
+
+    /** Register*/
+    @POST(ApiSettings.PATH_REGISTER)
+    fun registerService(
+        @Body body: User.RegisterObject
+    ): Observable<User.RegisterRes>
+
 }

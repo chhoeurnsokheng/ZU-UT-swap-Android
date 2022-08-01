@@ -19,6 +19,12 @@ object ApiSettings {
     /** News */
     const val PATH_NEWS = "Art/ArtList"
     const val PATH_NEWS_DETAIL = "Art/ArtShow"
+
     /*User add KYC */
-    const val PATH_KYC ="user/submitkyc"
+    const val PATH_KYC = "user/submitkyc"
+
+
+    /** Register */
+    const val PATH_REGISTER = "login/register"
+
 }
