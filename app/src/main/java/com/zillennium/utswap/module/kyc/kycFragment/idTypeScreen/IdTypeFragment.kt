@@ -90,7 +90,7 @@ open class IdTypeFragment :
                         val builder = AlertDialog.Builder(requireActivity())
                         builder.setTitle("Are you sure you want to switch tabs?")
                         builder.setMessage("Your added photos will be deleted.")
-//                        builder.setIcon(android.R.drawable.ic_dialog_alert)
+
 
                         builder.setPositiveButton("Yes"){dialogInterface, which ->
                             onChangeTabs(view)
