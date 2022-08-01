@@ -5,13 +5,13 @@ import com.zillennium.utswap.bases.BaseStoredPreferences
 
 class SessionPreferences: BaseStoredPreferences(UTSwapApp.instance, "SessionPreferences") {
 
-    var SESSION_ID by stringPref()
+    var SESSION_ID by stringPref(defaultValue ="1435")
     var SESSION_USERNAME by stringPref()
     var SESSION_PASSWORD by stringPref()
     var SESSION_STATUS by booleanPref(defaultValue = true)
     var SESSION_KYC by booleanPref(defaultValue = true)
     var SESSION_KYC_STATUS by intPref(defaultValue = 0) // 0 = hide, 1 = Invalid, 2 = Pending
-    var SESSION_TOKEN by stringPref()
+    var SESSION_TOKEN by stringPref(defaultValue = "e49f734854a9545fb4bf94b478c59066")
     var SESSION_EXPIRED by stringPref()
     var SESSION_X_TOKEN_API by stringPref(defaultValue = "")
     var SESSION_SECURE_KEY by stringPref()

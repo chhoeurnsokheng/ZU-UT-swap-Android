@@ -3,6 +3,7 @@ package com.zillennium.utswap.module.account.logsScreen
 import android.content.Context
 import android.view.View
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.androidstudy.networkmanager.Tovuti
 import com.zillennium.utswap.R
@@ -33,6 +34,7 @@ class LogsActivity :
 
                 onCallApi()
                 accountLoadingRefresh()
+                clickReadMore()
             }
             // Code
         } catch (error: Exception) {
@@ -44,29 +46,27 @@ class LogsActivity :
     override fun accountLogsSuccess(data: ArrayList<Logs.AccountLogsData>?) {
         binding.apply {
             mainProgressBar.visibility = View.GONE
-            progressBarReadMore.visibility = View.VISIBLE
+            progressBarReadMore.visibility = View.GONE
             layAccountLogsLoading.visibility = View.VISIBLE
             accountLogsSwipeRefresh.isRefreshing = false
 
 
             if (data!!.isNotEmpty()) {
-
+                logsList.addAll(data)
                 val linearLayoutManager = LinearLayoutManager(this@LogsActivity)
                 rvLogs.layoutManager = linearLayoutManager
                 logsAdapter = LogsAdapter()
-                logsAdapter!!.items = data!!
+                logsAdapter!!.items = logsList
                 rvLogs.adapter = logsAdapter
 
                 //Add more data page
+                page = page!! + 1
+                txtReadMore.visibility = View.VISIBLE
+                txtLoading.visibility = View.GONE
 
-                page = page?.plus(1)
-                readMore.setOnClickListener {
-                    mPresenter.accountLogs(Logs.AccountLogsObject(page), UTSwapApp.instance)
-                    progressBarReadMore.visibility = View.VISIBLE
-                }
             } else {
                 layAccountLogsLoading.visibility = View.GONE
-                Toast.makeText(this@LogsActivity, "Not Yet Have Data", Toast.LENGTH_SHORT).show()
+                txtEndData.visibility = View.VISIBLE
             }
         }
     }
@@ -89,9 +89,28 @@ class LogsActivity :
     private fun accountLoadingRefresh() {
         binding.apply {
             // Swipe refresh to get page
+            accountLogsSwipeRefresh.setColorSchemeColors(
+                ContextCompat.getColor(
+                    UTSwapApp.instance,
+                    R.color.primary
+                )
+            )
+
             accountLogsSwipeRefresh.setOnRefreshListener {
+                txtEndData.visibility = View.GONE
                 page = 1
                 logsList.clear()
+                mPresenter.accountLogs(Logs.AccountLogsObject(page), UTSwapApp.instance)
+            }
+        }
+    }
+
+    private fun clickReadMore() {
+        binding.apply {
+            readMore.setOnClickListener {
+                txtReadMore.visibility = View.GONE
+                txtLoading.visibility = View.VISIBLE
+                progressBarReadMore.visibility = View.VISIBLE
                 mPresenter.accountLogs(Logs.AccountLogsObject(page), UTSwapApp.instance)
             }
         }
