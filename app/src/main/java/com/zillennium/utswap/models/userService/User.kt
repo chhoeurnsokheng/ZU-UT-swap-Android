@@ -10,7 +10,10 @@ object User {
     }
 
     class LoginData{
-        var secure_key: String? = null
+        var ID: String? = null
+        var TOKEN: String? = null
+        var x_api_key: String? = null
+        var fundpass: Int? = null
     }
 
     class LoginObject(
@@ -35,5 +38,23 @@ object User {
     class OtpObject(
         var otp_code: String?,
         var secure_key: String?
+    )
+
+    /** Register */
+    class RegisterRes{
+        var status: Int? = null
+        var message: String? = null
+        var data: RegisterData? = null
+    }
+
+    class RegisterData{
+        var secure_key: String? = null
+    }
+
+    class RegisterObject(
+        var username: String?,
+        var password: String?,
+        var verify: String?,
+        var invit: String?
     )
 }

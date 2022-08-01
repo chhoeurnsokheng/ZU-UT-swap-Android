@@ -35,6 +35,14 @@ interface Constants {
         }
     }
 
+    /** Register data for resend code*/
+    interface RegisterData{
+        companion object{
+            var username = ""
+            var password = ""
+        }
+    }
+
     interface Key {
         companion object {
             const val ContentType = "Content-Type"

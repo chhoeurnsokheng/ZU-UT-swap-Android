@@ -11,12 +11,13 @@
         android:label="SignUpSecurityFragment"
         tools:layout="@layout/fragment_security_register">
         <action
-            android:id="@+id/action_to_verification_security_fragment"
-            app:destination="@id/VerificationSecurityFragment"
+            android:id="@+id/action_to_term_condition_security_fragment"
+            app:destination="@id/TermConditionSecurityFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+
 
         <!--        <action-->
         <!--            android:id="@+id/actionTutorials"-->
@@ -25,6 +26,29 @@
         <!--            app:exitAnim="@anim/slide_out_left"-->
         <!--            app:popEnterAnim="@anim/slide_in_left"-->
         <!--            app:popExitAnim="@anim/slide_out_right" />-->
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/TermConditionSecurityFragment"
+        android:name="com.zillennium.utswap.module.security.securityFragment.termConditionScreen.TermConditionFragment"
+        android:label="SignUpSecurityFragment"
+        tools:layout="@layout/fragment_security_term_condition">
+        <action
+            android:id="@+id/action_to_verification_security_fragment"
+            app:destination="@id/VerificationSecurityFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+        <action
+            android:id="@+id/action_to_signup_security_fragment"
+            app:destination="@id/SignUpSecurityFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
 
     </fragment>
 
@@ -39,11 +63,12 @@
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpToInclusive="true"/>
 
         <action
-            android:id="@+id/action_to_signup_security_fragment"
-            app:destination="@id/SignUpSecurityFragment"
+            android:id="@+id/action_to_prompt_security_fragment"
+            app:destination="@id/PromptSecurityFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -53,28 +78,6 @@
             android:name="title"
             android:defaultValue="register"
             app:argType="string" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/TermConditionSecurityFragment"
-        android:name="com.zillennium.utswap.module.security.securityFragment.termConditionScreen.TermConditionFragment"
-        android:label="SignUpSecurityFragment"
-        tools:layout="@layout/fragment_security_register">
-        <action
-            android:id="@+id/action_to_prompt_security_fragment"
-            app:destination="@id/PromptSecurityFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
-
-        <action
-            android:id="@+id/action_to_verification_security_fragment"
-            app:destination="@id/VerificationSecurityFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
 
     </fragment>
 
@@ -82,10 +85,10 @@
         android:id="@+id/PromptSecurityFragment"
         android:name="com.zillennium.utswap.module.security.securityFragment.PromptScreen.PromptFragment"
         android:label="SignUpSecurityFragment"
-        tools:layout="@layout/fragment_security_register">
+        tools:layout="@layout/fragment_security_prompt">
         <action
-            android:id="@+id/action_to_term_condition_security_fragment"
-            app:destination="@id/TermConditionSecurityFragment"
+            android:id="@+id/action_to_verification_security_fragment"
+            app:destination="@id/VerificationSecurityFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
