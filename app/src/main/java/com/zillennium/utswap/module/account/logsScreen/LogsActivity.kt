@@ -65,6 +65,7 @@ class LogsActivity :
                     progressBarReadMore.visibility = View.VISIBLE
                 }
             } else {
+                layAccountLogsLoading.visibility = View.GONE
                 Toast.makeText(this@LogsActivity, "Not Yet Have Data", Toast.LENGTH_SHORT).show()
             }
         }
