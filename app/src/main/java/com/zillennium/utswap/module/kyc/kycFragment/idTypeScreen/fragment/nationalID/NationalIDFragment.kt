@@ -62,24 +62,24 @@ class NationalIDFragment :
     override fun onResume() {
         super.onResume()
         binding.apply {
-            if(!KYCPreferences().NATIONAL_ID_FRONT.isNullOrEmpty()){
+            if (!KYCPreferences().NATIONAL_ID_FRONT.isNullOrEmpty()) {
                 imgNationalFront.setImageURI(KYCPreferences().NATIONAL_ID_FRONT?.toUri())
 
                 btnCameraFront.isClickable = false
                 imgLogoCameraFront.visibility = View.GONE
                 imgDeleteFront.visibility = View.VISIBLE
-            }else{
+            } else {
                 imgNationalFront.setImageResource(R.drawable.ic_national_id_front)
                 imgLogoCameraFront.visibility = View.VISIBLE
                 imgDeleteFront.visibility = View.GONE
                 btnCameraFront.isClickable = true
             }
-            if(!KYCPreferences().NATIONAL_ID_BACK.isNullOrEmpty()){
+            if (!KYCPreferences().NATIONAL_ID_BACK.isNullOrEmpty()) {
                 imgNationalBack.setImageURI(KYCPreferences().NATIONAL_ID_BACK?.toUri())
                 btnCameraBack.isClickable = false
                 imgLogoCameraBack.visibility = View.GONE
                 imgDeleteBack.visibility = View.VISIBLE
-            }else{
+            } else {
                 imgNationalBack.setImageResource(R.drawable.ic_national_id_back)
                 imgLogoCameraBack.visibility = View.VISIBLE
                 imgDeleteBack.visibility = View.GONE

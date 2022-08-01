@@ -15,6 +15,7 @@ import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentKycIdVerificationBinding
+import com.zillennium.utswap.models.Province
 import com.zillennium.utswap.models.SpinnerModel
 import java.text.SimpleDateFormat
 import java.util.*
@@ -27,9 +28,9 @@ class IDVerificationFragment :
     override var mPresenter: IDVerificationView.Presenter = IDVerificationPresenter()
     override val layoutResource: Int = R.layout.fragment_kyc_id_verification
 
-    private val genderList = mutableListOf<SpinnerModel>()
-    private val provinceList = mutableListOf<SpinnerModel>()
-    private val districtList = mutableListOf<SpinnerModel>()
+    private val genderList =mutableListOf<SpinnerModel>()
+    private val provinceList = mutableListOf<Province>()
+    private val districtList =mutableListOf<SpinnerModel>()
     private val communeList = mutableListOf<SpinnerModel>()
 
     object info {
@@ -336,12 +337,38 @@ class IDVerificationFragment :
     private fun initSpinnerCityProvince() {
         binding.apply {
 
-            provinceList.add(SpinnerModel(1, "Kampong Thom"))
-            provinceList.add(SpinnerModel(2, "Kampong Cham"))
-            provinceList.add(SpinnerModel(3, "Kampong Chhnang"))
-            provinceList.add(SpinnerModel(4, "Phnom Penh"))
-            provinceList.add(SpinnerModel(5, "Kandal"))
-            provinceList.add(SpinnerModel(6, "Kampot"))
+            provinceList.add(Province(2, "Battambang"))
+            provinceList.add(Province(1, "Banteay Meanchey"))
+            provinceList.add(Province(3, "Kampong Cham"))
+            provinceList.add(Province(4, "Kampong Chhnang"))
+            provinceList.add(Province(5, "Kampong Speu"))
+            provinceList.add(Province(6, "Kampong Thom"))
+            provinceList.add(Province(7, "Kampot"))
+            provinceList.add(Province(8, "Kandal"))
+            provinceList.add(Province(9, "Kratie"))
+            provinceList.add(Province(10, "Mondul Kiri"))
+            provinceList.add(Province(11, "Phnom Penh"))
+            provinceList.add(Province(12, "Preah Vihear"))
+            provinceList.add(Province(13, "Khaet"))
+            provinceList.add(Province(14, "Pursat"))
+            provinceList.add(Province(15, "Ratanak Kiri"))
+            provinceList.add(Province(16, "Siemreap"))
+            provinceList.add(Province(17, "Preah Sihanouk"))
+            provinceList.add(Province(18, "Stung Treng"))
+            provinceList.add(Province(19, "Svay Rieng"))
+            provinceList.add(Province(20, "Takeo"))
+            provinceList.add(Province(21, "Oddar Meanchey"))
+            provinceList.add(Province(22, "Khaet Kep"))
+            provinceList.add(Province(23, "Khaet Kep"))
+            provinceList.add(Province(24, "Pailin"))
+            provinceList.add(Province(25, "Tboung Khmum"))
+
+
+
+
+
+
+
 
             spinnerCityProvince.item = provinceList.map { it.name }
 

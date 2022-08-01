@@ -5,5 +5,9 @@ import java.io.Serializable
 class SpinnerModel (
     var id: Int,
     var name: String
-) :
-    Serializable
+) : Serializable
+
+class Province (
+    var id: Int,
+    var name: String
+) : Serializable

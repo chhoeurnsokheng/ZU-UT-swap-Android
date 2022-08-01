@@ -9,6 +9,7 @@ import android.text.method.PasswordTransformationMethod
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.core.net.toUri
 import androidx.core.view.children
 import androidx.navigation.fragment.findNavController
 import com.zillennium.utswap.Datas.StoredPreferences.KYCPreferences
@@ -24,18 +25,29 @@ class FundPasswordFragment :
 
     override var mPresenter: FundPasswordView.Presenter = FundPasswordPresenter()
     override val layoutResource: Int = R.layout.fragment_kyc_fund_password
-
+    var bodyRequest :MutableList<User.Kyc> ? = null
     private var clickCountPassword = 1
     private var clickCountConfirmPassword = 1
 
     @SuppressLint("UseCompatLoadingForDrawables", "SetTextI18n")
     override fun initView() {
         super.initView()
-
         toolBar()
+
+        KYCPreferences().NATIONAL_ID_BACK?.toUri().toString()
+        KYCPreferences().NATIONAL_ID_FRONT?.toUri().toString()
+        KYCPreferences().FIRST_NAME.toString()
+        KYCPreferences().LAST_NAME.toString()
+        KYCPreferences().GENDER.toString()
+        KYCPreferences().EMAIL.toString()
+        KYCPreferences().ADDRESS.toString()
+        KYCPreferences().CITY_PROVINCE.toString()
+        KYCPreferences().OCCUPATION.toString()
+        KYCPreferences().SELFIE_HOLDING.toString()
+        KYCPreferences().DISTRICT_KHAN.toString()
+
         binding.apply {
 
-            /* Fund Password Code */
             numberVerification.setOnClickListener {
                 editFundPassword.requestFocus()
                 val inputManager1 =
@@ -78,7 +90,7 @@ class FundPasswordFragment :
                             HideReturnsTransformationMethod.getInstance()
                     }
 
-                    for (index in chr?.indices!!) {
+                    for (index in chr.indices) {
                         val textInput = numberVerification.getChildAt(index) as TextView
                         textInput.text = chr[index].toString()
                         if (index == numberVerification.childCount - 1) {

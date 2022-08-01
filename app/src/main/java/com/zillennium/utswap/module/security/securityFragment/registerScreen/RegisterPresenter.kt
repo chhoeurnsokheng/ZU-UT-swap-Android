@@ -24,6 +24,7 @@ class RegisterPresenter : BaseMvpPresenterImpl<RegisterView.View>(),
     override fun onSubmitRegister(data: User.RegisterObject) {
         subscription?.unsubscribe()
         subscription = ApiUserImp().register(data).subscribe({
+            mView?.onRegisterSuccess(it)
             if(it.status == 1){
                 mView?.onRegisterSuccess(it)
             }else{

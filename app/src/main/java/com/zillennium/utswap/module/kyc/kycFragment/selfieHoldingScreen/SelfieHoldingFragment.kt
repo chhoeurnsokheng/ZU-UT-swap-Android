@@ -63,7 +63,6 @@ class SelfieHoldingFragment :
         if (!KYCPreferences().SELFIE_HOLDING.isNullOrEmpty()) {
             binding.apply {
                 ivSelfie.setImageURI(KYCPreferences().SELFIE_HOLDING?.toUri())
-
                 imgDelete.visibility = View.VISIBLE
                 btnCameraSelfie.isClickable = false
                 btnCameraSelfie.visibility = View.GONE
