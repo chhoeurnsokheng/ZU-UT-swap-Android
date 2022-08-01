@@ -1,5 +1,6 @@
 package com.zillennium.utswap.module.security.securityFragment.termConditionScreen
 
+import android.os.Bundle
 import android.view.KeyEvent
 import androidx.navigation.fragment.findNavController
 import com.zillennium.utswap.R
@@ -32,7 +33,7 @@ class TermConditionFragment :
                 }
 
                 btnNext.setOnClickListener {
-                    findNavController().navigate(R.id.action_to_prompt_security_fragment)
+                    findNavController().navigate(R.id.action_to_verification_security_fragment)
                 }
 
 

@@ -23,4 +23,7 @@ object ApiSettings {
     /**     Account Logs       **/
     const val PATH_ACCOUNT_LOGS = "user/accountLogs"
 
+    /** Register */
+    const val PATH_REGISTER = "login/register"
+
 }
