@@ -33,6 +33,7 @@ class LogsActivity :
 
                 onCallApi()
 //                onReadMorePage()
+                accountLoadingRefresh()
             }
             // Code
         } catch (error: Exception) {
@@ -44,14 +45,21 @@ class LogsActivity :
     override fun accountLogsSuccess(data: ArrayList<Logs.AccountLogsData>?) {
         binding.apply {
             mainProgressBar.visibility = View.GONE
-            progressBarReadMore.visibility = View.GONE
+            progressBarReadMore.visibility = View.VISIBLE
             layAccountLogsLoading.visibility = View.GONE
             accountLogsSwipeRefresh.isRefreshing = false
-            val linearLayoutManager = LinearLayoutManager(this@LogsActivity)
-            rvLogs.layoutManager = linearLayoutManager
-            logsAdapter = LogsAdapter()
-            logsAdapter!!.items = data!!
-            rvLogs.adapter = logsAdapter
+
+
+            if (data.toString().isNotEmpty()) {
+
+                val linearLayoutManager = LinearLayoutManager(this@LogsActivity)
+                rvLogs.layoutManager = linearLayoutManager
+                logsAdapter = LogsAdapter()
+                logsAdapter!!.items = data!!
+                rvLogs.adapter = logsAdapter
+
+            }
+
         }
     }
 
@@ -65,6 +73,17 @@ class LogsActivity :
     private fun onCallApi() {
         Tovuti.from(UTSwapApp.instance).monitor { _, isConnected, _ ->
             if (isConnected) {
+                mPresenter.accountLogs(Logs.AccountLogsObject(page), UTSwapApp.instance)
+            }
+        }
+    }
+
+    private fun accountLoadingRefresh(){
+        binding.apply {
+            // Swipe refresh to get page
+            accountLogsSwipeRefresh.setOnRefreshListener {
+                page = 1
+                logsList.clear()
                 mPresenter.accountLogs(Logs.AccountLogsObject(page), UTSwapApp.instance)
             }
         }

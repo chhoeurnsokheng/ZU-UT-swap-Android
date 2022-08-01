@@ -86,7 +86,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/lay_header"
-            android:layout_marginTop="@dimen/dimen_20">
+            android:layout_marginTop="@dimen/dimen_40">
 
 
             <androidx.core.widget.NestedScrollView
@@ -107,7 +107,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:overScrollMode="never"
-                        android:paddingHorizontal="@dimen/dimen_20"
                         android:scrollbars="none" />
 
                     <LinearLayout
