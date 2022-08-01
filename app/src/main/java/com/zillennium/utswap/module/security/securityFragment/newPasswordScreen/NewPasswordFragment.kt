@@ -1,5 +1,6 @@
 package com.zillennium.utswap.module.security.securityFragment.newPasswordScreen
 
+import android.content.Context
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Handler
@@ -8,6 +9,7 @@ import android.text.TextWatcher
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
@@ -39,6 +41,7 @@ class NewPasswordFragment :
 
             imgBack.setOnClickListener {
                 findNavController().popBackStack()
+                hideKeyboard()
             }
 
             etPassword.addTextChangedListener(object : TextWatcher {
@@ -244,5 +247,11 @@ class NewPasswordFragment :
 
         }
 
+    }
+
+    private fun hideKeyboard() {
+        val inputManager =
+            requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputManager.hideSoftInputFromWindow(view?.windowToken, 0)
     }
 }

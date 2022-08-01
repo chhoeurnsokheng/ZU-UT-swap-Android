@@ -1,9 +1,11 @@
 package com.zillennium.utswap.module.security.securityFragment.resetPassword
 
+import android.content.Context
 import android.content.res.ColorStateList
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.core.content.ContextCompat
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -35,6 +37,7 @@ class ResetPasswordFragment :
         binding.apply {
             imgBack.setOnClickListener {
                 activity?.finish()
+                hideKeyboard()
             }
 
             etEmail.addTextChangedListener(object : TextWatcher {
@@ -123,5 +126,11 @@ class ResetPasswordFragment :
                 textEmpty.visibility = View.GONE
             }
         }
+    }
+
+    private fun hideKeyboard() {
+        val inputManager =
+            requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputManager.hideSoftInputFromWindow(view?.windowToken, 0)
     }
 }

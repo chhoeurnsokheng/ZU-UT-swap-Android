@@ -59,7 +59,7 @@ class VerificationFragment :
             imgBack.setOnClickListener {
                 fragmentManager?.backStackEntryCount
                 findNavController().popBackStack()
-
+                hideKeyboard()
             }
 
             imgWrong.setOnClickListener {
@@ -252,8 +252,6 @@ class VerificationFragment :
     private fun onResendCode(){
         binding.apply {
             resendCode.setOnClickListener {
-                stopTimer()
-                startTimer()
                 btnNext.isEnabled = true
                 editBox.setText("")
                 onBoxesBackgroundColor()
@@ -277,6 +275,8 @@ class VerificationFragment :
             data.message.toString(),
             Toast.LENGTH_SHORT
         ).show()
+        stopTimer()
+        startTimer()
     }
 
     override fun onResendCodeFail(data: User.RegisterRes) {
@@ -333,6 +333,8 @@ class VerificationFragment :
             data.message.toString(),
             Toast.LENGTH_SHORT
         ).show()
+        stopTimer()
+        startTimer()
     }
 
     override fun onResendCodeResetPasswordFail(data: User.ForgotPasswordRes) {
