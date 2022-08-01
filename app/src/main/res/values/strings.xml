@@ -436,6 +436,8 @@
     <string name="invalid_try_again">Invalid. Please Try Again</string>
     <string name="password_did_not_match">Password didn\'t match</string>
     <string name="email_phone_number_unavaible">Email/Phone Number Unavailable</string>
+    <string name="invalid_email_or_phone">Invalid email or phone number</string>
+    <string name="please_input_a_valid_email_phone">Please input a valid email/phone number.</string>
 
 
 </resources>
