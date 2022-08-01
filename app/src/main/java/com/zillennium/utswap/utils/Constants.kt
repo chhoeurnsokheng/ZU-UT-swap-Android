@@ -7,7 +7,8 @@ import android.webkit.WebViewClient
 interface Constants {
 
     companion object {
-        const val PREFERENCE_NAME = "Z1"
+        const val PREFERENCE_NAME = "UT_SWAP"
+        const val DEVICE_TOKEN = "DEVICE_TOKEN"
         const val SETTING_INFO = "SETTING_INFO"
         const val LAST_PAYMENT_METHOD = "LAST_PAYMENT_METHOD"
         const val PAYMENT_AUTH_TOKEN = "PAYMENT_AUTH_TOKEN"
