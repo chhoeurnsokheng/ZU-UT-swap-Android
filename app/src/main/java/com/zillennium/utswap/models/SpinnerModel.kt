@@ -3,7 +3,7 @@ package com.zillennium.utswap.models
 import java.io.Serializable
 
 class SpinnerModel (
-    var id: Int,
+    var id: String,
     var name: String
 ) : Serializable
 

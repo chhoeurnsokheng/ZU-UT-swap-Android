@@ -13,7 +13,6 @@ import com.zillennium.utswap.BuildConfig
 import com.zillennium.utswap.api.service.NewsService
 import com.zillennium.utswap.api.service.ProvincesService
 import com.zillennium.utswap.api.service.UserService
-import com.zillennium.utswap.models.province.Province
 import com.zillennium.utswap.utils.LoggerUtil
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient

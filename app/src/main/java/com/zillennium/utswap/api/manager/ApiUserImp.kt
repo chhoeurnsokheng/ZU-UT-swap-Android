@@ -1,7 +1,6 @@
 package com.zillennium.utswap.api.manager
 
 import android.content.Context
-import com.squareup.okhttp.RequestBody
 import com.zillennium.utswap.api.Header
 import com.zillennium.utswap.models.userService.User
 import okhttp3.MultipartBody

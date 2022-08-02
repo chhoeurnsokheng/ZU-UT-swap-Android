@@ -9,7 +9,7 @@ class KYCPreferences : BaseStoredPreferences(UTSwapApp.instance, "KYCPreferences
     var FIRST_NAME by stringPref()
     var LAST_NAME by stringPref()
     var BIRTHDAY by stringPref()
-    var GENDER by intPref()
+    var GENDER by stringPref()
         
     var CITY_PROVINCE by stringPref()
     var DISTRICT_KHAN by stringPref()

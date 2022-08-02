@@ -8,14 +8,25 @@ import java.io.Serializable
  * Build in Mac
  */
 
+object PProvinceObj{
+    class ProvinceRes {
+        var status: Int? = null
+        var message: String? = null
+        var data: List<Items>? = null
+    }
+    class Items {
+        var code: String? = null
+        var english: String? = null
+    }
+    class BodyProvince(
+        var parent_code: String?
+    )
 
-data class Province(
-    var status: Int? = null,
-    var message: String? = null,
-    var data: List<Items>? = null
-) : Serializable
 
-data class Items(
-    var code: String? = null,
-    var english: String? = null
-) : Serializable
+
+}
+
+
+
+
+
