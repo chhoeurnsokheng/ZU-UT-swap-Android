@@ -124,7 +124,7 @@ class NewPasswordFragment :
                 txtPasswordMessage.text = resources.getString(R.string.invalid_email_or_phone)
 
                 if(etConfirmPassword.text.toString().trim() != etPassword.text.toString().trim()){
-                    txtPasswordMessage.text = resources.getString(R.string.password_did_not_match)
+                    txtPasswordMessage.text = resources.getString(R.string.password_does_not_match)
                     txtPasswordMessage.visibility = View.VISIBLE
                     etPassword.backgroundTintList =
                         ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
@@ -210,12 +210,12 @@ class NewPasswordFragment :
         binding.apply {
             if (view.id == R.id.show_pass_btn) {
                 if (etPassword.transformationMethod.equals(PasswordTransformationMethod.getInstance())) {
-                    showPassBtn.setImageResource(R.drawable.ic_baseline_visibility_off_24)
+                    showPassBtn.setImageResource(R.drawable.ic_baseline_visibility_24)
                     //Show Password
                     etPassword.transformationMethod =
                         HideReturnsTransformationMethod.getInstance()
                 } else {
-                    showPassBtn.setImageResource(R.drawable.ic_baseline_visibility_24)
+                    showPassBtn.setImageResource(R.drawable.ic_baseline_visibility_off_24)
                     //Hide Password
                     etPassword.transformationMethod = PasswordTransformationMethod.getInstance()
                 }
@@ -231,12 +231,12 @@ class NewPasswordFragment :
             if (view.id == R.id.show_confirm_pass_btn) {
                 if (etConfirmPassword.transformationMethod.equals(PasswordTransformationMethod.getInstance())
                 ) {
-                    showConfirmPassBtn.setImageResource(R.drawable.ic_baseline_visibility_off_24)
+                    showConfirmPassBtn.setImageResource(R.drawable.ic_baseline_visibility_24)
                     //Show Password
                     etConfirmPassword.transformationMethod =
                         HideReturnsTransformationMethod.getInstance()
                 } else {
-                    showConfirmPassBtn.setImageResource(R.drawable.ic_baseline_visibility_24)
+                    showConfirmPassBtn.setImageResource(R.drawable.ic_baseline_visibility_off_24)
                     //Hide Password
                     etConfirmPassword.transformationMethod =
                         PasswordTransformationMethod.getInstance()

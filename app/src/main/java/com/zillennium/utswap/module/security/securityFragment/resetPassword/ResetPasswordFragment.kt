@@ -107,7 +107,14 @@ class ResetPasswordFragment :
         onProgressBar(false)
         binding.apply {
             textEmpty.visibility = View.VISIBLE
-            textEmpty.text = body.message.toString()
+            if(body.message.toString() == "VALIDATING USERNAME!")
+            {
+                textEmpty.text = resources.getString(R.string.please_enter_valid_email_or_phone)
+            }else{
+                textEmpty.text = body.message.toString()
+            }
+            etEmail.backgroundTintList =
+                ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
         }
 
     }
@@ -118,13 +125,14 @@ class ResetPasswordFragment :
                 pbNext.visibility = View.VISIBLE
                 btnNext.isClickable = false
                 btnNext.alpha = 0.6F
-                textEmpty.visibility = View.GONE
             }else{
                 pbNext.visibility = View.GONE
                 btnNext.isClickable = true
                 btnNext.alpha = 1F
-                textEmpty.visibility = View.GONE
             }
+            textEmpty.visibility = View.GONE
+            etEmail.backgroundTintList =
+                ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text))
         }
     }
 

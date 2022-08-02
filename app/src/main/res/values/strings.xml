@@ -438,6 +438,9 @@
     <string name="email_phone_number_unavaible">Email/Phone Number Unavailable</string>
     <string name="invalid_email_or_phone">Invalid email or phone number</string>
     <string name="please_input_a_valid_email_phone">Please input a valid email/phone number.</string>
+    <string name="phone_email_or_password_is_incorrect">Phone/Email or password is incorrect</string>
+    <string name="password_does_not_match">Password does not match</string>
+    <string name="please_enter_valid_email_or_phone">Please Enter valid Email/Phone number</string>
 
 
 </resources>
