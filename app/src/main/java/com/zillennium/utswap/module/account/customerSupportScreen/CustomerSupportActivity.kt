@@ -15,28 +15,24 @@ class CustomerSupportActivity :
     override var mPresenter: CustomerSupportView.Presenter = CustomerSupportPresenter()
     override val layoutResource: Int = R.layout.activity_account_customer_support
 
-    override fun initView() {
-        super.initView()
-        try {
-            binding.apply {
-                mPresenter.getCustomerSupport()
-                imgClose.setOnClickListener {
-                    finish()
-                }
-            }
-            // Code
-        } catch (error: Exception) {
-            // Must be safe
-        }
+    companion object {
+        var telegram = SystemPreferences().APP_TELEGRAM
+        var telephone = SystemPreferences().APP_PHONE
     }
 
-    override fun onGetCustomerSupportSuccess(data: CustomerSupport.CustomerSupportData) {
+    override fun initView() {
+        super.initView()
+        mPresenter.getCustomerSupport()
         binding.apply {
+            imgClose.setOnClickListener {
+                finish()
+            }
+
             btnTelegram.setOnClickListener {
                 startActivity(
                     Intent(
                         "android.intent.action.VIEW",
-                        Uri.parse(SystemPreferences().APP_TELEGRAM)
+                        Uri.parse(telegram)
                     )
                 )
             }
@@ -45,10 +41,23 @@ class CustomerSupportActivity :
                 startActivity(
                     Intent(
                         "android.intent.action.VIEW",
-                        Uri.parse("tel: ${SystemPreferences().APP_PHONE}")
+                        Uri.parse("tel: $telephone")
                     )
                 )
             }
+        }
+    }
+
+    override fun onGetCustomerSupportSuccess(data: CustomerSupport.CustomerSupportData) {
+
+        if(data.contact_cellphone!!.isNotEmpty()){
+            telephone = data.contact_cellphone
+            SystemPreferences().APP_PHONE = data.contact_cellphone
+        }
+
+        if(data.contact_telegram!!.isNotEmpty()){
+            telegram = data.contact_telegram
+            SystemPreferences().APP_TELEGRAM = data.contact_telegram
         }
     }
 
