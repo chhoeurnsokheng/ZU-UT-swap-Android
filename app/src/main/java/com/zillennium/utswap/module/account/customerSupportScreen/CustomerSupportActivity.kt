@@ -6,6 +6,7 @@ import com.zillennium.utswap.Datas.StoredPreferences.SystemPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityAccountCustomerSupportBinding
+import com.zillennium.utswap.models.customerSupport.CustomerSupport
 
 class CustomerSupportActivity :
     BaseMvpActivity<CustomerSupportView.View, CustomerSupportView.Presenter, ActivityAccountCustomerSupportBinding>(),
@@ -18,26 +19,9 @@ class CustomerSupportActivity :
         super.initView()
         try {
             binding.apply {
+                mPresenter.getCustomerSupport()
                 imgClose.setOnClickListener {
                     finish()
-                }
-
-                btnTelegram.setOnClickListener {
-                    startActivity(
-                        Intent(
-                            "android.intent.action.VIEW",
-                            Uri.parse(SystemPreferences().APP_TELEGRAM)
-                        )
-                    )
-                }
-
-                btnCallUs.setOnClickListener {
-                    startActivity(
-                        Intent(
-                            "android.intent.action.VIEW",
-                            Uri.parse("tel: 0239999999")
-                        )
-                    )
                 }
             }
             // Code
@@ -45,4 +29,27 @@ class CustomerSupportActivity :
             // Must be safe
         }
     }
+
+    override fun onGetCustomerSupportSuccess(data: CustomerSupport.CustomerSupportData) {
+        binding.apply {
+            btnTelegram.setOnClickListener {
+                startActivity(
+                    Intent(
+                        "android.intent.action.VIEW",
+                        Uri.parse(SystemPreferences().APP_TELEGRAM)
+                    )
+                )
+            }
+
+            btnCallUs.setOnClickListener {
+                startActivity(
+                    Intent(
+                        "android.intent.action.VIEW",
+                        Uri.parse("tel: ${SystemPreferences().APP_PHONE}")
+                    )
+                )
+            }
+        }
+    }
+
 }
