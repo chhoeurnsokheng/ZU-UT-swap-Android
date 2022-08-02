@@ -277,6 +277,30 @@ class RegisterFragment :
                             R.color.secondary_text
                         )
                     )
+            }else if(data.message.toString() == "VALIDATING USERNAME!")
+            {
+                txtMessage.text = resources.getString(R.string.please_enter_valid_email_or_phone)
+                etEmail.backgroundTintList =
+                    ColorStateList.valueOf(
+                        ContextCompat.getColor(
+                            UTSwapApp.instance,
+                            R.color.danger
+                        )
+                    )
+                etPassword.backgroundTintList =
+                    ColorStateList.valueOf(
+                        ContextCompat.getColor(
+                            UTSwapApp.instance,
+                            R.color.secondary_text
+                        )
+                    )
+                etConfirmPassword.backgroundTintList =
+                    ColorStateList.valueOf(
+                        ContextCompat.getColor(
+                            UTSwapApp.instance,
+                            R.color.secondary_text
+                        )
+                    )
             }else{
                 txtMessage.text = data.message.toString()
                 etEmail.backgroundTintList =
