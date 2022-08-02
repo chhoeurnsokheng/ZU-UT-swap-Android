@@ -10,6 +10,7 @@ import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityFinanceSubscriptionsBinding
 import com.zillennium.utswap.models.financeSubscription.FinanceSubscriptionsModel
+import com.zillennium.utswap.models.financeSubscription.SubscriptionObject
 import com.zillennium.utswap.module.finance.subscriptionScreen.adapter.FinanceSubscriptionsAdapter
 import com.zillennium.utswap.module.finance.subscriptionScreen.bottomSheet.FinanceSubscriptionDateRangeBottomSheet
 import com.zillennium.utswap.module.finance.subscriptionScreen.bottomSheet.FinanceSubscriptionFilterBottomSheet
@@ -17,6 +18,7 @@ import com.zillennium.utswap.module.finance.subscriptionScreen.dialog.FinanceSub
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class FinanceSubscriptionsActivity :
@@ -134,6 +136,14 @@ class FinanceSubscriptionsActivity :
             // Must be safe
         }
     }
+
+    override fun onPostSubscriptionSuccess(dataRes: ArrayList<SubscriptionObject.SubscriptionList>) {
+
+    }
+
+    override fun onPostSubscriptionFail() {
+    }
+
 
 
     private fun toolBar() {

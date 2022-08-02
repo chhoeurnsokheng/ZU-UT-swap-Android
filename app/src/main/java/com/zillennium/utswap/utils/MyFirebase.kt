@@ -32,7 +32,6 @@ class MyFirebase : FirebaseMessagingService() {
     }
 
     override fun onNewToken(token: String) {
-        SharePreferences.setDeviceToken(token, this)
     }
 
     private fun displayNotification(

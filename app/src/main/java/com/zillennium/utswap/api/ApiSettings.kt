@@ -20,4 +20,9 @@ object ApiSettings {
     const val PATH_NEWS = "Art/ArtList"
     const val PATH_NEWS_DETAIL = "Art/ArtShow"
 
+
+    /** Finance */
+    const val PATH_SUBSCRIPTION = ""
+    const val PATH_LOCK_UP = "finance/lockbalance"
+
 }

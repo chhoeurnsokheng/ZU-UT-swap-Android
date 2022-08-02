@@ -141,10 +141,10 @@ class SignInFragment :
                     return@setOnClickListener
                 }
 
-                if(etPassword.length < 8){
+               /* if(etPassword.length < 8){
                     onMessage(resources.getString(R.string.please_enter_a_password_longer_than_8_digits))
                     return@setOnClickListener
-                }
+                }*/
 
                 if (!isHaveError){
                     // show progressbar when user click sign in

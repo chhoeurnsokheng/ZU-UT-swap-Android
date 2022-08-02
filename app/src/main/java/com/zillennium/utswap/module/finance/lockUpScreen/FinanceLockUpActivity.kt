@@ -9,6 +9,7 @@ import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.databinding.ActivityFinanceLockUpBinding
 import com.zillennium.utswap.models.FinanceLockUpModel
+import com.zillennium.utswap.models.lockUpBalance.LockUpBalanceObject
 import com.zillennium.utswap.module.finance.lockUpScreen.adapter.LockUpAdapter
 import com.zillennium.utswap.module.finance.lockUpScreen.bottomSheet.FinanceLockUpBottomSheet
 import com.zillennium.utswap.module.finance.lockUpScreen.dialog.FinanceLockUpDialog
@@ -30,8 +31,8 @@ class FinanceLockUpActivity :
     override fun initView() {
         super.initView()
         try {
+            mPresenter.postLockUpBalance("2")
             binding.apply {
-
                 backImage.setOnClickListener {
                     finish()
                 }
@@ -86,6 +87,14 @@ class FinanceLockUpActivity :
             // Must be safe
         }
     }
+
+    override fun onPostLockUpBalanceSuccess(dataRes: LockUpBalanceObject.LockUpBalanceRes) {
+
+    }
+
+    override fun onPostLockBalanceFail() {
+    }
+
     private val onClickAdapterLockup: LockUpAdapter.OnClickAdapter = object : LockUpAdapter.OnClickAdapter {
         override fun onClickMe(financeLockUpModel: FinanceLockUpModel) {
             val financeLockUpDialog: FinanceLockUpDialog = FinanceLockUpDialog.newInstance(
