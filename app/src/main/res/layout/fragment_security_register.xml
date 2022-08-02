@@ -89,7 +89,7 @@
                         android:layout_marginEnd="@dimen/dimen_8"
                         android:alpha=".5"
                         android:padding="@dimen/dimen_5"
-                        android:src="@drawable/ic_baseline_visibility_off_24" />
+                        android:src="@drawable/ic_baseline_visibility_24" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -116,7 +116,7 @@
                         android:layout_marginEnd="@dimen/dimen_8"
                         android:alpha=".5"
                         android:padding="@dimen/dimen_5"
-                        android:src="@drawable/ic_baseline_visibility_off_24" />
+                        android:src="@drawable/ic_baseline_visibility_24" />
                 </RelativeLayout>
 
                 <EditText
@@ -125,7 +125,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dimen_20"
                     android:hint="@string/referral_id_optional"
-                    android:inputType="number"
+                    android:inputType="textVisiblePassword"
                     android:maxLength="15"
                     android:paddingBottom="@dimen/dimen_25"
                     android:textAppearance="@style/regular_16" />
