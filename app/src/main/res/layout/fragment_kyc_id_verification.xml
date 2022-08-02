@@ -38,13 +38,13 @@
 
 
                     <TextView
-                        android:id="@+id/txt_verification"
+                        android:id="@+id/txt_verify"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text=""
                         android:textAppearance="@style/medium_16"
                         android:textColor="@color/primary" />
-                   <!-- @string/id_verification-->
+                    <!--android:text="@string/id_verification"-->
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -227,42 +227,76 @@
                         android:textAppearance="@style/medium_16"
                         android:textColor="@color/primary" />
 
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="@dimen/dimen_10"-->
+<!--                        android:orientation="vertical">-->
+
+<!--                        <com.chivorn.smartmaterialspinner.SmartMaterialSpinner-->
+<!--                            android:id="@+id/spinner_city_province"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            app:smsp_floatingLabelColor="@color/gray"-->
+<!--                            app:smsp_floatingLabelText="City/Province *"-->
+<!--                            app:smsp_hint="City/Province *"-->
+<!--                            app:smsp_hintColor="@color/gray"-->
+<!--                            app:smsp_itemColor="@color/secondary_text"-->
+<!--                            app:smsp_itemListColor="@color/secondary_text"-->
+<!--                            app:smsp_itemListHintBackgroundColor="@color/backgroundHint"-->
+<!--                            app:smsp_itemListHintColor="@color/white"-->
+<!--                            app:smsp_multilineError="false"-->
+<!--                            app:smsp_selectedItemListColor="@color/secondary_text"-->
+<!--                            app:smsp_underlineColor="@color/secondary_text"-->
+<!--                            app:smsp_underlineSize="0.1dp"/>-->
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/txt_error_city"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginTop="5dp"-->
+<!--                            android:ellipsize="end"-->
+<!--                            android:singleLine="true"-->
+<!--                            android:text="@string/cannot_leave_blank"-->
+<!--                            android:textAppearance="@style/regular_10"-->
+<!--                            android:textColor="@color/red_ee1111"-->
+<!--                            android:visibility="gone" />-->
+
+<!--                    </LinearLayout>-->
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dimen_10"
-                        android:orientation="vertical">
+                        android:orientation="horizontal"
+                        android:paddingTop="@dimen/dimen_5"
+                        android:paddingBottom="@dimen/dimen_5">
 
-                        <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
-                            android:id="@+id/spinner_city_province"
-                            android:layout_width="match_parent"
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tv_loan_term_in_year_value"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            app:smsp_floatingLabelColor="@color/gray"
-                            app:smsp_floatingLabelText="City/Province *"
-                            app:smsp_hint="City/Province *"
-                            app:smsp_hintColor="@color/gray"
-                            app:smsp_itemColor="@color/secondary_text"
-                            app:smsp_itemListColor="@color/secondary_text"
-                            app:smsp_itemListHintBackgroundColor="@color/backgroundHint"
-                            app:smsp_itemListHintColor="@color/white"
-                            app:smsp_multilineError="false"
-                            app:smsp_selectedItemListColor="@color/secondary_text"
-                            app:smsp_underlineColor="@color/secondary_text"
-                            app:smsp_underlineSize="0.1dp"/>
-
-                        <TextView
-                            android:id="@+id/txt_error_city"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="@dimen/dimen_8"
+                            android:layout_weight="1"
+                            android:background="@android:color/transparent"
+                            android:text="1"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/dimen_16" />
+                        <ImageView
+                            android:id="@+id/image_select_year_loan"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:ellipsize="end"
-                            android:singleLine="true"
-                            android:text="@string/cannot_leave_blank"
-                            android:textAppearance="@style/regular_10"
-                            android:textColor="@color/red_ee1111"
-                            android:visibility="gone" />
-
+                            android:layout_gravity="center"
+                            android:paddingStart="@dimen/dimen_16"
+                            android:paddingTop="@dimen/dimen_17"
+                            android:paddingEnd="@dimen/dimen_16"
+                            android:paddingBottom="@dimen/dimen_17"
+                            android:src="@drawable/ic_arrow_down" />
                     </LinearLayout>
+                    <View
+                        android:background="@color/gray_EEEEEE"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dimen_2"/>
 
                     <LinearLayout
                         android:layout_width="match_parent"

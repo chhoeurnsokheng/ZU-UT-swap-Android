@@ -35,4 +35,22 @@ class IDVerificationPresenter : BaseMvpPresenterImpl<IDVerificationView.View>(),
             }
         })
     }
+
+    override fun queryProvince(context: Context,parent_code: String) {
+        subscription?.unsubscribe()
+        subscription = ApiProvincesImp().queryProvince(context,parent_code).subscribe({
+            if (it.status==1){
+                mView?.OnQueryProvinceSucess(it)
+            }else{
+                mView?.OngetAllProvinceFail(it)
+            }
+        },{
+            object :CallbackWrapper(it,UTSwapApp.instance, arrayListOf()){
+                override fun onCallbackWrapper(status: ApiManager.NetworkErrorStatus, data: Any) {
+                    mView?.onFail(data)
+                }
+
+            }
+        })
+    }
 }

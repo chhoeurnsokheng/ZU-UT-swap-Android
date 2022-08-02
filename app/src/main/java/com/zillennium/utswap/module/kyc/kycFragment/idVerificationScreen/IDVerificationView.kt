@@ -11,10 +11,12 @@ class IDVerificationView {
         override fun initView()
         fun OngetAllProvinceSuccess(data:Province)
         fun OngetAllProvinceFail(data:Province)
+        fun OnQueryProvinceSucess(data: Province)
     }
 
     interface Presenter : BaseMvpPresenter<View> {
         override fun initViewPresenter(context: Context, bundle: Bundle?)
         fun getAllProvinceSuccess(context: Context)
+        fun queryProvince(context: Context,parent_code: String)
     }
 }

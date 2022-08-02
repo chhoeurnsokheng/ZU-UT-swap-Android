@@ -45,6 +45,7 @@ class FundPasswordFragment :
         KYCPreferences().OCCUPATION.toString()
         KYCPreferences().SELFIE_HOLDING.toString()
         KYCPreferences().DISTRICT_KHAN.toString()
+
         bodyRequest.add(
             User.Kyc(
                 "${KYCPreferences().FIRST_NAME.toString() + KYCPreferences().LAST_NAME.toString()}",
@@ -183,9 +184,12 @@ class FundPasswordFragment :
             })
 
             btnNext.setOnClickListener {
-                mPresenter.addKyc(bodyRequest,requireContext())
+
                 if (editFundPassword.text.toString() == editConfirmFundPassword.text.toString() && editFundPassword.length() == 4 && editConfirmFundPassword.length() == 4) {
                     KYCPreferences().FUND_PASSWORD = editFundPassword.text.toString()
+
+                    mPresenter.addKyc(bodyRequest,requireContext())
+
                     findNavController().navigate(R.id.action_to_contract_kyc_fragment)
                 } else {
                     for (child in numberVerification.children) {

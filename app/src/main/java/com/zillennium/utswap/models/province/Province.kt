@@ -12,10 +12,10 @@ import java.io.Serializable
 data class Province(
     var status: Int? = null,
     var message: String? = null,
-    var data: Items? = null
+    var data: List<Items>? = null
 ) : Serializable
 
 data class Items(
     var code: String? = null,
-  //  var english: String? = null
+    var english: String? = null
 ) : Serializable
