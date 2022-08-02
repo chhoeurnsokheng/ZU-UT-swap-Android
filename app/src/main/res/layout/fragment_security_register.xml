@@ -125,7 +125,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dimen_20"
                     android:hint="@string/referral_id_optional"
-                    android:inputType="number"
+                    android:inputType="textVisiblePassword"
                     android:maxLength="15"
                     android:paddingBottom="@dimen/dimen_25"
                     android:textAppearance="@style/regular_16" />
