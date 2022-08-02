@@ -54,6 +54,7 @@ class SignInFragment :
         binding.apply {
             imgBack.setOnClickListener {
                 activity?.finish()
+                hideKeyboard()
             }
 
             showPassBtn.setOnClickListener {
