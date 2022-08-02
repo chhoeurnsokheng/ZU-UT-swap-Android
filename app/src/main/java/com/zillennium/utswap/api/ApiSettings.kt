@@ -24,5 +24,7 @@ object ApiSettings {
     /** Finance */
     const val PATH_SUBSCRIPTION = ""
     const val PATH_LOCK_UP = "finance/lockbalance"
+    /** Register */
+    const val PATH_REGISTER = "login/register"
 
 }

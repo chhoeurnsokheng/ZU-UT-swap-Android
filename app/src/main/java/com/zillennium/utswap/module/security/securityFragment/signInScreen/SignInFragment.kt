@@ -14,6 +14,8 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
+import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
+import com.zillennium.utswap.Datas.GlobalVariable.SettingVariable
 import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
@@ -52,6 +54,7 @@ class SignInFragment :
         binding.apply {
             imgBack.setOnClickListener {
                 activity?.finish()
+                hideKeyboard()
             }
 
             showPassBtn.setOnClickListener {
@@ -157,9 +160,17 @@ class SignInFragment :
 
     override fun loginSuccess(body: User.LoginRes) {
         onProgressBar(false)
-        val key = body.data?.secure_key.toString()
-        SessionPreferences().SESSION_SECURE_KEY = key
-        findNavController().navigate(R.id.action_to_verification_security_fragment)
+
+        SessionPreferences().SESSION_STATUS = true
+        SessionVariable.SESSION_STATUS.value = true
+
+        SessionPreferences().SESSION_TOKEN = body.data?.TOKEN.toString()
+        SessionPreferences().SESSION_ID = body.data?.ID.toString()
+        SessionPreferences().SESSION_X_TOKEN_API = body.data?.x_api_key.toString()
+
+        hideKeyboard()
+
+        activity?.finish()
     }
 
     override fun loginFail(body: User.LoginRes) {
@@ -170,6 +181,8 @@ class SignInFragment :
             textInputPassword.backgroundTintList =
                 ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
             onMessage(body.message.toString())
+
+            hideKeyboard()
         }
     }
 
