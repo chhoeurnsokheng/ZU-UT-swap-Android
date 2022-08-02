@@ -16,6 +16,7 @@ import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentKycIdVerificationBinding
 import com.zillennium.utswap.models.SpinnerModel
+import com.zillennium.utswap.models.province.Province
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -31,7 +32,7 @@ class IDVerificationFragment :
     private val provinceList = mutableListOf<SpinnerModel>()
     private val districtList =mutableListOf<SpinnerModel>()
     private val communeList = mutableListOf<SpinnerModel>()
-
+    private var datalist :Province? = null
     object info {
         var firstName = ""
         var lastName = ""
@@ -46,6 +47,7 @@ class IDVerificationFragment :
     override fun initView() {
         super.initView()
             toolBar()
+            mPresenter.getAllProvinceSuccess(requireActivity())
             binding.apply {
 
             initSpinnerGender()
@@ -291,10 +293,17 @@ class IDVerificationFragment :
                     }
                 })
         }
-//        } catch (error: Exception) {
-//            // Must be safe
-//        }
     }
+
+    override fun OngetAllProvinceSuccess(data: Province) {
+        datalist = data
+        binding.apply {
+            txtVerification.text = data.status.toString() + data.message.toString()
+        }
+    }
+
+    override fun OngetAllProvinceFail(data: Province) {}
+
     private fun toolBar(){
         activity.let {
             binding.apply {

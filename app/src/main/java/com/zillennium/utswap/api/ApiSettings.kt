@@ -27,4 +27,6 @@ object ApiSettings {
     /** Register */
     const val PATH_REGISTER = "login/register"
 
+    const val PATH_GET_PROVINCES = "user/getCityProvince"
+
 }
