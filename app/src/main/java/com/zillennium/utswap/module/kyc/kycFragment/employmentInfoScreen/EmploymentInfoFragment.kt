@@ -35,6 +35,12 @@ class EmploymentInfoFragment :
         super.initView()
         try {
             toolBar()
+            KYCPreferences().OCCUPATION = ""
+            KYCPreferences().COMPANY = ""
+            KYCPreferences().EMAIL= ""
+            info.company = ""
+            info.email_emp = ""
+            info.occupation = " "
             binding.apply {
 
                 /* if Data already input */

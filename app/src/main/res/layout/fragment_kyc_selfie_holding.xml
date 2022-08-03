@@ -103,14 +103,14 @@
         <LinearLayout
             android:id="@+id/btn_camera_selfie"
             android:layout_width="match_parent"
-            android:layout_alignParentBottom="true"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_circular"
-            android:gravity="center"
-            android:orientation="horizontal"
+            android:layout_alignParentBottom="true"
             android:layout_marginStart="@dimen/dimen_30"
             android:layout_marginEnd="@dimen/dimen_30"
             android:layout_marginBottom="@dimen/dimen_30"
+            android:background="@drawable/bg_circular"
+            android:gravity="center"
+            android:orientation="horizontal"
             android:paddingVertical="@dimen/dimen_15">
 
             <TextView

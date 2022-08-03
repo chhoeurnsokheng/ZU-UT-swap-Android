@@ -131,21 +131,9 @@ class SelfieCameraFragment :
             .build()
         val executor: Executor = Executors.newSingleThreadExecutor()
         btnTakePhoto = binding.btnTakePhoto
-        btnTakePhoto!!.setOnClickListener {
+        btnTakePhoto?.setOnClickListener {
             binding.progressBar.visibility = View.VISIBLE
-            btnTakePhoto!!.isClickable = false
-
-//            val timestamp = System.currentTimeMillis()
-//            val contentValues = ContentValues()
-//            contentValues.put(MediaStore.MediaColumns.DISPLAY_NAME, timestamp)
-//            contentValues.put(MediaStore.MediaColumns.MIME_TYPE, "image/jpeg")
-//            val metadata = ImageCapture.Metadata()
-//            metadata.isReversedHorizontal = true
-//            val outputFileOptions = ImageCapture.OutputFileOptions.Builder(
-//                contentResolver,
-//                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-//                contentValues
-//            ).setMetadata(metadata).build()
+            btnTakePhoto?.isClickable = false
 
             val photoFile = FileCreator.createTempImageFile()
             photoFile.apply {
@@ -162,12 +150,10 @@ class SelfieCameraFragment :
                             override fun onImageSaved(output: ImageCapture.OutputFileResults) {
                                 val savedUri = output.savedUri ?: Uri.fromFile(photoFile)
                                 val bitmap = BitmapFactory.decodeFile(savedUri.path)
-                                val rotatedBitmap =
-                                    FileCreator.rotate(bitmap, savedUri.toFile().absolutePath ?: "")
+                                val rotatedBitmap = FileCreator.rotate(bitmap, savedUri.toFile().absolutePath ?: "")
                                 photoFile?.delete()
                                 binding.apply {
-                                    val croppedImage =
-                                        cropImage(rotatedBitmap, viewFinder,rectangles)
+                                    val croppedImage = cropImage(rotatedBitmap, viewFinder,rectangles)
                                     val path = FileCreator.saveImage(croppedImage)
                                     requireActivity().runOnUiThread{
                                         progressBar.visibility = View.GONE
@@ -185,46 +171,12 @@ class SelfieCameraFragment :
                     )
                 }
             }
-//            imageCapture.takePicture(
-//                outputFileOptions,
-//                executor,
-//                object : ImageCapture.OnImageSavedCallback {
-//                    override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
-//                        runOnUiThread {
-//                            @SuppressLint("SimpleDateFormat") val timeStamp =
-//                                SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
-//                            val imageFileName = "JPEG_" + timeStamp + "_"
-//                            val storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-//                            try {
-//                                val image = File.createTempFile(
-//                                    imageFileName,  /* prefix */
-//                                    ".jpg",  /* suffix */
-//                                    storageDir /* directory */
-//                                )
-//                                if (image.exists()) {
-//                                    val saveUri = outputFileResults.savedUri
-//                                    val imageCamera = binding.imageCamera
-//                                    imageCamera.setImageURI(saveUri)
-//                                    imageCamera.visibility = View.VISIBLE
-//                                    image.delete()
-//                                }
-//                            } catch (e: IOException) {
-//                                e.printStackTrace()
-//                            }
-//                        }
-//                    }
-//
-//                    override fun onError(error: ImageCaptureException) {
-//                        error.printStackTrace()
-//                        //                        Toast.makeText(getApplication(), error.toString(), Toast.LENGTH_LONG).show();
-//                    }
-//                })
         }
         return imageCapture
     }
 
-    private fun buildAnalysis(): UseCase? {
-//        Display displays = binding.viewFinder.getDisplay();
+    private fun buildAnalysis(): UseCase {
+
         val metrics = DisplayMetrics()
         requireActivity().windowManager.defaultDisplay.getMetrics(metrics)
         return ImageAnalysis.Builder() //                .setTargetRotation(displays.getRotation())

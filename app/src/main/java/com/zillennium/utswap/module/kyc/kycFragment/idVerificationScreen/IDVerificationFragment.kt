@@ -48,7 +48,20 @@ class IDVerificationFragment :
     override fun initView() {
         super.initView()
         toolBar()
-
+        KYCPreferences().GENDER = ""
+        KYCPreferences().CITY_PROVINCE=""
+        KYCPreferences().DISTRICT_KHAN = ""
+        KYCPreferences().CITY_PROVINCE =""
+        KYCPreferences().FIRST_NAME = ""
+        KYCPreferences().LAST_NAME = ""
+        KYCPreferences().GENDER = ""
+        KYCPreferences().BIRTHDAY = ""
+        KYCPreferences().ADDRESS = ""
+        info.commune = 0
+        info.city = 0
+        info.district = 0
+        info.dateOfBirth = ""
+        info.gender = ""
         mPresenter.getAllProvinceSuccess(requireActivity())
         binding.apply {
             mPresenter.getAllProvinceSuccess(requireActivity())
@@ -155,8 +168,7 @@ class IDVerificationFragment :
 
                 // City/Province Error
                 if (info.city ==0) {
-                    spinnerCityProvince.underlineColor =
-                        ContextCompat.getColor(UTSwapApp.instance, R.color.danger)
+                    spinnerCityProvince.underlineColor = ContextCompat.getColor(UTSwapApp.instance, R.color.danger)
                     txtErrorCity.visibility = View.VISIBLE
                     isHaveError = true
                 }
@@ -191,7 +203,6 @@ class IDVerificationFragment :
                 }
 
                 if (!isHaveError) {
-
                     KYCPreferences().FIRST_NAME = info.firstName
                     KYCPreferences().LAST_NAME = info.lastName
                     KYCPreferences().BIRTHDAY = info.dateOfBirth
@@ -300,6 +311,7 @@ class IDVerificationFragment :
                         )
 
                     info.dateOfBirth = charSequence.toString()
+
                 }
 
                 override fun afterTextChanged(editable: Editable?) {
@@ -345,6 +357,7 @@ class IDVerificationFragment :
         provinceList = data.data as MutableList<PProvinceObj.Items>
 
         binding.apply {
+
             spinnerCityProvince.item = provinceList.map { it.english }
             spinnerCityProvince.onItemSelectedListener =
                 object : AdapterView.OnItemSelectedListener {
@@ -354,8 +367,7 @@ class IDVerificationFragment :
                         position: Int,
                         id: Long
                     ) {
-                        spinnerCityProvince.underlineColor =
-                            ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text)
+                        spinnerCityProvince.underlineColor = ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text)
                         info.city = provinceList[position].code?.toInt()!!
                         parent_code = provinceList[position].code
                         provinceList[position].code?.let {
@@ -367,7 +379,9 @@ class IDVerificationFragment :
                         txtErrorCity.visibility = View.GONE
                     }
 
-                    override fun onNothingSelected(adapterView: AdapterView<*>) {}
+                    override fun onNothingSelected(adapterView: AdapterView<*>) {
+                     //   KYCPreferences().CITY_PROVINCE = ""
+                    }
                 }
         }
     }
@@ -378,6 +392,7 @@ class IDVerificationFragment :
         districtList = data.data as MutableList<PProvinceObj.Items>
 
         binding.apply {
+
             spinnerDistrictKhan.item = districtList.map { it.english }
             spinnerDistrictKhan.onItemSelectedListener =
                 object : AdapterView.OnItemSelectedListener {
@@ -390,6 +405,7 @@ class IDVerificationFragment :
                         spinnerDistrictKhan.underlineColor =
                             ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text)
                         info.district = districtList[position].code?.toInt()!!
+                       // KYCPreferences().DISTRICT_KHAN = districtList[position].code
                         mPresenter.queryCommune(
                             requireActivity(),
                             PProvinceObj.BodyProvince(districtList[position].code)
@@ -397,7 +413,9 @@ class IDVerificationFragment :
                         txtErrorDistrict.visibility = View.GONE
                     }
 
-                    override fun onNothingSelected(adapterView: AdapterView<*>) {}
+                    override fun onNothingSelected(adapterView: AdapterView<*>) {
+                      //  KYCPreferences().DISTRICT_KHAN = ""
+                    }
                 }
         }
 
@@ -406,6 +424,7 @@ class IDVerificationFragment :
     override fun OnQueryCommuneSucess(data: PProvinceObj.ProvinceRes) {
         communeList = data.data as MutableList<PProvinceObj.Items>
         binding.apply {
+
             spinnerCommuneSangkat.item = communeList.map { it.english }
             spinnerCommuneSangkat.onItemSelectedListener =
                 object : AdapterView.OnItemSelectedListener {
@@ -418,10 +437,13 @@ class IDVerificationFragment :
                         spinnerCommuneSangkat.underlineColor =
                             ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text)
                         info.commune = communeList[position].code?.toInt()!!
+                      //  KYCPreferences().COMMUNE_SANGKAT = communeList[position].code
                         txtErrorCommune.visibility = View.GONE
                     }
 
-                    override fun onNothingSelected(adapterView: AdapterView<*>) {}
+                    override fun onNothingSelected(adapterView: AdapterView<*>) {
+                      //  KYCPreferences().COMMUNE_SANGKAT = ""
+                    }
                 }
         }
     }
@@ -446,6 +468,7 @@ class IDVerificationFragment :
             genderList.add(SpinnerModel("1", "Male"))
             genderList.add(SpinnerModel("2", "Female"))
             spinnerGender.item = genderList.map { it.name }
+
             spinnerGender.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(
                     adapterView: AdapterView<*>,
@@ -456,10 +479,13 @@ class IDVerificationFragment :
                     spinnerGender.underlineColor =
                         ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text)
                     info.gender = genderList[position].name
+                   // KYCPreferences().GENDER = genderList[position].name
                     txtErrorGender.visibility = View.GONE
                 }
 
-                override fun onNothingSelected(adapterView: AdapterView<*>) {}
+                override fun onNothingSelected(adapterView: AdapterView<*>) {
+                  //  KYCPreferences().GENDER = ""
+                }
             }
         }
 

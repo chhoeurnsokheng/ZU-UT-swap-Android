@@ -20,6 +20,7 @@ class SelfieHoldingFragment :
         try {
             toolBar()
             binding.apply {
+                KYCPreferences().SELFIE_HOLDING = ""
 
                 btnCameraSelfie.setOnClickListener {
                     findNavController().navigate(R.id.action_to_selfie_camera_kyc_fragment)

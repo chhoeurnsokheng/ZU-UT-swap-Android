@@ -25,7 +25,7 @@ class FundPasswordFragment :
 
     override var mPresenter: FundPasswordView.Presenter = FundPasswordPresenter()
     override val layoutResource: Int = R.layout.fragment_kyc_fund_password
-    var bodyRequest = mutableListOf<User.Kyc>()
+
     private var clickCountPassword = 1
     private var clickCountConfirmPassword = 1
     private var submitKYCObjet = User.Kyc()
@@ -235,7 +235,6 @@ class FundPasswordFragment :
             }
         }
     }
-
 
     private fun toolBar() {
         binding.apply {
