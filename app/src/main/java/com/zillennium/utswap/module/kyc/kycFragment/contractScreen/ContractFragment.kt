@@ -178,13 +178,9 @@ Parties have read and agreed to all the terms and conditions, sign or issue a th
                             btnAccept.isEnabled = true
                             btnAccept.backgroundTintList = ContextCompat.getColorStateList(UTSwapApp.instance, R.color.primary)
                             btnAccept.setOnClickListener {
-
                                 findNavController().navigate(R.id.action_to_kyc_application_kyc_fragment)
-//                                val intent =
-//                                    Intent(UTSwapApp.instance, KycApplicationFragment::class.java)
-//                                startActivity(intent)
                             }
-                            // bottom of scroll view
+
                         }
                     })
             }

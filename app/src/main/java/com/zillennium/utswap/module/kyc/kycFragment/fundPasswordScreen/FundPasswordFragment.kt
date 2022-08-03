@@ -9,7 +9,6 @@ import android.text.method.PasswordTransformationMethod
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import androidx.core.content.ContextCompat
-import androidx.core.net.toUri
 import androidx.core.view.children
 import androidx.navigation.fragment.findNavController
 import com.zillennium.utswap.Datas.StoredPreferences.KYCPreferences
@@ -28,47 +27,83 @@ class FundPasswordFragment :
     var bodyRequest = mutableListOf<User.Kyc>()
     private var clickCountPassword = 1
     private var clickCountConfirmPassword = 1
+    private var submitKYCObjet = User.Kyc()
 
     @SuppressLint("UseCompatLoadingForDrawables", "SetTextI18n")
     override fun initView() {
         super.initView()
         toolBar()
-
-        KYCPreferences().NATIONAL_ID_BACK?.toUri().toString()
-        KYCPreferences().NATIONAL_ID_FRONT?.toUri().toString()
-        KYCPreferences().FIRST_NAME.toString()
-        KYCPreferences().LAST_NAME.toString()
-        KYCPreferences().GENDER.toString()
-        KYCPreferences().EMAIL.toString()
-        KYCPreferences().ADDRESS.toString()
-        KYCPreferences().CITY_PROVINCE.toString()
-        KYCPreferences().OCCUPATION.toString()
-        KYCPreferences().SELFIE_HOLDING.toString()
-        KYCPreferences().DISTRICT_KHAN.toString()
-
-        bodyRequest.add(
-            User.Kyc(
-                "${KYCPreferences().FIRST_NAME.toString() + KYCPreferences().LAST_NAME.toString()}",
-                "${KYCPreferences().GENDER.toString()}",
-                "${KYCPreferences().OCCUPATION}",
-                "${KYCPreferences().OCCUPATION}",
-                "${KYCPreferences().EMAIL}",
-                "${KYCPreferences().CITY_PROVINCE}",
-                "${KYCPreferences().DISTRICT_KHAN}",
-                "${KYCPreferences().COMMUNE_SANGKAT}",
-                "",
-                "",
-                "${KYCPreferences().NATIONAL_ID_FRONT.toString()}",
-                "${KYCPreferences().NATIONAL_ID_BACK.toString()}",
-                "${KYCPreferences().SELFIE_HOLDING.toString()}","","",
-                          "${KYCPreferences().FUND_PASSWORD.toString()}",
-                          "${KYCPreferences().FUND_PASSWORD.toString()}",
-
-            )
-
-        )
         binding.apply {
+            VerifyPhoneNumber()
+            validateFundPassword()
+            validateConfrimFild()
+            comfirmPasswordBothFiles()
+            validateBtnNext()
+            checkHideRoShowEyes()
+        }
 
+
+    }
+
+    private fun checkHideRoShowEyes() {
+        binding.apply {
+            imgShowPassword.setOnClickListener {
+                clickCountPassword++
+                showPassword(clickCountPassword)
+            }
+            imgShowConfirmPassword.setOnClickListener {
+                clickCountConfirmPassword++
+                showConfirmPassword(clickCountConfirmPassword)
+            }
+            imgShowPassword.callOnClick()
+            imgShowConfirmPassword.callOnClick()
+        }
+    }
+
+
+    private fun validateBtnNext() {
+        binding.apply {
+            btnNext.setOnClickListener {
+                if (editFundPassword.text.toString() == editConfirmFundPassword.text.toString() && editFundPassword.length() == 4 && editConfirmFundPassword.length() == 4) {
+                    KYCPreferences().FUND_PASSWORD = editFundPassword.text.toString()
+
+                    KYCPreferences().FIRST_NAME = submitKYCObjet.truename
+                    KYCPreferences().EMAIL = submitKYCObjet.email
+                    KYCPreferences().OCCUPATION = submitKYCObjet.occupation
+                    KYCPreferences().CITY_PROVINCE = submitKYCObjet.citycode
+                    KYCPreferences().DISTRICT_KHAN = submitKYCObjet.districtcode
+                    KYCPreferences().COMMUNE_SANGKAT = submitKYCObjet.communecode
+                    KYCPreferences().ADDRESS = submitKYCObjet.streetnumber
+                    KYCPreferences().ID_CARD_INFOR = submitKYCObjet.idcardinfo
+                    KYCPreferences().NATIONAL_ID_FRONT = submitKYCObjet.idcardfront
+                    KYCPreferences().NATIONAL_ID_BACK = submitKYCObjet.idcardrear
+                    KYCPreferences().SELFIE_HOLDING = submitKYCObjet.userImage
+                    KYCPreferences().TERNCONDITION = submitKYCObjet.termandcondition
+                    KYCPreferences().FUND_PASSWORD = submitKYCObjet.paypassword
+                    KYCPreferences().FUND_PASSWORD = submitKYCObjet.repaypassword
+
+                    mPresenter.addKyc(submitKYCObjet,requireActivity())
+                    findNavController().navigate(R.id.action_to_contract_kyc_fragment)
+                } else {
+                    for (child in numberVerification.children) {
+                        child.background = ContextCompat.getDrawable(
+                            UTSwapApp.instance,
+                            R.drawable.bg_border_bottom_red
+                        )
+                    }
+                    for (child in confirmNumberVerification.children) {
+                        child.background = ContextCompat.getDrawable(
+                            UTSwapApp.instance,
+                            R.drawable.bg_border_bottom_red
+                        )
+                    }
+                }
+            }
+        }
+    }
+
+    private fun VerifyPhoneNumber() {
+        binding.apply {
             numberVerification.setOnClickListener {
                 editFundPassword.requestFocus()
                 val inputManager1 =
@@ -87,7 +122,11 @@ class FundPasswordFragment :
                     confirmTextInputLast.text = ""
                 }
             }
+        }
+    }
 
+    private fun validateFundPassword() {
+        binding.apply {
             editFundPassword.addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(ch: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
@@ -122,30 +161,11 @@ class FundPasswordFragment :
 
                 override fun afterTextChanged(p0: Editable?) {}
             })
+        }
+    }
 
-            /* Confirm Fund Password code */
-            confirmNumberVerification.setOnClickListener {
-                editConfirmFundPassword.requestFocus()
-                val inputManager2 =
-                    requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                inputManager2.showSoftInput(
-                    editConfirmFundPassword,
-                    InputMethodManager.SHOW_IMPLICIT
-                )
-
-                if (editConfirmFundPassword.text.isEmpty()) {
-                    val confirmTextInputLast = confirmNumberVerification.getChildAt(0) as TextView
-                    confirmTextInputLast.text = "|"
-                    confirmTextInputLast.transformationMethod =
-                        HideReturnsTransformationMethod.getInstance()
-                }
-
-                if (editFundPassword.text.isEmpty()) {
-                    val textInputLast = numberVerification.getChildAt(0) as TextView
-                    textInputLast.text = ""
-                }
-            }
-
+    private fun validateConfrimFild() {
+        binding.apply {
             editConfirmFundPassword.addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(ch: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
@@ -182,47 +202,37 @@ class FundPasswordFragment :
 
                 override fun afterTextChanged(p0: Editable?) {}
             })
+        }
+    }
 
-            btnNext.setOnClickListener {
+    private fun comfirmPasswordBothFiles() {
+        binding.apply {
 
-                if (editFundPassword.text.toString() == editConfirmFundPassword.text.toString() && editFundPassword.length() == 4 && editConfirmFundPassword.length() == 4) {
-                    KYCPreferences().FUND_PASSWORD = editFundPassword.text.toString()
+            /* Confirm Fund Password code */
+            confirmNumberVerification.setOnClickListener {
+                editConfirmFundPassword.requestFocus()
+                val inputManager2 =
+                    requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                inputManager2.showSoftInput(
+                    editConfirmFundPassword,
+                    InputMethodManager.SHOW_IMPLICIT
+                )
 
-                    mPresenter.addKyc(bodyRequest,requireContext())
+                if (editConfirmFundPassword.text.isEmpty()) {
+                    val confirmTextInputLast = confirmNumberVerification.getChildAt(0) as TextView
+                    confirmTextInputLast.text = "|"
+                    confirmTextInputLast.transformationMethod =
+                        HideReturnsTransformationMethod.getInstance()
+                }
 
-                    findNavController().navigate(R.id.action_to_contract_kyc_fragment)
-                } else {
-                    for (child in numberVerification.children) {
-                        child.background = ContextCompat.getDrawable(
-                            UTSwapApp.instance,
-                            R.drawable.bg_border_bottom_red
-                        )
-                    }
-                    for (child in confirmNumberVerification.children) {
-                        child.background = ContextCompat.getDrawable(
-                            UTSwapApp.instance,
-                            R.drawable.bg_border_bottom_red
-                        )
-                    }
+                if (editFundPassword.text.isEmpty()) {
+                    val textInputLast = numberVerification.getChildAt(0) as TextView
+                    textInputLast.text = ""
                 }
             }
-
-            imgShowPassword.setOnClickListener {
-                clickCountPassword++
-                showPassword(clickCountPassword)
-            }
-
-            imgShowConfirmPassword.setOnClickListener {
-                clickCountConfirmPassword++
-                showConfirmPassword(clickCountConfirmPassword)
-            }
-
-            imgShowPassword.callOnClick()
-            imgShowConfirmPassword.callOnClick()
         }
-
-
     }
+
 
     private fun toolBar() {
         binding.apply {

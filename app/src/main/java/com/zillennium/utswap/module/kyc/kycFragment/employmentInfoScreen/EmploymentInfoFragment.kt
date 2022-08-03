@@ -55,7 +55,6 @@ class EmploymentInfoFragment :
                     etemail.setText(info.email_emp)
                 }
 
-
                 if(validate().isValidPhoneNumber(SessionPreferences().SESSION_USERNAME.toString())){
                     layEmail.visibility = View.VISIBLE
                 }
@@ -171,8 +170,7 @@ class EmploymentInfoFragment :
                 etemail.addTextChangedListener(object : TextWatcher{
                     override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                         txtErrorEmail.visibility = View.GONE
-                        etemail.backgroundTintList =
-                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text))
+                        etemail.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text))
                     }
 
                     override fun onTextChanged(charSequence: CharSequence?, p1: Int, p2: Int, p3: Int) {

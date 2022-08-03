@@ -15,6 +15,6 @@ class FundPasswordView {
 
     interface Presenter : BaseMvpPresenter<View> {
         override fun initViewPresenter(context: Context, bundle: Bundle?)
-        fun addKyc(data: MutableList<User.Kyc>, context: Context)
+         fun addKyc(param: User.Kyc,context: Context)
     }
 }

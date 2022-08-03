@@ -141,7 +141,7 @@
         tools:layout="@layout/fragment_kyc_declaration">
         <action
             android:id="@+id/action_to_fund_password_kyc_fragment"
-            app:destination="@id/FundPasswordKycFragment"
+            app:destination="@id/ContractKycFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -163,7 +163,7 @@
         tools:layout="@layout/fragment_kyc_fund_password">
         <action
             android:id="@+id/action_to_contract_kyc_fragment"
-            app:destination="@id/ContractKycFragment"
+            app:destination="@id/KycApplicationKycFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -185,7 +185,7 @@
         tools:layout="@layout/fragment_kyc_contract">
         <action
             android:id="@+id/action_to_kyc_application_kyc_fragment"
-            app:destination="@id/KycApplicationKycFragment"
+            app:destination="@id/FundPasswordKycFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"

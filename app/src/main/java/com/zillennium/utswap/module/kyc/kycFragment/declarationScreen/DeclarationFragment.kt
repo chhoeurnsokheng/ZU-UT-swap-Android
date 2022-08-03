@@ -3,6 +3,7 @@ package com.zillennium.utswap.module.kyc.kycFragment.declarationScreen
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
+import com.zillennium.utswap.Datas.StoredPreferences.KYCPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
@@ -14,7 +15,7 @@ class DeclarationFragment :
 
     override var mPresenter: DeclarationView.Presenter = DeclarationPresenter()
     override val layoutResource: Int = R.layout.fragment_kyc_declaration
-    
+
     override fun initView() {
         super.initView()
         try {
@@ -67,6 +68,9 @@ class DeclarationFragment :
                         svDeclaration.visibility = View.GONE
                         svEAgreement.visibility = View.VISIBLE
                         cbEAgreement.isEnabled = true
+
+                        KYCPreferences().TERNCONDITION = "1"
+
                         tvEAgreement.setTextColor(
                             ContextCompat.getColor(
                                 UTSwapApp.instance,
@@ -80,6 +84,9 @@ class DeclarationFragment :
                         cbEAgreement.isEnabled = false
                         cbEAgreement.isChecked = false
                         btnAccept.isEnabled = false
+
+                        KYCPreferences().TERNCONDITION = "1"
+
                         tvEAgreement.setTextColor(
                             ContextCompat.getColor(
                                 UTSwapApp.instance,
@@ -108,7 +115,8 @@ class DeclarationFragment :
             // Must be safe
         }
     }
-    private fun toolBar(){
+
+    private fun toolBar() {
         activity.let {
             binding.apply {
                 includeLayout.apply {

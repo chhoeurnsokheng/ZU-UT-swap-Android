@@ -40,26 +40,28 @@ object User {
         var secure_key: String?
     )
 
-    class Kyc (
-        var truename:String? = "",
-        var gender:String? ="",
-        var occupation:String? ="",
-        var companyname:String? ="",
-        var email:String? ="",
-        var citycode:String? ="",
-        var districtcode:String? ="",
-        var communecode:String? ="",
-        var streetnumber:String? ="",
-        var idcardinfo:String? = "",
-        var idcardfront:String? ="",
-        var idcardrear:String? ="",
-        var userImage:String? ="",
-        var idcard:String? ="",
-        var termandcondition:String? ="",
-        var paypassword:String? ="",
-        var repaypassword:String? ="",
+    class Kyc {
+        var truename = ""
+        var gender = ""
+        var occupation =""
+        var companyname =""
+        var email = ""
+        var citycode = ""
+        var districtcode  = ""
+        var communecode  = ""
+        var streetnumber =""
+        var idcardinfo = ""
+        var idcardfront =""
+        var idcardrear =""
+        var userImage =""
+        var idcard =""
+        var termandcondition = ""
+        var paypassword =""
+        var repaypassword =""
+    }
 
-    )
+
+
 
     /** Register */
     class RegisterRes{

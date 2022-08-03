@@ -2,6 +2,7 @@ package com.zillennium.utswap.Datas.StoredPreferences
 
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.BaseStoredPreferences
+import com.zillennium.utswap.module.security.securityFragment.termConditionScreen.TermConditionFragment
 
 class KYCPreferences : BaseStoredPreferences(UTSwapApp.instance, "KYCPreferences") {
 
@@ -20,6 +21,7 @@ class KYCPreferences : BaseStoredPreferences(UTSwapApp.instance, "KYCPreferences
     var COMPANY by stringPref()
     var PHONE_NUMBER by stringPref()
     var EMAIL by stringPref()
+    var ID_CARD_INFOR by stringPref()
 
     var FUND_PASSWORD by stringPref()
 
@@ -27,4 +29,7 @@ class KYCPreferences : BaseStoredPreferences(UTSwapApp.instance, "KYCPreferences
     var NATIONAL_ID_FRONT by stringPref()
     var NATIONAL_ID_BACK by stringPref()
     var PASSPORT_FRONT by stringPref()
+
+    var TERNCONDITION by stringPref()
+
 }

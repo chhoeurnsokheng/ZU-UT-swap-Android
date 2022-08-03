@@ -9,6 +9,7 @@ import okhttp3.MultipartBody
 import retrofit2.http.Body
 import retrofit2.http.HeaderMap
 import retrofit2.http.POST
+import retrofit2.http.Query
 import rx.Observable
 
 /**
@@ -35,7 +36,7 @@ interface UserService {
     @POST(ApiSettings.PATH_KYC)
     fun userAddKyc(
         @HeaderMap header: Map<String, String>,
-        @Body body: MultipartBody
+        @Body param: okhttp3.RequestBody
     ): Observable<User.Kyc>
 
     /** Register*/

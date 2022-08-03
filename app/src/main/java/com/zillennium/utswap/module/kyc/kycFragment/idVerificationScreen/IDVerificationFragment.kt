@@ -39,9 +39,9 @@ class IDVerificationFragment :
         var lastName = ""
         var dateOfBirth = ""
         var gender = ""
-        var city = ""
-        var district = ""
-        var commune = ""
+        var city = 0
+        var district = 0
+        var commune = 0
         var addressHouse = ""
     }
 
@@ -156,7 +156,7 @@ class IDVerificationFragment :
                 }
 
                 // City/Province Error
-                if (info.city.isEmpty()) {
+                if (info.city ==0) {
                     spinnerCityProvince.underlineColor =
                         ContextCompat.getColor(UTSwapApp.instance, R.color.danger)
                     txtErrorCity.visibility = View.VISIBLE
@@ -164,7 +164,7 @@ class IDVerificationFragment :
                 }
 
                 // District Error
-                if (info.district.isEmpty()) {
+                if (info.district ==0) {
                     spinnerDistrictKhan.underlineColor =
                         ContextCompat.getColor(UTSwapApp.instance, R.color.danger)
                     txtErrorDistrict.visibility = View.VISIBLE
@@ -172,7 +172,7 @@ class IDVerificationFragment :
                 }
 
                 // Commune Error
-                if (info.commune.isEmpty()) {
+                if (info.commune ==0) {
                     spinnerCommuneSangkat.underlineColor =
                         ContextCompat.getColor(UTSwapApp.instance, R.color.danger)
                     txtErrorCommune.visibility = View.VISIBLE
@@ -200,11 +200,11 @@ class IDVerificationFragment :
                     KYCPreferences().LAST_NAME = info.lastName
                     KYCPreferences().BIRTHDAY = info.dateOfBirth
                     KYCPreferences().GENDER = info.gender
-                    KYCPreferences().CITY_PROVINCE = info.city
-                    KYCPreferences().DISTRICT_KHAN = info.district
-                    KYCPreferences().COMMUNE_SANGKAT = info.commune
+                    KYCPreferences().CITY_PROVINCE = info.city.toString()
+                    KYCPreferences().DISTRICT_KHAN = info.district.toString()
+                    KYCPreferences().COMMUNE_SANGKAT = info.commune.toString()
                     KYCPreferences().ADDRESS = info.addressHouse
-
+                    KYCPreferences().ID_CARD_INFOR ="National Id"
                     findNavController().navigate(R.id.action_to_id_selfie_holding_fragment)
                 }
 
@@ -357,7 +357,7 @@ class IDVerificationFragment :
                     ) {
                         spinnerCityProvince.underlineColor =
                             ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text)
-                        info.city = provinceList[position].english.toString()
+                        info.city = provinceList[position].code?.toInt()!!
                         parent_code = provinceList[position].code
                         provinceList[position].code?.let {
                             mPresenter.queryProvince(
@@ -390,7 +390,7 @@ class IDVerificationFragment :
                     ) {
                         spinnerDistrictKhan.underlineColor =
                             ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text)
-                        info.district = districtList[position].english.toString()
+                        info.district = districtList[position].code?.toInt()!!
                         mPresenter.queryCommune(
                             requireActivity(),
                             PProvinceObj.BodyProvince(districtList[position].code)
@@ -418,7 +418,7 @@ class IDVerificationFragment :
                     ) {
                         spinnerCommuneSangkat.underlineColor =
                             ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text)
-                        info.commune = communeList[position].english.toString()
+                        info.commune = communeList[position].code?.toInt()!!
                         txtErrorCommune.visibility = View.GONE
                     }
 
@@ -483,33 +483,33 @@ class IDVerificationFragment :
 ////                    }
 ////                }
 //            }
-            if (KYCPreferences().CITY_PROVINCE.isNullOrEmpty()) {
-                info.city = KYCPreferences().CITY_PROVINCE ?: ""
+//            if (KYCPreferences().CITY_PROVINCE.isNullOrEmpty()) {
+//                info.city = KYCPreferences().CITY_PROVINCE ?: ""
+//
+////                provinceList.forEachIndexed { index, item ->
+////                    if (item.id == info.city) {
+////                        spinnerCityProvince.setSelection(index)
+////                    }
+////                }
+//            }
 
-//                provinceList.forEachIndexed { index, item ->
-//                    if (item.id == info.city) {
-//                        spinnerCityProvince.setSelection(index)
-//                    }
-//                }
-            }
-
-            if (KYCPreferences().DISTRICT_KHAN.isNullOrEmpty()) {
-                info.district = KYCPreferences().DISTRICT_KHAN ?: ""
-//                districtList.forEachIndexed { index, item ->
-//                    if (item.id == info.district) {
-//                        spinnerDistrictKhan.setSelection(index)
-//                    }
-            }
+//            if (KYCPreferences().DISTRICT_KHAN.isNullOrEmpty()) {
+//                info.district = KYCPreferences().DISTRICT_KHAN ?: ""
+////                districtList.forEachIndexed { index, item ->
+////                    if (item.id == info.district) {
+////                        spinnerDistrictKhan.setSelection(index)
+////                    }
+//            }
         }
 
-        if (KYCPreferences().COMMUNE_SANGKAT.isNullOrEmpty()) {
-            info.commune = KYCPreferences().COMMUNE_SANGKAT ?: ""
-            communeList.forEachIndexed { index, item ->
-//                    if (item.id == info.commune) {
-//                        spinnerCommuneSangkat.setSelection(index)
-//                    }
-            }
-        }
+//        if (KYCPreferences().COMMUNE_SANGKAT.isNullOrEmpty()) {
+//            info.commune = KYCPreferences().COMMUNE_SANGKAT ?: ""
+//            communeList.forEachIndexed { index, item ->
+////                    if (item.id == info.commune) {
+////                        spinnerCommuneSangkat.setSelection(index)
+////                    }
+//            }
+//        }
 
 
     }
