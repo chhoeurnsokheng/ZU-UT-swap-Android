@@ -169,8 +169,13 @@ class NewPasswordFragment :
     override fun onChangePasswordFail(body: User.EnterNewPasswordRes) {
         onProgressBar(false)
         binding.apply {
-            txtPasswordMessage.text = body.message.toString()
             txtPasswordMessage.visibility = View.VISIBLE
+            if(body.message.toString() == "SOMETHING WENT WRONG!")
+            {
+                txtPasswordMessage.text = resources.getString(R.string.new_password_cannot_be_the_same_as_old)
+            }else{
+                txtPasswordMessage.text = body.message.toString()
+            }
 
             etConfirmPassword.backgroundTintList =
                 ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
