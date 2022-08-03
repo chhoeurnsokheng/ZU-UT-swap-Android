@@ -6,6 +6,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
+import android.util.Log
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import androidx.core.content.ContextCompat
@@ -34,6 +35,7 @@ class FundPasswordFragment :
         super.initView()
         toolBar()
         binding.apply {
+            Log.d("True name ","${KYCPreferences().FIRST_NAME}")
             VerifyPhoneNumber()
             validateFundPassword()
             validateConfrimFild()
@@ -66,6 +68,7 @@ class FundPasswordFragment :
             btnNext.setOnClickListener {
                 if (editFundPassword.text.toString() == editConfirmFundPassword.text.toString() && editFundPassword.length() == 4 && editConfirmFundPassword.length() == 4) {
                     KYCPreferences().FUND_PASSWORD = editFundPassword.text.toString()
+                    Log.d("True name ","${KYCPreferences().FIRST_NAME}")
 
                     KYCPreferences().FIRST_NAME = submitKYCObjet.truename
                     KYCPreferences().EMAIL = submitKYCObjet.email

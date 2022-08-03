@@ -41,7 +41,7 @@ object User {
     )
 
     class Kyc {
-        var truename = ""
+        var truename:String? =null
         var gender = ""
         var occupation =""
         var companyname =""

@@ -87,7 +87,9 @@
                                 android:layout_marginTop="@dimen/dimen_5"
                                 android:ellipsize="end"
                                 android:singleLine="true"
-                                android:text="@string/cannot_leave_blank"
+                                android:text="@string/text_required"
+                                android:drawablePadding="@dimen/dimen_3"
+                                android:drawableLeft="@drawable/ic_field_required"
                                 android:textAppearance="@style/regular_10"
                                 android:textColor="@color/red_ee1111"
                                 android:visibility="gone" />
@@ -121,7 +123,9 @@
                                 android:layout_marginTop="@dimen/dimen_5"
                                 android:ellipsize="end"
                                 android:singleLine="true"
-                                android:text="@string/cannot_leave_blank"
+                                android:text="@string/text_required"
+                                android:drawablePadding="@dimen/dimen_3"
+                                android:drawableLeft="@drawable/ic_field_required"
                                 android:textAppearance="@style/regular_10"
                                 android:textColor="@color/red_ee1111"
                                 android:visibility="gone" />
@@ -174,7 +178,9 @@
                                 android:layout_marginTop="@dimen/dimen_5"
                                 android:ellipsize="end"
                                 android:singleLine="true"
-                                android:text="@string/cannot_leave_blank"
+                                android:text="@string/text_required"
+                                android:drawablePadding="@dimen/dimen_3"
+                                android:drawableLeft="@drawable/ic_field_required"
                                 android:textAppearance="@style/regular_10"
                                 android:textColor="@color/red_ee1111"
                                 android:visibility="gone" />
@@ -211,7 +217,9 @@
                                 android:layout_marginTop="@dimen/dimen_5"
                                 android:ellipsize="end"
                                 android:singleLine="true"
-                                android:text="@string/cannot_leave_blank"
+                                android:text="@string/text_required"
+                                android:drawablePadding="@dimen/dimen_3"
+                                android:drawableLeft="@drawable/ic_field_required"
                                 android:textAppearance="@style/regular_10"
                                 android:textColor="@color/red_ee1111"
                                 android:visibility="gone" />
@@ -256,7 +264,9 @@
                             android:layout_marginTop="5dp"
                             android:ellipsize="end"
                             android:singleLine="true"
-                            android:text="@string/cannot_leave_blank"
+                            android:text="@string/text_required"
+                            android:drawablePadding="@dimen/dimen_3"
+                            android:drawableLeft="@drawable/ic_field_required"
                             android:textAppearance="@style/regular_10"
                             android:textColor="@color/red_ee1111"
                             android:visibility="gone" />
@@ -293,7 +303,7 @@
                             android:layout_marginTop="5dp"
                             android:ellipsize="end"
                             android:singleLine="true"
-                            android:text="@string/cannot_leave_blank"
+                            android:text="@string/text_required"
                             android:textAppearance="@style/regular_10"
                             android:textColor="@color/red_ee1111"
                             android:visibility="gone" />
@@ -331,7 +341,9 @@
                             android:layout_marginTop="5dp"
                             android:ellipsize="end"
                             android:singleLine="true"
-                            android:text="@string/cannot_leave_blank"
+                            android:drawablePadding="@dimen/dimen_3"
+                            android:drawableLeft="@drawable/ic_field_required"
+                            android:text="@string/text_required"
                             android:textAppearance="@style/regular_10"
                             android:textColor="@color/red_ee1111"
                             android:visibility="gone" />
@@ -384,7 +396,9 @@
                             android:layout_marginTop="5dp"
                             android:ellipsize="end"
                             android:singleLine="true"
-                            android:text="@string/cannot_leave_blank"
+                            android:text="@string/text_required"
+                            android:drawablePadding="@dimen/dimen_3"
+                            android:drawableLeft="@drawable/ic_field_required"
                             android:textAppearance="@style/regular_10"
                             android:textColor="@color/red_ee1111"
                             android:visibility="gone" />
@@ -432,7 +446,7 @@
             android:layout_marginStart="@dimen/dimen_30"
             android:layout_marginTop="@dimen/dimen_30"
             android:layout_marginEnd="@dimen/dimen_30"
-            android:layout_marginBottom="@dimen/dimen_30"
+            android:layout_marginBottom="31dp"
             android:background="@drawable/bg_circular"
             android:gravity="center">
 

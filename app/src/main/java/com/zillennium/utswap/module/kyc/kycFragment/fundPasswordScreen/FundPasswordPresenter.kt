@@ -8,7 +8,6 @@ import com.zillennium.utswap.api.manager.ApiManager
 import com.zillennium.utswap.api.manager.ApiUserImp
 import com.zillennium.utswap.bases.mvp.BaseMvpPresenterImpl
 import com.zillennium.utswap.models.userService.User
-import id.zelory.compressor.Compressor
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -47,7 +46,7 @@ class FundPasswordPresenter : BaseMvpPresenterImpl<FundPasswordView.View>(),
         val requestBody = MultipartBody.Builder()
         requestBody.setType(MultipartBody.FORM)
         mObject.truename.apply {
-            requestBody.addFormDataPart("truename", this)
+            this?.let { requestBody.addFormDataPart("truename", it) }
         }
         mObject.gender.apply {
             requestBody.addFormDataPart("gender", this)

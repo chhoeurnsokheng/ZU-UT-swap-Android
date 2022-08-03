@@ -55,8 +55,6 @@ class IDVerificationFragment :
 
             initSpinnerGender()
             initSpinnerCityProvince()
-            //       initDistrictKhan()
-            //     initCommuneSangkat()
 
             /* if Data already input */
             if (!KYCPreferences().FIRST_NAME.isNullOrEmpty()) {
@@ -192,9 +190,7 @@ class IDVerificationFragment :
                     isHaveError = true
                 }
 
-                if (isHaveError) {
-                    return@setOnClickListener
-                } else {
+                if (!isHaveError) {
 
                     KYCPreferences().FIRST_NAME = info.firstName
                     KYCPreferences().LAST_NAME = info.lastName
@@ -206,6 +202,9 @@ class IDVerificationFragment :
                     KYCPreferences().ADDRESS = info.addressHouse
                     KYCPreferences().ID_CARD_INFOR ="National Id"
                     findNavController().navigate(R.id.action_to_id_selfie_holding_fragment)
+
+                } else {
+                    return@setOnClickListener
                 }
 
             }
