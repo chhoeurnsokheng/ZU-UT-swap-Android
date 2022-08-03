@@ -14,6 +14,7 @@ object User {
         var TOKEN: String? = null
         var x_api_key: String? = null
         var fundpass: Int? = null
+        var status_kyc: Boolean? = null
     }
 
     class LoginObject(

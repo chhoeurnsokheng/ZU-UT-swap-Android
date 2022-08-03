@@ -165,9 +165,11 @@ class SignInFragment :
     override fun loginSuccess(body: User.LoginRes) {
         onProgressBar(false)
 
-        SessionPreferences().SESSION_STATUS = true
         SessionVariable.SESSION_STATUS.value = true
+        SessionVariable.SESSION_KYC.value = body.data?.status_kyc
 
+        SessionPreferences().SESSION_STATUS = true
+        SessionPreferences().SESSION_KYC = body.data?.status_kyc
         SessionPreferences().SESSION_TOKEN = body.data?.TOKEN.toString()
         SessionPreferences().SESSION_ID = body.data?.ID.toString()
         SessionPreferences().SESSION_X_TOKEN_API = body.data?.x_api_key.toString()
@@ -212,7 +214,7 @@ class SignInFragment :
                 ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text))
             textInputPassword.backgroundTintList =
                 ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text))
-            txtMessage.visibility = View.GONE
+            txtMessage.visibility = View.INVISIBLE
         }
     }
 //        @SuppressLint("ServiceCast")
