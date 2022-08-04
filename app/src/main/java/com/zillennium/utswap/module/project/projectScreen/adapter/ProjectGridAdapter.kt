@@ -8,15 +8,14 @@ import com.bumptech.glide.Glide
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseRecyclerViewAdapterGeneric
 import com.zillennium.utswap.bases.mvp.BaseViewHolder
-import com.zillennium.utswap.databinding.ItemListProjectBinding
 import com.zillennium.utswap.databinding.ItemListProjectGridBinding
 import com.zillennium.utswap.models.projectList.ProjectList
 
-class ProjectAdapter(itemListProject: Int) :
-    BaseRecyclerViewAdapterGeneric<ProjectList.ProjectListData, ProjectAdapter.ProjectListViewHolder>() {
+class ProjectGridAdapter(itemListProjectGrid: Int) :
+    BaseRecyclerViewAdapterGeneric<ProjectList.ProjectListData, ProjectGridAdapter.ProjectListViewHolder>() {
 
-    inner class ProjectListViewHolder(root: ItemListProjectBinding) :
-        BaseViewHolder<ItemListProjectBinding>(root) {
+    inner class ProjectListViewHolder(root: ItemListProjectGridBinding) :
+        BaseViewHolder<ItemListProjectGridBinding>(root) {
         fun bindData(projectList: ProjectList.ProjectListData) {
             binding.apply {
                 Glide.with(UTSwapApp.instance)
@@ -47,7 +46,7 @@ class ProjectAdapter(itemListProject: Int) :
         inflater: LayoutInflater,
         parent: ViewGroup,
         viewType: Int
-    ) = ProjectListViewHolder(ItemListProjectBinding.inflate(inflater, parent, false))
+    ) = ProjectListViewHolder(ItemListProjectGridBinding.inflate(inflater, parent, false))
 
     override fun onBindItemHolder(holder: ProjectListViewHolder, position: Int, context: Context) {
         holder.bindData(items[position])

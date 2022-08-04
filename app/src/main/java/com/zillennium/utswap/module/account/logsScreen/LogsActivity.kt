@@ -65,6 +65,7 @@ class LogsActivity :
                 txtLoading.visibility = View.GONE
 
             } else {
+
                 layAccountLogsLoading.visibility = View.GONE
                 txtEndData.visibility = View.VISIBLE
             }

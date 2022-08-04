@@ -10,10 +10,7 @@ package com.zillennium.utswap.api.manager
 import android.annotation.SuppressLint
 import android.content.Context
 import com.zillennium.utswap.BuildConfig
-import com.zillennium.utswap.api.service.AccountLogsService
-import com.zillennium.utswap.api.service.CustomerSupportService
-import com.zillennium.utswap.api.service.NewsService
-import com.zillennium.utswap.api.service.UserService
+import com.zillennium.utswap.api.service.*
 import com.zillennium.utswap.models.customerSupport.CustomerSupport
 import com.zillennium.utswap.utils.LoggerUtil
 import okhttp3.Interceptor
@@ -38,6 +35,7 @@ open class ApiManager {
     protected lateinit var mNewsService: NewsService
     protected lateinit var mAccountLogsService: AccountLogsService
     protected lateinit var mCustomerSupport: CustomerSupportService
+    protected lateinit var mProjectList: ProjectListService
     protected lateinit var mContext: Context
 
 
@@ -61,6 +59,7 @@ open class ApiManager {
         mNewsService = retrofit.create(NewsService::class.java)
         mAccountLogsService = retrofit.create(AccountLogsService::class.java)
         mCustomerSupport = retrofit.create(CustomerSupportService::class.java)
+        mProjectList = retrofit.create(ProjectListService::class.java)
     }
 
     private fun initRetrofit(): Retrofit {
