@@ -116,6 +116,11 @@ class NewsFragment :
                     txtCountNotification.visibility = View.GONE
                 }
             }
+            page = 1
+            listNews.clear()
+            binding.txtEnd.visibility = View.GONE
+            mPresenter.onGetNews(UTSwapApp.instance,1)
+
         }
     }
 
