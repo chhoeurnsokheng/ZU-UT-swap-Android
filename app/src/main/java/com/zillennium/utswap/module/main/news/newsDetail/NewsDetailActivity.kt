@@ -53,7 +53,7 @@ class NewsDetailActivity :
             swipeRefresh.isRefreshing = false
 
             txtTitle.text = data.title.toString()
-            txtDate.text = data.date.toString()
+            txtDate.text = data.date?.addtime.toString()
             txtContent.text = Html.fromHtml(data.content.toString())
             Glide.with(imgNews.context)
                 .load(data.image.toString())
