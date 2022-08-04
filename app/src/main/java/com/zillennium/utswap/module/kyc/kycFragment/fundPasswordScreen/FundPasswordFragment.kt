@@ -9,6 +9,7 @@ import android.text.TextWatcher
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.util.Base64
+import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import androidx.core.content.ContextCompat
@@ -131,8 +132,7 @@ class FundPasswordFragment :
                     KycInfor.paypassword = KYCPreferences().FUND_PASSWORD.toString()
                     KycInfor.repaypassword = KYCPreferences().FUND_PASSWORD.toString()
 
-                    var idCardFront =
-                        "data:image/jpeg;base64," + getFileToByte(KycInfor.idcardfront)
+                    var idCardFront = "data:image/jpeg;base64," + getFileToByte(KycInfor.idcardfront)
                     var idCardBack = "data:image/jpeg;base64," + getFileToByte(KycInfor.idcardrear)
                     var imageUser = "data:image/jpeg;base64," + getFileToByte(KycInfor.userImage)
 
@@ -159,7 +159,7 @@ class FundPasswordFragment :
                             KycInfor.repaypassword
                         ), requireActivity()
                     )
-
+                    progressBar.visibility =View.VISIBLE
                 } else {
                     for (child in numberVerification.children) {
                         child.background = ContextCompat.getDrawable(
@@ -335,6 +335,9 @@ class FundPasswordFragment :
             )
         }
         if (data.status == 1) {
+            binding.apply {
+                progressBar.visibility =View.GONE
+            }
             findNavController().navigate(R.id.action_to_contract_kyc_fragment)
         }
     }
