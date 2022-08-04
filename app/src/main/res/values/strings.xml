@@ -204,7 +204,7 @@
     <string name="kyc_approval">KYC Approval</string>
     <string name="your_kyc_application_is_being_reviewed_by_our_team">Your KYC application is being reviewed by our team</string>
     <string name="pending">Pending...</string>
-    <string name="you_have_been_certified">You have been certified</string>
+    <string name="you_have_been_certified">You have been certified ✓</string>
     <string name="wallet">Wallet</string>
 
     <string-array name="gender_array">

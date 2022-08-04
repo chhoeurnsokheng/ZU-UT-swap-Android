@@ -14,7 +14,7 @@ class KYCActivity :
 
     override var mPresenter: SignInView.Presenter = SIgnInPresenter()
     override val layoutResource: Int = R.layout.activity_kyc
-
+    var  status_kyc_approved:Boolean? = null
     var bodyRequest :MutableList<User.Kyc> ? = null
     var mIdTypeFragment: IdTypeFragment? = null
 

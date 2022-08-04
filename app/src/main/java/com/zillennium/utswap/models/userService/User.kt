@@ -67,8 +67,8 @@ object User {
     }
 
     class ItemRes {
-        var status_kyc_submit:Boolean = false
-        var status_kyc_approved:Boolean = false
+        var status_kyc_submit:Boolean? = null
+        var status_kyc_approved:Boolean? = null
     }
 
     class Kyc(

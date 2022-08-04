@@ -335,6 +335,8 @@ class FundPasswordFragment :
             )
         }
         if (data.status == 1) {
+            data.data?.status_kyc_submit = KYCPreferences().status_kyc_submit
+            data.data?.status_kyc_approved = KYCPreferences().status_kyc_submit
             binding.apply {
                 progressBar.visibility =View.GONE
             }
