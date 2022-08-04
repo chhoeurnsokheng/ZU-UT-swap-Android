@@ -28,14 +28,34 @@ class FundPasswordFragment :
 
     private var clickCountPassword = 1
     private var clickCountConfirmPassword = 1
-    private var submitKYCObjet = User.Kyc()
+    private var submitKYCObjet: User.Kyc? = null
+    private var arrayList = mutableListOf<User.KycList>()
+
+    object KycInfor {
+        var truename = ""
+        var gender = ""
+        var occupation = ""
+        var companyname = ""
+        var email = ""
+        var citycode = ""
+        var districtcode = ""
+        var communecode = ""
+        var streetnumber = ""
+        var idcardinfo = ""
+        var idcardfront = ""
+        var idcardrear = ""
+        var userImage = ""
+        var idcard = ""
+        var termandcondition = ""
+        var paypassword = ""
+        var repaypassword = ""
+    }
 
     @SuppressLint("UseCompatLoadingForDrawables", "SetTextI18n")
     override fun initView() {
         super.initView()
         toolBar()
         binding.apply {
-            Log.d("True name ","${KYCPreferences().FIRST_NAME}")
             VerifyPhoneNumber()
             validateFundPassword()
             validateConfrimFild()
@@ -68,25 +88,60 @@ class FundPasswordFragment :
             btnNext.setOnClickListener {
                 if (editFundPassword.text.toString() == editConfirmFundPassword.text.toString() && editFundPassword.length() == 4 && editConfirmFundPassword.length() == 4) {
                     KYCPreferences().FUND_PASSWORD = editFundPassword.text.toString()
-                    Log.d("True name ","${KYCPreferences().FIRST_NAME}")
 
-                    KYCPreferences().FIRST_NAME = submitKYCObjet.truename
-                    KYCPreferences().EMAIL = submitKYCObjet.email
-                    KYCPreferences().OCCUPATION = submitKYCObjet.occupation
-                    KYCPreferences().CITY_PROVINCE = submitKYCObjet.citycode
-                    KYCPreferences().DISTRICT_KHAN = submitKYCObjet.districtcode
-                    KYCPreferences().COMMUNE_SANGKAT = submitKYCObjet.communecode
-                    KYCPreferences().ADDRESS = submitKYCObjet.streetnumber
-                    KYCPreferences().ID_CARD_INFOR = submitKYCObjet.idcardinfo
-                    KYCPreferences().NATIONAL_ID_FRONT = submitKYCObjet.idcardfront
-                    KYCPreferences().NATIONAL_ID_BACK = submitKYCObjet.idcardrear
-                    KYCPreferences().SELFIE_HOLDING = submitKYCObjet.userImage
-                    KYCPreferences().TERNCONDITION = submitKYCObjet.termandcondition
-                    KYCPreferences().FUND_PASSWORD = submitKYCObjet.paypassword
-                    KYCPreferences().FUND_PASSWORD = submitKYCObjet.repaypassword
 
-                    mPresenter.addKyc(submitKYCObjet,requireActivity())
-                    findNavController().navigate(R.id.action_to_contract_kyc_fragment)
+                    KycInfor.truename = KYCPreferences().FIRST_NAME.toString()
+                    KycInfor.email = KYCPreferences().EMAIL.toString()
+                    KycInfor.gender = KYCPreferences().GENDER.toString()
+                    KycInfor.occupation = KYCPreferences().OCCUPATION.toString()
+                    KycInfor.companyname = KYCPreferences().COMPANY.toString()
+                    KycInfor.citycode = KYCPreferences().CITY_PROVINCE.toString()
+                    KycInfor.districtcode = KYCPreferences().DISTRICT_KHAN.toString()
+                    KycInfor.communecode = KYCPreferences().COMMUNE_SANGKAT.toString()
+                    KycInfor.streetnumber = KYCPreferences().ADDRESS.toString()
+                    KycInfor.idcardinfo = KYCPreferences().ID_CARD_INFOR.toString()
+                    KycInfor.idcardfront = KYCPreferences().NATIONAL_ID_FRONT.toString()
+                    KycInfor.idcardrear = KYCPreferences().NATIONAL_ID_BACK.toString()
+                    KycInfor.userImage = KYCPreferences().SELFIE_HOLDING.toString()
+                    KycInfor.termandcondition = KYCPreferences().TERNCONDITION.toString()
+                    KycInfor.paypassword = KYCPreferences().FUND_PASSWORD.toString()
+                    KycInfor.repaypassword = KYCPreferences().FUND_PASSWORD.toString()
+
+                    submitKYCObjet?.truename = KycInfor.truename
+                    submitKYCObjet?.email = KycInfor.email
+                    submitKYCObjet?.gender = KycInfor.gender
+                    submitKYCObjet?.citycode = KycInfor.citycode
+                    submitKYCObjet?.districtcode = KycInfor.districtcode
+                    submitKYCObjet?.communecode = KycInfor.communecode
+                    submitKYCObjet?.streetnumber = KycInfor.streetnumber
+                    submitKYCObjet?.idcardinfo = KycInfor.idcardinfo
+                    submitKYCObjet?.idcardfront = KycInfor.idcardfront
+                    submitKYCObjet?.idcardrear = KycInfor.idcardrear
+                    submitKYCObjet?.userImage = KycInfor.userImage
+                    submitKYCObjet?.termandcondition = KycInfor.termandcondition
+                    submitKYCObjet?.paypassword = KycInfor.paypassword
+                    submitKYCObjet?.repaypassword = KycInfor.repaypassword
+
+                    mPresenter.addKyc(User.Kyc( KycInfor.truename,
+                        KycInfor.gender,
+                        KycInfor.occupation,
+                        KycInfor.companyname,
+                        KycInfor.email,
+                        KycInfor.citycode,
+                        KycInfor.districtcode,
+                        KycInfor.communecode,
+                        KycInfor.streetnumber,
+                        KycInfor.idcardinfo,
+                        KycInfor.idcardfront,
+                        KycInfor.idcardrear,
+                        KycInfor.userImage,
+                        KycInfor.idcard,
+                        KycInfor.termandcondition,
+                        KycInfor.paypassword,
+                        KycInfor.repaypassword)
+                        , requireActivity()
+                    )
+
                 } else {
                     for (child in numberVerification.children) {
                         child.background = ContextCompat.getDrawable(
@@ -246,7 +301,13 @@ class FundPasswordFragment :
         }
     }
 
-    override fun addKycSuccess(data: User.Kyc) {}
+    override fun addKycSuccess(data: User.KycRes) {
+        if (data.status == 0) {
+        }
+        if (data.status == 1) {
+            findNavController().navigate(R.id.action_to_contract_kyc_fragment)
+        }
+    }
 
     override fun addKycFail(data: String) {}
 

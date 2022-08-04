@@ -9,12 +9,12 @@ import com.zillennium.utswap.models.userService.User
 class FundPasswordView {
     interface View : BaseMvpView {
         override fun initView()
-        fun addKycSuccess(data :User.Kyc)
+        fun addKycSuccess(data :User.KycRes)
         fun addKycFail(data :String)
     }
 
     interface Presenter : BaseMvpPresenter<View> {
         override fun initViewPresenter(context: Context, bundle: Bundle?)
-         fun addKyc(param: User.Kyc,context: Context)
+         fun addKyc(param: User.Kyc, context: Context)
     }
 }

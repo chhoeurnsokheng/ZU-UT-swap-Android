@@ -465,8 +465,8 @@ class IDVerificationFragment :
     private fun initSpinnerGender() {
         binding.apply {
 
-            genderList.add(SpinnerModel("1", "Male"))
-            genderList.add(SpinnerModel("2", "Female"))
+            genderList.add(SpinnerModel("1", "M"))
+            genderList.add(SpinnerModel("2", "F"))
             spinnerGender.item = genderList.map { it.name }
 
             spinnerGender.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {

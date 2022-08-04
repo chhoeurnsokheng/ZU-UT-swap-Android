@@ -1,15 +1,11 @@
 package com.zillennium.utswap.api.service
 
 
-import com.squareup.okhttp.RequestBody
 import com.zillennium.utswap.api.ApiSettings
-import com.zillennium.utswap.api.Header
 import com.zillennium.utswap.models.userService.User
-import okhttp3.MultipartBody
 import retrofit2.http.Body
 import retrofit2.http.HeaderMap
 import retrofit2.http.POST
-import retrofit2.http.Query
 import rx.Observable
 
 /**
@@ -37,7 +33,7 @@ interface UserService {
     fun userAddKyc(
         @HeaderMap header: Map<String, String>,
         @Body param: okhttp3.RequestBody
-    ): Observable<User.Kyc>
+    ): Observable<User.KycRes>
 
     /** Register*/
     @POST(ApiSettings.PATH_REGISTER)

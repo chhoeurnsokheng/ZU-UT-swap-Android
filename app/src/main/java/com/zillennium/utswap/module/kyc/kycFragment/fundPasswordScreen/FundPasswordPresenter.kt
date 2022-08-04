@@ -26,7 +26,7 @@ class FundPasswordPresenter : BaseMvpPresenterImpl<FundPasswordView.View>(),
         mView?.initView()
     }
 
-    override fun addKyc(param: User.Kyc,context: Context) {
+    override fun addKyc(param: User.Kyc, context: Context) {
        addKYCSubscription?.unsubscribe()
         addKYCSubscription = ApiUserImp().addKyc(submitRequestBody(param),context).subscribe({
             mView?.addKycSuccess(it)
@@ -46,7 +46,7 @@ class FundPasswordPresenter : BaseMvpPresenterImpl<FundPasswordView.View>(),
         val requestBody = MultipartBody.Builder()
         requestBody.setType(MultipartBody.FORM)
         mObject.truename.apply {
-            this?.let { requestBody.addFormDataPart("truename", it) }
+            this.let { requestBody.addFormDataPart("truename", it) }
         }
         mObject.gender.apply {
             requestBody.addFormDataPart("gender", this)
