@@ -4,12 +4,8 @@ package com.zillennium.utswap.module.main.home
 import android.content.Intent
 import android.graphics.BlurMaskFilter
 import android.graphics.MaskFilter
-import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
-import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager.widget.ViewPager
@@ -22,6 +18,7 @@ import com.zillennium.utswap.models.HomeMenuModel
 import com.zillennium.utswap.models.HomeRecentNewsModel
 import com.zillennium.utswap.models.HomeTabSlideImageModel
 import com.zillennium.utswap.models.HomeWatchlistModel
+import com.zillennium.utswap.models.home.BannerObj
 import com.zillennium.utswap.module.account.accountScreen.AccountActivity
 import com.zillennium.utswap.module.finance.depositScreen.DepositActivity
 import com.zillennium.utswap.module.finance.transferScreen.TransferActivity
@@ -56,7 +53,7 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
         super.initView()
         try {
             binding.apply {
-
+                mPresenter.getBanner(requireActivity())
                 //check share preference
                 SessionVariable.SESSION_STATUS.observe(this@HomeFragment) {
                     txtTotalBalance.visibility = View.VISIBLE
@@ -85,8 +82,6 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
                     val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
                     startActivity(intent)
                 }
-
-
 
                 /* Show or Hide Trading Balance */
                 tradingBalance.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
@@ -118,93 +113,6 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
                         }
                     }
                 }
-
-               val   homeTabSlideImage = arrayListOf(
-                    HomeTabSlideImageModel(  "https://utswap.io/Upload/article/62b28f4e18eb0.jpg"),
-                    HomeTabSlideImageModel("https://utswap.io/Upload/article/62bad61c5d0e5.jpg"),
-                   HomeTabSlideImageModel(  "https://utswap.io/Upload/article/62b28f4e18eb0.jpg"),
-                   HomeTabSlideImageModel(  "https://utswap.io/Upload/article/62b28f4e18eb0.jpg"),
-                   HomeTabSlideImageModel(  "https://utswap.io/Upload/article/62b28f4e18eb0.jpg"),
-                )
-
-                bannerLoopingPagerAdapter = object : BannerLoopingPagerAdapter(
-                    requireActivity(),homeTabSlideImage,false
-                ){
-                    override fun onBannerItemClick(data: HomeTabSlideImageModel, position: Int) {}
-
-                }
-
-                bannerLoopingPagerAdapter?.apply {
-                    bannerImage.adapter = bannerLoopingPagerAdapter
-//                    AspectRatioUtil.apply(
-//                        10,
-//                        22,
-//                        UtilConvert.convertDpToPixel(32f, UTSwapApp.instance).roundToInt(),
-//                        requireActivity(),
-//                        bannerImage
-//                    )
-                }
-
-//                indicator.attachToPager(bannerImage)
-//                indicator.visibleDotCount = if ((homeTabSlideImage.size ?: 0) > 6) { 7
-//                } else {
-//                    if ((homeTabSlideImage.size)?.rem(2) ?: 0 == 0) {
-//                        (homeTabSlideImage.size ?: 2) - 1
-//                    } else {
-//                        homeTabSlideImage.size ?: 0
-//                    }
-//                }
-                indicator.setViewPager(bannerImage)
-                bannerImage.setLooperPic(true)
-
-                bannerImage.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-                    override fun onPageScrolled(
-                        position: Int,
-                        positionOffset: Float,
-                        positionOffsetPixels: Int,
-                    ) {
-                    }
-
-                    override fun onPageSelected(position: Int) {
-                        try {
-                            if (isUserSwipe) {
-                                if (currentPosition < position) {
-//                                    homeTabSlideImage.get(position)?.title?.apply {
-//                                      //  callback.onSwipeBanner("LEFT-$this")
-//                                    }
-                                } else if (currentPosition > position) {
-//                                    homeTabSlideImage.get(position)?.title?.apply {
-//                                       // callback.onSwipeBanner("RIGHT-$this")
-//                                    }
-                                }
-                                isUserSwipe = false
-                            }
-                        } catch (e: Exception) {
-                            e.printStackTrace()
-                        }
-
-
-                    }
-
-                    override fun onPageScrollStateChanged(state: Int) {
-
-                    }
-                })
-                
-                bannerImage.setOnTouchListener { _, event ->
-                    when (event.action) {
-                        MotionEvent.ACTION_DOWN -> {
-
-                        }
-                        MotionEvent.ACTION_UP -> {
-                            isUserSwipe = true
-                        }
-                    }
-                    false
-                }
-
-
-
 
                 /* bottom sheet dialog on finance button */
 
@@ -305,6 +213,82 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
 
         } catch (error: Exception) {
             // Must be safe
+        }
+    }
+
+    override fun onGetBanner(data: BannerObj.Banner) {
+        binding.apply {
+            bannerLoopingPagerAdapter = object : BannerLoopingPagerAdapter(
+                data.data as ArrayList<BannerObj.ItemsBanner>, false
+            ){
+                override fun onBannerItemClick(data: BannerObj.ItemsBanner, position: Int) {}
+
+            }
+
+            bannerLoopingPagerAdapter?.apply {
+                bannerImage.adapter = bannerLoopingPagerAdapter
+//                    AspectRatioUtil.apply(
+//                        10,
+//                        22,
+//                        UtilConvert.convertDpToPixel(32f, UTSwapApp.instance).roundToInt(),
+//                        requireActivity(),
+//                        bannerImage
+//                    )
+            }
+
+            indicator.setViewPager(bannerImage)
+            bannerImage.setLooperPic(true)
+
+            bannerImage.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+                override fun onPageScrolled(
+                    position: Int,
+                    positionOffset: Float,
+                    positionOffsetPixels: Int,
+                ) {
+                }
+
+                override fun onPageSelected(position: Int) {
+                    try {
+                        if (isUserSwipe) {
+                            if (currentPosition < position) {
+//                                    homeTabSlideImage.get(position)?.title?.apply {
+//                                      //  callback.onSwipeBanner("LEFT-$this")
+//                                    }
+                            } else if (currentPosition > position) {
+//                                    homeTabSlideImage.get(position)?.title?.apply {
+//                                       // callback.onSwipeBanner("RIGHT-$this")
+//                                    }
+                            }
+                            isUserSwipe = false
+                        }
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+
+
+                }
+
+                override fun onPageScrollStateChanged(state: Int) {
+
+                }
+            })
+
+            bannerImage.setOnTouchListener { _, event ->
+                when (event.action) {
+                    MotionEvent.ACTION_DOWN -> {
+
+                    }
+                    MotionEvent.ACTION_UP -> {
+                        isUserSwipe = true
+                    }
+                }
+                false
+            }
+
+
+
+
+
         }
     }
 

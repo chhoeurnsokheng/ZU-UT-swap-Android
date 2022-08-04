@@ -28,4 +28,6 @@ object ApiSettings {
     const val PATH_FORGOT_PASSWORD_VERIFY = "login/verifyForgetPassword"
     const val PATH_ENTER_NEW_PASSWORD = "login/changeNewPassword"
 
+     /*Get Banner HomeScreen*/
+    const val PATH_GET_BANNNER= "portfolio/app_banner"
 }
