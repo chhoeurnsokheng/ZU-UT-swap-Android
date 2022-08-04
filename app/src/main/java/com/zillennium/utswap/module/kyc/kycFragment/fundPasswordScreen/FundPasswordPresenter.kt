@@ -28,7 +28,7 @@ class FundPasswordPresenter : BaseMvpPresenterImpl<FundPasswordView.View>(),
 
     override fun addKyc(param: User.Kyc, context: Context) {
        addKYCSubscription?.unsubscribe()
-        addKYCSubscription = ApiUserImp().addKyc(submitRequestBody(param),context).subscribe({
+        addKYCSubscription = ApiUserImp().addKyc(param,context).subscribe({
             mView?.addKycSuccess(it)
         }, { error ->
             object : CallbackWrapper(error, UTSwapApp.instance, arrayListOf()) {

@@ -32,7 +32,7 @@ interface UserService {
     @POST(ApiSettings.PATH_KYC)
     fun userAddKyc(
         @HeaderMap header: Map<String, String>,
-        @Body param: okhttp3.RequestBody
+        @Body param: User.Kyc
     ): Observable<User.KycRes>
 
     /** Register*/

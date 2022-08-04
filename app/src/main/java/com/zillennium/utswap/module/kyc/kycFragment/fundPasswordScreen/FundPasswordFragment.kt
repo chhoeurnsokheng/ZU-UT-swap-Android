@@ -2,21 +2,29 @@ package com.zillennium.utswap.module.kyc.kycFragment.fundPasswordScreen
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.text.Editable
 import android.text.TextWatcher
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
+import android.util.Base64
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.view.children
 import androidx.navigation.fragment.findNavController
+import com.google.firebase.crashlytics.buildtools.reloc.org.apache.commons.io.output.ByteArrayOutputStream
+import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
 import com.zillennium.utswap.Datas.StoredPreferences.KYCPreferences
+import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentKycFundPasswordBinding
 import com.zillennium.utswap.models.userService.User
+import com.zillennium.utswap.utils.DialogUtil
+import com.zillennium.utswap.utils.DialogUtilKyc
 
 class FundPasswordFragment :
     BaseMvpFragment<FundPasswordView.View, FundPasswordView.Presenter, FragmentKycFundPasswordBinding>(),
@@ -27,8 +35,7 @@ class FundPasswordFragment :
 
     private var clickCountPassword = 1
     private var clickCountConfirmPassword = 1
-    private var submitKYCObjet: User.Kyc? = null
-    private var arrayList = mutableListOf<User.KycList>()
+
 
     object KycInfor {
         var truename = ""
@@ -36,6 +43,7 @@ class FundPasswordFragment :
         var occupation = ""
         var companyname = ""
         var email = ""
+        var phonenumber = ""
         var citycode = ""
         var districtcode = ""
         var communecode = ""
@@ -82,16 +90,33 @@ class FundPasswordFragment :
     }
 
 
+    fun getFileToByte(filePath: String): String {
+        var bmp: Bitmap?
+        var bos: ByteArrayOutputStream? = null
+        var bt: ByteArray? = null
+        var encodeString: String = ""
+        try {
+            bmp = BitmapFactory.decodeFile(filePath)
+            bos = ByteArrayOutputStream()
+            bmp.compress(Bitmap.CompressFormat.JPEG, 100, bos)
+            bt = bos.toByteArray()
+            encodeString = Base64.encodeToString(bt, Base64.DEFAULT)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return encodeString
+    }
+
     private fun validateBtnNext() {
         binding.apply {
             btnNext.setOnClickListener {
                 if (editFundPassword.text.toString() == editConfirmFundPassword.text.toString() && editFundPassword.length() == 4 && editConfirmFundPassword.length() == 4) {
                     KYCPreferences().FUND_PASSWORD = editFundPassword.text.toString()
 
-
                     KycInfor.truename = KYCPreferences().FIRST_NAME.toString()
                     KycInfor.email = KYCPreferences().EMAIL.toString()
                     KycInfor.gender = KYCPreferences().GENDER.toString()
+                    KycInfor.phonenumber = KYCPreferences().PHONE_NUMBER.toString()
                     KycInfor.occupation = KYCPreferences().OCCUPATION.toString()
                     KycInfor.companyname = KYCPreferences().COMPANY.toString()
                     KycInfor.citycode = KYCPreferences().CITY_PROVINCE.toString()
@@ -106,39 +131,33 @@ class FundPasswordFragment :
                     KycInfor.paypassword = KYCPreferences().FUND_PASSWORD.toString()
                     KycInfor.repaypassword = KYCPreferences().FUND_PASSWORD.toString()
 
-                    submitKYCObjet?.truename = KycInfor.truename
-                    submitKYCObjet?.email = KycInfor.email
-                    submitKYCObjet?.gender = KycInfor.gender
-                    submitKYCObjet?.citycode = KycInfor.citycode
-                    submitKYCObjet?.districtcode = KycInfor.districtcode
-                    submitKYCObjet?.communecode = KycInfor.communecode
-                    submitKYCObjet?.streetnumber = KycInfor.streetnumber
-                    submitKYCObjet?.idcardinfo = KycInfor.idcardinfo
-                    submitKYCObjet?.idcardfront = KycInfor.idcardfront
-                    submitKYCObjet?.idcardrear = KycInfor.idcardrear
-                    submitKYCObjet?.userImage = KycInfor.userImage
-                  //  submitKYCObjet?.termandcondition = KycInfor.termandcondition
-                    submitKYCObjet?.paypassword = KycInfor.paypassword
-                    submitKYCObjet?.repaypassword = KycInfor.repaypassword
+                    var idCardFront =
+                        "data:image/jpeg;base64," + getFileToByte(KycInfor.idcardfront)
+                    var idCardBack = "data:image/jpeg;base64," + getFileToByte(KycInfor.idcardrear)
+                    var imageUser = "data:image/jpeg;base64," + getFileToByte(KycInfor.userImage)
 
-                    mPresenter.addKyc(User.Kyc( KycInfor.truename,
-                        KycInfor.gender,
-                        KycInfor.occupation,
-                        KycInfor.companyname,
-                        KycInfor.email,
-                        KycInfor.citycode,
-                        KycInfor.districtcode,
-                        KycInfor.communecode,
-                        KycInfor.streetnumber,
-                        KycInfor.idcardinfo,
-                        KycInfor.idcardfront,
-                        KycInfor.idcardrear,
-                        KycInfor.userImage,
-                        KycInfor.idcard,
-                        true,
-                        KycInfor.paypassword,
-                        KycInfor.repaypassword)
-                        , requireActivity()
+                    mPresenter.addKyc(
+                        User.Kyc(
+                            KycInfor.truename,
+                            KycInfor.gender,
+                            KycInfor.occupation,
+                            KycInfor.companyname,
+                            KycInfor.email,
+                            KycInfor.phonenumber,
+                            "+855",
+                            KycInfor.citycode,
+                            KycInfor.districtcode,
+                            KycInfor.communecode,
+                            KycInfor.streetnumber,
+                            KycInfor.idcardinfo,
+                            idCardFront,
+                            idCardBack,
+                            imageUser,
+                            KycInfor.idcard,
+                            "1",
+                            KycInfor.paypassword,
+                            KycInfor.repaypassword
+                        ), requireActivity()
                     )
 
                 } else {
@@ -302,6 +321,18 @@ class FundPasswordFragment :
 
     override fun addKycSuccess(data: User.KycRes) {
         if (data.status == 0) {
+            DialogUtilKyc().customDialog(
+                R.drawable.icon_log_out,
+                "KYC Issue",
+                "There has been an issue with your KYC submission. Please try again.",
+                "ok",
+                object : DialogUtil.OnAlertDialogClick {
+                    override fun onLabelCancelClick() {
+                        activity?.finish()
+                    }
+                },
+                requireActivity()
+            )
         }
         if (data.status == 1) {
             findNavController().navigate(R.id.action_to_contract_kyc_fragment)

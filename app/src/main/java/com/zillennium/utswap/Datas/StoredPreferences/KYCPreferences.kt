@@ -32,4 +32,5 @@ class KYCPreferences : BaseStoredPreferences(UTSwapApp.instance, "KYCPreferences
 
     var TERNCONDITION by stringPref()
 
+
 }

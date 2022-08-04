@@ -33,7 +33,7 @@ class ApiUserImp : ApiManager() {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
 
-    fun addKyc(body: RequestBody,context: Context): Observable<User.KycRes> = mUserService.userAddKyc(
+    fun addKyc(body: User.Kyc,context: Context): Observable<User.KycRes> = mUserService.userAddKyc(
         Header.getHeader(Header.Companion.AuthType.REQUIRED_TOKEN, context),
         body
     )

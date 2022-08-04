@@ -38,9 +38,11 @@ class EmploymentInfoFragment :
             KYCPreferences().OCCUPATION = ""
             KYCPreferences().COMPANY = ""
             KYCPreferences().EMAIL= ""
+            KYCPreferences().PHONE_NUMBER = ""
             info.company = ""
             info.email_emp = ""
             info.occupation = " "
+            info.phone_number = " "
             binding.apply {
 
                 /* if Data already input */
@@ -91,14 +93,18 @@ class EmploymentInfoFragment :
 //                        }
                     }
 
-//                    if(info.phone_number.isNotEmpty()){
+                    if(etphoneNumber.text.toString().isEmpty()){
+                        txtErrorPhone.visibility = View.VISIBLE
+                        etphoneNumber.backgroundTintList =
+                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.red_ee1111))
+                        isHaveError = true
 //                        if(!validate().isValidPhoneNumber(info.phone_number.trim())){
 //                            txtErrorPhone.visibility = View.VISIBLE
 //                            etphoneNumber.backgroundTintList =
 //                                ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.red_ee1111))
 //                            isHaveError = true
 //                        }
-//                    }
+                    }
 
                     if (isHaveError) {
                         return@setOnClickListener

@@ -185,8 +185,8 @@
     <string name="company">Company</string>
     <string name="employment">Employment</string>
     <string name="other_information">Other Information</string>
-    <string name="additional_phone_number_optional">Additional Phone Number (optional)</string>
-    <string name="email_address_optional">Email Address (optional)</string>
+    <string name="additional_phone_number_optional">Additional Phone Number</string>
+    <string name="email_address_optional">Email Address </string>
     <string name="address_information">Address Information</string>
     <string name="city_province">City/Province</string>
     <string name="accept">Accept</string>
