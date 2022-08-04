@@ -122,6 +122,13 @@ class NewsFragment :
             mPresenter.onGetNews(UTSwapApp.instance,1)
 
         }
+        SessionVariable.SESSION_KYC.observe(this@NewsFragment) {
+            page = 1
+            listNews.clear()
+            binding.txtEnd.visibility = View.GONE
+            mPresenter.onGetNews(UTSwapApp.instance,1)
+        }
+
     }
 
     private fun onOrderActivity(){
