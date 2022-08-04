@@ -16,6 +16,7 @@ class SessionPreferences: BaseStoredPreferences(UTSwapApp.instance, "SessionPref
     var SESSION_X_TOKEN_API by stringPref(defaultValue = "")
     var SESSION_SECURE_KEY by stringPref()
     var SESSION_SECURE_KEY_FORGOT_PASSWORD by stringPref()
+    var SESSION_SECURE_KEY_ADD_PHONE by stringPref()
 
     //store phone number that user add, and image profile user set
     var SESSION_PHONE_NUMBER by stringPref(defaultValue = "")

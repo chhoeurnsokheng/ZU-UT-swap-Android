@@ -91,4 +91,39 @@ class VerificationPresenter : BaseMvpPresenterImpl<VerificationView.View>(),
             }
         })
     }
+
+    override fun onVerifyAddPhoneNumber(data: User.VerifyAddPhoneNumberObject, context: Context) {
+        subscription?.unsubscribe()
+        subscription = ApiUserImp().verifyAddPhoneNumber(data,context).subscribe({
+            if(it.status == 1){
+                mView?.onVerifyAddPhoneNumberSuccess(it)
+            }else{
+                mView?.onVerifyAddPhoneNumberFail(it)
+            }
+        },{
+            object : CallbackWrapper(it, UTSwapApp.instance, arrayListOf()){
+                override fun onCallbackWrapper(status: ApiManager.NetworkErrorStatus, data: Any) {
+                    mView?.onFail(data.toString())
+                }
+            }
+        })
+    }
+
+    override fun onResendCodeAddPhoneNumber(data: User.AddPhoneNumberObject, context: Context) {
+        subscriptionResendCode?.unsubscribe()
+        subscriptionResendCode = ApiUserImp().addPhoneNumber(data,context).subscribe({
+            if(it.status == 1)
+            {
+                mView?.onResendCodeAddPhoneSuccess(it)
+            }else{
+                mView?.onResendCodeAddPhoneFail(it)
+            }
+        },{
+            object : CallbackWrapper(it, UTSwapApp.instance, arrayListOf()){
+                override fun onCallbackWrapper(status: ApiManager.NetworkErrorStatus, data: Any) {
+                    mView?.onFail(data.toString())
+                }
+            }
+        })
+    }
 }

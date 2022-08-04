@@ -106,4 +106,35 @@ object User {
     class EnterNewPasswordData{
 
     }
+
+    /** Add Phone Number*/
+    class AddPhoneNumberRes{
+        var status: Int? = null
+        var message: String? = null
+        var data: AddPhoneNumberData? = null
+    }
+
+    class AddPhoneNumberData{
+        var secure_key: String? = null
+    }
+
+    class AddPhoneNumberObject(
+        var cellphone: String?
+    )
+
+    /** Verify Add phone number*/
+    class VerifyAddPhoneNumberRes{
+        var status: Int? = null
+        var message: String? = null
+        var data: VerifyAddPhoneNumberData? = null
+    }
+
+    class VerifyAddPhoneNumberData{
+        var phone: String? = null
+    }
+
+    class VerifyAddPhoneNumberObject(
+        var secure_key: String?,
+        var otp_code: String?
+    )
 }

@@ -28,4 +28,8 @@ object ApiSettings {
     const val PATH_FORGOT_PASSWORD_VERIFY = "login/verifyForgetPassword"
     const val PATH_ENTER_NEW_PASSWORD = "login/changeNewPassword"
 
+    /** Add Phone Number*/
+    const val PATH_ADD_PHONE_NUMBER = "add_phone_number"
+    const val PATH_VERIFY_CODE_PHONE = "add_phone_number/verify_code"
+
 }

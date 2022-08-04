@@ -43,6 +43,13 @@ interface Constants {
         }
     }
 
+    /** Add Phone Number for resend code*/
+    interface AddPhoneNumber{
+        companion object{
+            var cellPhone = ""
+        }
+    }
+
     interface Key {
         companion object {
             const val ContentType = "Content-Type"

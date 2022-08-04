@@ -61,4 +61,21 @@ class ApiUserImp:ApiManager() {
         )
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
+
+    /** Add Phone Number*/
+    fun addPhoneNumber(body: User.AddPhoneNumberObject,context: Context): Observable<User.AddPhoneNumberRes> =
+        mUserService.addPhoneNumberService(
+            Header.getHeader(Header.Companion.AuthType.REQUIRED_TOKEN, context),
+            body
+        )
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+
+    fun verifyAddPhoneNumber(body: User.VerifyAddPhoneNumberObject, context: Context): Observable<User.VerifyAddPhoneNumberRes> =
+        mUserService.verifyAddPhoneNumber(
+            Header.getHeader(Header.Companion.AuthType.REQUIRED_TOKEN, context),
+            body
+        )
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
 }

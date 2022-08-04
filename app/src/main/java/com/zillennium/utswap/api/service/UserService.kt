@@ -52,4 +52,17 @@ interface UserService {
         @HeaderMap header: Map<String,String>,
         @Body body: User.EnterNewPasswordObject
     ): Observable<User.EnterNewPasswordRes>
+
+    /** Add Phone Number*/
+    @POST(ApiSettings.PATH_ADD_PHONE_NUMBER)
+    fun addPhoneNumberService(
+        @HeaderMap header: Map<String, String>,
+        @Body body: User.AddPhoneNumberObject
+    ): Observable<User.AddPhoneNumberRes>
+
+    @POST(ApiSettings.PATH_VERIFY_CODE_PHONE)
+    fun verifyAddPhoneNumber(
+        @HeaderMap header: Map<String, String>,
+        @Body body: User.VerifyAddPhoneNumberObject
+    ): Observable<User.VerifyAddPhoneNumberRes>
 }
