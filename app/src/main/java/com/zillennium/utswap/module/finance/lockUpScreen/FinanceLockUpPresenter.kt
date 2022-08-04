@@ -20,16 +20,18 @@ class FinanceLockUpPresenter : BaseMvpPresenterImpl<FinanceLockUpView.View>(),
         mView?.initView()
     }
 
-    override fun postLockUpBalance(type: String) {
+    override fun postLockUpBalance(type: String, page: Int) {
         mContext?.let { it1 ->
             val param = JsonObject()
             param.addProperty("type", type)
+            param.addProperty("page", page)
             postLockUpBalanceSubscription = ApiFinanceImp().postLockUpBalance(it1, param).subscribe(
                 { lockUpData ->
-                    val dataRes = Gson().fromJson(lockUpData, BaseResponse::class.java)
+                    val dataRes =
+                        Gson().fromJson(lockUpData, LockUpBalanceObject.LockUpBalance::class.java)
                     if (dataRes.status == 1) {
-                        if (dataRes.data is LockUpBalanceObject.LockUpBalanceRes) {
-                            mView?.onPostLockUpBalanceSuccess(dataRes.data as LockUpBalanceObject.LockUpBalanceRes)
+                        dataRes?.data?.let {
+                            mView?.onPostLockUpBalanceSuccess(it)
                         }
                     } else {
                         mView?.onPostLockBalanceFail()

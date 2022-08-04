@@ -27,7 +27,7 @@ class FinanceSubscriptionsActivity :
 
     override var mPresenter: FinanceSubscriptionsView.Presenter = FinanceSubscriptionsPresenter()
     override val layoutResource: Int = R.layout.activity_finance_subscriptions
-    private val arraySubscription = ArrayList<FinanceSubscriptionsModel>()
+    private val arraySubscription = ArrayList<Any>()
     private var financeSubscriptionsAdapter: FinanceSubscriptionsAdapter? = null
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -36,6 +36,8 @@ class FinanceSubscriptionsActivity :
         try {
 
             toolBar()
+
+//            mPresenter.postSubscription()
 
             binding.apply {
 
@@ -118,9 +120,9 @@ class FinanceSubscriptionsActivity :
                 }*/
 
                 rvSubscriptions.layoutManager = LinearLayoutManager(UTSwapApp.instance)
-                financeSubscriptionsAdapter =
+                /*financeSubscriptionsAdapter =
                     FinanceSubscriptionsAdapter(arraySubscription, onClickAdapter)
-                rvSubscriptions.adapter = financeSubscriptionsAdapter
+                rvSubscriptions.adapter = financeSubscriptionsAdapter*/
 
 
                 SettingVariable.finance_subscription_filter.observe(this@FinanceSubscriptionsActivity) {
@@ -137,13 +139,15 @@ class FinanceSubscriptionsActivity :
         }
     }
 
-    override fun onPostSubscriptionSuccess(dataRes: ArrayList<SubscriptionObject.SubscriptionList>) {
+    override fun onPostSubscriptionSuccess(dataRes: SubscriptionObject.SubscriptionRes) {
+        arraySubscription.clear()
+        arraySubscription.add(dataRes)
+        initRecyclerView()
 
     }
 
     override fun onPostSubscriptionFail() {
     }
-
 
 
     private fun toolBar() {
@@ -158,36 +162,59 @@ class FinanceSubscriptionsActivity :
             }
         }
     }
+
     /* filter based on selected from bottomSheet dialog */
     private fun filterList(text: String) {
         val newArrayList: ArrayList<FinanceSubscriptionsModel> =
             ArrayList<FinanceSubscriptionsModel>()
         for (item in arraySubscription) {
-            if (item.titleSubscription.toLowerCase()
+            /*if (item.titleSubscription.toLowerCase()
                     .contains(text.lowercase(Locale.getDefault()))
             ) {
                 newArrayList.add(item)
-            }
+            }*/
         }
 
-        financeSubscriptionsAdapter?.filterList(newArrayList)
+//        financeSubscriptionsAdapter?.filterList(newArrayList)
     }
 
 
-    private val onClickAdapter: FinanceSubscriptionsAdapter.OnClickAdapter =
-        object : FinanceSubscriptionsAdapter.OnClickAdapter {
-            override fun onClickMe(financeSubscriptionsModel: FinanceSubscriptionsModel) {
-                val financeSubscriptionsDialog: FinanceSubscriptionsDialog =
-                    FinanceSubscriptionsDialog.newInstance(
-                        financeSubscriptionsModel.titleSubscription,
-                        financeSubscriptionsModel.status,
-                        financeSubscriptionsModel.amount,
-                        financeSubscriptionsModel.durationDay,
-                        financeSubscriptionsModel.imageSubscription
-                    )
-                financeSubscriptionsDialog.show(supportFragmentManager, "Dialog of Subscription")
-            }
-        }
+    /* private val onClickAdapter: FinanceSubscriptionsAdapter.OnClickAdapter =
+         object : FinanceSubscriptionsAdapter.OnClickAdapter {
+             override fun onClickMe(financeSubscriptionsModel: FinanceSubscriptionsModel) {
+                 val financeSubscriptionsDialog: FinanceSubscriptionsDialog =
+                     FinanceSubscriptionsDialog.newInstance(
+                         financeSubscriptionsModel.titleSubscription,
+                         financeSubscriptionsModel.status,
+                         financeSubscriptionsModel.amount,
+                         financeSubscriptionsModel.durationDay,
+                         financeSubscriptionsModel.imageSubscription
+                     )
+                 financeSubscriptionsDialog.show(supportFragmentManager, "Dialog of Subscription")
+             }
+         }
+ */
+
+    private fun initRecyclerView() {
+       /* financeSubscriptionsAdapter =
+            FinanceSubscriptionsAdapter(object : FinanceSubscriptionsAdapter.OnClickAdapter {
+                override fun onClickSubscription() {
+                }
+            })
+        binding.rvSubscriptions.apply {
+            layoutManager = LinearLayoutManager(
+                this@FinanceSubscriptionsActivity,
+                LinearLayoutManager.VERTICAL,
+                false
+            )
+            financeSubscriptionsAdapter?.setItems(arraySubscription)
+            adapter = financeSubscriptionsAdapter
+
+
+        }*/
+
+
+    }
 
     @SuppressLint("SetTextI18n")
     private fun filter() {
@@ -202,17 +229,17 @@ class FinanceSubscriptionsActivity :
                 txtTitleFilter.text = filter
 
                 if (filter == "All Projects") {
-                    list.addAll(arraySubscription)
+//                    list.addAll(arraySubscription)
                 } else {
                     arraySubscription.map {
-                        if(filter == it.titleSubscription){
+                        /*if (filter == it.titleSubscription) {
                             list.add(it)
-                        }
+                        }*/
                     }
                 }
             }
 
-            if(!dateStart.isNullOrEmpty() && !dateEnd.isNullOrEmpty()){
+            /*if (!dateStart.isNullOrEmpty() && !dateEnd.isNullOrEmpty()) {
 
                 val dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MMMM-yyyy")
 
@@ -220,20 +247,20 @@ class FinanceSubscriptionsActivity :
                 val dateEndFormat: LocalDate = LocalDate.parse(dateEnd, dateTimeFormatter)
 
                 list.map {
-                    val date : LocalDate = LocalDate.parse(it.dateSubscription, dateTimeFormatter)
-                    if(date in dateStartFormat..dateEndFormat){
+                    val date: LocalDate = LocalDate.parse(it.dateSubscription, dateTimeFormatter)
+                    if (date in dateStartFormat..dateEndFormat) {
                         listDate.add(it)
                     }
                 }
 
                 list.clear()
                 list.addAll(listDate)
-            }
+            }*/
 
             rvSubscriptions.layoutManager = LinearLayoutManager(UTSwapApp.instance)
-            financeSubscriptionsAdapter =
-                FinanceSubscriptionsAdapter(list, onClickAdapter)
-            rvSubscriptions.adapter = financeSubscriptionsAdapter
+            /* financeSubscriptionsAdapter =
+                 FinanceSubscriptionsAdapter(list, onClickAdapter)
+             rvSubscriptions.adapter = financeSubscriptionsAdapter*/
 
         }
 

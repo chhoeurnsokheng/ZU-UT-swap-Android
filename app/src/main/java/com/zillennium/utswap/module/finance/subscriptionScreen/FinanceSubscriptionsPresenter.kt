@@ -23,10 +23,10 @@ class FinanceSubscriptionsPresenter : BaseMvpPresenterImpl<FinanceSubscriptionsV
         mContext?.let { it1 ->
             postSubscription = ApiFinanceImp().postSubscription(it1, body).subscribe(
                 {
-                    val data = Gson().fromJson(it, BaseResponse::class.java)
+                    val data = Gson().fromJson(it, SubscriptionObject.Subscription::class.java)
                     if (data.status == 1) {
-                        data.data?.let { subscriptionData ->
-                            mView?.onPostSubscriptionSuccess(subscriptionData as ArrayList<SubscriptionObject.SubscriptionList>)
+                        data?.data?.let { subscriptionData ->
+                            mView?.onPostSubscriptionSuccess(subscriptionData)
                         }
                     } else {
                         mView?.onPostSubscriptionFail()

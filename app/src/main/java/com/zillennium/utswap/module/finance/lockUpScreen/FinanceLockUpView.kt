@@ -9,12 +9,12 @@ import com.zillennium.utswap.models.lockUpBalance.LockUpBalanceObject
 class FinanceLockUpView {
     interface View : BaseMvpView {
         override fun initView()
-        fun onPostLockUpBalanceSuccess(dataRes: LockUpBalanceObject.LockUpBalanceRes)
+        fun onPostLockUpBalanceSuccess(dataRes: LockUpBalanceObject.LockUpBalanceResData)
         fun onPostLockBalanceFail()
     }
 
     interface Presenter : BaseMvpPresenter<View> {
         override fun initViewPresenter(context: Context, bundle: Bundle?)
-        fun postLockUpBalance(type: String)
+        fun postLockUpBalance(type: String, page: Int)
     }
 }

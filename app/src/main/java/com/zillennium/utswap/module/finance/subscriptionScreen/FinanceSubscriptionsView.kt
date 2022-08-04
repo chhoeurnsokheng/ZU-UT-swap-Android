@@ -9,7 +9,7 @@ import com.zillennium.utswap.models.financeSubscription.SubscriptionObject
 class FinanceSubscriptionsView {
     interface View : BaseMvpView {
         override fun initView()
-        fun onPostSubscriptionSuccess(dataRes: ArrayList<SubscriptionObject.SubscriptionList>)
+        fun onPostSubscriptionSuccess(dataRes: SubscriptionObject.SubscriptionRes)
         fun onPostSubscriptionFail()
 
     }

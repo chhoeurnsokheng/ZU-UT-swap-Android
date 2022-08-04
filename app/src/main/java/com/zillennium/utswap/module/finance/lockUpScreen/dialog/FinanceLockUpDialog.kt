@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.*
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import com.zillennium.utswap.R
@@ -15,6 +16,7 @@ import eightbitlab.com.blurview.RenderScriptBlur
 class FinanceLockUpDialog: DialogFragment() {
 
     private var binding: DialogFinanceLockUpBinding? = null
+    private var isLocked = false
 
     override fun getTheme(): Int {
         return R.style.AlertDialog
@@ -50,13 +52,25 @@ class FinanceLockUpDialog: DialogFragment() {
             closeImage.setOnClickListener{
                 dismiss()
             }
-
+            isLocked = arguments?.getBoolean("isLock") == true
             txtTitle.text = arguments?.getString("title")
             txtAmount.text = arguments?.getString("amount")
             txtStartDate.text = arguments?.getString("start_date")
             txtEndDate.text = arguments?.getString("end_date")
-            txtDuration.text = arguments?.getString("duration")
+            txtDuration.text = "${arguments?.getString("duration")} Day(s)"
             txtCategory.text = arguments?.getString("category")
+
+            if (isLocked) {
+                tvLock.text = "Locked"
+                ivLock.setImageResource(R.drawable.ic_locked)
+                tvLock.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
+
+            } else {
+                tvLock.text = "Unlocked"
+                ivLock.setImageResource(R.drawable.ic_unlocked)
+                tvLock.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.simple_green))
+
+            }
 
         }
     }
@@ -68,7 +82,8 @@ class FinanceLockUpDialog: DialogFragment() {
             startDate: String?,
             endDate: String?,
             duration: String?,
-            category: String?
+            category: String?,
+            isLock: Boolean?
         ): FinanceLockUpDialog {
             val financeLockUpBuyBackDialog = FinanceLockUpDialog()
             val args = Bundle()
@@ -78,6 +93,7 @@ class FinanceLockUpDialog: DialogFragment() {
             args.putString("end_date", endDate)
             args.putString("duration", duration)
             args.putString("category", category)
+            args.putBoolean("isLock", isLock?: false)
 
             financeLockUpBuyBackDialog.arguments = args
             return financeLockUpBuyBackDialog

@@ -2,12 +2,13 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
         <RelativeLayout
+            android:id="@+id/tool_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -32,9 +33,11 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginHorizontal="@dimen/dimen_20">
+            android:layout_height="match_parent"
+            android:layout_below="@+id/tool_bar"
+            android:layout_marginHorizontal="@dimen/dimen_20"
+            android:layout_above="@+id/progressBar"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -53,27 +56,27 @@
                 <TextView
                     android:id="@+id/amount_lock_up"
                     android:layout_width="@dimen/dimen_0"
-                    android:layout_weight="70"
-                    android:textAppearance="@style/medium_32"
-                    android:gravity="end"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/primary"
-                    android:text="$100.68"/>
+                    android:layout_weight="70"
+                    android:gravity="end"
+                    android:text="$100.68"
+                    android:textAppearance="@style/medium_32"
+                    android:textColor="@color/primary" />
 
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dimen_1"
-                android:background="@color/light_gray"
-                android:layout_marginBottom="@dimen/dimen_28"/>
+                android:layout_marginBottom="@dimen/dimen_28"
+                android:background="@color/light_gray" />
 
             <RelativeLayout
                 android:id="@+id/lay_filter"
                 android:layout_width="match_parent"
                 android:layout_height="42dp"
-                android:background="@drawable/bg_circular"
-                android:layout_marginBottom="@dimen/dimen_24">
+                android:layout_marginBottom="@dimen/dimen_24"
+                android:background="@drawable/bg_circular">
 
                 <TextView
                     android:id="@+id/btn_filter"
@@ -87,24 +90,46 @@
                 <ImageView
                     android:layout_width="@dimen/dimen_18"
                     android:layout_height="@dimen/dimen_18"
-                    android:src="@drawable/ic_baseline_filter_list_24"
-                    app:tint="@color/white"
-                    android:layout_centerVertical="true"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="@dimen/dimen_20"/>
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/dimen_20"
+                    android:src="@drawable/ic_baseline_filter_list_24"
+                    app:tint="@color/white" />
 
             </RelativeLayout>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_filter_lock_up"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:scrollbars="none"
-                android:overScrollMode="never"
-                android:nestedScrollingEnabled="false"
-                />
+                android:layout_height="match_parent">
 
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_filter_lock_up"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:nestedScrollingEnabled="false"
+                    android:overScrollMode="never"
+                    android:scrollbars="none" />
+
+                <TextView
+                    android:id="@+id/tv_no_lock_up"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="No Record"
+                    android:textAppearance="@style/medium_14"
+                    android:textColor="@color/gray_707070"
+                    android:visibility="invisible"/>
+            </RelativeLayout>
         </LinearLayout>
 
-    </LinearLayout>
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="@dimen/dimen_24"
+            android:layout_height="@dimen/dimen_24"
+            android:layout_alignParentBottom="true"
+            android:layout_centerInParent="true"
+            android:visibility="invisible"/>
+
+
+    </RelativeLayout>
 </layout>

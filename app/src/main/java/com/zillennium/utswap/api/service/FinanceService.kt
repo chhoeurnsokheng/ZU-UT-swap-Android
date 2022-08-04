@@ -3,11 +3,9 @@ package com.zillennium.utswap.api.service
 import com.google.gson.JsonObject
 import com.zillennium.utswap.api.ApiSettings
 import com.zillennium.utswap.models.financeSubscription.SubscriptionObject
-import org.json.JSONObject
 import retrofit2.http.Body
 import retrofit2.http.HeaderMap
 import retrofit2.http.POST
-import retrofit2.http.Path
 import rx.Observable
 
 interface FinanceService {
