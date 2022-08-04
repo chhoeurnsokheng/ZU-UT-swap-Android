@@ -1,5 +1,6 @@
 package com.zillennium.utswap.module.security.securityFragment.changeLoginPassword
 
+import android.content.Context
 import android.content.res.ColorStateList
 import android.os.Handler
 import android.text.Editable
@@ -7,12 +8,14 @@ import android.text.TextWatcher
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentAccountChangeLoginPasswordBinding
+import com.zillennium.utswap.models.userService.User
 
 
 class ChangeLoginPasswordFragment :
@@ -24,178 +27,224 @@ class ChangeLoginPasswordFragment :
 
     override fun initView() {
         super.initView()
-        try {
-            binding.apply {
-                imgClose.setOnClickListener {
-                    activity?.finish()
+        onOtherActivity()
+        onChangePassword()
+    }
+
+    private fun onOtherActivity(){
+        binding.apply {
+            imgClose.setOnClickListener {
+                activity?.finish()
+                hideKeyboard()
+            }
+
+            imgConfirmPassword.setOnClickListener { view ->
+                showHideConfirmPassword(view)
+            }
+
+            imgNewPassword.setOnClickListener { view ->
+                showHideNewPassword(view)
+            }
+
+            imgOldPassword.setOnClickListener { view ->
+                showHideOldPassword(view)
+            }
+
+            txtForgotPassword.setOnClickListener {
+                findNavController().navigate(R.id.action_to_forgot_password_fragment)
+            }
+
+            etOldPassword.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(
+                    charSequence: CharSequence,
+                    i: Int,
+                    i1: Int,
+                    i2: Int
+                ) {
                 }
 
-                btnNext.setOnClickListener {
-                    var isHaveError = false
-
-                    if(etConfirmPassword.text.toString().trim() != etNewPassword.text.toString().trim()){
-                        txtPasswordMessage.text = "Password didn't match"
-                        txtPasswordMessage.visibility = View.VISIBLE
-                        etConfirmPassword.backgroundTintList =
-                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
-                        etNewPassword.backgroundTintList =
-                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
-                        isHaveError = true
-                    }
-
-                    if (etConfirmPassword.text.toString().length < 8) {
-                        txtPasswordMessage.text = "Please Enter a Confirm Password Longer Than 8 Digits"
-                        txtPasswordMessage.visibility = View.VISIBLE
-                        etConfirmPassword.backgroundTintList =
-                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
-                        isHaveError = true
-                    }
-
-                    if(etNewPassword.text.toString().trim() == etOldPassword.text.toString().trim())
-                    {
-                        txtPasswordMessage.text = "Old Password And New Password Must Not Be The Same"
-                        txtPasswordMessage.visibility = View.VISIBLE
-                        etNewPassword.backgroundTintList =
-                                ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
-                        etOldPassword.backgroundTintList =
-                                ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
-                        isHaveError = true
-                    }
-
-                    if (etOldPassword.text.toString().length < 8) {
-                        txtPasswordMessage.text = "Your Old Password Longer Than 8 Digits"
-                        txtPasswordMessage.visibility = View.VISIBLE
-                        etOldPassword.backgroundTintList =
-                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
-                        isHaveError = true
-                    }
-
-                    if (etNewPassword.text.toString().length < 8) {
-                        txtPasswordMessage.text = "Please Enter a Password Longer Than 8 Digits"
-                        txtPasswordMessage.visibility = View.VISIBLE
-                        etNewPassword.backgroundTintList =
-                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
-                        isHaveError = true
-                    }
-
-                    if (!isHaveError) {
-                        pbNext.visibility = View.VISIBLE
-                        btnNext.isClickable = false
-                        btnNext.alpha = 0.6F
-
-                        Handler().postDelayed({
-                            txtPasswordMessage.visibility = View.GONE
-                            etNewPassword.backgroundTintList =
-                                ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text))
-                            etOldPassword.backgroundTintList =
-                                ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text))
-                            etConfirmPassword.backgroundTintList =
-                                ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text))
-
-                            pbNext.visibility = View.GONE
-                            btnNext.isClickable = true
-                            btnNext.alpha = 1F
-
-                            findNavController().navigate(R.id.action_to_verification_security_fragment)
-                        }, 3000)
-                    }
+                override fun onTextChanged(
+                    charSequence: CharSequence,
+                    i: Int,
+                    i1: Int,
+                    i2: Int
+                ) {
                 }
 
-                txtForgotPassword.setOnClickListener {
-                    findNavController().navigate(R.id.action_to_forgot_password_fragment)
+                override fun afterTextChanged(editable: Editable) {
+                    txtPasswordMessage.visibility = View.GONE
+                    etOldPassword.backgroundTintList =
+                        ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text))
+
+                }
+            })
+
+            etNewPassword.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(
+                    charSequence: CharSequence,
+                    i: Int,
+                    i1: Int,
+                    i2: Int
+                ) {
                 }
 
-                etOldPassword.addTextChangedListener(object : TextWatcher {
-                    override fun beforeTextChanged(
-                        charSequence: CharSequence,
-                        i: Int,
-                        i1: Int,
-                        i2: Int
-                    ) {
-                    }
-
-                    override fun onTextChanged(
-                        charSequence: CharSequence,
-                        i: Int,
-                        i1: Int,
-                        i2: Int
-                    ) {
-                    }
-
-                    override fun afterTextChanged(editable: Editable) {
-                        txtPasswordMessage.visibility = View.GONE
-                        etOldPassword.backgroundTintList =
-                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text))
-
-                    }
-                })
-
-                etNewPassword.addTextChangedListener(object : TextWatcher {
-                    override fun beforeTextChanged(
-                        charSequence: CharSequence,
-                        i: Int,
-                        i1: Int,
-                        i2: Int
-                    ) {
-                    }
-
-                    override fun onTextChanged(
-                        charSequence: CharSequence,
-                        i: Int,
-                        i1: Int,
-                        i2: Int
-                    ) {
-                    }
-
-                    override fun afterTextChanged(editable: Editable) {
-                        txtPasswordMessage.visibility = View.GONE
-                        etNewPassword.backgroundTintList =
-                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text))
-
-                    }
-                })
-
-                etConfirmPassword.addTextChangedListener(object : TextWatcher {
-                    override fun beforeTextChanged(
-                        charSequence: CharSequence,
-                        i: Int,
-                        i1: Int,
-                        i2: Int
-                    ) {
-                    }
-
-                    override fun onTextChanged(
-                        charSequence: CharSequence,
-                        i: Int,
-                        i1: Int,
-                        i2: Int
-                    ) {
-                    }
-
-                    override fun afterTextChanged(editable: Editable) {
-                        txtPasswordMessage.visibility = View.GONE
-                        etConfirmPassword.backgroundTintList =
-                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text))
-
-                    }
-                })
-
-                imgConfirmPassword.setOnClickListener { view ->
-                    showHideConfirmPassword(view)
+                override fun onTextChanged(
+                    charSequence: CharSequence,
+                    i: Int,
+                    i1: Int,
+                    i2: Int
+                ) {
                 }
 
-                imgNewPassword.setOnClickListener { view ->
-                    showHideNewPassword(view)
+                override fun afterTextChanged(editable: Editable) {
+                    txtPasswordMessage.visibility = View.GONE
+                    etNewPassword.backgroundTintList =
+                        ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text))
+
+                }
+            })
+
+            etConfirmPassword.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(
+                    charSequence: CharSequence,
+                    i: Int,
+                    i1: Int,
+                    i2: Int
+                ) {
                 }
 
-                imgOldPassword.setOnClickListener { view ->
-                    showHideOldPassword(view)
+                override fun onTextChanged(
+                    charSequence: CharSequence,
+                    i: Int,
+                    i1: Int,
+                    i2: Int
+                ) {
+                }
+
+                override fun afterTextChanged(editable: Editable) {
+                    txtPasswordMessage.visibility = View.GONE
+                    etConfirmPassword.backgroundTintList =
+                        ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text))
+
+                }
+            })
+        }
+    }
+
+    private fun onChangePassword(){
+        binding.apply {
+            btnNext.setOnClickListener {
+                var isHaveError = false
+
+                if(etConfirmPassword.text.toString().trim() != etNewPassword.text.toString().trim()){
+                    txtPasswordMessage.text = resources.getString(R.string.password_does_not_match)
+                    txtPasswordMessage.visibility = View.VISIBLE
+                    etConfirmPassword.backgroundTintList =
+                        ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
+                    etNewPassword.backgroundTintList =
+                        ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
+                    isHaveError = true
+                }
+
+                if (etConfirmPassword.text.toString().length < 8) {
+                    txtPasswordMessage.text = resources.getString(R.string.please_enter_a_password_longer_than_8_digits)
+                    txtPasswordMessage.visibility = View.VISIBLE
+                    etConfirmPassword.backgroundTintList =
+                        ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
+                    isHaveError = true
+                }
+
+                if(etNewPassword.text.toString().trim() == etOldPassword.text.toString().trim())
+                {
+                    txtPasswordMessage.text = resources.getString(R.string.new_password_cannot_be_the_same_as_old)
+                    txtPasswordMessage.visibility = View.VISIBLE
+                    etNewPassword.backgroundTintList =
+                        ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
+                    etOldPassword.backgroundTintList =
+                        ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
+                    isHaveError = true
+                }
+
+                if (etOldPassword.text.toString().length < 8) {
+                    txtPasswordMessage.text = resources.getString(R.string.your_old_password_must_longer_than_8_digits)
+                    txtPasswordMessage.visibility = View.VISIBLE
+                    etOldPassword.backgroundTintList =
+                        ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
+                    isHaveError = true
+                }
+
+                if (etNewPassword.text.toString().length < 8) {
+                    txtPasswordMessage.text = resources.getString(R.string.please_enter_a_password_longer_than_8_digits)
+                    txtPasswordMessage.visibility = View.VISIBLE
+                    etNewPassword.backgroundTintList =
+                        ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
+                    isHaveError = true
+                }
+
+                if (!isHaveError) {
+                    onProgressBar(true)
+                    mPresenter.onChangeLoginPassword(User.ChangeLoginPasswordObject(etOldPassword.text.toString(),etNewPassword.text.toString(),etConfirmPassword.text.toString()),UTSwapApp.instance)
                 }
             }
-            // Code
-        } catch (error: Exception) {
-            // Must be safe
         }
+    }
+
+    override fun onChangePasswordSuccess(data: User.ChangeLoginPasswordRes) {
+        onProgressBar(false)
+        binding.apply {
+            activity?.finish()
+            hideKeyboard()
+        }
+    }
+
+    override fun onChangePasswordFail(data: User.ChangeLoginPasswordRes) {
+        onProgressBar(false)
+        binding.apply {
+            txtPasswordMessage.visibility = View.VISIBLE
+            txtPasswordMessage.text = data.message.toString()
+            if(data.message.toString() == "OLD PASSWORD IS WRONG!")
+            {
+                etOldPassword.backgroundTintList =
+                    ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
+            }else if(data.message.toString() == "VERIFY PASSWORD DID NOT MATCH!"){
+                etConfirmPassword.backgroundTintList =
+                    ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
+            }else{
+                etOldPassword.backgroundTintList =
+                    ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
+                etNewPassword.backgroundTintList =
+                    ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
+                etConfirmPassword.backgroundTintList =
+                    ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
+            }
+        }
+    }
+
+    private fun onProgressBar(status: Boolean){
+        binding.apply {
+            if(status){
+                pbNext.visibility = View.VISIBLE
+                btnNext.isClickable = false
+                btnNext.alpha = 0.6F
+            }else{
+                pbNext.visibility = View.GONE
+                btnNext.isClickable = true
+                btnNext.alpha = 1F
+            }
+            etOldPassword.backgroundTintList =
+                ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text))
+            etNewPassword.backgroundTintList =
+                ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text))
+            etConfirmPassword.backgroundTintList =
+                ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text))
+            txtPasswordMessage.visibility = View.GONE
+        }
+    }
+
+    private fun hideKeyboard() {
+        val inputManager =
+            requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputManager.hideSoftInputFromWindow(view?.windowToken, 0)
     }
 
     //Show Hide Password

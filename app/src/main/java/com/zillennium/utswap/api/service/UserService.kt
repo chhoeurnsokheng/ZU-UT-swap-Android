@@ -52,4 +52,11 @@ interface UserService {
         @HeaderMap header: Map<String,String>,
         @Body body: User.EnterNewPasswordObject
     ): Observable<User.EnterNewPasswordRes>
+
+    /** Change Login Password*/
+    @POST(ApiSettings.PATH_CHANGE_LOGIN_PASSWORD)
+    fun changeLoginPassword(
+        @HeaderMap header: Map<String,String>,
+        @Body body: User.ChangeLoginPasswordObject
+    ): Observable<User.ChangeLoginPasswordRes>
 }

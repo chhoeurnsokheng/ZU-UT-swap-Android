@@ -28,4 +28,6 @@ object ApiSettings {
     const val PATH_FORGOT_PASSWORD_VERIFY = "login/verifyForgetPassword"
     const val PATH_ENTER_NEW_PASSWORD = "login/changeNewPassword"
 
+    /** Chanage Login Password*/
+    const val PATH_CHANGE_LOGIN_PASSWORD = "user/changeNewPassword"
 }

@@ -106,4 +106,17 @@ object User {
     class EnterNewPasswordData{
 
     }
+
+    /** Change Login Password*/
+    class ChangeLoginPasswordRes{
+        var status: Int? = null
+        var message: String? = null
+        var data: Any? = null
+    }
+
+    class ChangeLoginPasswordObject(
+        var old_password: String?,
+        var new_password: String?,
+        var verify_password: String?
+    )
 }

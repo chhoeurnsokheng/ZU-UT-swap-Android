@@ -61,4 +61,13 @@ class ApiUserImp:ApiManager() {
         )
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
+
+    /** Change Login Password*/
+    fun changeLoginPassword(body: User.ChangeLoginPasswordObject, context: Context): Observable<User.ChangeLoginPasswordRes> =
+        mUserService.changeLoginPassword(
+            Header.getHeader(Header.Companion.AuthType.REQUIRED_TOKEN, context),
+            body
+        )
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
 }
