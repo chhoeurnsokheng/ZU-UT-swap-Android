@@ -6,7 +6,6 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
-import android.util.Log
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import androidx.core.content.ContextCompat
@@ -118,7 +117,7 @@ class FundPasswordFragment :
                     submitKYCObjet?.idcardfront = KycInfor.idcardfront
                     submitKYCObjet?.idcardrear = KycInfor.idcardrear
                     submitKYCObjet?.userImage = KycInfor.userImage
-                    submitKYCObjet?.termandcondition = KycInfor.termandcondition
+                  //  submitKYCObjet?.termandcondition = KycInfor.termandcondition
                     submitKYCObjet?.paypassword = KycInfor.paypassword
                     submitKYCObjet?.repaypassword = KycInfor.repaypassword
 
@@ -136,7 +135,7 @@ class FundPasswordFragment :
                         KycInfor.idcardrear,
                         KycInfor.userImage,
                         KycInfor.idcard,
-                        KycInfor.termandcondition,
+                        true,
                         KycInfor.paypassword,
                         KycInfor.repaypassword)
                         , requireActivity()

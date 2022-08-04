@@ -68,34 +68,37 @@ class EmploymentInfoFragment :
                 btnNext.setOnClickListener {
 
                     var isHaveError = false
-                    if (info.occupation.isEmpty()) {
+                    if (etOccupation.text.toString().isEmpty()) {
                         txtErrorOccupation.visibility = View.VISIBLE
                         etOccupation.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.red_ee1111))
                         isHaveError = true
                     }
-                    if (info.occupation.isEmpty()) {
+                    if (etCompany.text.toString().isEmpty()) {
                         txtErrorCompany.visibility = View.VISIBLE
                         etCompany.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.red_ee1111))
                         isHaveError = true
                     }
 
-                    if(info.email_emp.isNotEmpty()){
-                        if(!validate().isValidEmail(info.email_emp.trim())){
-                            txtErrorEmail.visibility = View.VISIBLE
-                            etemail.backgroundTintList =
-                                ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.red_ee1111))
-                            isHaveError = true
-                        }
+                    if(etemail.text.toString().isEmpty()){
+                        txtErrorEmail.visibility = View.VISIBLE
+                        etemail.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.red_ee1111))
+                        isHaveError = true
+//                        if(!validate().isValidEmail(info.email_emp.trim())){
+//                            txtErrorEmail.visibility = View.VISIBLE
+//                            etemail.backgroundTintList =
+//                                ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.red_ee1111))
+//                            isHaveError = true
+//                        }
                     }
 
-                    if(info.phone_number.isNotEmpty()){
-                        if(!validate().isValidPhoneNumber(info.phone_number.trim())){
-                            txtErrorPhone.visibility = View.VISIBLE
-                            etphoneNumber.backgroundTintList =
-                                ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.red_ee1111))
-                            isHaveError = true
-                        }
-                    }
+//                    if(info.phone_number.isNotEmpty()){
+//                        if(!validate().isValidPhoneNumber(info.phone_number.trim())){
+//                            txtErrorPhone.visibility = View.VISIBLE
+//                            etphoneNumber.backgroundTintList =
+//                                ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.red_ee1111))
+//                            isHaveError = true
+//                        }
+//                    }
 
                     if (isHaveError) {
                         return@setOnClickListener

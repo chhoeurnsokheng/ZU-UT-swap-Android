@@ -78,7 +78,7 @@ object User {
         var idcardrear:String ="",
         var userImage:String ="",
         var idcard:String ="",
-        var termandcondition:String = "",
+        var termandcondition:Boolean = false,
         var paypassword :String="",
         var repaypassword :String=""
     )

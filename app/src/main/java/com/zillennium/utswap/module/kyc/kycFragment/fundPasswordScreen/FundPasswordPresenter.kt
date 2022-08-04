@@ -103,7 +103,7 @@ class FundPasswordPresenter : BaseMvpPresenterImpl<FundPasswordView.View>(),
             }
         }
         mObject.termandcondition.apply {
-            requestBody.addFormDataPart("termandcondition ", this)
+            requestBody.addFormDataPart("termandcondition ", this.toString())
         }
         mObject.paypassword.apply {
             requestBody.addFormDataPart("paypassword", this)
