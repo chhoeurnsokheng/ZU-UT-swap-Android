@@ -119,4 +119,17 @@ object User {
         var new_password: String?,
         var verify_password: String?
     )
+
+    /** Change Fund Password*/
+    class ChangeFundPasswordRes{
+        var status: Int? = null
+        var message: String? = null
+        var data: Any? = null
+    }
+
+    class ChangeFundPasswordObject(
+        var old_fund: String?,
+        var new_fund: String?,
+        var verify_fund: String?
+    )
 }
