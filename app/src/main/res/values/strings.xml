@@ -444,6 +444,8 @@
     <string name="new_password_cannot_be_the_same_as_old">New Password cannot be the same as old Password</string>
     <string name="this_account_already_have_phone_number">This account already have phone number</string>
     <string name="please_enter_valid_phone_number">Please enter valid phone number</string>
+    <string name="success">Success</string>
+    <string name="phone_number_has_been_add_successfully">Phone Number has been added Successfully</string>
 
 
 </resources>

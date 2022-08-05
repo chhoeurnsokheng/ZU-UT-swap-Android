@@ -239,9 +239,6 @@ class VerificationFragment :
                 Constants.FundPassword.ForgotLoginPassword-> {
                     findNavController().navigate(R.id.action_to_new_account_login_password)
                 }
-                Constants.FundPassword.AddNumber -> {
-                    activity?.finish()
-                }
             }
         }
     }
@@ -362,7 +359,7 @@ class VerificationFragment :
                 Constants.FundPassword.AddNumber -> {
                     SessionVariable.SESSION_PHONE_NUMBER.value = data.data?.phone.toString()
                     SessionPreferences().removeValue("SESSION_SECURE_KEY_ADD_PHONE")
-                    activity?.finish()
+                    findNavController().navigate(R.id.action_add_phone_number_success)
                 }
             }
         }
