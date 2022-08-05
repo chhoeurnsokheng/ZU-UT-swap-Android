@@ -132,7 +132,8 @@ class FundPasswordFragment :
                     KycInfor.paypassword = KYCPreferences().FUND_PASSWORD.toString()
                     KycInfor.repaypassword = KYCPreferences().FUND_PASSWORD.toString()
 
-                    var idCardFront = "data:image/jpeg;base64," + getFileToByte(KycInfor.idcardfront)
+                    var idCardFront =
+                        "data:image/jpeg;base64," + getFileToByte(KycInfor.idcardfront)
                     var idCardBack = "data:image/jpeg;base64," + getFileToByte(KycInfor.idcardrear)
                     var imageUser = "data:image/jpeg;base64," + getFileToByte(KycInfor.userImage)
 
@@ -159,7 +160,7 @@ class FundPasswordFragment :
                             KycInfor.repaypassword
                         ), requireActivity()
                     )
-                    progressBar.visibility =View.VISIBLE
+                    progressBar.visibility = View.VISIBLE
                 } else {
                     for (child in numberVerification.children) {
                         child.background = ContextCompat.getDrawable(
@@ -322,7 +323,7 @@ class FundPasswordFragment :
     override fun addKycSuccess(data: User.KycRes) {
         if (data.status == 0) {
             binding.apply {
-                progressBar.visibility =View.GONE
+                progressBar.visibility = View.GONE
             }
             DialogUtilKyc().customDialog(
                 R.drawable.icon_log_out,
@@ -338,11 +339,11 @@ class FundPasswordFragment :
             )
         }
         if (data.status == 1) {
-            data.status = KYCPreferences().DO_KYC_STATUS
-            data.data?.status_kyc_submit = KYCPreferences().status_kyc_submit
-            data.data?.status_kyc_approved = KYCPreferences().status_kyc_submit
+            KYCPreferences().DO_KYC_STATUS = data.status
+            KYCPreferences().status_kyc_submit = data.data?.status_kyc_submit
+            KYCPreferences().status_kyc_submit = data.data?.status_kyc_approved
             binding.apply {
-                progressBar.visibility =View.GONE
+                progressBar.visibility = View.GONE
             }
             findNavController().navigate(R.id.action_to_contract_kyc_fragment)
         }

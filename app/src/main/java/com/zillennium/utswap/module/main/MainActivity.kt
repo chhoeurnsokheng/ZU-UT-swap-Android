@@ -71,31 +71,33 @@ class MainActivity :
                 if (KycStatus.doKyc_Status==1){
                     binding.apply {
                         btnVerify.visibility= View.GONE
+                        layVerify.visibility = View.GONE
                     }
                 }
                 if (KycStatus.doKyc_Status ==0){
                     binding.apply {
                         btnVerify.visibility= View.VISIBLE
+                        layVerify.visibility = View.VISIBLE
                     }
                 }
                 SessionVariable.SESSION_STATUS.observe(this@MainActivity) {
                     if(SessionVariable.SESSION_STATUS.value == true){
                         layAuth.visibility = GONE
                         layVerify.visibility = VISIBLE
-                       // btnVerify.visibility = VISIBLE
+                        btnVerify.visibility = VISIBLE
                     }else{
                         layAuth.visibility = VISIBLE
-                      //  btnVerify.visibility = GONE
+                        btnVerify.visibility = GONE
                     }
                 }
 
                 if(SessionPreferences().SESSION_STATUS == true){
                     layAuth.visibility = GONE
-                    layVerify.visibility = VISIBLE
-                 //   btnVerify.visibility = VISIBLE
+                   layVerify.visibility = VISIBLE
+                    btnVerify.visibility = VISIBLE
                 }else{
                     layAuth.visibility = VISIBLE
-                 //   btnVerify.visibility = GONE
+                    btnVerify.visibility = GONE
                 }
 
                 layAuth.setOnClickListener {

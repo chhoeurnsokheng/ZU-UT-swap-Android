@@ -246,7 +246,7 @@
                             android:layout_height="wrap_content"
                             app:smsp_floatingLabelColor="@color/gray"
                             app:smsp_floatingLabelText="City/Province *"
-                            app:smsp_hint="City/Province *"
+                            app:smsp_hint="City/Province "
                             app:smsp_hintColor="@color/gray"
                             app:smsp_itemColor="@color/secondary_text"
                             app:smsp_itemListColor="@color/secondary_text"
