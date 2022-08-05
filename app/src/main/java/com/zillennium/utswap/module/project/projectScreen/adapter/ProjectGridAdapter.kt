@@ -5,13 +5,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import com.bumptech.glide.Glide
+import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseRecyclerViewAdapterGeneric
 import com.zillennium.utswap.bases.mvp.BaseViewHolder
 import com.zillennium.utswap.databinding.ItemListProjectGridBinding
 import com.zillennium.utswap.models.projectList.ProjectList
 
-class ProjectGridAdapter(itemListProjectGrid: Int) :
+class ProjectGridAdapter(private var onclickGridProject: OnClickGridProject) :
     BaseRecyclerViewAdapterGeneric<ProjectList.ProjectListData, ProjectGridAdapter.ProjectListViewHolder>() {
 
     inner class ProjectListViewHolder(root: ItemListProjectGridBinding) :
@@ -24,19 +25,10 @@ class ProjectGridAdapter(itemListProjectGrid: Int) :
                 titleProject.text = projectList.project_name
                 subTitle.text = projectList.action
 
-
-//        if (projectList.status.isNotEmpty()) {
-//            holder.txtstatus.isVisible = true
-//
-//        }
-//        holder.txtstatus.text = projectList.status
-//                linearCard.setOnClickListener {
-////            onclickProject.onClickMe(
-////                projectList,
-////                projectList.id
-////            )
-//
-//                }
+                //On Click Move to Detail Project
+                linearCard.setOnClickListener{
+                    onclickGridProject.onClickMe(projectList.id.toString())
+                }
             }
         }
 
@@ -52,7 +44,7 @@ class ProjectGridAdapter(itemListProjectGrid: Int) :
         holder.bindData(items[position])
     }
 
-    interface OnclickProject {
-        fun onClickMe(projectHistory: ProjectList.ProjectListData?, selectedPosition: Int?)
+    interface OnClickGridProject {
+        fun onClickMe(id: String)
     }
 }

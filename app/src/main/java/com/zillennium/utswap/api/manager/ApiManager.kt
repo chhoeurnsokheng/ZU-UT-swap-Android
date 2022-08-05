@@ -36,6 +36,8 @@ open class ApiManager {
     protected lateinit var mAccountLogsService: AccountLogsService
     protected lateinit var mCustomerSupport: CustomerSupportService
     protected lateinit var mProjectList: ProjectListService
+    protected lateinit var mProjectDetailService: ProjectDetailService
+
     protected lateinit var mContext: Context
 
 
@@ -59,6 +61,8 @@ open class ApiManager {
         mNewsService = retrofit.create(NewsService::class.java)
         mAccountLogsService = retrofit.create(AccountLogsService::class.java)
         mCustomerSupport = retrofit.create(CustomerSupportService::class.java)
+        mProjectDetailService = retrofit.create(ProjectDetailService::class.java)
+
         mProjectList = retrofit.create(ProjectListService::class.java)
     }
 

@@ -120,7 +120,7 @@ class ProjectInfoActivity :
                     )
                     projectInfoDetailArrayList.add(projectInfo)
                 }
-
+//
                 rvProjectInfoDetail.layoutManager = LinearLayoutManager(UTSwapApp.instance)
                 rvProjectInfoDetail.adapter = ProjectInfoDetailsAdapter(projectInfoDetailArrayList)
 

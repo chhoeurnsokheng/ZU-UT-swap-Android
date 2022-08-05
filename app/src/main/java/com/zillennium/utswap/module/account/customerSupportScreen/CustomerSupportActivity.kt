@@ -56,8 +56,16 @@ class CustomerSupportActivity :
         }
 
         if(data.contact_telegram!!.isNotEmpty()){
-            telegram = data.contact_telegram
-            SystemPreferences().APP_TELEGRAM = data.contact_telegram
+            var contact_telegram = ""
+
+            if(data.contact_telegram!!.indexOf("t.me") >= 0){
+                contact_telegram = data.contact_telegram!!
+            }else{
+                contact_telegram = "https://t.me/" + data.contact_telegram!!
+            }
+
+            telegram = contact_telegram
+            SystemPreferences().APP_TELEGRAM = contact_telegram
         }
     }
 

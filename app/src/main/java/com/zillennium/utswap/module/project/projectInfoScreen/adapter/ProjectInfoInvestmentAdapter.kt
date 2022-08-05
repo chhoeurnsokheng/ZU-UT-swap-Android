@@ -12,7 +12,9 @@ import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.models.ProjectInfoInvestmentModel
 
-class ProjectInfoInvestmentAdapter (arrayList: ArrayList<ProjectInfoInvestmentModel>) :
+class ProjectInfoInvestmentAdapter
+
+    (arrayList: ArrayList<ProjectInfoInvestmentModel>) :
     RecyclerView.Adapter<ProjectInfoInvestmentAdapter.ViewHolder>() {
     private val listdata:  ArrayList<ProjectInfoInvestmentModel> = arrayList
 

@@ -32,4 +32,7 @@ object ApiSettings {
     /**      Project List        **/
     const val PATH_PROJECT_LIST = "issue?name=NR5&page=1"
 
+    /**      Project Detail/Project Info          **/
+    const val PATH_PROJECT_DETAIL =  "issue/project_detail"
+
 }
