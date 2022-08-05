@@ -35,4 +35,7 @@ object ApiSettings {
     /** App Side Bar*/
     const val PATH_APP_SIDE_BAR = "user/profile"
 
+    /** Check User Login Status*/
+    const val PATH_CHECK_USER_LOGIN_STATUS = "user/checkUserLogin"
+
 }

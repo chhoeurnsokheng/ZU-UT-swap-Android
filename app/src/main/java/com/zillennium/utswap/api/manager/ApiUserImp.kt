@@ -86,4 +86,12 @@ class ApiUserImp:ApiManager() {
         )
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
+
+    /** Check User Login Status*/
+    fun checkUserLoginStatus(context: Context): Observable<User.CheckUserLoginStatusRes> =
+        mUserService.checkUserLoginStatus(
+            Header.getHeader(Header.Companion.AuthType.REQUIRED_TOKEN, context)
+        )
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
 }

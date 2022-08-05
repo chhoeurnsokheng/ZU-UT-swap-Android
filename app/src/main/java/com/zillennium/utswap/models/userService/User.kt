@@ -159,4 +159,15 @@ object User {
         var image_lavel: String? = null
         var name_user_lavel: String? = null
     }
+
+    /** Check User Login Status*/
+    class CheckUserLoginStatusRes{
+        var status: Int? = null
+        var message: String? = null
+        var data: Any? = null
+    }
+
+    class CheckUserLoginStatusData{
+        var user_id: Int? = null
+    }
 }
