@@ -1,7 +1,7 @@
 package com.zillennium.utswap.utils
 
 import android.webkit.WebViewClient
-
+import com.zillennium.utswap.R
 
 
 interface Constants {
@@ -32,6 +32,22 @@ interface Constants {
             const val ForgotLoginPassword = "Forgot Login Password"
             const val AddNumber = "add number"
             const val ChangeFundPassword = "Change Fund Password"
+        }
+    }
+
+    interface HistoricalTransaction {
+        companion object {
+            const val MyTransactions = "My Transactions"
+            const val Trade = "Trade"
+            const val AllTransactions = "All Transactions"
+        }
+    }
+
+    interface HistoricalMyTransactionIcon {
+        companion object {
+            const val Buy = R.drawable.ic_money_out
+            const val Sell = R.drawable.ic_money_in
+            const val SubScription = R.drawable.ic_hourglass
         }
     }
 

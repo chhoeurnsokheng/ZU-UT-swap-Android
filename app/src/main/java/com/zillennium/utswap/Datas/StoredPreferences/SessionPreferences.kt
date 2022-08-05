@@ -13,7 +13,7 @@ class SessionPreferences: BaseStoredPreferences(UTSwapApp.instance, "SessionPref
     var SESSION_KYC_STATUS by intPref(defaultValue = 0) // 0 = hide, 1 = Invalid, 2 = Pending
     var SESSION_TOKEN by stringPref()
     var SESSION_EXPIRED by stringPref()
-    var SESSION_X_TOKEN_API by stringPref(defaultValue = "")
+    var SESSION_X_TOKEN_API by stringPref()
     var SESSION_SECURE_KEY by stringPref()
 
     //store phone number that user add, and image profile user set

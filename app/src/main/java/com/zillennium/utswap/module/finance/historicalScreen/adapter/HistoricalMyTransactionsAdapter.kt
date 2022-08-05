@@ -1,61 +1,57 @@
 package com.zillennium.utswap.module.finance.historicalScreen.adapter
 
-import android.annotation.SuppressLint
+import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
+import androidx.compose.ui.unit.Constraints
 import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.RecyclerView
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
+import com.zillennium.utswap.bases.mvp.BaseRecyclerViewAdapterGeneric
+import com.zillennium.utswap.bases.mvp.BaseViewHolder
+import com.zillennium.utswap.databinding.ItemListFinanceHistoricalMyTransactionsBinding
+import com.zillennium.utswap.models.financeHistorical.Historical
 import com.zillennium.utswap.models.financeHistorical.HistoricalMyTransactionsModel
+import com.zillennium.utswap.utils.Constants
 import com.zillennium.utswap.utils.groupingSeparator
 
-class HistoricalMyTransactionsAdapter (arrayList: ArrayList<HistoricalMyTransactionsModel>)
-    : RecyclerView.Adapter<HistoricalMyTransactionsAdapter.ViewHolder>() {
+class HistoricalMyTransactionsAdapter: BaseRecyclerViewAdapterGeneric<Historical.DataTransaction, HistoricalMyTransactionsAdapter.ItemViewHolder>(){
 
-    private var listData: ArrayList<HistoricalMyTransactionsModel> = arrayList
+    override fun onCreateItemHolder(
+        inflater: LayoutInflater,
+        parent: ViewGroup,
+        viewType: Int
+    ) = ItemViewHolder(ItemListFinanceHistoricalMyTransactionsBinding.inflate(inflater, parent, false))
 
-    inner class ViewHolder (view: View): RecyclerView.ViewHolder(view){
-        var imageImageView: ImageView = view.findViewById<View>(R.id.image_balance) as ImageView
-        var titleTransaction: TextView = view.findViewById<View>(R.id.title_transaction) as TextView
-        var dateTransaction: TextView = view.findViewById<View>(R.id.date_transaction) as TextView
-        var amountBalance: TextView = view.findViewById<View>(R.id.amount_balance) as TextView
-        var layoutRecentNewsCard: LinearLayout = view.findViewById<View>(R.id.lay_my_trans) as LinearLayout
+    override fun onBindItemHolder(
+        holder: HistoricalMyTransactionsAdapter.ItemViewHolder,
+        position: Int,
+        context: Context
+    ) {
+        holder.bidData(items[position])
     }
 
-    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(
-            LayoutInflater.from(viewGroup.context)
-                .inflate(R.layout.item_list_finance_historical_my_transactions, viewGroup, false)
-        )
-    }
+    inner class ItemViewHolder(root: ItemListFinanceHistoricalMyTransactionsBinding) : BaseViewHolder<ItemListFinanceHistoricalMyTransactionsBinding>(root){
+        fun bidData(myTransaction: Historical.DataTransaction){
+            binding.apply {
+//                imageBalance.setImageResource(myTransaction.imageMyTrans)
+                titleTransaction.text = myTransaction.remark
+                dateTransaction.text = myTransaction.addtimeReable
+                if(myTransaction.type == "buy"){
+                    if(myTransaction.name.toString() == "issue"){
+                        imageBalance.setImageResource(Constants.HistoricalMyTransactionIcon.SubScription)
+                    }else{
+                        imageBalance.setImageResource(Constants.HistoricalMyTransactionIcon.Buy)
+                    }
 
-    @SuppressLint("SetTextI18n")
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val financeHistoricalList: HistoricalMyTransactionsModel = listData[position]
-        holder.imageImageView.setImageResource(financeHistoricalList.imageMyTrans)
-        holder.titleTransaction.text = financeHistoricalList.titleMyTrans
-        holder.dateTransaction.text = financeHistoricalList.dateMyTrans
-        if(financeHistoricalList.amountMyTrans < 0){
-            val length = financeHistoricalList.amountMyTrans.toString().length
-            if ((financeHistoricalList.amountMyTrans.toString()[0] == '-')) {
-                if (length > 1) {
-                    holder.amountBalance.text = "-$" + groupingSeparator(financeHistoricalList.amountMyTrans).substring(1, length)
+                    amountBalance.text = "-$" + groupingSeparator(myTransaction.mum_a!!)
+                    amountBalance.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.red_ee1111))
+                }else if (myTransaction.type == "sell"){
+                    imageBalance.setImageResource(Constants.HistoricalMyTransactionIcon.Sell)
+                    amountBalance.text = "$" + groupingSeparator(myTransaction.mum_a!!)
+                    amountBalance.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.success))
                 }
             }
-            holder.amountBalance.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.red_ee1111))
-        }else {
-            holder.amountBalance.text = "$" + groupingSeparator(financeHistoricalList.amountMyTrans)
-            holder.amountBalance.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.success))
         }
-    }
-
-    override fun getItemCount(): Int {
-        val limit = 15
-        return Math.min(listData.size, limit)
     }
 }
