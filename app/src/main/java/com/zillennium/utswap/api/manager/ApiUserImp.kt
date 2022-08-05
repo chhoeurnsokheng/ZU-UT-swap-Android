@@ -78,4 +78,12 @@ class ApiUserImp:ApiManager() {
         )
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
+
+    /** App Side Bar and User Info*/
+    fun appSideBarUserInfo(context: Context): Observable<User.AppSideBarRes> =
+        mUserService.appSideBarUserInfo(
+            Header.getHeader(Header.Companion.AuthType.REQUIRED_TOKEN, context)
+        )
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
 }

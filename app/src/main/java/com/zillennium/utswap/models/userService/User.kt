@@ -137,4 +137,26 @@ object User {
         var secure_key: String?,
         var otp_code: String?
     )
+
+    /** App Side Bar*/
+    class AppSideBarRes{
+        var status: Int? = null
+        var message: String? = null
+        var data: AppSideBarData? = null
+    }
+
+    class AppSideBarData{
+        var username: String? = null
+        var truename: String? = null
+        var kyc: String? = null
+        var email: String? = null
+        var phonenumber: String? = null
+        var ocupation: String? = null
+        var company_name: String? = null
+        var address: String? = null
+        var image_profile: String? = null
+        var mobile: String? = null
+        var image_lavel: String? = null
+        var name_user_lavel: String? = null
+    }
 }

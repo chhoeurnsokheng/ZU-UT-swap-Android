@@ -32,4 +32,7 @@ object ApiSettings {
     const val PATH_ADD_PHONE_NUMBER = "add_phone_number"
     const val PATH_VERIFY_CODE_PHONE = "add_phone_number/verify_code"
 
+    /** App Side Bar*/
+    const val PATH_APP_SIDE_BAR = "user/profile"
+
 }

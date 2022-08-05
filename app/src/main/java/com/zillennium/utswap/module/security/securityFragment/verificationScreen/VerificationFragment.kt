@@ -360,6 +360,7 @@ class VerificationFragment :
 
             when (arguments?.getString("title")) {
                 Constants.FundPassword.AddNumber -> {
+                    SessionVariable.SESSION_PHONE_NUMBER.value = data.data?.phone.toString()
                     SessionPreferences().removeValue("SESSION_SECURE_KEY_ADD_PHONE")
                     activity?.finish()
                 }

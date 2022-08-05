@@ -2,6 +2,7 @@ package com.zillennium.utswap.api.service
 
 
 import com.zillennium.utswap.api.ApiSettings
+import com.zillennium.utswap.api.Header
 import com.zillennium.utswap.models.userService.User
 import retrofit2.http.Body
 import retrofit2.http.HeaderMap
@@ -65,4 +66,10 @@ interface UserService {
         @HeaderMap header: Map<String, String>,
         @Body body: User.VerifyAddPhoneNumberObject
     ): Observable<User.VerifyAddPhoneNumberRes>
+
+    /** App Side Bar and User detail info*/
+    @POST(ApiSettings.PATH_APP_SIDE_BAR)
+    fun appSideBarUserInfo(
+        @HeaderMap header: Map<String,String>
+    ): Observable<User.AppSideBarRes>
 }
