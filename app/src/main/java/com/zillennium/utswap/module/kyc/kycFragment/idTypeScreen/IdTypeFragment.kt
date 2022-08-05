@@ -152,7 +152,7 @@ open class IdTypeFragment :
           activity.let {
               includeLayout.apply {
                  cdBack.setOnClickListener {
-                     requireActivity().finish()
+                     findNavController().popBackStack()
                  }
                   tbTitle.text ="1/4"
               }

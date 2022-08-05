@@ -122,7 +122,7 @@ class DeclarationFragment :
                 includeLayout.apply {
                     tbTitle.text = "4/4"
                     cdBack.setOnClickListener {
-                        requireActivity().finish()
+                        findNavController().popBackStack()
                     }
                 }
             }

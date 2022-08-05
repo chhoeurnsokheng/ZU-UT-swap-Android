@@ -53,7 +53,7 @@ class SelfieHoldingFragment :
                  includeLayout.apply {
                      tbTitle.text = "2/4"
                      cdBack.setOnClickListener {
-                         requireActivity().finish()
+                         findNavController().popBackStack()
                      }
                  }
              }

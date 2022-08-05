@@ -455,7 +455,7 @@ class IDVerificationFragment :
                 includeLayout.apply {
                     tbTitle.text = "1/4"
                     cdBack.setOnClickListener {
-                        requireActivity().finish()
+                        findNavController().popBackStack()
                     }
                 }
             }

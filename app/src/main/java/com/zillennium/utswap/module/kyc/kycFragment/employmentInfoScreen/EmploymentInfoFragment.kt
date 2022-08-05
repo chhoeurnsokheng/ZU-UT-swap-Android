@@ -210,7 +210,7 @@ class EmploymentInfoFragment :
                 includeLayout.apply {
                     tbTitle.text = "3/4"
                     cdBack.setOnClickListener {
-                        requireActivity().finish()
+                        findNavController().popBackStack()
                     }
                 }
             }

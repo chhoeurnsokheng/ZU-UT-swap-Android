@@ -313,7 +313,7 @@ class FundPasswordFragment :
         binding.apply {
             includeLayout.apply {
                 cdBack.setOnClickListener {
-                    requireActivity().finish()
+                    findNavController().popBackStack()
                 }
             }
         }
@@ -321,6 +321,9 @@ class FundPasswordFragment :
 
     override fun addKycSuccess(data: User.KycRes) {
         if (data.status == 0) {
+            binding.apply {
+                progressBar.visibility =View.GONE
+            }
             DialogUtilKyc().customDialog(
                 R.drawable.icon_log_out,
                 "KYC Issue",
@@ -335,6 +338,7 @@ class FundPasswordFragment :
             )
         }
         if (data.status == 1) {
+            data.status = KYCPreferences().DO_KYC_STATUS
             data.data?.status_kyc_submit = KYCPreferences().status_kyc_submit
             data.data?.status_kyc_approved = KYCPreferences().status_kyc_submit
             binding.apply {

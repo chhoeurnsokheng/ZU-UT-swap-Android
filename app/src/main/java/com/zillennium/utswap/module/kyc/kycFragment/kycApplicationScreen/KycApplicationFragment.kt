@@ -23,7 +23,8 @@ class KycApplicationFragment :
                 status_kyc_submit =KYCPreferences().status_kyc_submit
                 status_kyc_approved = KYCPreferences().status_kyc_approved
                 imgBack.setOnClickListener {
-                    findNavController().popBackStack()
+                    /*findNavController().popBackStack()*/
+                    activity?.finish()
                 }
                 if (status_kyc_approved==true){
                     imgPending.setImageResource(R.drawable.ic_baseline_check_circle_24)

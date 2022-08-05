@@ -89,7 +89,11 @@ class IDCardCameraFragment :
             activity.let {
                 includeLayout.apply {
                     toolBarLayout.setBackgroundColor(ContextCompat.getColor(requireActivity(),R.color.primary))
+                    includeLayout.cdBack.setOnClickListener {
+                        findNavController().popBackStack()
+                    }
                 }
+
             }
         }
     }
