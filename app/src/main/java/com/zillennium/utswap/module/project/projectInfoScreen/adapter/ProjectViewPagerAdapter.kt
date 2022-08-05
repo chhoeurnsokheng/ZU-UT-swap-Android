@@ -10,7 +10,7 @@ import com.zillennium.utswap.databinding.ItemListProjectInfoSliderImageBinding
 import com.zillennium.utswap.models.projectList.ProjectInfoDetail
 
 
-class ProjectViewPagerAdapter : BaseRecyclerViewAdapterGeneric<ProjectInfoDetail.ProjectInfoDetailData, ProjectViewPagerAdapter.ProjectViewPagerViewHolder>(){
+class ProjectViewPagerAdapter(projectInfoSlideImage: ArrayList<ProjectInfoDetail.ProjectInfoDetailData>) : BaseRecyclerViewAdapterGeneric<ProjectInfoDetail.ProjectInfoDetailData, ProjectViewPagerAdapter.ProjectViewPagerViewHolder>(){
     inner class ProjectViewPagerViewHolder(root : ItemListProjectInfoSliderImageBinding) :
         BaseViewHolder<ItemListProjectInfoSliderImageBinding>(root) {
         fun bindData(projectInfoDetailData: ProjectInfoDetail.ProjectInfoDetailData) {

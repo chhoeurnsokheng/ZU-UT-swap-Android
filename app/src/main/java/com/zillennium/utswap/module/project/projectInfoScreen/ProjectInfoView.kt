@@ -9,12 +9,12 @@ import com.zillennium.utswap.models.projectList.ProjectInfoDetail
 class ProjectInfoView {
     interface View : BaseMvpView {
         override fun initView()
-        fun projectDetailSuccess(data: ProjectInfoDetail.ProjectInfoDetailData)
-        fun projectDetailFail(data: ProjectInfoDetail.ProjectInfoDetailRes)
+        fun projectInfoViewSuccess(data: ProjectInfoDetail.ProjectInfoDetailData)
+        fun projectInfoViewFail(data: ProjectInfoDetail.ProjectInfoDetailRes)
     }
 
     interface Presenter : BaseMvpPresenter<View> {
         override fun initViewPresenter(context: Context, bundle: Bundle?)
-        fun projectDetail(body: Int?, context: Context)
+        fun projectInfoView(body: Int, context: Context)
     }
 }

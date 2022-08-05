@@ -56,7 +56,6 @@ class CustomerSupportActivity :
         }
 
         if(data.contact_telegram!!.isNotEmpty()){
-
             var contact_telegram = ""
 
             if(data.contact_telegram!!.indexOf("t.me") >= 0){
@@ -67,7 +66,6 @@ class CustomerSupportActivity :
 
             telegram = contact_telegram
             SystemPreferences().APP_TELEGRAM = contact_telegram
-
         }
     }
 

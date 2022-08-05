@@ -95,23 +95,25 @@ class ProjectActivity :
 
                 if (viewGrid) {
                     rvProject.layoutManager = GridLayoutManager(UTSwapApp.instance, 2)
-//                    var listenerProject = ProjectGridAdapter(onclickProjectGrid = object = ProjectGridAdapter.
-//                    {
-////                        override fun onClickMe(id: String) {
-////                            onclickProjectDetail(id)
-////                        }
-//
-//                    })
-////                    var listProjectGrid = ProjectGridAdapter(onclickProjectGrid = object : ProjectGridAdapter.OnclickProjectGrid{
-////
-////                    })
-                    rvProject.adapter = projectAdapter
+                    projectGridAdapter = ProjectGridAdapter(object : ProjectGridAdapter.OnClickGridProject{
+                        override fun onClickMe(id: String) {
+                            onclickProjectDetail(id)
+                        }
+
+                    })
+                    rvProject.adapter = projectGridAdapter
                     projectGridAdapter?.items = projectList
                 } else {
-                    rvProject.layoutManager = LinearLayoutManager(UTSwapApp.instance,)
-                    rvProject.adapter = projectAdapter
-                    projectGridAdapter?.items = projectList
+                    rvProject.adapter?.notifyDataSetChanged()
+                    rvProject.layoutManager = LinearLayoutManager(UTSwapApp.instance)
+                    projectAdapter = ProjectAdapter(object : ProjectAdapter.OnclickProject{
+                        override fun onClickMe(id: String) {
+                            onclickProject(id)
+                        }
 
+                    })
+                    rvProject.adapter = projectAdapter
+                    projectAdapter?.items = projectList
                 }
 
 
@@ -228,15 +230,24 @@ class ProjectActivity :
     private fun onChangeLayoutManager() {
         binding.apply {
             if (viewGrid) {
+                projectGridAdapter?.notifyDataSetChanged()
                 viewType.setImageResource(R.drawable.ic_grid_view)
                 rvProject.layoutManager = GridLayoutManager(UTSwapApp.instance, 2)
-                rvProject.adapter = projectGridAdapter
                 projectGridAdapter?.items = projectList
+                rvProject.adapter = projectGridAdapter
+
             } else {
+                projectAdapter?.notifyDataSetChanged()
                 viewType.setImageResource(R.drawable.ic_list_view)
                 rvProject.layoutManager = LinearLayoutManager(UTSwapApp.instance)
-                rvProject.adapter = projectAdapter
+                projectAdapter = ProjectAdapter(object : ProjectAdapter.OnclickProject{
+                    override fun onClickMe(id: String) {
+                        onclickProject(id)
+                    }
+                })
                 projectAdapter?.items = projectList
+                rvProject.adapter = projectAdapter
+
             }
         }
 
@@ -270,15 +281,11 @@ class ProjectActivity :
             startActivity(intent)
         }
     }
-
-//    private var onclickProject: ProjectAdapter.OnclickProject =
-//        object : ProjectAdapter.OnclickProject {
-//            override fun onClickMe(id: String) {
-//                val intent = Intent(UTSwapApp.instance, ProjectInfoActivity::class.java)
-//                intent.putExtra("id", id)
-//                startActivity(intent)
-//            }
-//
-//
-//        }
+    private fun onclickProject(id: String = ""){
+        if(id != ""){
+            val intent = Intent(UTSwapApp.instance, ProjectInfoActivity::class.java)
+            intent.putExtra("id", id)
+            startActivity(intent)
+        }
+    }
 }

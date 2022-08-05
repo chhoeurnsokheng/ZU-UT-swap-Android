@@ -37,6 +37,7 @@ open class ApiManager {
     protected lateinit var mCustomerSupport: CustomerSupportService
     protected lateinit var mProjectList: ProjectListService
     protected lateinit var mProjectDetailService: ProjectDetailService
+
     protected lateinit var mContext: Context
 
 

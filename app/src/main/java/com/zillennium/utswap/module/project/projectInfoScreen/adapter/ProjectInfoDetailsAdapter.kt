@@ -6,9 +6,10 @@ import android.view.ViewGroup
 import com.zillennium.utswap.bases.mvp.BaseRecyclerViewAdapterGeneric
 import com.zillennium.utswap.bases.mvp.BaseViewHolder
 import com.zillennium.utswap.databinding.ItemListProjectInfoDetailsBinding
+import com.zillennium.utswap.models.ProjectInfoDetailModel
 import com.zillennium.utswap.models.projectList.ProjectInfoDetail
 
-class ProjectInfoDetailsAdapter(itemListProjectInfoDetails: Int) :
+class ProjectInfoDetailsAdapter(itemListProjectInfoDetails: ArrayList<ProjectInfoDetailModel>) :
     BaseRecyclerViewAdapterGeneric<ProjectInfoDetail.ProjectInfoDetailData, ProjectInfoDetailsAdapter.ProjectDetailViewHolder>() {
     inner class ProjectDetailViewHolder(root: ItemListProjectInfoDetailsBinding) :
         BaseViewHolder<ItemListProjectInfoDetailsBinding>(root) {

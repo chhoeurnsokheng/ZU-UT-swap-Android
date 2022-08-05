@@ -12,7 +12,7 @@ import com.zillennium.utswap.databinding.ItemListProjectBinding
 import com.zillennium.utswap.databinding.ItemListProjectGridBinding
 import com.zillennium.utswap.models.projectList.ProjectList
 
-class ProjectAdapter(itemListProject: Int) :
+class ProjectAdapter(private var onclickProject: OnclickProject) :
     BaseRecyclerViewAdapterGeneric<ProjectList.ProjectListData, ProjectAdapter.ProjectListViewHolder>() {
 
     inner class ProjectListViewHolder(root: ItemListProjectBinding) :
@@ -25,6 +25,10 @@ class ProjectAdapter(itemListProject: Int) :
                 titleProject.text = projectList.project_name
                 subTitle.text = projectList.action
 
+                //On Click Move to Detail Project
+                linearCard.setOnClickListener{
+                    onclickProject.onClickMe(projectList.id.toString())
+                }
             }
         }
 
@@ -40,7 +44,7 @@ class ProjectAdapter(itemListProject: Int) :
         holder.bindData(items[position])
     }
 
-//    interface OnclickProject {
-//        fun onClickMe(id: String)
-//    }
+    interface OnclickProject {
+        fun onClickMe(id: String)
+    }
 }

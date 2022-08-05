@@ -12,6 +12,7 @@ import rx.Subscription
 
 class ProjectInfoPresenter : BaseMvpPresenterImpl<ProjectInfoView.View>(),
     ProjectInfoView.Presenter {
+
     private var subscription: Subscription? = null
 
     override fun initViewPresenter(context: Context, bundle: Bundle?) {
@@ -20,15 +21,19 @@ class ProjectInfoPresenter : BaseMvpPresenterImpl<ProjectInfoView.View>(),
         mView?.initView()
     }
 
-    override fun projectDetail(body: Int?, context: Context) {
+    override fun projectInfoView(
+        body: Int,
+        context: Context
+    ) {
         subscription?.unsubscribe()
+
         subscription = ApiProjectDetailImp().projectDetail(body, context).subscribe({
             if (it.status == 1){
-                mView?.projectDetailSuccess(it.data as ProjectInfoDetail.ProjectInfoDetailData)
+                mView?.projectInfoViewSuccess(it.data as ProjectInfoDetail.ProjectInfoDetailData)
 
-                println("========================" + it.data)
-            }else{
-                mView?.projectDetailFail(it)
+            }
+            else{
+                mView?.projectInfoViewFail(it)
             }
         },{
             object : CallbackWrapper(it, UTSwapApp.instance, arrayListOf()){

@@ -1,7 +1,5 @@
 package com.zillennium.utswap.models.projectList
 
-import com.google.gson.annotations.SerializedName
-
 object ProjectInfoDetail {
     class ProjectInfoDetailRes {
         var status: Int? = null
@@ -9,7 +7,7 @@ object ProjectInfoDetail {
         var data: ProjectInfoDetailData? = null
     }
 
-    class ProjectInfoDetailData {
+    class ProjectInfoDetailData(s: String) {
         var id: String? = null
         var project_name: String? = null
         var base_price: Float? = null
