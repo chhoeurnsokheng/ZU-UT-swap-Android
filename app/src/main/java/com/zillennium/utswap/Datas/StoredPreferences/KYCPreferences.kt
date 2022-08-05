@@ -33,7 +33,7 @@ class KYCPreferences : BaseStoredPreferences(UTSwapApp.instance, "KYCPreferences
     var TERNCONDITION by stringPref()
     var  status_kyc_submit     by booleanPref()
     var   status_kyc_approved     by booleanPref()
-    var DO_KYC_STATUS by intPref()
+    var DO_KYC_STATUS by stringPref()
 
 
 }

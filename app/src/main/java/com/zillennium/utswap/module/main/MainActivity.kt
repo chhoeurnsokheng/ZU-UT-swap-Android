@@ -1,13 +1,11 @@
 package com.zillennium.utswap.screens.navbar.navbar
 
 import android.content.Intent
-import android.content.res.ColorStateList
 import android.os.Handler
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -20,7 +18,7 @@ import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityMainBinding
 import com.zillennium.utswap.module.kyc.kycActivity.KYCActivity
-import com.zillennium.utswap.module.kyc.kycFragment.employmentInfoScreen.EmploymentInfoFragment
+import com.zillennium.utswap.module.kyc.kycFragment.fundPasswordScreen.FundPasswordFragment
 import com.zillennium.utswap.module.main.MainPresenter
 import com.zillennium.utswap.module.main.MainView
 import com.zillennium.utswap.module.main.home.HomeFragment
@@ -38,7 +36,8 @@ class MainActivity :
     override val layoutResource: Int = R.layout.activity_main
 
     private var doubleBackToExitPressedOnce = false
-    var statusKYC  = " "
+    var statusKYC  = FundPasswordFragment.status
+
     override fun initView() {
         super.initView()
         onCheckSession()
@@ -61,10 +60,10 @@ class MainActivity :
         Handler().postDelayed(Runnable { doubleBackToExitPressedOnce = false }, 2000)
     }
 
-    fun getStatus(name : String): String {
-        statusKYC  =getStatus(name)
-       return  statusKYC
-    }
+//    fun getStatus(name : String): String {
+//        statusKYC  =getStatus(name)
+//       return  statusKYC
+//    }
 
     private fun onCheckSession(){
         try {
@@ -75,7 +74,6 @@ class MainActivity :
 //                      BuildConfig.VERSION_CODE
 //                )
 
-                KycStatus.doKyc_Status = KYCPreferences().DO_KYC_STATUS
                 if (statusKYC == "1"){
                     binding.apply {
                         btnVerify.visibility= View.GONE
@@ -93,21 +91,21 @@ class MainActivity :
                     if(SessionVariable.SESSION_STATUS.value == true){
                         layAuth.visibility = GONE
                      //   layVerify.visibility = VISIBLE
-                     //   btnVerify.visibility = VISIBLE
+                        btnVerify.visibility = VISIBLE
                     }else{
                         layAuth.visibility = VISIBLE
                         btnVerify.visibility = GONE
                     }
                 }
 
-//                if(SessionPreferences().SESSION_STATUS == true){
-//                    layAuth.visibility = GONE
-//                   layVerify.visibility = VISIBLE
-//                    btnVerify.visibility = VISIBLE
-//                }else{
-//                    layAuth.visibility = VISIBLE
-//                    btnVerify.visibility = GONE
-//                }
+                if(SessionPreferences().SESSION_STATUS == true){
+                    layAuth.visibility = GONE
+                  //  layVerify.visibility = VISIBLE
+                    btnVerify.visibility = VISIBLE
+                }else{
+                    layAuth.visibility = VISIBLE
+                    btnVerify.visibility = GONE
+                }
 
                 layAuth.setOnClickListener {
                     val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)

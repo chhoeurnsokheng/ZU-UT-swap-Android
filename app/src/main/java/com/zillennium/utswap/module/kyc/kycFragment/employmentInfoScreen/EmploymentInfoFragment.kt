@@ -15,7 +15,6 @@ import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentKycEmploymentInfoBinding
 import com.zillennium.utswap.utils.validate
 
-
 class EmploymentInfoFragment :
     BaseMvpFragment<EmploymentInfoView.View, EmploymentInfoView.Presenter, FragmentKycEmploymentInfoBinding>(),
     EmploymentInfoView.View {

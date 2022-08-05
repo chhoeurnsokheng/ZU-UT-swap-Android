@@ -54,6 +54,7 @@ class SignInFragment :
         binding.apply {
             imgBack.setOnClickListener {
                 activity?.finish()
+                hideKeyboard()
             }
 
             showPassBtn.setOnClickListener {
@@ -135,15 +136,19 @@ class SignInFragment :
         binding.apply {
             btnSignIn.setOnClickListener {
                 val isHaveError = false
-                val etEmail = etEmail.text.toString().trim()
-                val etPassword = textInputPassword.text.toString().trim()
+                val txtEmail = etEmail.text.toString().trim()
+                val txtPassword = textInputPassword.text.toString().trim()
 
-                if(!validate().isValidEmail(etEmail) && !validate().isValidPhoneNumber(etEmail)){
+                if(!validate().isValidEmail(txtEmail) && !validate().isValidPhoneNumber(txtEmail)){
+                    etEmail.backgroundTintList =
+                        ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
                     onMessage(resources.getString(R.string.please_enter_email_or_phone_number))
                     return@setOnClickListener
                 }
 
-                if(etPassword.length < 8){
+                if(txtPassword.length < 8){
+                    textInputPassword.backgroundTintList =
+                        ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
                     onMessage(resources.getString(R.string.please_enter_a_password_longer_than_8_digits))
                     return@setOnClickListener
                 }
@@ -151,7 +156,7 @@ class SignInFragment :
                 if (!isHaveError){
                     // show progressbar when user click sign in
                     onProgressBar(true)
-                    mPresenter.login(User.LoginObject(etEmail,etPassword),UTSwapApp.instance)
+                    mPresenter.login(User.LoginObject(txtEmail,txtPassword),UTSwapApp.instance)
                 }
             }
         }
@@ -160,9 +165,11 @@ class SignInFragment :
     override fun loginSuccess(body: User.LoginRes) {
         onProgressBar(false)
 
-        SessionPreferences().SESSION_STATUS = true
         SessionVariable.SESSION_STATUS.value = true
+        SessionVariable.SESSION_KYC.value = body.data?.status_kyc
 
+        SessionPreferences().SESSION_STATUS = true
+        SessionPreferences().SESSION_KYC = body.data?.status_kyc
         SessionPreferences().SESSION_TOKEN = body.data?.TOKEN.toString()
         SessionPreferences().SESSION_ID = body.data?.ID.toString()
         SessionPreferences().SESSION_X_TOKEN_API = body.data?.x_api_key.toString()
@@ -179,7 +186,7 @@ class SignInFragment :
                 ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
             textInputPassword.backgroundTintList =
                 ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
-            onMessage(body.message.toString())
+            onMessage(resources.getString(R.string.phone_email_or_password_is_incorrect))
 
             hideKeyboard()
         }
@@ -189,8 +196,6 @@ class SignInFragment :
         binding.apply {
             txtMessage.text = message
             txtMessage.visibility = View.VISIBLE
-            etEmail.backgroundTintList =
-                ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
         }
     }
 
@@ -205,6 +210,11 @@ class SignInFragment :
                 btnSignIn.isClickable = true
                 btnSignIn.alpha = 1F
             }
+            etEmail.backgroundTintList =
+                ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text))
+            textInputPassword.backgroundTintList =
+                ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text))
+            txtMessage.visibility = View.INVISIBLE
         }
     }
 //        @SuppressLint("ServiceCast")
@@ -262,12 +272,12 @@ class SignInFragment :
             if (textInputPassword.transformationMethod
                     .equals(PasswordTransformationMethod.getInstance())
             ) {
-                showPassBtn.setImageResource(R.drawable.ic_baseline_visibility_off_24)
+                showPassBtn.setImageResource(R.drawable.ic_baseline_visibility_24)
                 //Show Password
                 textInputPassword.transformationMethod =
                     HideReturnsTransformationMethod.getInstance()
             } else {
-                showPassBtn.setImageResource(R.drawable.ic_baseline_visibility_24)
+                showPassBtn.setImageResource(R.drawable.ic_baseline_visibility_off_24)
                 //Hide Password
                 textInputPassword.transformationMethod =
                     PasswordTransformationMethod.getInstance()

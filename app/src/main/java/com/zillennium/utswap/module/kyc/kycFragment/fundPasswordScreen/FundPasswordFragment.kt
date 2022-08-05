@@ -2,6 +2,7 @@ package com.zillennium.utswap.module.kyc.kycFragment.fundPasswordScreen
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.text.Editable
@@ -16,9 +17,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.children
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.commons.io.output.ByteArrayOutputStream
-import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
 import com.zillennium.utswap.Datas.StoredPreferences.KYCPreferences
-import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
@@ -37,6 +36,10 @@ class FundPasswordFragment :
 
     private var clickCountPassword = 1
     private var clickCountConfirmPassword = 1
+
+    companion object {
+        var status = ""
+    }
 
 
     object KycInfor {
@@ -322,7 +325,10 @@ class FundPasswordFragment :
     }
 
     override fun addKycSuccess(data: User.KycRes) {
-        if (data.status == 0) {
+        /*(activity as MainActivity).statusKYC  = data.status*/
+        status = data.status
+
+        if (data.status =="0") {
             binding.apply {
                 progressBar.visibility = View.GONE
             }
@@ -339,12 +345,10 @@ class FundPasswordFragment :
                 requireActivity()
             )
         }
-        if (data.status == 1) {
+        if (data.status=="1") {
             KYCPreferences().DO_KYC_STATUS = data.status
             KYCPreferences().status_kyc_submit = data.data?.status_kyc_submit
             KYCPreferences().status_kyc_submit = data.data?.status_kyc_approved
-            (activity as MainActivity).getStatus(data.status.toString())
-
             binding.apply {
                 progressBar.visibility = View.GONE
             }
