@@ -38,7 +38,7 @@ class MainActivity :
     override val layoutResource: Int = R.layout.activity_main
 
     private var doubleBackToExitPressedOnce = false
-
+    var statusKYC  = " "
     override fun initView() {
         super.initView()
         onCheckSession()
@@ -49,6 +49,8 @@ class MainActivity :
         var gender = ""
 
     }
+
+
     override fun onBackPressed() {
         if (doubleBackToExitPressedOnce) {
             super.onBackPressed()
@@ -59,6 +61,11 @@ class MainActivity :
         Handler().postDelayed(Runnable { doubleBackToExitPressedOnce = false }, 2000)
     }
 
+    fun getStatus(name : String): String {
+        statusKYC  =getStatus(name)
+       return  statusKYC
+    }
+
     private fun onCheckSession(){
         try {
             binding.apply {
@@ -67,38 +74,40 @@ class MainActivity :
 //                    BuildConfig.VERSION_NAME,
 //                      BuildConfig.VERSION_CODE
 //                )
+
                 KycStatus.doKyc_Status = KYCPreferences().DO_KYC_STATUS
-                if (KycStatus.doKyc_Status==1){
+                if (statusKYC == "1"){
                     binding.apply {
                         btnVerify.visibility= View.GONE
                         layVerify.visibility = View.GONE
                     }
                 }
-                if (KycStatus.doKyc_Status ==0){
+                if (statusKYC == "0"){
                     binding.apply {
                         btnVerify.visibility= View.VISIBLE
                         layVerify.visibility = View.VISIBLE
                     }
                 }
+
                 SessionVariable.SESSION_STATUS.observe(this@MainActivity) {
                     if(SessionVariable.SESSION_STATUS.value == true){
                         layAuth.visibility = GONE
-                        layVerify.visibility = VISIBLE
-                        btnVerify.visibility = VISIBLE
+                     //   layVerify.visibility = VISIBLE
+                     //   btnVerify.visibility = VISIBLE
                     }else{
                         layAuth.visibility = VISIBLE
                         btnVerify.visibility = GONE
                     }
                 }
 
-                if(SessionPreferences().SESSION_STATUS == true){
-                    layAuth.visibility = GONE
-                   layVerify.visibility = VISIBLE
-                    btnVerify.visibility = VISIBLE
-                }else{
-                    layAuth.visibility = VISIBLE
-                    btnVerify.visibility = GONE
-                }
+//                if(SessionPreferences().SESSION_STATUS == true){
+//                    layAuth.visibility = GONE
+//                   layVerify.visibility = VISIBLE
+//                    btnVerify.visibility = VISIBLE
+//                }else{
+//                    layAuth.visibility = VISIBLE
+//                    btnVerify.visibility = GONE
+//                }
 
                 layAuth.setOnClickListener {
                     val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)

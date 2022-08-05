@@ -29,7 +29,7 @@ class EmploymentInfoFragment :
         var phone_number = ""
         var email_emp = ""
     }
-    
+
     @SuppressLint("UseCompatLoadingForDrawables")
     override fun initView() {
         super.initView()
@@ -93,18 +93,18 @@ class EmploymentInfoFragment :
 //                        }
                     }
 
-                    if(etphoneNumber.text.toString().isEmpty()){
-                        txtErrorPhone.visibility = View.VISIBLE
-                        etphoneNumber.backgroundTintList =
-                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.red_ee1111))
-                        isHaveError = true
-//                        if(!validate().isValidPhoneNumber(info.phone_number.trim())){
-//                            txtErrorPhone.visibility = View.VISIBLE
-//                            etphoneNumber.backgroundTintList =
-//                                ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.red_ee1111))
-//                            isHaveError = true
-//                        }
-                    }
+//                    if(etphoneNumber.text.toString().isEmpty()){
+//                        txtErrorPhone.visibility = View.VISIBLE
+//                        etphoneNumber.backgroundTintList =
+//                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.red_ee1111))
+//                        isHaveError = true
+////                        if(!validate().isValidPhoneNumber(info.phone_number.trim())){
+////                            txtErrorPhone.visibility = View.VISIBLE
+////                            etphoneNumber.backgroundTintList =
+////                                ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.red_ee1111))
+////                            isHaveError = true
+////                        }
+//                    }
 
                     if (isHaveError) {
                         return@setOnClickListener

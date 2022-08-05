@@ -340,6 +340,7 @@
                             android:drawablePadding="@dimen/dimen_6"
                             android:layout_marginRight="@dimen/dimen_4"
                             android:visibility="gone"/>
+
                         <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
                             android:id="@+id/spinner_commune_sangkat"
                             android:layout_width="match_parent"

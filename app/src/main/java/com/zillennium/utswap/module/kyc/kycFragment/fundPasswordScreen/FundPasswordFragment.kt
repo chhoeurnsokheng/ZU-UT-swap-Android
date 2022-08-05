@@ -24,6 +24,7 @@ import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentKycFundPasswordBinding
 import com.zillennium.utswap.models.userService.User
+import com.zillennium.utswap.screens.navbar.navbar.MainActivity
 import com.zillennium.utswap.utils.DialogUtil
 import com.zillennium.utswap.utils.DialogUtilKyc
 
@@ -342,6 +343,8 @@ class FundPasswordFragment :
             KYCPreferences().DO_KYC_STATUS = data.status
             KYCPreferences().status_kyc_submit = data.data?.status_kyc_submit
             KYCPreferences().status_kyc_submit = data.data?.status_kyc_approved
+            (activity as MainActivity).getStatus(data.status.toString())
+
             binding.apply {
                 progressBar.visibility = View.GONE
             }
