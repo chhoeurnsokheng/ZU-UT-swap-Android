@@ -47,13 +47,14 @@ class ProjectInfoActivity :
                 }
 
                 btnSubscriptTrade.setOnClickListener {
-                    val intent : Intent = Intent(UTSwapApp.instance, SubscriptionActivity::class.java)
+                    val intent: Intent =
+                        Intent(UTSwapApp.instance, SubscriptionActivity::class.java)
                     startActivity(intent)
                 }
 
 
                 /* Image Slider with View Pager and TabLayout*/
-                 imagesSlider = arrayListOf(
+                imagesSlider = arrayListOf(
                     "https://utswap.io/Upload/issue/624baccd65299.png",
                     "https://utswap.io/Upload/issue/624bacd53d783.jpg",
                     "https://utswap.io/Upload/issue/624baceb728a8.png",
@@ -62,23 +63,19 @@ class ProjectInfoActivity :
 
                 val projectInfoSlideImage = arrayListOf<ProjectInfoSlideImageModel>()
 
-                for (i in imagesSlider.indices){
+                for (i in imagesSlider.indices) {
                     val projectImage = ProjectInfoSlideImageModel(
                         imagesSlider[i],
                     )
                     projectInfoSlideImage.add(projectImage)
                 }
-
                 val adapter = ProjectViewPagerAdapter(projectInfoSlideImage, onclickAdapter)
                 imageSlideViewPager.adapter = adapter
-
                 TabLayoutMediator(tabLayoutDot, imageSlideViewPager) { tab, position ->
-
                 }.attach()
 
-                imageSlideViewPager.registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback(){})
-
-
+                imageSlideViewPager.registerOnPageChangeCallback(object :
+                    ViewPager2.OnPageChangeCallback() {})
 
                 /* Recycle view of project info detail */
                 val titleInfoDetail = arrayOf(
@@ -191,25 +188,30 @@ class ProjectInfoActivity :
         }
     }
 
-    private val onclickAdapter: ProjectViewPagerAdapter.OnclickAdapter = object: ProjectViewPagerAdapter.OnclickAdapter{
-        override fun onClickMe(projectInfoSlideImageModel: ProjectInfoSlideImageModel, position: Int, view: View) {
-            /*val imageSlideDialog: DialogProjectSliderImage = DialogProjectSliderImage.newInstance(
-                projectInfoSlideImageModel?.imageSlider
-            )
-            imageSlideDialog.show(supportFragmentManager, "imageSlideDialog")*/
+    private val onclickAdapter: ProjectViewPagerAdapter.OnclickAdapter =
+        object : ProjectViewPagerAdapter.OnclickAdapter {
+            override fun onClickMe(
+                projectInfoSlideImageModel: ProjectInfoSlideImageModel,
+                position: Int,
+                view: View
+            ) {
+                /*val imageSlideDialog: DialogProjectSliderImage = DialogProjectSliderImage.newInstance(
+                    projectInfoSlideImageModel?.imageSlider
+                )
+                imageSlideDialog.show(supportFragmentManager, "imageSlideDialog")*/
 
-            val intent = Intent(this@ProjectInfoActivity, ImageViewActivity::class.java)
-            val obj = ViewImageModel.ViewImage()
-            obj.gallery = imagesSlider
-            obj.position = position
-            intent.putExtra("VIEW_IMAGE", Gson().toJson(obj))
-            startActivity(
-                intent, ActivityOptions.makeSceneTransitionAnimation(
-                    this@ProjectInfoActivity, view, "UT Swap"
-                ).toBundle()
-            )
+                val intent = Intent(this@ProjectInfoActivity, ImageViewActivity::class.java)
+                val obj = ViewImageModel.ViewImage()
+                obj.gallery = imagesSlider
+                obj.position = position
+                intent.putExtra("VIEW_IMAGE", Gson().toJson(obj))
+                startActivity(
+                    intent, ActivityOptions.makeSceneTransitionAnimation(
+                        this@ProjectInfoActivity, view, "UT Swap"
+                    ).toBundle()
+                )
+            }
+
         }
-
-    }
 
 }
