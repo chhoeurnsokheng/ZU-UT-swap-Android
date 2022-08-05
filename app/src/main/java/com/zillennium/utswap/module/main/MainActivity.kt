@@ -49,7 +49,6 @@ class MainActivity :
 
     }
 
-
     override fun onBackPressed() {
         if (doubleBackToExitPressedOnce) {
             super.onBackPressed()
