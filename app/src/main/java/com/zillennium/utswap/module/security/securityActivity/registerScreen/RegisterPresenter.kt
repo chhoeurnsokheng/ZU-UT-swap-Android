@@ -5,8 +5,8 @@ import android.os.Bundle
 import com.zillennium.utswap.bases.mvp.BaseMvpPresenterImpl
 import com.zillennium.utswap.module.security.securityActivity.signInScreen.SignInView
 
-class RegisterPresenter : BaseMvpPresenterImpl<SignInView.View>(),
-    SignInView.Presenter {
+class RegisterPresenter : BaseMvpPresenterImpl<RegisterView.View>(),
+    RegisterView.Presenter {
     override fun initViewPresenter(context: Context, bundle: Bundle?) {
         mBundle = bundle
         mContext = context

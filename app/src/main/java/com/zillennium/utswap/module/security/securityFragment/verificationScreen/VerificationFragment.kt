@@ -2,6 +2,7 @@ package com.zillennium.utswap.module.security.securityFragment.verificationScree
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
@@ -58,7 +59,7 @@ class VerificationFragment :
             imgBack.setOnClickListener {
                 fragmentManager?.backStackEntryCount
                 findNavController().popBackStack()
-
+                hideKeyboard()
             }
 
             imgWrong.setOnClickListener {
@@ -113,7 +114,7 @@ class VerificationFragment :
                     txtTitle.visibility = View.VISIBLE
                 }
                 Constants.FundPassword.Register -> {
-                    btnNext.visibility = View.GONE
+                    btnNext.visibility = View.VISIBLE
 
                 }
                 else -> {
@@ -162,14 +163,14 @@ class VerificationFragment :
                         imgWrong.visibility = View.GONE
                         linearCountdown.visibility = View.GONE
                         stopTimer()
-                        lifecycleScope.launch {
-                            delay(1000)
-                            if (arguments?.getString("title") == "register") {
-                                findNavController().navigate(R.id.action_to_term_condition_security_fragment)
-                                editBox.setText("")
-                                hideKeyboard()
-                            }
-                        }
+//                        lifecycleScope.launch {
+//                            delay(1000)
+//                            if (arguments?.getString("title") == "register") {
+//                                findNavController().navigate(R.id.action_to_term_condition_security_fragment)
+//                                editBox.setText("")
+//                                hideKeyboard()
+//                            }
+//                        }
                     } else if (editBox.text.toString().length == 6 && editBox.text.toString().isNotEmpty() ){
                         onBoxesBackgroundColor(1)
                         stopTimer()
@@ -187,30 +188,20 @@ class VerificationFragment :
                 if (editBox.text.toString().length == 6 && editBox.text.toString().isNotEmpty()) {
 
                     onProgressBar(true)
-                    mPresenter.otpVerification(User.OtpObject(editBox.text.toString(),SessionPreferences().SESSION_SECURE_KEY.toString()),UTSwapApp.instance)
+                    when (arguments?.getString("title")) {
+                        Constants.FundPassword.Register -> {
+                            mPresenter.otpVerification(User.OtpObject(editBox.text.toString(),SessionPreferences().SESSION_SECURE_KEY.toString()),UTSwapApp.instance)
+                        }
+                        Constants.FundPassword.ResetPassword -> {
+                            mPresenter.onResetPassword(User.ForgotPasswordVerifyObject(editBox.text.toString(),SessionPreferences().SESSION_SECURE_KEY_FORGOT_PASSWORD.toString()),UTSwapApp.instance)
+                        }
+                    }
+
 
                 } else {
                     onBoxesBackgroundColor(1)
                 }
                 hideKeyboard()
-            }
-        }
-    }
-
-    private fun onResendCode(){
-        binding.apply {
-            resendCode.setOnClickListener {
-                stopTimer()
-                startTimer()
-                btnNext.isEnabled = true
-                Toast.makeText(
-                    requireActivity(),
-                    "New code has been sent to your email!",
-                    Toast.LENGTH_SHORT
-                ).show()
-                editBox.setText("")
-                onBoxesBackgroundColor()
-                layoutCount.performClick()
             }
         }
     }
@@ -222,20 +213,14 @@ class VerificationFragment :
             onProgressBar(false)
 
             when (arguments?.getString("title")) {
-                Constants.FundPassword.SignIn -> {
-
+                Constants.FundPassword.Register -> {
+                    SessionVariable.SESSION_STATUS.value = true
                     SessionPreferences().SESSION_STATUS = true
                     SessionPreferences().SESSION_TOKEN = body.data?.TOKEN.toString()
                     SessionPreferences().SESSION_ID = body.data?.ID.toString()
                     SessionPreferences().SESSION_X_TOKEN_API = body.data?.x_api_key.toString()
 
-                    activity?.finish()
-                }
-                Constants.FundPassword.ResetPassword -> {
-                    findNavController().navigate(R.id.action_to_new_password_security_fragment)
-                }
-                Constants.FundPassword.Register -> {
-                    findNavController().navigate(R.id.action_to_term_condition_security_fragment)
+                    findNavController().navigate(R.id.action_to_prompt_security_fragment)
                 }
                 Constants.FundPassword.ChangeLoginPassword->{
                     activity?.finish()
@@ -262,6 +247,116 @@ class VerificationFragment :
         binding.apply {
             onBoxesBackgroundColor(1)
             onProgressBar(false)
+        }
+    }
+
+    private fun onResendCode(){
+        binding.apply {
+            resendCode.setOnClickListener {
+                btnNext.isEnabled = true
+                editBox.setText("")
+                onBoxesBackgroundColor()
+                layoutCount.performClick()
+
+                when (arguments?.getString("title")) {
+                    Constants.FundPassword.Register -> {
+                        mPresenter.onResendCode(User.RegisterObject(Constants.RegisterData.username,Constants.RegisterData.password,Constants.RegisterData.password,""))
+                    }
+                    Constants.FundPassword.ResetPassword -> {
+                        mPresenter.onResendCodeResetPassword(User.ForgotPasswordObject(Constants.RegisterData.username),UTSwapApp.instance)
+                    }
+                }
+            }
+        }
+    }
+
+    override fun onResendCodeSuccess(data: User.RegisterRes) {
+        Toast.makeText(
+            requireActivity(),
+            data.message.toString(),
+            Toast.LENGTH_SHORT
+        ).show()
+        stopTimer()
+        startTimer()
+    }
+
+    override fun onResendCodeFail(data: User.RegisterRes) {
+        Toast.makeText(
+            requireActivity(),
+            data.message.toString(),
+            Toast.LENGTH_SHORT
+        ).show()
+    }
+
+    override fun onResetPasswordSuccess(data: User.ForgotPasswordVerifyRes) {
+        binding.apply {
+            onBoxesBackgroundColor(2)
+            onProgressBar(false)
+            when (arguments?.getString("title")) {
+                Constants.FundPassword.ResetPassword -> {
+
+                    SessionPreferences().SESSION_SECURE_KEY_FORGOT_PASSWORD = data.data?.secure_key.toString()
+
+                    findNavController().navigate(R.id.action_to_new_password_security_fragment)
+                }
+                Constants.FundPassword.ChangeLoginPassword->{
+                    activity?.finish()
+                }
+                Constants.FundPassword.forgotFundPassword -> {
+                    activity?.finish()
+                }
+                Constants.FundPassword.ForgotFundPassword -> {
+                    val bundle = Bundle()
+                    bundle.putString("title", "Finish")
+                    findNavController().navigate(R.id.action_from_verify_to_new_fund_password,bundle)
+                }
+                Constants.FundPassword.ForgotLoginPassword-> {
+                    findNavController().navigate(R.id.action_to_new_account_login_password)
+                }
+                Constants.FundPassword.AddNumber -> {
+                    activity?.finish()
+                }
+            }
+        }
+    }
+
+    override fun onResetPasswordFail(data: User.ForgotPasswordVerifyRes) {
+        binding.apply {
+            onBoxesBackgroundColor(1)
+            onProgressBar(false)
+        }
+    }
+
+    override fun onResendCodeResetPasswordSuccess(data: User.ForgotPasswordRes) {
+        SessionPreferences().SESSION_SECURE_KEY_FORGOT_PASSWORD = data.data?.secure_key
+        Toast.makeText(
+            requireActivity(),
+            data.message.toString(),
+            Toast.LENGTH_SHORT
+        ).show()
+        stopTimer()
+        startTimer()
+    }
+
+    override fun onResendCodeResetPasswordFail(data: User.ForgotPasswordRes) {
+        Toast.makeText(
+            requireActivity(),
+            data.message.toString(),
+            Toast.LENGTH_SHORT
+        ).show()
+    }
+
+    private fun onProgressBar(status: Boolean){
+        binding.apply {
+            if(status){
+                pbNext.visibility = View.VISIBLE
+                btnNext.isClickable = false
+                btnNext.alpha = 0.6F
+            }else{
+                pbNext.visibility = View.GONE
+                btnNext.isClickable = true
+                btnNext.alpha = 1F
+            }
         }
     }
 
@@ -300,20 +395,6 @@ class VerificationFragment :
         }
     }
 
-    private fun onProgressBar(status: Boolean){
-        binding.apply {
-            if(status){
-                pbNext.visibility = View.VISIBLE
-                btnNext.isClickable = false
-                btnNext.alpha = 0.6F
-            }else{
-                pbNext.visibility = View.GONE
-                btnNext.isClickable = true
-                btnNext.alpha = 1F
-            }
-        }
-    }
-
     private fun startTimer() {
         binding.apply {
             stopTimer()
@@ -343,16 +424,6 @@ class VerificationFragment :
 
     private fun stopTimer() {
         countDownTimer?.cancel()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        if (arguments?.getString("title") == "register") {
-            if ((activity as RegisterActivity).fromVerify) {
-                (activity as RegisterActivity).fromVerify = false
-                findNavController().popBackStack()
-            }
-        }
     }
 
     private fun showKeyboard(context: Context) {

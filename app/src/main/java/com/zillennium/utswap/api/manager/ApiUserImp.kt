@@ -32,4 +32,33 @@ class ApiUserImp:ApiManager() {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
 
+    fun register(body: User.RegisterObject): Observable<User.RegisterRes> =
+        mUserService.registerService(body)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+
+    /** Forgot Password*/
+    fun resetPassword(body: User.ForgotPasswordObject, context: Context): Observable<User.ForgotPasswordRes> =
+        mUserService.resetPasswordService(
+            Header.getHeader(Header.Companion.AuthType.REQUIRED, context),
+            body
+        )
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+
+    fun resetPasswordVerify(body: User.ForgotPasswordVerifyObject, context: Context): Observable<User.ForgotPasswordVerifyRes> =
+        mUserService.resetPasswordVerify(
+            Header.getHeader(Header.Companion.AuthType.REQUIRED, context),
+            body
+        )
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+
+    fun enterNewPassword(body: User.EnterNewPasswordObject,context: Context): Observable<User.EnterNewPasswordRes> =
+        mUserService.enterNewPassword(
+            Header.getHeader(Header.Companion.AuthType.REQUIRED, context),
+            body
+        )
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
 }

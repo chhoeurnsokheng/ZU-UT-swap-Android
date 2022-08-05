@@ -10,7 +10,11 @@ object User {
     }
 
     class LoginData{
-        var secure_key: String? = null
+        var ID: String? = null
+        var TOKEN: String? = null
+        var x_api_key: String? = null
+        var fundpass: Int? = null
+        var status_kyc: Boolean? = null
     }
 
     class LoginObject(
@@ -36,4 +40,70 @@ object User {
         var otp_code: String?,
         var secure_key: String?
     )
+
+    /** Register */
+    class RegisterRes{
+        var status: Int? = null
+        var message: String? = null
+        var data: RegisterData? = null
+    }
+
+    class RegisterData{
+        var secure_key: String? = null
+    }
+
+    class RegisterObject(
+        var username: String?,
+        var password: String?,
+        var verify: String?,
+        var invit: String?
+    )
+
+    /** Forgot Password*/
+    class ForgotPasswordRes{
+        var status: Int? = null
+        var message: String? = null
+        var data: ForgotPasswordData? = null
+    }
+
+    class ForgotPasswordData{
+        var secure_key: String? = null
+    }
+
+    class ForgotPasswordObject(
+        var username: String?
+    )
+
+    /** Forgot Password Verify*/
+    class ForgotPasswordVerifyRes{
+        var status: Int? = null
+        var message: String? = null
+        var data: ForgotPasswordVerifyData? = null
+    }
+
+    class ForgotPasswordVerifyData{
+        var secure_key: String? = null
+    }
+
+    class ForgotPasswordVerifyObject(
+        var otp_code: String?,
+        var secure_key: String?
+    )
+
+    /** Enter New Password*/
+    class EnterNewPasswordObject(
+        var secure_key: String?,
+        var new_password: String?,
+        var verify_password: String?
+    )
+
+    class EnterNewPasswordRes{
+        var status: Int? = null
+        var message: String? = null
+        var data: EnterNewPasswordData? = null
+    }
+
+    class EnterNewPasswordData{
+
+    }
 }

@@ -38,9 +38,9 @@ class MainActivity :
 
     override fun initView() {
         super.initView()
-        SessionPreferences().removeValue("SESSION_STATUS")
-        SessionPreferences().removeValue("SESSION_KYC")
-        SessionPreferences().removeValue("SESSION_KYC_STATUS")
+//        SessionPreferences().removeValue("SESSION_STATUS")
+//        SessionPreferences().removeValue("SESSION_KYC")
+//        SessionPreferences().removeValue("SESSION_KYC_STATUS")
 
         onCheckSession()
         onSetUpNavBar()
@@ -76,42 +76,42 @@ class MainActivity :
                 }
 
                 SessionVariable.SESSION_KYC.observe(this@MainActivity) {
-                    if(SessionVariable.SESSION_KYC.value == false && SessionVariable.SESSION_STATUS.value == true && SessionVariable.SESSION_KYC_STATUS.value != 0){
+                    if(SessionVariable.SESSION_KYC.value == false && SessionVariable.SESSION_STATUS.value == true){
                         layVerify.visibility = VISIBLE
                     }else{
                         layVerify.visibility = GONE
                     }
                 }
 
-                SessionVariable.SESSION_KYC_STATUS.observe(this@MainActivity){
-                    if(SessionVariable.SESSION_KYC.value == false && SessionVariable.SESSION_STATUS.value == true){
-                        when(SessionVariable.SESSION_KYC_STATUS.value){
-                            2 -> {
-                                layKycStatus.visibility = VISIBLE
-                                layKycStatus.backgroundTintList = ColorStateList.valueOf(
-                                    ContextCompat.getColor(UTSwapApp.instance, R.color.warning))
-                                txtStatus.text = "Pending Review."
-                                btnVerify.isClickable = false
-                                btnVerify.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.gray_999999))
-                                Handler().postDelayed({
-                                    SessionVariable.SESSION_KYC_STATUS.value = 1
-                                }, 5000)
-
-                            }
-                            1 -> {
-                                layKycStatus.visibility = VISIBLE
-                                layKycStatus.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
-                                txtStatus.text = "Invalid Verification. Please Try Again."
-                                btnVerify.isClickable = true
-                                btnVerify.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
-                            }
-                            else -> {
-                                layKycStatus.visibility = GONE
-                                SessionVariable.SESSION_KYC.value = true
-                            }
-                        }
-                    }
-                }
+//                SessionVariable.SESSION_KYC_STATUS.observe(this@MainActivity){
+//                    if(SessionVariable.SESSION_KYC.value == false && SessionVariable.SESSION_STATUS.value == true){
+//                        when(SessionVariable.SESSION_KYC_STATUS.value){
+//                            2 -> {
+//                                layKycStatus.visibility = VISIBLE
+//                                layKycStatus.backgroundTintList = ColorStateList.valueOf(
+//                                    ContextCompat.getColor(UTSwapApp.instance, R.color.warning))
+//                                txtStatus.text = "Pending Review."
+//                                btnVerify.isClickable = false
+//                                btnVerify.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.gray_999999))
+//                                Handler().postDelayed({
+//                                    SessionVariable.SESSION_KYC_STATUS.value = 1
+//                                }, 5000)
+//
+//                            }
+//                            1 -> {
+//                                layKycStatus.visibility = VISIBLE
+//                                layKycStatus.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
+//                                txtStatus.text = "Invalid Verification. Please Try Again."
+//                                btnVerify.isClickable = true
+//                                btnVerify.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
+//                            }
+//                            else -> {
+//                                layKycStatus.visibility = GONE
+//                                SessionVariable.SESSION_KYC.value = true
+//                            }
+//                        }
+//                    }
+//                }
 
                 layAuth.setOnClickListener {
                     val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)

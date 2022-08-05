@@ -26,4 +26,30 @@ interface UserService {
         @HeaderMap header: Map<String,String>,
         @Body body: User.OtpObject
     ): Observable<User.OtpRes>
+
+    /** Register*/
+    @POST(ApiSettings.PATH_REGISTER)
+    fun registerService(
+        @Body body: User.RegisterObject
+    ): Observable<User.RegisterRes>
+
+    /** Forgot Password*/
+    @POST(ApiSettings.PATH_FORGOT_PASSWORD)
+    fun resetPasswordService(
+        @HeaderMap header: Map<String,String>,
+        @Body body: User.ForgotPasswordObject
+    ): Observable<User.ForgotPasswordRes>
+
+    @POST(ApiSettings.PATH_FORGOT_PASSWORD_VERIFY)
+    fun resetPasswordVerify(
+        @HeaderMap header: Map<String,String>,
+        @Body body: User.ForgotPasswordVerifyObject
+    ): Observable<User.ForgotPasswordVerifyRes>
+
+    /** Enter New Password*/
+    @POST(ApiSettings.PATH_ENTER_NEW_PASSWORD)
+    fun enterNewPassword(
+        @HeaderMap header: Map<String,String>,
+        @Body body: User.EnterNewPasswordObject
+    ): Observable<User.EnterNewPasswordRes>
 }
