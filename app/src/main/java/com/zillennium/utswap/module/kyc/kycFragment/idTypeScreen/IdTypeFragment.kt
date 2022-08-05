@@ -30,9 +30,9 @@ open class IdTypeFragment :
         super.initView()
         try {
             toolbar()
-            KYCPreferences().NATIONAL_ID_BACK = ""
-            KYCPreferences().NATIONAL_ID_FRONT = ""
-            KYCPreferences().PASSPORT_FRONT = ""
+//            KYCPreferences().NATIONAL_ID_BACK = ""
+//            KYCPreferences().NATIONAL_ID_FRONT = ""
+//            KYCPreferences().PASSPORT_FRONT = ""
 
             binding.apply {
                 checkValidation()

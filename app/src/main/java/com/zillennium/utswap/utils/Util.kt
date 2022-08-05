@@ -3,12 +3,15 @@ package com.zillennium.utswap.utils
 import android.content.Context
 import android.graphics.*
 import android.media.ExifInterface
+import android.text.Html
+import android.text.Spanned
 import android.util.Base64
 import android.util.Log
 import android.util.TypedValue
 import com.zillennium.utswap.R
 import java.io.ByteArrayOutputStream
 import java.io.IOException
+
 
 /**
  * @author chhoeurnsokheng
@@ -35,6 +38,14 @@ class Util() {
         return aSharedPreferences.getBoolean("State", true)
     }
 
+    fun getHtmlText(
+        firstColor: String,
+        firstText: String,
+        lastText: String,
+        lastColor: String
+    ): Spanned? {
+        return Html.fromHtml("<font color=$firstColor>$firstText</font> <font color=$lastColor>$lastText</font>")
+    }
 
     interface onAlertDialogClick {
         fun onPositiveClicking()

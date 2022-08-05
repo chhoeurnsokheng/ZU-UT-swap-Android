@@ -29,20 +29,20 @@ class EmploymentInfoFragment :
         var phone_number = ""
         var email_emp = ""
     }
-
+    
     @SuppressLint("UseCompatLoadingForDrawables")
     override fun initView() {
         super.initView()
         try {
             toolBar()
-            KYCPreferences().OCCUPATION = ""
-            KYCPreferences().COMPANY = ""
-            KYCPreferences().EMAIL= ""
-            KYCPreferences().PHONE_NUMBER = ""
-            info.company = ""
-            info.email_emp = ""
-            info.occupation = " "
-            info.phone_number = " "
+//            KYCPreferences().OCCUPATION = ""
+//            KYCPreferences().COMPANY = ""
+//            KYCPreferences().EMAIL= ""
+//            KYCPreferences().PHONE_NUMBER = ""
+//            info.company = ""
+//            info.email_emp = ""
+//            info.occupation = " "
+//            info.phone_number = " "
             binding.apply {
 
                 /* if Data already input */

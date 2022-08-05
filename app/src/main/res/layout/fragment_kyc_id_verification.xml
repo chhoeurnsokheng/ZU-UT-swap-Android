@@ -239,20 +239,27 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dimen_10"
                         android:orientation="vertical">
-
+                        <TextView
+                            android:id="@+id/txt_label_province"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="City/Province"
+                            android:textAppearance="@style/regular_12"
+                            android:drawableRight="@drawable/ic_star_error"
+                            android:drawablePadding="@dimen/dimen_6"
+                            android:layout_marginRight="@dimen/dimen_4"
+                            android:visibility="gone"/>
                         <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
                             android:id="@+id/spinner_city_province"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:smsp_floatingLabelColor="@color/gray"
-                            app:smsp_floatingLabelText="City/Province *"
-                            app:smsp_hint="City/Province "
+                            app:smsp_alwaysShowFloatingLabel="false"
                             app:smsp_hintColor="@color/gray"
                             app:smsp_itemColor="@color/secondary_text"
                             app:smsp_itemListColor="@color/secondary_text"
                             app:smsp_itemListHintBackgroundColor="@color/backgroundHint"
                             app:smsp_itemListHintColor="@color/white"
-                            app:smsp_multilineError="false"
+                            app:smsp_multilineError="true"
                             app:smsp_selectedItemListColor="@color/secondary_text"
                             app:smsp_underlineColor="@color/secondary_text"
                             app:smsp_underlineSize="0.1dp"/>
@@ -278,14 +285,21 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dimen_10"
                         android:orientation="vertical">
-
+                        <TextView
+                            android:id="@+id/txt_label_district"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="District/Khan"
+                            android:textAppearance="@style/regular_12"
+                            android:drawableRight="@drawable/ic_star_error"
+                            android:drawablePadding="@dimen/dimen_6"
+                            android:layout_marginRight="@dimen/dimen_4"
+                            android:visibility="gone"/>
                         <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
                             android:id="@+id/spinner_district_khan"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:smsp_floatingLabelColor="@color/gray"
-                            app:smsp_floatingLabelText="District/Khan *"
-                            app:smsp_hint="District/Khan *"
+                            app:smsp_alwaysShowFloatingLabel="false"
                             app:smsp_hintColor="@color/gray"
                             app:smsp_itemColor="@color/secondary_text"
                             app:smsp_itemListColor="@color/secondary_text"
@@ -316,15 +330,22 @@
                         android:layout_marginTop="@dimen/dimen_5"
                         android:layout_weight="1"
                         android:orientation="vertical">
-
+                        <TextView
+                            android:id="@+id/txt_label_commune"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Commune/Sangkat"
+                            android:textAppearance="@style/regular_12"
+                            android:drawableRight="@drawable/ic_star_error"
+                            android:drawablePadding="@dimen/dimen_6"
+                            android:layout_marginRight="@dimen/dimen_4"
+                            android:visibility="gone"/>
                         <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
                             android:id="@+id/spinner_commune_sangkat"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:smsp_floatingLabelColor="@color/gray"
-                            app:smsp_floatingLabelText="Commune/Sangkat *"
-                            app:smsp_hint="Commune/Sangkat *"
                             app:smsp_hintColor="@color/gray"
+                            app:smsp_alwaysShowFloatingLabel="false"
                             app:smsp_itemColor="@color/secondary_text"
                             app:smsp_itemListColor="@color/secondary_text"
                             app:smsp_itemListHintBackgroundColor="@color/backgroundHint"
@@ -361,20 +382,15 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="@dimen/dimen_2"
                             android:orientation="horizontal">
-
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/house_no_street"
                                 android:textAppearance="@style/regular_12"
+                                android:drawableRight="@drawable/ic_star_error"
+                                android:drawablePadding="@dimen/dimen_6"
                                 android:layout_marginRight="@dimen/dimen_4"/>
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/star"
-                                android:textColor="@color/red_ee1111"
-                                android:textAppearance="@style/regular_10"/>
 
                         </LinearLayout>
 

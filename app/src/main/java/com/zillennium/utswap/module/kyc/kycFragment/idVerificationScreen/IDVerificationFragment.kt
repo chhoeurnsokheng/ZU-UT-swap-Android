@@ -4,6 +4,7 @@ import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
 import android.content.res.ColorStateList
 import android.text.Editable
+import android.text.Html
 import android.text.TextWatcher
 import android.view.View
 import android.widget.AdapterView
@@ -17,6 +18,7 @@ import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentKycIdVerificationBinding
 import com.zillennium.utswap.models.SpinnerModel
 import com.zillennium.utswap.models.province.PProvinceObj
+import com.zillennium.utswap.utils.Util
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -52,23 +54,37 @@ class IDVerificationFragment :
         KYCPreferences().CITY_PROVINCE=""
         KYCPreferences().DISTRICT_KHAN = ""
         KYCPreferences().CITY_PROVINCE =""
-        KYCPreferences().FIRST_NAME = ""
-        KYCPreferences().LAST_NAME = ""
-        KYCPreferences().GENDER = ""
-        KYCPreferences().BIRTHDAY = ""
+//        KYCPreferences().FIRST_NAME = ""
+//        KYCPreferences().LAST_NAME = ""
+//        KYCPreferences().GENDER = ""
+//        KYCPreferences().BIRTHDAY = ""
         KYCPreferences().ADDRESS = ""
         info.commune = 0
         info.city = 0
         info.district = 0
-        info.dateOfBirth = ""
-        info.gender = ""
+//        info.dateOfBirth = ""
+//        info.gender = ""
+        binding.apply {
+
+            spinnerCommuneSangkat.floatingLabelText  = ""
+                //Util().getHtmlText("#DCDCDC","Commune/Sangkat"," *","#EE1111")
+            spinnerCommuneSangkat.hint = Util().getHtmlText("#DCDCDC","Commune/Sangkat"," *","#EE1111")
+
+            spinnerDistrictKhan.hint = Util().getHtmlText("#DCDCDC","District/Khan"," *","#EE1111")
+            spinnerDistrictKhan.floatingLabelText = ""
+                //Util().getHtmlText("#DCDCDC","District/Khan"," *","#EE1111")
+
+            spinnerCityProvince.hint = Util().getHtmlText("#DCDCDC","City/Province","*","#EE1111")
+            spinnerCityProvince.floatingLabelText = ""
+                //Util().getHtmlText("#DCDCDC","City/Province","*","#EE1111")
+        }
         mPresenter.getAllProvinceSuccess(requireActivity())
         binding.apply {
             mPresenter.getAllProvinceSuccess(requireActivity())
 
             initSpinnerGender()
             initSpinnerCityProvince()
-
+            
             /* if Data already input */
             if (!KYCPreferences().FIRST_NAME.isNullOrEmpty()) {
                 info.firstName = KYCPreferences().FIRST_NAME.toString()
@@ -79,7 +95,7 @@ class IDVerificationFragment :
                 info.lastName = KYCPreferences().LAST_NAME.toString()
                 etLastName.setText(info.lastName)
             }
-
+            
             if (!KYCPreferences().BIRTHDAY.isNullOrEmpty()) {
                 info.dateOfBirth = KYCPreferences().BIRTHDAY.toString()
                 etDate.setText(info.dateOfBirth)
@@ -116,109 +132,6 @@ class IDVerificationFragment :
                 ).show()
             }
 
-            btnNext.setOnClickListener {
-                var isHaveError = false
-
-                //  FirstName Error
-                if (etFirstName.text.toString().isEmpty()) {
-                    txtErrorFirstName.visibility = View.VISIBLE
-                    etFirstName.backgroundTintList =
-                        ColorStateList.valueOf(
-                            ContextCompat.getColor(
-                                UTSwapApp.instance,
-                                R.color.danger
-                            )
-                        )
-                    isHaveError = true
-                }
-
-                //  Lastname Error
-                if (etLastName.text.toString().isEmpty()) {
-                    txtErrorLastName.visibility = View.VISIBLE
-                    etLastName.backgroundTintList =
-                        ColorStateList.valueOf(
-                            ContextCompat.getColor(
-                                UTSwapApp.instance,
-                                R.color.danger
-                            )
-                        )
-                    isHaveError = true
-                }
-
-                // Date Of Birth Error
-                if (etDate.text.toString().isEmpty()) {
-                    txtErrorDate.visibility = View.VISIBLE
-                    etDate.backgroundTintList =
-                        ColorStateList.valueOf(
-                            ContextCompat.getColor(
-                                UTSwapApp.instance,
-                                R.color.danger
-                            )
-                        )
-                    isHaveError = true
-                }
-
-                //Gender Error
-                if (info.gender.isEmpty()) {
-                    spinnerGender.underlineColor =
-                        ContextCompat.getColor(UTSwapApp.instance, R.color.danger)
-                    txtErrorGender.visibility = View.VISIBLE
-                    isHaveError = true
-                }
-
-                // City/Province Error
-                if (info.city ==0) {
-                    spinnerCityProvince.underlineColor = ContextCompat.getColor(UTSwapApp.instance, R.color.danger)
-                    txtErrorCity.visibility = View.VISIBLE
-                    isHaveError = true
-                }
-
-                // District Error
-                if (info.district ==0) {
-                    spinnerDistrictKhan.underlineColor =
-                        ContextCompat.getColor(UTSwapApp.instance, R.color.danger)
-                    txtErrorDistrict.visibility = View.VISIBLE
-                    isHaveError = true
-                }
-
-                // Commune Error
-                if (info.commune ==0) {
-                    spinnerCommuneSangkat.underlineColor =
-                        ContextCompat.getColor(UTSwapApp.instance, R.color.danger)
-                    txtErrorCommune.visibility = View.VISIBLE
-                    isHaveError = true
-                }
-
-                // House Address Error
-                if (etHouse.text.toString().isEmpty()) {
-                    txtErrorHouse.visibility = View.VISIBLE
-                    etHouse.backgroundTintList =
-                        ColorStateList.valueOf(
-                            ContextCompat.getColor(
-                                UTSwapApp.instance,
-                                R.color.danger
-                            )
-                        )
-                    isHaveError = true
-                }
-
-                if (!isHaveError) {
-                    KYCPreferences().FIRST_NAME = info.firstName
-                    KYCPreferences().LAST_NAME = info.lastName
-                    KYCPreferences().BIRTHDAY = info.dateOfBirth
-                    KYCPreferences().GENDER = info.gender
-                    KYCPreferences().CITY_PROVINCE = info.city.toString()
-                    KYCPreferences().DISTRICT_KHAN = info.district.toString()
-                    KYCPreferences().COMMUNE_SANGKAT = info.commune.toString()
-                    KYCPreferences().ADDRESS = info.addressHouse
-                    KYCPreferences().ID_CARD_INFOR ="National Id"
-                    findNavController().navigate(R.id.action_to_id_selfie_holding_fragment)
-
-                } else {
-                    return@setOnClickListener
-                }
-
-            }
 
             etFirstName.addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(
@@ -353,11 +266,126 @@ class IDVerificationFragment :
         }
     }
 
+
+    private fun validateBtnNext(){
+
+        binding.apply {
+
+            btnNext.setOnClickListener {
+                var isHaveError = false
+
+                //  FirstName Error
+                if (etFirstName.text.toString().isEmpty()) {
+                    txtErrorFirstName.visibility = View.VISIBLE
+                    etFirstName.backgroundTintList =
+                        ColorStateList.valueOf(
+                            ContextCompat.getColor(
+                                UTSwapApp.instance,
+                                R.color.danger
+                            )
+                        )
+                    isHaveError = true
+                }
+
+                //  Lastname Error
+                if (etLastName.text.toString().isEmpty()) {
+                    txtErrorLastName.visibility = View.VISIBLE
+                    etLastName.backgroundTintList =
+                        ColorStateList.valueOf(
+                            ContextCompat.getColor(
+                                UTSwapApp.instance,
+                                R.color.danger
+                            )
+                        )
+                    isHaveError = true
+                }
+
+                // Date Of Birth Error
+                if (etDate.text.toString().isEmpty()) {
+                    txtErrorDate.visibility = View.VISIBLE
+                    etDate.backgroundTintList =
+                        ColorStateList.valueOf(
+                            ContextCompat.getColor(
+                                UTSwapApp.instance,
+                                R.color.danger
+                            )
+                        )
+                    isHaveError = true
+                }
+
+                //Gender Error
+                if (info.gender.isEmpty()) {
+                    spinnerGender.underlineColor =
+                        ContextCompat.getColor(UTSwapApp.instance, R.color.danger)
+                    txtErrorGender.visibility = View.VISIBLE
+                    isHaveError = true
+                }
+
+                // City/Province Error
+                if (info.city ==0) {
+                    spinnerCityProvince.underlineColor = ContextCompat.getColor(UTSwapApp.instance, R.color.danger)
+                    txtErrorCity.visibility = View.VISIBLE
+                    isHaveError = true
+                }
+
+                // District Error
+                if (info.district ==0) {
+                    spinnerDistrictKhan.underlineColor =
+                        ContextCompat.getColor(UTSwapApp.instance, R.color.danger)
+                    txtErrorDistrict.visibility = View.VISIBLE
+                    isHaveError = true
+                }
+
+                // Commune Error
+                if (info.commune ==0) {
+                    spinnerCommuneSangkat.underlineColor =
+                        ContextCompat.getColor(UTSwapApp.instance, R.color.danger)
+                    txtErrorCommune.visibility = View.VISIBLE
+                    isHaveError = true
+                }
+
+                // House Address Error
+                if (etHouse.text.toString().isEmpty()) {
+                    txtErrorHouse.visibility = View.VISIBLE
+                    etHouse.backgroundTintList =
+                        ColorStateList.valueOf(
+                            ContextCompat.getColor(
+                                UTSwapApp.instance,
+                                R.color.danger
+                            )
+                        )
+                    isHaveError = true
+                }
+
+                if (!isHaveError) {
+                    KYCPreferences().FIRST_NAME = info.firstName
+                    KYCPreferences().LAST_NAME = info.lastName
+                    KYCPreferences().BIRTHDAY = info.dateOfBirth
+                    KYCPreferences().GENDER = info.gender
+                    KYCPreferences().CITY_PROVINCE = info.city.toString()
+                    KYCPreferences().DISTRICT_KHAN = info.district.toString()
+                    KYCPreferences().COMMUNE_SANGKAT = info.commune.toString()
+                    KYCPreferences().ADDRESS = info.addressHouse
+                    KYCPreferences().ID_CARD_INFOR ="National Id"
+                    findNavController().navigate(R.id.action_to_id_selfie_holding_fragment)
+
+                } else {
+                    return@setOnClickListener
+                }
+
+            }
+
+
+
+
+
+        }
+
+    }
     override fun OngetAllProvinceSuccess(data: PProvinceObj.ProvinceRes) {
         provinceList = data.data as MutableList<PProvinceObj.Items>
 
         binding.apply {
-
             spinnerCityProvince.item = provinceList.map { it.english }
             spinnerCityProvince.onItemSelectedListener =
                 object : AdapterView.OnItemSelectedListener {
@@ -367,6 +395,11 @@ class IDVerificationFragment :
                         position: Int,
                         id: Long
                     ) {
+                        if (spinnerCityProvince.item ==null){
+                            txtLabelProvince.visibility =View.GONE
+                        }else{
+                            txtLabelProvince.visibility =View.VISIBLE
+                        }
                         spinnerCityProvince.underlineColor = ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text)
                         info.city = provinceList[position].code?.toInt()!!
                         parent_code = provinceList[position].code
@@ -380,7 +413,7 @@ class IDVerificationFragment :
                     }
 
                     override fun onNothingSelected(adapterView: AdapterView<*>) {
-                     //   KYCPreferences().CITY_PROVINCE = ""
+                        txtLabelProvince.visibility =View.GONE
                     }
                 }
         }
@@ -392,7 +425,6 @@ class IDVerificationFragment :
         districtList = data.data as MutableList<PProvinceObj.Items>
 
         binding.apply {
-
             spinnerDistrictKhan.item = districtList.map { it.english }
             spinnerDistrictKhan.onItemSelectedListener =
                 object : AdapterView.OnItemSelectedListener {
@@ -402,8 +434,13 @@ class IDVerificationFragment :
                         position: Int,
                         id: Long
                     ) {
-                        spinnerDistrictKhan.underlineColor =
-                            ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text)
+                        if (spinnerDistrictKhan.item ==null){
+                            txtLabelDistrict.visibility =View.GONE
+                        }else{
+                            txtLabelDistrict.visibility =View.VISIBLE
+                        }
+
+                        spinnerDistrictKhan.underlineColor = ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text)
                         info.district = districtList[position].code?.toInt()!!
                        // KYCPreferences().DISTRICT_KHAN = districtList[position].code
                         mPresenter.queryCommune(
@@ -414,7 +451,7 @@ class IDVerificationFragment :
                     }
 
                     override fun onNothingSelected(adapterView: AdapterView<*>) {
-                      //  KYCPreferences().DISTRICT_KHAN = ""
+                        txtLabelDistrict.visibility =View.GONE
                     }
                 }
         }
@@ -424,7 +461,6 @@ class IDVerificationFragment :
     override fun OnQueryCommuneSucess(data: PProvinceObj.ProvinceRes) {
         communeList = data.data as MutableList<PProvinceObj.Items>
         binding.apply {
-
             spinnerCommuneSangkat.item = communeList.map { it.english }
             spinnerCommuneSangkat.onItemSelectedListener =
                 object : AdapterView.OnItemSelectedListener {
@@ -434,15 +470,20 @@ class IDVerificationFragment :
                         position: Int,
                         id: Long
                     ) {
-                        spinnerCommuneSangkat.underlineColor =
-                            ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text)
+                        if (spinnerCommuneSangkat.item==null){
+                            txtLabelCommune.visibility =View.GONE
+                        }else{
+                            txtLabelCommune.visibility =View.VISIBLE
+                        }
+                        spinnerCommuneSangkat.underlineColor = ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text)
+
                         info.commune = communeList[position].code?.toInt()!!
                       //  KYCPreferences().COMMUNE_SANGKAT = communeList[position].code
                         txtErrorCommune.visibility = View.GONE
                     }
 
                     override fun onNothingSelected(adapterView: AdapterView<*>) {
-                      //  KYCPreferences().COMMUNE_SANGKAT = ""
+                        txtLabelCommune.visibility =View.GONE
                     }
                 }
         }
@@ -465,9 +506,9 @@ class IDVerificationFragment :
     private fun initSpinnerGender() {
         binding.apply {
 
-            genderList.add(SpinnerModel("1", "M"))
-            genderList.add(SpinnerModel("2", "F"))
-            spinnerGender.item = genderList.map { it.name }
+            genderList.add(SpinnerModel("1", "M","Male"))
+            genderList.add(SpinnerModel("2", "F","Female"))
+            spinnerGender.item = genderList.map { it.showName }
 
             spinnerGender.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(
@@ -476,15 +517,14 @@ class IDVerificationFragment :
                     position: Int,
                     id: Long
                 ) {
-                    spinnerGender.underlineColor =
-                        ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text)
+                    spinnerGender.underlineColor = ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text)
                     info.gender = genderList[position].name
                    // KYCPreferences().GENDER = genderList[position].name
                     txtErrorGender.visibility = View.GONE
                 }
 
                 override fun onNothingSelected(adapterView: AdapterView<*>) {
-                  //  KYCPreferences().GENDER = ""
+
                 }
             }
         }

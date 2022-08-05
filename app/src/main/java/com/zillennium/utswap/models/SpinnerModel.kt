@@ -4,6 +4,7 @@ import java.io.Serializable
 
 class SpinnerModel (
     var id: String,
-    var name: String
+    var name: String,
+    var showName:String
 ) : Serializable
 
