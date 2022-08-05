@@ -25,19 +25,6 @@ class ProjectAdapter(itemListProject: Int) :
                 titleProject.text = projectList.project_name
                 subTitle.text = projectList.action
 
-
-//        if (projectList.status.isNotEmpty()) {
-//            holder.txtstatus.isVisible = true
-//
-//        }
-//        holder.txtstatus.text = projectList.status
-//                linearCard.setOnClickListener {
-////            onclickProject.onClickMe(
-////                projectList,
-////                projectList.id
-////            )
-//
-//                }
             }
         }
 
@@ -53,7 +40,7 @@ class ProjectAdapter(itemListProject: Int) :
         holder.bindData(items[position])
     }
 
-    interface OnclickProject {
-        fun onClickMe(projectHistory: ProjectList.ProjectListData?, selectedPosition: Int?)
-    }
+//    interface OnclickProject {
+//        fun onClickMe(id: String)
+//    }
 }

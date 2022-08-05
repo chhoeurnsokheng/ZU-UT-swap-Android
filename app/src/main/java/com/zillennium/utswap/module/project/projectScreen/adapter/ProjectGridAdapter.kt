@@ -10,12 +10,14 @@ import com.zillennium.utswap.bases.mvp.BaseRecyclerViewAdapterGeneric
 import com.zillennium.utswap.bases.mvp.BaseViewHolder
 import com.zillennium.utswap.databinding.ItemListProjectGridBinding
 import com.zillennium.utswap.models.projectList.ProjectList
+import com.zillennium.utswap.module.main.news.adapter.NewsAdapter
 
-class ProjectGridAdapter(itemListProjectGrid: Int) :
+class ProjectGridAdapter(private var listener: Listener) :
     BaseRecyclerViewAdapterGeneric<ProjectList.ProjectListData, ProjectGridAdapter.ProjectListViewHolder>() {
 
     inner class ProjectListViewHolder(root: ItemListProjectGridBinding) :
         BaseViewHolder<ItemListProjectGridBinding>(root) {
+
         fun bindData(projectList: ProjectList.ProjectListData) {
             binding.apply {
                 Glide.with(UTSwapApp.instance)
@@ -24,19 +26,9 @@ class ProjectGridAdapter(itemListProjectGrid: Int) :
                 titleProject.text = projectList.project_name
                 subTitle.text = projectList.action
 
-
-//        if (projectList.status.isNotEmpty()) {
-//            holder.txtstatus.isVisible = true
-//
-//        }
-//        holder.txtstatus.text = projectList.status
-//                linearCard.setOnClickListener {
-////            onclickProject.onClickMe(
-////                projectList,
-////                projectList.id
-////            )
-//
-//                }
+                linearCard.setOnClickListener{
+                    listener.onClickMe(projectList.id.toString())
+                }
             }
         }
 
@@ -52,7 +44,11 @@ class ProjectGridAdapter(itemListProjectGrid: Int) :
         holder.bindData(items[position])
     }
 
-    interface OnclickProject {
-        fun onClickMe(projectHistory: ProjectList.ProjectListData?, selectedPosition: Int?)
+    interface Listener {
+        fun onClickMe(id: String)
     }
+
+//    class OnclickProjectGrid {
+//        fun onClickMe(id: String) {}
+//    }
 }

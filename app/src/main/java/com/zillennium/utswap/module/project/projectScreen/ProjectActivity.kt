@@ -18,6 +18,7 @@ import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityProjectBinding
 import com.zillennium.utswap.models.projectList.ProjectList
+import com.zillennium.utswap.module.project.projectInfoScreen.ProjectInfoActivity
 import com.zillennium.utswap.module.project.projectScreen.adapter.ProjectAdapter
 import com.zillennium.utswap.module.project.projectScreen.adapter.ProjectGridAdapter
 import com.zillennium.utswap.module.system.notification.NotificationActivity
@@ -31,9 +32,8 @@ class ProjectActivity :
     override val layoutResource: Int = R.layout.activity_project
 
     private var projectList: ArrayList<ProjectList.ProjectListData> = arrayListOf()
-    private var projectGridAdapter: ProjectGridAdapter =
-        ProjectGridAdapter(R.layout.item_list_project_grid)
-    private var projectAdapter: ProjectAdapter = ProjectAdapter(R.layout.item_list_project)
+    private var projectGridAdapter: ProjectGridAdapter? = null
+    private var projectAdapter: ProjectAdapter? = null
     private var search = ""
     private var viewGrid = false
     private var sortedDate = true
@@ -95,12 +95,23 @@ class ProjectActivity :
 
                 if (viewGrid) {
                     rvProject.layoutManager = GridLayoutManager(UTSwapApp.instance, 2)
-                    rvProject.adapter = projectGridAdapter
-                    projectGridAdapter.items = projectList
-                } else {
-                    rvProject.layoutManager = LinearLayoutManager(UTSwapApp.instance)
+//                    var listenerProject = ProjectGridAdapter(onclickProjectGrid = object = ProjectGridAdapter.
+//                    {
+////                        override fun onClickMe(id: String) {
+////                            onclickProjectDetail(id)
+////                        }
+//
+//                    })
+////                    var listProjectGrid = ProjectGridAdapter(onclickProjectGrid = object : ProjectGridAdapter.OnclickProjectGrid{
+////
+////                    })
                     rvProject.adapter = projectAdapter
-                    projectGridAdapter.items = projectList
+                    projectGridAdapter?.items = projectList
+                } else {
+                    rvProject.layoutManager = LinearLayoutManager(UTSwapApp.instance,)
+                    rvProject.adapter = projectAdapter
+                    projectGridAdapter?.items = projectList
+
                 }
 
 
@@ -220,14 +231,12 @@ class ProjectActivity :
                 viewType.setImageResource(R.drawable.ic_grid_view)
                 rvProject.layoutManager = GridLayoutManager(UTSwapApp.instance, 2)
                 rvProject.adapter = projectGridAdapter
-                projectGridAdapter.items = projectList
-                rvProject.adapter = projectGridAdapter
+                projectGridAdapter?.items = projectList
             } else {
                 viewType.setImageResource(R.drawable.ic_list_view)
                 rvProject.layoutManager = LinearLayoutManager(UTSwapApp.instance)
-                rvProject.adapter = ProjectAdapter(R.layout.item_list_project)
-                projectAdapter!!.items = projectList
                 rvProject.adapter = projectAdapter
+                projectAdapter?.items = projectList
             }
         }
 
@@ -253,4 +262,23 @@ class ProjectActivity :
         }
 
     }
+
+    private fun onclickProjectDetail(id: String = ""){
+        if(id != ""){
+            val intent = Intent(UTSwapApp.instance, ProjectInfoActivity::class.java)
+            intent.putExtra("id", id)
+            startActivity(intent)
+        }
+    }
+
+//    private var onclickProject: ProjectAdapter.OnclickProject =
+//        object : ProjectAdapter.OnclickProject {
+//            override fun onClickMe(id: String) {
+//                val intent = Intent(UTSwapApp.instance, ProjectInfoActivity::class.java)
+//                intent.putExtra("id", id)
+//                startActivity(intent)
+//            }
+//
+//
+//        }
 }
