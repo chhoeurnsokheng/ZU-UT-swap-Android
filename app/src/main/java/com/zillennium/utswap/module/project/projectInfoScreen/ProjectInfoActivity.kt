@@ -31,6 +31,7 @@ class ProjectInfoActivity :
     override var mPresenter: ProjectInfoView.Presenter = ProjectInfoPresenter()
     override val layoutResource: Int = R.layout.activity_project_info
 
+
     private var termCondition = true
     private var condition = true
     private var imagesSlider: ArrayList<String> = arrayListOf()
@@ -49,8 +50,6 @@ class ProjectInfoActivity :
                     val intent : Intent = Intent(UTSwapApp.instance, SubscriptionActivity::class.java)
                     startActivity(intent)
                 }
-
-
 
 
                 /* Image Slider with View Pager and TabLayout*/
@@ -75,16 +74,6 @@ class ProjectInfoActivity :
 
                 TabLayoutMediator(tabLayoutDot, imageSlideViewPager) { tab, position ->
 
-//                    imageDialog.setOnClickListener {
-//                        val imagesDialog: DialogProjectSliderImage =
-//                            DialogProjectSliderImage.newInstance(
-//                                imagesSlider[tab.position]
-//                            )
-//                        imagesDialog.show(
-//                            requireActivity().supportFragmentManager,
-//                            "balanceHistoryDetailDialog"
-//                        )
-//                    }
                 }.attach()
 
                 imageSlideViewPager.registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback(){})
