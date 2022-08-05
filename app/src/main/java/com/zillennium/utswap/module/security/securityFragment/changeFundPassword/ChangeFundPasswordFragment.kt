@@ -17,6 +17,7 @@ import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentAccountChangeFundPasswordBinding
+import com.zillennium.utswap.models.userService.User
 
 
 class ChangeFundPasswordFragment :
@@ -108,27 +109,43 @@ class ChangeFundPasswordFragment :
             btnNext.setOnClickListener {
 
                 if (editFundPassword.text.isNotEmpty() && editFundPassword.length() == 4){
-                    pbNext.visibility = View.VISIBLE
-                    btnNext.isClickable = false
-                    btnNext.alpha = 0.6F
-                    Handler().postDelayed({
-                        if (editFundPassword.length() == 4 && editFundPassword.text.toString() == "1111"){
-                            findNavController().navigate(R.id.action_to_new_fund_password)
-                        }else{
-                            for(child in numberVerification.children){
-                                child.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_border_bottom_red)
-                            }
-                        }
-                        pbNext.visibility = View.GONE
-                        btnNext.isClickable = true
-                        btnNext.alpha = 1F
-                    },3000)
+//                    pbNext.visibility = View.VISIBLE
+//                    btnNext.isClickable = false
+//                    btnNext.alpha = 0.6F
+//                    Handler().postDelayed({
+//                        if (editFundPassword.length() == 4 && editFundPassword.text.toString() == "1111"){
+//                            findNavController().navigate(R.id.action_to_new_fund_password)
+//                        }else{
+//                            for(child in numberVerification.children){
+//                                child.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_border_bottom_red)
+//                            }
+//                        }
+//                        pbNext.visibility = View.GONE
+//                        btnNext.isClickable = true
+//                        btnNext.alpha = 1F
+//                    },3000)
+
+                    onProgressBar(true)
+                    mPresenter.onSubmitOldFundPassword(User.CheckOldFundPasswordObject(editFundPassword.text.toString()),UTSwapApp.instance)
                 }else{
                     for(child in numberVerification.children){
                         child.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_border_bottom_red)
                     }
                 }
             }
+        }
+    }
+
+    override fun checkOldFundPasswordSuccess(data: User.CheckOldFundPasswordRes) {
+        onProgressBar(false)
+        findNavController().navigate(R.id.action_to_new_fund_password)
+    }
+
+    override fun checkOldFundPasswordFail(data: User.CheckOldFundPasswordRes) {
+        onProgressBar(false)
+        binding.apply {
+            txtMessage.visibility = View.VISIBLE
+            txtMessage.text = resources.getString(R.string.old_fund_password_wrong)
         }
     }
 
@@ -142,6 +159,10 @@ class ChangeFundPasswordFragment :
                 pbNext.visibility = View.GONE
                 btnNext.isClickable = true
                 btnNext.alpha = 1F
+            }
+            txtMessage.visibility = View.GONE
+            for(child in numberVerification.children){
+                child.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_border_bottom)
             }
         }
     }

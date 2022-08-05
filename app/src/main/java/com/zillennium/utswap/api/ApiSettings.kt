@@ -32,5 +32,6 @@ object ApiSettings {
     const val PATH_CHANGE_LOGIN_PASSWORD = "user/changeNewPassword"
 
     /** Change Fund Password*/
+    const val PATH_CHECK_OLD_FUND_PASSWORD = "user/checkOldFund"
     const val PATH_CHANGE_FUND_PASSWORD = "user/changeFundPassword"
 }

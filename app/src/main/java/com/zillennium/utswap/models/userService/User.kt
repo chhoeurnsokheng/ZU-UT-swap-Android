@@ -121,6 +121,16 @@ object User {
     )
 
     /** Change Fund Password*/
+    class CheckOldFundPasswordRes{
+        var status: Int? = null
+        var message: String? = null
+        var data: Any? = null
+    }
+
+    class CheckOldFundPasswordObject(
+        var old_fund: String?
+    )
+
     class ChangeFundPasswordRes{
         var status: Int? = null
         var message: String? = null

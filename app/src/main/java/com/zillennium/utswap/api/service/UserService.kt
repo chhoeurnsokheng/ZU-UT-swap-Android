@@ -61,6 +61,13 @@ interface UserService {
     ): Observable<User.ChangeLoginPasswordRes>
 
     /** Change Fund Password*/
+    @POST(ApiSettings.PATH_CHECK_OLD_FUND_PASSWORD)
+    fun checkOldFundPassword(
+        @HeaderMap header: Map<String,String>,
+        @Body body: User.CheckOldFundPasswordObject
+    ): Observable<User.CheckOldFundPasswordRes>
+
+
     @POST(ApiSettings.PATH_CHANGE_FUND_PASSWORD)
     fun changeFundPassword(
         @HeaderMap header: Map<String,String>,

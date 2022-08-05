@@ -72,6 +72,15 @@ class ApiUserImp:ApiManager() {
             .observeOn(AndroidSchedulers.mainThread())
 
     /** Change Fund Password*/
+    fun checkOldFundPassword(body: User.CheckOldFundPasswordObject,context: Context): Observable<User.CheckOldFundPasswordRes> =
+        mUserService.checkOldFundPassword(
+            Header.getHeader(Header.Companion.AuthType.REQUIRED_TOKEN, context),
+            body
+        )
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+
+
     fun changeFundPassword(body: User.ChangeFundPasswordObject, context: Context): Observable<User.ChangeFundPasswordRes> =
         mUserService.changeFundPassword(
             Header.getHeader(Header.Companion.AuthType.REQUIRED_TOKEN, context),

@@ -308,10 +308,12 @@ class VerificationFragment :
                 Constants.FundPassword.ChangeLoginPassword->{
                     activity?.finish()
                 }
-                Constants.FundPassword.forgotFundPassword -> {
-                    activity?.finish()
-                }
+//                Constants.FundPassword.forgotFundPassword -> {
+//                    activity?.finish()
+//                }
                 Constants.FundPassword.ForgotFundPassword -> {
+
+                    //forgot fund password
                     val bundle = Bundle()
                     bundle.putString("title", "Finish")
                     findNavController().navigate(R.id.action_from_verify_to_new_fund_password,bundle)
