@@ -86,25 +86,25 @@ class MainActivity :
                     }
                 }
 
-                SessionVariable.SESSION_STATUS.observe(this@MainActivity) {
-                    if(SessionVariable.SESSION_STATUS.value == true){
-                        layAuth.visibility = GONE
-                     //   layVerify.visibility = VISIBLE
-                        btnVerify.visibility = VISIBLE
-                    }else{
-                        layAuth.visibility = VISIBLE
-                        btnVerify.visibility = GONE
-                    }
-                }
+//                SessionVariable.SESSION_STATUS.observe(this@MainActivity) {
+//                    if(SessionVariable.SESSION_STATUS.value == true){
+//                        layAuth.visibility = GONE
+//                     //   layVerify.visibility = VISIBLE
+//                        btnVerify.visibility = VISIBLE
+//                    }else{
+//                        layAuth.visibility = VISIBLE
+//                        btnVerify.visibility = GONE
+//                    }
+//                }
 
-                if(SessionPreferences().SESSION_STATUS == true){
-                    layAuth.visibility = GONE
-                  //  layVerify.visibility = VISIBLE
-                    btnVerify.visibility = VISIBLE
-                }else{
-                    layAuth.visibility = VISIBLE
-                    btnVerify.visibility = GONE
-                }
+//                if(SessionPreferences().SESSION_STATUS == true){
+//                    layAuth.visibility = GONE
+//                  //  layVerify.visibility = VISIBLE
+//                    btnVerify.visibility = VISIBLE
+//                }else{
+//                    layAuth.visibility = VISIBLE
+//                    btnVerify.visibility = GONE
+//                }
 
                 layAuth.setOnClickListener {
                     val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)

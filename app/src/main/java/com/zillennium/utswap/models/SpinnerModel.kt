@@ -8,3 +8,8 @@ class SpinnerModel (
     var showName:String
 ) : Serializable
 
+class SpinnerTestModel (
+    var id: Int,
+    var name: String,
+
+) : Serializable
