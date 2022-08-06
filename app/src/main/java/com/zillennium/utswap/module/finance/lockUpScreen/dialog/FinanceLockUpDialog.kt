@@ -57,16 +57,17 @@ class FinanceLockUpDialog: DialogFragment() {
             txtAmount.text = arguments?.getString("amount")
             txtStartDate.text = arguments?.getString("start_date")
             txtEndDate.text = arguments?.getString("end_date")
-            txtDuration.text = "${arguments?.getString("duration")} Day(s)"
             txtCategory.text = arguments?.getString("category")
 
             if (isLocked) {
+                txtDuration.text = "${arguments?.getString("duration")} Day(s)"
                 tvLock.text = "Locked"
                 ivLock.setImageResource(R.drawable.ic_locked)
                 tvLock.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
 
             } else {
                 tvLock.text = "Unlocked"
+                txtDuration.text = "Unlocked"
                 ivLock.setImageResource(R.drawable.ic_unlocked)
                 tvLock.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.simple_green))
 

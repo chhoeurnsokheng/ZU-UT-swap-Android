@@ -56,36 +56,63 @@ class FinanceSubscriptionsDialog : DialogFragment() {
                 dismiss()
             }
 
-            val status = arguments?.getInt("status")
-            if (status == 1){
+
+            val status: Boolean = arguments?.getBoolean("status") == true
+            if (status) {
+                imgIcon.setImageResource(R.drawable.ic_locked)
                 txtStatus.text = "Locked"
-            }else{
+                txtDuration.text = "${arguments?.getInt("duration").toString()} Day(s)"
+                txtStatus.setTextColor(
+                    ContextCompat.getColor(
+                        UTSwapApp.instance,
+                        R.color.danger
+                    )
+                )
+            } else {
+                imgIcon.setImageResource(R.drawable.ic_unlocked)
                 txtStatus.text = "Unlocked"
-                txtStatus.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.simple_green))
+                txtDuration.text = "Unlocked"
+                txtStatus.setTextColor(
+                    ContextCompat.getColor(
+                        UTSwapApp.instance,
+                        R.color.simple_green
+                    )
+                )
             }
 
-            arguments?.getInt("image")?.let { imgIcon.setImageResource(it) }
             txtTitle.text = arguments?.getString("title")
-            txtAmount.text = arguments?.getString("amount")
-            txtDuration.text = arguments?.getString("duration")
+            txtTransactionId.text = arguments?.getString("transactionId")
+            txtPrice.text = arguments?.getDouble("price")?.let { groupingSeparator(it) }
+            txtVolume.text = arguments?.getString("volume")
+            txtAmount.text = arguments?.getDouble("value")?.let { groupingSeparator(it) }
+            txtStartDate.text = arguments?.getString("start")
+            txtEndDate.text = arguments?.getString("end")
         }
     }
 
     companion object {
         fun newInstance(
             title: String?,
-            status: Int,
-            amount: Double,
-            duration: String?,
-            image: Int,
+            status: Boolean,
+            transactionId: String,
+            price: Double,
+            volume: String,
+            value: Double,
+            start: String,
+            end: String,
+            duration: Int
         ): FinanceSubscriptionsDialog {
             val financeLockUpBuyBackDialog = FinanceSubscriptionsDialog()
             val args = Bundle()
             args.putString("title", title)
-            args.putInt("status", status)
-            args.putString("amount", groupingSeparator(amount))
-            args.putString("duration", duration)
-            args.putInt("image", image)
+            args.putBoolean("status", status)
+            args.putString("transactionId", transactionId)
+            args.putDouble("price", price)
+            args.putString("volume", volume)
+            args.putDouble("value", value)
+            args.putString("start", start)
+            args.putString("end", end)
+            args.putInt("duration", duration)
 
             financeLockUpBuyBackDialog.arguments = args
             return financeLockUpBuyBackDialog

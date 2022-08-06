@@ -5,6 +5,7 @@ import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.androidstudy.networkmanager.Tovuti
 import com.zillennium.utswap.Datas.GlobalVariable.SettingVariable
 import com.zillennium.utswap.R
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
@@ -14,6 +15,7 @@ import com.zillennium.utswap.module.finance.lockUpScreen.adapter.LockUpAdapter
 import com.zillennium.utswap.module.finance.lockUpScreen.bottomSheet.FinanceLockUpBottomSheet
 import com.zillennium.utswap.module.finance.lockUpScreen.dialog.FinanceLockUpDialog
 import com.zillennium.utswap.utils.groupingSeparator
+import com.zillennium.utswap.utils.isOnline
 
 class FinanceLockUpActivity :
     BaseMvpActivity<FinanceLockUpView.View, FinanceLockUpView.Presenter, ActivityFinanceLockUpBinding>(),
@@ -27,12 +29,14 @@ class FinanceLockUpActivity :
     private var lastPosition = 0
     private var isLastPage = false
     private var totalPage = 1
-    private var type: String = ""
+    private var isLostConnection = false
 
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun initView() {
         super.initView()
+        initToolBar()
+        checkInternet()
         binding.apply {
             backImage.setOnClickListener {
                 SettingVariable.finance_lock_up_selected.value = "Buy Back"
@@ -46,6 +50,23 @@ class FinanceLockUpActivity :
                     supportFragmentManager, "Filter Lock Up"
                 )
             }
+
+            Tovuti.from(this@FinanceLockUpActivity).monitor { _, isConnected, _ ->
+                if (isConnected && isLostConnection) {
+                    requestData(false)
+                    rvFilterLockUp.visibility = View.VISIBLE
+                    tvNoLockUp.visibility = View.GONE
+                    isLostConnection = false
+                }
+            }
+
+            swipeRefresh.setOnRefreshListener {
+                page = 1
+                requestData(false)
+                checkInternet()
+
+            }
+
         }
 
         requestData(false)
@@ -53,6 +74,35 @@ class FinanceLockUpActivity :
         loadMoreData()
     }
 
+    private fun checkInternet() {
+        binding.apply {
+            if (isOnline(this@FinanceLockUpActivity)) {
+                rvFilterLockUp.visibility = View.VISIBLE
+                tvNoLockUp.visibility = View.GONE
+
+            } else {
+                rvFilterLockUp.visibility = View.GONE
+                tvNoLockUp.visibility = View.VISIBLE
+                tvNoLockUp.text = "No Internet Connection"
+                isLostConnection = true
+                swipeRefresh.isRefreshing = false
+
+            }
+        }
+    }
+    private fun initToolBar() {
+        setSupportActionBar(binding.toolBar.tb)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_arrow_left)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        binding.toolBar.apply {
+            tbTitle.setText(R.string.lock_up)
+            tb.setNavigationOnClickListener {
+                SettingVariable.finance_lock_up_selected.value = "Buy Back"
+                finish()
+            }
+        }
+    }
     private fun initRecyclerView() {
         binding.apply {
             mAdapter = LockUpAdapter(mList, object : LockUpAdapter.OnClickAdapter{
@@ -185,9 +235,10 @@ class FinanceLockUpActivity :
         }
         binding.tvNoLockUp.visibility =
             if (dataRes.transaction.isEmpty()) View.VISIBLE else View.GONE
-
+        binding.tvNoLockUp.text = "No Record"
         isLastPage = dataRes.transaction.size == 10
         binding.progressBar.visibility = View.GONE
+        binding.swipeRefresh.isRefreshing = false
         mAdapter?.notifyDataSetChanged()
 
 

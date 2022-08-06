@@ -2,10 +2,13 @@
 <layout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <LinearLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingVertical="@dimen/dimen_10"
+        android:scrollbars="none"
+        android:overScrollMode="never"
+        app:layout_behavior="android.support.design.widget.BottomSheetBehavior"
         android:background="@drawable/dialog_bg">
 
         <androidx.recyclerview.widget.RecyclerView
@@ -14,9 +17,9 @@
             android:layout_height="wrap_content"
             android:scrollbars="none"
             android:overScrollMode="never"
-            android:nestedScrollingEnabled="false"
+            android:nestedScrollingEnabled="true"
             android:padding="@dimen/dimen_20" />
 
-    </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 
 </layout>

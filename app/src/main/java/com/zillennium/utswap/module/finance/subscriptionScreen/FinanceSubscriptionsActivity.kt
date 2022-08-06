@@ -1,23 +1,21 @@
 package com.zillennium.utswap.module.finance.subscriptionScreen
 
-import android.annotation.SuppressLint
 import android.os.Build
+import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.androidstudy.networkmanager.Tovuti
 import com.zillennium.utswap.Datas.GlobalVariable.SettingVariable
 import com.zillennium.utswap.R
-import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityFinanceSubscriptionsBinding
-import com.zillennium.utswap.models.financeSubscription.FinanceSubscriptionsModel
 import com.zillennium.utswap.models.financeSubscription.SubscriptionObject
 import com.zillennium.utswap.module.finance.subscriptionScreen.adapter.FinanceSubscriptionsAdapter
 import com.zillennium.utswap.module.finance.subscriptionScreen.bottomSheet.FinanceSubscriptionDateRangeBottomSheet
 import com.zillennium.utswap.module.finance.subscriptionScreen.bottomSheet.FinanceSubscriptionFilterBottomSheet
 import com.zillennium.utswap.module.finance.subscriptionScreen.dialog.FinanceSubscriptionsDialog
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
-import java.util.*
+import com.zillennium.utswap.utils.isOnline
 import kotlin.collections.ArrayList
 
 
@@ -27,122 +25,163 @@ class FinanceSubscriptionsActivity :
 
     override var mPresenter: FinanceSubscriptionsView.Presenter = FinanceSubscriptionsPresenter()
     override val layoutResource: Int = R.layout.activity_finance_subscriptions
-    private val arraySubscription = ArrayList<Any>()
+    private val arraySubscription = ArrayList<SubscriptionObject.SubscriptionList>()
+    private var listProject: ArrayList<SubscriptionObject.ProjectList> = arrayListOf()
     private var financeSubscriptionsAdapter: FinanceSubscriptionsAdapter? = null
+    private var page = 1
+    private var filterBottomSheet: FinanceSubscriptionFilterBottomSheet? = null
+    private var projectName = ""
+    private var start = ""
+    private var end = ""
+    private var totalItem = ""
+    private var lastPosition = 0
+    private var isLostConnection = false
+
+
+    companion object {
+        var titleProject = "All Projects"
+    }
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun initView() {
         super.initView()
-        try {
+        toolBar()
+        checkInternet()
 
-            toolBar()
+        binding.apply {
 
-//            mPresenter.postSubscription()
+            /* Filter */
+            layFilterButton.setOnClickListener {
+                filterBottomSheet = FinanceSubscriptionFilterBottomSheet(listProject)
+                filterBottomSheet?.show(supportFragmentManager, "Filter Subscription")
+            }
 
-            binding.apply {
+            /* Select Date Range */
+            laySelectDateRange.setOnClickListener {
+                FinanceSubscriptionDateRangeBottomSheet.newInstance()
+                    .show(supportFragmentManager, "Select Date Time Subscription")
+            }
 
-                /* Filter */
-                filterButton.setOnClickListener {
-                    FinanceSubscriptionFilterBottomSheet.newInstance()
-                        .show(supportFragmentManager, "Filter Subscription")
-                }
+            swipeRefresh.setOnRefreshListener {
+                checkInternet()
+                page = 1
+                requestData()
+            }
 
-                /* Select Date Range */
-                selectDateRange.setOnClickListener {
-//                    FinanceSubscriptionDateRangeBottomSheet().setOnCallBack(callBack)
-                    FinanceSubscriptionDateRangeBottomSheet.newInstance()
-                        .show(supportFragmentManager, "Select Date Time Subscription")
-                }
-
-                /* Subscription Recycle view */
-                val image = arrayOf(
-                    R.drawable.ic_locked,
-                    R.drawable.ic_unlocked,
-                    R.drawable.ic_unlocked,
-                    R.drawable.ic_unlocked,
-                    R.drawable.ic_unlocked,
+            /* Sorted Date */
+            /*val dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MMMM-yyyy")
+            arraySubscription.sortByDescending {
+                LocalDate.parse(
+                    it.dateSubscription,
+                    dateTimeFormatter
                 )
-                val title = arrayOf(
-                    "UT Kampot",
-                    "UT Mondolkiri",
-                    "UT Pailin",
-                    "UT Sihanoukville",
-                    "UT Battambang"
-                )
-                val date = arrayOf(
-                    "19-May-2022",
-                    "12-May-2022",
-                    "10-May-2022",
-                    "09-May-2022",
-                    "05-May-2022"
-                )
-                val amount = arrayOf(
-                    400.00,
-                    555.00,
-                    250.00,
-                    1250.00,
-                    150.00
-                )
-                val durationDay = arrayOf(
-                    "30 day(s) left",
-                    "Unlocked",
-                    "Unlocked",
-                    "Unlocked",
-                    "Unlocked",
-                )
-                val status = arrayOf(
-                    1,
-                    0,
-                    0,
-                    0,
-                    0
-                )
+            }*/
 
-                for (i in date.indices) {
-                    val financeSubscriptions = FinanceSubscriptionsModel(
-                        image[i],
-                        title[i],
-                        date[i],
-                        amount[i],
-                        durationDay[i],
-                        status[i]
-                    )
-                    arraySubscription.add(financeSubscriptions)
-                }
-
-                /* Sorted Date */
-                /*val dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MMMM-yyyy")
-                arraySubscription.sortByDescending {
-                    LocalDate.parse(
-                        it.dateSubscription,
-                        dateTimeFormatter
-                    )
-                }*/
-
-                rvSubscriptions.layoutManager = LinearLayoutManager(UTSwapApp.instance)
-                /*financeSubscriptionsAdapter =
-                    FinanceSubscriptionsAdapter(arraySubscription, onClickAdapter)
-                rvSubscriptions.adapter = financeSubscriptionsAdapter*/
-
-
-                SettingVariable.finance_subscription_filter.observe(this@FinanceSubscriptionsActivity) {
-                    filter()
-                }
-
-                SettingVariable.finance_subscription_date_end.observe(this@FinanceSubscriptionsActivity) {
-                    filter()
+            Tovuti.from(this@FinanceSubscriptionsActivity).monitor { _, isConnected, _ ->
+                if (isConnected && isLostConnection) {
+                    requestData()
+                    rvSubscriptions.visibility = View.VISIBLE
+                    tvNoRecord.visibility = View.GONE
+                    isLostConnection = false
                 }
             }
 
-        } catch (error: Exception) {
-            // Must be safe
+            SettingVariable.finance_subscription_filter.observe(this@FinanceSubscriptionsActivity) {
+                projectName = it
+                requestData()
+            }
+
+            SettingVariable.finance_subscription_filter_project_name.observe(this@FinanceSubscriptionsActivity) {
+                titleProject = it
+                txtTitleFilter.text = it
+
+            }
+
+            SettingVariable.finance_subscription_date_end.observe(this@FinanceSubscriptionsActivity) {
+                end = it
+                if (start.isNotEmpty()) {
+                    requestData()
+                }
+            }
+            SettingVariable.finance_subscription_date_start.observe(this@FinanceSubscriptionsActivity) {
+                start = it
+                if (end.isNotEmpty()) {
+                    requestData()
+                }
+
+            }
+        }
+        requestData()
+        initRecyclerView()
+        loadMoreData()
+    }
+
+    private fun requestData() {
+        val obj = SubscriptionObject.SubscriptionBody()
+        obj.project = projectName
+        obj.end = end
+        obj.start = start
+        mPresenter.postSubscription(obj)
+
+    }
+
+    private fun checkInternet() {
+        binding.apply {
+            if (isOnline(this@FinanceSubscriptionsActivity)) {
+                rvSubscriptions.visibility = View.VISIBLE
+                tvNoRecord.visibility = View.GONE
+
+            } else {
+                rvSubscriptions.visibility = View.GONE
+                tvNoRecord.visibility = View.VISIBLE
+                tvNoRecord.text = "No Internet Connection"
+                isLostConnection = true
+                swipeRefresh.isRefreshing = false
+
+            }
         }
     }
 
+    private fun loadMoreData() {
+        binding.rvSubscriptions.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if (dy > 0) {
+                    lastPosition =
+                        (binding.rvSubscriptions.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
+                    if (lastPosition == arraySubscription.size - 1 && arraySubscription.size < totalItem.toInt()) {
+                        binding.progressBar.visibility = View.VISIBLE
+                        page++
+                        requestData()
+                    }
+
+                }
+            }
+        })
+
+    }
+
     override fun onPostSubscriptionSuccess(dataRes: SubscriptionObject.SubscriptionRes) {
-        arraySubscription.clear()
-        arraySubscription.add(dataRes)
-        initRecyclerView()
+        totalItem = dataRes.total_transactions
+        if (page == 1) {
+            arraySubscription.clear()
+        }
+        arraySubscription.addAll(dataRes.transaction)
+        listProject.clear()
+        val allProjectObj = SubscriptionObject.ProjectList()
+        allProjectObj.project_name = "All Projects"
+        listProject.add(allProjectObj)
+
+        listProject.sortBy {
+            it.project_name
+        }
+        binding.tvNoRecord.visibility =
+            if (dataRes.transaction.isEmpty()) View.VISIBLE else View.GONE
+        binding.tvNoRecord.text = "No Record"
+        binding.progressBar.visibility = View.GONE
+        binding.swipeRefresh.isRefreshing = false
+        listProject.addAll(dataRes.market_list)
+        financeSubscriptionsAdapter?.notifyDataSetChanged()
 
     }
 
@@ -163,105 +202,49 @@ class FinanceSubscriptionsActivity :
         }
     }
 
-    /* filter based on selected from bottomSheet dialog */
-    private fun filterList(text: String) {
-        val newArrayList: ArrayList<FinanceSubscriptionsModel> =
-            ArrayList<FinanceSubscriptionsModel>()
-        for (item in arraySubscription) {
-            /*if (item.titleSubscription.toLowerCase()
-                    .contains(text.lowercase(Locale.getDefault()))
-            ) {
-                newArrayList.add(item)
-            }*/
-        }
-
-//        financeSubscriptionsAdapter?.filterList(newArrayList)
-    }
-
-
-    /* private val onClickAdapter: FinanceSubscriptionsAdapter.OnClickAdapter =
-         object : FinanceSubscriptionsAdapter.OnClickAdapter {
-             override fun onClickMe(financeSubscriptionsModel: FinanceSubscriptionsModel) {
-                 val financeSubscriptionsDialog: FinanceSubscriptionsDialog =
-                     FinanceSubscriptionsDialog.newInstance(
-                         financeSubscriptionsModel.titleSubscription,
-                         financeSubscriptionsModel.status,
-                         financeSubscriptionsModel.amount,
-                         financeSubscriptionsModel.durationDay,
-                         financeSubscriptionsModel.imageSubscription
-                     )
-                 financeSubscriptionsDialog.show(supportFragmentManager, "Dialog of Subscription")
-             }
-         }
- */
-
     private fun initRecyclerView() {
-       /* financeSubscriptionsAdapter =
-            FinanceSubscriptionsAdapter(object : FinanceSubscriptionsAdapter.OnClickAdapter {
-                override fun onClickSubscription() {
-                }
-            })
+        financeSubscriptionsAdapter =
+            FinanceSubscriptionsAdapter(
+                arraySubscription,
+                object : FinanceSubscriptionsAdapter.OnClickAdapter {
+                    override fun onSubscriptionItemClick(
+                        title: String,
+                        isLock: Boolean,
+                        tranId: String,
+                        price: Double,
+                        volume: String,
+                        value: Double,
+                        start: String,
+                        end: String,
+                        duration: Int
+                    ) {
+                        val financeSubscriptionsDialog: FinanceSubscriptionsDialog =
+                            FinanceSubscriptionsDialog.newInstance(
+                                title,
+                                isLock,
+                                tranId,
+                                price,
+                                volume,
+                                value,
+                                start,
+                                end,
+                                duration
+                            )
+                        financeSubscriptionsDialog.show(
+                            supportFragmentManager,
+                            "Dialog of Subscription"
+                        )
+
+                    }
+
+                })
         binding.rvSubscriptions.apply {
             layoutManager = LinearLayoutManager(
                 this@FinanceSubscriptionsActivity,
                 LinearLayoutManager.VERTICAL,
                 false
             )
-            financeSubscriptionsAdapter?.setItems(arraySubscription)
             adapter = financeSubscriptionsAdapter
-
-
-        }*/
-
-
-    }
-
-    @SuppressLint("SetTextI18n")
-    private fun filter() {
-        val list = ArrayList<FinanceSubscriptionsModel>()
-        val listDate = ArrayList<FinanceSubscriptionsModel>()
-        val filter = SettingVariable.finance_subscription_filter.value
-        val dateStart = SettingVariable.finance_subscription_date_start.value
-        val dateEnd = SettingVariable.finance_subscription_date_end.value
-
-        binding.apply {
-            if (!filter.isNullOrEmpty()) {
-                txtTitleFilter.text = filter
-
-                if (filter == "All Projects") {
-//                    list.addAll(arraySubscription)
-                } else {
-                    arraySubscription.map {
-                        /*if (filter == it.titleSubscription) {
-                            list.add(it)
-                        }*/
-                    }
-                }
-            }
-
-            /*if (!dateStart.isNullOrEmpty() && !dateEnd.isNullOrEmpty()) {
-
-                val dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MMMM-yyyy")
-
-                val dateStartFormat: LocalDate = LocalDate.parse(dateStart, dateTimeFormatter)
-                val dateEndFormat: LocalDate = LocalDate.parse(dateEnd, dateTimeFormatter)
-
-                list.map {
-                    val date: LocalDate = LocalDate.parse(it.dateSubscription, dateTimeFormatter)
-                    if (date in dateStartFormat..dateEndFormat) {
-                        listDate.add(it)
-                    }
-                }
-
-                list.clear()
-                list.addAll(listDate)
-            }*/
-
-            rvSubscriptions.layoutManager = LinearLayoutManager(UTSwapApp.instance)
-            /* financeSubscriptionsAdapter =
-                 FinanceSubscriptionsAdapter(list, onClickAdapter)
-             rvSubscriptions.adapter = financeSubscriptionsAdapter*/
-
         }
 
 
@@ -271,8 +254,11 @@ class FinanceSubscriptionsActivity :
         super.onDestroy()
         SettingVariable.finance_subscription_date_start.value = ""
         SettingVariable.finance_subscription_date_end.value = ""
-        SettingVariable.finance_subscription_filter.removeObservers(this@FinanceSubscriptionsActivity)
-        SettingVariable.finance_subscription_date_end.removeObservers(this@FinanceSubscriptionsActivity)
+        SettingVariable.finance_subscription_filter.value = ""
+        SettingVariable.finance_subscription_date_end.value = ""
+        SettingVariable.finance_subscription_filter_project_name.value = "All Projects"
+//        SettingVariable.finance_subscription_filter.removeObservers(this@FinanceSubscriptionsActivity)
+//        SettingVariable.finance_subscription_date_end.removeObservers(this@FinanceSubscriptionsActivity)
     }
 
 }

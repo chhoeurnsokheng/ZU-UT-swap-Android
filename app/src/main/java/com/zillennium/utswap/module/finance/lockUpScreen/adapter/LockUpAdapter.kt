@@ -49,7 +49,7 @@ class LockUpAdapter(var arrayList: ArrayList<Any>, var onClickAdapter: OnClickAd
             holder.imageBalance.setImageResource(R.drawable.ic_locked)
         }
         holder.layoutBuyBack.setOnClickListener {
-            onClickAdapter.onClickMe(buyBackList.name, buyBackList.amount, buyBackList.addtimeReable,buyBackList.endtimeReable, buyBackList.lock_period,isLock)
+            onClickAdapter.onClickMe(buyBackList.name, buyBackList.amount, buyBackList.addtimeReable,buyBackList.endtimeReable, buyBackList.lock_period, isLock)
         }
     }
 
