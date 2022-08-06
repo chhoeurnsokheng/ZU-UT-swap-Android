@@ -75,22 +75,13 @@ class MainActivity :
                     }
                 }
 
-                if(SessionPreferences().SESSION_STATUS == true){
-                    layAuth.visibility = GONE
-                    layVerify.visibility = VISIBLE
-                    btnVerify.visibility = VISIBLE
-                }else{
-                    layAuth.visibility = VISIBLE
-                    btnVerify.visibility = GONE
+                SessionVariable.SESSION_KYC.observe(this@MainActivity) {
+                    if(SessionVariable.SESSION_KYC.value == false && SessionVariable.SESSION_STATUS.value == true){
+                        layVerify.visibility = VISIBLE
+                    }else{
+                        layVerify.visibility = GONE
+                    }
                 }
-
-//                SessionVariable.SESSION_KYC.observe(this@MainActivity) {
-//                    if(SessionVariable.SESSION_KYC.value == false && SessionVariable.SESSION_STATUS.value == true && SessionVariable.SESSION_KYC_STATUS.value != 0){
-//                        layVerify.visibility = VISIBLE
-//                    }else{
-//                        layVerify.visibility = GONE
-//                    }
-//                }
 
 //                SessionVariable.SESSION_KYC_STATUS.observe(this@MainActivity){
 //                    if(SessionVariable.SESSION_KYC.value == false && SessionVariable.SESSION_STATUS.value == true){

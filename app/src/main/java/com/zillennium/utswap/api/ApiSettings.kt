@@ -27,4 +27,9 @@ object ApiSettings {
     /** Register */
     const val PATH_REGISTER = "login/register"
 
+    /** Forgot Password*/
+    const val PATH_FORGOT_PASSWORD = "login/forgetPassword"
+    const val PATH_FORGOT_PASSWORD_VERIFY = "login/verifyForgetPassword"
+    const val PATH_ENTER_NEW_PASSWORD = "login/changeNewPassword"
+
 }
