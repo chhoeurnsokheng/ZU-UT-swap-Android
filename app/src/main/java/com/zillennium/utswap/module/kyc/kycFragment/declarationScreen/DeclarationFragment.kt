@@ -38,10 +38,12 @@ class DeclarationFragment :
                     4- I acknowledge and understand I shall join Zillion United training on UT Swap platform to understand the platform and its rule to get my account become officially trading account.
                     """.trimIndent()
 
-                txtEAgreement.text = """ព្រះរាជាណាចក្រកម្ពុជា
-ជាតិ   សាសនា   ព្រះមហាក្សត្រ
-KINGDOM OF CAMBODIA
-NATION RELIGION KING
+                txtEAgreement.text = """                
+                            
+                                 ព្រះរាជាណាចក្រកម្ពុជា
+                             ជាតិ សាសនា ព្រះមហាក្សត្រ
+                          KINGDOM OF CAMBODIA
+                             NATION RELIGION KING
 
 កិច្ចព្រមព្រៀងចូលរួមលក់ទិញឯកតាមូលនិធិនៃគម្រោងអចលនវត្ថុ
  តាមរយៈប្រព័ន្ធអេឡិកត្រូនិក

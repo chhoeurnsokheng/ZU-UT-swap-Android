@@ -25,10 +25,10 @@ class ContractFragment :
 
                 btnAccept.isEnabled = false
 
-                txtContent.text = """ព្រះរាជាណាចក្រកម្ពុជា
-ជាតិ   សាសនា   ព្រះមហាក្សត្រ
-KINGDOM OF CAMBODIA
-NATION RELIGION KING
+                txtContent.text = """                                   ព្រះរាជាណាចក្រកម្ពុជា
+                                                                   ជាតិ   សាសនា   ព្រះមហាក្សត្រ
+                                                                     KINGDOM OF CAMBODIA
+                                                                     NATION RELIGION KING
 
 កិច្ចព្រមព្រៀងចូលរួមលក់ទិញឯកតាមូលនិធិនៃគម្រោងអចលនវត្ថុ
  តាមរយៈប្រព័ន្ធអេឡិកត្រូនិក

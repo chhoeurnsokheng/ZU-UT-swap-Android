@@ -64,6 +64,7 @@ class NationalIDFragment :
         binding.apply {
             if (!KYCPreferences().NATIONAL_ID_FRONT.isNullOrEmpty()) {
                 imgNationalFront.setImageURI(KYCPreferences().NATIONAL_ID_FRONT?.toUri())
+              //   imgNationalFronGone.visibility =View.GONE
                 btnCameraFront.isClickable = false
                 imgLogoCameraFront.visibility = View.GONE
                 imgDeleteFront.visibility = View.VISIBLE
@@ -75,6 +76,7 @@ class NationalIDFragment :
             }
             if (!KYCPreferences().NATIONAL_ID_BACK.isNullOrEmpty()) {
                 imgNationalBack.setImageURI(KYCPreferences().NATIONAL_ID_BACK?.toUri())
+            //    imgNationalBackGone.visibility =View.GONE
                 btnCameraBack.isClickable = false
                 imgLogoCameraBack.visibility = View.GONE
                 imgDeleteBack.visibility = View.VISIBLE

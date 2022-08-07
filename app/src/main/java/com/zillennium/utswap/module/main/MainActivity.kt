@@ -11,7 +11,6 @@ import androidx.navigation.Navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
-import com.zillennium.utswap.Datas.StoredPreferences.KYCPreferences
 import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
@@ -43,11 +42,6 @@ class MainActivity :
         onCheckSession()
         onSetUpNavBar()
     }
-    object KycStatus {
-        var doKyc_Status:Int? = null
-        var gender = ""
-
-    }
 
     override fun onBackPressed() {
         if (doubleBackToExitPressedOnce) {
@@ -59,10 +53,7 @@ class MainActivity :
         Handler().postDelayed(Runnable { doubleBackToExitPressedOnce = false }, 2000)
     }
 
-//    fun getStatus(name : String): String {
-//        statusKYC  =getStatus(name)
-//       return  statusKYC
-//    }
+
 
     private fun onCheckSession(){
         try {
@@ -86,25 +77,25 @@ class MainActivity :
                     }
                 }
 
-//                SessionVariable.SESSION_STATUS.observe(this@MainActivity) {
-//                    if(SessionVariable.SESSION_STATUS.value == true){
-//                        layAuth.visibility = GONE
-//                     //   layVerify.visibility = VISIBLE
-//                        btnVerify.visibility = VISIBLE
-//                    }else{
-//                        layAuth.visibility = VISIBLE
-//                        btnVerify.visibility = GONE
-//                    }
-//                }
+                SessionVariable.SESSION_STATUS.observe(this@MainActivity) {
+                    if(SessionVariable.SESSION_STATUS.value == true){
+                        layAuth.visibility = GONE
+                        layVerify.visibility = VISIBLE
+                        btnVerify.visibility = VISIBLE
+                    }else{
+                        layAuth.visibility = VISIBLE
+                        btnVerify.visibility = GONE
+                    }
+                }
 
-//                if(SessionPreferences().SESSION_STATUS == true){
-//                    layAuth.visibility = GONE
-//                  //  layVerify.visibility = VISIBLE
-//                    btnVerify.visibility = VISIBLE
-//                }else{
-//                    layAuth.visibility = VISIBLE
-//                    btnVerify.visibility = GONE
-//                }
+                if(SessionPreferences().SESSION_STATUS == true){
+                    layAuth.visibility = GONE
+                    layVerify.visibility = VISIBLE
+                    btnVerify.visibility = VISIBLE
+                }else{
+                    layAuth.visibility = VISIBLE
+                    btnVerify.visibility = GONE
+                }
 
                 layAuth.setOnClickListener {
                     val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)

@@ -27,4 +27,11 @@ class ApiProvincesImp : ApiManager() {
         )
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
+    fun queryCommune(context: Context, body: PProvinceObj.BodyProvince): Observable<PProvinceObj.ProvinceRes> =
+        mProvince.queryCommune(
+            Header.getHeader(Header.Companion.AuthType.REQUIRED_TOKEN, context),
+            body
+        )
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
 }

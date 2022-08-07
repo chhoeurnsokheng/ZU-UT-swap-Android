@@ -22,11 +22,9 @@ class IDVerificationPresenter : BaseMvpPresenterImpl<IDVerificationView.View>(),
     override fun getAllProvinceSuccess(context: Context) {
        subscription?.unsubscribe()
         subscription = ApiProvincesImp().getAllProvinces(context).subscribe({
-            if (it.status==1){
+
                 mView?.OngetAllProvinceSuccess(it)
-            }else{
-                mView?.OngetAllProvinceFail(it)
-            }
+
         },{
             object :CallbackWrapper(it,UTSwapApp.instance, arrayListOf()){
                 override fun onCallbackWrapper(status: ApiManager.NetworkErrorStatus, data: Any) {
@@ -40,11 +38,9 @@ class IDVerificationPresenter : BaseMvpPresenterImpl<IDVerificationView.View>(),
     override fun queryProvince(context: Context, body: PProvinceObj.BodyProvince) {
         subscription?.unsubscribe()
         subscription = ApiProvincesImp().queryProvince(context,body).subscribe({
-            if (it.status==1){
+
                 mView?.OnQueryProvinceSucess(it)
-            }else{
-                mView?.OngetAllProvinceFail(it)
-            }
+
         },{
             object :CallbackWrapper(it,UTSwapApp.instance, arrayListOf()){
                 override fun onCallbackWrapper(status: ApiManager.NetworkErrorStatus, data: Any) {
@@ -57,12 +53,9 @@ class IDVerificationPresenter : BaseMvpPresenterImpl<IDVerificationView.View>(),
 
     override fun queryCommune(context: Context, body: PProvinceObj.BodyProvince) {
         subscription?.unsubscribe()
-        subscription = ApiProvincesImp().queryProvince(context,body).subscribe({
-            if (it.status==1){
-                mView?.OnQueryCommuneSucess(it)
-            }else{
-                mView?.OngetAllProvinceFail(it)
-            }
+        subscription = ApiProvincesImp().queryCommune(context,body).subscribe({
+            mView?.OnQueryCommuneSucess(it)
+
         },{
             object :CallbackWrapper(it,UTSwapApp.instance, arrayListOf()){
                 override fun onCallbackWrapper(status: ApiManager.NetworkErrorStatus, data: Any) {

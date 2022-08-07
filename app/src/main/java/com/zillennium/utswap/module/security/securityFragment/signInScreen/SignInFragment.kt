@@ -167,7 +167,7 @@ class SignInFragment :
 
         SessionVariable.SESSION_STATUS.value = true
         SessionVariable.SESSION_KYC.value = body.data?.status_kyc
-
+        SessionPreferences().SESSION_KYC_SUBMIT_STATUS = true
         SessionPreferences().SESSION_STATUS = true
         SessionPreferences().SESSION_KYC = body.data?.status_kyc
         SessionPreferences().SESSION_TOKEN = body.data?.TOKEN.toString()

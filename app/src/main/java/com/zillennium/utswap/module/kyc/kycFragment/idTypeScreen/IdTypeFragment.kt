@@ -92,7 +92,7 @@ open class IdTypeFragment :
                     //alert dialog
                         val builder = AlertDialog.Builder(requireActivity())
                         builder.setTitle("Passport is coming soon")
-                        builder.setMessage("We don't implement Add Passport yet !!")
+                        builder.setMessage("We don't implement add passport yet !!")
 
 
 //                        builder.setPositiveButton("Yes"){dialogInterface, which ->

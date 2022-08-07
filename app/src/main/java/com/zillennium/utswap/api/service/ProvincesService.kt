@@ -22,5 +22,9 @@ interface ProvincesService {
     fun queryProvince(
         @HeaderMap headers: Map<String,String>,
         @Body body: PProvinceObj.BodyProvince
+    ):Observable<PProvinceObj.ProvinceRes> @POST(ApiSettings.PATH_GET_PROVINCES)
+    fun queryCommune(
+        @HeaderMap headers: Map<String,String>,
+        @Body body: PProvinceObj.BodyProvince
     ):Observable<PProvinceObj.ProvinceRes>
 }

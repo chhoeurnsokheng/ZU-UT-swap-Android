@@ -148,7 +148,7 @@ class FundPasswordFragment :
                             KycInfor.occupation,
                             KycInfor.companyname,
                             KycInfor.email,
-                            KycInfor.phonenumber,
+                            "",
                             "+855",
                             KycInfor.citycode,
                             KycInfor.districtcode,

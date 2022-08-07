@@ -55,9 +55,9 @@ class IDVerificationFragment :
         super.initView()
         toolBar()
         KYCPreferences().GENDER = ""
-        KYCPreferences().CITY_PROVINCE=""
+        KYCPreferences().CITY_PROVINCE = ""
         KYCPreferences().DISTRICT_KHAN = ""
-        KYCPreferences().CITY_PROVINCE =""
+        KYCPreferences().CITY_PROVINCE = ""
 //        KYCPreferences().FIRST_NAME = ""
 //        KYCPreferences().LAST_NAME = ""
 //        KYCPreferences().GENDER = ""
@@ -69,20 +69,19 @@ class IDVerificationFragment :
 //        info.dateOfBirth = ""
 //        info.gender = ""
         binding.apply {
-        province()
-            district()
-            commune()
+
             spinnerCommuneSangkat.floatingLabelText  = ""
                 //Util().getHtmlText("#DCDCDC","Commune/Sangkat"," *","#EE1111")
             spinnerCommuneSangkat.hint = Util().getHtmlText("#DCDCDC","Commune/Sangkat"," *","#EE1111")
 
-            spinnerDistrictKhan.hint = Util().getHtmlText("#DCDCDC","District/Khan"," *","#EE1111")
+            spinnerDistrictKhan.hint =
+                Util().getHtmlText("#DCDCDC", "District/Khan", " *", "#EE1111")
             spinnerDistrictKhan.floatingLabelText = ""
-                //Util().getHtmlText("#DCDCDC","District/Khan"," *","#EE1111")
 
-            spinnerCityProvince.hint = Util().getHtmlText("#DCDCDC","City/Province","*","#EE1111")
+            spinnerCityProvince.hint =
+                Util().getHtmlText("#DCDCDC", "City/Province", "*", "#EE1111")
             spinnerCityProvince.floatingLabelText = ""
-                //Util().getHtmlText("#DCDCDC","City/Province","*","#EE1111")
+
         }
         mPresenter.getAllProvinceSuccess(requireActivity())
         validateBtnNext()
@@ -90,8 +89,7 @@ class IDVerificationFragment :
             mPresenter.getAllProvinceSuccess(requireActivity())
 
             initSpinnerGender()
-            initSpinnerCityProvince()
-            
+
             /* if Data already input */
             if (!KYCPreferences().FIRST_NAME.isNullOrEmpty()) {
                 info.firstName = KYCPreferences().FIRST_NAME.toString()
@@ -102,7 +100,6 @@ class IDVerificationFragment :
                 info.lastName = KYCPreferences().LAST_NAME.toString()
                 etLastName.setText(info.lastName)
             }
-            
             if (!KYCPreferences().BIRTHDAY.isNullOrEmpty()) {
                 info.dateOfBirth = KYCPreferences().BIRTHDAY.toString()
                 etDate.setText(info.dateOfBirth)
@@ -274,7 +271,7 @@ class IDVerificationFragment :
     }
 
 
-    private fun validateBtnNext(){
+    private fun validateBtnNext() {
 
         binding.apply {
 
@@ -329,14 +326,15 @@ class IDVerificationFragment :
                 }
 
                 // City/Province Error
-                if (info.city ==0) {
-                    spinnerCityProvince.underlineColor = ContextCompat.getColor(UTSwapApp.instance, R.color.danger)
+                if (info.city == 0) {
+                    spinnerCityProvince.underlineColor =
+                        ContextCompat.getColor(UTSwapApp.instance, R.color.danger)
                     txtErrorCity.visibility = View.VISIBLE
                     isHaveError = true
                 }
 
                 // District Error
-                if (info.district ==0) {
+                if (info.district == 0) {
                     spinnerDistrictKhan.underlineColor =
                         ContextCompat.getColor(UTSwapApp.instance, R.color.danger)
                     txtErrorDistrict.visibility = View.VISIBLE
@@ -344,7 +342,7 @@ class IDVerificationFragment :
                 }
 
                 // Commune Error
-                if (info.commune ==0) {
+                if (info.commune == 0) {
                     spinnerCommuneSangkat.underlineColor =
                         ContextCompat.getColor(UTSwapApp.instance, R.color.danger)
                     txtErrorCommune.visibility = View.VISIBLE
@@ -373,7 +371,7 @@ class IDVerificationFragment :
                     KYCPreferences().DISTRICT_KHAN = info.district.toString()
                     KYCPreferences().COMMUNE_SANGKAT = info.commune.toString()
                     KYCPreferences().ADDRESS = info.addressHouse
-                    KYCPreferences().ID_CARD_INFOR ="National Id"
+                    KYCPreferences().ID_CARD_INFOR = "National Id"
                     findNavController().navigate(R.id.action_to_id_selfie_holding_fragment)
 
                 } else {
@@ -381,65 +379,14 @@ class IDVerificationFragment :
                 }
 
             }
-
-
-
-
-
         }
 
     }
 
-    private fun province(){
-        binding.apply {
-            provinceTest.add(SpinnerTestModel(1, "Kampong Thom"))
-            provinceTest.add(SpinnerTestModel(1, "Kampong Thom"))
-            provinceTest.add(SpinnerTestModel(1, "Kampong Thom"))
-            spinnerCityProvince.item =  provinceTest.map { it.name }
-            spinnerCityProvince.onItemSelectedListener =
-                object : AdapterView.OnItemSelectedListener {
-                    override fun onItemSelected(
-                        adapterView: AdapterView<*>,
-                        view: View,
-                        position: Int,
-                        id: Long
-                    ) {
-                        /*   if (spinnerCityProvince.item ==null){
-                               txtLabelProvince.visibility =View.GONE
-                               info.city = 0
-                           }else{
-                               txtLabelProvince.visibility =View.VISIBLE
-                               info.city = dataListTest[position].id?.toInt()!!
-                               parent_code = provinceList[position].code
-                               provinceList[position].code?.let {
-                                   mPresenter.queryProvince(
-                                       requireActivity(),
-                                       PProvinceObj.BodyProvince(parent_code)
-                                   )
-                               }
-                           }*/
-                        txtLabelProvince.visibility =View.VISIBLE
-                        info.city = dataListTest[position].id
-                        spinnerCityProvince.underlineColor = ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text)
-                        txtErrorCity.visibility = View.GONE
-                    }
-
-                    override fun onNothingSelected(adapterView: AdapterView<*>) {
-                        txtLabelProvince.visibility =View.GONE
-                        info.city = 0
-                    }
-                }
-        }
-
-    }
     override fun OngetAllProvinceSuccess(data: PProvinceObj.ProvinceRes) {
         provinceList = data.data as MutableList<PProvinceObj.Items>
-/*
         binding.apply {
-            provinceTest.add(SpinnerTestModel(1, "Kampong Thom"))
-            provinceTest.add(SpinnerTestModel(1, "Kampong Thom"))
-            provinceTest.add(SpinnerTestModel(1, "Kampong Thom"))
-            spinnerCityProvince.item =  provinceTest.map { it.name }
+            spinnerCityProvince.item = provinceList.map { it.english }
             spinnerCityProvince.onItemSelectedListener =
                 object : AdapterView.OnItemSelectedListener {
                     override fun onItemSelected(
@@ -448,87 +395,43 @@ class IDVerificationFragment :
                         position: Int,
                         id: Long
                     ) {
-                     *//*   if (spinnerCityProvince.item ==null){
-                            txtLabelProvince.visibility =View.GONE
+                        if (spinnerCityProvince.item == null) {
+                            txtLabelProvince.visibility = View.GONE
                             info.city = 0
-                        }else{
-                            txtLabelProvince.visibility =View.VISIBLE
-                            info.city = dataListTest[position].id?.toInt()!!
+                        } else {
+                            txtLabelProvince.visibility = View.VISIBLE
+                            info.city = provinceList[position].code?.toInt()!!
                             parent_code = provinceList[position].code
-                            provinceList[position].code?.let {
-                                mPresenter.queryProvince(
-                                    requireActivity(),
-                                    PProvinceObj.BodyProvince(parent_code)
-                                )
+                            provinceList[position].code?.let { mPresenter.queryProvince(requireActivity(), PProvinceObj.BodyProvince(parent_code))
                             }
-                        }*//*
-                        info.city = dataListTest[position].id?.toInt()!!
+                        }
                         spinnerCityProvince.underlineColor = ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text)
                         txtErrorCity.visibility = View.GONE
+                        info.commune = 0
+
                     }
 
                     override fun onNothingSelected(adapterView: AdapterView<*>) {
-                        txtLabelProvince.visibility =View.GONE
+                        txtLabelProvince.visibility = View.GONE
                         info.city = 0
-                    }
-                }
-        }*/
-    }
-
-    override fun OngetAllProvinceFail(data: PProvinceObj.ProvinceRes) {}
-
-    private fun district(){
-        binding.apply {
-
-            dataListTest.add(SpinnerTestModel(1, "Kampong Thom"))
-            dataListTest.add(SpinnerTestModel(1, "Kampong Thom"))
-            dataListTest.add(SpinnerTestModel(1, "Kampong Thom"))
-            spinnerDistrictKhan.item = dataListTest.map { it.name }
-            spinnerDistrictKhan.onItemSelectedListener =
-                object : AdapterView.OnItemSelectedListener {
-                    override fun onItemSelected(
-                        adapterView: AdapterView<*>,
-                        view: View,
-                        position: Int,
-                        id: Long
-                    ) {
-//                        if (dataRespo ==null){
-//                            txtLabelDistrict.visibility =View.GONE
-//                            info.district = 0
-//                        }else{
-//                            txtLabelDistrict.visibility =View.VISIBLE
-//                            info.district = dataListTest[position].id?.toInt()!!
-//                            mPresenter.queryCommune(requireActivity(),
-//                                PProvinceObj.BodyProvince(districtList[position].code)
-//                            )
-//                        }
-                        txtLabelDistrict.visibility =View.VISIBLE
-                        info.district = dataListTest[position].id?.toInt()!!
-                        spinnerDistrictKhan.underlineColor = ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text)
-
-
-                        txtErrorDistrict.visibility = View.GONE
-                    }
-
-                    override fun onNothingSelected(adapterView: AdapterView<*>) {
-                        txtLabelDistrict.visibility =View.GONE
-                        info.district = 0
                     }
                 }
         }
     }
+
+    override fun OngetAllProvinceFail(data: PProvinceObj.ProvinceRes) {
+
+    }
+
 
     override fun OnQueryProvinceSucess(data: PProvinceObj.ProvinceRes) {
         districtList = data.data as MutableList<PProvinceObj.Items>
         var dataRespo = (data.data as MutableList<PProvinceObj.Items>).map { it.english }
 
 
-     /*   binding.apply {
+        binding.apply {
 
-            dataListTest.add(SpinnerTestModel(1, "Kampong Thom"))
-            dataListTest.add(SpinnerTestModel(1, "Kampong Thom"))
-            dataListTest.add(SpinnerTestModel(1, "Kampong Thom"))
-            spinnerDistrictKhan.item = dataListTest.map { it.name }
+            spinnerDistrictKhan.item = districtList.map { it.english }
             spinnerDistrictKhan.onItemSelectedListener =
                 object : AdapterView.OnItemSelectedListener {
                     override fun onItemSelected(
@@ -537,74 +440,39 @@ class IDVerificationFragment :
                         position: Int,
                         id: Long
                     ) {
-//                        if (dataRespo ==null){
-//                            txtLabelDistrict.visibility =View.GONE
-//                            info.district = 0
-//                        }else{
-//                            txtLabelDistrict.visibility =View.VISIBLE
-//                            info.district = dataListTest[position].id?.toInt()!!
-//                            mPresenter.queryCommune(requireActivity(),
-//                                PProvinceObj.BodyProvince(districtList[position].code)
-//                            )
-//                        }
-                        info.district = dataListTest[position].id?.toInt()!!
+                        if (dataRespo == null) {
+                            txtLabelDistrict.visibility = View.GONE
+                            info.district = 0
+                        } else {
+                            txtLabelDistrict.visibility = View.VISIBLE
+                            info.district = districtList[position].code?.toInt()!!
+                            mPresenter.queryCommune(requireActivity(),
+                                PProvinceObj.BodyProvince(districtList[position].code)
+                            )
+                        }
                         spinnerDistrictKhan.underlineColor = ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text)
-
-
                         txtErrorDistrict.visibility = View.GONE
+
                     }
 
                     override fun onNothingSelected(adapterView: AdapterView<*>) {
-                        txtLabelDistrict.visibility =View.GONE
+                        txtLabelDistrict.visibility = View.GONE
                         info.district = 0
-                    }
-                }
-        }*/
-
-    }
-
-
-    private fun commune(){
-        binding.apply {
-            dataListTest.add(SpinnerTestModel(1, "Kampong Thom"))
-            dataListTest.add(SpinnerTestModel(1, "Kampong Thom"))
-            dataListTest.add(SpinnerTestModel(1, "Kampong Thom"))
-            spinnerCommuneSangkat.item = dataListTest.map { it.name}
-            spinnerCommuneSangkat.onItemSelectedListener =
-                object : AdapterView.OnItemSelectedListener {
-                    override fun onItemSelected(
-                        adapterView: AdapterView<*>,
-                        view: View,
-                        position: Int,
-                        id: Long
-                    ) {
-//                        if (spinnerCommuneSangkat.item==null){
-//                            txtLabelCommune.visibility =View.GONE
-//                            info.commune = 0
-//                        }else{
-//                            txtLabelCommune.visibility =View.VISIBLE
-//                            info.commune = dataListTest[position].id?.toInt()!!
-//                        }
-                        spinnerCommuneSangkat.underlineColor = ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text)
-                        info.commune = dataListTest[position].id?.toInt()!!
-                        txtErrorCommune.visibility = View.GONE
-                    }
-
-                    override fun onNothingSelected(adapterView: AdapterView<*>) {
-                        txtLabelCommune.visibility =View.GONE
                         info.commune = 0
+                        mPresenter.queryCommune(requireActivity(),PProvinceObj.BodyProvince("111111"))
+
                     }
                 }
         }
+
     }
+
+
     override fun OnQueryCommuneSucess(data: PProvinceObj.ProvinceRes) {
         communeList = data.data as MutableList<PProvinceObj.Items>
 
-  /*      binding.apply {
-            dataListTest.add(SpinnerTestModel(1, "Kampong Thom"))
-            dataListTest.add(SpinnerTestModel(1, "Kampong Thom"))
-            dataListTest.add(SpinnerTestModel(1, "Kampong Thom"))
-            spinnerCommuneSangkat.item = dataListTest.map { it.name}
+        binding.apply {
+            spinnerCommuneSangkat.item = communeList.map { it.english }
             spinnerCommuneSangkat.onItemSelectedListener =
                 object : AdapterView.OnItemSelectedListener {
                     override fun onItemSelected(
@@ -613,24 +481,25 @@ class IDVerificationFragment :
                         position: Int,
                         id: Long
                     ) {
-//                        if (spinnerCommuneSangkat.item==null){
-//                            txtLabelCommune.visibility =View.GONE
-//                            info.commune = 0
-//                        }else{
-//                            txtLabelCommune.visibility =View.VISIBLE
-//                            info.commune = dataListTest[position].id?.toInt()!!
-//                        }
+                        if (spinnerCommuneSangkat.item == null) {
+                            txtLabelCommune.visibility = View.GONE
+                            info.commune = 0
+                        } else {
+                            txtLabelCommune.visibility = View.VISIBLE
+                            info.commune = communeList[position].code?.toInt()!!
+
+                        }
                         spinnerCommuneSangkat.underlineColor = ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text)
-                        info.commune = dataListTest[position].id?.toInt()!!
                         txtErrorCommune.visibility = View.GONE
                     }
 
                     override fun onNothingSelected(adapterView: AdapterView<*>) {
-                        txtLabelCommune.visibility =View.GONE
+                        txtLabelCommune.visibility = View.GONE
                         info.commune = 0
+
                     }
                 }
-        }*/
+        }
     }
 
 
@@ -650,8 +519,8 @@ class IDVerificationFragment :
     private fun initSpinnerGender() {
         binding.apply {
 
-            genderList.add(SpinnerModel("1", "M","Male"))
-            genderList.add(SpinnerModel("2", "F","Female"))
+            genderList.add(SpinnerModel("1", "M", "Male"))
+            genderList.add(SpinnerModel("2", "F", "Female"))
             spinnerGender.item = genderList.map { it.showName }
 
             spinnerGender.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -661,9 +530,10 @@ class IDVerificationFragment :
                     position: Int,
                     id: Long
                 ) {
-                    spinnerGender.underlineColor = ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text)
+                    spinnerGender.underlineColor =
+                        ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text)
                     info.gender = genderList[position].name
-                   // KYCPreferences().GENDER = genderList[position].name
+                    // KYCPreferences().GENDER = genderList[position].name
                     txtErrorGender.visibility = View.GONE
                 }
 
@@ -675,11 +545,7 @@ class IDVerificationFragment :
 
     }
 
-    private fun initSpinnerCityProvince() {
-        binding.apply {
-        }
 
-    }
 
     override fun onResume() {
         super.onResume()
