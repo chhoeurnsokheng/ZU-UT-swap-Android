@@ -85,6 +85,7 @@ class NewFundPasswordFragment:
                             confirmNumberVerification.callOnClick()
                         }
                     }
+                    txtMessage.visibility = View.INVISIBLE
                 }
                 override fun afterTextChanged(p0: Editable?) {}
             })
@@ -133,6 +134,7 @@ class NewFundPasswordFragment:
                             inputManager2.hideSoftInputFromWindow(view?.windowToken, 0)
                         }
                     }
+                    txtMessage.visibility = View.INVISIBLE
                 }
 
                 override fun afterTextChanged(p0: Editable?) {}
@@ -176,7 +178,11 @@ class NewFundPasswordFragment:
 //                        btnNext.alpha = 1F
 //                    },3000)
                     onProgressBar(true)
+                    mPresenter.onSubmitNewPassword(User.ChangeFundPasswordObject(editFundPassword.text.toString(),editConfirmFundPassword.text.toString()),UTSwapApp.instance)
                 }else{
+                    txtMessage.visibility = View.VISIBLE
+                    txtMessage.text = resources.getString(R.string.password_does_not_match)
+
                     for(child in numberVerification.children){
                         child.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_border_bottom_red)
                     }
@@ -198,7 +204,13 @@ class NewFundPasswordFragment:
     override fun onChangePasswordFail(body: User.ChangeFundPasswordRes) {
         onProgressBar(false)
         binding.apply {
-            txtMessage.text = body.message.toString()
+            txtMessage.visibility = View.VISIBLE
+            if(body.message.toString() == "No changes were made!")
+            {
+                txtMessage.text = resources.getString(R.string.new_password_cannot_be_the_same_as_old)
+            }else{
+                txtMessage.text = body.message.toString()
+            }
         }
     }
 
@@ -213,7 +225,7 @@ class NewFundPasswordFragment:
                 btnNext.isClickable = true
                 btnNext.alpha = 1F
             }
-            txtMessage.visibility = View.GONE
+            txtMessage.visibility = View.INVISIBLE
             for(child in numberVerification.children){
                 child.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_border_bottom)
             }
@@ -233,13 +245,13 @@ class NewFundPasswordFragment:
                     val children = child as TextView
                     children.transformationMethod = PasswordTransformationMethod.getInstance()
                 }
-                imgShowPassword.setImageResource(R.drawable.ic_baseline_remove_red_eye_24)
+                imgShowPassword.setImageResource(R.drawable.ic_baseline_visibility_off_24)
             } else {
                 for (child in numberVerification.children) {
                     val children = child as TextView
                     children.transformationMethod = HideReturnsTransformationMethod.getInstance()
                 }
-                imgShowPassword.setImageResource(R.drawable.ic_baseline_visibility_off_24)
+                imgShowPassword.setImageResource(R.drawable.ic_baseline_visibility_24)
             }
         }
     }
@@ -252,13 +264,13 @@ class NewFundPasswordFragment:
                     val children = child as TextView
                     children.transformationMethod = PasswordTransformationMethod.getInstance()
                 }
-                imgShowConfirmPassword.setImageResource(R.drawable.ic_baseline_remove_red_eye_24)
+                imgShowConfirmPassword.setImageResource(R.drawable.ic_baseline_visibility_off_24)
             } else {
                 for (child in confirmNumberVerification.children) {
                     val children = child as TextView
                     children.transformationMethod = HideReturnsTransformationMethod.getInstance()
                 }
-                imgShowConfirmPassword.setImageResource(R.drawable.ic_baseline_visibility_off_24)
+                imgShowConfirmPassword.setImageResource(R.drawable.ic_baseline_visibility_24)
             }
         }
 

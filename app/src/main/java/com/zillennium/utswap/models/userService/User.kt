@@ -138,7 +138,6 @@ object User {
     }
 
     class ChangeFundPasswordObject(
-        var old_fund: String?,
         var new_fund: String?,
         var verify_fund: String?
     )

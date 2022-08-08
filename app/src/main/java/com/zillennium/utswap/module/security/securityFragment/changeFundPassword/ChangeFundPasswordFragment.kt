@@ -96,6 +96,8 @@ class ChangeFundPasswordFragment :
 
                         }
                     }
+
+                    txtMessage.visibility = View.INVISIBLE
                 }
 
                 override fun afterTextChanged(p0: Editable?) {
@@ -146,6 +148,9 @@ class ChangeFundPasswordFragment :
         binding.apply {
             txtMessage.visibility = View.VISIBLE
             txtMessage.text = resources.getString(R.string.old_fund_password_wrong)
+            for(child in numberVerification.children){
+                child.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_border_bottom_red)
+            }
         }
     }
 
@@ -160,7 +165,7 @@ class ChangeFundPasswordFragment :
                 btnNext.isClickable = true
                 btnNext.alpha = 1F
             }
-            txtMessage.visibility = View.GONE
+            txtMessage.visibility = View.INVISIBLE
             for(child in numberVerification.children){
                 child.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_border_bottom)
             }
