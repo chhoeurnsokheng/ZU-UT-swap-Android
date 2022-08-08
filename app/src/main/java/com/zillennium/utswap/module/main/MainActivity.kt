@@ -57,15 +57,15 @@ class MainActivity :
         try {
             binding.apply {
 
-                if (statusKYC == "1"){
-                    binding.apply {
-                        btnVerify.visibility= View.GONE
-                        layVerify.visibility = View.GONE
-                    }
-                }else{
-                    btnVerify.visibility= View.VISIBLE
-                    layVerify.visibility = View.VISIBLE
-                }
+//                if (statusKYC == "1"){
+//                    binding.apply {
+//                        btnVerify.visibility= View.GONE
+//                        layVerify.visibility = View.GONE
+//                    }
+//                }else{
+//                    btnVerify.visibility= View.VISIBLE
+//                    layVerify.visibility = View.VISIBLE
+//                }
 
                 SessionVariable.SESSION_STATUS.observe(this@MainActivity) {
                     if(SessionVariable.SESSION_STATUS.value == true ){
@@ -75,20 +75,29 @@ class MainActivity :
                     }else{
                         layAuth.visibility = VISIBLE
                         btnVerify.visibility = GONE
+                        layVerify.visibility = GONE
                     }
                 }
 
-                SessionVariable.SESSION_KYC.observe(this@MainActivity){
-                    if(SessionPreferences().SESSION_KYC == true){
-                        layAuth.visibility = GONE
-                        layVerify.visibility = GONE
-                        btnVerify.visibility = GONE
+                SessionVariable.SESSION_KYC.observe(this@MainActivity) {
+                    if(SessionVariable.SESSION_KYC.value == false && SessionVariable.SESSION_STATUS.value == true){
+                        layVerify.visibility = VISIBLE
                     }else{
-                        layAuth.visibility = GONE
-                        btnVerify.visibility = VISIBLE
-                        layVerify.visibility = View.VISIBLE
+                        layVerify.visibility = GONE
                     }
                 }
+
+//                SessionVariable.SESSION_KYC.observe(this@MainActivity){
+//                    if(SessionVariable.SESSION_KYC.value == true){
+//                        layAuth.visibility = GONE
+//                        layVerify.visibility = GONE
+//                        btnVerify.visibility = GONE
+//                    }else{
+//                        layAuth.visibility = GONE
+//                        btnVerify.visibility = VISIBLE
+//                        layVerify.visibility = View.VISIBLE
+//                    }
+//                }
 
 //                if(SessionPreferences().SESSION_STATUS == true){
 //                    layAuth.visibility = GONE
@@ -97,8 +106,9 @@ class MainActivity :
 //                }else{
 //                    layAuth.visibility = VISIBLE
 //                    btnVerify.visibility = GONE
+//                    layVerify.visibility = GONE
 //                }
-
+//
 //                if (SessionPreferences().SESSION_KYC == true){
 //                    layVerify.visibility =View.GONE
 //                }else{
