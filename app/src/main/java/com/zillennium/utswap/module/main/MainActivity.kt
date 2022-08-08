@@ -2,6 +2,7 @@ package com.zillennium.utswap.screens.navbar.navbar
 
 import android.content.Intent
 import android.os.Handler
+import android.util.Log
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
@@ -11,6 +12,7 @@ import androidx.navigation.Navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
+import com.zillennium.utswap.Datas.StoredPreferences.KYCPreferences
 import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
@@ -42,7 +44,9 @@ class MainActivity :
         onCheckSession()
         onSetUpNavBar()
     }
-
+   object  kyc{
+       var statusKycSubmit = ""
+   }
     override fun onBackPressed() {
         if (doubleBackToExitPressedOnce) {
             super.onBackPressed()
@@ -55,37 +59,45 @@ class MainActivity :
 
     private fun onCheckSession(){
         try {
+            kyc.statusKycSubmit = KYCPreferences().DO_KYC_STATUS.toString()
+            Log.d("KYC","${kyc.statusKycSubmit}")
             binding.apply {
-
-//                if (statusKYC == "1"){
-//                    binding.apply {
-//                        btnVerify.visibility= View.GONE
-//                        layVerify.visibility = View.GONE
-//                    }
-//                }else{
-//                    btnVerify.visibility= View.VISIBLE
-//                    layVerify.visibility = View.VISIBLE
-//                }
-
                 SessionVariable.SESSION_STATUS.observe(this@MainActivity) {
                     if(SessionVariable.SESSION_STATUS.value == true ){
                         layAuth.visibility = GONE
                         layVerify.visibility = VISIBLE
-                        btnVerify.visibility = VISIBLE
-                    }else{
+                    }
+                    if (SessionVariable.SESSION_STATUS.value ==true && kyc.statusKycSubmit =="1"){
+                        layAuth.visibility = GONE
+                        layVerify.visibility = GONE
+                    }
+                    else{
+                        SessionVariable.SESSION_KYC_STATUS.observe(this@MainActivity){
+                            if (SessionVariable.SESSION_KYC_STATUS.value ==1){
+                                layVerify.visibility = GONE
+                                layAuth.visibility = GONE
+                            }
+                        }
+
                         layAuth.visibility = VISIBLE
-                        btnVerify.visibility = GONE
                         layVerify.visibility = GONE
                     }
                 }
 
+               /* if (SessionPreferences().SESSION_KYC_SUBMIT_STATUS == true){
+                      layVerify.visibility =GONE
+                  }else{
+                      layVerify.visibility =View.VISIBLE
+                  }*/
+
+/*
                 SessionVariable.SESSION_KYC.observe(this@MainActivity) {
                     if(SessionVariable.SESSION_KYC.value == false && SessionVariable.SESSION_STATUS.value == true){
                         layVerify.visibility = VISIBLE
                     }else{
                         layVerify.visibility = GONE
                     }
-                }
+                }*/
 
 //                SessionVariable.SESSION_KYC.observe(this@MainActivity){
 //                    if(SessionVariable.SESSION_KYC.value == true){

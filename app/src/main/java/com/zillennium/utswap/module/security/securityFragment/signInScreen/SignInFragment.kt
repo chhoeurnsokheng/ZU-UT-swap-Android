@@ -198,10 +198,10 @@ class SignInFragment :
         }
         if (body.data?.status_submit_kyc == true) {
             SessionPreferences().SESSION_KYC_SUBMIT_STATUS = true
-            SessionVariable.SESSION_KYC_STATUS.value= 1
+            SessionVariable.SESSION_KYC_STATUS.value = 1
         } else {
             SessionPreferences().SESSION_KYC_SUBMIT_STATUS = false
-            SessionVariable.SESSION_KYC_STATUS.value= 0
+            SessionVariable.SESSION_KYC_STATUS.value = 0
         }
         hideKeyboard()
 

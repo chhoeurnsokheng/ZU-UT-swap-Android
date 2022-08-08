@@ -327,7 +327,7 @@ class FundPasswordFragment :
         status = data.status
 
         if (data.status =="0") {
-            KYCPreferences().DO_KYC_STATUS =data.status
+            KYCPreferences().DO_KYC_STATUS = data.status
             binding.apply {
                 progressBar.visibility = View.GONE
             }
