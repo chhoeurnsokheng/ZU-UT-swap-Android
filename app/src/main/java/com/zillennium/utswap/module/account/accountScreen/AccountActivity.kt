@@ -192,7 +192,7 @@ class AccountActivity :
         binding.apply {
             txtPhoneNumber.visibility = View.VISIBLE
 
-            if(data.phonenumber != null)
+            if(!data.phonenumber.isNullOrEmpty())
             {
                 val phoneNumStr = data.phonenumber.toString()
                 txtPhoneNumber.text = phoneNumStr.replace("+855", "0")
@@ -204,7 +204,7 @@ class AccountActivity :
                 txtPhoneNumber.isEnabled = true
             }
 
-            if (data.username != null)
+            if (!data.username.isNullOrEmpty())
             {
                 txtName.text = data.truename.toString()
             }

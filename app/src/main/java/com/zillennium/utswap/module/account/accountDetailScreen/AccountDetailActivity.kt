@@ -91,7 +91,7 @@ class AccountDetailActivity :
 
             progressBar.visibility = View.GONE
 
-            if(data.phonenumber != null)
+            if(!data.phonenumber.isNullOrEmpty())
             {
                 val phoneNumStr = data.phonenumber.toString()
                 txtAddPhoneNumber.text = phoneNumStr.replace("+855", "0")
@@ -103,7 +103,7 @@ class AccountDetailActivity :
                 txtAddPhoneNumber.isEnabled = true
             }
 
-            if (data.username != null)
+            if (!data.username.isNullOrEmpty())
             {
                 txtName.text = data.truename.toString()
             }
@@ -114,17 +114,17 @@ class AccountDetailActivity :
                 .placeholder(R.drawable.ic_placeholder)
                 .into(imgUtType)
 
-            if (data.company_name != null)
+            if (!data.company_name.isNullOrEmpty())
             {
                 txtCompany.text = data.company_name.toString()
             }
 
-            if (data.email != null)
+            if (!data.email.isNullOrEmpty())
             {
                 txtEmail.text = data.email.toString()
             }
 
-            if (data.ocupation != null)
+            if (!data.ocupation.isNullOrEmpty())
             {
                 txtOccupation.text = data.ocupation.toString()
             }
