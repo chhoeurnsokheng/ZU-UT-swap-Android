@@ -15,7 +15,7 @@ object PProvinceObj{
         var data: List<Items>? = null
     }
     class Items {
-        var code: String? = null
+        var code: Int? = null
         var english: String? = null
     }
     class BodyProvince(

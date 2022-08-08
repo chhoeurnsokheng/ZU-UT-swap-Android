@@ -2,7 +2,6 @@ package com.zillennium.utswap.module.kyc.kycFragment.fundPasswordScreen
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.text.Editable
@@ -23,7 +22,6 @@ import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentKycFundPasswordBinding
 import com.zillennium.utswap.models.userService.User
-import com.zillennium.utswap.screens.navbar.navbar.MainActivity
 import com.zillennium.utswap.utils.DialogUtil
 import com.zillennium.utswap.utils.DialogUtilKyc
 
@@ -120,7 +118,7 @@ class FundPasswordFragment :
 
                     KycInfor.truename = KYCPreferences().FIRST_NAME.toString()
                     KycInfor.email = KYCPreferences().EMAIL.toString()
-                    KycInfor.gender = KYCPreferences().GENDER.toString()
+                    KycInfor.gender = KYCPreferences().GENDER_AS_SHORT_LETTER.toString()
                     KycInfor.phonenumber = KYCPreferences().PHONE_NUMBER.toString()
                     KycInfor.occupation = KYCPreferences().OCCUPATION.toString()
                     KycInfor.companyname = KYCPreferences().COMPANY.toString()
