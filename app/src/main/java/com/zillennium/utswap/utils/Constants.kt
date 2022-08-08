@@ -437,6 +437,7 @@ interface Constants {
     interface TradeExchange {
         companion object{
             const val ProjectName = "ProjectName"
+            const val Status_submit = "KYC"
         }
     }
 

@@ -58,16 +58,19 @@ class IDVerificationFragment :
         KYCPreferences().CITY_PROVINCE = ""
         KYCPreferences().DISTRICT_KHAN = ""
         KYCPreferences().CITY_PROVINCE = ""
-//        KYCPreferences().FIRST_NAME = ""
-//        KYCPreferences().LAST_NAME = ""
-//        KYCPreferences().GENDER = ""
-//        KYCPreferences().BIRTHDAY = ""
+        KYCPreferences().FIRST_NAME = ""
+        KYCPreferences().LAST_NAME = ""
+        KYCPreferences().GENDER = ""
+        KYCPreferences().BIRTHDAY = ""
         KYCPreferences().ADDRESS = ""
         info.commune = 0
         info.city = 0
         info.district = 0
-//        info.dateOfBirth = ""
-//        info.gender = ""
+        info.city = 0
+        info.dateOfBirth = ""
+        info.gender = ""
+        info.firstName = ""
+        info.lastName = ""
         binding.apply {
 
             spinnerCommuneSangkat.floatingLabelText  = ""
@@ -75,13 +78,16 @@ class IDVerificationFragment :
             spinnerCommuneSangkat.hint = Util().getHtmlText("#DCDCDC","Commune/Sangkat"," *","#EE1111")
             spinnerCommuneSangkatView.hint = Util().getHtmlText("#DCDCDC","Commune/Sangkat"," *","#EE1111")
 
-            spinnerDistrictKhan.hint =
-                Util().getHtmlText("#DCDCDC", "District/Khan", " *", "#EE1111")
+            spinnerDistrictKhan.hint = Util().getHtmlText("#DCDCDC", "District/Khan", " *", "#EE1111")
             spinnerDistrictKhan.floatingLabelText = ""
 
-            spinnerCityProvince.hint =
-                Util().getHtmlText("#DCDCDC", "City/Province", "*", "#EE1111")
+            spinnerCityProvince.hint = Util().getHtmlText("#DCDCDC", "City/Province", "*", "#EE1111")
             spinnerCityProvince.floatingLabelText = ""
+            etFirstName.hint =  Util().getHtmlText("#DCDCDC", "Surename", "*", "#EE1111")
+            etLastName.hint =  Util().getHtmlText("#DCDCDC", "Name", "*", "#EE1111")
+            etDate.hint =  Util().getHtmlText("#DCDCDC", "Date of Birth", "*", "#EE1111")
+            spinnerGender.hint =  Util().getHtmlText("#DCDCDC", "Gender", "*", "#EE1111")
+
 
         }
         mPresenter.getAllProvinceSuccess(requireActivity())

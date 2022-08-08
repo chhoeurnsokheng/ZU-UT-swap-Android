@@ -1,5 +1,6 @@
 package com.zillennium.utswap.screens.navbar.navbar
 
+import android.content.Context
 import android.content.Intent
 import android.os.Handler
 import android.view.View
@@ -11,7 +12,6 @@ import androidx.navigation.Navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
-import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
@@ -25,6 +25,7 @@ import com.zillennium.utswap.module.main.news.NewsFragment
 import com.zillennium.utswap.module.main.portfolio.PortfolioFragment
 import com.zillennium.utswap.module.main.trade.tradeScreen.TradeFragment
 import com.zillennium.utswap.module.security.securityActivity.signInScreen.SignInActivity
+import com.zillennium.utswap.utils.Constants
 
 
 class MainActivity :
@@ -37,11 +38,21 @@ class MainActivity :
     private var doubleBackToExitPressedOnce = false
     var statusKYC  = FundPasswordFragment.status
 
+    companion object {
+        fun launchTradeExchangeActivity(context: Context, projectName: String?) {
+            val intent = Intent(context, MainActivity::class.java)
+            intent.putExtra(Constants.TradeExchange.Status_submit, projectName)
+            context.startActivity(intent)
+        }
+    }
+
     override fun initView() {
         super.initView()
         onCheckSession()
         onSetUpNavBar()
     }
+
+
 
     override fun onBackPressed() {
         if (doubleBackToExitPressedOnce) {
@@ -57,54 +68,23 @@ class MainActivity :
         try {
             binding.apply {
 
-                if (statusKYC == "1"){
-                    binding.apply {
-                        btnVerify.visibility= View.GONE
-                        layVerify.visibility = View.GONE
-                    }
-                }else{
-                    btnVerify.visibility= View.VISIBLE
-                    layVerify.visibility = View.VISIBLE
-                }
-
                 SessionVariable.SESSION_STATUS.observe(this@MainActivity) {
-                    if(SessionVariable.SESSION_STATUS.value == true ){
+                    if(SessionVariable.SESSION_STATUS.value == true){
                         layAuth.visibility = GONE
-                        layVerify.visibility = VISIBLE
+                        layVerify.visibility = View.VISIBLE
                         btnVerify.visibility = VISIBLE
-                    }else{
+                    } else{
                         layAuth.visibility = VISIBLE
                         btnVerify.visibility = GONE
                     }
                 }
 
-                SessionVariable.SESSION_KYC.observe(this@MainActivity){
-                    if(SessionPreferences().SESSION_KYC == true){
-                        layAuth.visibility = GONE
-                        layVerify.visibility = GONE
-                        btnVerify.visibility = GONE
-                    }else{
-                        layAuth.visibility = GONE
-                        btnVerify.visibility = VISIBLE
-                        layVerify.visibility = View.VISIBLE
+                if (intent.hasExtra(Constants.TradeExchange.Status_submit)) {
+                    val name = intent?.getStringExtra(Constants.TradeExchange.Status_submit)
+                    if (name=="1"){
+                        layAuth.visibility =View.GONE
                     }
                 }
-
-//                if(SessionPreferences().SESSION_STATUS == true){
-//                    layAuth.visibility = GONE
-//                    layVerify.visibility = VISIBLE
-//                    btnVerify.visibility = VISIBLE
-//                }else{
-//                    layAuth.visibility = VISIBLE
-//                    btnVerify.visibility = GONE
-//                }
-
-//                if (SessionPreferences().SESSION_KYC == true){
-//                    layVerify.visibility =View.GONE
-//                }else{
-//                    layVerify.visibility =View.VISIBLE
-//                }
-
                 layAuth.setOnClickListener {
                     val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
                     startActivity(intent)

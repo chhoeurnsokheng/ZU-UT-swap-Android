@@ -74,7 +74,7 @@
                                 android:layout_height="@dimen/dimen_50"
                                 android:autofillHints="no"
                                 android:backgroundTint="@color/secondary_text"
-                                android:hint="@string/first_name"
+                                android:hint=""
                                 android:inputType="textNoSuggestions"
                                 android:nextFocusDown="@+id/et_last_name"
                                 android:singleLine="true"

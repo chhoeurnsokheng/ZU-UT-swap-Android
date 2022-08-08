@@ -226,12 +226,12 @@
                     android:textAllCaps="false"
                     android:textAppearance="@style/bold_18"
                     android:textColor="@color/white" />
-                <ImageView
+              <!--  <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dimen_5"
                     android:src="@drawable/ic_baseline_arrow_forward_24"
-                    app:tint="@color/white" />
+                    app:tint="@color/white" />-->
             </LinearLayout>
 
             <LinearLayout
@@ -255,12 +255,12 @@
                     android:textAppearance="@style/bold_18"
                     android:textColor="@color/white" />
 
-                <ImageView
+              <!--  <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dimen_5"
                     android:src="@drawable/ic_baseline_arrow_forward_24"
-                    app:tint="@color/white" />
+                    app:tint="@color/white" />-->
             </LinearLayout>
         </RelativeLayout>
 
