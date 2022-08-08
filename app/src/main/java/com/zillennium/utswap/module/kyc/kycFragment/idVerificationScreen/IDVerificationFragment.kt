@@ -57,19 +57,16 @@ class IDVerificationFragment :
         KYCPreferences().CITY_PROVINCE = ""
         KYCPreferences().DISTRICT_KHAN = ""
         KYCPreferences().CITY_PROVINCE = ""
-        KYCPreferences().FIRST_NAME = ""
-        KYCPreferences().LAST_NAME = ""
-        KYCPreferences().GENDER = ""
-        KYCPreferences().BIRTHDAY = ""
+//        KYCPreferences().FIRST_NAME = ""
+//        KYCPreferences().LAST_NAME = ""
+//        KYCPreferences().GENDER = ""
+//        KYCPreferences().BIRTHDAY = ""
         KYCPreferences().ADDRESS = ""
         info.commune = 0
         info.city = 0
         info.district = 0
-        info.city = 0
-        info.dateOfBirth = ""
-        info.gender = ""
-        info.firstName = ""
-        info.lastName = ""
+//        info.dateOfBirth = ""
+//        info.gender = ""
         binding.apply {
 
             spinnerCommuneSangkat.floatingLabelText  = ""

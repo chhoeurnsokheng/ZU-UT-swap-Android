@@ -297,6 +297,7 @@
                             android:drawablePadding="@dimen/dimen_6"
                             android:layout_marginRight="@dimen/dimen_4"
                             android:visibility="gone"/>
+
                         <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
                             android:id="@+id/spinner_district_khan"
                             android:layout_width="match_parent"
@@ -358,6 +359,7 @@
                             app:smsp_underlineColor="@color/secondary_text"
                             app:smsp_underlineSize="0.1dp"
                             android:visibility="gone"/>
+
                         <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
                             android:id="@+id/spinner_commune_sangkat_view"
                             android:layout_width="match_parent"
