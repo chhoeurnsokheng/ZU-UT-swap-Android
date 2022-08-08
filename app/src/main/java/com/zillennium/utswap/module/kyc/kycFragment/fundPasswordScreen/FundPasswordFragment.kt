@@ -331,6 +331,7 @@ class FundPasswordFragment :
         if (data.status =="0") {
             binding.apply {
                 progressBar.visibility = View.GONE
+                status = "0"
             }
             DialogUtilKyc().customDialog(
                 R.drawable.icon_log_out,
@@ -346,6 +347,7 @@ class FundPasswordFragment :
             )
         }
         if (data.status=="1") {
+            status = "1"
             KYCPreferences().DO_KYC_STATUS = data.status
             KYCPreferences().status_kyc_submit = data.data?.status_kyc_submit
             KYCPreferences().status_kyc_submit = data.data?.status_kyc_approved

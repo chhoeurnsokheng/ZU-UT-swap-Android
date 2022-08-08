@@ -40,8 +40,9 @@ class KycApplicationFragment :
                     }
 
                 }
+//                if (status_kyc_submit ==true){}
                 btnAcceptHome.setOnClickListener {
-                    MainActivity.launchTradeExchangeActivity(requireActivity(),status_kyc_submit.toString())
+                    startActivity(Intent(requireActivity(),MainActivity::class.java))
                 }
             }
 

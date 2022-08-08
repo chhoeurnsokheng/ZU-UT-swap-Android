@@ -71,20 +71,18 @@ class MainActivity :
                 SessionVariable.SESSION_STATUS.observe(this@MainActivity) {
                     if(SessionVariable.SESSION_STATUS.value == true){
                         layAuth.visibility = GONE
-                        layVerify.visibility = View.VISIBLE
-                        btnVerify.visibility = VISIBLE
-                    } else{
+                        if (statusKYC=="1"){
+                            layVerify.visibility = GONE
+                        }else{
+                            layVerify.visibility = VISIBLE
+                        }
+                    }
+                    else{
                         layAuth.visibility = VISIBLE
                         btnVerify.visibility = GONE
                     }
                 }
 
-                if (intent.hasExtra(Constants.TradeExchange.Status_submit)) {
-                    val name = intent?.getStringExtra(Constants.TradeExchange.Status_submit)
-                    if (name=="1"){
-                        layAuth.visibility =View.GONE
-                    }
-                }
                 layAuth.setOnClickListener {
                     val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
                     startActivity(intent)

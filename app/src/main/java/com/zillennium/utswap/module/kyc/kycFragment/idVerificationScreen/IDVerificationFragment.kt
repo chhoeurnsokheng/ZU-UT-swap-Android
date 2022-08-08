@@ -523,7 +523,7 @@ class IDVerificationFragment :
         activity.let {
             binding.apply {
                 includeLayout.apply {
-                    tbTitle.text = "1/4"
+                    tbTitle.text = "2/4"
                     cdBack.setOnClickListener {
                         findNavController().popBackStack()
                     }
