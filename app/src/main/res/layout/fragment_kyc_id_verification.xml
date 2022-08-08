@@ -8,34 +8,18 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <RelativeLayout
+        <include
+            android:id="@+id/includeLayout"
+            layout="@layout/kyc_appbar_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/tool_bar">
+            android:layout_height="wrap_content"/>
 
-            <ImageView
-                android:id="@+id/btnBack"
-                android:layout_width="@dimen/dimen_60"
-                android:layout_height="@dimen/dimen_60"
-                android:padding="@dimen/dimen_14"
-                android:src="@drawable/ic_baseline_arrow_back_24"
-                app:tint="@color/primary" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:gravity="center"
-                android:text="@string/kyc_navbar_number"
-                android:textAppearance="@style/regular_16"
-                android:textColor="@color/dark_gray" />
-        </RelativeLayout>
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@+id/btn_next"
-            android:layout_below="@+id/tool_bar"
+            android:layout_below="@+id/includeLayout"
             android:overScrollMode="never"
             android:scrollbars="none">
 
@@ -54,9 +38,11 @@
 
 
                     <TextView
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/id_verification"
+                        android:drawableRight="@drawable/ic_star_error"
+                        android:drawablePadding="@dimen/dimen_6"
                         android:textAppearance="@style/medium_16"
                         android:textColor="@color/primary" />
 
@@ -103,7 +89,9 @@
                                 android:layout_marginTop="@dimen/dimen_5"
                                 android:ellipsize="end"
                                 android:singleLine="true"
-                                android:text="@string/cannot_leave_blank"
+                                android:text="@string/text_required"
+                                android:drawablePadding="@dimen/dimen_3"
+                                android:drawableLeft="@drawable/ic_field_required"
                                 android:textAppearance="@style/regular_10"
                                 android:textColor="@color/red_ee1111"
                                 android:visibility="gone" />
@@ -137,7 +125,9 @@
                                 android:layout_marginTop="@dimen/dimen_5"
                                 android:ellipsize="end"
                                 android:singleLine="true"
-                                android:text="@string/cannot_leave_blank"
+                                android:text="@string/text_required"
+                                android:drawablePadding="@dimen/dimen_3"
+                                android:drawableLeft="@drawable/ic_field_required"
                                 android:textAppearance="@style/regular_10"
                                 android:textColor="@color/red_ee1111"
                                 android:visibility="gone" />
@@ -190,7 +180,9 @@
                                 android:layout_marginTop="@dimen/dimen_5"
                                 android:ellipsize="end"
                                 android:singleLine="true"
-                                android:text="@string/cannot_leave_blank"
+                                android:text="@string/text_required"
+                                android:drawablePadding="@dimen/dimen_3"
+                                android:drawableLeft="@drawable/ic_field_required"
                                 android:textAppearance="@style/regular_10"
                                 android:textColor="@color/red_ee1111"
                                 android:visibility="gone" />
@@ -227,7 +219,9 @@
                                 android:layout_marginTop="@dimen/dimen_5"
                                 android:ellipsize="end"
                                 android:singleLine="true"
-                                android:text="@string/cannot_leave_blank"
+                                android:text="@string/text_required"
+                                android:drawablePadding="@dimen/dimen_3"
+                                android:drawableLeft="@drawable/ic_field_required"
                                 android:textAppearance="@style/regular_10"
                                 android:textColor="@color/red_ee1111"
                                 android:visibility="gone" />
@@ -247,20 +241,27 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dimen_10"
                         android:orientation="vertical">
-
+                        <TextView
+                            android:id="@+id/txt_label_province"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="City/Province"
+                            android:textAppearance="@style/regular_12"
+                            android:drawableRight="@drawable/ic_star_error"
+                            android:drawablePadding="@dimen/dimen_6"
+                            android:layout_marginRight="@dimen/dimen_4"
+                            android:visibility="gone"/>
                         <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
                             android:id="@+id/spinner_city_province"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:smsp_floatingLabelColor="@color/gray"
-                            app:smsp_floatingLabelText="City/Province *"
-                            app:smsp_hint="City/Province *"
+                            app:smsp_alwaysShowFloatingLabel="false"
                             app:smsp_hintColor="@color/gray"
                             app:smsp_itemColor="@color/secondary_text"
                             app:smsp_itemListColor="@color/secondary_text"
                             app:smsp_itemListHintBackgroundColor="@color/backgroundHint"
                             app:smsp_itemListHintColor="@color/white"
-                            app:smsp_multilineError="false"
+                            app:smsp_multilineError="true"
                             app:smsp_selectedItemListColor="@color/secondary_text"
                             app:smsp_underlineColor="@color/secondary_text"
                             app:smsp_underlineSize="0.1dp"/>
@@ -272,7 +273,9 @@
                             android:layout_marginTop="5dp"
                             android:ellipsize="end"
                             android:singleLine="true"
-                            android:text="@string/cannot_leave_blank"
+                            android:text="@string/text_required"
+                            android:drawablePadding="@dimen/dimen_3"
+                            android:drawableLeft="@drawable/ic_field_required"
                             android:textAppearance="@style/regular_10"
                             android:textColor="@color/red_ee1111"
                             android:visibility="gone" />
@@ -284,14 +287,21 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dimen_10"
                         android:orientation="vertical">
-
+                        <TextView
+                            android:id="@+id/txt_label_district"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="District/Khan"
+                            android:textAppearance="@style/regular_12"
+                            android:drawableRight="@drawable/ic_star_error"
+                            android:drawablePadding="@dimen/dimen_6"
+                            android:layout_marginRight="@dimen/dimen_4"
+                            android:visibility="gone"/>
                         <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
                             android:id="@+id/spinner_district_khan"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:smsp_floatingLabelColor="@color/gray"
-                            app:smsp_floatingLabelText="District/Khan *"
-                            app:smsp_hint="District/Khan *"
+                            app:smsp_alwaysShowFloatingLabel="false"
                             app:smsp_hintColor="@color/gray"
                             app:smsp_itemColor="@color/secondary_text"
                             app:smsp_itemListColor="@color/secondary_text"
@@ -309,7 +319,7 @@
                             android:layout_marginTop="5dp"
                             android:ellipsize="end"
                             android:singleLine="true"
-                            android:text="@string/cannot_leave_blank"
+                            android:text="@string/text_required"
                             android:textAppearance="@style/regular_10"
                             android:textColor="@color/red_ee1111"
                             android:visibility="gone" />
@@ -322,15 +332,23 @@
                         android:layout_marginTop="@dimen/dimen_5"
                         android:layout_weight="1"
                         android:orientation="vertical">
+                        <TextView
+                            android:id="@+id/txt_label_commune"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Commune/Sangkat"
+                            android:textAppearance="@style/regular_12"
+                            android:drawableRight="@drawable/ic_star_error"
+                            android:drawablePadding="@dimen/dimen_6"
+                            android:layout_marginRight="@dimen/dimen_4"
+                            android:visibility="gone"/>
 
                         <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
                             android:id="@+id/spinner_commune_sangkat"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:smsp_floatingLabelColor="@color/gray"
-                            app:smsp_floatingLabelText="Commune/Sangkat *"
-                            app:smsp_hint="Commune/Sangkat *"
                             app:smsp_hintColor="@color/gray"
+                            app:smsp_alwaysShowFloatingLabel="false"
                             app:smsp_itemColor="@color/secondary_text"
                             app:smsp_itemListColor="@color/secondary_text"
                             app:smsp_itemListHintBackgroundColor="@color/backgroundHint"
@@ -338,7 +356,22 @@
                             app:smsp_multilineError="false"
                             app:smsp_selectedItemListColor="@color/secondary_text"
                             app:smsp_underlineColor="@color/secondary_text"
-                            app:smsp_underlineSize="0.1dp"/>
+                            app:smsp_underlineSize="0.1dp"
+                            android:visibility="gone"/>
+                        <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
+                            android:id="@+id/spinner_commune_sangkat_view"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:smsp_hintColor="@color/gray"
+                            app:smsp_alwaysShowFloatingLabel="false"
+                            app:smsp_itemColor="@color/secondary_text"
+                            app:smsp_itemListColor="@color/secondary_text"
+                            app:smsp_itemListHintBackgroundColor="@color/backgroundHint"
+                            app:smsp_itemListHintColor="@color/white"
+                            app:smsp_multilineError="false"
+                            app:smsp_selectedItemListColor="@color/secondary_text"
+                            app:smsp_underlineColor="@color/secondary_text"
+                            app:smsp_underlineSize="0.1dp" />
 
                         <TextView
                             android:id="@+id/txt_error_commune"
@@ -347,7 +380,9 @@
                             android:layout_marginTop="5dp"
                             android:ellipsize="end"
                             android:singleLine="true"
-                            android:text="@string/cannot_leave_blank"
+                            android:drawablePadding="@dimen/dimen_3"
+                            android:drawableLeft="@drawable/ic_field_required"
+                            android:text="@string/text_required"
                             android:textAppearance="@style/regular_10"
                             android:textColor="@color/red_ee1111"
                             android:visibility="gone" />
@@ -365,20 +400,15 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="@dimen/dimen_2"
                             android:orientation="horizontal">
-
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/house_no_street"
                                 android:textAppearance="@style/regular_12"
+                                android:drawableRight="@drawable/ic_star_error"
+                                android:drawablePadding="@dimen/dimen_6"
                                 android:layout_marginRight="@dimen/dimen_4"/>
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/star"
-                                android:textColor="@color/red_ee1111"
-                                android:textAppearance="@style/regular_10"/>
 
                         </LinearLayout>
 
@@ -400,7 +430,9 @@
                             android:layout_marginTop="5dp"
                             android:ellipsize="end"
                             android:singleLine="true"
-                            android:text="@string/cannot_leave_blank"
+                            android:text="@string/text_required"
+                            android:drawablePadding="@dimen/dimen_3"
+                            android:drawableLeft="@drawable/ic_field_required"
                             android:textAppearance="@style/regular_10"
                             android:textColor="@color/red_ee1111"
                             android:visibility="gone" />
@@ -448,7 +480,7 @@
             android:layout_marginStart="@dimen/dimen_30"
             android:layout_marginTop="@dimen/dimen_30"
             android:layout_marginEnd="@dimen/dimen_30"
-            android:layout_marginBottom="@dimen/dimen_30"
+            android:layout_marginBottom="31dp"
             android:background="@drawable/bg_circular"
             android:gravity="center">
 

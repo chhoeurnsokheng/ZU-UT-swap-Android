@@ -185,8 +185,8 @@
     <string name="company">Company</string>
     <string name="employment">Employment</string>
     <string name="other_information">Other Information</string>
-    <string name="additional_phone_number_optional">Additional Phone Number (optional)</string>
-    <string name="email_address_optional">Email Address (optional)</string>
+    <string name="additional_phone_number_optional">Additional Phone Number</string>
+    <string name="email_address_optional">Email Address </string>
     <string name="address_information">Address Information</string>
     <string name="city_province">City/Province</string>
     <string name="accept">Accept</string>
@@ -204,7 +204,7 @@
     <string name="kyc_approval">KYC Approval</string>
     <string name="your_kyc_application_is_being_reviewed_by_our_team">Your KYC application is being reviewed by our team</string>
     <string name="pending">Pending...</string>
-    <string name="you_have_been_certified">You have been certified</string>
+    <string name="you_have_been_certified">You have been certified ✓</string>
     <string name="wallet">Wallet</string>
 
     <string-array name="gender_array">
@@ -436,6 +436,7 @@
     <string name="invalid_try_again">Invalid. Please Try Again</string>
     <string name="password_did_not_match">Password didn\'t match</string>
     <string name="email_phone_number_unavaible">Email/Phone Number Unavailable</string>
+    <string name="text_required">This field is required</string>
     <string name="invalid_email_or_phone">Invalid email or phone number</string>
     <string name="please_input_a_valid_email_phone">Please input a valid email/phone number.</string>
     <string name="phone_email_or_password_is_incorrect">Phone/Email or password is incorrect</string>
@@ -446,6 +447,5 @@
     <string name="please_enter_valid_phone_number">Please enter valid phone number</string>
     <string name="success">Success</string>
     <string name="phone_number_has_been_add_successfully">Phone Number has been added Successfully</string>
-
 
 </resources>

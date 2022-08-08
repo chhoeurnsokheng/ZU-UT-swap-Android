@@ -3,6 +3,7 @@ package com.zillennium.utswap.api.manager
 import android.content.Context
 import com.zillennium.utswap.api.Header
 import com.zillennium.utswap.models.userService.User
+import okhttp3.RequestBody
 import rx.Observable
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
@@ -14,7 +15,7 @@ import rx.schedulers.Schedulers
  * By Mac
  */
 
-class ApiUserImp:ApiManager() {
+class ApiUserImp : ApiManager() {
 
     fun login(body: User.LoginObject, context: Context): Observable<User.LoginRes> =
         mUserService.loginService(
@@ -31,6 +32,13 @@ class ApiUserImp:ApiManager() {
         )
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
+
+    fun addKyc(body: User.Kyc,context: Context): Observable<User.KycRes> = mUserService.userAddKyc(
+        Header.getHeader(Header.Companion.AuthType.REQUIRED_TOKEN, context),
+        body
+    )
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
 
     fun register(body: User.RegisterObject): Observable<User.RegisterRes> =
         mUserService.registerService(body)

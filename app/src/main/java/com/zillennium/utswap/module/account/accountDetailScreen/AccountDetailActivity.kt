@@ -91,7 +91,7 @@ class AccountDetailActivity :
 
             progressBar.visibility = View.GONE
 
-            if(data.phonenumber.toString() != "")
+            if(data.phonenumber != null)
             {
                 val phoneNumStr = data.phonenumber.toString()
                 txtAddPhoneNumber.text = phoneNumStr.replace("+855", "0")

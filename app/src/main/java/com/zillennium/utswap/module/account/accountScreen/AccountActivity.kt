@@ -155,6 +155,8 @@ class AccountActivity :
                     object : DialogUtil.OnAlertDialogClick {
                         override fun onLabelCancelClick() {
                             SessionVariable.SESSION_STATUS.value = false
+                            SessionVariable.SESSION_KYC.value = false
+                            SessionVariable.SESSION_KYC_STATUS.value = 0
 
                             SessionPreferences().removeValue("SESSION_TOKEN")
                             SessionPreferences().removeValue("SESSION_ID")
@@ -162,6 +164,8 @@ class AccountActivity :
                             SessionPreferences().removeValue("SESSION_KYC")
                             SessionPreferences().removeValue("SESSION_X_TOKEN_API")
                             SessionPreferences().removeValue("SESSION_STATUS")
+                            SessionPreferences().removeValue("SESSION_KYC_SUBMIT_STATUS")
+                            SessionPreferences().removeValue("SESSION_KYC_STATUS")
 
                             finish()
                             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
@@ -188,7 +192,7 @@ class AccountActivity :
         binding.apply {
             txtPhoneNumber.visibility = View.VISIBLE
 
-            if(data.phonenumber.toString() != "")
+            if(data.phonenumber != null)
             {
                 val phoneNumStr = data.phonenumber.toString()
                 txtPhoneNumber.text = phoneNumStr.replace("+855", "0")

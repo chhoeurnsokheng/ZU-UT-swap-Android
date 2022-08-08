@@ -22,12 +22,20 @@ interface UserService {
         @HeaderMap headers: Map<String, String>,
         @Body body: User.LoginObject
     ): Observable<User.LoginRes>
+
     //OTP
     @POST(ApiSettings.PATH_OTP)
     fun otpService(
-        @HeaderMap header: Map<String,String>,
+        @HeaderMap header: Map<String, String>,
         @Body body: User.OtpObject
     ): Observable<User.OtpRes>
+
+    // KYC
+    @POST(ApiSettings.PATH_KYC)
+    fun userAddKyc(
+        @HeaderMap header: Map<String, String>,
+        @Body param: User.Kyc
+    ): Observable<User.KycRes>
 
     /** Register*/
     @POST(ApiSettings.PATH_REGISTER)

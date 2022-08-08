@@ -29,9 +29,13 @@ open class IdTypeFragment :
     override fun initView() {
         super.initView()
         try {
+            toolbar()
+//            KYCPreferences().NATIONAL_ID_BACK = ""
+//            KYCPreferences().NATIONAL_ID_FRONT = ""
+//            KYCPreferences().PASSPORT_FRONT = ""
+
             binding.apply {
                 checkValidation()
-
                 pageAdapter = ScreenSlidePageAdapter(this@IdTypeFragment, NUM_PAGES)
                 vpVerify.adapter = pageAdapter
                 vpVerify.isSaveEnabled = false
@@ -85,45 +89,79 @@ open class IdTypeFragment :
                 }
                 passport.setOnClickListener { view ->
 
-                    if(!KYCPreferences().NATIONAL_ID_FRONT.isNullOrEmpty() || !KYCPreferences().NATIONAL_ID_BACK.isNullOrEmpty()){
-                        //alert dialog
+                    //alert dialog
                         val builder = AlertDialog.Builder(requireActivity())
-                        builder.setTitle("Are you sure you want to switch tabs?")
-                        builder.setMessage("Your added photos will be deleted.")
-//                        builder.setIcon(android.R.drawable.ic_dialog_alert)
+                        builder.setTitle("Passport is coming soon")
+                        builder.setMessage("We don't implement add passport yet !!")
 
-                        builder.setPositiveButton("Yes"){dialogInterface, which ->
-                            onChangeTabs(view)
-                            vpVerify.setCurrentItem(1, false)
-                            checkValidation()
-                            KYCPreferences().removeValue("NATIONAL_ID_FRONT")
-                            KYCPreferences().removeValue("NATIONAL_ID_BACK")
-                        }
 
-                        builder.setNegativeButton("No"){dialogInterface, which ->
+//                        builder.setPositiveButton("Yes"){dialogInterface, which ->
+//                            onChangeTabs(view)
+//                            vpVerify.setCurrentItem(1, true)
+//                            checkValidation()
+//                          //  KYCPreferences().removeValue("NATIONAL_ID_FRONT")
+//                          //  KYCPreferences().removeValue("NATIONAL_ID_BACK")
+//                        }
+
+                        builder.setNegativeButton("Yes"){dialogInterface, which ->
 
                         }
 
                         val alertDialog: AlertDialog = builder.create()
 
                         alertDialog.show()
-                    }else{
-                        onChangeTabs(view)
-                        vpVerify.setCurrentItem(1, false)
-                        checkValidation()
-                    }
+//
+//                    if(!KYCPreferences().NATIONAL_ID_FRONT.isNullOrEmpty() || !KYCPreferences().NATIONAL_ID_BACK.isNullOrEmpty()){
+//                        //alert dialog
+//                        val builder = AlertDialog.Builder(requireActivity())
+//                        builder.setTitle("Are you sure you want to switch tabs?")
+//                        builder.setMessage("Your added photos will be deleted.")
+//
+//
+//                        builder.setPositiveButton("Yes"){dialogInterface, which ->
+//                            onChangeTabs(view)
+//                            vpVerify.setCurrentItem(1, false)
+//                            checkValidation()
+//                            KYCPreferences().removeValue("NATIONAL_ID_FRONT")
+//                            KYCPreferences().removeValue("NATIONAL_ID_BACK")
+//                        }
+//
+//                        builder.setNegativeButton("No"){dialogInterface, which ->
+//
+//                        }
+//
+//                        val alertDialog: AlertDialog = builder.create()
+//
+//                        alertDialog.show()
+//                    }else{
+//                        onChangeTabs(view)
+//                        vpVerify.setCurrentItem(1, false)
+//                        checkValidation()
+//                    }
 
                 }
 
-                // Set Passed Back
-                ivBack.setOnClickListener {
-                    activity?.finish()
-                }
             }
         } catch (error: Exception) {
             // Must be safe
         }
     }
+
+  private fun toolbar(){
+      binding.apply {
+          activity.let {
+              includeLayout.apply {
+                 cdBack.setOnClickListener {
+                     activity?.finish()
+                 }
+                  tbTitle.text ="1/4"
+              }
+
+          }
+
+      }
+  }
+
 
     private fun onChangeTabs(view: View) {
         binding.apply {

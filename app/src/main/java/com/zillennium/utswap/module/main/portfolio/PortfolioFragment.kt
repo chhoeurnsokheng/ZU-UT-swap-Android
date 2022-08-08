@@ -54,8 +54,6 @@ class PortfolioFragment :
     private var data: LineData? = null
 
 
-
-    
     @SuppressLint("UseCompatLoadingForDrawables", "NotifyDataSetChanged", "SetTextI18n")
     override fun initView() {
         super.initView()
