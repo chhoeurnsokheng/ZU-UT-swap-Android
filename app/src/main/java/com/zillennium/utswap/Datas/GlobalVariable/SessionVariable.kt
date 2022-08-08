@@ -3,7 +3,6 @@ package com.zillennium.utswap.Datas.GlobalVariable
 import androidx.lifecycle.MutableLiveData
 import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.models.FinanceBankModel
-import com.zillennium.utswap.models.WithdrawAddbankModel
 
 class SessionVariable {
     companion object {

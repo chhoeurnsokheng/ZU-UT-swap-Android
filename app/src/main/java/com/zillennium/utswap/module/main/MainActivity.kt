@@ -12,6 +12,7 @@ import androidx.navigation.Navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
+import com.zillennium.utswap.Datas.StoredPreferences.KYCPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
@@ -67,19 +68,16 @@ class MainActivity :
     private fun onCheckSession(){
         try {
             binding.apply {
-
+                
                 SessionVariable.SESSION_STATUS.observe(this@MainActivity) {
                     if(SessionVariable.SESSION_STATUS.value == true){
                         layAuth.visibility = GONE
-                        if (statusKYC=="1"){
-                            layVerify.visibility = GONE
-                        }else{
-                            layVerify.visibility = VISIBLE
-                        }
+                        layVerify.visibility = View.VISIBLE
+                        btnVerify.visibility = VISIBLE
                     }
                     else{
-                        layAuth.visibility = VISIBLE
-                        btnVerify.visibility = GONE
+                            layAuth.visibility = VISIBLE
+                            btnVerify.visibility = GONE
                     }
                 }
 

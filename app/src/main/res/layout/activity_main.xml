@@ -86,7 +86,7 @@
                 android:id="@+id/lay_auth"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dimen_38"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:background="@color/red_ee1111">
 
                 <LinearLayout
