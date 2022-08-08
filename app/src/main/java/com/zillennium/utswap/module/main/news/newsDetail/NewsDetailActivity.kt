@@ -52,6 +52,7 @@ class NewsDetailActivity :
             progressBar.visibility = View.GONE
             swipeRefresh.isRefreshing = false
 
+            txtDateTitle.visibility = View.VISIBLE
             txtTitle.text = data.title.toString()
             txtDate.text = data.date?.addtime.toString()
             txtContent.text = Html.fromHtml(data.content.toString())
