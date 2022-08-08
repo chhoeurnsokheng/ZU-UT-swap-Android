@@ -73,6 +73,7 @@ class IDVerificationFragment :
             spinnerCommuneSangkat.floatingLabelText  = ""
                 //Util().getHtmlText("#DCDCDC","Commune/Sangkat"," *","#EE1111")
             spinnerCommuneSangkat.hint = Util().getHtmlText("#DCDCDC","Commune/Sangkat"," *","#EE1111")
+            spinnerCommuneSangkatView.hint = Util().getHtmlText("#DCDCDC","Commune/Sangkat"," *","#EE1111")
 
             spinnerDistrictKhan.hint =
                 Util().getHtmlText("#DCDCDC", "District/Khan", " *", "#EE1111")
@@ -361,6 +362,11 @@ class IDVerificationFragment :
                         )
                     isHaveError = true
                 }
+                if (info.gender.isEmpty()){
+                    txtErrorGender.visibility =View.VISIBLE
+                    isHaveError  =true
+                }
+
 
                 if (!isHaveError) {
                     KYCPreferences().FIRST_NAME = info.firstName
@@ -408,6 +414,8 @@ class IDVerificationFragment :
                         spinnerCityProvince.underlineColor = ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text)
                         txtErrorCity.visibility = View.GONE
                         info.commune = 0
+                       spinnerCommuneSangkat.visibility = View.GONE
+                       spinnerCommuneSangkatView.visibility =View.VISIBLE
 
                     }
 
@@ -452,6 +460,8 @@ class IDVerificationFragment :
                         }
                         spinnerDistrictKhan.underlineColor = ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text)
                         txtErrorDistrict.visibility = View.GONE
+                        spinnerCommuneSangkat.visibility =View.VISIBLE
+                        spinnerCommuneSangkatView.visibility =View.GONE
 
                     }
 

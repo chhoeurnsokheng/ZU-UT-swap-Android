@@ -8,7 +8,6 @@ import com.zillennium.utswap.Datas.StoredPreferences.KYCPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentKycNationalIdBinding
-import com.zillennium.utswap.module.kyc.kycActivity.KYCActivity
 import com.zillennium.utswap.module.kyc.kycFragment.idTypeScreen.IdTypeFragment
 
 
@@ -38,6 +37,7 @@ class NationalIDFragment :
                     KYCPreferences().removeValue("NATIONAL_ID_FRONT")
                     imgNationalFront.setImageResource(R.drawable.ic_national_id_front)
                     imgLogoCameraFront.visibility = View.VISIBLE
+                    imgNationalFronGone.visibility =View.VISIBLE
                     imgDeleteFront.visibility = View.GONE
                     btnCameraFront.isClickable = true
                     (parentFragment as IdTypeFragment).checkValidation()
@@ -47,7 +47,7 @@ class NationalIDFragment :
                     KYCPreferences().removeValue("NATIONAL_ID_BACK")
                     imgNationalBack.setImageResource(R.drawable.ic_national_id_back)
                     imgLogoCameraBack.visibility = View.VISIBLE
-
+                    imgNationalBackGone.visibility =View.VISIBLE
                     imgDeleteBack.visibility = View.GONE
                     btnCameraBack.isClickable = true
                     (parentFragment as IdTypeFragment).checkValidation()
@@ -64,7 +64,7 @@ class NationalIDFragment :
         binding.apply {
             if (!KYCPreferences().NATIONAL_ID_FRONT.isNullOrEmpty()) {
                 imgNationalFront.setImageURI(KYCPreferences().NATIONAL_ID_FRONT?.toUri())
-              //   imgNationalFronGone.visibility =View.GONE
+                 imgNationalFronGone.visibility =View.GONE
                 btnCameraFront.isClickable = false
                 imgLogoCameraFront.visibility = View.GONE
                 imgDeleteFront.visibility = View.VISIBLE
@@ -76,7 +76,7 @@ class NationalIDFragment :
             }
             if (!KYCPreferences().NATIONAL_ID_BACK.isNullOrEmpty()) {
                 imgNationalBack.setImageURI(KYCPreferences().NATIONAL_ID_BACK?.toUri())
-            //    imgNationalBackGone.visibility =View.GONE
+                imgNationalBackGone.visibility =View.GONE
                 btnCameraBack.isClickable = false
                 imgLogoCameraBack.visibility = View.GONE
                 imgDeleteBack.visibility = View.VISIBLE

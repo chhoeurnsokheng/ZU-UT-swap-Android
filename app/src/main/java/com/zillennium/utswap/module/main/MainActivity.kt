@@ -53,32 +53,22 @@ class MainActivity :
         Handler().postDelayed(Runnable { doubleBackToExitPressedOnce = false }, 2000)
     }
 
-
-
     private fun onCheckSession(){
         try {
             binding.apply {
-//                txtVersion.text = getString(
-//                   R.string.app_version_pattern,
-//                    BuildConfig.VERSION_NAME,
-//                      BuildConfig.VERSION_CODE
-//                )
 
                 if (statusKYC == "1"){
                     binding.apply {
                         btnVerify.visibility= View.GONE
                         layVerify.visibility = View.GONE
                     }
-                }
-                if (statusKYC == "0"){
-                    binding.apply {
-                        btnVerify.visibility= View.VISIBLE
-                        layVerify.visibility = View.VISIBLE
-                    }
+                }else{
+                    btnVerify.visibility= View.VISIBLE
+                    layVerify.visibility = View.VISIBLE
                 }
 
                 SessionVariable.SESSION_STATUS.observe(this@MainActivity) {
-                    if(SessionVariable.SESSION_STATUS.value == true){
+                    if(SessionVariable.SESSION_STATUS.value == true ){
                         layAuth.visibility = GONE
                         layVerify.visibility = VISIBLE
                         btnVerify.visibility = VISIBLE
@@ -88,14 +78,32 @@ class MainActivity :
                     }
                 }
 
-                if(SessionPreferences().SESSION_STATUS == true){
-                    layAuth.visibility = GONE
-                    layVerify.visibility = VISIBLE
-                    btnVerify.visibility = VISIBLE
-                }else{
-                    layAuth.visibility = VISIBLE
-                    btnVerify.visibility = GONE
+                SessionVariable.SESSION_KYC.observe(this@MainActivity){
+                    if(SessionPreferences().SESSION_KYC == true){
+                        layAuth.visibility = GONE
+                        layVerify.visibility = GONE
+                        btnVerify.visibility = GONE
+                    }else{
+                        layAuth.visibility = GONE
+                        btnVerify.visibility = VISIBLE
+                        layVerify.visibility = View.VISIBLE
+                    }
                 }
+
+//                if(SessionPreferences().SESSION_STATUS == true){
+//                    layAuth.visibility = GONE
+//                    layVerify.visibility = VISIBLE
+//                    btnVerify.visibility = VISIBLE
+//                }else{
+//                    layAuth.visibility = VISIBLE
+//                    btnVerify.visibility = GONE
+//                }
+
+//                if (SessionPreferences().SESSION_KYC == true){
+//                    layVerify.visibility =View.GONE
+//                }else{
+//                    layVerify.visibility =View.VISIBLE
+//                }
 
                 layAuth.setOnClickListener {
                     val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)

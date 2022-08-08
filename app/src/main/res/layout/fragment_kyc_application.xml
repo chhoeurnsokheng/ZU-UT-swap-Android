@@ -200,36 +200,70 @@
 
         </LinearLayout>
 
-
-        <LinearLayout
-            android:id="@+id/btn_accept"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dimen_50"
-            android:layout_alignParentBottom="true"
+            android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dimen_30"
             android:layout_marginEnd="@dimen/dimen_30"
-            android:layout_marginBottom="@dimen/dimen_30"
-            android:background="@drawable/bg_circular_condition"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:visibility="invisible">
+            android:layout_marginBottom="@dimen/dimen_30">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Start Trading"
-                android:textAllCaps="false"
-                android:textAppearance="@style/bold_18"
-                android:textColor="@color/white" />
+            <LinearLayout
+                android:id="@+id/btn_accept"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_50"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="@dimen/dimen_30"
+                android:layout_marginEnd="@dimen/dimen_30"
+                android:layout_marginBottom="@dimen/dimen_30"
+                android:background="@drawable/bg_circular_condition"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="gone">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Start Trading"
+                    android:textAllCaps="false"
+                    android:textAppearance="@style/bold_18"
+                    android:textColor="@color/white" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_5"
+                    android:src="@drawable/ic_baseline_arrow_forward_24"
+                    app:tint="@color/white" />
+            </LinearLayout>
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dimen_5"
-                android:src="@drawable/ic_baseline_arrow_forward_24"
-                app:tint="@color/white" />
+            <LinearLayout
+                android:id="@+id/btn_accept_home"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_50"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="@dimen/dimen_30"
+                android:layout_marginEnd="@dimen/dimen_30"
+                android:layout_marginBottom="@dimen/dimen_30"
+                android:background="@drawable/bg_circular_redd"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="visible">
 
-        </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Home"
+                    android:textAllCaps="false"
+                    android:textAppearance="@style/bold_18"
+                    android:textColor="@color/white" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_5"
+                    android:src="@drawable/ic_baseline_arrow_forward_24"
+                    app:tint="@color/white" />
+            </LinearLayout>
+        </RelativeLayout>
+
 
     </RelativeLayout>
 </layout>

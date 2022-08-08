@@ -356,7 +356,22 @@
                             app:smsp_multilineError="false"
                             app:smsp_selectedItemListColor="@color/secondary_text"
                             app:smsp_underlineColor="@color/secondary_text"
-                            app:smsp_underlineSize="0.1dp"/>
+                            app:smsp_underlineSize="0.1dp"
+                            android:visibility="gone"/>
+                        <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
+                            android:id="@+id/spinner_commune_sangkat_view"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:smsp_hintColor="@color/gray"
+                            app:smsp_alwaysShowFloatingLabel="false"
+                            app:smsp_itemColor="@color/secondary_text"
+                            app:smsp_itemListColor="@color/secondary_text"
+                            app:smsp_itemListHintBackgroundColor="@color/backgroundHint"
+                            app:smsp_itemListHintColor="@color/white"
+                            app:smsp_multilineError="false"
+                            app:smsp_selectedItemListColor="@color/secondary_text"
+                            app:smsp_underlineColor="@color/secondary_text"
+                            app:smsp_underlineSize="0.1dp" />
 
                         <TextView
                             android:id="@+id/txt_error_commune"
