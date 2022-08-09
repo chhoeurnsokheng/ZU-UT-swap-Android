@@ -12,11 +12,13 @@ class HomeView {
         override fun initView()
         fun onGetBanner(data:BannerObj.Banner)
         fun onGetNEwsHome(data: News.NewsRes)
+        fun onGetWishListAndBalance(data: BannerObj.whistListRes)
     }
 
     interface Presenter : BaseMvpPresenter<View> {
         override fun initViewPresenter(context: Context, bundle: Bundle?)
         fun getBanner(context: Context)
         fun getNewsHome(context: Context)
+        fun getWishListAndBalance(context: Context)
     }
 }

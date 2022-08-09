@@ -15,4 +15,9 @@ interface HomeService {
     fun getBanner(
         @HeaderMap headers: Map<String, String>
     ): Observable<BannerObj.Banner>
+
+    @GET(ApiSettings.PATH_GET_HOME_WISHLIST_BALANCE)
+    fun getWhistListAndBalance(
+        @HeaderMap headers: Map<String, String>
+    ): Observable<BannerObj.whistListRes>
 }

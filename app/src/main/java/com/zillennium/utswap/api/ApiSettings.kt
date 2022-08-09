@@ -1,5 +1,7 @@
 package com.zillennium.utswap.api
 
+import io.reactivex.internal.operators.parallel.ParallelDoOnNextTry
+
 /**
  * @author chhoeurnsokheng
  * Created 5/7/22 at 4:42 PM
@@ -48,4 +50,5 @@ object ApiSettings {
 
      /*Get Banner HomeScreen*/
     const val PATH_GET_BANNNER= "portfolio/app_banner"
+    const val PATH_GET_HOME_WISHLIST_BALANCE ="portfolio/index"
 }

@@ -297,6 +297,10 @@ class HomeFragment : BaseMvpFragmentSokheng<HomeView.View, HomeView.Presenter>()
 
     }
 
+    override fun onGetWishListAndBalance(data: BannerObj.whistListRes) {
+
+    }
+
     //click to move to new screen
     val onclickHome: HomeMenuAdapter.OnclickHome = object : HomeMenuAdapter.OnclickHome {
         override fun ClickDeposit(title: String) {
