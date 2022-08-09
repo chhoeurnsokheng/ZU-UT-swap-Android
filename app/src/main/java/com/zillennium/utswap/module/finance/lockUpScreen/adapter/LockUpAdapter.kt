@@ -4,18 +4,18 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.zillennium.utswap.R
 import com.zillennium.utswap.models.FinanceLockUpModel
+import com.zillennium.utswap.models.lockUpBalance.LockUpBalanceObject
 import com.zillennium.utswap.utils.groupingSeparator
 
-class LockUpAdapter(arrayList: ArrayList<FinanceLockUpModel>, onClickAdapter: OnClickAdapter)
+class LockUpAdapter(var arrayList: ArrayList<Any>, var onClickAdapter: OnClickAdapter)
     :RecyclerView.Adapter<LockUpAdapter.ViewHolder>(){
-
-    private var arrayList: ArrayList<FinanceLockUpModel> = ArrayList()
-    private var onClickAdapter: OnClickAdapter
+    private var isLock =  false
 
     inner class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
         internal val txtTitle: TextView = view.findViewById<View>(R.id.txt_title) as TextView
@@ -24,6 +24,7 @@ class LockUpAdapter(arrayList: ArrayList<FinanceLockUpModel>, onClickAdapter: On
         internal val txtDateEnd: TextView = view.findViewById<View>(R.id.txt_date_end) as TextView
         internal val txtDuration: TextView = view.findViewById<View>(R.id.txt_duration) as TextView
         internal val layoutBuyBack: LinearLayout = view.findViewById<View>(R.id.linear_buy_back) as LinearLayout
+        internal val imageBalance: ImageView = view.findViewById(R.id.image_balance)
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): LockUpAdapter.ViewHolder {
@@ -33,15 +34,21 @@ class LockUpAdapter(arrayList: ArrayList<FinanceLockUpModel>, onClickAdapter: On
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: LockUpAdapter.ViewHolder, position: Int) {
-        val buyBackList: FinanceLockUpModel = arrayList[position]
+        val buyBackList: LockUpBalanceObject.LockUpBalanceItem = arrayList[position] as LockUpBalanceObject.LockUpBalanceItem
 
-        holder.txtTitle.text = buyBackList.titleLockUp
-        holder.txtAmount.text = "$" + groupingSeparator(buyBackList.amountLockUp)
-        holder.txtDateStart.text = buyBackList.dateStartLockUp
-        holder.txtDateEnd.text = buyBackList.dateEndLockUp
-        holder.txtDuration.text = buyBackList.durationLockUp
+        holder.txtTitle.text = buyBackList.name
+        holder.txtAmount.text = "$" + groupingSeparator(buyBackList.amount)
+        holder.txtDateStart.text = buyBackList.addtimeReable
+        holder.txtDateEnd.text = buyBackList.endtimeReable
+        holder.txtDuration.text = "${buyBackList.lock_period} Day(s) left"
+        if (buyBackList.status == 1) {
+            holder.imageBalance.setImageResource(R.drawable.ic_unlocked)
+        } else {
+            holder.imageBalance.setImageResource(R.drawable.ic_locked)
+        }
         holder.layoutBuyBack.setOnClickListener {
-            onClickAdapter.onClickMe(buyBackList)
+            isLock = buyBackList.status != 1
+            onClickAdapter.onClickMe(buyBackList.name, buyBackList.amount, buyBackList.addtimeReable,buyBackList.endtimeReable, buyBackList.lock_period, isLock)
         }
     }
 
@@ -50,11 +57,8 @@ class LockUpAdapter(arrayList: ArrayList<FinanceLockUpModel>, onClickAdapter: On
     }
 
     interface OnClickAdapter{
-        fun onClickMe(buyBackModel: FinanceLockUpModel)
+        fun onClickMe(projectName: String, amount: Double, start: String, end: String, duration: Int, isUnLock: Boolean)
     }
 
-    init {
-        this.arrayList = arrayList
-        this.onClickAdapter = onClickAdapter
-    }
+
 }

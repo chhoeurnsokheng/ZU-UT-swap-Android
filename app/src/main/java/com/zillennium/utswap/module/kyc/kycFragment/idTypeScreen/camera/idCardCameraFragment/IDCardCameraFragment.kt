@@ -52,14 +52,8 @@ class IDCardCameraFragment :
     override fun initView() {
         super.initView()
         try {
+            toolBar()
             binding.apply {
-
-
-
-                ivBack.setOnClickListener {
-                    findNavController().popBackStack()
-                }
-
                 if (ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
                     requestPermissions(
                         arrayOf(Manifest.permission.CAMERA),
@@ -68,9 +62,15 @@ class IDCardCameraFragment :
                 }
 
                 when (arguments?.getString("title").toString()){
-                    "id_card_front" -> { ivSample.setImageResource(R.drawable.ic_national_id_front) }
-                    "id_card_back" -> { ivSample.setImageResource(R.drawable.ic_national_id_back) }
-                    "passport_front" -> { ivSample.setImageResource(R.drawable.ic_passport_front) }
+                    "id_card_front" -> {
+                        ivSample.setImageResource(R.drawable.ic_national_id_front)
+                    }
+                    "id_card_back" -> {
+                        ivSample.setImageResource(R.drawable.ic_national_id_back)
+                    }
+                    "passport_front" -> {
+                        ivSample.setImageResource(R.drawable.ic_passport_front)
+                    }
                 }
 
                 mPreviewView = viewFinder
@@ -80,6 +80,21 @@ class IDCardCameraFragment :
 
         } catch (error: Exception) {
             // Must be safe
+        }
+    }
+
+
+    private  fun toolBar(){
+        binding.apply {
+            activity.let {
+                includeLayout.apply {
+                    toolBarLayout.setBackgroundColor(ContextCompat.getColor(requireActivity(),R.color.primary))
+                    includeLayout.cdBack.setOnClickListener {
+                        findNavController().popBackStack()
+                    }
+                }
+
+            }
         }
     }
 
@@ -96,17 +111,14 @@ class IDCardCameraFragment :
                     buildAnalysis()
                 )
             } catch (e: ExecutionException) {
-                // No errors need to be handled for this Future.
-                // This should never be reached.
+
             } catch (e: InterruptedException) {
             }
         }, ContextCompat.getMainExecutor(requireActivity()))
     }
 
-    @Throws(ExecutionException::class, InterruptedException::class)
     private fun buildPreview(): UseCase? {
 
-//        int displays = binding.viewFinder.getDisplay().getRotation();
         val metrics = DisplayMetrics()
         requireActivity().windowManager.defaultDisplay.getMetrics(metrics)
         val preview = Preview.Builder()
@@ -118,7 +130,7 @@ class IDCardCameraFragment :
 
     private fun buildImageCapture(): ImageCapture? {
 
-//        Display displays = binding.viewFinder.getDisplay();
+
         val metrics = DisplayMetrics()
         requireActivity().windowManager.defaultDisplay.getMetrics(metrics)
         val builder = ImageCapture.Builder()
@@ -128,8 +140,8 @@ class IDCardCameraFragment :
             .build()
         val executor: Executor = Executors.newSingleThreadExecutor()
         btnTakePhoto = binding.btnTakePhoto
-        btnTakePhoto!!.setOnClickListener {
-            btnTakePhoto!!.isClickable = false
+        btnTakePhoto?.setOnClickListener {
+            btnTakePhoto?.isClickable = false
             binding.progressBar.visibility = View.VISIBLE
             val photoFile = FileCreator.createTempImageFile()
             photoFile.apply {
@@ -146,12 +158,10 @@ class IDCardCameraFragment :
                             override fun onImageSaved(output: ImageCapture.OutputFileResults) {
                                 val savedUri = output.savedUri ?: Uri.fromFile(photoFile)
                                 val bitmap = BitmapFactory.decodeFile(savedUri.path)
-                                val rotatedBitmap =
-                                    FileCreator.rotate(bitmap, savedUri.toFile().absolutePath ?: "")
+                                val rotatedBitmap = FileCreator.rotate(bitmap, savedUri.toFile().absolutePath ?: "")
                                 photoFile?.delete()
                                 binding.apply {
-                                    val croppedImage =
-                                        cropImage(rotatedBitmap, viewFinder, frameImage)
+                                    val croppedImage = cropImage(rotatedBitmap, viewFinder, frameImage)
                                     val path = FileCreator.saveImage(croppedImage)
                                     requireActivity().runOnUiThread{
                                         progressBar.visibility = View.GONE

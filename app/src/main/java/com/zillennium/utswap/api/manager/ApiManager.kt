@@ -10,9 +10,7 @@ package com.zillennium.utswap.api.manager
 import android.annotation.SuppressLint
 import android.content.Context
 import com.zillennium.utswap.BuildConfig
-import com.zillennium.utswap.api.service.HomeService
-import com.zillennium.utswap.api.service.NewsService
-import com.zillennium.utswap.api.service.UserService
+import com.zillennium.utswap.api.service.*
 import com.zillennium.utswap.utils.LoggerUtil
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -34,7 +32,12 @@ open class ApiManager {
 
     protected lateinit var mUserService: UserService
     protected lateinit var mNewsService: NewsService
+
     protected lateinit var mHomeService: HomeService
+
+    protected lateinit var mFinanceService: FinanceService
+    protected lateinit var mProvince: ProvincesService
+
     protected lateinit var mContext: Context
 
 
@@ -57,7 +60,12 @@ open class ApiManager {
     private fun initServices(retrofit: Retrofit) {
         mUserService = retrofit.create(UserService::class.java)
         mNewsService = retrofit.create(NewsService::class.java)
+
         mHomeService = retrofit.create(HomeService::class.java)
+
+        mFinanceService = retrofit.create(FinanceService::class.java)
+        mProvince = retrofit.create(ProvincesService::class.java)
+
 
     }
 
@@ -122,7 +130,7 @@ open class ApiManager {
 
         return Retrofit.Builder().baseUrl(mServerUrl)
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .addConverterFactory(createMoshiConverter())
+                //.addConverterFactory(createMoshiConverter())
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client.build())
                 .build()

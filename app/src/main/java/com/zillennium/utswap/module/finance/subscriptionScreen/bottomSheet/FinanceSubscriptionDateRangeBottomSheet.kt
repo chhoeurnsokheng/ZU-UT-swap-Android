@@ -9,10 +9,12 @@ import android.text.TextWatcher
 import android.view.*
 import android.widget.AdapterView
 import android.widget.DatePicker
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.zillennium.utswap.Datas.GlobalVariable.SettingVariable
 import com.zillennium.utswap.R
+import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.databinding.BottomSheetFinanceSubscriptionSelectDateRangeBinding
 import java.text.SimpleDateFormat
 import java.util.*
@@ -22,7 +24,8 @@ class FinanceSubscriptionDateRangeBottomSheet : BottomSheetDialogFragment(),
     AdapterView.OnItemSelectedListener {
 
     private var binding: BottomSheetFinanceSubscriptionSelectDateRangeBinding? = null
-
+    private var startRequest = ""
+    private var endRequest = ""
     override fun getTheme(): Int {
         return R.style.BottomSheetStyle
     }
@@ -47,7 +50,7 @@ class FinanceSubscriptionDateRangeBottomSheet : BottomSheetDialogFragment(),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding?.apply {
-            (view.parent as View).setBackgroundColor(resources.getColor(android.R.color.transparent))
+            (view.parent as View).setBackgroundColor(ContextCompat.getColor(UTSwapApp.instance, android.R.color.transparent))
 
             val calendar = Calendar.getInstance()
 
@@ -60,6 +63,11 @@ class FinanceSubscriptionDateRangeBottomSheet : BottomSheetDialogFragment(),
                     val simpleDateFormat =
                         SimpleDateFormat(format, Locale.US)
                     etStartDate.setText(simpleDateFormat.format(calendar.time))
+
+                    val formatRequest = "dd-MM-yyyy"
+                    val simpleDateFormatReq = SimpleDateFormat(formatRequest, Locale.US)
+                     startRequest = simpleDateFormatReq.format(calendar.time)
+
                 }
 
             val dateEnd =
@@ -71,6 +79,10 @@ class FinanceSubscriptionDateRangeBottomSheet : BottomSheetDialogFragment(),
                     val simpleDateFormat =
                         SimpleDateFormat(format, Locale.US)
                     etEndDate.setText(simpleDateFormat.format(calendar.time))
+
+                    val formatRequest = "dd-MM-yyyy"
+                    val simpleDateFormatReq = SimpleDateFormat(formatRequest, Locale.US)
+                    endRequest = simpleDateFormatReq.format(calendar.time)
                 }
 
             etStartDate.isFocusableInTouchMode = false

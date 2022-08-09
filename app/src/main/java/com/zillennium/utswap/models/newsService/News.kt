@@ -28,10 +28,14 @@ object News {
 
     class NewsDetailData{
         var id: String? = null
-        var date: String? = null
+        var date: NewsDateDetail? = null
         var source: String? = null
         var title: String? = null
         var content: String? = null
         var image: String? = null
+    }
+    class NewsDateDetail{
+        var addtime: String? = null
+        var endtime: String? = null
     }
 }

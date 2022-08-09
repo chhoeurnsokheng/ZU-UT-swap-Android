@@ -1,11 +1,14 @@
 package com.zillennium.utswap.module.kyc.kycFragment.kycApplicationScreen
 
+import android.content.Intent
+import android.os.Bundle
+import android.view.View
 import androidx.navigation.fragment.findNavController
-import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
-import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
+import com.zillennium.utswap.Datas.StoredPreferences.KYCPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentKycApplicationBinding
+import com.zillennium.utswap.screens.navbar.navbar.MainActivity
 
 class KycApplicationFragment :
     BaseMvpFragment<KycApplicationView.View, KycApplicationView.Presenter, FragmentKycApplicationBinding>(),
@@ -14,36 +17,38 @@ class KycApplicationFragment :
     override var mPresenter: KycApplicationView.Presenter = KycApplicationPresenter()
     override val layoutResource: Int = R.layout.fragment_kyc_application
 
+    var status_kyc_submit:Boolean? = null
+    var status_kyc_approved:Boolean? = null
+
     override fun initView() {
         super.initView()
         try {
-            binding.apply {
 
+            binding.apply {
+                status_kyc_submit = KYCPreferences().status_kyc_submit
+                status_kyc_approved = KYCPreferences().status_kyc_approved
                 imgBack.setOnClickListener {
                     findNavController().popBackStack()
                 }
-
-                btnAccept.setOnClickListener {
-                    SessionPreferences().SESSION_KYC = false
-                    SessionVariable.SESSION_KYC.value = false
-
-                    if(SessionVariable.SESSION_KYC_STATUS.value == 1){
-                        SessionPreferences().SESSION_KYC_STATUS = 0
-                        SessionVariable.SESSION_KYC_STATUS.value = 0
-                    }else{
-                        SessionPreferences().SESSION_KYC_STATUS = 2
-                        SessionVariable.SESSION_KYC_STATUS.value = 2
+                if (status_kyc_approved==true){
+                    imgPending.setImageResource(R.drawable.ic_baseline_check_circle_24)
+                    txtPending.text = "Approved"
+                    txtMessageKycSuccess.visibility = View.VISIBLE
+                    btnAccept.visibility =View.VISIBLE
+                    btnAccept.setOnClickListener {
+                        startActivity(Intent(requireActivity(),MainActivity::class.java))
                     }
 
-                    activity?.finish()
-
                 }
-
-
+//                if (status_kyc_submit ==true){}
+                btnAcceptHome.setOnClickListener {
+                    startActivity(Intent(requireActivity(),MainActivity::class.java))
+                }
             }
 
         } catch (error: Exception) {
             // Must be safe
         }
     }
+
 }

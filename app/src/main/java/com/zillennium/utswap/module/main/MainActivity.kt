@@ -1,12 +1,11 @@
 package com.zillennium.utswap.screens.navbar.navbar
 
 import android.content.Intent
-import android.content.res.ColorStateList
 import android.os.Handler
+import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -18,6 +17,7 @@ import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityMainBinding
 import com.zillennium.utswap.module.kyc.kycActivity.KYCActivity
+import com.zillennium.utswap.module.kyc.kycFragment.fundPasswordScreen.FundPasswordFragment
 import com.zillennium.utswap.module.main.MainPresenter
 import com.zillennium.utswap.module.main.MainView
 import com.zillennium.utswap.module.main.home.HomeFragment
@@ -35,13 +35,10 @@ class MainActivity :
     override val layoutResource: Int = R.layout.activity_main
 
     private var doubleBackToExitPressedOnce = false
+    var statusKYC  = FundPasswordFragment.status
 
     override fun initView() {
         super.initView()
-//        SessionPreferences().removeValue("SESSION_STATUS")
-//        SessionPreferences().removeValue("SESSION_KYC")
-//        SessionPreferences().removeValue("SESSION_KYC_STATUS")
-
         onCheckSession()
         onSetUpNavBar()
     }
@@ -59,19 +56,26 @@ class MainActivity :
     private fun onCheckSession(){
         try {
             binding.apply {
-//                txtVersion.text = getString(
-//                   R.string.app_version_pattern,
-//                    BuildConfig.VERSION_NAME,
-//                      BuildConfig.VERSION_CODE
-//                )
+
+//                if (statusKYC == "1"){
+//                    binding.apply {
+//                        btnVerify.visibility= View.GONE
+//                        layVerify.visibility = View.GONE
+//                    }
+//                }else{
+//                    btnVerify.visibility= View.VISIBLE
+//                    layVerify.visibility = View.VISIBLE
+//                }
+
                 SessionVariable.SESSION_STATUS.observe(this@MainActivity) {
-                    if(SessionVariable.SESSION_STATUS.value == true){
+                    if(SessionVariable.SESSION_STATUS.value == true ){
                         layAuth.visibility = GONE
                         layVerify.visibility = VISIBLE
                         btnVerify.visibility = VISIBLE
                     }else{
                         layAuth.visibility = VISIBLE
                         btnVerify.visibility = GONE
+                        layVerify.visibility = GONE
                     }
                 }
 
@@ -83,34 +87,32 @@ class MainActivity :
                     }
                 }
 
-//                SessionVariable.SESSION_KYC_STATUS.observe(this@MainActivity){
-//                    if(SessionVariable.SESSION_KYC.value == false && SessionVariable.SESSION_STATUS.value == true){
-//                        when(SessionVariable.SESSION_KYC_STATUS.value){
-//                            2 -> {
-//                                layKycStatus.visibility = VISIBLE
-//                                layKycStatus.backgroundTintList = ColorStateList.valueOf(
-//                                    ContextCompat.getColor(UTSwapApp.instance, R.color.warning))
-//                                txtStatus.text = "Pending Review."
-//                                btnVerify.isClickable = false
-//                                btnVerify.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.gray_999999))
-//                                Handler().postDelayed({
-//                                    SessionVariable.SESSION_KYC_STATUS.value = 1
-//                                }, 5000)
-//
-//                            }
-//                            1 -> {
-//                                layKycStatus.visibility = VISIBLE
-//                                layKycStatus.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
-//                                txtStatus.text = "Invalid Verification. Please Try Again."
-//                                btnVerify.isClickable = true
-//                                btnVerify.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
-//                            }
-//                            else -> {
-//                                layKycStatus.visibility = GONE
-//                                SessionVariable.SESSION_KYC.value = true
-//                            }
-//                        }
+//                SessionVariable.SESSION_KYC.observe(this@MainActivity){
+//                    if(SessionVariable.SESSION_KYC.value == true){
+//                        layAuth.visibility = GONE
+//                        layVerify.visibility = GONE
+//                        btnVerify.visibility = GONE
+//                    }else{
+//                        layAuth.visibility = GONE
+//                        btnVerify.visibility = VISIBLE
+//                        layVerify.visibility = View.VISIBLE
 //                    }
+//                }
+
+//                if(SessionPreferences().SESSION_STATUS == true){
+//                    layAuth.visibility = GONE
+//                    layVerify.visibility = VISIBLE
+//                    btnVerify.visibility = VISIBLE
+//                }else{
+//                    layAuth.visibility = VISIBLE
+//                    btnVerify.visibility = GONE
+//                    layVerify.visibility = GONE
+//                }
+//
+//                if (SessionPreferences().SESSION_KYC == true){
+//                    layVerify.visibility =View.GONE
+//                }else{
+//                    layVerify.visibility =View.VISIBLE
 //                }
 
                 layAuth.setOnClickListener {
@@ -131,8 +133,7 @@ class MainActivity :
     private fun onSetUpNavBar(){
         try {
             binding.apply {
-                // Passing each menu ID as a set of Ids because each
-                // menu should be considered as top level destinations.
+
                 val appBarConfiguration = AppBarConfiguration.Builder(
                     R.id.navigation_navbar_home,
                     R.id.navigation_navbar_portfolio,
