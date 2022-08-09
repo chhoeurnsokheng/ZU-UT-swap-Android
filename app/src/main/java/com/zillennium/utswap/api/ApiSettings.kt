@@ -41,4 +41,8 @@ object ApiSettings {
     /** Check User Login Status*/
     const val PATH_CHECK_USER_LOGIN_STATUS = "user/checkUserLogin"
 
+    /** Website Socket */
+    const val PATH_LIST_TRADE = "wsocket/"
+    const val SEND_LIST_TRADE = "market_update_stream"
+
 }
