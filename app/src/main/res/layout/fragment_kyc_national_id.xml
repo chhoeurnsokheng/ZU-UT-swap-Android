@@ -42,8 +42,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
-                    android:orientation="vertical"
-                    android:paddingBottom="@dimen/dimen_15">
+                    android:orientation="vertical">
 
                     <RelativeLayout
                         android:layout_width="wrap_content"
@@ -54,8 +53,7 @@
                             android:id="@+id/btn_camera_front"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:paddingTop="@dimen/dimen_15">
+                            android:gravity="center">
 
                             <ImageView
                                 android:id="@+id/img_national_front"
@@ -66,11 +64,12 @@
                                 android:src="@drawable/ic_national_id_front" />
 
                             <ImageView
+                                android:id="@+id/imgNationalFronGone"
                                 android:layout_width="280dp"
                                 android:layout_height="wrap_content"
                                 android:adjustViewBounds="true"
-                                android:alpha="0.5"
                                 android:scaleType="centerCrop"
+                                android:alpha="0.5"
                                 android:src="@drawable/ic_national_id_front"
                                 app:tint="@color/secondary_text" />
 
@@ -91,7 +90,7 @@
                             android:layout_height="@dimen/dimen_30"
                             android:layout_marginStart="-15dp"
                             android:layout_marginTop="@dimen/dimen_2"
-                            android:layout_marginEnd="@dimen/dimen_5"
+                            android:layout_marginEnd="@dimen/dimen_2"
                             android:layout_toEndOf="@+id/btn_camera_front"
                             android:backgroundTint="@color/white"
                             android:elevation="@dimen/dimen_10"
@@ -115,6 +114,7 @@
                         android:layout_marginTop="@dimen/dimen_5"
                         android:gravity="center_horizontal"
                         android:text="Front"
+                        android:layout_marginBottom="6dp"
                         android:textAppearance="@style/medium_16" />
 
                     <RelativeLayout
@@ -124,8 +124,7 @@
                         <RelativeLayout
                             android:id="@+id/btn_camera_back"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/dimen_20">
+                            android:layout_height="wrap_content">
 
                             <ImageView
                                 android:id="@+id/img_national_back"
@@ -136,6 +135,7 @@
                                 android:src="@drawable/ic_national_id_back" />
 
                             <ImageView
+                                android:id="@+id/imgNationalBackGone"
                                 android:layout_width="280dp"
                                 android:layout_height="wrap_content"
                                 android:adjustViewBounds="true"

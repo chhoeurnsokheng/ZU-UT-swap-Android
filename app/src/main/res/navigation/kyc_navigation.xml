@@ -125,13 +125,13 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
 
-        <action
-            android:id="@+id/action_to_selfie_holding_kyc_fragment"
-            app:destination="@id/SelfieHoldingKycFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
+<!--        <action-->
+<!--            android:id="@+id/action_to_selfie_holding_kyc_fragment"-->
+<!--            app:destination="@id/SelfieHoldingKycFragment"-->
+<!--            app:enterAnim="@anim/slide_in_right"-->
+<!--            app:exitAnim="@anim/slide_out_left"-->
+<!--            app:popEnterAnim="@anim/slide_in_left"-->
+<!--            app:popExitAnim="@anim/slide_out_right" />-->
     </fragment>
 
     <fragment
@@ -147,13 +147,13 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
 
-        <action
-            android:id="@+id/action_to_employment_info_kyc_fragment"
-            app:destination="@id/EmploymentInfoKycFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
+<!--        <action-->
+<!--            android:id="@+id/action_to_employment_info_kyc_fragment"-->
+<!--            app:destination="@id/EmploymentInfoKycFragment"-->
+<!--            app:enterAnim="@anim/slide_in_right"-->
+<!--            app:exitAnim="@anim/slide_out_left"-->
+<!--            app:popEnterAnim="@anim/slide_in_left"-->
+<!--            app:popExitAnim="@anim/slide_out_right" />-->
     </fragment>
 
     <fragment
@@ -163,19 +163,12 @@
         tools:layout="@layout/fragment_kyc_fund_password">
         <action
             android:id="@+id/action_to_contract_kyc_fragment"
-            app:destination="@id/ContractKycFragment"
+            app:destination="@id/KycApplicationKycFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
 
-        <action
-            android:id="@+id/action_to_declaration_fragment"
-            app:destination="@id/DeclarationKycFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
     <fragment
@@ -185,7 +178,7 @@
         tools:layout="@layout/fragment_kyc_contract">
         <action
             android:id="@+id/action_to_kyc_application_kyc_fragment"
-            app:destination="@id/KycApplicationKycFragment"
+            app:destination="@id/FundPasswordKycFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -206,14 +199,14 @@
         android:label="KycApplicationKycFragment"
         tools:layout="@layout/fragment_kyc_application">
 
-        <action
+      <!--  <action
             android:id="@+id/action_to_contract_kyc_fragment"
-            app:destination="@id/ContractKycFragment"
+            app:destination="@id/FundPasswordKycFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"
-            app:popUpToInclusive="true"/>
+            app:popUpToInclusive="true"/>-->
 
     </fragment>
 
