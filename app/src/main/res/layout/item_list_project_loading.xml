@@ -44,7 +44,7 @@
                     android:id="@+id/sub_title"
                     android:layout_width="@dimen/dimen_64"
                     android:layout_height="@dimen/dimen_8"
-                    android:background="@color/gray_EEEEEE" />
+                    android:background="@color/gray_light" />
             </LinearLayout>
         </LinearLayout>
 

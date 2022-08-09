@@ -9,30 +9,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
-            <RelativeLayout
+            <include
+                android:id="@+id/includeLayout"
+                layout="@layout/kyc_appbar_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/tool_bar">
-
-                <ImageView
-                    android:id="@+id/ivBack"
-                    android:layout_width="@dimen/dimen_60"
-                    android:layout_height="@dimen/dimen_60"
-                    android:padding="@dimen/dimen_14"
-                    android:src="@drawable/ic_baseline_arrow_back_24"
-                    app:tint="@color/primary" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:gravity="center"
-                    android:text="@string/kyc_selfie_navbar_number"
-                    android:textAppearance="@style/regular_16"
-                    android:textColor="@color/dark_gray" />
-            </RelativeLayout>
-
+                android:layout_height="wrap_content"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -122,14 +103,14 @@
         <LinearLayout
             android:id="@+id/btn_camera_selfie"
             android:layout_width="match_parent"
-            android:layout_alignParentBottom="true"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_circular"
-            android:gravity="center"
-            android:orientation="horizontal"
+            android:layout_alignParentBottom="true"
             android:layout_marginStart="@dimen/dimen_30"
             android:layout_marginEnd="@dimen/dimen_30"
             android:layout_marginBottom="@dimen/dimen_30"
+            android:background="@drawable/bg_circular"
+            android:gravity="center"
+            android:orientation="horizontal"
             android:paddingVertical="@dimen/dimen_15">
 
             <TextView

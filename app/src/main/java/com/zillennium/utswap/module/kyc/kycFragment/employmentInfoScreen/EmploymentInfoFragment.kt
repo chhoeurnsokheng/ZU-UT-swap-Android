@@ -15,7 +15,6 @@ import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentKycEmploymentInfoBinding
 import com.zillennium.utswap.utils.validate
 
-
 class EmploymentInfoFragment :
     BaseMvpFragment<EmploymentInfoView.View, EmploymentInfoView.Presenter, FragmentKycEmploymentInfoBinding>(),
     EmploymentInfoView.View {
@@ -34,6 +33,15 @@ class EmploymentInfoFragment :
     override fun initView() {
         super.initView()
         try {
+            toolBar()
+//            KYCPreferences().OCCUPATION = ""
+//            KYCPreferences().COMPANY = ""
+//            KYCPreferences().EMAIL= ""
+//            KYCPreferences().PHONE_NUMBER = ""
+//            info.company = ""
+//            info.email_emp = ""
+//            info.occupation = " "
+//            info.phone_number = " "
             binding.apply {
 
                 /* if Data already input */
@@ -51,11 +59,7 @@ class EmploymentInfoFragment :
                 }
                 if (!KYCPreferences().EMAIL.isNullOrEmpty()) {
                     info.email_emp = KYCPreferences().EMAIL.toString()
-                    etemail.setText(info.email_emp)
-                }
-
-                imgBack.setOnClickListener {
-                    findNavController().popBackStack()
+                  //  etemail.setText(info.email_emp)
                 }
 
                 if(validate().isValidPhoneNumber(SessionPreferences().SESSION_USERNAME.toString())){
@@ -65,34 +69,41 @@ class EmploymentInfoFragment :
                 btnNext.setOnClickListener {
 
                     var isHaveError = false
-                    if (info.occupation.isEmpty()) {
+                    if (etOccupation.text.toString().isEmpty()) {
                         txtErrorOccupation.visibility = View.VISIBLE
                         etOccupation.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.red_ee1111))
                         isHaveError = true
                     }
-                    if (info.occupation.isEmpty()) {
+                    if (etCompany.text.toString().isEmpty()) {
                         txtErrorCompany.visibility = View.VISIBLE
                         etCompany.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.red_ee1111))
                         isHaveError = true
                     }
 
-                    if(info.email_emp.isNotEmpty()){
-                        if(!validate().isValidEmail(info.email_emp.trim())){
-                            txtErrorEmail.visibility = View.VISIBLE
-                            etemail.backgroundTintList =
-                                ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.red_ee1111))
-                            isHaveError = true
-                        }
-                    }
+//                    if(etemail.text.toString().isEmpty()){
+//                        txtErrorEmail.visibility = View.VISIBLE
+//                        etemail.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.red_ee1111))
+//                        isHaveError = true
+//                        if(!validate().isValidEmail(info.email_emp.trim())){
+//                            txtErrorEmail.visibility = View.VISIBLE
+//                            etemail.backgroundTintList =
+//                                ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.red_ee1111))
+//                            isHaveError = true
+//                        }
+//                    }
 
-                    if(info.phone_number.isNotEmpty()){
-                        if(!validate().isValidPhoneNumber(info.phone_number.trim())){
-                            txtErrorPhone.visibility = View.VISIBLE
-                            etphoneNumber.backgroundTintList =
-                                ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.red_ee1111))
-                            isHaveError = true
-                        }
-                    }
+//                    if(etphoneNumber.text.toString().isEmpty()){
+//                        txtErrorPhone.visibility = View.VISIBLE
+//                        etphoneNumber.backgroundTintList =
+//                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.red_ee1111))
+//                        isHaveError = true
+////                        if(!validate().isValidPhoneNumber(info.phone_number.trim())){
+////                            txtErrorPhone.visibility = View.VISIBLE
+////                            etphoneNumber.backgroundTintList =
+////                                ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.red_ee1111))
+////                            isHaveError = true
+////                        }
+//                    }
 
                     if (isHaveError) {
                         return@setOnClickListener
@@ -169,27 +180,41 @@ class EmploymentInfoFragment :
                     }
 
                 })
-
-                etemail.addTextChangedListener(object : TextWatcher{
-                    override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                        txtErrorEmail.visibility = View.GONE
-                        etemail.backgroundTintList =
-                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text))
-                    }
-
-                    override fun onTextChanged(charSequence: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                        info.email_emp = charSequence.toString()
-                    }
-
-                    override fun afterTextChanged(p0: Editable?) {
-
-                    }
-
-                })
+//
+//                etemail.addTextChangedListener(object : TextWatcher{
+//                    override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+//                        txtErrorEmail.visibility = View.GONE
+//                        etemail.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text))
+//                    }
+//
+//                    override fun onTextChanged(charSequence: CharSequence?, p1: Int, p2: Int, p3: Int) {
+//                        info.email_emp = charSequence.toString()
+//                    }
+//
+//                    override fun afterTextChanged(p0: Editable?) {
+//
+//                    }
+//
+//                })
             }
 
         } catch (error: Exception) {
             // Must be safe
         }
     }
+
+    private fun toolBar(){
+        activity.let {
+            binding.apply {
+                includeLayout.apply {
+                    tbTitle.text = "3/4"
+                    cdBack.setOnClickListener {
+                        findNavController().popBackStack()
+                    }
+                }
+            }
+        }
+    }
+
+
 }

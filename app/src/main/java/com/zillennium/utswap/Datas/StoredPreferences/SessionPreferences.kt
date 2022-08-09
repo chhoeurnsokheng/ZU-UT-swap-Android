@@ -11,6 +11,7 @@ class SessionPreferences: BaseStoredPreferences(UTSwapApp.instance, "SessionPref
     var SESSION_STATUS by booleanPref()
     var SESSION_KYC by booleanPref()
     var SESSION_KYC_STATUS by intPref() // 0 = hide, 1 = Invalid, 2 = Pending
+    var SESSION_KYC_SUBMIT_STATUS by booleanPref()
     var SESSION_TOKEN by stringPref()
     var SESSION_EXPIRED by stringPref()
     var SESSION_X_TOKEN_API by stringPref()

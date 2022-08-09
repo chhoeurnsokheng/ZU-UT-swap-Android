@@ -12,6 +12,7 @@ import android.content.Context
 import com.zillennium.utswap.BuildConfig
 import com.zillennium.utswap.api.service.HistoricalService
 import com.zillennium.utswap.api.service.NewsService
+import com.zillennium.utswap.api.service.ProvincesService
 import com.zillennium.utswap.api.service.UserService
 import com.zillennium.utswap.utils.LoggerUtil
 import okhttp3.Interceptor
@@ -35,6 +36,7 @@ open class ApiManager {
     protected lateinit var mUserService: UserService
     protected lateinit var mNewsService: NewsService
     protected lateinit var mHistorical: HistoricalService
+    protected lateinit var mProvince: ProvincesService
     protected lateinit var mContext: Context
 
 
@@ -58,6 +60,7 @@ open class ApiManager {
         mUserService = retrofit.create(UserService::class.java)
         mNewsService = retrofit.create(NewsService::class.java)
         mHistorical = retrofit.create(HistoricalService::class.java)
+        mProvince = retrofit.create(ProvincesService::class.java)
 
     }
 
@@ -122,7 +125,7 @@ open class ApiManager {
 
         return Retrofit.Builder().baseUrl(mServerUrl)
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .addConverterFactory(createMoshiConverter())
+                //.addConverterFactory(createMoshiConverter())
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client.build())
                 .build()
