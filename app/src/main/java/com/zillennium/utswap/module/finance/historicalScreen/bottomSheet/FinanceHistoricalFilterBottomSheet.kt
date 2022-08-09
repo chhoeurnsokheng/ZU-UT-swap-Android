@@ -65,6 +65,8 @@ class FinanceHistoricalFilterBottomSheet(
     private fun getListName(){
         binding?.apply {
             rvFilterHistorical.layoutManager = LinearLayoutManager(UTSwapApp.instance)
+            layoutTxtAllProject.visibility = View.GONE
+
             when (historicalFilterSelect) {
                 Constants.HistoricalTransaction.MyTransactions -> {
                     val historicalAdapter = FinanceHistoricalFilterAdapter(onClickAdapter)
@@ -72,6 +74,7 @@ class FinanceHistoricalFilterBottomSheet(
                     rvFilterHistorical.adapter = historicalAdapter
                 }
                 Constants.HistoricalTransaction.Trade -> {
+                    layoutTxtAllProject.visibility = View.VISIBLE
                     val historicalAdapter = FinanceHistoricalFilterAdapter(onClickAdapter)
                     historicalAdapter.items = financeHistoricalFilterList
                     rvFilterHistorical.adapter = historicalAdapter
@@ -82,6 +85,16 @@ class FinanceHistoricalFilterBottomSheet(
                     rvFilterHistorical.adapter = historicalAdapter
                 }
             }
+            onClickAllProjects()
+        }
+    }
+
+    private fun onClickAllProjects(){
+        binding?.apply {
+            layoutTxtAllProject.setOnClickListener{
+                filterListener.onFilterChangeSelect("All Projects", "")
+                dismiss()
+            }
         }
     }
 
@@ -91,6 +104,7 @@ class FinanceHistoricalFilterBottomSheet(
                 financeHistoricalFilterModel.name?.let { financeHistoricalFilterModel.market_name?.let { it1 ->
                     filterListener.onFilterChangeSelect(it, it1) } }
                 dismiss()
+
             }
         }
 }

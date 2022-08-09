@@ -64,7 +64,6 @@ object Historical {
         var min_value: String? = null
         var high_value: String? = null
         var volume: String? = null
-        var remark: String? = null
         var addtimeReadble: String? = null
     }
     class TradeTransactionObject(
@@ -113,4 +112,20 @@ object Historical {
         var start_date:String? = null,
         var end_date:String? = null,
     )
+
+    /** Model for Store Trade */
+    class TradeTransactionDate(
+        var TRADE_DATE: String? = null,
+        var TRADE_DATE_ITEMS: ArrayList<DataTradeDateTransaction> = arrayListOf()
+    )
+    class DataTradeDateTransaction(
+        var market: String? = null,
+        var opened_price: String? = null,
+        var closed_price: String? = null,
+        var min_value: String? = null,
+        var high_value: String? = null,
+        var volume: String? = null,
+        var addtimeReadble: String? = null,
+    )
+
 }

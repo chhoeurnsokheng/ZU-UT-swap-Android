@@ -1,19 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/dialog_bg"
-        android:paddingVertical="@dimen/dimen_10">
+        android:paddingVertical="@dimen/dimen_10"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/layout_txt_all_project"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="@dimen/dimen_20"
+            android:orientation="vertical"
+            android:visibility="gone">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/all_projects"
+                android:layout_marginVertical="@dimen/dimen_15"
+                android:textAppearance="@style/medium_14"
+                android:textColor="@color/black" />
+            <View
+                android:id="@+id/line"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/light_gray" />
+        </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_filter_historical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:nestedScrollingEnabled="false"
+            tools:listitem="@layout/item_list_finance_historical_filter"
             android:overScrollMode="never"
-            android:padding="@dimen/dimen_20"
+            android:paddingHorizontal="@dimen/dimen_20"
             android:scrollbars="none" />
 
     </LinearLayout>
