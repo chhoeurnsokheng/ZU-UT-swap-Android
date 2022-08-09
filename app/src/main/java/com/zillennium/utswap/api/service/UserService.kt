@@ -77,7 +77,7 @@ interface UserService {
     ): Observable<User.VerifyAddPhoneNumberRes>
 
     /** App Side Bar and User detail info*/
-    @POST(ApiSettings.PATH_APP_SIDE_BAR)
+    @GET(ApiSettings.PATH_APP_SIDE_BAR)
     fun appSideBarUserInfo(
         @HeaderMap header: Map<String,String>
     ): Observable<User.AppSideBarRes>

@@ -447,5 +447,6 @@
     <string name="please_enter_valid_phone_number">Please enter valid phone number</string>
     <string name="success">Success</string>
     <string name="phone_number_has_been_add_successfully">Phone Number has been added Successfully</string>
+    <string name="phone_number_already_used">Phone Number Already Used!</string>
 
 </resources>
