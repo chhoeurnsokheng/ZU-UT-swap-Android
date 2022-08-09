@@ -110,10 +110,7 @@ class AddNumberFragment :
         onProgressBar(false)
         binding.apply {
             txtMessage.visibility = View.VISIBLE
-            if(body.message.toString() == "Phone Number Already Exist!")
-            {
-                txtMessage.text = resources.getString(R.string.this_account_already_have_phone_number)
-            }
+            txtMessage.text = resources.getString(R.string.phone_number_already_used)
             etInputPhoneNumber.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.outline_edittext_error_corner_16dp)
         }
     }
