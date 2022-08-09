@@ -121,6 +121,7 @@ class FinanceSubscriptionsActivity :
         obj.project = projectName
         obj.end = end
         obj.start = start
+        obj.order_page = page
         mPresenter.postSubscription(obj)
 
     }
@@ -175,8 +176,15 @@ class FinanceSubscriptionsActivity :
         listProject.sortBy {
             it.project_name
         }
-        binding.tvNoRecord.visibility =
-            if (dataRes.transaction.isEmpty()) View.VISIBLE else View.GONE
+
+        if (dataRes.transaction.isEmpty()) {
+            binding.tvNoRecord.visibility = View.VISIBLE
+            binding.rvSubscriptions.visibility = View.GONE
+        } else {
+            binding.tvNoRecord.visibility = View.GONE
+            binding.rvSubscriptions.visibility = View.VISIBLE
+
+        }
         binding.tvNoRecord.text = "No Record"
         binding.progressBar.visibility = View.GONE
         binding.swipeRefresh.isRefreshing = false

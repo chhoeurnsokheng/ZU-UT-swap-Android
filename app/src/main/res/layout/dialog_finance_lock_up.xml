@@ -224,7 +224,7 @@
                                     android:layout_weight="30"
                                     android:textColor="@color/black_333333"
                                     android:textAppearance="@style/regular_12"
-                                    android:text="@string/ends"/>
+                                    android:text="@string/end"/>
 
                                 <LinearLayout
                                     android:layout_width="@dimen/dimen_0"

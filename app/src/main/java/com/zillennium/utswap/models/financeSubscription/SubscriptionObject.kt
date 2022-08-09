@@ -65,6 +65,7 @@ object SubscriptionObject {
         var project: String = ""
         var start: String = ""
         var end: String = ""
+        var order_page: Int = 1
 
     }
 }
