@@ -36,4 +36,14 @@ object ApiSettings {
 
     const val PATH_GET_PROVINCES = "user/getCityProvince"
 
+    /** Add Phone Number*/
+    const val PATH_ADD_PHONE_NUMBER = "add_phone_number"
+    const val PATH_VERIFY_CODE_PHONE = "add_phone_number/verify_code"
+
+    /** App Side Bar*/
+    const val PATH_APP_SIDE_BAR = "user/profile"
+
+    /** Check User Login Status*/
+    const val PATH_CHECK_USER_LOGIN_STATUS = "user/checkUserLogin"
+
 }

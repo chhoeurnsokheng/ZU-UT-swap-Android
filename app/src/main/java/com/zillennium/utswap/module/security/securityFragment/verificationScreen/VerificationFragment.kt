@@ -195,6 +195,9 @@ class VerificationFragment :
                         Constants.FundPassword.ResetPassword -> {
                             mPresenter.onResetPassword(User.ForgotPasswordVerifyObject(editBox.text.toString(),SessionPreferences().SESSION_SECURE_KEY_FORGOT_PASSWORD.toString()),UTSwapApp.instance)
                         }
+                        Constants.FundPassword.AddNumber -> {
+                            mPresenter.onVerifyAddPhoneNumber(User.VerifyAddPhoneNumberObject(SessionPreferences().SESSION_SECURE_KEY_ADD_PHONE.toString(),editBox.text.toString()),UTSwapApp.instance)
+                        }
                     }
 
 
@@ -236,9 +239,6 @@ class VerificationFragment :
                 Constants.FundPassword.ForgotLoginPassword-> {
                     findNavController().navigate(R.id.action_to_new_account_login_password)
                 }
-                Constants.FundPassword.AddNumber -> {
-                    activity?.finish()
-                }
             }
         }
     }
@@ -264,6 +264,9 @@ class VerificationFragment :
                     }
                     Constants.FundPassword.ResetPassword -> {
                         mPresenter.onResendCodeResetPassword(User.ForgotPasswordObject(Constants.RegisterData.username),UTSwapApp.instance)
+                    }
+                    Constants.FundPassword.AddNumber -> {
+                        mPresenter.onResendCodeAddPhoneNumber(User.AddPhoneNumberObject(Constants.AddPhoneNumber.cellPhone),UTSwapApp.instance)
                     }
                 }
             }
@@ -339,6 +342,47 @@ class VerificationFragment :
     }
 
     override fun onResendCodeResetPasswordFail(data: User.ForgotPasswordRes) {
+        Toast.makeText(
+            requireActivity(),
+            data.message.toString(),
+            Toast.LENGTH_SHORT
+        ).show()
+    }
+
+    override fun onVerifyAddPhoneNumberSuccess(data: User.VerifyAddPhoneNumberRes) {
+        binding.apply {
+
+            onBoxesBackgroundColor(2)
+            onProgressBar(false)
+
+            when (arguments?.getString("title")) {
+                Constants.FundPassword.AddNumber -> {
+                    SessionVariable.SESSION_PHONE_NUMBER.value = data.data?.phone.toString()
+                    SessionPreferences().removeValue("SESSION_SECURE_KEY_ADD_PHONE")
+                    findNavController().navigate(R.id.action_add_phone_number_success)
+                }
+            }
+        }
+    }
+
+    override fun onVerifyAddPhoneNumberFail(data: User.VerifyAddPhoneNumberRes) {
+        binding.apply {
+            onBoxesBackgroundColor(1)
+            onProgressBar(false)
+        }
+    }
+
+    override fun onResendCodeAddPhoneSuccess(data: User.AddPhoneNumberRes) {
+        Toast.makeText(
+            requireActivity(),
+            data.message.toString(),
+            Toast.LENGTH_SHORT
+        ).show()
+        stopTimer()
+        startTimer()
+    }
+
+    override fun onResendCodeAddPhoneFail(data: User.AddPhoneNumberRes) {
         Toast.makeText(
             requireActivity(),
             data.message.toString(),
@@ -436,6 +480,11 @@ class VerificationFragment :
         val inputManager =
             requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         inputManager.hideSoftInputFromWindow(view?.windowToken, 0)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        hideKeyboard()
     }
 
 }

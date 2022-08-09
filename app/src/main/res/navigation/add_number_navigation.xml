@@ -31,6 +31,21 @@
             android:defaultValue="add number"
             app:argType="string" />
 
+        <action
+            android:id="@+id/action_add_phone_number_success"
+            app:destination="@id/AddPhoneNumberSuccess"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/AddPhoneNumberSuccess"
+        android:name="com.zillennium.utswap.module.account.addPhoneNumberSuccess.AddPhoneNumberSuccessFragment"
+        android:label="AddPhoneNumberSuccess"
+        tools:layout="@layout/fragment_add_phone_number_success">
     </fragment>
 
 </navigation>
