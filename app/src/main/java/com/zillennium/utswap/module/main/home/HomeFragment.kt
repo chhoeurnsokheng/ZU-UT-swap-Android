@@ -4,8 +4,12 @@ package com.zillennium.utswap.module.main.home
 import android.content.Intent
 import android.graphics.BlurMaskFilter
 import android.graphics.MaskFilter
+import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
+import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager.widget.ViewPager
@@ -13,12 +17,13 @@ import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
+import com.zillennium.utswap.bases.mvp.BaseMvpFragmentSokheng
 import com.zillennium.utswap.databinding.FragmentHomeBinding
 import com.zillennium.utswap.models.HomeMenuModel
-import com.zillennium.utswap.models.HomeRecentNewsModel
 import com.zillennium.utswap.models.HomeTabSlideImageModel
 import com.zillennium.utswap.models.HomeWatchlistModel
 import com.zillennium.utswap.models.home.BannerObj
+import com.zillennium.utswap.models.newsService.News
 import com.zillennium.utswap.module.account.accountScreen.AccountActivity
 import com.zillennium.utswap.module.finance.depositScreen.DepositActivity
 import com.zillennium.utswap.module.finance.transferScreen.TransferActivity
@@ -35,11 +40,11 @@ import com.zillennium.utswap.module.security.securityActivity.signInScreen.SignI
 import com.zillennium.utswap.module.system.notification.NotificationActivity
 
 
-class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, FragmentHomeBinding>(),
+class HomeFragment : BaseMvpFragmentSokheng<HomeView.View, HomeView.Presenter>(),
     HomeView.View {
 
     override var mPresenter: HomeView.Presenter = HomePresenter()
-    override val layoutResource: Int = R.layout.fragment_home
+
     private var homeAdapter: HomeMenuAdapter? = null
     var blurCondition = true
     val blurMask: MaskFilter = BlurMaskFilter(50f, BlurMaskFilter.Blur.NORMAL)
@@ -48,12 +53,36 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
     var bannerLoopingPagerAdapter: BannerLoopingPagerAdapter? = null
     var isUserSwipe = false
     var currentPosition = 0
+    var mBinding:FragmentHomeBinding ? = null
+
+
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
+    ): View? {
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
+        return mBinding?.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        context?.let {
+           context?.let {
+               mPresenter.initViewPresenter(it,savedInstanceState)
+
+           }
+        }
+    }
 
     override fun initView() {
         super.initView()
+        mPresenter.getBanner(requireActivity())
         try {
-            binding.apply {
-                mPresenter.getBanner(requireActivity())
+            mBinding?.apply {
+                  //  getNews()
+
                 //check share preference
                 SessionVariable.SESSION_STATUS.observe(this@HomeFragment) {
 
@@ -115,7 +144,7 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
                     }
                 }
 
-                /* bottom sheet dialog on finance button */
+
 
 
                 /* Watchlist Recycle View */
@@ -165,49 +194,6 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
                 rvHomeWatchlist.adapter = HomeWatchlistAdapter(homeWatchlist, onClickWatch)
 
 
-                /* Recent News Recycle View */
-                val imageNews = arrayOf(
-                    "https://utswap.io/Upload/issue/62258e1d402b7.png",
-                    "https://utswap.io/Upload/issue/62258e6ce881f.jpg",
-                    "https://utswap.io/Upload/issue/62258de873321.jpg",
-                    "https://utswap.io/Upload/issue/62258dc331263.jpg",
-                    "https://utswap.io/Upload/issue/62258d2401bb7.jpg"
-                )
-                val titleNews = arrayOf(
-                    "Laoka, Mondulkiri Land Plot Special Price",
-                    "Siem Reap 17140",
-                    "Muk Kampul 16644",
-                    "Veng Sreng 2719",
-                    "Pochentong 555",
-                )
-                val dateNews = arrayOf(
-                    "05 April 2021",
-                    "01 May 2022",
-                    "03 June 2022",
-                    "02 July 2022",
-                    "02 August 2022",
-                )
-
-                val homeRecentNewsList = ArrayList<HomeRecentNewsModel>()
-
-                for (i in imageNews.indices) {
-                    val recentNews = HomeRecentNewsModel(
-                        imageNews[i],
-                        titleNews[i],
-                        dateNews[i]
-                    )
-                    homeRecentNewsList.add(recentNews)
-                }
-
-                rvHomeNews.layoutManager = LinearLayoutManager(UTSwapApp.instance)
-                rvHomeNews.adapter = HomeRecentNewsAdapter(homeRecentNewsList, onClickNews)
-
-
-                layNewsLoading.setOnClickListener {
-                    activity?.findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(
-                        R.id.nav_view
-                    )?.selectedItemId = R.id.navigation_navbar_news
-                }
 
             }
 
@@ -216,13 +202,18 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
             // Must be safe
         }
     }
-
+    private fun getNews(){
+        mPresenter.getNewsHome(requireActivity())
+    }
     override fun onGetBanner(data: BannerObj.Banner) {
-        binding.apply {
+        mPresenter.getNewsHome(requireActivity())
+        mBinding?.apply {
             bannerLoopingPagerAdapter = object : BannerLoopingPagerAdapter(
-                data.data as ArrayList<BannerObj.ItemsBanner>, false
+                data.data, false
             ){
-                override fun onBannerItemClick(data: BannerObj.ItemsBanner, position: Int) {}
+                override fun onBannerItemClick(data: BannerObj.ItemsBanner, position: Int) {
+
+                }
 
             }
 
@@ -250,18 +241,15 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
 
                 override fun onPageSelected(position: Int) {
                     try {
-                        if (isUserSwipe) {
-                            if (currentPosition < position) {
-//                                    homeTabSlideImage.get(position)?.title?.apply {
-//                                      //  callback.onSwipeBanner("LEFT-$this")
-//                                    }
-                            } else if (currentPosition > position) {
-//                                    homeTabSlideImage.get(position)?.title?.apply {
-//                                       // callback.onSwipeBanner("RIGHT-$this")
-//                                    }
-                            }
-                            isUserSwipe = false
-                        }
+                     //  NewsDetailActivity.launchNewsDetailsActivity(requireActivity(),"1" )
+//                        if (isUserSwipe) {
+//                            if (currentPosition < position) {
+//
+//                            } else if (currentPosition > position) {
+//
+//                            }
+//                            isUserSwipe = false
+//                        }
                     } catch (e: Exception) {
                         e.printStackTrace()
                     }
@@ -286,11 +274,27 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
                 false
             }
 
-
-
-
-
         }
+    }
+
+    override fun onGetNEwsHome(data: News.NewsRes) {
+
+      mBinding?.apply {
+          rvHomeNews.layoutManager = LinearLayoutManager(UTSwapApp.instance)
+          rvHomeNews.adapter = data.data?.NEW?.let { HomeRecentNewsAdapter(it) }
+
+          layNewsLoading.setOnClickListener {
+              activity?.findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(
+                  R.id.nav_view
+              )?.selectedItemId = R.id.navigation_navbar_news
+          }
+      }
+
+
+
+
+
+
     }
 
     //click to move to new screen
@@ -342,19 +346,19 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
                 startActivity(intent)
             }
         }
-
-    val onClickNews: HomeRecentNewsAdapter.onclickNews =
-        object : HomeRecentNewsAdapter.onclickNews {
-            override fun ClickNews() {
-                val intent: Intent = Intent(UTSwapApp.instance, NewsDetailActivity::class.java)
-                startActivity(intent)
-            }
-
-        }
+//
+//    val onClickNews: HomeRecentNewsAdapter.onclickNews =
+//        object : HomeRecentNewsAdapter.onclickNews {
+//            override fun ClickNews() {
+//                val intent: Intent = Intent(UTSwapApp.instance, NewsDetailActivity::class.java)
+//                startActivity(intent)
+//            }
+//
+//        }
 
     private fun onHomeMenuGrid(enabled: Boolean) {
 
-        binding.apply {
+        mBinding?.apply {
             HomeArrayList.clear()
             HomeArrayList.add(HomeMenuModel(R.drawable.ic_deposit, "Deposit", enabled))
             HomeArrayList.add(HomeMenuModel(R.drawable.ic_withdraw, "Withdraw", enabled))
@@ -374,7 +378,7 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
     }
 
     private fun showBalanceClick(){
-        binding.apply {
+        mBinding?.apply {
 
             blurCondition = !blurCondition
 

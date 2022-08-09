@@ -22,4 +22,8 @@ class ApiNewsImp: ApiManager() {
         )
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
+    fun getNewsHome():Observable<News.NewsRes> = mNewsService.newsHome()
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+
 }

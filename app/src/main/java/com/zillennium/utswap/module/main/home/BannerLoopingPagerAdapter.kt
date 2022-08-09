@@ -40,7 +40,7 @@ abstract class BannerLoopingPagerAdapter(
         val itemImage = itemList?.get(listPosition) as BannerObj.ItemsBanner
         Glide.with(imageView)
             .asBitmap()
-            .load(itemImage.itme)
+            .load(itemImage.banner)
             .apply(fitCenterTransform())
             .centerCrop()
             .override(imageView.width, imageView.height)

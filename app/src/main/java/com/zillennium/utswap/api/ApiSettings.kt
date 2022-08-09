@@ -19,7 +19,7 @@ object ApiSettings {
     /** News */
     const val PATH_NEWS = "Art/ArtList"
     const val PATH_NEWS_DETAIL = "Art/ArtShow"
-
+    const val PATH_NEWS_HOME  = "Art/ArtList/p/1"
 
     /** Finance */
     const val PATH_SUBSCRIPTION = "Issue/log"

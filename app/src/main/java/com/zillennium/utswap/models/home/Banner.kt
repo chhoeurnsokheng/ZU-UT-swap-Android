@@ -7,10 +7,13 @@ package com.zillennium.utswap.models.home
 object BannerObj {
     class Banner{
         var status:Int? =null
-        var message:String? = ""
-        var data:ItemsBanner? = null
+        var message:String? = null
+        var data:ArrayList<ItemsBanner> = arrayListOf()
     }
     class ItemsBanner{
-        var itme:String =""
+        var id:Int ? = null
+        var banner:String ? = null
+        var linkable_type :String? = null
+        var linkable_id:String? = null
     }
 }

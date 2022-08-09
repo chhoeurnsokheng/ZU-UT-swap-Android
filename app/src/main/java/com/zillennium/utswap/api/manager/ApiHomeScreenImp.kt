@@ -2,6 +2,7 @@ package com.zillennium.utswap.api.manager
 
 import android.content.Context
 import com.zillennium.utswap.models.home.BannerObj
+import com.zillennium.utswap.models.newsService.News
 import retrofit2.http.Header
 import rx.Observable
 import rx.android.schedulers.AndroidSchedulers
@@ -22,4 +23,5 @@ class ApiHomeScreenImp : ApiManager() {
             )
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
+
 }
