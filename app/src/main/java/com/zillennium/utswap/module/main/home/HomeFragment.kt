@@ -140,7 +140,7 @@ class HomeFragment() : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragme
 
     override fun onGetBannerSuccess(data: BannerObj.Banner) {
         mPresenter.getNewsHome(requireActivity())
-
+        mPresenter.getWishListAndBalance(requireActivity())
         binding.apply {
             swipeRefresh.isRefreshing = false
             bannerLoopingPagerAdapter = object : BannerLoopingPagerAdapter(
@@ -206,7 +206,7 @@ class HomeFragment() : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragme
 
         binding.apply {
             swipeRefresh.isRefreshing = false
-            mPresenter.getWishListAndBalance(requireActivity())
+
             rvHomeNews.layoutManager = LinearLayoutManager(UTSwapApp.instance)
             homeRecentNewsAdapter  = data.data?.NEW?.let { HomeRecentNewsAdapter(it) }
             rvHomeNews.adapter = homeRecentNewsAdapter
@@ -246,7 +246,7 @@ class HomeFragment() : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragme
             if (data.data?.total_user_balance ==0.0){
                 tradingBalance.text =  "$" + "0.00"
             }else{
-                tradingBalance.text =  "$" + NumberFormatter.formatNumber(data.data?.total_user_balance?: 0.0)
+                tradingBalance.text =  "$  " + "" + "" + NumberFormatter.formatNumber(data.data?.total_user_balance?: 0.0)
 
             }
 

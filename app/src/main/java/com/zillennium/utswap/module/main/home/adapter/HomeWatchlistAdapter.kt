@@ -100,8 +100,26 @@ class HomeWatchlistAdapter(private val item:List<BannerObj.ItemWishList>): Recyc
             fun bind(data:BannerObj.ItemWishList){
                 binding.apply {
                     locationProject.text = data.name
-                     lastValue.text = "0.97"
-                     changeValue.text = "1.50%"
+
+                     val changeValue = data.change?.toDouble()
+
+                    if (changeValue != null) {
+                        if (changeValue>=0){
+                            txtChangeValue.text = "+" + data.change + "%"
+                            txtChangeValue.setTextColor(ContextCompat.getColor(root.context, R.color.simple_green))
+                        }
+                        if (changeValue ==0.0){
+                            txtChangeValue.text = "0.00"
+                            txtChangeValue.setTextColor(ContextCompat.getColor(root.context, R.color.simple_green))
+                        }
+                        if (changeValue<0){
+                            txtChangeValue.text = data.change + "%"
+                            txtChangeValue.setTextColor(ContextCompat.getColor(root.context, R.color.red_ee1111))
+                        }
+                    }
+
+                    txtLastValue.text =  data.Last.toString()
+
                      layItem.setOnClickListener {
                         TradeExchangeActivity.launchTradeExchangeActivity(root.context,data.name)
                      }
