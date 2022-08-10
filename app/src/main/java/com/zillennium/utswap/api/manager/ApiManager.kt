@@ -10,6 +10,7 @@ package com.zillennium.utswap.api.manager
 import android.annotation.SuppressLint
 import android.content.Context
 import com.zillennium.utswap.BuildConfig
+import com.zillennium.utswap.api.service.FinanceService
 import com.zillennium.utswap.api.service.NewsService
 import com.zillennium.utswap.api.service.ProvincesService
 import com.zillennium.utswap.api.service.UserService
@@ -34,6 +35,7 @@ open class ApiManager {
 
     protected lateinit var mUserService: UserService
     protected lateinit var mNewsService: NewsService
+    protected lateinit var mFinanceService: FinanceService
     protected lateinit var mProvince: ProvincesService
     protected lateinit var mContext: Context
 
@@ -57,6 +59,7 @@ open class ApiManager {
     private fun initServices(retrofit: Retrofit) {
         mUserService = retrofit.create(UserService::class.java)
         mNewsService = retrofit.create(NewsService::class.java)
+        mFinanceService = retrofit.create(FinanceService::class.java)
         mProvince = retrofit.create(ProvincesService::class.java)
 
     }

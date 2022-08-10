@@ -8,13 +8,15 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.zillennium.utswap.Datas.GlobalVariable.SettingVariable
 import com.zillennium.utswap.R
-import com.zillennium.utswap.models.financeSubscription.FinanceSubscriptionFilterModel
+import com.zillennium.utswap.models.financeSubscription.SubscriptionObject
+import com.zillennium.utswap.module.finance.subscriptionScreen.FinanceSubscriptionsActivity
 
-class FinanceSubscriptionFilterAdapter(arrayList: ArrayList<FinanceSubscriptionFilterModel>, onClickAdapter: OnClickAdapter) :
+class FinanceSubscriptionFilterAdapter(
+    var titleList: ArrayList<SubscriptionObject.ProjectList>,
+    var onClickAdapter: OnClickAdapter
+) :
     RecyclerView.Adapter<FinanceSubscriptionFilterAdapter.ViewHolder>() {
 
-    private var listData: ArrayList<FinanceSubscriptionFilterModel> = arrayList
-    private var onClickAdapter: OnClickAdapter
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var titleFilter: TextView = view.findViewById<View>(R.id.title_filter) as TextView
@@ -34,46 +36,28 @@ class FinanceSubscriptionFilterAdapter(arrayList: ArrayList<FinanceSubscriptionF
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val financeSubscriptionFilterList: FinanceSubscriptionFilterModel = listData[position]
-        holder.titleFilter.text = financeSubscriptionFilterList.titleFilter
-
-        if (listData.size == 1) {
+        holder.titleFilter.text = titleList[position].project_name
+        if (position == titleList.size - 1) {
             holder.line.visibility = View.GONE
-        } else {
-            when (position) {
-                listData.size - 1 -> {
-                    holder.line.visibility = View.GONE
-                }
-                0 -> {
-                    holder.line.visibility = View.VISIBLE
-                }
-                else -> {
-                    holder.line.visibility = View.VISIBLE
-                }
-            }
         }
-
-        if (SettingVariable.finance_subscription_filter.value == financeSubscriptionFilterList.titleFilter){
+        if (FinanceSubscriptionsActivity.titleProject == titleList[position].project_name) {
             holder.layIconCheck.visibility = View.VISIBLE
         }
-
-
         holder.layoutFilter.setOnClickListener {
-            onClickAdapter.onClickMe(financeSubscriptionFilterList)
+            onClickAdapter.onClickMe(titleList[position].project, titleList[position].project_name)
+
+
         }
 
     }
 
     override fun getItemCount(): Int {
-        return listData.size
+        return titleList.size
     }
 
-    interface OnClickAdapter{
-        fun onClickMe(financeSubscriptionFilterModel: FinanceSubscriptionFilterModel)
+    interface OnClickAdapter {
+        fun onClickMe(projectId: String, projectName: String)
     }
 
-    init {
-        this.onClickAdapter = onClickAdapter
-    }
 
 }

@@ -38,9 +38,8 @@
                 android:id="@+id/profileImageView"
                 android:layout_width="@dimen/dimen_56"
                 android:layout_height="@dimen/dimen_56"
-                android:layout_marginEnd="@dimen/dimen_14"
                 android:layout_centerVertical="true"
-                android:src="@drawable/project_user" />
+                android:layout_marginEnd="@dimen/dimen_14" />
 
             <RelativeLayout
                 android:id="@+id/linearLayout_profile"
@@ -60,10 +59,11 @@
                     android:paddingEnd="@dimen/dimen_15">
 
                     <TextView
+                        android:id="@+id/txt_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:singleLine="true"
-                        android:text="WickJohnathan Wick"
+                        android:text=""
                         android:textAppearance="@style/medium_18"
                         android:textColor="@color/white" />
 
@@ -72,7 +72,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dimen_7"
-                        android:text="012 234 543"
+                        android:text=""
                         android:textAppearance="@style/medium_12"
                         android:textColor="@color/white"
                         android:visibility="gone" />
@@ -90,12 +90,12 @@
                     android:gravity="center">
 
                     <ImageView
+                        android:id="@+id/img_level"
                         android:layout_width="@dimen/dimen_52"
                         android:layout_height="@dimen/dimen_52"
                         android:layout_marginVertical="@dimen/dimen_6"
                         android:layout_marginStart="@dimen/dimen_11"
-                        android:layout_marginEnd="@dimen/dimen_20"
-                        android:src="@drawable/utprofessional" />
+                        android:layout_marginEnd="@dimen/dimen_20" />
 
                 </LinearLayout>
 
