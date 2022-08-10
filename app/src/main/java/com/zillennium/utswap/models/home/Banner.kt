@@ -20,7 +20,7 @@ object BannerObj {
         var status:Int? = null
         var message:String? = null
         var data:DataWishList? = null
-        var total_user_balance:Double? = null
+        var total_user_balance:String? = ""
         var total_market_value:Double ? =null
         var buy_price_type:Double? =null
     }

@@ -87,34 +87,6 @@ class MainActivity :
                     }
                 }
 
-//                SessionVariable.SESSION_KYC.observe(this@MainActivity){
-//                    if(SessionVariable.SESSION_KYC.value == true){
-//                        layAuth.visibility = GONE
-//                        layVerify.visibility = GONE
-//                        btnVerify.visibility = GONE
-//                    }else{
-//                        layAuth.visibility = GONE
-//                        btnVerify.visibility = VISIBLE
-//                        layVerify.visibility = View.VISIBLE
-//                    }
-//                }
-
-//                if(SessionPreferences().SESSION_STATUS == true){
-//                    layAuth.visibility = GONE
-//                    layVerify.visibility = VISIBLE
-//                    btnVerify.visibility = VISIBLE
-//                }else{
-//                    layAuth.visibility = VISIBLE
-//                    btnVerify.visibility = GONE
-//                    layVerify.visibility = GONE
-//                }
-//
-//                if (SessionPreferences().SESSION_KYC == true){
-//                    layVerify.visibility =View.GONE
-//                }else{
-//                    layVerify.visibility =View.VISIBLE
-//                }
-
                 layAuth.setOnClickListener {
                     val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
                     startActivity(intent)

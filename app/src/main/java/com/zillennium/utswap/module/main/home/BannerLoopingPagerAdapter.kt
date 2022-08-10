@@ -47,7 +47,7 @@ abstract class BannerLoopingPagerAdapter(
             .into(imageView)
 
         imageView.setOnClickListener {
-            onBannerItemClick(itemImage, listPosition)
+            itemImage.linkable_id?.let { it1 -> onBannerItemClick(it1, listPosition) }
         }
     }
 
@@ -59,5 +59,5 @@ abstract class BannerLoopingPagerAdapter(
         return (`object` as? Int) ?: 0
     }
 
-    abstract fun onBannerItemClick(data: BannerObj.ItemsBanner, position: Int)
+    abstract fun onBannerItemClick(id:String, position: Int)
 }

@@ -25,11 +25,11 @@ class HomePresenter : BaseMvpPresenterImpl<HomeView.View>(),
     override fun getBanner(context: Context) {
         subscriptionGetBanner?.unsubscribe()
         subscriptionGetBanner = ApiHomeImp().getBanner(context).subscribe({
-            mView?.onGetBanner(it)
+            mView?.onGetBannerSuccess(it)
         }, { error ->
             object : CallbackWrapper(error, UTSwapApp.instance, arrayListOf()) {
                 override fun onCallbackWrapper(status: ApiManager.NetworkErrorStatus, data: Any) {
-                    mView?.onFail(data)
+                    mView?.onGetBannerFail("Failed")
                 }
             }
         })
@@ -38,11 +38,11 @@ class HomePresenter : BaseMvpPresenterImpl<HomeView.View>(),
     override fun getNewsHome(context: Context) {
        subscription?.unsubscribe()
         subscription = ApiNewsImp().getNewsHome().subscribe({
-            mView?.onGetNEwsHome(it)
+            mView?.onGetNewsHomeSuccess(it)
         },{ error ->
             object :CallbackWrapper(error,UTSwapApp.instance, arrayListOf()){
                 override fun onCallbackWrapper(status: ApiManager.NetworkErrorStatus, data: Any) {
-                    mView?.onFail(data)
+                    mView?.onGetNewsHomeFail("Failed")
                 }
 
             }
@@ -52,10 +52,10 @@ class HomePresenter : BaseMvpPresenterImpl<HomeView.View>(),
     override fun getWishListAndBalance(context: Context) {
         subscriptionGetWishListBalance?.unsubscribe()
         subscriptionGetWishListBalance = ApiHomeImp().getWishListAndBalance(context).subscribe({
-            mView?.onGetWishListAndBalance(it)
+            mView?.onGetWishListAndBalanceSuccess(it)
         },{error -> object :CallbackWrapper(error,UTSwapApp.instance, arrayListOf()){
             override fun onCallbackWrapper(status: ApiManager.NetworkErrorStatus, data: Any) {
-                mView?.onFail(data)
+                mView?.onGetWishListAndBalanceFail("Failed")
             }
         }
         })

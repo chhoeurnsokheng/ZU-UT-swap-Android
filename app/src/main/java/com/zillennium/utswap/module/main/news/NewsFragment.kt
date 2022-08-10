@@ -76,7 +76,8 @@ class NewsFragment :
 
             if(page!! == totalPage)
             {
-                txtEnd.visibility = View.VISIBLE
+                txtEnd.visibility = View.GONE
+
             }else{
                 layNewsLoading.visibility = View.VISIBLE
                 page = page!! + 1

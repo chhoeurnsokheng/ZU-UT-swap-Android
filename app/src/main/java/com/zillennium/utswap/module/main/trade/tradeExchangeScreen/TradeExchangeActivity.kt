@@ -56,6 +56,11 @@ class TradeExchangeActivity :
             intent.putExtra(Constants.TradeExchange.ProjectName, projectName)
             context.startActivity(intent)
         }
+        fun launchTradeExchangeActivityFromWishList(context: Context) {
+            val intent = Intent(context, TradeExchangeActivity::class.java)
+          //  intent.putExtra(Constants.TradeExchange.ProjectName, projectName)
+            context.startActivity(intent)
+        }
     }
 
     override fun initView() {

@@ -4,8 +4,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.databinding.ItemListHomeRecentNewsBinding
 import com.zillennium.utswap.models.newsService.News
+import com.zillennium.utswap.module.main.news.newsDetail.NewsDetailActivity
 
 
 class HomeRecentNewsAdapter(private val item: List<News.NewsNew>) :
@@ -33,7 +35,9 @@ class HomeRecentNewsAdapter(private val item: List<News.NewsNew>) :
                 Glide.with(imageView).load(data.img).fitCenter().into(imageView)
                 titleProject.text = data.title
                 newsDate.text = data.addtime
-
+                layoutNews.setOnClickListener {
+                    NewsDetailActivity.launchNewsDetailsActivity(root.context,data.id)
+                }
             }
         }
     }
