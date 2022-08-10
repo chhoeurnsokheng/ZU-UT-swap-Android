@@ -9,10 +9,21 @@ import java.io.Serializable
  */
 
 object PProvinceObj{
+
     class ProvinceRes {
         var status: Int? = null
         var message: String? = null
-        var data: List<Items>? = null
+        var data: ArrayList<Items>? = arrayListOf()
+    }
+    class DistrictRes {
+        var status: Int? = null
+        var message: String? = null
+        var data: ArrayList<Items>? = arrayListOf()
+    }
+    class CommuneRes {
+        var status: Int? = null
+        var message: String? = null
+        var data: ArrayList<Items>? = arrayListOf()
     }
     class Items {
         var code: Int? = null
