@@ -30,6 +30,7 @@ import com.zillennium.utswap.module.main.news.newsDetail.NewsDetailActivity
 import com.zillennium.utswap.module.project.projectScreen.ProjectActivity
 import com.zillennium.utswap.module.security.securityActivity.signInScreen.SignInActivity
 import com.zillennium.utswap.module.system.notification.NotificationActivity
+import com.zillennium.utswap.utils.formatter.NumberFormatter
 
 
 class HomeFragment() : BaseMvpFragment<HomeView.View, HomeView.Presenter, FragmentHomeBinding>(),
@@ -202,7 +203,7 @@ class HomeFragment() : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragme
     }
 
     override fun onGetNewsHomeSuccess(data: News.NewsRes) {
-        Log.d("News","${data.data?.NEW?.map { it.img }}")
+
         binding.apply {
             swipeRefresh.isRefreshing = false
             mPresenter.getWishListAndBalance(requireActivity())
@@ -242,10 +243,10 @@ class HomeFragment() : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragme
 
         binding.apply {
 
-            if (data.total_user_balance?.isEmpty() == true){
+            if (data.data?.total_user_balance ==0.0){
                 tradingBalance.text =  "$" + "0.00"
             }else{
-                tradingBalance.text =  "$" + data.total_user_balance
+                tradingBalance.text =   NumberFormatter.formatPrice(data.data?.total_user_balance)
             }
 
             swipeRefresh.isRefreshing = false

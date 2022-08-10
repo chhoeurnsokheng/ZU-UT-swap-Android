@@ -20,13 +20,14 @@ object BannerObj {
         var status:Int? = null
         var message:String? = null
         var data:DataWishList? = null
-        var total_user_balance:String? = ""
-        var total_market_value:Double ? =null
-        var buy_price_type:Double? =null
+
     }
     class DataWishList{
         var   watch_lists :List<ItemWishList>? = null
-        var profolio_dashboard:List<Listprofolio_dashboard> ? =null
+        var total_user_balance:Double? = 0.00
+        var total_market_value:Double ? =null
+        var buy_price_type:Double? =null
+        var   profolio_dashboard:List<Listprofolio_dashboard> ? =null
     }
     class ItemWishList{
         var id:String? = null

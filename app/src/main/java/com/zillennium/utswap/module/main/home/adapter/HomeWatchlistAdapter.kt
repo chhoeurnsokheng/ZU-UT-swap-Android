@@ -103,8 +103,7 @@ class HomeWatchlistAdapter(private val item:List<BannerObj.ItemWishList>): Recyc
                      lastValue.text = "0.97"
                      changeValue.text = "1.50%"
                      layItem.setOnClickListener {
-
-                        TradeExchangeActivity.launchTradeExchangeActivityFromWishList(root.context)
+                        TradeExchangeActivity.launchTradeExchangeActivity(root.context,data.name)
                      }
                 }
             }
