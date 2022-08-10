@@ -2,11 +2,9 @@ package com.zillennium.utswap.module.project.projectScreen
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import com.zillennium.utswap.bases.mvp.BaseMvpPresenter
 import com.zillennium.utswap.bases.mvp.BaseMvpView
-import com.zillennium.utswap.models.TestModel
-import com.zillennium.utswap.models.projectList.ProjectList
+import com.zillennium.utswap.models.project.ProjectList
 
 class ProjectView {
     interface View : BaseMvpView {

@@ -11,7 +11,6 @@ import android.annotation.SuppressLint
 import android.content.Context
 import com.zillennium.utswap.BuildConfig
 import com.zillennium.utswap.api.service.*
-import com.zillennium.utswap.models.customerSupport.CustomerSupport
 import com.zillennium.utswap.utils.LoggerUtil
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -20,7 +19,6 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
-import retrofit2.create
 import java.security.SecureRandom
 import java.security.cert.CertificateException
 import java.security.cert.X509Certificate
@@ -35,8 +33,7 @@ open class ApiManager {
     protected lateinit var mNewsService: NewsService
     protected lateinit var mAccountLogsService: AccountLogsService
     protected lateinit var mCustomerSupport: CustomerSupportService
-    protected lateinit var mProjectList: ProjectListService
-    protected lateinit var mProjectDetailService: ProjectDetailService
+    protected lateinit var mProjectService: ProjectService
 
     protected lateinit var mContext: Context
 
@@ -61,8 +58,8 @@ open class ApiManager {
         mNewsService = retrofit.create(NewsService::class.java)
         mAccountLogsService = retrofit.create(AccountLogsService::class.java)
         mCustomerSupport = retrofit.create(CustomerSupportService::class.java)
-        mProjectDetailService = retrofit.create(ProjectDetailService::class.java)
-        mProjectList = retrofit.create(ProjectListService::class.java)
+        mProjectService = retrofit.create(ProjectService::class.java)
+
     }
 
     private fun initRetrofit(): Retrofit {

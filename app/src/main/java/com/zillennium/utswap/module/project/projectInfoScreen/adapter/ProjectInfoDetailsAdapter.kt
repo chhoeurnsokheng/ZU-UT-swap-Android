@@ -7,16 +7,17 @@ import com.zillennium.utswap.bases.mvp.BaseRecyclerViewAdapterGeneric
 import com.zillennium.utswap.bases.mvp.BaseViewHolder
 import com.zillennium.utswap.databinding.ItemListProjectInfoDetailsBinding
 import com.zillennium.utswap.models.ProjectInfoDetailModel
-import com.zillennium.utswap.models.projectList.ProjectInfoDetail
+import com.zillennium.utswap.models.project.ProjectInfoDetail
 
-class ProjectInfoDetailsAdapter(itemListProjectInfoDetails: ArrayList<ProjectInfoDetailModel>) :
-    BaseRecyclerViewAdapterGeneric<ProjectInfoDetail.ProjectInfoDetailData, ProjectInfoDetailsAdapter.ProjectDetailViewHolder>() {
+
+class ProjectInfoDetailsAdapter() : BaseRecyclerViewAdapterGeneric<ProjectInfoDetailModel, ProjectInfoDetailsAdapter.ProjectDetailViewHolder>(){
     inner class ProjectDetailViewHolder(root: ItemListProjectInfoDetailsBinding) :
-        BaseViewHolder<ItemListProjectInfoDetailsBinding>(root) {
-        fun bindData(projectInfoDetailData: ProjectInfoDetail.ProjectInfoDetailData) {
+        BaseViewHolder<ItemListProjectInfoDetailsBinding>(root){
+        fun bindData(projectInfoDetailData: ProjectInfoDetailModel) {
             binding.apply {
-                titleInfo.text = projectInfoDetailData.title_deed
-                valueInfo.text = projectInfoDetailData.title_deed
+                titleInfo.text = projectInfoDetailData.titleInfo
+                valueInfo.text = projectInfoDetailData.descriptionInfo.toString()
+
             }
         }
 
@@ -35,4 +36,5 @@ class ProjectInfoDetailsAdapter(itemListProjectInfoDetails: ArrayList<ProjectInf
     ) {
         holder.bindData(items[position])
     }
+
 }

@@ -3,14 +3,12 @@ package com.zillennium.utswap.module.project.projectScreen.adapter
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.databinding.ViewDataBinding
 import com.bumptech.glide.Glide
-import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseRecyclerViewAdapterGeneric
 import com.zillennium.utswap.bases.mvp.BaseViewHolder
 import com.zillennium.utswap.databinding.ItemListProjectGridBinding
-import com.zillennium.utswap.models.projectList.ProjectList
+import com.zillennium.utswap.models.project.ProjectList
 
 class ProjectGridAdapter(private var onclickGridProject: OnClickGridProject) :
     BaseRecyclerViewAdapterGeneric<ProjectList.ProjectListData, ProjectGridAdapter.ProjectListViewHolder>() {

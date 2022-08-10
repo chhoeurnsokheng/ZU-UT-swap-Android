@@ -5,9 +5,9 @@ import android.os.Bundle
 import com.gis.z1android.api.errorhandler.CallbackWrapper
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.api.manager.ApiManager
-import com.zillennium.utswap.api.manager.ApiProjectListImp
+import com.zillennium.utswap.api.manager.ApiProjectImp
 import com.zillennium.utswap.bases.mvp.BaseMvpPresenterImpl
-import com.zillennium.utswap.models.projectList.ProjectList
+import com.zillennium.utswap.models.project.ProjectList
 import rx.Subscription
 
 
@@ -24,7 +24,7 @@ class ProjectPresenter : BaseMvpPresenterImpl<ProjectView.View>(),
 
     override fun projectList(name: String, page: Int, search: String, sortedDate: Boolean) {
         subscription?.unsubscribe()
-        subscription = ApiProjectListImp().projectList(
+        subscription = ApiProjectImp().projectList(
             name,
             page
         ).subscribe({

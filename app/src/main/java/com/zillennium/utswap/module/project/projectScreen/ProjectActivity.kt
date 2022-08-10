@@ -17,7 +17,7 @@ import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityProjectBinding
-import com.zillennium.utswap.models.projectList.ProjectList
+import com.zillennium.utswap.models.project.ProjectList
 import com.zillennium.utswap.module.project.projectInfoScreen.ProjectInfoActivity
 import com.zillennium.utswap.module.project.projectScreen.adapter.ProjectAdapter
 import com.zillennium.utswap.module.project.projectScreen.adapter.ProjectGridAdapter

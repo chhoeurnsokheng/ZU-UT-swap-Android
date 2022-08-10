@@ -4,7 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import com.zillennium.utswap.bases.mvp.BaseMvpPresenter
 import com.zillennium.utswap.bases.mvp.BaseMvpView
-import com.zillennium.utswap.models.projectList.ProjectInfoDetail
+import com.zillennium.utswap.models.project.ProjectInfoDetail
 
 class ProjectInfoView {
     interface View : BaseMvpView {
@@ -15,6 +15,6 @@ class ProjectInfoView {
 
     interface Presenter : BaseMvpPresenter<View> {
         override fun initViewPresenter(context: Context, bundle: Bundle?)
-        fun projectInfoView(body: Int, context: Context)
+        fun projectInfoView(body: ProjectInfoDetail.ProjectInfoDetailObject, context: Context)
     }
 }

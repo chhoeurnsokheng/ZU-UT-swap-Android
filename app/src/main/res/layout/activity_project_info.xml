@@ -2,17 +2,18 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
         android:orientation="vertical">
 
         <RelativeLayout
+            android:id="@+id/layout_header_back"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingEnd="@dimen/dimen_15"
-            android:paddingStart="@dimen/dimen_0">
+            android:paddingStart="@dimen/dimen_0"
+            android:paddingEnd="@dimen/dimen_15">
 
             <ImageView
                 android:id="@+id/btn_back"
@@ -27,217 +28,373 @@
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/dimen_40"
-                android:paddingBottom="@dimen/dimen_0"
-                android:paddingTop="@dimen/dimen_0"
                 android:layout_alignParentEnd="true"
                 android:layout_centerInParent="true"
                 android:background="@drawable/bg_circular"
                 android:gravity="center"
                 android:hint="@string/subscribe"
                 android:paddingHorizontal="@dimen/dimen_24"
+                android:paddingTop="@dimen/dimen_0"
+                android:paddingBottom="@dimen/dimen_0"
                 android:textAppearance="@style/regular_14"
                 android:textColorHint="@color/white"
                 app:backgroundTint="@color/primary" />
 
         </RelativeLayout>
 
-        <ScrollView
+        <RelativeLayout
+            android:id="@+id/layout_scrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white"
-            android:overScrollMode="never"
-            android:scrollbars="none">
+            android:layout_below="@+id/layout_header_back">
 
-            <LinearLayout
+            <View
+                android:id="@+id/view_background"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/dimen_15">
+                android:layout_height="match_parent"
+                android:background="@color/white"/>
 
-                <TextView
-                    android:id="@+id/txt_detail_title"
+            <ScrollView
+                android:id="@+id/scrollView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:overScrollMode="never"
+                android:scrollbars="none"
+                android:visibility="invisible">
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dimen_5"
-                    android:text="Siem Reap 17140"
-                    android:textAppearance="@style/medium_20"
-                    android:textColor="@color/black" />
+                    android:orientation="vertical"
+                    android:padding="@dimen/dimen_15">
 
-                <!-- Image Slider with View Pager and rectangle indicator -->
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/txt_detail_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dimen_5"
+                        android:text="Siem Reap 17140"
+                        android:textAppearance="@style/medium_20"
+                        android:textColor="@color/black" />
 
-                    <androidx.cardview.widget.CardView
+                    <!-- Image Slider with View Pager and rectangle indicator -->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dimen_5"
+                            android:layout_marginTop="@dimen/dimen_25"
+                            android:layout_marginEnd="@dimen/dimen_5"
+                            android:layout_marginBottom="@dimen/dimen_10"
+                            android:elevation="@dimen/dimen_0"
+                            app:cardCornerRadius="@dimen/dimen_8"
+                            app:cardElevation="@dimen/dimen_0">
+
+                            <androidx.viewpager2.widget.ViewPager2
+                                android:id="@+id/imageSlideViewPager"
+                                android:layout_width="match_parent"
+                                android:layout_height="200dp"
+                                android:overScrollMode="never"
+                                android:scrollbars="none" />
+                        </androidx.cardview.widget.CardView>
+
+                        <ImageView
+                            android:id="@+id/image_dialog"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentBottom="true"
+                            android:padding="5dp"
+                            android:src="@drawable/ic_zoom_image" />
+
+                    </RelativeLayout>
+
+                    <com.google.android.material.tabs.TabLayout
+                        android:id="@+id/tab_layout_dot"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dimen_4"
+                        android:layout_marginBottom="@dimen/dimen_15"
+                        app:tabBackground="@drawable/dot_tab_selector"
+                        app:tabGravity="center"
+                        app:tabIndicatorHeight="0dp"
+                        app:tabPaddingEnd="@dimen/dimen_9"
+                        app:tabPaddingStart="@dimen/dimen_9" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_project_info_detail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dimen_5"
+                        android:nestedScrollingEnabled="false"
+                        android:overScrollMode="never"
+                        android:scrollbars="none" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dimen_10">
+
+                        <LinearLayout
+                            android:id="@+id/lay_google_map"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true">
+
+                            <!--<ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="@dimen/dimen_5"
+                                android:src="@drawable/ic_map"
+                                app:tint="@color/primary" />-->
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:drawableStart="@drawable/ic_map"
+                                android:drawablePadding="@dimen/dimen_5"
+                                android:gravity="center"
+                                android:text="@string/view_in_google_maps"
+                                android:textAppearance="@style/medium_14"
+                                android:textColor="@color/primary" />
+                        </LinearLayout>
+
+                    </RelativeLayout>
+
+                    <TextView
+                        android:id="@+id/txt_investmentInfo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dimen_5"
+                        android:layout_marginTop="@dimen/dimen_50"
+                        android:gravity="center"
+                        android:text="@string/investment_information"
+                        android:textAppearance="@style/regular_16" />
+
+                    <RelativeLayout
+                        android:id="@+id/main_layout_ut"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:id="@+id/layout_ut"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dimen_5"
+                            android:layout_marginTop="@dimen/dimen_15"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/invest_ut"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="30"
+                                android:gravity="center"
+                                android:text="@string/UT"
+                                android:textAppearance="@style/regular_16"
+                                android:textColor="@color/primary" />
+
+                            <TextView
+                                android:id="@+id/invest_value"
+                                android:layout_width="@dimen/dimen_0"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="@dimen/dimen_3"
+                                android:layout_weight="40"
+                                android:gravity="center"
+                                android:text="@string/value"
+                                android:textAppearance="@style/regular_16"
+                                android:textColor="@color/primary" />
+
+                            <TextView
+                                android:id="@+id/invest_sqm"
+                                android:layout_width="@dimen/dimen_0"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="@dimen/dimen_3"
+                                android:layout_weight="30"
+                                android:gravity="center"
+                                android:text="@string/sqm"
+                                android:textAppearance="@style/regular_16"
+                                android:textColor="@color/primary" />
+
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginStart="@dimen/dimen_5"
+                            android:layout_marginTop="@dimen/dimen_4"
+                            android:background="@color/light_gray"
+                            android:visibility="gone" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rv_project_investment_info"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/layout_ut"
+                            android:layout_marginStart="@dimen/dimen_5"
+                            android:layout_marginTop="@dimen/dimen_5"
+                            android:nestedScrollingEnabled="false"
+                            android:overScrollMode="never"
+                            android:scrollbars="none" />
+
+                    </RelativeLayout>
+
+
+                    <LinearLayout
+                        android:id="@+id/layout_base_and_target_price"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dimen_5"
                         android:layout_marginTop="@dimen/dimen_25"
-                        android:layout_marginEnd="@dimen/dimen_5"
-                        android:layout_marginBottom="@dimen/dimen_10"
-                        android:elevation="@dimen/dimen_0"
-                        app:cardCornerRadius="@dimen/dimen_8"
-                        app:cardElevation="@dimen/dimen_0">
+                        android:orientation="horizontal">
 
-                        <androidx.viewpager2.widget.ViewPager2
-                            android:id="@+id/imageSlideViewPager"
-                            android:layout_width="match_parent"
-                            android:layout_height="200dp"
-                            android:overScrollMode="never"
-                            android:scrollbars="none"/>
-                    </androidx.cardview.widget.CardView>
-
-                    <ImageView
-                        android:id="@+id/image_dialog"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_zoom_image"
-                        android:padding="5dp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentBottom="true"/>
-
-                </RelativeLayout>
-
-                <com.google.android.material.tabs.TabLayout
-                    android:id="@+id/tab_layout_dot"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dimen_4"
-                    app:tabBackground="@drawable/dot_tab_selector"
-                    app:tabGravity="center"
-                    android:layout_marginBottom="@dimen/dimen_15"
-                    app:tabPaddingStart="@dimen/dimen_9"
-                    app:tabPaddingEnd="@dimen/dimen_9"
-                    app:tabIndicatorHeight="0dp"/>
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_project_info_detail"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dimen_5"
-                    android:overScrollMode="never"
-                    android:scrollbars="none"
-                    android:nestedScrollingEnabled="false"/>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dimen_10">
-
-                    <LinearLayout
-                        android:id="@+id/lay_google_map"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true">
-
-                        <!--<ImageView
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="@dimen/dimen_0"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="@dimen/dimen_5"
-                            android:src="@drawable/ic_map"
-                            app:tint="@color/primary" />-->
+                            android:layout_weight="50"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/ic_baseline_circle_24"
+                                    app:tint="@color/light_gray" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginStart="@dimen/dimen_5"
+                                    android:gravity="center"
+                                    android:text="@string/base_price"
+                                    android:textAppearance="@style/regular_14" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/dimen_5"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/ic_baseline_circle_24"
+                                    app:tint="@color/warning" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginStart="@dimen/dimen_5"
+                                    android:gravity="center"
+                                    android:text="@string/target_selling_price"
+                                    android:textAppearance="@style/regular_14" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="@dimen/dimen_0"
                             android:layout_height="match_parent"
-                            android:drawableStart="@drawable/ic_map"
-                            android:drawablePadding="@dimen/dimen_5"
-                            android:gravity="center"
-                            android:text="@string/view_in_google_maps"
-                            android:textAppearance="@style/medium_14"
+                            android:layout_weight="50"
+                            android:gravity="center|right"
+                            android:text="17% Minimum \n Expected Return"
+                            android:textAppearance="@style/medium_16"
                             android:textColor="@color/primary" />
                     </LinearLayout>
 
-                </RelativeLayout>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dimen_5"
-                    android:layout_marginTop="@dimen/dimen_50"
-                    android:gravity="center"
-                    android:text="@string/investment_information"
-                    android:textAppearance="@style/regular_16" />
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                <LinearLayout
-                    android:id="@+id/ll_ut"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dimen_5"
-                    android:layout_marginTop="@dimen/dimen_15"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/invest_ut"
-                        android:layout_width="0dp"
+                    <RelativeLayout
+                        android:id="@+id/layout_term_condition"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="30"
-                        android:gravity="center"
-                        android:text="@string/UT"
-                        android:textAppearance="@style/regular_16"
-                        android:textColor="@color/primary" />
+                        android:layout_marginStart="@dimen/dimen_5"
+                        android:layout_marginTop="@dimen/dimen_25"
+                        android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/invest_value"
-                        android:layout_width="@dimen/dimen_0"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/dimen_3"
-                        android:layout_weight="40"
-                        android:gravity="center"
-                        android:text="@string/value"
-                        android:textAppearance="@style/regular_16"
-                        android:textColor="@color/primary" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/terms_and_and_conditions"
+                            android:textAppearance="@style/regular_16"
+                            android:textColor="@color/primary" />
 
-                    <TextView
-                        android:id="@+id/invest_sqm"
-                        android:layout_width="@dimen/dimen_0"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/dimen_3"
-                        android:layout_weight="30"
-                        android:gravity="center"
-                        android:text="@string/sqm"
-                        android:textAppearance="@style/regular_16"
-                        android:textColor="@color/primary" />
+                        <ImageView
+                            android:id="@+id/arrow_down_term_condition"
+                            android:layout_width="@dimen/dimen_32"
+                            android:layout_height="@dimen/dimen_32"
+                            android:layout_alignParentEnd="true"
+                            android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
+                            app:tint="@color/primary" />
 
-                </LinearLayout>
+                    </RelativeLayout>
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:layout_marginTop="@dimen/dimen_4"
-                        android:layout_marginStart="@dimen/dimen_5"
-                        android:visibility="gone"
-                        android:background="@color/light_gray" />
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rv_project_investment_info"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/ll_ut"
                         android:layout_marginStart="@dimen/dimen_5"
                         android:layout_marginTop="@dimen/dimen_5"
-                        android:overScrollMode="never"
-                        android:scrollbars="none"
-                        android:nestedScrollingEnabled="false"/>
+                        android:layout_marginBottom="@dimen/dimen_10"
+                        android:background="@color/light_gray" />
 
-                </RelativeLayout>
+                    <TextView
+                        android:id="@+id/txt_term_condition"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dimen_5"
+                        android:layout_marginBottom="@dimen/dimen_10"
+                        android:text=""
+                        android:textAppearance="@style/regular_14"
+                        android:visibility="gone" />
 
+                    <RelativeLayout
+                        android:id="@+id/layout_document"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dimen_5"
+                        android:layout_marginTop="@dimen/dimen_10"
+                        android:orientation="horizontal">
 
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/documents"
+                            android:textAppearance="@style/regular_16"
+                            android:textColor="@color/primary" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dimen_5"
-                    android:layout_marginTop="@dimen/dimen_25"
-                    android:orientation="horizontal">
+                        <ImageView
+                            android:id="@+id/arrow_down_document"
+                            android:layout_width="@dimen/dimen_32"
+                            android:layout_height="@dimen/dimen_32"
+                            android:layout_alignParentEnd="true"
+                            android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
+                            app:tint="@color/primary" />
+
+                    </RelativeLayout>
+
+                    <View
+                        android:id="@+id/document_line"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="@dimen/dimen_5"
+                        android:layout_marginTop="@dimen/dimen_5"
+                        android:layout_marginBottom="@dimen/dimen_10"
+                        android:background="@color/light_gray" />
 
                     <LinearLayout
-                        android:layout_width="@dimen/dimen_0"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="50"
+                        android:id="@+id/pdf_document"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="@dimen/dimen_10"
+                        android:layout_marginBottom="@dimen/dimen_15"
                         android:orientation="vertical">
 
                         <LinearLayout
@@ -248,208 +405,73 @@
                             <ImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:src="@drawable/ic_baseline_circle_24"
-                                app:tint="@color/light_gray" />
+                                android:src="@drawable/ic_baseline_picture_as_pdf_24"
+                                app:tint="@color/primary" />
 
                             <TextView
                                 android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_marginStart="@dimen/dimen_5"
-                                android:gravity="center"
-                                android:text="@string/base_price"
-                                android:textAppearance="@style/regular_14" />
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/dimen_10"
+                                android:text="@string/sales_and_purchase_agreement"
+                                android:textAppearance="@style/regular_16" />
 
                         </LinearLayout>
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/dimen_5"
+                            android:layout_marginTop="@dimen/dimen_10"
                             android:orientation="horizontal">
 
                             <ImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:src="@drawable/ic_baseline_circle_24"
-                                app:tint="@color/warning" />
+                                android:src="@drawable/ic_baseline_picture_as_pdf_24"
+                                app:tint="@color/primary" />
 
                             <TextView
                                 android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_marginStart="@dimen/dimen_5"
-                                android:gravity="center"
-                                android:text="@string/target_selling_price"
-                                android:textAppearance="@style/regular_14" />
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/dimen_10"
+                                android:text="@string/property_title"
+                                android:textAppearance="@style/regular_16" />
 
                         </LinearLayout>
 
-                    </LinearLayout>
-
-                    <TextView
-                        android:layout_width="@dimen/dimen_0"
-                        android:layout_height="match_parent"
-                        android:layout_weight="50"
-                        android:gravity="center|right"
-                        android:text="17% Minimum \n Expected Return"
-                        android:textAppearance="@style/medium_16"
-                        android:textColor="@color/primary" />
-                </LinearLayout>
-
-                <RelativeLayout
-                    android:id="@+id/layout_term_condition"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dimen_5"
-                    android:layout_marginTop="@dimen/dimen_25"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/terms_and_and_conditions"
-                        android:textAppearance="@style/regular_16"
-                        android:textColor="@color/primary" />
-
-                    <ImageView
-                        android:id="@+id/arrow_down_term_condition"
-                        android:layout_width="@dimen/dimen_32"
-                        android:layout_height="@dimen/dimen_32"
-                        android:layout_alignParentEnd="true"
-                        android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
-                        app:tint="@color/primary" />
-
-                </RelativeLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginStart="@dimen/dimen_5"
-                    android:layout_marginTop="@dimen/dimen_5"
-                    android:layout_marginBottom="@dimen/dimen_10"
-                    android:background="@color/light_gray" />
-
-                <TextView
-                    android:id="@+id/txt_term_condition"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dimen_5"
-                    android:layout_marginBottom="@dimen/dimen_10"
-                    android:text=""
-                    android:textAppearance="@style/regular_14"
-                    android:visibility="gone" />
-
-                <RelativeLayout
-                    android:id="@+id/layout_document"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dimen_5"
-                    android:layout_marginTop="@dimen/dimen_10"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/documents"
-                        android:textAppearance="@style/regular_16"
-                        android:textColor="@color/primary" />
-
-                    <ImageView
-                        android:id="@+id/arrow_down_document"
-                        android:layout_width="@dimen/dimen_32"
-                        android:layout_height="@dimen/dimen_32"
-                        android:layout_alignParentEnd="true"
-                        android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
-                        app:tint="@color/primary" />
-
-                </RelativeLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginStart="@dimen/dimen_5"
-                    android:layout_marginTop="@dimen/dimen_5"
-                    android:layout_marginBottom="@dimen/dimen_10"
-                    android:background="@color/light_gray" />
-
-                <LinearLayout
-                    android:id="@+id/pdf_document"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="@dimen/dimen_10"
-                    android:layout_marginBottom="@dimen/dimen_15"
-                    android:orientation="vertical"
-                    android:visibility="gone">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/ic_baseline_picture_as_pdf_24"
-                            app:tint="@color/primary" />
+                            android:layout_marginTop="@dimen/dimen_10"
+                            android:orientation="horizontal">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/dimen_10"
-                            android:text="@string/sales_and_purchase_agreement"
-                            android:textAppearance="@style/regular_16" />
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_baseline_picture_as_pdf_24"
+                                app:tint="@color/primary" />
 
-                    </LinearLayout>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/dimen_10"
+                                android:text="@string/analysis"
+                                android:textAppearance="@style/regular_16" />
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dimen_10"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/ic_baseline_picture_as_pdf_24"
-                            app:tint="@color/primary" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/dimen_10"
-                            android:text="@string/property_title"
-                            android:textAppearance="@style/regular_16" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dimen_10"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/ic_baseline_picture_as_pdf_24"
-                            app:tint="@color/primary" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/dimen_10"
-                            android:text="@string/analysis"
-                            android:textAppearance="@style/regular_16" />
-
+                        </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
+            </ScrollView>
 
-                <!--            <LinearLayout-->
-                <!--                android:layout_width="match_parent"-->
-                <!--                android:layout_height="@dimen/dimen_80" />-->
+            <RelativeLayout
+                android:id="@+id/progressbar_getData"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            </LinearLayout>
-
-        </ScrollView>
-
-    </LinearLayout>
+                <ProgressBar
+                    android:layout_width="@dimen/dimen_50"
+                    android:layout_height="@dimen/dimen_50"
+                    android:layout_centerInParent="true" />
+            </RelativeLayout>
+        </RelativeLayout>
+    </RelativeLayout>
 </layout>

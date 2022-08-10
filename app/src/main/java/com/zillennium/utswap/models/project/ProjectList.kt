@@ -1,6 +1,4 @@
-package com.zillennium.utswap.models.projectList
-
-import com.zillennium.utswap.models.logs.Logs
+package com.zillennium.utswap.models.project
 
 object ProjectList {
     class ProjectListRes{

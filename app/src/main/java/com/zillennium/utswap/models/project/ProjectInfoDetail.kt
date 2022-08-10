@@ -1,13 +1,16 @@
-package com.zillennium.utswap.models.projectList
+package com.zillennium.utswap.models.project
+
+import io.reactivex.rxjava3.internal.util.EmptyComponent
 
 object ProjectInfoDetail {
+
     class ProjectInfoDetailRes {
         var status: Int? = null
         var message: String? = null
         var data: ProjectInfoDetailData? = null
     }
 
-    class ProjectInfoDetailData(s: String) {
+    class ProjectInfoDetailData {
         var id: String? = null
         var project_name: String? = null
         var base_price: Float? = null
@@ -21,11 +24,13 @@ object ProjectInfoDetail {
         var location: String? = null
         var google_map_link: String? = null
         var managed_by: String? = null
-        var images: ArrayList<String>? = null
+        var investment_information: String? = null
+        var documents: String? = null
+        var images: Array<String> = emptyArray()
         var term_and_condition: String? = null
     }
 
     class ProjectInfoDetailObject(
-        var body : Int
+        var id: Int
     )
 }
