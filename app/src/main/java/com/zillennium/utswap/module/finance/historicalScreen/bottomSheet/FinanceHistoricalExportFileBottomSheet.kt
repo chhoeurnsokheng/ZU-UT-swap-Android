@@ -64,6 +64,8 @@ class FinanceHistoricalExportFileBottomSheet(
                 )
             )
 
+            buttonExport.isEnabled = false
+
             val calendar = Calendar.getInstance()
 
             val dateStart =
@@ -141,12 +143,17 @@ class FinanceHistoricalExportFileBottomSheet(
                             "EndDate should be greater than StartDate",
                             Toast.LENGTH_SHORT
                         ).show()
+                    }else{
+                        buttonExport.isEnabled = true
                     }
                 }
             })
 
             buttonExport.setOnClickListener {
-                if (etEndDate.text.toString() != "" && etStartDate.text.toString() != ""){
+
+                listener.onExportDate(etStartDate.text.toString(), etEndDate.text.toString())
+
+                /*if (etEndDate.text.toString() != "" && etStartDate.text.toString() != ""){
                     if (etEndDate.text.toString() < etStartDate.text.toString()) {
                         Toast.makeText(
                             UTSwapApp.instance,
@@ -169,7 +176,7 @@ class FinanceHistoricalExportFileBottomSheet(
                         "Please select Date before export.",
                         Toast.LENGTH_SHORT
                     ).show()
-                }
+                }*/
             }
         }
     }

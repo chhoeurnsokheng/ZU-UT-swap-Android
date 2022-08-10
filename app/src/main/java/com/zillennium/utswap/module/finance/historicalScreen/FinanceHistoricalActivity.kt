@@ -4,6 +4,7 @@ package com.zillennium.utswap.module.finance.historicalScreen
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
+import android.os.Handler
 import android.view.View
 import android.widget.AdapterView
 import android.widget.Toast
@@ -16,7 +17,10 @@ import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityFinanceHistoricalBinding
 import com.zillennium.utswap.models.financeHistorical.Historical
-import com.zillennium.utswap.module.finance.historicalScreen.adapter.*
+import com.zillennium.utswap.module.finance.historicalScreen.adapter.CustomDropDownAdapter
+import com.zillennium.utswap.module.finance.historicalScreen.adapter.HistoricalAllTransactionsAdapter
+import com.zillennium.utswap.module.finance.historicalScreen.adapter.HistoricalMyTransactionsAdapter
+import com.zillennium.utswap.module.finance.historicalScreen.adapter.HistoricalTradeDateAdapter
 import com.zillennium.utswap.module.finance.historicalScreen.bottomSheet.FinanceHistoricalExportFileBottomSheet
 import com.zillennium.utswap.module.finance.historicalScreen.bottomSheet.FinanceHistoricalFilterBottomSheet
 import com.zillennium.utswap.module.finance.historicalScreen.bottomSheet.FinanceHistoricalSelectDateRangeBottomSheet
@@ -35,6 +39,8 @@ class FinanceHistoricalActivity :
     private var financeHistoricalMyTransaction: ArrayList<Historical.DataTransaction> = arrayListOf()
     private var financeHistoricalTradeTransaction: ArrayList<Historical.TradeTransactionDate> = arrayListOf()
     private var financeHistoricalAllTransaction: ArrayList<Historical.DataAllTransaction> = arrayListOf()
+
+    private val lm = LinearLayoutManager(UTSwapApp.instance)
 
     private var historicalTransactionSelected = Constants.HistoricalTransaction.MyTransactions
     private var marketNameFilter: String = ""
@@ -62,10 +68,8 @@ class FinanceHistoricalActivity :
                 onSwipeRefresh()
 
                 swipeRefresh.setColorSchemeColors(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
-
                 /* Back button */
                 backImage.setOnClickListener { finish() }
-
                 /* Historical Transaction Filter */
                 layHistoricalTransaction.setOnClickListener {
                     val financeHistoricalFilterBottomSheet = FinanceHistoricalTransactionBottomSheet(
@@ -78,6 +82,9 @@ class FinanceHistoricalActivity :
 
                                 this@FinanceHistoricalActivity.historicalTransactionSelected = historicalTransactionSelect
                                 txtTransactionHistorical.text = this@FinanceHistoricalActivity.historicalTransactionSelected
+
+                                dateGroup = ""
+                                childData.clear()
 
                                 dateStart = ""
                                 dateEnd = ""
@@ -98,7 +105,6 @@ class FinanceHistoricalActivity :
                     )
                     financeHistoricalFilterBottomSheet.show(supportFragmentManager, "Filter Transaction")
                 }
-
                 /* Filter button */
                 layFilterButton.setOnClickListener {
                     val financeHistoricalFilterBottomSheet = FinanceHistoricalFilterBottomSheet(
@@ -119,7 +125,6 @@ class FinanceHistoricalActivity :
                     )
                     financeHistoricalFilterBottomSheet.show(supportFragmentManager, "Filter History UT")
                 }
-
                 /* Select Date Range */
                 laySelectDateRange.setOnClickListener {
                     val financeHistoricalSelectDateRangeBottomSheet = FinanceHistoricalSelectDateRangeBottomSheet(
@@ -146,7 +151,6 @@ class FinanceHistoricalActivity :
                     )
                     financeHistoricalSelectDateRangeBottomSheet.show(supportFragmentManager, "Select date range")
                 }
-
                 /* Export Button */
                 exportAsPdf.setOnClickListener {
                     val financeHistoricalExportFileBottomSheet = FinanceHistoricalExportFileBottomSheet(
@@ -165,15 +169,14 @@ class FinanceHistoricalActivity :
                     )
                     financeHistoricalExportFileBottomSheet.show(supportFragmentManager, "Export File")
                 }
-
                 readMore.setOnClickListener {
+                    txtReadMoreAndLoading.text = "Loading"
                     when (historicalTransactionSelected) {
                         Constants.HistoricalTransaction.MyTransactions -> {
                             mPresenter.onGetUserTransaction(Historical.UserTransactionObject(marketNameFilter, dateStart, dateEnd, historicalType, pageTrans.toString()), UTSwapApp.instance)
                             progressBarReadMore.visibility = View.VISIBLE
                         }
                         Constants.HistoricalTransaction.Trade -> {
-
                             mPresenter.onGetTradeTransaction(Historical.TradeTransactionObject(marketNameFilter, dateStart, dateEnd, pageTrans.toString()), UTSwapApp.instance)
                             progressBarReadMore.visibility = View.VISIBLE
                         }
@@ -216,7 +219,6 @@ class FinanceHistoricalActivity :
             }
         }
     }
-
     private fun onCallApi() {
         when(historicalTransactionSelected) {
             Constants.HistoricalTransaction.MyTransactions -> {
@@ -285,6 +287,8 @@ class FinanceHistoricalActivity :
                     val historicalMyTransactionsAdapter = HistoricalMyTransactionsAdapter()
                     historicalMyTransactionsAdapter.items = financeHistoricalMyTransaction
                     rvFinanceHistorical.adapter = historicalMyTransactionsAdapter
+
+
                 }
 
                 if(totalPageTrans == pageTrans){
@@ -292,7 +296,10 @@ class FinanceHistoricalActivity :
                     txtEnd.visibility = View.VISIBLE
                 }else{
                     // Read More
-                    layNewsLoading.visibility = View.VISIBLE
+                    Handler().postDelayed({
+                        txtReadMoreAndLoading.text = "See more"
+                        layNewsLoading.visibility = View.VISIBLE
+                    }, 500)
                     pageTrans++
                 }
             }else{
@@ -367,7 +374,10 @@ class FinanceHistoricalActivity :
                     txtEnd.visibility = View.VISIBLE
                 }else{
                     // Read More
-                    layNewsLoading.visibility = View.VISIBLE
+                    Handler().postDelayed({
+                        txtReadMoreAndLoading.text = "See more"
+                        layNewsLoading.visibility = View.VISIBLE
+                    }, 500)
                     pageTrans++
                 }
             }else{
@@ -396,20 +406,29 @@ class FinanceHistoricalActivity :
 
             if(totalPageTrans >= pageTrans) {
                 if (data.TRADE_TRANSACTION.isNotEmpty()){
-                    layAllTransaction.visibility = View.VISIBLE
-                    financeHistoricalAllTransaction.addAll(data.TRADE_TRANSACTION)
-                    rvFinanceHistorical.layoutManager = LinearLayoutManager(UTSwapApp.instance)
-                    val historicalAllTransactionAdapter = HistoricalAllTransactionsAdapter()
-                    historicalAllTransactionAdapter.items = financeHistoricalAllTransaction
-                    rvFinanceHistorical.adapter = historicalAllTransactionAdapter
+                    if (pageTrans == 1){
+                        financeHistoricalAllTransaction.addAll(data.TRADE_TRANSACTION)
+                        pageTrans++
+                        mPresenter.onGetAllTransaction(Historical.AllTransactionObject(marketNameFilter, dateStart, dateEnd, pageTrans.toString()), UTSwapApp.instance)
+                    }else{
+                        layAllTransaction.visibility = View.VISIBLE
+                        financeHistoricalAllTransaction.addAll(data.TRADE_TRANSACTION)
+                        rvFinanceHistorical.layoutManager = LinearLayoutManager(UTSwapApp.instance)
+                        val historicalAllTransactionAdapter = HistoricalAllTransactionsAdapter()
+                        historicalAllTransactionAdapter.items = financeHistoricalAllTransaction
+                        rvFinanceHistorical.adapter = historicalAllTransactionAdapter
+                    }
                 }
 
                 if(totalPageTrans == pageTrans){
                     // Text End
                     txtEnd.visibility = View.VISIBLE
                 }else{
-                    // Read More
-                    layNewsLoading.visibility = View.VISIBLE
+                    // Read
+                    Handler().postDelayed({
+                        txtReadMoreAndLoading.text = "See more"
+                        layNewsLoading.visibility = View.VISIBLE
+                    }, 500)
                     pageTrans++
                 }
             } else {
@@ -448,6 +467,8 @@ class FinanceHistoricalActivity :
                 }
                 Constants.HistoricalTransaction.Trade -> {
                     pageTrans = 1
+                    dateGroup = ""
+                    childData.clear()
                     txtTradeTitle.text = marketNameDisplay
                     layTrade.visibility = View.VISIBLE
                     loadingProgressBar.visibility = View.VISIBLE
@@ -496,7 +517,7 @@ class FinanceHistoricalActivity :
             }
         }
     }
-
+    /* Swipe Refresh */
     private fun onSwipeRefresh(){
         binding.apply {
             //swipe refresh to get page 1 again
@@ -524,7 +545,6 @@ class FinanceHistoricalActivity :
             }
         }
     }
-
     /* Clear RecyclerView */
     private fun onClearRecycleView(){
         binding.apply {
@@ -534,7 +554,6 @@ class FinanceHistoricalActivity :
             rvFinanceHistorical.adapter?.notifyDataSetChanged()
         }
     }
-
     private fun invisibleLayoutTransaction(){
         binding.apply {
             layMyTransactions.visibility = View.GONE
@@ -542,7 +561,6 @@ class FinanceHistoricalActivity :
             layAllTransaction.visibility = View.GONE
         }
     }
-
     private fun invisibleText(){
         binding.apply {
             txtEnd.visibility = View.GONE

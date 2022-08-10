@@ -116,7 +116,7 @@
                 android:layout_gravity="center"
                 android:layout_marginHorizontal="@dimen/dimen_20"
                 android:layout_marginVertical="@dimen/dimen_20"
-                android:background="@drawable/bg_circular"
+                android:background="@drawable/bg_export_condition"
                 android:gravity="center"
                 android:text="@string/export"
                 android:textAppearance="@style/regular_16"
