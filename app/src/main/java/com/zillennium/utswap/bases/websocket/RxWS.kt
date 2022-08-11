@@ -4,9 +4,9 @@ import okio.ByteString
 import rx.Observable
 import java.util.concurrent.TimeUnit
 
-object RxWebSocket {
-    fun setConfig(config: Config) {
-        val instance = RxWebSocketUtil().getInstance()
+object RxWS {
+    fun setConfig(config: WSConfig) {
+        val instance = RxWSUtil().getInstance()
         instance?.setShowLog(config.showLog, config.logTag)
         instance?.setClient(config.client)
         instance?.setReconnectInterval(config.reconnectInterval, config.reconnectIntervalTimeUnit)
@@ -18,8 +18,8 @@ object RxWebSocket {
     /**
      * default timeout: 30 days
      */
-    operator fun get(url: String): Observable<WebSocketInfo> {
-        return RxWebSocketUtil.instance?.getWebSocketInfo(url)!!
+    operator fun get(url: String): Observable<WSInfo> {
+        return RxWSUtil.instance?.getWebSocketInfo(url)!!
     }
 
     /**
@@ -29,8 +29,8 @@ object RxWebSocket {
      * @param timeUnit unit
      * @return
      */
-    operator fun get(url: String, timeout: Long, timeUnit: TimeUnit): Observable<WebSocketInfo> {
-        return RxWebSocketUtil.instance?.getWebSocketInfo(url, timeout, timeUnit)!!
+    operator fun get(url: String, timeout: Long, timeUnit: TimeUnit): Observable<WSInfo> {
+        return RxWSUtil.instance?.getWebSocketInfo(url, timeout, timeUnit)!!
     }
 
     /**
@@ -38,7 +38,7 @@ object RxWebSocket {
      * @param msg
      */
     fun send(url: String, msg: String) {
-        RxWebSocketUtil.instance?.send(url, msg)
+        RxWSUtil.instance?.send(url, msg)
     }
 
     /**
@@ -46,7 +46,7 @@ object RxWebSocket {
      * @param byteString
      */
     fun send(url: String, byteString: ByteString) {
-        RxWebSocketUtil.instance?.send(url, byteString)
+        RxWSUtil.instance?.send(url, byteString)
     }
 
     /**
@@ -54,7 +54,7 @@ object RxWebSocket {
      * @param msg
      */
     fun asyncSend(url: String, msg: String) {
-        RxWebSocketUtil.instance?.asyncSend(url, msg)
+        RxWSUtil.instance?.asyncSend(url, msg)
     }
 
     /**
@@ -62,6 +62,6 @@ object RxWebSocket {
      * @param byteString
      */
     fun asyncSend(url: String, byteString: ByteString) {
-        RxWebSocketUtil.instance?.asyncSend(url, byteString)
+        RxWSUtil.instance?.asyncSend(url, byteString)
     }
 }

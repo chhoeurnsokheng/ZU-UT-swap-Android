@@ -5,7 +5,7 @@ import java.util.concurrent.TimeUnit
 import javax.net.ssl.SSLSocketFactory
 import javax.net.ssl.X509TrustManager
 
-class Config private constructor() {
+class WSConfig private constructor() {
     var reconnectInterval: Long = 1
     var reconnectIntervalTimeUnit = TimeUnit.SECONDS
     var showLog = false
@@ -15,7 +15,7 @@ class Config private constructor() {
     var trustManager: X509TrustManager? = null
 
     class Builder {
-        private val config: Config
+        private val config: WSConfig = WSConfig()
 
         /**
          * set your client
@@ -66,12 +66,9 @@ class Config private constructor() {
             return this
         }
 
-        fun build(): Config {
+        fun build(): WSConfig {
             return config
         }
 
-        init {
-            config = Config()
-        }
     }
 }

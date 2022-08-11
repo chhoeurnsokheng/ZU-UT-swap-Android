@@ -444,6 +444,8 @@ interface Constants {
     interface TradeExchange {
         companion object{
             const val ProjectName = "ProjectName"
+            const val MarketId = "MarketId"
+            const val MarketName="MarketName"
         }
     }
 

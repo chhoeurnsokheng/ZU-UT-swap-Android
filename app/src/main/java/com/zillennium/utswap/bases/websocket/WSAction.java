@@ -5,12 +5,12 @@ import okio.ByteString;
 import rx.functions.Action1;
 
 /**
- * please use {@link WebSocketSubscriber}
+ * please use {@link WS}
  */
-public abstract class WebSokcetAction1 implements Action1<WebSocketInfo> {
+public abstract class WSAction implements Action1<WSInfo> {
 
     @Override
-    public void call(WebSocketInfo webSocketInfo) {
+    public void call(WSInfo webSocketInfo) {
         if (webSocketInfo.isOnOpen()) {
 
             onOpen(webSocketInfo.getWebSocket());

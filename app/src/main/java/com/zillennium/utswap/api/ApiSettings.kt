@@ -44,5 +44,6 @@ object ApiSettings {
     /** Website Socket */
     const val PATH_LIST_TRADE = "wsocket/"
     const val SEND_LIST_TRADE = "market_update_stream"
+    const val  SEND_TRADE_MARKET_NAME = "trade_market_summary:"
 
 }

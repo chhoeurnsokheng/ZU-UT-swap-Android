@@ -3,13 +3,10 @@ package com.zillennium.utswap.api.manager
 import android.annotation.SuppressLint
 import android.content.Context
 import com.zillennium.utswap.BuildConfig
-import com.zillennium.utswap.Datas.APIs.APIInstance
 import com.zillennium.utswap.api.ApiSettings
-import com.zillennium.utswap.bases.websocket.Config
-import com.zillennium.utswap.bases.websocket.RxWebSocket
-import com.zillennium.utswap.bases.websocket.WebSocketInfo
-import okhttp3.Interceptor
-import okhttp3.OkHttpClient
+import com.zillennium.utswap.bases.websocket.WSConfig
+import com.zillennium.utswap.bases.websocket.RxWS
+import com.zillennium.utswap.bases.websocket.WSInfo
 import retrofit2.converter.moshi.MoshiConverterFactory
 import rx.Observable
 import java.security.SecureRandom
@@ -25,7 +22,7 @@ open class SocketManager {
 
 
     protected lateinit var mContext: Context
-    open lateinit var mTradeListSocket: Observable<WebSocketInfo>
+    open lateinit var mTradeListSocket: Observable<WSInfo>
 
 
     init {
@@ -41,7 +38,7 @@ open class SocketManager {
         mTradeListSocket = initSocket(ApiSettings.PATH_LIST_TRADE)
     }
 
-    private fun initSocket(endpoint: String = ""): Observable<WebSocketInfo> {
+    private fun initSocket(endpoint: String = ""): Observable<WSInfo> {
 
         val trustAllCerts: Array<TrustManager> = arrayOf<TrustManager>(
             @SuppressLint("CustomX509TrustManager")
@@ -71,16 +68,16 @@ open class SocketManager {
         sslContext.init(null, trustAllCerts, SecureRandom())
         val sslSocketFactory: SSLSocketFactory = sslContext.socketFactory
 
-        val config = Config.Builder()
+        val config = WSConfig.Builder()
             .setShowLog(true) //show  log
 //            .setClient(client.build()) //if you want to set your okhttpClient
 //            .setShowLog(true, "your logTag")
             .setReconnectInterval(50, TimeUnit.SECONDS) //set reconnect interval
             .setSSLSocketFactory(sslSocketFactory, trustAllCerts[0] as X509TrustManager) // wss support
             .build()
-        RxWebSocket.setConfig(config)
+        RxWS.setConfig(config)
 
-        return RxWebSocket.get(mServerUrl+endpoint)
+        return RxWS.get(mServerUrl+endpoint)
     }
 
     /**

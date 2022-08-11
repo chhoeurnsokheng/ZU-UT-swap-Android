@@ -15,9 +15,9 @@ import java.util.concurrent.TimeUnit
 import javax.net.ssl.SSLSocketFactory
 import javax.net.ssl.X509TrustManager
 
-class RxWebSocketUtil {
+class RxWSUtil {
     private var client: OkHttpClient
-    private val observableMap: MutableMap<String, Observable<WebSocketInfo>?>
+    private val observableMap: MutableMap<String, Observable<WSInfo>?>
     private val webSocketMap: MutableMap<String, WebSocket>
     private var showLog = false
     private var logTag = "RxWebSocket"
@@ -69,10 +69,10 @@ class RxWebSocketUtil {
         url: String,
         timeout: Long,
         timeUnit: TimeUnit?
-    ): Observable<WebSocketInfo>? {
+    ): Observable<WSInfo>? {
         var observable = observableMap[url]
         if (observable == null) {
-            observable = Observable.create<WebSocketInfo>(WebSocketOnSubscribe(url))
+            observable = Observable.create<WSInfo>(WebSocketOnSubscribe(url))
                 .timeout(timeout, timeUnit)
                 .retry() //共享
                 .doOnUnsubscribe {
@@ -94,7 +94,7 @@ class RxWebSocketUtil {
         } else {
             val webSocket = webSocketMap[url]
             if (webSocket != null) {
-                observable = observable.startWith(WebSocketInfo(webSocket, true))
+                observable = observable.startWith(WSInfo(webSocket, true))
             }
         }
         return observable
@@ -103,7 +103,7 @@ class RxWebSocketUtil {
     /**
      * default timeout: 30 days
      */
-    fun getWebSocketInfo(url: String): Observable<WebSocketInfo>? {
+    fun getWebSocketInfo(url: String): Observable<WSInfo>? {
         return getWebSocketInfo(url, 30, TimeUnit.DAYS)
     }
 
@@ -167,9 +167,9 @@ class RxWebSocketUtil {
     }
 
     private inner class WebSocketOnSubscribe(private val url: String) :
-        Observable.OnSubscribe<WebSocketInfo?> {
+        Observable.OnSubscribe<WSInfo?> {
         private var webSocket: WebSocket? = null
-        override fun call(subscriber: Subscriber<in WebSocketInfo?>) {
+        override fun call(subscriber: Subscriber<in WSInfo?>) {
             if (webSocket != null) {
                 if ("main" != Thread.currentThread().name) {
                     var ms = reconnectIntervalTimeUnit.toMillis(interval)
@@ -177,13 +177,13 @@ class RxWebSocketUtil {
                         ms = 1000
                     }
                     SystemClock.sleep(ms)
-                    subscriber.onNext(WebSocketInfo.createReconnect())
+                    subscriber.onNext(WSInfo.createReconnect())
                 }
             }
             initWebSocket(subscriber)
         }
 
-        private fun initWebSocket(subscriber: Subscriber<in WebSocketInfo?>) {
+        private fun initWebSocket(subscriber: Subscriber<in WSInfo?>) {
             webSocket = client.newWebSocket(getRequest(url), object : WebSocketListener() {
                 override fun onOpen(webSocket: WebSocket, response: Response) {
                     if (showLog) {
@@ -191,19 +191,19 @@ class RxWebSocketUtil {
                     }
                     webSocketMap[url] = webSocket
                     if (!subscriber.isUnsubscribed) {
-                        subscriber.onNext(WebSocketInfo(webSocket, true))
+                        subscriber.onNext(WSInfo(webSocket, true))
                     }
                 }
 
                 override fun onMessage(webSocket: WebSocket, text: String) {
                     if (!subscriber.isUnsubscribed) {
-                        subscriber.onNext(WebSocketInfo(webSocket, text))
+                        subscriber.onNext(WSInfo(webSocket, text))
                     }
                 }
 
                 override fun onMessage(webSocket: WebSocket, bytes: ByteString) {
                     if (!subscriber.isUnsubscribed) {
-                        subscriber.onNext(WebSocketInfo(webSocket, bytes))
+                        subscriber.onNext(WSInfo(webSocket, bytes))
                     }
                 }
 
@@ -242,20 +242,20 @@ class RxWebSocketUtil {
 
     companion object {
         /**
-         * please use [RxWebSocket] to instead of it
+         * please use [RxWS] to instead of it
          *
          * @return
          */
-        var instance : RxWebSocketUtil? = null
+        var instance : RxWSUtil? = null
 
 
     }
 
-    fun getInstance(): RxWebSocketUtil? {
+    fun getInstance(): RxWSUtil? {
         if (instance == null) {
-            synchronized(RxWebSocketUtil::class.java) {
+            synchronized(RxWSUtil::class.java) {
                 if (instance == null) {
-                    instance = RxWebSocketUtil()
+                    instance = RxWSUtil()
                 }
             }
         }

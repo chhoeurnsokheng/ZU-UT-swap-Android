@@ -9,7 +9,7 @@ import rx.schedulers.Schedulers
 import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
 
-abstract class WebSocketSubscriber2<T> : WebSocketSubscriber() {
+abstract class WSModel<T> : WS() {
 
     protected lateinit var type: Type
 

@@ -4,11 +4,11 @@ import okhttp3.WebSocket
 import okio.ByteString
 import rx.Subscriber
 
-abstract class WebSocketSubscriber : Subscriber<WebSocketInfo>() {
+abstract class WS : Subscriber<WSInfo>() {
 
     private var hasOpened: Boolean? = null
 
-    override fun onNext(webSocketInfo: WebSocketInfo?) {
+    override fun onNext(webSocketInfo: WSInfo?) {
         if (webSocketInfo?.isOnOpen == true) {
             hasOpened = true;
             onOpen(webSocketInfo.webSocket)

@@ -3,7 +3,7 @@ package com.zillennium.utswap.bases.websocket
 import okhttp3.WebSocket
 import okio.ByteString
 
-class WebSocketInfo {
+class WSInfo {
 
     lateinit var webSocket: WebSocket
     var string: String? = null
@@ -14,8 +14,8 @@ class WebSocketInfo {
     private constructor() {}
 
     companion object {
-        fun createReconnect(): WebSocketInfo {
-            val socketInfo = WebSocketInfo()
+        fun createReconnect(): WSInfo {
+            val socketInfo = WSInfo()
             socketInfo.isOnReconnect = true
             return socketInfo
         }
