@@ -4,6 +4,7 @@ package com.zillennium.utswap.module.main.home
 import android.content.Intent
 import android.graphics.BlurMaskFilter
 import android.graphics.MaskFilter
+import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
@@ -45,6 +46,7 @@ class HomeFragment() : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragme
     var bannerLoopingPagerAdapter: BannerLoopingPagerAdapter? = null
     var homeRecentNewsAdapter :HomeRecentNewsAdapter? = null
     var homeWatchlistAdapter:HomeWatchlistAdapter? = null
+    var newsList  = ArrayList<News.NewsNew>()
     var isUserSwipe = false
     var currentPosition = 0
 
@@ -203,11 +205,23 @@ class HomeFragment() : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragme
 
     override fun onGetNewsHomeSuccess(data: News.NewsRes) {
 
+        data.data?.NEW?.forEachIndexed { index, itemWishList ->
+            if (index==0){
+                newsList.add(itemWishList)
+            }
+            if (index==1){
+                newsList.add(itemWishList)
+            }
+            if (index==2){
+                newsList.add(itemWishList)
+            }
+        }
         binding.apply {
             swipeRefresh.isRefreshing = false
 
             rvHomeNews.layoutManager = LinearLayoutManager(UTSwapApp.instance)
-            homeRecentNewsAdapter  = data.data?.NEW?.let { HomeRecentNewsAdapter(it) }
+            homeRecentNewsAdapter  = HomeRecentNewsAdapter(newsList)
+                //data.data?.NEW?.let { HomeRecentNewsAdapter(it) }
             rvHomeNews.adapter = homeRecentNewsAdapter
             layNewsLoading.setOnClickListener {
                 activity?.findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(
@@ -226,7 +240,8 @@ class HomeFragment() : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragme
 
     override fun onGetWishListAndBalanceSuccess(data: BannerObj.whistListRes) {
 
-        if (data.data?.watch_lists == null) {
+
+        if (data.data?.watch_lists?.size == 0) {
             binding.apply {
                 linearLayoutWatchlist.visibility = View.GONE
                 rvHomeWatchlist.visibility = View.GONE
