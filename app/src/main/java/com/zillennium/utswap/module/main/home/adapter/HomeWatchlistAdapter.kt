@@ -109,7 +109,7 @@ class HomeWatchlistAdapter(private val item:List<BannerObj.ItemWishList>): Recyc
                             txtChangeValue.setTextColor(ContextCompat.getColor(root.context, R.color.simple_green))
                         }
                         if (changeValue ==0.0){
-                            txtChangeValue.text = "0.00"
+                            txtChangeValue.text = "0.00%"
                             txtChangeValue.setTextColor(ContextCompat.getColor(root.context, R.color.simple_green))
                         }
                         if (changeValue<0){

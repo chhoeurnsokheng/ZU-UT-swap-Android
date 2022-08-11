@@ -4,7 +4,6 @@ package com.zillennium.utswap.module.main.home
 import android.content.Intent
 import android.graphics.BlurMaskFilter
 import android.graphics.MaskFilter
-import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
@@ -228,7 +227,7 @@ class HomeFragment() : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragme
 
     override fun onGetWishListAndBalanceSuccess(data: BannerObj.whistListRes) {
 
-        if (data.data?.watch_lists?.isEmpty() == true) {
+        if (data.data?.watch_lists == null) {
             binding.apply {
                 linearLayoutWatchlist.visibility = View.GONE
                 rvHomeWatchlist.visibility = View.GONE
@@ -244,7 +243,7 @@ class HomeFragment() : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragme
         binding.apply {
 
             if (data.data?.total_user_balance ==0.0){
-                tradingBalance.text =  "$" + "0.00"
+                tradingBalance.text =  "$ " + "0.00"
             }else{
                 tradingBalance.text =  "$ " + "" + "" + NumberFormatter.formatNumber(data.data?.total_user_balance?: 0.0)
 
