@@ -29,6 +29,7 @@ import com.zillennium.utswap.module.main.news.newsDetail.NewsDetailActivity
 import com.zillennium.utswap.module.project.projectScreen.ProjectActivity
 import com.zillennium.utswap.module.security.securityActivity.signInScreen.SignInActivity
 import com.zillennium.utswap.module.system.notification.NotificationActivity
+import com.zillennium.utswap.utils.SpaceDecoration
 import com.zillennium.utswap.utils.formatter.NumberFormatter
 
 
@@ -237,6 +238,9 @@ class HomeFragment() : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragme
                 homeWatchlistAdapter = data.data?.watch_lists?.let { HomeWatchlistAdapter(it) }
                 rvHomeWatchlist.layoutManager = LinearLayoutManager(UTSwapApp.instance, LinearLayoutManager.HORIZONTAL, false)
                 rvHomeWatchlist.adapter = homeWatchlistAdapter
+                rvHomeWatchlist.apply {
+                    addItemDecoration(SpaceDecoration(resources.getDimensionPixelSize(R.dimen.dimen_2)))
+                }
             }
         }
 
