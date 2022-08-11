@@ -519,10 +519,9 @@ class IDVerificationFragment :
     override fun OngetAllProvinceSuccess(data: PProvinceObj.ProvinceRes) {
         provinceList.clear()
         provinceList.addAll(data.data ?: arrayListOf())
-        /*if (disCode.isNotEmpty()) {
-            district = ""
-        }*/
-//        commune = ""
+        if (proCode.isEmpty()) {
+            binding.rlProgressBar.visibility = View.GONE
+        }
         if (proCode.isNotEmpty()) {
             mPresenter.queryProvince(
                 requireActivity(),
@@ -639,6 +638,9 @@ class IDVerificationFragment :
         communeList.clear()
         communeList.addAll(data.data ?: arrayListOf())
         setEventShowDialog()
+        binding.rlProgressBar.visibility = View.GONE
+
+
 //        binding.llCommune.setOnClickListener {
 //            showDialog(communeList, "commune")
 //        }
