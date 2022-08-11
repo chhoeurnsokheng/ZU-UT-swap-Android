@@ -5,6 +5,7 @@ import android.graphics.Rect
 import android.util.TypedValue
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import java.text.DecimalFormat
 
 /**
  * Created by Sokheng Chhoeurn on 27/7/22.
@@ -19,6 +20,18 @@ class UtilKt {
         return px.toInt()
     }
 
+    fun formatDecimal(format: String, decimal: Double): String {
+        return try {
+            if (decimal == 0.0) {
+                "0.00"
+            } else {
+                DecimalFormat(format).format(decimal)
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            decimal.toString()
+        }
+    }
 }
 class SpaceDecoration(
     private val leftSpace: Int = 0,

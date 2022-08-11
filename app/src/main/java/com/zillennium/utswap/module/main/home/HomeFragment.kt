@@ -30,6 +30,7 @@ import com.zillennium.utswap.module.project.projectScreen.ProjectActivity
 import com.zillennium.utswap.module.security.securityActivity.signInScreen.SignInActivity
 import com.zillennium.utswap.module.system.notification.NotificationActivity
 import com.zillennium.utswap.utils.SpaceDecoration
+import com.zillennium.utswap.utils.UtilKt
 import com.zillennium.utswap.utils.formatter.NumberFormatter
 
 
@@ -249,7 +250,10 @@ class HomeFragment() : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragme
             if (data.data?.total_user_balance ==0.0){
                 tradingBalance.text =  "$ " + "0.00"
             }else{
-                tradingBalance.text =  "$ " + "" + "" + NumberFormatter.formatNumber(data.data?.total_user_balance?: 0.0)
+                tradingBalance.text =  "$ " + "" + "" + data.data?.total_user_balance?.toDouble()
+                    ?.let { UtilKt().formatDecimal("#,###.00", it) }
+
+                        //NumberFormatter.formatNumber(data.data?.total_user_balance?: 0.0)
 
             }
 
