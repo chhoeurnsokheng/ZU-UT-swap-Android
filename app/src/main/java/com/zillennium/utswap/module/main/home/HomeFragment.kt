@@ -31,8 +31,6 @@ import com.zillennium.utswap.module.security.securityActivity.signInScreen.SignI
 import com.zillennium.utswap.module.system.notification.NotificationActivity
 import com.zillennium.utswap.utils.SpaceDecoration
 import com.zillennium.utswap.utils.UtilKt
-import com.zillennium.utswap.utils.formatter.NumberFormatter
-
 
 class HomeFragment() : BaseMvpFragment<HomeView.View, HomeView.Presenter, FragmentHomeBinding>(),
     HomeView.View {
@@ -211,7 +209,6 @@ class HomeFragment() : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragme
             rvHomeNews.layoutManager = LinearLayoutManager(UTSwapApp.instance)
             homeRecentNewsAdapter  = data.data?.NEW?.let { HomeRecentNewsAdapter(it) }
             rvHomeNews.adapter = homeRecentNewsAdapter
-            homeRecentNewsAdapter?.notifyDataSetChanged()
             layNewsLoading.setOnClickListener {
                 activity?.findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(
                     R.id.nav_view
@@ -235,13 +232,12 @@ class HomeFragment() : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragme
                 rvHomeWatchlist.visibility = View.GONE
             }
         } else {
-            binding.apply {
+            binding.rvHomeWatchlist.apply {
                 homeWatchlistAdapter = data.data?.watch_lists?.let { HomeWatchlistAdapter(it) }
-                rvHomeWatchlist.layoutManager = LinearLayoutManager(UTSwapApp.instance, LinearLayoutManager.HORIZONTAL, false)
-                rvHomeWatchlist.adapter = homeWatchlistAdapter
-                rvHomeWatchlist.apply {
-                    addItemDecoration(SpaceDecoration(resources.getDimensionPixelSize(R.dimen.dimen_2)))
-                }
+                adapter = homeWatchlistAdapter
+                layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+              //  addItemDecoration(SpaceDecoration(resources.getDimensionPixelSize(R.dimen.dimen_2)))
+
             }
         }
 
@@ -323,7 +319,7 @@ class HomeFragment() : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragme
             swipeRefresh.setOnRefreshListener {
                 mPresenter.getNewsHome(requireActivity())
                 mPresenter.getBanner(requireActivity())
-                mPresenter.getBanner(requireActivity())
+
             }
         }
     }

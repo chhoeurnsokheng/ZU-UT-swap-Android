@@ -4,21 +4,24 @@
 
     <LinearLayout
         android:id="@+id/lay_item"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_width="140dp"
+        android:layout_height="98dp"
+        android:layout_marginBottom="@dimen/dimen_16">
 
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/layout_watchlist_card"
-            android:layout_width="118dp"
-            android:layout_height="92dp"
-            android:layout_marginTop="@dimen/dimen_5"
-            android:layout_marginBottom="@dimen/dimen_16"
-            android:layout_marginHorizontal="@dimen/dimen_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_10"
+            android:layout_marginStart="@dimen/dimen_6"
+            android:layout_marginEnd="@dimen/dimen_6"
+            android:layout_marginBottom="@dimen/dimen_2"
             app:cardElevation="@dimen/dimen_6"
-            app:cardCornerRadius="@dimen/dimen_12">
+            app:cardCornerRadius="@dimen/dimen_12"
+
+            >
 
             <LinearLayout
-
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/dimen_10"
@@ -31,9 +34,9 @@
                         android:id="@+id/location_project"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:ellipsize="end"
                         android:gravity="start"
                         android:maxLines="2"
+                        android:ellipsize="end"
                         android:text="Siem Reap 17140 Siem Reap 17140 Siem Reap 17140"
                         android:textAppearance="@style/medium_12"
                         android:textColor="@color/black_222222" />
@@ -57,9 +60,9 @@
                             android:id="@+id/txt_last_value"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="0.68"
                             android:textAppearance="@style/medium_12"
-                            android:textColor="@color/black_222222" />
+                            android:text="0.68"
+                            android:textColor="@color/black_222222"/>
 
                         <TextView
                             android:id="@+id/txt_change_value"
@@ -74,7 +77,7 @@
 
                 </RelativeLayout>
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
 
     </LinearLayout>
 
