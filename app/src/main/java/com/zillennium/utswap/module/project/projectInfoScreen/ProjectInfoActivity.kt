@@ -1,6 +1,7 @@
 package com.zillennium.utswap.module.project.projectInfoScreen
 
 import android.app.ActivityOptions
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.view.View
@@ -18,11 +19,13 @@ import com.zillennium.utswap.models.ProjectInfoDetailModel
 import com.zillennium.utswap.models.ProjectInfoSlideImageModel
 import com.zillennium.utswap.models.ViewImageModel
 import com.zillennium.utswap.models.project.ProjectInfoDetail
+import com.zillennium.utswap.module.main.trade.tradeExchangeScreen.TradeExchangeActivity
 import com.zillennium.utswap.module.project.ViewImage.ImageViewActivity
 import com.zillennium.utswap.module.project.projectInfoScreen.adapter.ProjectInfoDetailsAdapter
 import com.zillennium.utswap.module.project.projectInfoScreen.adapter.ProjectViewPagerAdapter
 import com.zillennium.utswap.module.project.projectInfoScreen.dialog.DialogProjectSliderImage
 import com.zillennium.utswap.module.project.subscriptionScreen.SubscriptionActivity
+import com.zillennium.utswap.utils.Constants
 
 
 class ProjectInfoActivity() :
@@ -37,16 +40,36 @@ class ProjectInfoActivity() :
     private var imagesSlider: ArrayList<String> = arrayListOf()
     private var id: Int = 0
 
+    companion object {
+        fun launchProjectInfoActivity(context: Context, id: String?) {
+            val intent = Intent(context, ProjectInfoActivity::class.java)
+            intent.putExtra("id", id)
+            context.startActivity(intent)
+        }
+    }
+
+
+
     override fun initView() {
 
         super.initView()
         val intent = intent
         id = intent.extras!!.getString("id")!!.toInt()
 
-        mPresenter.projectInfoView(
-            ProjectInfoDetail.ProjectInfoDetailObject(id),
-            UTSwapApp.instance
-        )
+        if (intent.hasExtra("id")) {
+            val id = intent?.getStringExtra("id")
+
+            id?.toInt()?.let { ProjectInfoDetail.ProjectInfoDetailObject(it) }?.let {
+                mPresenter.projectInfoView(
+                    it,
+                    UTSwapApp.instance
+                )
+            }
+        }
+
+
+
+
 
         binding.apply {
             onCallApi()

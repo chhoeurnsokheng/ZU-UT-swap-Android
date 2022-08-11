@@ -9,7 +9,7 @@ import com.zillennium.utswap.models.project.ProjectList
 class ProjectView {
     interface View : BaseMvpView {
         override fun initView()
-        fun projectListSuccess(data: ArrayList<ProjectList.ProjectListData>)
+        fun projectListSuccess(data: ProjectList.ProjectListRes)
         fun projectListFail(data: ProjectList.ProjectListRes)
     }
 

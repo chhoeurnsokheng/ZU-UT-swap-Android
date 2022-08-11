@@ -1,18 +1,14 @@
 package com.zillennium.utswap.module.project.projectScreen
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.res.ColorStateList
-import android.os.Build
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.androidstudy.networkmanager.Tovuti
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
@@ -23,11 +19,9 @@ import com.zillennium.utswap.module.project.projectInfoScreen.ProjectInfoActivit
 import com.zillennium.utswap.module.project.projectScreen.adapter.ProjectAdapter
 import com.zillennium.utswap.module.project.projectScreen.adapter.ProjectGridAdapter
 import com.zillennium.utswap.module.system.notification.NotificationActivity
-import java.time.LocalDate
 
 
-class ProjectActivity :
-    BaseMvpActivity<ProjectView.View, ProjectView.Presenter, ActivityProjectBinding>(),
+class ProjectActivity : BaseMvpActivity<ProjectView.View, ProjectView.Presenter, ActivityProjectBinding>(),
     ProjectView.View {
 
     override var mPresenter: ProjectView.Presenter = ProjectPresenter()
@@ -46,10 +40,7 @@ class ProjectActivity :
 
     override fun initView() {
         super.initView()
-        mPresenter.projectList(
-            ProjectList.ProjectListObject(name, page, ""),
-
-        )
+        mPresenter.projectList(ProjectList.ProjectListObject("", page, ""))
 
 
         binding.apply {
@@ -77,9 +68,7 @@ class ProjectActivity :
                 if (sortedDate) {
                     imgLast.rotation = 180f
                     mPresenter.projectList(
-                        ProjectList.ProjectListObject("", page, "desc"),
-
-                    )
+                        ProjectList.ProjectListObject("", page, "desc"))
 
                 } else {
                     imgLast.rotation = 0f
@@ -99,15 +88,16 @@ class ProjectActivity :
 
     }
 
-    override fun projectListSuccess(data: ArrayList<ProjectList.ProjectListData>) {
+    override fun projectListSuccess(data: ProjectList.ProjectListRes) {
+
         binding.apply {
-            pgLoading.visibility = View.GONE
-            progressBarReadMore.visibility = View.GONE
-            layProjectLoading.visibility = View.VISIBLE
+                pgLoading.visibility = View.GONE
+               progressBarReadMore.visibility = View.GONE
+               layProjectLoading.visibility = View.VISIBLE
             projectListSwipeRefresh.isRefreshing = false
 
-            if (data.isNotEmpty()) {
-                projectList.addAll(data)
+            if (data.data != null) {
+                data.data?.projects?.let { projectList.addAll(it) }
 
                 if (viewGrid) {
                     rvProject.layoutManager = GridLayoutManager(UTSwapApp.instance, 2)
@@ -143,11 +133,14 @@ class ProjectActivity :
                 txtEndData.visibility = View.VISIBLE
             }
         }
+
     }
+
+
 
     override fun projectListFail(data: ProjectList.ProjectListRes) {
         binding.apply {
-            pgLoading.visibility = View.VISIBLE
+            pgLoading.visibility = View.GONE
             projectListSwipeRefresh.isRefreshing = false
         }
     }
@@ -191,11 +184,8 @@ class ProjectActivity :
                 txtReadMore.visibility = View.GONE
                 txtLoading.visibility = View.VISIBLE
                 progressBarReadMore.visibility = View.VISIBLE
-                mPresenter.projectList(
-                    ProjectList.ProjectListObject(name, page, sort),
-
-                )
-
+            mPresenter.projectList(ProjectList.ProjectListObject(name, page, sort))
+        }
             }
         }
 //        binding.rvProject.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -214,9 +204,11 @@ class ProjectActivity :
 //            }
 //        })
 
-    }
+
+
 
     private fun onSearchBox() {
+
         binding.apply {
             etSearch.setOnFocusChangeListener { _, hasFocus ->
                 if (hasFocus) {
@@ -275,6 +267,11 @@ class ProjectActivity :
         }
     }
 
+
+
+
+
+
     private fun onChangeLayoutManager() {
         binding.apply {
             if (viewGrid) {
@@ -302,18 +299,29 @@ class ProjectActivity :
     }
 
     private fun onclickProjectDetail(id: String = "") {
-        if (id != "") {
-            val intent = Intent(UTSwapApp.instance, ProjectInfoActivity::class.java)
-            intent.putExtra("id", id)
-            startActivity(intent)
-        }
+        ProjectInfoActivity.launchProjectInfoActivity(this,id)
+//        if (id != "") {
+//            val intent = Intent(UTSwapApp.instance, ProjectInfoActivity::class.java)
+//            intent.putExtra("id", id)
+//            ContextCompat.startActivity(intent)
+//        }
     }
 
     private fun onclickProject(id: String = "") {
-        if (id != "") {
-            val intent = Intent(UTSwapApp.instance, ProjectInfoActivity::class.java)
-            intent.putExtra("id", id)
-            startActivity(intent)
-        }
+        ProjectInfoActivity.launchProjectInfoActivity(this,id)
+//        if (id != "") {
+//            val intent = Intent(UTSwapApp.instance, ProjectInfoActivity::class.java)
+//            intent.putExtra("id", id)
+//            ContextCompat.startActivity(intent)
+//        }
     }
 }
+
+
+
+
+
+
+
+
+

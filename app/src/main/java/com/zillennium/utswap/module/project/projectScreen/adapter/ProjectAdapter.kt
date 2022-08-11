@@ -28,7 +28,6 @@ class ProjectAdapter(private var onclickProject: OnclickProject) :
                 titleProject.text = projectList.project_name
                 subTitle.text = projectList.action
 
-                //On Click Move to Detail Project
                 linearCard.setOnClickListener {
                     onclickProject.onClickMe(projectList.id.toString())
                 }

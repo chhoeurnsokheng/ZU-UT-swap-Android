@@ -27,12 +27,8 @@ class ProjectPresenter : BaseMvpPresenterImpl<ProjectView.View>(),
         subscription = ApiProjectImp().projectList(
             body
         ).subscribe({
-            if (it.status == 1) {
-                mView?.projectListSuccess(it.data as ArrayList<ProjectList.ProjectListData>)
+            mView?.projectListSuccess(it)
 
-            } else {
-                mView?.projectListFail(it)
-            }
         }, {
             object : CallbackWrapper(it, UTSwapApp.instance, arrayListOf()) {
                 override fun onCallbackWrapper(

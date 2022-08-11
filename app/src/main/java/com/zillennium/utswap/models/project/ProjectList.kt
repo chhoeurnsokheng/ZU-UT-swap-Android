@@ -4,10 +4,14 @@ object ProjectList {
     class ProjectListRes{
         var status : Int? =null
         var message : String? = null
-        var data : List<ProjectListData>? = null
+        var data : DataProjectListRes?= null
     }
-
+    class DataProjectListRes{
+        var totalpage:Int ? =null
+        var projects: List<ProjectListData>? =null
+    }
     class ProjectListData{
+
         var id : String? = null
         var project_name : String? = null
         var base_price : Float? = null
