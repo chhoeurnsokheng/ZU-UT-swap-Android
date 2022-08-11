@@ -13,12 +13,10 @@ class ApiProjectImp : ApiManager() {
 
     /**     Project List        **/
     fun projectList(
-        name: String,
-        page: Int
+        body: ProjectList.ProjectListObject
     ): Observable<ProjectList.ProjectListRes> =
         mProjectService.projectList(
-            name,
-            page
+            body
         )
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

@@ -22,11 +22,10 @@ class ProjectPresenter : BaseMvpPresenterImpl<ProjectView.View>(),
         mView?.initView()
     }
 
-    override fun projectList(name: String, page: Int, search: String, sortedDate: Boolean) {
+    override fun projectList(body: ProjectList.ProjectListObject) {
         subscription?.unsubscribe()
         subscription = ApiProjectImp().projectList(
-            name,
-            page
+            body
         ).subscribe({
             if (it.status == 1) {
                 mView?.projectListSuccess(it.data as ArrayList<ProjectList.ProjectListData>)

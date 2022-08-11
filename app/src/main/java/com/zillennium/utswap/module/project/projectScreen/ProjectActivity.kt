@@ -12,6 +12,7 @@ import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.androidstudy.networkmanager.Tovuti
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
@@ -22,6 +23,7 @@ import com.zillennium.utswap.module.project.projectInfoScreen.ProjectInfoActivit
 import com.zillennium.utswap.module.project.projectScreen.adapter.ProjectAdapter
 import com.zillennium.utswap.module.project.projectScreen.adapter.ProjectGridAdapter
 import com.zillennium.utswap.module.system.notification.NotificationActivity
+import java.time.LocalDate
 
 
 class ProjectActivity :
@@ -34,18 +36,21 @@ class ProjectActivity :
     private var projectList: ArrayList<ProjectList.ProjectListData> = arrayListOf()
     private var projectGridAdapter: ProjectGridAdapter? = null
     private var projectAdapter: ProjectAdapter? = null
-    private var search = ""
+    private var name = ""
     private var viewGrid = false
+    private var sort = "desc"
     private var sortedDate = true
     private var page: Int? = 1
+    private var lastPosition = 0
+    private var totalItem = ""
 
-
-    @RequiresApi(Build.VERSION_CODES.O)
-    @SuppressLint("ResourceType")
     override fun initView() {
         super.initView()
+        mPresenter.projectList(
+            ProjectList.ProjectListObject(name, page, ""),
 
-        mPresenter.projectList(name = "NR5", page = 1, search = "", sortedDate = true)
+        )
+
 
         binding.apply {
             backImage.setOnClickListener {
@@ -67,12 +72,23 @@ class ProjectActivity :
 
             /* Sorted on click */
             layLast.setOnClickListener {
+                projectList.clear()
                 sortedDate = !sortedDate
                 if (sortedDate) {
                     imgLast.rotation = 180f
+                    mPresenter.projectList(
+                        ProjectList.ProjectListObject("", page, "desc"),
+
+                    )
+
                 } else {
                     imgLast.rotation = 0f
+                    mPresenter.projectList(
+                        ProjectList.ProjectListObject("", page, "asc"),
+
+                    )
                 }
+
             }
 
             onCallApi()
@@ -95,18 +111,19 @@ class ProjectActivity :
 
                 if (viewGrid) {
                     rvProject.layoutManager = GridLayoutManager(UTSwapApp.instance, 2)
-                    projectGridAdapter = ProjectGridAdapter(object : ProjectGridAdapter.OnClickGridProject{
-                        override fun onClickMe(id: String) {
-                            onclickProjectDetail(id)
-                        }
+                    projectGridAdapter =
+                        ProjectGridAdapter(object : ProjectGridAdapter.OnClickGridProject {
+                            override fun onClickMe(id: String) {
+                                onclickProjectDetail(id)
+                            }
 
-                    })
+                        })
                     rvProject.adapter = projectGridAdapter
                     projectGridAdapter?.items = projectList
                 } else {
                     rvProject.adapter?.notifyDataSetChanged()
                     rvProject.layoutManager = LinearLayoutManager(UTSwapApp.instance)
-                    projectAdapter = ProjectAdapter(object : ProjectAdapter.OnclickProject{
+                    projectAdapter = ProjectAdapter(object : ProjectAdapter.OnclickProject {
                         override fun onClickMe(id: String) {
                             onclickProject(id)
                         }
@@ -135,11 +152,13 @@ class ProjectActivity :
         }
     }
 
-
     private fun onCallApi() {
         Tovuti.from(UTSwapApp.instance).monitor { _, isConnected, _ ->
             if (isConnected) {
-                mPresenter.projectList(name = "NR5", page = 1, search = "", sortedDate = true)
+                mPresenter.projectList(
+                    ProjectList.ProjectListObject(name, page, sort),
+
+                )
             }
         }
     }
@@ -158,7 +177,10 @@ class ProjectActivity :
                 txtEndData.visibility = View.GONE
                 page = 1
                 projectList.clear()
-                mPresenter.projectList(name = "NR5", page = 1, search = "", sortedDate = true)
+                mPresenter.projectList(
+                    ProjectList.ProjectListObject(name, page, sort),
+
+                )
             }
         }
     }
@@ -169,10 +191,29 @@ class ProjectActivity :
                 txtReadMore.visibility = View.GONE
                 txtLoading.visibility = View.VISIBLE
                 progressBarReadMore.visibility = View.VISIBLE
-                mPresenter.projectList(name = "NR5", page = 1, search = "", sortedDate = true)
+                mPresenter.projectList(
+                    ProjectList.ProjectListObject(name, page, sort),
+
+                )
 
             }
         }
+//        binding.rvProject.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+//            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+//                super.onScrolled(recyclerView, dx, dy)
+//                if (dy > 0) {
+//                    lastPosition =
+//                        (binding.rvProject.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
+//                    if (lastPosition == projectList.size - 1 && projectList.size < totalItem.toInt()) {
+//                        binding.progressBarReadMore.visibility = View.VISIBLE
+//                        page = 1
+//
+//                    }
+//
+//                }
+//            }
+//        })
+
     }
 
     private fun onSearchBox() {
@@ -203,11 +244,18 @@ class ProjectActivity :
                 }
 
                 override fun onTextChanged(char: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                    search = char.toString()
+                    //getDataSearch(etSearch.text.toString())
+                    projectList.clear()
+                    mPresenter.projectList(
+                        ProjectList.ProjectListObject(
+                            etSearch.text.toString(),
+                            1,
+                            ""
+                        )
+                    )
                 }
 
                 override fun afterTextChanged(p0: Editable?) {
-//                    getDataSearch()
                 }
 
             })
@@ -240,7 +288,7 @@ class ProjectActivity :
                 projectAdapter?.notifyDataSetChanged()
                 viewType.setImageResource(R.drawable.ic_list_view)
                 rvProject.layoutManager = LinearLayoutManager(UTSwapApp.instance)
-                projectAdapter = ProjectAdapter(object : ProjectAdapter.OnclickProject{
+                projectAdapter = ProjectAdapter(object : ProjectAdapter.OnclickProject {
                     override fun onClickMe(id: String) {
                         onclickProject(id)
                     }
@@ -253,36 +301,16 @@ class ProjectActivity :
 
     }
 
-
-    private fun getDataSearch() {
-        binding.apply {
-
-            var dataProject: ArrayList<ProjectList.ProjectListData> = arrayListOf()
-
-            if (search.isNotEmpty()) {
-                dataProject.clear()
-                projectList.map {
-                    if (it.project_name?.contains(search, ignoreCase = true) == true) {
-                        dataProject.add(it)
-                    }
-                }
-            } else {
-                dataProject = projectList
-            }
-
-        }
-
-    }
-
-    private fun onclickProjectDetail(id: String = ""){
-        if(id != ""){
+    private fun onclickProjectDetail(id: String = "") {
+        if (id != "") {
             val intent = Intent(UTSwapApp.instance, ProjectInfoActivity::class.java)
             intent.putExtra("id", id)
             startActivity(intent)
         }
     }
-    private fun onclickProject(id: String = ""){
-        if(id != ""){
+
+    private fun onclickProject(id: String = "") {
+        if (id != "") {
             val intent = Intent(UTSwapApp.instance, ProjectInfoActivity::class.java)
             intent.putExtra("id", id)
             startActivity(intent)

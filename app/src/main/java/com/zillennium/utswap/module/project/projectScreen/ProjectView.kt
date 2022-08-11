@@ -15,6 +15,6 @@ class ProjectView {
 
     interface Presenter : BaseMvpPresenter<View> {
         override fun initViewPresenter(context: Context, bundle: Bundle?)
-        fun projectList(name: String, page: Int, search: String, sortedDate: Boolean)
+        fun projectList(body: ProjectList.ProjectListObject)
     }
 }

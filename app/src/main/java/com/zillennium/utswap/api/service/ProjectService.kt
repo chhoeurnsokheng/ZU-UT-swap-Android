@@ -14,8 +14,7 @@ interface ProjectService {
     /**     Project List             **/
     @POST(ApiSettings.PATH_PROJECT_LIST)
     fun projectList(
-        @Query("name") name : String,
-        @Query("page") page : Int
+        @Body body: ProjectList.ProjectListObject
     ): Observable<ProjectList.ProjectListRes>
 
 

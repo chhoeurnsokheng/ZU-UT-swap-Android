@@ -2,6 +2,7 @@ package com.zillennium.utswap.module.project.projectScreen.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.zillennium.utswap.UTSwapApp
@@ -19,12 +20,16 @@ class ProjectAdapter(private var onclickProject: OnclickProject) :
             binding.apply {
                 Glide.with(UTSwapApp.instance)
                     .load(projectList.image)
+                    .placeholder(com.zillennium.utswap.R.drawable.ic_placeholder)
                     .into(imageView)
+                if (projectList.action == "Upcomming") {
+                    txtStatus.visibility = View.VISIBLE
+                }
                 titleProject.text = projectList.project_name
                 subTitle.text = projectList.action
 
                 //On Click Move to Detail Project
-                linearCard.setOnClickListener{
+                linearCard.setOnClickListener {
                     onclickProject.onClickMe(projectList.id.toString())
                 }
             }
