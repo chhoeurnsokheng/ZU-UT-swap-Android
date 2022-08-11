@@ -227,9 +227,9 @@
                     android:layout_height="wrap_content"
                     android:nestedScrollingEnabled="false"
                     android:overScrollMode="never"
+                    android:layout_marginStart="@dimen/dimen_15"
+                    android:layout_marginEnd="@dimen/dimen_15"
                     android:visibility="visible"
-                    android:layout_marginEnd="@dimen/dimen_10"
-                    android:layout_marginStart="@dimen/dimen_10"
                     android:scrollbars="none" />
 
                 <TextView
