@@ -19,5 +19,7 @@ interface NewsService {
     ): Observable<News.NewsDetailRes>
 
     @POST(ApiSettings.PATH_NEWS_HOME)
-    fun newsHome():Observable<News.NewsRes>
+    fun newsHome(
+        @HeaderMap headers: Map<String, String>
+    ):Observable<News.NewsRes>
 }

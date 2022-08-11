@@ -37,7 +37,7 @@ class HomePresenter : BaseMvpPresenterImpl<HomeView.View>(),
 
     override fun getNewsHome(context: Context) {
        subscription?.unsubscribe()
-        subscription = ApiNewsImp().getNewsHome().subscribe({
+        subscription = ApiNewsImp().getNewsHome(context).subscribe({
             mView?.onGetNewsHomeSuccess(it)
         },{ error ->
             object :CallbackWrapper(error,UTSwapApp.instance, arrayListOf()){
