@@ -8,6 +8,9 @@ import com.zillennium.utswap.Datas.StoredPreferences.KYCPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentKycApplicationBinding
+import com.zillennium.utswap.module.kyc.kycFragment.employmentInfoScreen.EmploymentInfoFragment
+import com.zillennium.utswap.module.kyc.kycFragment.idTypeScreen.camera.idCardCameraFragment.IDCardCameraFragment
+import com.zillennium.utswap.module.kyc.kycFragment.idVerificationScreen.IDVerificationFragment
 import com.zillennium.utswap.screens.navbar.navbar.MainActivity
 
 class KycApplicationFragment :
@@ -42,6 +45,27 @@ class KycApplicationFragment :
                 }
 //                if (status_kyc_submit ==true){}
                 btnAcceptHome.setOnClickListener {
+                    IDVerificationFragment.apply {
+                        provice = ""
+                        district = ""
+                        commune = ""
+                        name = ""
+                        sureName = ""
+                        gender = ""
+                        date = ""
+                        houseNumber = ""
+                        proCode = ""
+                        disCode = ""
+                        comCode = ""
+                    }
+                    IDCardCameraFragment.apply {
+                        imageFront = ""
+                        imageBack = ""
+                    }
+                    EmploymentInfoFragment.apply {
+                        occupation = ""
+                        company = ""
+                    }
                     startActivity(Intent(requireActivity(),MainActivity::class.java))
                 }
             }

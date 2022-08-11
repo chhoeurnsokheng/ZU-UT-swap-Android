@@ -67,7 +67,7 @@ class MainActivity :
                         layAuth.visibility = GONE
                         layVerify.visibility = VISIBLE
                     }
-                    if (SessionVariable.SESSION_KYC_STATUS.value == 1){
+                    if (SessionPreferences().SESSION_KYC == true){
                         layAuth.visibility = GONE
                         layVerify.visibility = GONE
                     } else {
