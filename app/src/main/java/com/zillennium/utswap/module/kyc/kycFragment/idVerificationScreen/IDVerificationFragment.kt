@@ -71,6 +71,7 @@ class IDVerificationFragment :
         var houseNumber = ""
         var proCode = ""
         var disCode = ""
+        var comCode = ""
 
     }
 
@@ -461,6 +462,7 @@ class IDVerificationFragment :
                         textCommune: String,
                         provinceCode: String,
                         districtCode: String,
+                        communeCode: String,
                         textGender: String
                     ) {
                         when (type) {
@@ -470,6 +472,7 @@ class IDVerificationFragment :
                                 commune = ""
                                 proCode = provinceCode
                                 disCode = ""
+                                comCode = ""
                                 binding.tvValueCity.text = provice
                                 mPresenter.queryProvince(
                                     requireActivity(),
@@ -491,6 +494,7 @@ class IDVerificationFragment :
                             }
                             "commune" -> {
                                 commune = textCommune
+                                comCode = communeCode
                                 setTextToAddress()
 
                             }

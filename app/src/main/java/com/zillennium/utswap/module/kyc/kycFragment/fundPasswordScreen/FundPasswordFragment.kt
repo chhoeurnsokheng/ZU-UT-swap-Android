@@ -22,6 +22,9 @@ import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentKycFundPasswordBinding
 import com.zillennium.utswap.models.userService.User
+import com.zillennium.utswap.module.kyc.kycFragment.employmentInfoScreen.EmploymentInfoFragment
+import com.zillennium.utswap.module.kyc.kycFragment.idTypeScreen.camera.idCardCameraFragment.IDCardCameraFragment
+import com.zillennium.utswap.module.kyc.kycFragment.idVerificationScreen.IDVerificationFragment
 import com.zillennium.utswap.utils.DialogUtil
 import com.zillennium.utswap.utils.DialogUtilKyc
 
@@ -116,19 +119,20 @@ class FundPasswordFragment :
                 if (editFundPassword.text.toString() == editConfirmFundPassword.text.toString() && editFundPassword.length() == 4 && editConfirmFundPassword.length() == 4) {
                     KYCPreferences().FUND_PASSWORD = editFundPassword.text.toString()
 
-                    KycInfor.truename = KYCPreferences().FIRST_NAME.toString()
+
+                    KycInfor.truename = IDVerificationFragment.sureName + IDVerificationFragment.name
                     KycInfor.email = KYCPreferences().EMAIL.toString()
-                    KycInfor.gender = KYCPreferences().GENDER_AS_SHORT_LETTER.toString()
+                    KycInfor.gender = if (IDVerificationFragment.gender == "Male") "M" else "F"
                     KycInfor.phonenumber = KYCPreferences().PHONE_NUMBER.toString()
-                    KycInfor.occupation = KYCPreferences().OCCUPATION.toString()
-                    KycInfor.companyname = KYCPreferences().COMPANY.toString()
-                    KycInfor.citycode = KYCPreferences().CITY_PROVINCE.toString()
-                    KycInfor.districtcode = KYCPreferences().DISTRICT_KHAN.toString()
-                    KycInfor.communecode = KYCPreferences().COMMUNE_SANGKAT.toString()
-                    KycInfor.streetnumber = KYCPreferences().ADDRESS.toString()
+                    KycInfor.occupation = EmploymentInfoFragment.occupation
+                    KycInfor.companyname = EmploymentInfoFragment.company
+                    KycInfor.citycode = IDVerificationFragment.proCode
+                    KycInfor.districtcode = IDVerificationFragment.disCode
+                    KycInfor.communecode =IDVerificationFragment.comCode
+                    KycInfor.streetnumber = IDVerificationFragment.houseNumber
                     KycInfor.idcardinfo = KYCPreferences().ID_CARD_INFOR.toString()
-                    KycInfor.idcardfront = KYCPreferences().NATIONAL_ID_FRONT.toString()
-                    KycInfor.idcardrear = KYCPreferences().NATIONAL_ID_BACK.toString()
+                    KycInfor.idcardfront = IDCardCameraFragment.imageFront
+                    KycInfor.idcardrear = IDCardCameraFragment.imageBack
                     KycInfor.userImage = KYCPreferences().SELFIE_HOLDING.toString()
                     KycInfor.termandcondition = KYCPreferences().TERNCONDITION.toString()
                     KycInfor.paypassword = KYCPreferences().FUND_PASSWORD.toString()

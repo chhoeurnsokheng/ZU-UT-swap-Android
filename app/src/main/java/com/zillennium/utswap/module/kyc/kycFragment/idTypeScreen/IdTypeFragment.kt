@@ -49,6 +49,7 @@ open class IdTypeFragment :
                         houseNumber = ""
                         proCode = ""
                         disCode = ""
+                        comCode = ""
                     }
                     IDCardCameraFragment.apply {
                         imageFront = ""
@@ -197,6 +198,7 @@ open class IdTypeFragment :
                          houseNumber = ""
                          proCode = ""
                          disCode = ""
+                         comCode = ""
                      }
                      IDCardCameraFragment.apply {
                          imageFront = ""

@@ -67,20 +67,29 @@ class MainActivity :
                         layAuth.visibility = GONE
                         layVerify.visibility = VISIBLE
                     }
-//                    if (SessionVariable.SESSION_STATUS.value ==true && kyc.statusKycSubmit =="1"){
-//                        layAuth.visibility = GONE
-//                        layVerify.visibility = GONE
-//                    }
-                    else{
-//                        SessionVariable.SESSION_KYC_STATUS.observe(this@MainActivity){
-//                            if (SessionVariable.SESSION_KYC_STATUS.value ==1){
-//                                layVerify.visibility = GONE
-//                                layAuth.visibility = GONE
-//                            }
-//                        }
+                    if (SessionVariable.SESSION_KYC_STATUS.value == 1){
+                        layAuth.visibility = GONE
+                        layVerify.visibility = GONE
+                    } else {
+                        layAuth.visibility = GONE
+                        layVerify.visibility = VISIBLE
 
+                        /*SessionVariable.SESSION_KYC_STATUS.observe(this@MainActivity){
+                            if (SessionVariable.SESSION_KYC_STATUS.value ==1){
+                                layVerify.visibility = GONE
+                                layAuth.visibility = GONE
+                            }
+                        }*/
+
+
+                    }
+                    if (SessionPreferences().SESSION_TOKEN == null){
                         layAuth.visibility = VISIBLE
                         layVerify.visibility = GONE
+
+                    } else {
+                        layAuth.visibility = GONE
+
                     }
                 }
 

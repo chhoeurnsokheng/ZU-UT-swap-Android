@@ -17,7 +17,9 @@ class DropDownAdapter(
     var onclickListener: OnclickListener,
 ) : RecyclerView.Adapter<DropDownAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DropDownAdapter.ViewHolder {
-        return ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_drop_down, parent, false))
+        return ViewHolder(
+            LayoutInflater.from(context).inflate(R.layout.item_drop_down, parent, false)
+        )
     }
 
     override fun onBindViewHolder(holder: DropDownAdapter.ViewHolder, position: Int) {
@@ -33,6 +35,7 @@ class DropDownAdapter(
                             "",
                             item.code.toString(),
                             "",
+                            "",
                             ""
                         )
 
@@ -43,12 +46,21 @@ class DropDownAdapter(
                             item.english.toString(),
                             "",
                             "",
-                            item.code.toString(),""
+                            item.code.toString(), "",
+                            ""
                         )
 
                     }
                     "commune" -> {
-                        onclickListener.onItemClick("", "", item.english.toString(), "", "","")
+                        onclickListener.onItemClick(
+                            "",
+                            "",
+                            item.english.toString(),
+                            "",
+                            "",
+                            item.code.toString(),
+                            ""
+                        )
 
                     }
                 }
@@ -63,7 +75,8 @@ class DropDownAdapter(
                     "",
                     "",
                     "",
-                    itemList[position].toString()
+                    "",
+                    itemList[position].toString(),
                 )
             }
 
@@ -81,7 +94,15 @@ class DropDownAdapter(
     }
 
     interface OnclickListener {
-        fun onItemClick(textProvince: String, textDistrict: String, textCommune: String, provinceCode: String, districtCode: String, textGender:String)
+        fun onItemClick(
+            textProvince: String,
+            textDistrict: String,
+            textCommune: String,
+            provinceCode: String,
+            districtCode: String,
+            communeCode: String,
+            textGender: String
+        )
     }
 
 
