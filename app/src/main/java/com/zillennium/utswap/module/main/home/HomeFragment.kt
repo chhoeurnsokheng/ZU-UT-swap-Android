@@ -210,10 +210,6 @@ class HomeFragment() : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragme
             if (index<=2){
                 newsList.add(itemWishList)
             }
-//            else{
-//                newsList.add(itemWishList)
-//
-//            }
         }
         binding.apply {
             swipeRefresh.isRefreshing = false
@@ -262,7 +258,7 @@ class HomeFragment() : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragme
             }else{
                 tradingBalance.text =  "$ " + "" + "" + data.data?.total_user_balance?.let { UtilKt().formatDecimal("#,###.00", it) }
 
-                        //NumberFormatter.formatNumber(data.data?.total_user_balance?: 0.0)
+
 
             }
 

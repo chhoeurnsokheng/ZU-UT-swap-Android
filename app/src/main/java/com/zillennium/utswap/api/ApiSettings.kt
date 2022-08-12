@@ -34,12 +34,30 @@ object ApiSettings {
 
     const val PATH_NEWS_HOME  = "Art/ArtList/p/1"
 
+
+    /**     Account Logs       **/
+    const val PATH_ACCOUNT_LOGS = "user/accountLogs"
+
+    /** Register **/
+    const val PATH_REGISTER = "login/register"
+
+    /**     Customer Support     **/
+    const val PATH_CUSTOMER_SUPPORT = "customer_support"
+
+    /**      Project List        **/
+    const val PATH_PROJECT_LIST = "issue"
+
+    /**      Project Detail/Project Info          **/
+    const val PATH_PROJECT_DETAIL =  "issue/project_detail"
+
+
     /** Finance */
     const val PATH_SUBSCRIPTION = "Issue/log"
     const val PATH_LOCK_UP = "finance/lockbalance"
 
-    /** Register */
-    const val PATH_REGISTER = "login/register"
+
+
+
 
     /** Forgot Password*/
     const val PATH_FORGOT_PASSWORD = "login/forgetPassword"

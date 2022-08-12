@@ -1,38 +1,40 @@
 package com.zillennium.utswap.module.project.projectInfoScreen.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.recyclerview.widget.RecyclerView
-import com.zillennium.utswap.R
+import com.zillennium.utswap.bases.mvp.BaseRecyclerViewAdapterGeneric
+import com.zillennium.utswap.bases.mvp.BaseViewHolder
+import com.zillennium.utswap.databinding.ItemListProjectInfoDetailsBinding
 import com.zillennium.utswap.models.ProjectInfoDetailModel
+import com.zillennium.utswap.models.project.ProjectInfoDetail
 
-class ProjectInfoDetailsAdapter(arrayList: ArrayList<ProjectInfoDetailModel>) :
-    RecyclerView.Adapter<ProjectInfoDetailsAdapter.ViewHolder>() {
-    private val listdata: ArrayList<ProjectInfoDetailModel> = arrayList
 
-    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        var txtTitleInfo: TextView = view.findViewById<View>(R.id.title_info) as TextView
-        var txtDescriptionInfo: TextView = view.findViewById<View>(R.id.value_info) as TextView
-    }
+class ProjectInfoDetailsAdapter() : BaseRecyclerViewAdapterGeneric<ProjectInfoDetailModel, ProjectInfoDetailsAdapter.ProjectDetailViewHolder>(){
+    inner class ProjectDetailViewHolder(root: ItemListProjectInfoDetailsBinding) :
+        BaseViewHolder<ItemListProjectInfoDetailsBinding>(root){
+        fun bindData(projectInfoDetailData: ProjectInfoDetailModel) {
+            binding.apply {
+                titleInfo.text = projectInfoDetailData.titleInfo
+                valueInfo.text = projectInfoDetailData.descriptionInfo.toString()
 
-    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(
-            LayoutInflater.from(viewGroup.context)
-                .inflate(R.layout.item_list_project_info_details, viewGroup, false)
-        )
-    }
-
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val projectInfoDetailList: ProjectInfoDetailModel = listdata[position]
-        holder.txtTitleInfo.text = projectInfoDetailList.titleInfo
-        holder.txtDescriptionInfo.text = projectInfoDetailList.descriptionInfo
+            }
+        }
 
     }
 
-    override fun getItemCount(): Int {
-        return listdata.size
+    override fun onCreateItemHolder(
+        inflater: LayoutInflater,
+        parent: ViewGroup,
+        viewType: Int
+    ) = ProjectDetailViewHolder(ItemListProjectInfoDetailsBinding.inflate(inflater, parent, false))
+
+    override fun onBindItemHolder(
+        holder: ProjectDetailViewHolder,
+        position: Int,
+        context: Context
+    ) {
+        holder.bindData(items[position])
     }
 
 }

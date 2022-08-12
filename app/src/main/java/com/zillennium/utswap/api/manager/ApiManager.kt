@@ -32,7 +32,13 @@ open class ApiManager {
     protected lateinit var mUserService: UserService
     protected lateinit var mNewsService: NewsService
 
+
     protected lateinit var mHistorical: HistoricalService
+
+    protected lateinit var mAccountLogsService: AccountLogsService
+    protected lateinit var mCustomerSupport: CustomerSupportService
+    protected lateinit var mProjectService: ProjectService
+
 
 
     protected lateinit var mHomeService: HomeService
@@ -41,9 +47,10 @@ open class ApiManager {
 
     protected lateinit var mProvince: ProvincesService
 
+
     protected lateinit var mContext: Context
 
-
+    
     companion object {
         var mRetryCounter: AtomicInteger = AtomicInteger(0)
     }
@@ -56,13 +63,15 @@ open class ApiManager {
 
         return  BuildConfig.BASE_URL
 
-
     }
 
     //INIT ALL PROFIT OBJECT
     private fun initServices(retrofit: Retrofit) {
         mUserService = retrofit.create(UserService::class.java)
         mNewsService = retrofit.create(NewsService::class.java)
+        mAccountLogsService = retrofit.create(AccountLogsService::class.java)
+        mCustomerSupport = retrofit.create(CustomerSupportService::class.java)
+        mProjectService = retrofit.create(ProjectService::class.java)
 
         mHistorical = retrofit.create(HistoricalService::class.java)
 
