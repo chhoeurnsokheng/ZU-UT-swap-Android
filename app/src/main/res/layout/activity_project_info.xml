@@ -74,7 +74,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dimen_5"
-                        android:text="Siem Reap 17140"
+                        android:text=""
                         android:textAppearance="@style/medium_20"
                         android:textColor="@color/black" />
 

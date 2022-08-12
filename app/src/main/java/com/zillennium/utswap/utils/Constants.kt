@@ -447,6 +447,12 @@ interface Constants {
             const val ProjectName = "ProjectName"
         }
     }
+    interface Project{
+        companion object{
+            const val ProjectName = "Project_Name"
+            const val Project_Id = "id"
+        }
+    }
 
 
 }

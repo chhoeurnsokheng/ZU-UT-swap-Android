@@ -29,7 +29,7 @@ class ProjectAdapter(private var item: List<ProjectList.ProjectListData>) :
                 subTitle.text = projectList.action
 
                 linearCard.setOnClickListener {
-                    ProjectInfoActivity.launchProjectInfoActivity(root.context, projectList.id)
+                    ProjectInfoActivity.launchProjectInfoActivity(root.context, projectList.id,projectList.project_name)
                 }
             }
         }

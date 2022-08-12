@@ -8,7 +8,6 @@ import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.androidstudy.networkmanager.Tovuti
-import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.gson.Gson
 import com.zillennium.utswap.R
@@ -16,14 +15,11 @@ import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityProjectInfoBinding
 import com.zillennium.utswap.models.ProjectInfoDetailModel
-import com.zillennium.utswap.models.ProjectInfoSlideImageModel
 import com.zillennium.utswap.models.ViewImageModel
 import com.zillennium.utswap.models.project.ProjectInfoDetail
-import com.zillennium.utswap.module.main.trade.tradeExchangeScreen.TradeExchangeActivity
 import com.zillennium.utswap.module.project.ViewImage.ImageViewActivity
 import com.zillennium.utswap.module.project.projectInfoScreen.adapter.ProjectInfoDetailsAdapter
 import com.zillennium.utswap.module.project.projectInfoScreen.adapter.ProjectViewPagerAdapter
-import com.zillennium.utswap.module.project.projectInfoScreen.dialog.DialogProjectSliderImage
 import com.zillennium.utswap.module.project.subscriptionScreen.SubscriptionActivity
 import com.zillennium.utswap.utils.Constants
 
@@ -41,9 +37,10 @@ class ProjectInfoActivity() :
     private var id: Int = 0
 
     companion object {
-        fun launchProjectInfoActivity(context: Context, id: String?) {
+        fun launchProjectInfoActivity(context: Context, id: String?, projectName:String?) {
             val intent = Intent(context, ProjectInfoActivity::class.java)
-            intent.putExtra("id", id)
+            intent.putExtra(Constants.Project.Project_Id, id)
+            intent.putExtra(Constants.Project.ProjectName, projectName)
             context.startActivity(intent)
         }
     }
@@ -51,21 +48,21 @@ class ProjectInfoActivity() :
     override fun initView() {
 
         super.initView()
-        val intent = intent
-        id = intent.extras!!.getString("id")!!.toInt()
 
-        if (intent.hasExtra("id")) {
-            val id = intent?.getStringExtra("id")
+        if (intent.hasExtra(Constants.Project.Project_Id)) {
+            id = intent.extras!!.getString(Constants.Project.Project_Id)!!.toInt()
 
-            id?.toInt()?.let { ProjectInfoDetail.ProjectInfoDetailObject(it) }?.let {
-                mPresenter.projectInfoView(
-                    it,
-                    UTSwapApp.instance
-                )
+            id.let { ProjectInfoDetail.ProjectInfoDetailObject(it) }.let {
+                mPresenter.projectInfoView(it, UTSwapApp.instance)
             }
+
         }
 
-
+        if (intent.hasExtra(Constants.Project.ProjectName)) {
+            val projectName = intent?.getStringExtra(Constants.Project.ProjectName)
+            binding.apply { txtDetailTitle.text = projectName
+            }
+        }
 
 
 
@@ -156,6 +153,7 @@ class ProjectInfoActivity() :
                 txtInvestmentInfo.visibility = View.GONE
                 layoutBaseAndTargetPrice.visibility = View.GONE
             }
+
 //            val perUT = arrayOf(
 //
 //                "4.10",

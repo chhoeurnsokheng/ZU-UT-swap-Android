@@ -30,7 +30,7 @@ class ProjectGridAdapter(  var item:List<ProjectList.ProjectListData>) : Recycle
                 subTitle.text = projectList.action
 
                 linearCard.setOnClickListener {
-                    ProjectInfoActivity.launchProjectInfoActivity(root.context, projectList.id)
+                    ProjectInfoActivity.launchProjectInfoActivity(root.context, projectList.id,projectList.project_name)
 
                 }
             }
