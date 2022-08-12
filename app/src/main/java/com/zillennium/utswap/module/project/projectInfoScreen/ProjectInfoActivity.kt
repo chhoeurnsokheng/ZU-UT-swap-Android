@@ -68,7 +68,6 @@ class ProjectInfoActivity() :
 
         binding.apply {
             onCallApi()
-
             btnBack.setOnClickListener {
                 onBackPressed()
             }
@@ -154,37 +153,6 @@ class ProjectInfoActivity() :
                 layoutBaseAndTargetPrice.visibility = View.GONE
             }
 
-//            val perUT = arrayOf(
-//
-//                "4.10",
-//                "4.55",
-//            )
-//            val valueUT = arrayOf(
-//                "902 000",
-//                "1 001 000",
-//            )
-//            val sqmUT = arrayOf(
-//                "1 625",
-//                "1 804",
-//            )
-//
-//            val projectInfoInvestmentArrayList = arrayListOf<ProjectInfoInvestmentModel>()
-//
-//            for (i in perUT.indices) {
-//                val projectInvestment = ProjectInfoInvestmentModel(
-//                    perUT[i],
-//                    valueUT[i],
-//                    sqmUT[i]
-//                )
-//                projectInfoInvestmentArrayList.add(projectInvestment)
-//            }
-//
-//            rvProjectInvestmentInfo.layoutManager = LinearLayoutManager(UTSwapApp.instance)
-//            val projectInvestmentAdapter = ProjectInfoInvestmentAdapter()
-//            projectInvestmentAdapter.items = projectInfoInvestmentArrayList
-//            rvProjectInvestmentInfo.adapter = projectInvestmentAdapter
-
-
             /* Term and condition */
             txtTermCondition.text = data.term_and_condition
             layoutTermCondition.setOnClickListener {
@@ -241,6 +209,7 @@ class ProjectInfoActivity() :
                 )            }
         }
     }
+
     private val onclickAdapter: ProjectViewPagerAdapter.OnclickAdapter =
         object : ProjectViewPagerAdapter.OnclickAdapter {
             override fun onClickMe(
@@ -248,10 +217,6 @@ class ProjectInfoActivity() :
                 position: Int,
                 view: View
             ) {
-//                val imageSlideDialog: DialogProjectSliderImage = DialogProjectSliderImage.newInstance(
-//                    projectInfoSlideImageModel
-//                )
-//                imageSlideDialog.show(supportFragmentManager, "imageSlideDialog")
 
                 val intent = Intent(this@ProjectInfoActivity, ImageViewActivity::class.java)
                 val obj = ViewImageModel.ViewImage()

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.imageview.ShapeableImageView
+import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseRecyclerViewAdapterGeneric
 import com.zillennium.utswap.bases.mvp.BaseViewHolder
@@ -23,8 +24,8 @@ class ProjectViewPagerAdapter(private var onclickAdapter: OnclickAdapter) :
             binding.apply {
                 Glide.with(UTSwapApp.instance)
                     .asBitmap()
-                    .load(projectInfoDetailData.toString())
-//                    .apply(RequestOptions().override(200, 200))
+                    .load(projectInfoDetailData)
+                    .placeholder(R.drawable.ic_placeholder)
                     .fitCenter()
                     .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .skipMemoryCache(true)
