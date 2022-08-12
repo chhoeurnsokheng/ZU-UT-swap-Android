@@ -182,81 +182,28 @@
                 <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
                     android:id="@+id/project_list_swipe_refresh"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    >
+                    android:layout_height="wrap_content">
 
-
-                    <androidx.core.widget.NestedScrollView
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_project"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
+                        android:nestedScrollingEnabled="false"
                         android:overScrollMode="never"
-                        android:scrollbars="none">
+                        android:padding="@dimen/dimen_20"
+                        android:scrollbars="none"
 
-                        <LinearLayout
-                            android:id="@+id/layout_project_recycle"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
+                        />
 
-                            <androidx.recyclerview.widget.RecyclerView
-                                android:id="@+id/rv_project"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:overScrollMode="never"
-                                android:paddingHorizontal="@dimen/dimen_10"
-                                android:scrollbars="none"
-                                android:visibility="visible" />
-
-                            <LinearLayout
-                                android:id="@+id/lay_project_loading"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:gravity="center"
-                                android:visibility="gone">
-
-                                <LinearLayout
-                                    android:id="@+id/read_more_project"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:gravity="center_vertical"
-                                    android:orientation="horizontal">
-
-                                    <TextView
-                                        android:id="@+id/txt_read_more"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="@string/read_more"
-                                        android:textAppearance="@style/regular_10" />
-
-                                    <TextView
-                                        android:id="@+id/txt_loading"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="@string/loading"
-                                        android:textAppearance="@style/regular_10"
-                                        android:visibility="gone" />
-
-                                    <ProgressBar
-                                        android:id="@+id/progress_bar_read_more"
-                                        android:layout_width="@dimen/dimen_20"
-                                        android:layout_height="@dimen/dimen_20"
-                                        android:layout_marginStart="@dimen/dimen_10" />
-                                </LinearLayout>
-                            </LinearLayout>
-
-                            <TextView
-                                android:id="@+id/txt_end_data"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="@dimen/dimen_15"
-                                android:gravity="center"
-                                android:text="======== End ======== "
-                                android:textColor="@color/primary"
-                                android:visibility="gone" />
-                        </LinearLayout>
-                    </androidx.core.widget.NestedScrollView>
                 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    android:layout_width="@dimen/dimen_24"
+                    android:layout_height="@dimen/dimen_24"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerInParent="true"
+                    android:visibility="gone" />
 
                 <RelativeLayout
                     android:id="@+id/pg_loading"

@@ -13,11 +13,9 @@ class ApiProjectImp : ApiManager() {
 
     /**     Project List        **/
     fun projectList(
-        body: ProjectList.ProjectListObject
+        body: ProjectList.ProjectListBody
     ): Observable<ProjectList.ProjectListRes> =
-        mProjectService.projectList(
-            body
-        )
+        mProjectService.projectList(body)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
 

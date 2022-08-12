@@ -22,9 +22,11 @@ object ProjectList {
         var image : String? = null
     }
 
-    class ProjectListObject(
-        var name: String? = null,
-        var page: Int? = null,
+    class ProjectListBody{
+        var name: String? = null
+        var page: Int? = null
         var sort: String? = null
-    )
+    }
+
+
 }

@@ -9,7 +9,7 @@ import android.view.inputmethod.InputMethodManager
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.androidstudy.networkmanager.Tovuti
+import androidx.recyclerview.widget.RecyclerView
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
@@ -21,7 +21,8 @@ import com.zillennium.utswap.module.project.projectScreen.adapter.ProjectGridAda
 import com.zillennium.utswap.module.system.notification.NotificationActivity
 
 
-class ProjectActivity : BaseMvpActivity<ProjectView.View, ProjectView.Presenter, ActivityProjectBinding>(),
+class ProjectActivity :
+    BaseMvpActivity<ProjectView.View, ProjectView.Presenter, ActivityProjectBinding>(),
     ProjectView.View {
 
     override var mPresenter: ProjectView.Presenter = ProjectPresenter()
@@ -32,110 +33,82 @@ class ProjectActivity : BaseMvpActivity<ProjectView.View, ProjectView.Presenter,
     private var projectAdapter: ProjectAdapter? = null
     private var name = ""
     private var viewGrid = false
-    private var sort = "desc"
+    private var sort = " " // asc // desc
     private var sortedDate = true
-    private var page: Int? = 1
+    private var page = 1
     private var lastPosition = 0
-    private var totalItem = ""
+    private var totalItem = 0
+
+    companion object {
+        var order_page: Int? = null
+    }
 
     override fun initView() {
         super.initView()
-        mPresenter.projectList(ProjectList.ProjectListObject("", page, ""))
-
+        requestData()
+        loadMoreData()
+        onSwipeRefresh()
+        onSearchBox()
+        onChangeLayoutManager()
 
         binding.apply {
             backImage.setOnClickListener {
                 finish()
             }
 
-            //Notification message
             imgNotification.setOnClickListener {
                 val intent = Intent(UTSwapApp.instance, NotificationActivity::class.java)
                 startActivity(intent)
             }
 
-            /* Change View on click */
             layView.setOnClickListener {
                 viewGrid = !viewGrid
                 onChangeLayoutManager()
             }
             layView.callOnClick()
 
-            /* Sorted on click */
             layLast.setOnClickListener {
                 projectList.clear()
                 sortedDate = !sortedDate
                 if (sortedDate) {
+                    sort = "desc"
                     imgLast.rotation = 180f
-                    mPresenter.projectList(
-                        ProjectList.ProjectListObject("", page, "desc"))
+                    requestData()
+                //    binding.pgLoading.visibility = View.VISIBLE
 
                 } else {
                     imgLast.rotation = 0f
-                    mPresenter.projectList(
-                        ProjectList.ProjectListObject("", page, "asc"),
-
-                    )
+                    sort = "asc"
+                    requestData()
+                  //  binding.pgLoading.visibility = View.VISIBLE
                 }
 
             }
 
-            onCallApi()
-            onSearchBox()
-            projectLoadingRefresh()
-            onClickReadMore()
+
         }
 
     }
 
     override fun projectListSuccess(data: ProjectList.ProjectListRes) {
 
+        binding.projectListSwipeRefresh.isRefreshing = false
+        totalItem = data.data?.totalpage ?: 0
+
+        if (page == 1) {
+            projectList.clear()
+        }
+
+        data.data?.projects?.let { projectList.addAll(it) }
+
         binding.apply {
-                pgLoading.visibility = View.GONE
-               progressBarReadMore.visibility = View.GONE
-               layProjectLoading.visibility = View.VISIBLE
-            projectListSwipeRefresh.isRefreshing = false
 
-            if (data.data != null) {
-                data.data?.projects?.let { projectList.addAll(it) }
-
-                if (viewGrid) {
-                    rvProject.layoutManager = GridLayoutManager(UTSwapApp.instance, 2)
-                    projectGridAdapter =
-                        ProjectGridAdapter(object : ProjectGridAdapter.OnClickGridProject {
-                            override fun onClickMe(id: String) {
-                                onclickProjectDetail(id)
-                            }
-
-                        })
-                    rvProject.adapter = projectGridAdapter
-                    projectGridAdapter?.items = projectList
-                } else {
-                    rvProject.adapter?.notifyDataSetChanged()
-                    rvProject.layoutManager = LinearLayoutManager(UTSwapApp.instance)
-                    projectAdapter = ProjectAdapter(object : ProjectAdapter.OnclickProject {
-                        override fun onClickMe(id: String) {
-                            onclickProject(id)
-                        }
-
-                    })
-                    rvProject.adapter = projectAdapter
-                    projectAdapter?.items = projectList
-                }
-
-
-                //Add more data page
-                page = page!! + 1
-                txtReadMore.visibility = View.VISIBLE
-                txtLoading.visibility = View.GONE
-            } else {
-                layProjectLoading.visibility = View.GONE
-                txtEndData.visibility = View.VISIBLE
-            }
+            rvProject.adapter?.notifyDataSetChanged()
+            pgLoading.visibility = View.GONE
+            progressBar.visibility = View.GONE
         }
 
     }
-
 
 
     override fun projectListFail(data: ProjectList.ProjectListRes) {
@@ -144,67 +117,6 @@ class ProjectActivity : BaseMvpActivity<ProjectView.View, ProjectView.Presenter,
             projectListSwipeRefresh.isRefreshing = false
         }
     }
-
-    private fun onCallApi() {
-        Tovuti.from(UTSwapApp.instance).monitor { _, isConnected, _ ->
-            if (isConnected) {
-                mPresenter.projectList(
-                    ProjectList.ProjectListObject(name, page, sort),
-
-                )
-            }
-        }
-    }
-
-    private fun projectLoadingRefresh() {
-        binding.apply {
-            // Swipe refresh to get page
-            projectListSwipeRefresh.setColorSchemeColors(
-                ContextCompat.getColor(
-                    UTSwapApp.instance,
-                    R.color.primary
-                )
-            )
-
-            projectListSwipeRefresh.setOnRefreshListener {
-                txtEndData.visibility = View.GONE
-                page = 1
-                projectList.clear()
-                mPresenter.projectList(
-                    ProjectList.ProjectListObject(name, page, sort),
-
-                )
-            }
-        }
-    }
-
-    private fun onClickReadMore() {
-        binding.apply {
-            readMoreProject.setOnClickListener {
-                txtReadMore.visibility = View.GONE
-                txtLoading.visibility = View.VISIBLE
-                progressBarReadMore.visibility = View.VISIBLE
-            mPresenter.projectList(ProjectList.ProjectListObject(name, page, sort))
-        }
-            }
-        }
-//        binding.rvProject.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-//            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-//                super.onScrolled(recyclerView, dx, dy)
-//                if (dy > 0) {
-//                    lastPosition =
-//                        (binding.rvProject.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
-//                    if (lastPosition == projectList.size - 1 && projectList.size < totalItem.toInt()) {
-//                        binding.progressBarReadMore.visibility = View.VISIBLE
-//                        page = 1
-//
-//                    }
-//
-//                }
-//            }
-//        })
-
-
 
 
     private fun onSearchBox() {
@@ -236,15 +148,8 @@ class ProjectActivity : BaseMvpActivity<ProjectView.View, ProjectView.Presenter,
                 }
 
                 override fun onTextChanged(char: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                    //getDataSearch(etSearch.text.toString())
-                    projectList.clear()
-                    mPresenter.projectList(
-                        ProjectList.ProjectListObject(
-                            etSearch.text.toString(),
-                            1,
-                            ""
-                        )
-                    )
+                    name = char.toString()
+                    requestData()
                 }
 
                 override fun afterTextChanged(p0: Editable?) {
@@ -268,29 +173,50 @@ class ProjectActivity : BaseMvpActivity<ProjectView.View, ProjectView.Presenter,
     }
 
 
+    private fun loadMoreData() {
+        binding.rvProject.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if (dy > 0) {
+                    lastPosition =
+                        (binding.rvProject.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
+                    if (lastPosition == projectList.size - 1 && page < totalItem) {
+                        binding.progressBar.visibility = View.VISIBLE
+                        page++
+                        requestData()
+                    }
 
+                }
+            }
+        })
+    }
 
-
+    private fun requestData() {
+        //  order_page = page
+        val bodyObj = ProjectList.ProjectListBody()
+        bodyObj.page = page
+        bodyObj.sort = sort
+        bodyObj.name = name
+        mPresenter.projectList(bodyObj)
+    }
 
     private fun onChangeLayoutManager() {
+
         binding.apply {
             if (viewGrid) {
-                projectGridAdapter?.notifyDataSetChanged()
+                page = 1
+                requestData()
                 viewType.setImageResource(R.drawable.ic_grid_view)
                 rvProject.layoutManager = GridLayoutManager(UTSwapApp.instance, 2)
-                projectGridAdapter?.items = projectList
+                projectGridAdapter = ProjectGridAdapter(projectList)
                 rvProject.adapter = projectGridAdapter
 
             } else {
-                projectAdapter?.notifyDataSetChanged()
+                page = 1
+                requestData()
                 viewType.setImageResource(R.drawable.ic_list_view)
                 rvProject.layoutManager = LinearLayoutManager(UTSwapApp.instance)
-                projectAdapter = ProjectAdapter(object : ProjectAdapter.OnclickProject {
-                    override fun onClickMe(id: String) {
-                        onclickProject(id)
-                    }
-                })
-                projectAdapter?.items = projectList
+                projectAdapter = ProjectAdapter(projectList)
                 rvProject.adapter = projectAdapter
 
             }
@@ -298,23 +224,17 @@ class ProjectActivity : BaseMvpActivity<ProjectView.View, ProjectView.Presenter,
 
     }
 
-    private fun onclickProjectDetail(id: String = "") {
-        ProjectInfoActivity.launchProjectInfoActivity(this,id)
-//        if (id != "") {
-//            val intent = Intent(UTSwapApp.instance, ProjectInfoActivity::class.java)
-//            intent.putExtra("id", id)
-//            ContextCompat.startActivity(intent)
-//        }
+    private fun onSwipeRefresh() {
+        binding.apply {
+            projectListSwipeRefresh.setOnRefreshListener {
+                page = 1
+                requestData()
+            }
+        }
     }
 
-    private fun onclickProject(id: String = "") {
-        ProjectInfoActivity.launchProjectInfoActivity(this,id)
-//        if (id != "") {
-//            val intent = Intent(UTSwapApp.instance, ProjectInfoActivity::class.java)
-//            intent.putExtra("id", id)
-//            ContextCompat.startActivity(intent)
-//        }
-    }
+
+
 }
 
 

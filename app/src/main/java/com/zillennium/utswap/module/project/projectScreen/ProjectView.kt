@@ -15,6 +15,6 @@ class ProjectView {
 
     interface Presenter : BaseMvpPresenter<View> {
         override fun initViewPresenter(context: Context, bundle: Bundle?)
-        fun projectList(body: ProjectList.ProjectListObject)
+        fun projectList(body: ProjectList.ProjectListBody)
     }
 }

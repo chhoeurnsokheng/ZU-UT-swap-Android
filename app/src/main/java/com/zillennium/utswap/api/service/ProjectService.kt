@@ -14,7 +14,7 @@ interface ProjectService {
     /**     Project List             **/
     @POST(ApiSettings.PATH_PROJECT_LIST)
     fun projectList(
-        @Body body: ProjectList.ProjectListObject
+        @Body body: ProjectList.ProjectListBody
     ): Observable<ProjectList.ProjectListRes>
 
 

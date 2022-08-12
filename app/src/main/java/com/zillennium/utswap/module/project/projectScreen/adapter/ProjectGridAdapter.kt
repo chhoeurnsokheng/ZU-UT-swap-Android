@@ -1,26 +1,21 @@
 package com.zillennium.utswap.module.project.projectScreen.adapter
 
-import android.R
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.zillennium.utswap.UTSwapApp
-import com.zillennium.utswap.bases.mvp.BaseRecyclerViewAdapterGeneric
 import com.zillennium.utswap.bases.mvp.BaseViewHolder
 import com.zillennium.utswap.databinding.ItemListProjectGridBinding
 import com.zillennium.utswap.models.project.ProjectList
+import com.zillennium.utswap.module.project.projectInfoScreen.ProjectInfoActivity
 
 
-
-class ProjectGridAdapter(private var onclickGridProject: OnClickGridProject) :
-    BaseRecyclerViewAdapterGeneric<ProjectList.ProjectListData, ProjectGridAdapter.ProjectListViewHolder>() {
+class ProjectGridAdapter(  var item:List<ProjectList.ProjectListData>) : RecyclerView.Adapter<ProjectGridAdapter.ProjectListViewHolder>() {
 
 
-    inner class ProjectListViewHolder(root: ItemListProjectGridBinding) :
-        BaseViewHolder<ItemListProjectGridBinding>(root) {
+    inner class ProjectListViewHolder(root: ItemListProjectGridBinding) : BaseViewHolder<ItemListProjectGridBinding>(root) {
         fun bindData(projectList: ProjectList.ProjectListData) {
             binding.apply {
                 Glide.with(UTSwapApp.instance)
@@ -36,23 +31,27 @@ class ProjectGridAdapter(private var onclickGridProject: OnClickGridProject) :
 
                 //On Click Move to Detail Project
                 linearCard.setOnClickListener {
-                    onclickGridProject.onClickMe(projectList.id.toString())
+                    ProjectInfoActivity.launchProjectInfoActivity(root.context, projectList.id)
+
                 }
             }
         }
     }
 
-    override fun onCreateItemHolder(
-        inflater: LayoutInflater,
-        parent: ViewGroup,
-        viewType: Int
-    ) = ProjectListViewHolder(ItemListProjectGridBinding.inflate(inflater, parent, false))
-
-    override fun onBindItemHolder(holder: ProjectListViewHolder, position: Int, context: Context) {
-        holder.bindData(items[position])
-    }
 
     interface OnClickGridProject {
         fun onClickMe(id: String)
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProjectListViewHolder {
+       return  ProjectListViewHolder(ItemListProjectGridBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+    }
+
+    override fun onBindViewHolder(holder: ProjectListViewHolder, position: Int) {
+       holder.bindData(item[position])
+    }
+
+    override fun getItemCount(): Int {
+        return item.size
     }
 }

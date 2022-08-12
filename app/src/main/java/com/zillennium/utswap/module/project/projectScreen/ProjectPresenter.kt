@@ -22,11 +22,9 @@ class ProjectPresenter : BaseMvpPresenterImpl<ProjectView.View>(),
         mView?.initView()
     }
 
-    override fun projectList(body: ProjectList.ProjectListObject) {
+    override fun projectList(body: ProjectList.ProjectListBody) {
         subscription?.unsubscribe()
-        subscription = ApiProjectImp().projectList(
-            body
-        ).subscribe({
+        subscription = ApiProjectImp().projectList(body).subscribe({
             mView?.projectListSuccess(it)
 
         }, {
