@@ -15,6 +15,8 @@ class VerificationPresenter : BaseMvpPresenterImpl<VerificationView.View>(),
 
     private var subscription: Subscription? = null
     private var subscriptionResendCode: Subscription? = null
+    private var subscriptionResetPassword: Subscription? = null
+    private var subscriptionResendCodeReset: Subscription? = null
 
     override fun initViewPresenter(context: Context, bundle: Bundle?) {
         mBundle = bundle
@@ -46,6 +48,75 @@ class VerificationPresenter : BaseMvpPresenterImpl<VerificationView.View>(),
                 mView?.onResendCodeSuccess(it)
             }else{
                 mView?.onResendCodeFail(it)
+            }
+        },{
+            object : CallbackWrapper(it, UTSwapApp.instance, arrayListOf()){
+                override fun onCallbackWrapper(status: ApiManager.NetworkErrorStatus, data: Any) {
+                    mView?.onFail(data.toString())
+                }
+            }
+        })
+    }
+
+    override fun onResendCodeResetPassword(data: User.ForgotPasswordObject, context: Context) {
+        subscriptionResendCodeReset?.unsubscribe()
+        subscriptionResendCodeReset = ApiUserImp().resetPassword(data,context).subscribe({
+            if(it.status == 1){
+                mView?.onResendCodeResetPasswordSuccess(it)
+            }else{
+                mView?.onResendCodeResetPasswordFail(it)
+            }
+        },{
+            object : CallbackWrapper(it, UTSwapApp.instance, arrayListOf()){
+                override fun onCallbackWrapper(status: ApiManager.NetworkErrorStatus, data: Any) {
+                    mView?.onFail(data.toString())
+                }
+            }
+        })
+    }
+
+    override fun onResetPassword(data: User.ForgotPasswordVerifyObject,context: Context) {
+        subscriptionResetPassword?.unsubscribe()
+        subscriptionResetPassword = ApiUserImp().resetPasswordVerify(data,context).subscribe({
+            if(it.status == 1){
+                mView?.onResetPasswordSuccess(it)
+            }else{
+                mView?.onResetPasswordFail(it)
+            }
+        },{
+            object : CallbackWrapper(it, UTSwapApp.instance, arrayListOf()){
+                override fun onCallbackWrapper(status: ApiManager.NetworkErrorStatus, data: Any) {
+                    mView?.onFail(data.toString())
+                }
+            }
+        })
+    }
+
+    override fun onVerifyAddPhoneNumber(data: User.VerifyAddPhoneNumberObject, context: Context) {
+        subscription?.unsubscribe()
+        subscription = ApiUserImp().verifyAddPhoneNumber(data,context).subscribe({
+            if(it.status == 1){
+                mView?.onVerifyAddPhoneNumberSuccess(it)
+            }else{
+                mView?.onVerifyAddPhoneNumberFail(it)
+            }
+        },{
+            object : CallbackWrapper(it, UTSwapApp.instance, arrayListOf()){
+                override fun onCallbackWrapper(status: ApiManager.NetworkErrorStatus, data: Any) {
+                    mView?.onFail(data.toString())
+                }
+            }
+        })
+    }
+
+    override fun onResendCodeAddPhoneNumber(data: User.AddPhoneNumberObject, context: Context) {
+        subscriptionResendCode?.unsubscribe()
+        subscriptionResendCode = ApiUserImp().addPhoneNumber(data,context).subscribe({
+            if(it.status == 1)
+            {
+                mView?.onResendCodeAddPhoneSuccess(it)
+            }else{
+                mView?.onResendCodeAddPhoneFail(it)
             }
         },{
             object : CallbackWrapper(it, UTSwapApp.instance, arrayListOf()){

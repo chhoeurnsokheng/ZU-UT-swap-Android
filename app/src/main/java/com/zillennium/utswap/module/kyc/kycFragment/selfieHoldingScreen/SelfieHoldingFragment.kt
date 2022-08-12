@@ -18,10 +18,10 @@ class SelfieHoldingFragment :
     override fun initView() {
         super.initView()
         try {
+            toolBar()
             binding.apply {
-                ivBack.setOnClickListener {
-                    findNavController().popBackStack()
-                }
+                KYCPreferences().SELFIE_HOLDING = ""
+
                 btnCameraSelfie.setOnClickListener {
                     findNavController().navigate(R.id.action_to_selfie_camera_kyc_fragment)
                 }
@@ -46,12 +46,24 @@ class SelfieHoldingFragment :
             // Must be safe
         }
     }
+
+    private fun toolBar(){
+         activity.let {
+             binding.apply {
+                 includeLayout.apply {
+                     tbTitle.text = "2/4"
+                     cdBack.setOnClickListener {
+                         findNavController().popBackStack()
+                     }
+                 }
+             }
+         }
+    }
     override fun onResume() {
         super.onResume()
         if (!KYCPreferences().SELFIE_HOLDING.isNullOrEmpty()) {
             binding.apply {
                 ivSelfie.setImageURI(KYCPreferences().SELFIE_HOLDING?.toUri())
-
                 imgDelete.visibility = View.VISIBLE
                 btnCameraSelfie.isClickable = false
                 btnCameraSelfie.visibility = View.GONE

@@ -1,5 +1,7 @@
 package com.zillennium.utswap.api
 
+import io.reactivex.internal.operators.parallel.ParallelDoOnNextTry
+
 /**
  * @author chhoeurnsokheng
  * Created 5/7/22 at 4:42 PM
@@ -19,6 +21,8 @@ object ApiSettings {
     /** News */
     const val PATH_NEWS = "Art/ArtList"
     const val PATH_NEWS_DETAIL = "Art/ArtShow"
+    const val PATH_NEWS_HOME  = "Art/ArtList/p/1"
+
 
     /**     Account Logs       **/
     const val PATH_ACCOUNT_LOGS = "user/accountLogs"
@@ -34,5 +38,34 @@ object ApiSettings {
 
     /**      Project Detail/Project Info          **/
     const val PATH_PROJECT_DETAIL =  "issue/project_detail"
+
+
+    /** Finance */
+    const val PATH_SUBSCRIPTION = "Issue/log"
+    const val PATH_LOCK_UP = "finance/lockbalance"
+
+
+    /** Forgot Password*/
+    const val PATH_FORGOT_PASSWORD = "login/forgetPassword"
+    const val PATH_FORGOT_PASSWORD_VERIFY = "login/verifyForgetPassword"
+    const val PATH_ENTER_NEW_PASSWORD = "login/changeNewPassword"
+    /*User add KYC */
+    const val PATH_KYC = "user/submitkyc"
+
+    const val PATH_GET_PROVINCES = "user/getCityProvince"
+
+    /** Add Phone Number*/
+    const val PATH_ADD_PHONE_NUMBER = "add_phone_number"
+    const val PATH_VERIFY_CODE_PHONE = "add_phone_number/verify_code"
+
+    /** App Side Bar*/
+    const val PATH_APP_SIDE_BAR = "user/profile"
+
+    /** Check User Login Status*/
+    const val PATH_CHECK_USER_LOGIN_STATUS = "user/checkUserLogin"
+
+     /*Get Banner HomeScreen*/
+    const val PATH_GET_BANNNER= "portfolio/app_banner"
+    const val PATH_GET_HOME_WISHLIST_BALANCE ="portfolio/index"
 
 }

@@ -13,21 +13,17 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
-import androidx.navigation.fragment.findNavController
 import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
-import com.zillennium.utswap.Datas.GlobalVariable.SettingVariable
 import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentSecuritySignInBinding
-import com.zillennium.utswap.models.user.VerifiyCode
 import com.zillennium.utswap.models.userService.User
 import com.zillennium.utswap.module.security.securityActivity.registerScreen.RegisterActivity
 import com.zillennium.utswap.module.security.securityActivity.resetPasswordScreen.ResetPasswordActivity
 import com.zillennium.utswap.module.security.securityFragment.signInScreen.CheckNetworkConnection.CheckNetworkConnection
 import com.zillennium.utswap.utils.validate
-
 
 class SignInFragment :
     BaseMvpFragment<SignInView.View, SignInView.Presenter, FragmentSecuritySignInBinding>(),
@@ -50,10 +46,11 @@ class SignInFragment :
         onSubmitSignIn()
     }
 
-    private fun onOtherActivity(){
+    private fun onOtherActivity() {
         binding.apply {
             imgBack.setOnClickListener {
                 activity?.finish()
+                hideKeyboard()
             }
 
             showPassBtn.setOnClickListener {
@@ -74,7 +71,7 @@ class SignInFragment :
         }
     }
 
-    private fun onEditTextPassword(){
+    private fun onEditTextPassword() {
         binding.apply {
             textInputPassword.addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(
@@ -96,14 +93,19 @@ class SignInFragment :
                 override fun afterTextChanged(editable: Editable) {
                     txtMessage.visibility = View.INVISIBLE
                     textInputPassword.backgroundTintList =
-                        ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text))
+                        ColorStateList.valueOf(
+                            ContextCompat.getColor(
+                                UTSwapApp.instance,
+                                R.color.secondary_text
+                            )
+                        )
 
                 }
             })
         }
     }
 
-    private fun onEditTextEmailPhone(){
+    private fun onEditTextEmailPhone() {
         binding.apply {
             etEmail.addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(
@@ -125,33 +127,52 @@ class SignInFragment :
                 override fun afterTextChanged(editable: Editable) {
                     txtMessage.visibility = View.INVISIBLE
                     etEmail.backgroundTintList =
-                        ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text))
+                        ColorStateList.valueOf(
+                            ContextCompat.getColor(
+                                UTSwapApp.instance,
+                                R.color.secondary_text
+                            )
+                        )
                 }
             })
         }
     }
 
-    private fun onSubmitSignIn(){
+    private fun onSubmitSignIn() {
         binding.apply {
             btnSignIn.setOnClickListener {
                 val isHaveError = false
-                val etEmail = etEmail.text.toString().trim()
-                val etPassword = textInputPassword.text.toString().trim()
+                val txtEmail = etEmail.text.toString().trim()
+                val txtPassword = textInputPassword.text.toString().trim()
 
-                if(!validate().isValidEmail(etEmail) && !validate().isValidPhoneNumber(etEmail)){
+                if (!validate().isValidEmail(txtEmail) && !validate().isValidPhoneNumber(txtEmail)) {
+                    etEmail.backgroundTintList =
+                        ColorStateList.valueOf(
+                            ContextCompat.getColor(
+                                UTSwapApp.instance,
+                                R.color.danger
+                            )
+                        )
                     onMessage(resources.getString(R.string.please_enter_email_or_phone_number))
                     return@setOnClickListener
                 }
 
-                if(etPassword.length < 8){
+                if (txtPassword.length < 6) {
+                    textInputPassword.backgroundTintList =
+                        ColorStateList.valueOf(
+                            ContextCompat.getColor(
+                                UTSwapApp.instance,
+                                R.color.danger
+                            )
+                        )
                     onMessage(resources.getString(R.string.please_enter_a_password_longer_than_8_digits))
                     return@setOnClickListener
                 }
 
-                if (!isHaveError){
+                if (!isHaveError) {
                     // show progressbar when user click sign in
                     onProgressBar(true)
-                    mPresenter.login(User.LoginObject(etEmail,etPassword),UTSwapApp.instance)
+                    mPresenter.login(User.LoginObject(txtEmail, txtPassword), UTSwapApp.instance)
                 }
             }
         }
@@ -159,14 +180,29 @@ class SignInFragment :
 
     override fun loginSuccess(body: User.LoginRes) {
         onProgressBar(false)
-
-        SessionPreferences().SESSION_STATUS = true
+        body.data?.status_kyc
         SessionVariable.SESSION_STATUS.value = true
 
+        SessionPreferences().SESSION_STATUS = true
         SessionPreferences().SESSION_TOKEN = body.data?.TOKEN.toString()
         SessionPreferences().SESSION_ID = body.data?.ID.toString()
         SessionPreferences().SESSION_X_TOKEN_API = body.data?.x_api_key.toString()
 
+        if (body.data?.status_kyc == true) {
+            SessionPreferences().SESSION_KYC = true
+            SessionVariable.SESSION_KYC.value = true
+        }
+        if (body.data?.status_kyc == false) {
+            SessionPreferences().SESSION_KYC = false
+            SessionVariable.SESSION_KYC.value = false
+        }
+        if (body.data?.status_submit_kyc == true) {
+            SessionPreferences().SESSION_KYC_SUBMIT_STATUS = true
+            SessionVariable.SESSION_KYC_STATUS.value= 1
+        } else {
+            SessionPreferences().SESSION_KYC_SUBMIT_STATUS = false
+            SessionVariable.SESSION_KYC_STATUS.value= 0
+        }
         hideKeyboard()
 
         activity?.finish()
@@ -179,32 +215,45 @@ class SignInFragment :
                 ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
             textInputPassword.backgroundTintList =
                 ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
-            onMessage(body.message.toString())
+            onMessage(resources.getString(R.string.phone_email_or_password_is_incorrect))
 
             hideKeyboard()
         }
     }
 
-    private fun onMessage(message: String){
+    private fun onMessage(message: String) {
         binding.apply {
             txtMessage.text = message
             txtMessage.visibility = View.VISIBLE
-            etEmail.backgroundTintList =
-                ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
         }
     }
 
-    private fun onProgressBar(status: Boolean){
+    private fun onProgressBar(status: Boolean) {
         binding.apply {
-            if(status){
+            if (status) {
                 pbSignIn.visibility = View.VISIBLE
                 btnSignIn.isClickable = false
                 btnSignIn.alpha = 0.6F
-            }else{
+            } else {
                 pbSignIn.visibility = View.GONE
                 btnSignIn.isClickable = true
                 btnSignIn.alpha = 1F
             }
+            etEmail.backgroundTintList =
+                ColorStateList.valueOf(
+                    ContextCompat.getColor(
+                        UTSwapApp.instance,
+                        R.color.secondary_text
+                    )
+                )
+            textInputPassword.backgroundTintList =
+                ColorStateList.valueOf(
+                    ContextCompat.getColor(
+                        UTSwapApp.instance,
+                        R.color.secondary_text
+                    )
+                )
+            txtMessage.visibility = View.INVISIBLE
         }
     }
 //        @SuppressLint("ServiceCast")
@@ -262,12 +311,12 @@ class SignInFragment :
             if (textInputPassword.transformationMethod
                     .equals(PasswordTransformationMethod.getInstance())
             ) {
-                showPassBtn.setImageResource(R.drawable.ic_baseline_visibility_off_24)
+                showPassBtn.setImageResource(R.drawable.ic_baseline_visibility_24)
                 //Show Password
                 textInputPassword.transformationMethod =
                     HideReturnsTransformationMethod.getInstance()
             } else {
-                showPassBtn.setImageResource(R.drawable.ic_baseline_visibility_24)
+                showPassBtn.setImageResource(R.drawable.ic_baseline_visibility_off_24)
                 //Hide Password
                 textInputPassword.transformationMethod =
                     PasswordTransformationMethod.getInstance()

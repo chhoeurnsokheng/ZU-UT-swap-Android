@@ -8,22 +8,26 @@
         android:orientation="vertical">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/tb"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/white"
             android:elevation="0dp"
             app:title="">
-
+           <ImageView
+               android:id="@+id/tb"
+               android:src="@drawable/ic_arrow_left"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:paddingRight="@dimen/dimen_8"/>
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tb_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="left"
                 android:text=""
-                android:textAppearance="@style/regular_16"
+                android:textAppearance="@style/bold_16"
                 android:textColor="@color/black"
                 android:textSize="@dimen/dimen_16"
+
                 android:visibility="visible" />
 
             <LinearLayout
@@ -68,6 +72,6 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_alignParentBottom="true"
-            android:background="@color/color_main_blur" />
+            android:background="@color/gray_light" />
     </LinearLayout>
 </layout>

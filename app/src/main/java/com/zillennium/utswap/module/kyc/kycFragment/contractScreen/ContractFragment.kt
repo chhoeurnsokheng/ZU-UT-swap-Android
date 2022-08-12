@@ -25,10 +25,10 @@ class ContractFragment :
 
                 btnAccept.isEnabled = false
 
-                txtContent.text = """ព្រះរាជាណាចក្រកម្ពុជា
-ជាតិ   សាសនា   ព្រះមហាក្សត្រ
-KINGDOM OF CAMBODIA
-NATION RELIGION KING
+                txtContent.text = """                                   ព្រះរាជាណាចក្រកម្ពុជា
+                                                                   ជាតិ   សាសនា   ព្រះមហាក្សត្រ
+                                                                     KINGDOM OF CAMBODIA
+                                                                     NATION RELIGION KING
 
 កិច្ចព្រមព្រៀងចូលរួមលក់ទិញឯកតាមូលនិធិនៃគម្រោងអចលនវត្ថុ
  តាមរយៈប្រព័ន្ធអេឡិកត្រូនិក
@@ -178,13 +178,9 @@ Parties have read and agreed to all the terms and conditions, sign or issue a th
                             btnAccept.isEnabled = true
                             btnAccept.backgroundTintList = ContextCompat.getColorStateList(UTSwapApp.instance, R.color.primary)
                             btnAccept.setOnClickListener {
-
                                 findNavController().navigate(R.id.action_to_kyc_application_kyc_fragment)
-//                                val intent =
-//                                    Intent(UTSwapApp.instance, KycApplicationFragment::class.java)
-//                                startActivity(intent)
                             }
-                            // bottom of scroll view
+
                         }
                     })
             }
