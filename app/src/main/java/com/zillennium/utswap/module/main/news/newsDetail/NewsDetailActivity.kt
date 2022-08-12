@@ -1,5 +1,6 @@
 package com.zillennium.utswap.module.main.news.newsDetail
 
+import android.content.Context
 import android.content.Intent
 import android.os.Handler
 import android.text.Html
@@ -12,6 +13,8 @@ import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityNewsDetailBinding
 import com.zillennium.utswap.models.newsService.News
+import com.zillennium.utswap.module.main.trade.tradeExchangeScreen.TradeExchangeActivity
+import com.zillennium.utswap.utils.Constants
 
 class NewsDetailActivity :
     BaseMvpActivity<NewsDetailView.View, NewsDetailView.Presenter, ActivityNewsDetailBinding>(),
@@ -22,11 +25,19 @@ class NewsDetailActivity :
 
     private var id: String? = null
 
+    companion object {
+        fun launchNewsDetailsActivity(context: Context, projectName: String?) {
+            val intent = Intent(context, NewsDetailActivity::class.java)
+            intent.putExtra("id", projectName)
+            context.startActivity(intent)
+        }
+    }
     override fun initView() {
         super.initView()
 
-        val intent = intent
-        id = intent.getStringExtra("id")
+        if (intent.hasExtra("id")) {
+            id = intent?.getStringExtra("id")
+        }
 
         toolBar()
 
@@ -52,8 +63,9 @@ class NewsDetailActivity :
             progressBar.visibility = View.GONE
             swipeRefresh.isRefreshing = false
 
+            txtDateTitle.visibility = View.VISIBLE
             txtTitle.text = data.title.toString()
-            txtDate.text = data.date.toString()
+            txtDate.text = data.date?.addtime.toString()
             txtContent.text = Html.fromHtml(data.content.toString())
             Glide.with(imgNews.context)
                 .load(data.image.toString())
@@ -112,7 +124,7 @@ class NewsDetailActivity :
         Tovuti.from(UTSwapApp.instance).monitor{ _, isConnected, _ ->
             if(isConnected)
             {
-                mPresenter.onGetNewsDetail(id!!)
+                id?.let { mPresenter.onGetNewsDetail(it) }
                 binding.swipeRefresh.isRefreshing = true
             }
         }

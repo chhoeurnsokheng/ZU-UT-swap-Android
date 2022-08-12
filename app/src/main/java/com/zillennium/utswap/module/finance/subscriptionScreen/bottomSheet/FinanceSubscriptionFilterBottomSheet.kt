@@ -1,10 +1,12 @@
 package com.zillennium.utswap.module.finance.subscriptionScreen.bottomSheet
 
+import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.*
 import android.widget.AdapterView
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -13,13 +15,13 @@ import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.databinding.BottomSheetFinanceSubscriptionFilterBinding
 import com.zillennium.utswap.models.financeSubscription.FinanceSubscriptionFilterModel
+import com.zillennium.utswap.models.financeSubscription.SubscriptionObject
 import com.zillennium.utswap.module.finance.subscriptionScreen.adapter.FinanceSubscriptionFilterAdapter
 
-class FinanceSubscriptionFilterBottomSheet : BottomSheetDialogFragment(),
+class FinanceSubscriptionFilterBottomSheet(var listProject: ArrayList<SubscriptionObject.ProjectList>) : BottomSheetDialogFragment(),
     AdapterView.OnItemSelectedListener {
 
     private var binding: BottomSheetFinanceSubscriptionFilterBinding? = null
-    private var filterBottomSheetList = ArrayList<FinanceSubscriptionFilterModel>()
 
     override fun getTheme(): Int {
         return R.style.BottomSheetStyle
@@ -30,7 +32,7 @@ class FinanceSubscriptionFilterBottomSheet : BottomSheetDialogFragment(),
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        dialog!!.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog?.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
         binding =
@@ -46,41 +48,9 @@ class FinanceSubscriptionFilterBottomSheet : BottomSheetDialogFragment(),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding?.apply {
-            (view.parent as View).setBackgroundColor(resources.getColor(android.R.color.transparent))
-
-            val title = arrayOf(
-                "All Projects",
-                "UT Kampot",
-                "UT Mondolkiri",
-                "UT Pailin",
-                "UT Sihanoukville"
-            )
-            val status = arrayOf(
-                1,
-                0,
-                0,
-                0,
-                0
-            )
-            val image = arrayOf(
-                R.drawable.ic_baseline_check_24,
-                R.drawable.ic_baseline_check_24,
-                R.drawable.ic_baseline_check_24,
-                R.drawable.ic_baseline_check_24,
-                R.drawable.ic_baseline_check_24,
-            )
-
-            for (i in title.indices){
-                val subscriptionFilter = FinanceSubscriptionFilterModel(
-                    title[i],
-                    status[i],
-                    image[i],
-                )
-                filterBottomSheetList.add(subscriptionFilter)
-            }
-
+            (view.parent as View).setBackgroundColor(ContextCompat.getColor(UTSwapApp.instance, android.R.color.transparent))
             rvFilter.layoutManager = LinearLayoutManager(UTSwapApp.instance)
-            rvFilter.adapter = FinanceSubscriptionFilterAdapter(filterBottomSheetList, onClickAdapter)
+            rvFilter.adapter = FinanceSubscriptionFilterAdapter(listProject, onClickAdapter)
 
         }
     }
@@ -89,7 +59,7 @@ class FinanceSubscriptionFilterBottomSheet : BottomSheetDialogFragment(),
 
     override fun onNothingSelected(p0: AdapterView<*>?) {}
 
-    companion object {
+    /*companion object {
         fun newInstance(
         ): FinanceSubscriptionFilterBottomSheet {
             val financeSubscriptionFilterBottomSheet = FinanceSubscriptionFilterBottomSheet()
@@ -98,11 +68,12 @@ class FinanceSubscriptionFilterBottomSheet : BottomSheetDialogFragment(),
             financeSubscriptionFilterBottomSheet.arguments = args
             return financeSubscriptionFilterBottomSheet
         }
-    }
+    }*/
 
     private var onClickAdapter: FinanceSubscriptionFilterAdapter.OnClickAdapter = object: FinanceSubscriptionFilterAdapter.OnClickAdapter {
-        override fun onClickMe(financeSubscriptionFilterModel: FinanceSubscriptionFilterModel) {
-            SettingVariable.finance_subscription_filter.value = financeSubscriptionFilterModel.titleFilter
+        override fun onClickMe(projectId: String, projectName: String) {
+            SettingVariable.finance_subscription_filter.value = projectId
+            SettingVariable.finance_subscription_filter_project_name.value = projectName
             dismiss()
         }
     }

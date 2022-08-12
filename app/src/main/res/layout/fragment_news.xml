@@ -136,7 +136,7 @@
                         </LinearLayout>
                     </LinearLayout>
 
-                    <TextView
+                    <ProgressBar
                         android:id="@+id/txt_end"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -144,7 +144,7 @@
                         android:visibility="gone"
                         android:textColor="@color/primary"
                         android:layout_marginBottom="@dimen/dimen_15"
-                        android:text="======== End ======== "/>
+                       />
 
                 </LinearLayout>
 

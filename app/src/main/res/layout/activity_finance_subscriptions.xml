@@ -6,11 +6,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <include
             android:id="@+id/includeLayout"
             layout="@layout/appbar_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -19,22 +20,21 @@
 
             <androidx.cardview.widget.CardView
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/dimen_52"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dimen_20"
                 android:layout_marginTop="@dimen/dimen_20"
-                android:layout_marginEnd="@dimen/dimen_10"
-                android:layout_marginBottom="@dimen/dimen_20"
-                android:elevation="@dimen/dimen_20"
-                app:cardElevation="@dimen/dimen_8"
-                app:cardCornerRadius="@dimen/dimen_100">
+                android:layout_marginEnd="@dimen/dimen_6"
+                android:layout_marginBottom="@dimen/dimen_22"
+                app:cardCornerRadius="@dimen/dimen_25"
+                app:cardElevation="@dimen/dimen_8">
 
                 <LinearLayout
-                    android:id="@+id/filter_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:paddingHorizontal="@dimen/dimen_20"
-                    android:orientation="horizontal">
+                    android:id="@+id/lay_filter_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dimen_52"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="@dimen/dimen_20">
 
                     <ImageView
                         android:layout_width="@dimen/dimen_18"
@@ -53,26 +53,23 @@
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
-
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_52"
-                android:layout_marginStart="@dimen/dimen_10"
-                android:layout_marginTop="@dimen/dimen_20"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_20"
                 android:layout_marginEnd="@dimen/dimen_20"
-                android:layout_marginBottom="@dimen/dimen_20"
-                android:elevation="@dimen/dimen_20"
-                app:cardElevation="@dimen/dimen_8"
-                app:cardCornerRadius="@dimen/dimen_100">
+                android:layout_marginTop="@dimen/dimen_20"
+                android:layout_marginBottom="@dimen/dimen_22"
+                app:cardCornerRadius="@dimen/dimen_25"
+                app:cardElevation="@dimen/dimen_8">
 
                 <LinearLayout
-                    android:id="@+id/select_date_range"
+                    android:id="@+id/lay_select_date_range"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="@dimen/dimen_52"
                     android:gravity="start|center_vertical"
-                    android:paddingHorizontal="@dimen/dimen_20"
                     android:orientation="horizontal"
-                    >
+                    android:paddingHorizontal="@dimen/dimen_20">
 
                     <ImageView
                         android:layout_width="@dimen/dimen_18"
@@ -81,68 +78,67 @@
                         app:tint="@color/primary" />
 
                     <TextView
-                        android:id="@+id/date_start"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/dimen_10"
-                        android:text="Date Start"
-                        android:textAppearance="@style/medium_14"
-                        android:textColor="@color/primary"
-                        android:visibility="gone" />
-
-                    <TextView
-                        android:id="@+id/date_to"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/dimen_10"
-                        android:text="@string/to"
-                        android:textAppearance="@style/regular_12"
-                        android:textColor="@color/dark_gray"
-                        android:visibility="gone"/>
-
-
-                    <TextView
-                        android:id="@+id/select_date_from_to"
+                        android:id="@+id/txt_select_date_from_to"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dimen_10"
                         android:text="@string/select_date_range"
                         android:textAppearance="@style/medium_14"
-                        android:textColor="@color/primary"
-                        android:visibility="visible"/>
-
-                    <TextView
-                        android:id="@+id/date_end"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/dimen_10"
-                        android:text="Date End"
-                        android:textAppearance="@style/medium_14"
-                        android:textColor="@color/primary"
-                        android:visibility="gone" />
+                        android:textColor="@color/primary" />
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/txt_title_filter"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAppearance="@style/medium_18"
-            android:textColor="@color/black"
-            android:layout_marginHorizontal="@dimen/dimen_20"
-            android:text="@string/all_projects"/>
+            android:layout_height="match_parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_subscriptions"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scrollbars="none"
-            android:overScrollMode="never"
-            android:nestedScrollingEnabled="false"
-            android:padding="@dimen/dimen_20" />
+
+            <TextView
+                android:id="@+id/txt_title_filter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/dimen_20"
+                android:text="@string/all_projects"
+                android:textAppearance="@style/medium_18"
+                android:textColor="@color/black" />
+
+            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:id="@+id/swipe_refresh"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txt_title_filter">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_subscriptions"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"
+                    android:overScrollMode="never"
+                    android:padding="@dimen/dimen_20"
+                    android:scrollbars="none" />
+            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+            <TextView
+                android:id="@+id/tv_no_record"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="No Record"
+                android:textAppearance="@style/medium_14"
+                android:textColor="@color/gray_707070"
+                android:visibility="invisible" />
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="@dimen/dimen_24"
+                android:layout_height="@dimen/dimen_24"
+                android:layout_alignParentBottom="true"
+                android:layout_centerInParent="true"
+                android:visibility="gone" />
+
+        </RelativeLayout>
 
     </LinearLayout>
 </layout>

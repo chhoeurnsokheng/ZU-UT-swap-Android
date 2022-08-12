@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions.fitCenterTransform
 import com.zillennium.utswap.R
 import com.zillennium.utswap.models.HomeTabSlideImageModel
+import com.zillennium.utswap.models.home.BannerObj
 
 /**
  * Created by Sokheng Chhoeurn on 19/7/22.
@@ -18,10 +19,9 @@ import com.zillennium.utswap.models.HomeTabSlideImageModel
 
 
 abstract class BannerLoopingPagerAdapter(
-    context: Context,
-    itemList: List<HomeTabSlideImageModel>,
+    itemList: List<BannerObj.ItemsBanner>,
     isInfinite: Boolean
-) : LoopingPagerAdapter<HomeTabSlideImageModel>(itemList,isInfinite) {
+) : LoopingPagerAdapter<BannerObj.ItemsBanner>(itemList,isInfinite) {
     override fun inflateView(
         viewType: Int,
         container: ViewGroup,
@@ -37,18 +37,17 @@ abstract class BannerLoopingPagerAdapter(
         viewType: Int
     ) {
         val imageView = convertView.findViewById<ImageView>(R.id.img)
-        val itemImage = itemList?.get(listPosition) as HomeTabSlideImageModel
+        val itemImage = itemList?.get(listPosition) as BannerObj.ItemsBanner
         Glide.with(imageView)
             .asBitmap()
-            .load(itemImage.imgSlider)
+            .load(itemImage.banner)
             .apply(fitCenterTransform())
             .centerCrop()
             .override(imageView.width, imageView.height)
             .into(imageView)
 
-
         imageView.setOnClickListener {
-            onBannerItemClick(itemImage, listPosition)
+            itemImage.linkable_id?.let { it1 -> onBannerItemClick(it1, listPosition) }
         }
     }
 
@@ -60,5 +59,5 @@ abstract class BannerLoopingPagerAdapter(
         return (`object` as? Int) ?: 0
     }
 
-    abstract fun onBannerItemClick(data: HomeTabSlideImageModel, position: Int)
+    abstract fun onBannerItemClick(id:String, position: Int)
 }
