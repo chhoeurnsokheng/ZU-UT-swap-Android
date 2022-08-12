@@ -320,16 +320,16 @@
                 </LinearLayout>
 
                 <!-- RecyclerView -->
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_refresh"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dimen_20"
+            android:layout_marginBottom="@dimen/dimen_30">
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-                        android:id="@+id/swipe_refresh"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="@dimen/dimen_20"
-                        android:layout_marginBottom="@dimen/dimen_30">
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/rv_finance_historical"
@@ -339,7 +339,6 @@
                             android:overScrollMode="never"
                             android:scrollbars="none" />
 
-                    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
                     <!-- Read more Layout -->
                     <LinearLayout
@@ -370,7 +369,7 @@
                         android:visibility="gone"/>-->
 
                 </RelativeLayout>
-
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
             </LinearLayout>
         </LinearLayout>
 

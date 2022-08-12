@@ -72,8 +72,7 @@ class FinanceHistoricalActivity :
             binding.apply {
 
                 rvFinanceHistorical.layoutManager = LinearLayoutManager(UTSwapApp.instance)
-                historicalMyTransactionsAdapter = HistoricalMyTransactionsAdapter()
-                historicalTradeTransactionAdapter = HistoricalTradeDateAdapter()
+
                 historicalAllTransactionAdapter = HistoricalAllTransactionsAdapter()
 
                 onCheckInternet()
@@ -117,7 +116,7 @@ class FinanceHistoricalActivity :
 
                                 loadMoreData()
                                 invisibleText()
-                                onCallApi()
+                                requestData()
                             }
                         }
                     )
@@ -199,19 +198,22 @@ class FinanceHistoricalActivity :
             {
                 when(historicalTransactionSelected) {
                     Constants.HistoricalTransaction.MyTransactions -> {
+                        requestData()
                         binding.layMyTransactions.visibility = View.VISIBLE
                     }
                     Constants.HistoricalTransaction.Trade -> {
                         binding.layTrade.visibility = View.VISIBLE
+                        requestData()
                     }
                     Constants.HistoricalTransaction.AllTransactions -> {
+                        requestData()
                         binding.layAllTransaction.visibility = View.VISIBLE
                     }
                 }
                 binding.progressBar.visibility = View.GONE
                 binding.swipeRefresh.visibility = View.VISIBLE
                 binding.layNewsLoading.visibility = View.GONE
-                onCallApi()
+               // requestData()
             }else{
                 onClearRecycleView()
                 invisibleLayoutTransaction()
@@ -221,24 +223,27 @@ class FinanceHistoricalActivity :
             }
         }
     }
-    private fun onCallApi() {
-        when(historicalTransactionSelected) {
-            Constants.HistoricalTransaction.MyTransactions -> {
-                mPresenter.onGetMarketName()
-            }
-            Constants.HistoricalTransaction.Trade -> {
-                mPresenter.onGetMarketName()
-            }
-            Constants.HistoricalTransaction.AllTransactions -> {
-                mPresenter.onGetMarketName()
-            }
-        }
+
+    private fun requestData() {
+        mPresenter.onGetMarketName()
+//        when(historicalTransactionSelected) {
+//            Constants.HistoricalTransaction.MyTransactions -> {
+//                mPresenter.onGetMarketName()
+//            }
+//            Constants.HistoricalTransaction.Trade -> {
+//                mPresenter.onGetMarketName()
+//            }
+//            Constants.HistoricalTransaction.AllTransactions -> {
+//                mPresenter.onGetMarketName()
+//            }
+//        }
     }
 
     private fun checkingScrollCondition() {
         binding.apply {
             when (historicalTransactionSelected) {
                 Constants.HistoricalTransaction.MyTransactions -> {
+
                     if (lastPosition == financeHistoricalMyTransaction.size - 1 && pageTrans < totalPageTrans){
                         layNewsLoading.visibility = View.VISIBLE
                         pageTrans++
@@ -271,7 +276,9 @@ class FinanceHistoricalActivity :
                     super.onScrolled(recyclerView, dx, dy)
                     if (dy > 0){
                         lastPosition = (rvFinanceHistorical.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
+
                         checkingScrollCondition()
+                        requestData()
                     }
                 }
             })
@@ -317,6 +324,8 @@ class FinanceHistoricalActivity :
         }
     }
     override fun onGetMarketNameFail(data: Historical.GetMarketName) {}
+
+
     override fun onGetUserTransactionSuccess(data: Historical.UserTransactionData) {
         binding.apply {
             loadingProgressBar.visibility = View.GONE
@@ -326,12 +335,11 @@ class FinanceHistoricalActivity :
             swipeRefresh.isRefreshing = false
 
             totalPageTrans = data.TOTAL_PAGE!!
-//            println("Pages ::: User $pageTrans")
             if(totalPageTrans >= pageTrans){
                 if (data.TRANSACTION.isNotEmpty()) {
                     layMyTransactions.visibility = View.VISIBLE
                     financeHistoricalMyTransaction.addAll(data.TRANSACTION)
-                    historicalMyTransactionsAdapter?.items = financeHistoricalMyTransaction
+                    historicalMyTransactionsAdapter = HistoricalMyTransactionsAdapter(financeHistoricalMyTransaction)
                     rvFinanceHistorical.adapter = historicalMyTransactionsAdapter
                 }
             }else{
@@ -393,7 +401,7 @@ class FinanceHistoricalActivity :
                         financeHistoricalTradeTransaction.add(Historical.TradeTransactionDate(dateGroup, childData))
                     }
 
-                    historicalTradeTransactionAdapter?.items = financeHistoricalTradeTransaction
+                    historicalTradeTransactionAdapter  = HistoricalTradeDateAdapter(financeHistoricalTradeTransaction)
                     rvFinanceHistorical.adapter = historicalTradeTransactionAdapter
                 }
             }else{
