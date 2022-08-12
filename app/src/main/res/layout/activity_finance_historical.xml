@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -35,6 +35,11 @@
 
             </RelativeLayout>
 
+            <View
+                android:id="@+id/line"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/gray_light" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -127,7 +132,7 @@
                             android:id="@+id/lay_select_date_range"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/dimen_52"
-                            android:gravity="start|center_vertical"
+                            android:gravity="center"
                             android:orientation="horizontal"
                             android:paddingHorizontal="@dimen/dimen_15">
 
@@ -142,7 +147,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/dimen_5"
-                                android:textAppearance="@style/medium_12"
+                                android:textAppearance="@style/medium_10"
                                 android:textColor="@color/primary"
                                 android:visibility="gone" />
 
@@ -160,7 +165,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/dimen_5"
-                                android:textAppearance="@style/medium_12"
+                                android:textAppearance="@style/medium_10"
                                 android:textColor="@color/primary"
                                 android:visibility="gone" />
                         </LinearLayout>
@@ -175,7 +180,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/dimen_20"
-                    android:layout_marginVertical="@dimen/dimen_20"
+                    android:layout_marginBottom="@dimen/dimen_20"
+                    android:layout_marginTop="@dimen/dimen_5"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:visibility="visible">
@@ -227,9 +233,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/dimen_20"
-                    android:layout_marginTop="@dimen/dimen_20"
                     android:gravity="center_vertical"
                     android:orientation="vertical"
+                    android:layout_marginTop="@dimen/dimen_5"
                     android:visibility="gone"
                     android:layout_marginBottom="@dimen/dimen_15">
 
@@ -249,8 +255,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/dimen_20"
-                    android:layout_marginTop="@dimen/dimen_20"
                     android:gravity="center_vertical"
+                    android:layout_marginTop="@dimen/dimen_5"
                     android:orientation="vertical"
                     android:visibility="gone">
 
@@ -313,97 +319,78 @@
 
                 </LinearLayout>
 
-                <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-                    android:id="@+id/swipe_refresh"
+                <!-- RecyclerView -->
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="match_parent">
 
-                    <androidx.core.widget.NestedScrollView
+                    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                        android:id="@+id/swipe_refresh"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:overScrollMode="never"
-                        android:scrollbars="none">
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/dimen_20"
+                        android:layout_marginBottom="@dimen/dimen_30">
 
-                        <LinearLayout
-                            android:id="@+id/layout_recycle"
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rv_finance_historical"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:layout_marginHorizontal="@dimen/dimen_20">
+                            android:nestedScrollingEnabled="false"
+                            android:overScrollMode="never"
+                            android:scrollbars="none" />
 
-                            <androidx.recyclerview.widget.RecyclerView
-                                android:id="@+id/rv_finance_historical"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:nestedScrollingEnabled="false"
-                                android:overScrollMode="never"
-                                android:scrollbars="none" />
+                    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-                            <!-- Read more Layout -->
-                            <LinearLayout
-                                android:id="@+id/lay_news_loading"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/dimen_15"
-                                android:layout_marginBottom="@dimen/dimen_15"
-                                android:gravity="center"
-                                android:paddingHorizontal="@dimen/dimen_20"
-                                android:visibility="gone">
+                    <!-- Read more Layout -->
+                    <LinearLayout
+                        android:id="@+id/lay_news_loading"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dimen_15"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginBottom="@dimen/dimen_20"
+                        android:gravity="center"
+                        android:paddingHorizontal="@dimen/dimen_20"
+                        android:visibility="gone">
 
-                                <LinearLayout
-                                    android:id="@+id/read_more"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:gravity="center_vertical"
-                                    android:orientation="horizontal">
+                        <ProgressBar
+                            android:id="@+id/progress_bar_read_more"
+                            android:layout_width="@dimen/dimen_20"
+                            android:layout_height="@dimen/dimen_20" />
 
-                                    <TextView
-                                        android:id="@+id/txt_read_more_and_loading"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginEnd="@dimen/dimen_10"
-                                        android:text="@string/see_more"
-                                        android:textAppearance="@style/medium_14"
-                                        android:textColor="@color/primary" />
+                    </LinearLayout>
 
-                                    <ProgressBar
-                                        android:id="@+id/progress_bar_read_more"
-                                        android:layout_width="@dimen/dimen_20"
-                                        android:layout_height="@dimen/dimen_20" />
+                    <!--<TextView
+                        android:id="@+id/txt_end"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="@dimen/dimen_40"
+                        android:gravity="center"
+                        android:text="@string/__end__"
+                        android:visibility="gone"/>-->
 
-                                </LinearLayout>
-                            </LinearLayout>
-
-
-
-                            <TextView
-                                android:id="@+id/txt_no_data"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:visibility="gone"
-                                android:textColor="@color/primary"
-                                android:layout_marginTop="@dimen/dimen_20"
-                                android:layout_marginBottom="@dimen/dimen_15"
-                                android:text="@string/no_data_record"/>
-
-                            <TextView
-                                android:id="@+id/txt_end"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginVertical="@dimen/dimen_40"
-                                android:gravity="center"
-                                android:text="@string/__end__"
-                                android:visibility="gone" />
-
-                        </LinearLayout>
-
-                    </androidx.core.widget.NestedScrollView>
-
-                </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+                </RelativeLayout>
 
             </LinearLayout>
         </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true">
+
+            <TextView
+                android:id="@+id/txt_no_data"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:visibility="gone"
+                android:textColor="@color/primary"
+                android:layout_marginTop="@dimen/dimen_20"
+                android:layout_marginBottom="@dimen/dimen_15"
+                android:text="@string/no_data_record"/>
+
+        </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"

@@ -64,7 +64,7 @@ class FinanceHistoricalSelectDateRangeBottomSheet (
                     calendar[Calendar.YEAR] = year
                     calendar[Calendar.MONDAY] = month
                     calendar[Calendar.DAY_OF_MONTH] = day
-                    val format = "dd-MM-yyyy"
+                    val format = "dd-MMM-yyyy"
                     val simpleDateFormat =
                         SimpleDateFormat(format, Locale.US)
                     etStartDate.setText(simpleDateFormat.format(calendar.time))
@@ -75,7 +75,7 @@ class FinanceHistoricalSelectDateRangeBottomSheet (
                     calendar[Calendar.YEAR] = year
                     calendar[Calendar.MONDAY] = month
                     calendar[Calendar.DAY_OF_MONTH] = day
-                    val format = "dd-MM-yyyy"
+                    val format = "dd-MMM-yyyy"
                     val simpleDateFormat =
                         SimpleDateFormat(format, Locale.US)
                     etEndDate.setText(simpleDateFormat.format(calendar.time))
@@ -131,6 +131,7 @@ class FinanceHistoricalSelectDateRangeBottomSheet (
                             Toast.LENGTH_SHORT
                         ).show()
                     }else{
+                        println("Date::::: ${etStartDate.text} and ${etEndDate.text}")
                         listener.onSelectDateChangeSelect(etStartDate.text.toString(), etEndDate.text.toString())
                     }
                     dismiss()

@@ -34,7 +34,6 @@ class HistoricalMyTransactionsAdapter: BaseRecyclerViewAdapterGeneric<Historical
     inner class ItemViewHolder(root: ItemListFinanceHistoricalMyTransactionsBinding) : BaseViewHolder<ItemListFinanceHistoricalMyTransactionsBinding>(root){
         fun bidData(myTransaction: Historical.DataTransaction){
             binding.apply {
-//                imageBalance.setImageResource(myTransaction.imageMyTrans)
                 titleTransaction.text = myTransaction.remark
                 dateTransaction.text = myTransaction.addtimeReable
                 if(myTransaction.type == "buy"){
@@ -44,7 +43,7 @@ class HistoricalMyTransactionsAdapter: BaseRecyclerViewAdapterGeneric<Historical
                         imageBalance.setImageResource(Constants.HistoricalMyTransactionIcon.Buy)
                     }
 
-                    amountBalance.text = "-$" + groupingSeparator(myTransaction.mum_a!!)
+                    amountBalance.text = "$" + groupingSeparator(myTransaction.mum_a!!)
                     amountBalance.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.red_ee1111))
                 }else if (myTransaction.type == "sell"){
                     imageBalance.setImageResource(Constants.HistoricalMyTransactionIcon.Sell)
