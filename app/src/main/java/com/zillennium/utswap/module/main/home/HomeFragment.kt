@@ -204,17 +204,16 @@ class HomeFragment() : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragme
     }
 
     override fun onGetNewsHomeSuccess(data: News.NewsRes) {
-
+        newsList.clear()
         data.data?.NEW?.forEachIndexed { index, itemWishList ->
-            if (index==0){
+
+            if (index<=2){
                 newsList.add(itemWishList)
             }
-            if (index==1){
-                newsList.add(itemWishList)
-            }
-            if (index==2){
-                newsList.add(itemWishList)
-            }
+//            else{
+//                newsList.add(itemWishList)
+//
+//            }
         }
         binding.apply {
             swipeRefresh.isRefreshing = false
