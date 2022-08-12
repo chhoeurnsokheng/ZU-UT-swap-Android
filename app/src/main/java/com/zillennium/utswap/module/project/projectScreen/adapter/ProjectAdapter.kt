@@ -11,7 +11,8 @@ import com.zillennium.utswap.databinding.ItemListProjectBinding
 import com.zillennium.utswap.models.project.ProjectList
 import com.zillennium.utswap.module.project.projectInfoScreen.ProjectInfoActivity
 
-class ProjectAdapter(private var item:List<ProjectList.ProjectListData>) : RecyclerView.Adapter< ProjectAdapter.ProjectListViewHolder>() {
+class ProjectAdapter(private var item: List<ProjectList.ProjectListData>) :
+    RecyclerView.Adapter<ProjectAdapter.ProjectListViewHolder>() {
 
     inner class ProjectListViewHolder(root: ItemListProjectBinding) :
         BaseViewHolder<ItemListProjectBinding>(root) {
@@ -36,20 +37,21 @@ class ProjectAdapter(private var item:List<ProjectList.ProjectListData>) : Recyc
     }
 
 
-
-    interface OnclickProject {
-        fun onClickMe(id: String)
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProjectListViewHolder {
-        return  ProjectListViewHolder(ItemListProjectBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        return ProjectListViewHolder(
+            ItemListProjectBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
     }
 
     override fun onBindViewHolder(holder: ProjectListViewHolder, position: Int) {
-       holder.bindData(item[position])
+        holder.bindData(item[position])
     }
 
     override fun getItemCount(): Int {
-        return  item.size
+        return item.size
     }
 }

@@ -48,8 +48,6 @@ class ProjectInfoActivity() :
         }
     }
 
-
-
     override fun initView() {
 
         super.initView()

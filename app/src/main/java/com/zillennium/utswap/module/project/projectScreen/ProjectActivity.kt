@@ -192,7 +192,6 @@ class ProjectActivity :
     }
 
     private fun requestData() {
-        //  order_page = page
         val bodyObj = ProjectList.ProjectListBody()
         bodyObj.page = page
         bodyObj.sort = sort

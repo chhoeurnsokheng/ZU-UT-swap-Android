@@ -29,7 +29,6 @@ class ProjectGridAdapter(  var item:List<ProjectList.ProjectListData>) : Recycle
                 titleProject.text = projectList.project_name
                 subTitle.text = projectList.action
 
-                //On Click Move to Detail Project
                 linearCard.setOnClickListener {
                     ProjectInfoActivity.launchProjectInfoActivity(root.context, projectList.id)
 
