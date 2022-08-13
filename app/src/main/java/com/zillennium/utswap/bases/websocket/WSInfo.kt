@@ -1,5 +1,6 @@
 package com.zillennium.utswap.bases.websocket
 
+import okhttp3.Response
 import okhttp3.WebSocket
 import okio.ByteString
 
@@ -8,6 +9,8 @@ class WSInfo {
     lateinit var webSocket: WebSocket
     var string: String? = null
     var byteString: ByteString? = null
+    var throwable: Throwable? = null
+    var isOnFailure: Boolean = false
     var isOnOpen : Boolean = false
     var isOnReconnect : Boolean = false
 
@@ -34,5 +37,11 @@ class WSInfo {
     internal constructor(webSocket: WebSocket, byteString: ByteString) {
         this.webSocket = webSocket
         this.byteString = byteString
+    }
+
+    internal constructor(webSocket: WebSocket, throwable: Throwable, onFailure: Boolean) {
+        this.webSocket = webSocket
+        this.isOnFailure = onFailure
+        this.throwable = throwable
     }
 }

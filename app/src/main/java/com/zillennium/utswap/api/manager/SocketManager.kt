@@ -3,16 +3,14 @@ package com.zillennium.utswap.api.manager
 import android.annotation.SuppressLint
 import android.content.Context
 import com.zillennium.utswap.BuildConfig
-import com.zillennium.utswap.api.ApiSettings
-import com.zillennium.utswap.bases.websocket.WSConfig
 import com.zillennium.utswap.bases.websocket.RxWS
+import com.zillennium.utswap.bases.websocket.WSConfig
 import com.zillennium.utswap.bases.websocket.WSInfo
 import retrofit2.converter.moshi.MoshiConverterFactory
 import rx.Observable
 import java.security.SecureRandom
 import java.security.cert.CertificateException
 import java.security.cert.X509Certificate
-import java.util.concurrent.TimeUnit
 import javax.net.ssl.*
 
 open class SocketManager {
@@ -35,7 +33,7 @@ open class SocketManager {
 
     //INIT ALL PROFIT OBJECT
     private fun initServices() {
-        mTradeListSocket = initSocket(ApiSettings.PATH_LIST_TRADE)
+        mTradeListSocket = initSocket("ws/\$all@allTickers")
     }
 
     private fun initSocket(endpoint: String = ""): Observable<WSInfo> {
@@ -72,11 +70,10 @@ open class SocketManager {
             .setShowLog(true) //show  log
 //            .setClient(client.build()) //if you want to set your okhttpClient
 //            .setShowLog(true, "your logTag")
-            .setReconnectInterval(50, TimeUnit.SECONDS) //set reconnect interval
+//            .setReconnectInterval(120, TimeUnit.SECONDS) //set reconnect interval
             .setSSLSocketFactory(sslSocketFactory, trustAllCerts[0] as X509TrustManager) // wss support
             .build()
         RxWS.setConfig(config)
-
         return RxWS.get(mServerUrl+endpoint)
     }
 

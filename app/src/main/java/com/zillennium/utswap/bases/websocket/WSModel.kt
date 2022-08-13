@@ -46,9 +46,9 @@ abstract class WSModel<T> : WS() {
             })
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { t -> onMessage(t) }
-    }
+            .subscribe ({ t -> onMessage(t) }, { e -> onError(e) })
 
+    }
     protected abstract fun onMessage(text: T?)
 
 }

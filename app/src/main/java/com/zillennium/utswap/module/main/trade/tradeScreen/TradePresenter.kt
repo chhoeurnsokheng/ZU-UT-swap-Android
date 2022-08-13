@@ -2,7 +2,10 @@ package com.zillennium.utswap.module.main.trade.tradeScreen
 
 import android.content.Context
 import android.os.Bundle
+import com.gis.z1android.api.errorhandler.CallbackWrapper
+import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.api.ApiSettings
+import com.zillennium.utswap.api.manager.ApiManager
 import com.zillennium.utswap.api.manager.SocketManager
 import com.zillennium.utswap.bases.mvp.BaseMvpPresenterImpl
 import com.zillennium.utswap.bases.websocket.WSModel
@@ -37,17 +40,22 @@ class TradePresenter : BaseMvpPresenterImpl<TradeView.View>(),
                mView?.fetchTradeData?.value = text
             }
 
-            override fun onError(e: Throwable) {
-                super.onError(e)
-                println("===========Error =============" + e.toString())
+            override fun onFailure(throwable: Throwable?) {
+                object : CallbackWrapper(throwable!!, UTSwapApp.instance, arrayListOf()){
+                    override fun onCallbackWrapper(status: ApiManager.NetworkErrorStatus, data: Any) {
+//                            mView?.onFail(data.toString())
+                    }
+                }
+                closeSocketTrading()
             }
-
 
 
         })
     }
 
     override fun closeSocketTrading() {
-        subscription?.unsubscribe()
+        if(subscription!=null&&!subscription?.isUnsubscribed!!) {
+            subscription?.unsubscribe()
+        }
     }
 }

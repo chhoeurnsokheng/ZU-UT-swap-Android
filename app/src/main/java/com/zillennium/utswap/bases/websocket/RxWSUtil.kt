@@ -212,6 +212,7 @@ class RxWSUtil {
                         Log.e(logTag, t.toString() + webSocket.request().url.toUri().path)
                     }
                     if (!subscriber.isUnsubscribed) {
+                        subscriber.onNext(WSInfo(webSocket, t, true))
                         subscriber.onError(t)
                     }
                 }

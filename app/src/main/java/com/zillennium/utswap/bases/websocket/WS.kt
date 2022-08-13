@@ -19,6 +19,10 @@ abstract class WS : Subscriber<WSInfo>() {
         } else if (webSocketInfo?.isOnReconnect == true) {
             onReconnect()
         }
+
+        if(webSocketInfo?.isOnFailure == true){
+            onFailure(webSocketInfo.throwable)
+        }
     }
 
     /**
@@ -29,6 +33,7 @@ abstract class WS : Subscriber<WSInfo>() {
     protected open fun onOpen(webSocket: WebSocket?) {}
     protected open fun onMessage(text: String?) {}
     protected open fun onMessage(byteString: ByteString?) {}
+    protected open fun onFailure(throwable: Throwable?){}
 
     /**
      * Callback when the WebSocket is reconnecting
