@@ -70,11 +70,11 @@ class TradeExchangeActivity :
         onOtherActivity()
         toolBar()
         onCheckPreference()
-        mPresenter.startTradeDetailSocket(intent?.getStringExtra(Constants.TradeExchange.MarketName))
+        mPresenter.startTradeDetailSocket(intent?.getStringExtra(Constants.TradeExchange.MarketName).toString())
 
-        fetchTradeDetailData.observe(this@TradeExchangeActivity){
-
-        }
+//        fetchTradeDetailData.observe(this@TradeExchangeActivity){
+//            println("=====hafaflafnal============"+ it.info?.change.toString())
+//        }
 
         println("========Market Name=========="+ApiSettings.SEND_TRADE_MARKET_NAME+ intent?.getStringExtra(Constants.TradeExchange.MarketName))
     }

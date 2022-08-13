@@ -25,19 +25,24 @@ class TradePresenter : BaseMvpPresenterImpl<TradeView.View>(),
         subscription?.unsubscribe()
         subscription = SocketManager().mTradeListSocket.subscribe(object : WSModel<TradingList.TradingListRes>(){
             override fun onOpen(webSocket: WebSocket?) {
-                println("onOpen")
                 webSocket?.send(ApiSettings.SEND_LIST_TRADE)
             }
             override fun onReconnect() {
             }
             override fun onClose() {
-                println("onClose")
                 startSocketTrading()
             }
 
             override fun onMessage(text: TradingList.TradingListRes?) {
                mView?.fetchTradeData?.value = text
             }
+
+            override fun onError(e: Throwable) {
+                super.onError(e)
+                println("===========Error =============" + e.toString())
+            }
+
+
 
         })
     }
