@@ -2,8 +2,12 @@ package com.zillennium.utswap.module.account.accountScreen
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.net.Uri
 import android.provider.MediaStore
 import android.text.Html
+import android.util.Base64
 import android.view.View
 import android.widget.Toast
 import androidx.core.content.ContextCompat
@@ -11,6 +15,7 @@ import androidx.core.net.toUri
 import com.androidstudy.networkmanager.Tovuti
 import com.bumptech.glide.Glide
 import com.github.dhaval2404.imagepicker.ImagePicker
+import com.google.firebase.crashlytics.buildtools.reloc.org.apache.commons.io.output.ByteArrayOutputStream
 import com.zillennium.utswap.BuildConfig
 import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
 import com.zillennium.utswap.Datas.GlobalVariable.SettingVariable
@@ -27,6 +32,7 @@ import com.zillennium.utswap.module.account.customerSupportScreen.CustomerSuppor
 import com.zillennium.utswap.module.account.documentsScreen.DocumentsActivity
 import com.zillennium.utswap.module.account.lockTimeOutScreen.LockTimeOutActivity
 import com.zillennium.utswap.module.account.referralInformationScreen.ReferralInformationActivity
+import com.zillennium.utswap.module.kyc.kycFragment.fundPasswordScreen.FundPasswordFragment
 import com.zillennium.utswap.utils.DialogUtil
 import java.io.File
 
@@ -124,13 +130,18 @@ class AccountActivity :
                     //  .crop()
                     // .compress(1024)
                     //  .maxResultSize(1080, 1080)
-                    .start { resultCode, data ->
+                    .start { resultCode, data ->4
                         when (resultCode) {
                             Activity.RESULT_OK -> {
                                 val fileUri = data?.data
                                 profileImageView.setImageURI(fileUri)
+
                                 // You can get File object from intent
                                 newImageFile = ImagePicker.getFile(data)
+
+                                var profileImage =
+                                    "data:image/jpeg;base64," + getFileToByte(newImageFile.toString())
+                                mPresenter.uploadProfile(User.AccountUploadProfileObject(profileImage),UTSwapApp.instance)
                             }
                             ImagePicker.RESULT_ERROR -> {
                                 Toast.makeText(
@@ -223,6 +234,15 @@ class AccountActivity :
         }
     }
 
+    override fun uploadProfileSuccess(data: User.AccountUploadProfileRes) {
+        mPresenter.onGetUserInfo(UTSwapApp.instance)
+        Toast.makeText(UTSwapApp.instance,"Upload Success", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun uploadProfileFail(data: User.AccountUploadProfileRes) {
+        Toast.makeText(UTSwapApp.instance,"Upload Fail", Toast.LENGTH_SHORT).show()
+    }
+
     override fun onGetUserInfoFail(data: User.AppSideBarData) {
 
     }
@@ -239,6 +259,23 @@ class AccountActivity :
                 //  SessionPreferences().SESSION_USER_PROFILE = pathImage
             }
         }
+    }
+
+    fun getFileToByte(filePath: String): String {
+        var bmp: Bitmap?
+        var bos: ByteArrayOutputStream? = null
+        var bt: ByteArray? = null
+        var encodeString: String = ""
+        try {
+            bmp = BitmapFactory.decodeFile(filePath)
+            bos = ByteArrayOutputStream()
+            bmp.compress(Bitmap.CompressFormat.JPEG, 100, bos)
+            bt = bos.toByteArray()
+            encodeString = Base64.encodeToString(bt, Base64.DEFAULT)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return encodeString
     }
 
     override fun onBackPressed() {
