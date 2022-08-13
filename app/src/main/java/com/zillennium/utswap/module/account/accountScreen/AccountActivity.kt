@@ -134,14 +134,10 @@ class AccountActivity :
                         when (resultCode) {
                             Activity.RESULT_OK -> {
                                 val fileUri = data?.data
-                                profileImageView.setImageURI(fileUri)
 
                                 // You can get File object from intent
                                 newImageFile = ImagePicker.getFile(data)
 
-                                var profileImage =
-                                    "data:image/jpeg;base64," + getFileToByte(newImageFile.toString())
-                                mPresenter.uploadProfile(User.AccountUploadProfileObject(profileImage),UTSwapApp.instance)
                             }
                             ImagePicker.RESULT_ERROR -> {
                                 Toast.makeText(
@@ -150,6 +146,7 @@ class AccountActivity :
                                     Toast.LENGTH_SHORT
                                 ).show()
                             }
+
                         }
                     }
 //                    val changeProfileBottomSheet = ChangeProfileBottomSheet()
@@ -236,11 +233,11 @@ class AccountActivity :
 
     override fun uploadProfileSuccess(data: User.AccountUploadProfileRes) {
         mPresenter.onGetUserInfo(UTSwapApp.instance)
-        Toast.makeText(UTSwapApp.instance,"Upload Success", Toast.LENGTH_SHORT).show()
+        Toast.makeText(UTSwapApp.instance,"Successfully Change Profile", Toast.LENGTH_SHORT).show()
     }
 
     override fun uploadProfileFail(data: User.AccountUploadProfileRes) {
-        Toast.makeText(UTSwapApp.instance,"Upload Fail", Toast.LENGTH_SHORT).show()
+        Toast.makeText(UTSwapApp.instance,"Fail To Change Profile", Toast.LENGTH_SHORT).show()
     }
 
     override fun onGetUserInfoFail(data: User.AppSideBarData) {
@@ -251,10 +248,15 @@ class AccountActivity :
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == RESULT_OK && data != null) {
-            val pathImage = data.data.toString()
+            val pathImage = data.data
+
 
             binding.apply {
-                val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, pathImage.toUri())
+                profileImageView.setImageURI(pathImage)
+                var profileImage =
+                    "data:image/jpeg;base64," + getFileToByte(newImageFile.toString())
+                mPresenter.uploadProfile(User.AccountUploadProfileObject(profileImage),UTSwapApp.instance)
+                //val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, pathImage.toUri())
                 //   profileImageView.setImageBitmap(bitmap)
                 //  SessionPreferences().SESSION_USER_PROFILE = pathImage
             }
