@@ -35,6 +35,11 @@
 
             </RelativeLayout>
 
+            <View
+                android:id="@+id/line"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/gray_light" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -127,7 +132,7 @@
                             android:id="@+id/lay_select_date_range"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/dimen_52"
-                            android:gravity="start|center_vertical"
+                            android:gravity="center"
                             android:orientation="horizontal"
                             android:paddingHorizontal="@dimen/dimen_15">
 
@@ -141,7 +146,7 @@
                                 android:id="@+id/txt_selected_date_start"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/dimen_5"
+                                android:layout_marginStart="@dimen/dimen_2"
                                 android:textAppearance="@style/medium_12"
                                 android:textColor="@color/primary"
                                 android:visibility="gone" />
@@ -156,10 +161,20 @@
                                 android:textColor="@color/primary" />
 
                             <TextView
+                                android:id="@+id/txt_select_date_to"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/dimen_2"
+                                android:text="@string/to"
+                                android:textAppearance="@style/regular_12"
+                                android:textColor="@color/primary"
+                                android:visibility="gone"/>
+
+                            <TextView
                                 android:id="@+id/txt_selected_date_end"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/dimen_5"
+                                android:layout_marginStart="@dimen/dimen_2"
                                 android:textAppearance="@style/medium_12"
                                 android:textColor="@color/primary"
                                 android:visibility="gone" />
@@ -175,7 +190,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/dimen_20"
-                    android:layout_marginVertical="@dimen/dimen_20"
+                    android:layout_marginBottom="@dimen/dimen_20"
+                    android:layout_marginTop="@dimen/dimen_5"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:visibility="visible">
@@ -227,9 +243,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/dimen_20"
-                    android:layout_marginTop="@dimen/dimen_20"
                     android:gravity="center_vertical"
                     android:orientation="vertical"
+                    android:layout_marginTop="@dimen/dimen_5"
                     android:visibility="gone"
                     android:layout_marginBottom="@dimen/dimen_15">
 
@@ -249,8 +265,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/dimen_20"
-                    android:layout_marginTop="@dimen/dimen_20"
                     android:gravity="center_vertical"
+                    android:layout_marginTop="@dimen/dimen_5"
                     android:orientation="vertical"
                     android:visibility="gone">
 
@@ -319,6 +335,7 @@
                     android:layout_height="wrap_content">
 
                     <androidx.core.widget.NestedScrollView
+                        android:id="@+id/nested_rv"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:overScrollMode="never"
@@ -328,18 +345,19 @@
                             android:id="@+id/layout_recycle"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:layout_marginHorizontal="@dimen/dimen_20">
+                            android:layout_marginHorizontal="@dimen/dimen_20"
+                            android:orientation="vertical">
 
+                            <!-- Read more Layout -->
                             <androidx.recyclerview.widget.RecyclerView
                                 android:id="@+id/rv_finance_historical"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:nestedScrollingEnabled="false"
                                 android:overScrollMode="never"
-                                android:scrollbars="none" />
+                                android:scrollbars="none"
+                                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
-                            <!-- Read more Layout -->
                             <LinearLayout
                                 android:id="@+id/lay_news_loading"
                                 android:layout_width="match_parent"
@@ -362,7 +380,7 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_marginEnd="@dimen/dimen_10"
-                                        android:text="@string/see_more"
+                                        android:text="@string/loading"
                                         android:textAppearance="@style/medium_14"
                                         android:textColor="@color/primary" />
 
@@ -374,24 +392,11 @@
                                 </LinearLayout>
                             </LinearLayout>
 
-
-
-                            <TextView
-                                android:id="@+id/txt_no_data"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:visibility="gone"
-                                android:textColor="@color/primary"
-                                android:layout_marginTop="@dimen/dimen_20"
-                                android:layout_marginBottom="@dimen/dimen_15"
-                                android:text="@string/no_data_record"/>
-
                             <TextView
                                 android:id="@+id/txt_end"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginVertical="@dimen/dimen_40"
+                                android:layout_marginVertical="@dimen/dimen_20"
                                 android:gravity="center"
                                 android:text="@string/__end__"
                                 android:visibility="gone" />
@@ -404,6 +409,24 @@
 
             </LinearLayout>
         </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true">
+
+            <TextView
+                android:id="@+id/txt_no_data"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_20"
+                android:layout_marginBottom="@dimen/dimen_15"
+                android:gravity="center"
+                android:text="@string/no_data_record"
+                android:textColor="@color/primary"
+                android:visibility="gone" />
+
+        </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"

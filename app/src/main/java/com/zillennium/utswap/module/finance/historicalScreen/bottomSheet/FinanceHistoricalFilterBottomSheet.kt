@@ -75,6 +75,9 @@ class FinanceHistoricalFilterBottomSheet(
                 }
                 Constants.HistoricalTransaction.Trade -> {
                     layoutTxtAllProject.visibility = View.VISIBLE
+                    if (SettingVariable.finance_historical_filter.value == "All Projects"){
+                        layIconCheckHistorical.visibility = View.VISIBLE
+                    }
                     val historicalAdapter = FinanceHistoricalFilterAdapter(onClickAdapter)
                     historicalAdapter.items = financeHistoricalFilterList
                     rvFilterHistorical.adapter = historicalAdapter
@@ -103,6 +106,7 @@ class FinanceHistoricalFilterBottomSheet(
             override fun onClickMe(financeHistoricalFilterModel: Historical.GetMarketNameData) {
                 financeHistoricalFilterModel.name?.let { financeHistoricalFilterModel.market_name?.let { it1 ->
                     filterListener.onFilterChangeSelect(it, it1) } }
+                SettingVariable.finance_historical_filter.value = financeHistoricalFilterModel.name
                 dismiss()
 
             }

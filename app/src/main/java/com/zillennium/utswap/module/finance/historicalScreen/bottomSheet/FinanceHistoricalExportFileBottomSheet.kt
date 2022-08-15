@@ -20,8 +20,6 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class FinanceHistoricalExportFileBottomSheet(
-    var startDateExport: String,
-    var startEndExport: String,
     var listener: CallBackDateExportListener
 ) : BottomSheetDialogFragment(),
     AdapterView.OnItemSelectedListener {
@@ -73,7 +71,7 @@ class FinanceHistoricalExportFileBottomSheet(
                     calendar[Calendar.YEAR] = year
                     calendar[Calendar.MONDAY] = month
                     calendar[Calendar.DAY_OF_MONTH] = day
-                    val format = "dd-MM-yyyy"
+                    val format = "dd-MMM-yyyy"
                     val simpleDateFormat =
                         SimpleDateFormat(format, Locale.US)
                     etStartDate.setText(simpleDateFormat.format(calendar.time))
@@ -84,7 +82,7 @@ class FinanceHistoricalExportFileBottomSheet(
                     calendar[Calendar.YEAR] = year
                     calendar[Calendar.MONDAY] = month
                     calendar[Calendar.DAY_OF_MONTH] = day
-                    val format = "dd-MM-yyyy"
+                    val format = "dd-MMM-yyyy"
                     val simpleDateFormat =
                         SimpleDateFormat(format, Locale.US)
                     etEndDate.setText(simpleDateFormat.format(calendar.time))
@@ -152,31 +150,6 @@ class FinanceHistoricalExportFileBottomSheet(
             buttonExport.setOnClickListener {
 
                 listener.onExportDate(etStartDate.text.toString(), etEndDate.text.toString())
-
-                /*if (etEndDate.text.toString() != "" && etStartDate.text.toString() != ""){
-                    if (etEndDate.text.toString() < etStartDate.text.toString()) {
-                        Toast.makeText(
-                            UTSwapApp.instance,
-                            "EndDate should be greater than StartDate",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }else{
-                        listener.onExportDate(etStartDate.text.toString(), etEndDate.text.toString())
-
-                        Toast.makeText(
-                            UTSwapApp.instance,
-                            "Exported",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                        dismiss()
-                    }
-                }else{
-                    Toast.makeText(
-                        UTSwapApp.instance,
-                        "Please select Date before export.",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }*/
             }
         }
     }
