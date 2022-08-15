@@ -21,7 +21,4 @@ class AddNumberActivity :
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-    }
 }

@@ -79,6 +79,11 @@ object ApiSettings {
     /** Check User Login Status*/
     const val PATH_CHECK_USER_LOGIN_STATUS = "user/checkUserLogin"
 
+    /** Website Socket */
+    const val PATH_LIST_TRADE = "wsocket/"
+    const val SEND_LIST_TRADE = "market_update_stream"
+    const val  SEND_TRADE_MARKET_NAME = "trade_market_summary:"
+
      /*Get Banner HomeScreen*/
     const val PATH_GET_BANNNER= "portfolio/app_banner"
     const val PATH_GET_HOME_WISHLIST_BALANCE ="portfolio/index"

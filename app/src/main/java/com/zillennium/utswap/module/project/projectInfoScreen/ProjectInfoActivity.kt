@@ -24,7 +24,7 @@ import com.zillennium.utswap.module.project.subscriptionScreen.SubscriptionActiv
 import com.zillennium.utswap.utils.Constants
 
 
-class ProjectInfoActivity() :
+class ProjectInfoActivity :
     BaseMvpActivity<ProjectInfoView.View, ProjectInfoView.Presenter, ActivityProjectInfoBinding>(),
     ProjectInfoView.View {
 

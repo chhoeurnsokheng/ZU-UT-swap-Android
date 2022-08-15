@@ -157,9 +157,7 @@ object User {
         var data: EnterNewPasswordData? = null
     }
 
-    class EnterNewPasswordData{
-
-    }
+    class EnterNewPasswordData
 
     /** Add Phone Number*/
     class AddPhoneNumberRes{

@@ -20,7 +20,7 @@ import eightbitlab.com.blurview.RenderScriptBlur
 import java.lang.Exception
 
 
-class FundPasswordDialog() : DialogFragment() {
+class FundPasswordDialog : DialogFragment() {
 
     private var binding: DialogSecurityFundPasswordBinding? = null
     private var codes: String = ""

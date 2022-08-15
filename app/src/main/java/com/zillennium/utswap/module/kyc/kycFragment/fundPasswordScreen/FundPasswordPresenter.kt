@@ -8,9 +8,11 @@ import com.zillennium.utswap.api.manager.ApiManager
 import com.zillennium.utswap.api.manager.ApiUserImp
 import com.zillennium.utswap.bases.mvp.BaseMvpPresenterImpl
 import com.zillennium.utswap.models.userService.User
+import com.zillennium.utswap.utils.Constants.KeyViewPdf.Companion.content
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import rx.Subscription
 import java.io.File
 import java.io.FileInputStream
@@ -42,78 +44,81 @@ class FundPasswordPresenter : BaseMvpPresenterImpl<FundPasswordView.View>(),
         })
     }
 
-    private  fun submitRequestBody(mObject: User.Kyc): RequestBody {
-        val requestBody = MultipartBody.Builder()
-        requestBody.setType(MultipartBody.FORM)
-        mObject.truename.apply {
-            this.let { requestBody.addFormDataPart("truename", it) }
-        }
-        mObject.gender.apply {
-            requestBody.addFormDataPart("gender", this)
-        }
-        mObject.occupation.apply {
-            requestBody.addFormDataPart("occupation", this)
-        }
-        mObject.companyname.apply {
-            requestBody.addFormDataPart("companyname", this)
-        }
-        mObject.email.apply {
-            requestBody.addFormDataPart("email", this)
-        }
-        mObject.citycode.apply {
-            requestBody.addFormDataPart("citycode", this)
-        }
-        mObject.districtcode.apply {
-            requestBody.addFormDataPart("districtcode", this)
-        }
-        mObject.communecode.apply {
-            requestBody.addFormDataPart("communecode", this)
-        }
-        mObject.streetnumber.apply {
-            requestBody.addFormDataPart("streetnumber", this)
-        }
-        mObject.idcardinfo.apply {
-            requestBody.addFormDataPart("idcardinfo", this)
-        }
-        mObject.idcardfront.apply {
-            if (isNotEmpty()) {
-                val bodyBye = RequestBody.create(
-                    "multipart/form-data".toMediaTypeOrNull(),
-                    readByteArrayFromFile(this)
-                )
-                requestBody.addFormDataPart("idcardfront", this, bodyBye)
-            }
-        }
-        mObject.idcardrear.apply {
-            if (isNotEmpty()) {
-                val bodyBye = RequestBody.create(
-                    "multipart/form-data".toMediaTypeOrNull(),
-                    readByteArrayFromFile(this)
-                )
-                requestBody.addFormDataPart("idcardrear", this, bodyBye)
-            }
-        }
-        mObject.userImage.apply {
-            if (isNotEmpty()) {
-                val bodyBye = RequestBody.create(
-                    "multipart/form-data".toMediaTypeOrNull(),
-                    readByteArrayFromFile(this)
-                )
-                requestBody.addFormDataPart("userImage", this, bodyBye)
-            }
-        }
-        mObject.termandcondition.apply {
-            requestBody.addFormDataPart("termandcondition ", this.toString())
-        }
-        mObject.paypassword.apply {
-            requestBody.addFormDataPart("paypassword", this)
-        }
-        mObject.repaypassword.apply {
-            requestBody.addFormDataPart("repaypassword", this)
-        }
-
-        return requestBody.build()
-    }
+//    private  fun submitRequestBody(mObject: User.Kyc): RequestBody {
+//        val requestBody = MultipartBody.Builder()
+//        requestBody.setType(MultipartBody.FORM)
+//        mObject.truename.apply {
+//            this.let { requestBody.addFormDataPart("truename", it) }
+//        }
+//        mObject.gender.apply {
+//            requestBody.addFormDataPart("gender", this)
+//        }
+//        mObject.occupation.apply {
+//            requestBody.addFormDataPart("occupation", this)
+//        }
+//        mObject.companyname.apply {
+//            requestBody.addFormDataPart("companyname", this)
+//        }
+//        mObject.email.apply {
+//            requestBody.addFormDataPart("email", this)
+//        }
+//        mObject.citycode.apply {
+//            requestBody.addFormDataPart("citycode", this)
+//        }
+//        mObject.districtcode.apply {
+//            requestBody.addFormDataPart("districtcode", this)
+//        }
+//        mObject.communecode.apply {
+//            requestBody.addFormDataPart("communecode", this)
+//        }
+//        mObject.streetnumber.apply {
+//            requestBody.addFormDataPart("streetnumber", this)
+//        }
+//        mObject.idcardinfo.apply {
+//            requestBody.addFormDataPart("idcardinfo", this)
+//        }
+//        mObject.idcardfront.apply {
+//            if (isNotEmpty()) {
+//                val bodyBye = readByteArrayFromFile(this)
+//                    .toRequestBody(
+//                        "multipart/form-data".toMediaTypeOrNull(),
+//                        0, content.size
+//                    )
+//                requestBody.addFormDataPart("idcardfront", this, bodyBye)
+//            }
+//        }
+//        mObject.idcardrear.apply {
+//            if (isNotEmpty()) {
+//                val bodyBye = readByteArrayFromFile(this)
+//                    .toRequestBody(
+//                        "multipart/form-data".toMediaTypeOrNull(),
+//                        0, content.size
+//                    )
+//                requestBody.addFormDataPart("idcardrear", this, bodyBye)
+//            }
+//        }
+//        mObject.userImage.apply {
+//            if (isNotEmpty()) {
+//                val bodyBye = readByteArrayFromFile(this)
+//                    .toRequestBody(
+//                        "multipart/form-data".toMediaTypeOrNull(),
+//                        0, content.size
+//                    )
+//                requestBody.addFormDataPart("userImage", this, bodyBye)
+//            }
+//        }
+//        mObject.termandcondition.apply {
+//            requestBody.addFormDataPart("termandcondition ", this.toString())
+//        }
+//        mObject.paypassword.apply {
+//            requestBody.addFormDataPart("paypassword", this)
+//        }
+//        mObject.repaypassword.apply {
+//            requestBody.addFormDataPart("repaypassword", this)
+//        }
+//
+//        return requestBody.build()
+//    }
 
 
     private  fun readByteArrayFromFile(filePath: String): ByteArray {

@@ -270,7 +270,7 @@ class FundPasswordFragment :
                             HideReturnsTransformationMethod.getInstance()
                     }
 
-                    for (index in chr?.indices) {
+                    for (index in chr.indices) {
                         val textInput2 = confirmNumberVerification.getChildAt(index) as TextView
                         textInput2.text = chr[index].toString()
                         if (index == numberVerification.childCount - 1) {
