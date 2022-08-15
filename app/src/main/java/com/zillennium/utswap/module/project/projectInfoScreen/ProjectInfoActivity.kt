@@ -22,7 +22,11 @@ import com.zillennium.utswap.module.project.projectInfoScreen.adapter.ProjectInf
 import com.zillennium.utswap.module.project.projectInfoScreen.adapter.ProjectViewPagerAdapter
 import com.zillennium.utswap.module.project.subscriptionScreen.SubscriptionActivity
 import com.zillennium.utswap.utils.Constants
+import com.zillennium.utswap.utils.formatter.NumberFormatter
 import com.zillennium.utswap.utils.groupingSeparatorInt
+import okhttp3.internal.format
+import java.text.DecimalFormat
+import java.text.NumberFormat
 
 
 class ProjectInfoActivity() :
@@ -109,17 +113,19 @@ class ProjectInfoActivity() :
                 "Managed by",
                 "Location"
             )
-            val x = data.land_size?.substring(0, data.land_size!!.length - 4)
+            var x = data.land_size?.substring(0, data.land_size!!.length - 4)
+            var  basePrice = NumberFormatter.formatNumber(data.base_price.toString())
+
             val valueInfo = arrayOf(
                 data.title_deed,
-                groupingSeparatorInt(x?.toInt() ?: 0),
+                "${groupingSeparatorInt(x?.toInt() ?: 0)} sqm",
                 "${groupingSeparatorInt(data.total_ut!!.toInt())} UT",
-                "$${groupingSeparatorInt(data.base_price!!.toInt())}/smq",
-                "$${groupingSeparatorInt(data.target_price!!.toInt())}/smq",
+                "$${groupingSeparatorInt(basePrice.toInt())}/sqm",
+                "$${groupingSeparatorInt(data.target_price!!.toInt())}/sqm",
                 data.managed_by,
                 data.location
             )
-
+            println("basePrice $basePrice")
             val projectInfoDetailArrayList = arrayListOf<ProjectInfoDetailModel>()
 
             for (i in valueInfo.indices) {
@@ -145,16 +151,16 @@ class ProjectInfoActivity() :
 
 
             /* Recycle Investment info */
-            val investmentInformation = data.investment_information
-            if (!investmentInformation.isNullOrEmpty()) {
-                mainLayoutUt.visibility = View.VISIBLE
-                txtInvestmentInfo.visibility = View.VISIBLE
-                layoutBaseAndTargetPrice.visibility = View.VISIBLE
-            } else {
-                mainLayoutUt.visibility = View.GONE
-                txtInvestmentInfo.visibility = View.GONE
-                layoutBaseAndTargetPrice.visibility = View.GONE
-            }
+//            val investmentInformation = data.investment_information
+//            if (!investmentInformation.isNullOrEmpty()) {
+//                mainLayoutUt.visibility = View.VISIBLE
+//                txtInvestmentInfo.visibility = View.VISIBLE
+//                layoutBaseAndTargetPrice.visibility = View.VISIBLE
+//            } else {
+//                mainLayoutUt.visibility = View.GONE
+//                txtInvestmentInfo.visibility = View.GONE
+//                layoutBaseAndTargetPrice.visibility = View.GONE
+//            }
 
             /* Term and condition */
             txtTermCondition.text = data.term_and_condition
@@ -171,16 +177,16 @@ class ProjectInfoActivity() :
             }
 
             //Documentation PDF
-            val document = data.documents
-            if (document.isNullOrEmpty()) {
-                layoutDocument.visibility = View.GONE
-                documentLine.visibility = View.GONE
-                pdfDocument.visibility = View.GONE
-            } else {
-                layoutDocument.visibility = View.VISIBLE
-                documentLine.visibility = View.VISIBLE
-                pdfDocument.visibility = View.VISIBLE
-            }
+//            val document = data.documents
+//            if (document.isNullOrEmpty()) {
+//                layoutDocument.visibility = View.GONE
+//                documentLine.visibility = View.GONE
+//                pdfDocument.visibility = View.GONE
+//            } else {
+//                layoutDocument.visibility = View.VISIBLE
+//                documentLine.visibility = View.VISIBLE
+//                pdfDocument.visibility = View.VISIBLE
+//            }
             layoutDocument.setOnClickListener {
                 if (condition) {
                     arrowDownDocument.setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_24)
