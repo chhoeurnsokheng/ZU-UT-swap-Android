@@ -139,7 +139,7 @@ class FinanceHistoricalExportFileBottomSheet(
                         Toast.makeText(
                             UTSwapApp.instance,
                             "EndDate should be greater than StartDate",
-                            Toast.LENGTH_SHORT
+                            Toast.LENGTH_LONG
                         ).show()
                     }else{
                         buttonExport.isEnabled = true

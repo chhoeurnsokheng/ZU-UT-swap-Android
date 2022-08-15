@@ -13,6 +13,7 @@ import com.zillennium.utswap.databinding.ItemListFinanceHistoricalMyTransactions
 import com.zillennium.utswap.models.financeHistorical.Historical
 import com.zillennium.utswap.models.financeHistorical.HistoricalMyTransactionsModel
 import com.zillennium.utswap.utils.Constants
+import com.zillennium.utswap.utils.UtilKt
 import com.zillennium.utswap.utils.groupingSeparator
 
 class HistoricalMyTransactionsAdapter: BaseRecyclerViewAdapterGeneric<Historical.DataTransaction, HistoricalMyTransactionsAdapter.ItemViewHolder>(){
@@ -43,11 +44,11 @@ class HistoricalMyTransactionsAdapter: BaseRecyclerViewAdapterGeneric<Historical
                         imageBalance.setImageResource(Constants.HistoricalMyTransactionIcon.Buy)
                     }
 
-                    amountBalance.text = "$" + groupingSeparator(myTransaction.mum_a!!)
+                    amountBalance.text = "$" + myTransaction.mum_a!!.let { UtilKt().formatValue(it.toDouble(), "###,###.#") }
                     amountBalance.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.red_ee1111))
                 }else if (myTransaction.type == "sell"){
                     imageBalance.setImageResource(Constants.HistoricalMyTransactionIcon.Sell)
-                    amountBalance.text = "$" + groupingSeparator(myTransaction.mum_a!!)
+                    amountBalance.text = "$" + myTransaction.mum_a!!.let { UtilKt().formatValue(it.toDouble(), "###,###.#") }
                     amountBalance.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.success))
                 }
             }

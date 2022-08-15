@@ -7,7 +7,9 @@ import com.zillennium.utswap.bases.mvp.BaseRecyclerViewAdapterGeneric
 import com.zillennium.utswap.bases.mvp.BaseViewHolder
 import com.zillennium.utswap.databinding.ItemListFinanceHistoricalTradeListBinding
 import com.zillennium.utswap.models.financeHistorical.Historical
+import com.zillennium.utswap.utils.UtilKt
 import com.zillennium.utswap.utils.groupingSeparator
+import com.zillennium.utswap.utils.groupingSeparatorInt
 
 class HistoricalTradeListAdapter: BaseRecyclerViewAdapterGeneric<Historical.DataTradeDateTransaction, HistoricalTradeListAdapter.ItemViewHolder>(){
 
@@ -29,11 +31,11 @@ class HistoricalTradeListAdapter: BaseRecyclerViewAdapterGeneric<Historical.Data
         fun bidData(trade: Historical.DataTradeDateTransaction){
             binding.apply {
                 txtTitleTrade.text = trade.market
-                txtUtAmountTrade.text = trade.volume + " UT"
-                txtOpenAmount.text = "$" + trade.opened_price?.let { groupingSeparator(it.toDouble()) }
-                txtCloseAmount.text = "$" + trade.closed_price?.let { groupingSeparator(it.toDouble()) }
-                txtHighAmount.text = "$" + trade.high_value?.let { groupingSeparator(it.toDouble()) }
-                txtLowAmount.text = "$" + trade.min_value?.let { groupingSeparator(it.toDouble()) }
+                txtUtAmountTrade.text = trade.volume?.let { groupingSeparatorInt(it.toInt()) } + " UT"
+                txtOpenAmount.text = "$" + trade.opened_price?.let { UtilKt().formatValue(it.toDouble(), "###,###.#") }
+                txtCloseAmount.text = "$" + trade.closed_price?.let { UtilKt().formatValue(it.toDouble(), "###,###.#") }
+                txtHighAmount.text = "$" + trade.high_value?.let { UtilKt().formatValue(it.toDouble(), "###,###.#") }
+                txtLowAmount.text = "$" + trade.min_value?.let { UtilKt().formatValue(it.toDouble(), "###,###.#") }
             }
         }
     }

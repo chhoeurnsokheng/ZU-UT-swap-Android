@@ -537,8 +537,8 @@ class FinanceHistoricalActivity :
                     position: Int,
                     id: Long
                 ) {
-                    txtEnd.visibility = View.GONE
-                    txtNoData.visibility = View.GONE
+                    loadingProgressBar.visibility = View.GONE
+                    invisibleText()
                     onClearRecycleView()
                     if(historicalType == ""){
                         historicalType = position.toString()
@@ -560,8 +560,7 @@ class FinanceHistoricalActivity :
             swipeRefresh.setOnRefreshListener {
                 onClearRecycleView()
                 pageTrans = 1
-                txtEnd.visibility = View.GONE
-                txtNoData.visibility = View.GONE
+                invisibleText()
                 when (historicalTransactionSelected) {
                     Constants.HistoricalTransaction.MyTransactions -> {
                         invisibleText()
