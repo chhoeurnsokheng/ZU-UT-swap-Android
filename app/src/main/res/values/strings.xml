@@ -100,6 +100,7 @@
     <string name="profile_qrcode">Profile QRCode</string>
     <string name="from">From</string>
     <string name="to">To</string>
+    <string name="loading">Loading</string>
     <string name="personal">Personal</string>
     <string name="document">Document</string>
     <string name="address">Address</string>

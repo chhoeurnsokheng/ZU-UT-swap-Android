@@ -37,20 +37,17 @@ class DialogProjectSliderImage : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        try {
-            binding?.apply {
-                closeImage.setOnClickListener { dismiss() }
 
-                val image = arguments?.getString("selectedImage")
-                Glide.with(UTSwapApp.instance)
-                    .load(image)
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)
-                    .skipMemoryCache(true)
-                    .into(imageView)
+        binding?.apply {
+            closeImage.setOnClickListener { dismiss() }
 
-            }
-        }catch (error: Exception) {
-            // Must be safe
+            val image = arguments?.getString("selectedImage")
+            Glide.with(UTSwapApp.instance)
+                .load(image)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true)
+                .into(imageView)
+
         }
 
     }

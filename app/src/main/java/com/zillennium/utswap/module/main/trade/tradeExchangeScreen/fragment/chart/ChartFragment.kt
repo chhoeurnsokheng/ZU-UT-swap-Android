@@ -22,7 +22,7 @@ class ChartFragment :
         super.initView()
         try {
             binding.apply {
-                val width = activity?.windowManager?.defaultDisplay?.width;
+                val width = activity?.windowManager?.defaultDisplay?.width
                 val params = webView.layoutParams
                 if (width != null) {
                     params.height = (width * 0.75).toInt()

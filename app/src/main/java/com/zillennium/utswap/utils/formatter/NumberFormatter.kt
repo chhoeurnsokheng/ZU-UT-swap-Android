@@ -10,6 +10,12 @@ import java.util.*
  */
 object NumberFormatter {
 
+//    fun formatNumber(value: Any, minDigits: Int = 0): String {
+//        val formatter = DecimalFormat()
+//        formatter.minimumFractionDigits = minDigits
+//        return formatter.format(value)
+//    }
+
     fun formatNumber(value: Any, minDigits: Int = 0): String {
         val formatter = DecimalFormat()
         formatter.minimumFractionDigits = minDigits

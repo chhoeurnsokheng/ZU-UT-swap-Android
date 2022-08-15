@@ -1,5 +1,7 @@
 package com.zillennium.utswap.api
 
+import io.reactivex.internal.operators.parallel.ParallelDoOnNextTry
+
 /**
  * @author chhoeurnsokheng
  * Created 5/7/22 at 4:42 PM
@@ -19,8 +21,29 @@ object ApiSettings {
     /** News */
     const val PATH_NEWS = "Art/ArtList"
     const val PATH_NEWS_DETAIL = "Art/ArtShow"
-    /** Register */
+    const val PATH_NEWS_HOME  = "Art/ArtList/p/1"
+
+
+    /**     Account Logs       **/
+    const val PATH_ACCOUNT_LOGS = "user/accountLogs"
+
+    /** Register **/
     const val PATH_REGISTER = "login/register"
+
+    /**     Customer Support     **/
+    const val PATH_CUSTOMER_SUPPORT = "customer_support"
+
+    /**      Project List        **/
+    const val PATH_PROJECT_LIST = "issue"
+
+    /**      Project Detail/Project Info          **/
+    const val PATH_PROJECT_DETAIL =  "issue/project_detail"
+
+
+    /** Finance */
+    const val PATH_SUBSCRIPTION = "Issue/log"
+    const val PATH_LOCK_UP = "finance/lockbalance"
+
 
     /** Forgot Password*/
     const val PATH_FORGOT_PASSWORD = "login/forgetPassword"
@@ -45,5 +68,9 @@ object ApiSettings {
     const val PATH_LIST_TRADE = "wsocket/"
     const val SEND_LIST_TRADE = "market_update_stream"
     const val  SEND_TRADE_MARKET_NAME = "trade_market_summary:"
+
+     /*Get Banner HomeScreen*/
+    const val PATH_GET_BANNNER= "portfolio/app_banner"
+    const val PATH_GET_HOME_WISHLIST_BALANCE ="portfolio/index"
 
 }

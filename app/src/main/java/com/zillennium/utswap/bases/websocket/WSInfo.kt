@@ -14,7 +14,7 @@ class WSInfo {
     var isOnOpen : Boolean = false
     var isOnReconnect : Boolean = false
 
-    private constructor() {}
+    private constructor()
 
     companion object {
         fun createReconnect(): WSInfo {

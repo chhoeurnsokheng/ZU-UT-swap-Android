@@ -115,7 +115,7 @@ class BottomSheetFinanceAddBank : BottomSheetDialogFragment(), AdapterView.OnIte
 
             arguments?.getInt("imgCard")?.let { imgCard.setImageResource(it.toInt()) }
             arguments?.getString("titleCard").let { titleCard.text = it.toString() }
-            txtUserName.setText("Te Eangly")
+            txtUserName.text = "Te Eangly"
 
 
         }

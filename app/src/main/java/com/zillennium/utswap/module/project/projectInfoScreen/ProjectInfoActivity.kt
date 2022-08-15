@@ -1,11 +1,13 @@
 package com.zillennium.utswap.module.project.projectInfoScreen
 
 import android.app.ActivityOptions
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
+import com.androidstudy.networkmanager.Tovuti
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.gson.Gson
 import com.zillennium.utswap.R
@@ -13,15 +15,13 @@ import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityProjectInfoBinding
 import com.zillennium.utswap.models.ProjectInfoDetailModel
-import com.zillennium.utswap.models.ProjectInfoInvestmentModel
-import com.zillennium.utswap.models.ProjectInfoSlideImageModel
 import com.zillennium.utswap.models.ViewImageModel
+import com.zillennium.utswap.models.project.ProjectInfoDetail
 import com.zillennium.utswap.module.project.ViewImage.ImageViewActivity
 import com.zillennium.utswap.module.project.projectInfoScreen.adapter.ProjectInfoDetailsAdapter
-import com.zillennium.utswap.module.project.projectInfoScreen.adapter.ProjectInfoInvestmentAdapter
 import com.zillennium.utswap.module.project.projectInfoScreen.adapter.ProjectViewPagerAdapter
-import com.zillennium.utswap.module.project.projectInfoScreen.dialog.DialogProjectSliderImage
 import com.zillennium.utswap.module.project.subscriptionScreen.SubscriptionActivity
+import com.zillennium.utswap.utils.Constants
 
 
 class ProjectInfoActivity :
@@ -34,193 +34,202 @@ class ProjectInfoActivity :
     private var termCondition = true
     private var condition = true
     private var imagesSlider: ArrayList<String> = arrayListOf()
+    private var id: Int = 0
+
+    companion object {
+        fun launchProjectInfoActivity(context: Context, id: String?, projectName:String?) {
+            val intent = Intent(context, ProjectInfoActivity::class.java)
+            intent.putExtra(Constants.Project.Project_Id, id)
+            intent.putExtra(Constants.Project.ProjectName, projectName)
+            context.startActivity(intent)
+        }
+    }
 
     override fun initView() {
 
         super.initView()
-        try {
-            binding.apply {
 
-                btnBack.setOnClickListener {
-                    onBackPressed()
-                }
+        if (intent.hasExtra(Constants.Project.Project_Id)) {
+            id = intent.extras!!.getString(Constants.Project.Project_Id)!!.toInt()
 
-                btnSubscriptTrade.setOnClickListener {
-                    val intent : Intent = Intent(UTSwapApp.instance, SubscriptionActivity::class.java)
-                    startActivity(intent)
-                }
+            id.let { ProjectInfoDetail.ProjectInfoDetailObject(it) }.let {
+                mPresenter.projectInfoView(it, UTSwapApp.instance)
+            }
+
+        }
+
+        if (intent.hasExtra(Constants.Project.ProjectName)) {
+            val projectName = intent?.getStringExtra(Constants.Project.ProjectName)
+            binding.apply { txtDetailTitle.text = projectName
+            }
+        }
 
 
 
+        binding.apply {
+            onCallApi()
+            btnBack.setOnClickListener {
+                onBackPressed()
+            }
 
-                /* Image Slider with View Pager and TabLayout*/
-                 imagesSlider = arrayListOf(
-                    "https://utswap.io/Upload/issue/624baccd65299.png",
-                    "https://utswap.io/Upload/issue/624bacd53d783.jpg",
-                    "https://utswap.io/Upload/issue/624baceb728a8.png",
-                    "https://utswap.io/Upload/issue/624baced5d6a8.jpg"
+            btnSubscriptTrade.setOnClickListener {
+                val intent = Intent(UTSwapApp.instance, SubscriptionActivity::class.java)
+                startActivity(intent)
+            }
+
+        }
+    }
+
+    override fun projectInfoViewSuccess(data: ProjectInfoDetail.ProjectInfoDetailData) {
+        binding.apply {
+            progressbarGetData.visibility = View.GONE
+            scrollView.visibility = View.VISIBLE
+            viewBackground.visibility = View.GONE
+
+            /* Image Slider with View Pager and TabLayout*/
+            imagesSlider = arrayListOf()
+            imagesSlider.addAll(data.images)
+            val adapter = ProjectViewPagerAdapter(onclickAdapter)
+            adapter.items = imagesSlider
+            imageSlideViewPager.adapter = adapter
+            TabLayoutMediator(tabLayoutDot, imageSlideViewPager) { tab, position ->
+            }.attach()
+
+            imageSlideViewPager.registerOnPageChangeCallback(object :
+                ViewPager2.OnPageChangeCallback() {})
+
+            /* Recycle view of project info detail */
+            val titleInfoDetail = arrayOf(
+                "Title Deed",
+                "Land Size",
+                "Total UT",
+                "Base Price",
+                "Target Price",
+                "Managed by",
+                "Location"
+            )
+            val valueInfo = arrayOf(
+                data.title_deed,
+                data.land_size,
+                "${data.total_ut} UT",
+                data.base_price,
+                data.target_price,
+                data.managed_by,
+                data.location
+            )
+
+            val projectInfoDetailArrayList = arrayListOf<ProjectInfoDetailModel>()
+
+            for (i in valueInfo.indices) {
+                val projectInfo = ProjectInfoDetailModel(
+                    titleInfoDetail[i],
+                    valueInfo[i] as Any
                 )
+                projectInfoDetailArrayList.add(projectInfo)
+            }
 
-                val projectInfoSlideImage = arrayListOf<ProjectInfoSlideImageModel>()
+            rvProjectInfoDetail.layoutManager = LinearLayoutManager(UTSwapApp.instance)
+            val projectAdapter = ProjectInfoDetailsAdapter()
+            projectAdapter.items = projectInfoDetailArrayList
+            rvProjectInfoDetail.adapter = projectAdapter
 
-                for (i in imagesSlider.indices){
-                    val projectImage = ProjectInfoSlideImageModel(
-                        imagesSlider[i],
-                    )
-                    projectInfoSlideImage.add(projectImage)
-                }
-
-                val adapter = ProjectViewPagerAdapter(projectInfoSlideImage, onclickAdapter)
-                imageSlideViewPager.adapter = adapter
-
-                TabLayoutMediator(tabLayoutDot, imageSlideViewPager) { tab, position ->
-
-//                    imageDialog.setOnClickListener {
-//                        val imagesDialog: DialogProjectSliderImage =
-//                            DialogProjectSliderImage.newInstance(
-//                                imagesSlider[tab.position]
-//                            )
-//                        imagesDialog.show(
-//                            requireActivity().supportFragmentManager,
-//                            "balanceHistoryDetailDialog"
-//                        )
-//                    }
-                }.attach()
-
-                imageSlideViewPager.registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback(){})
+            // Google map
+            layGoogleMap.setOnClickListener {
+                val url = data.google_map_link
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                startActivity(intent)
+            }
 
 
+            /* Recycle Investment info */
+            val investmentInformation = data.investment_information
+            if (!investmentInformation.isNullOrEmpty()) {
+                mainLayoutUt.visibility = View.VISIBLE
+                txtInvestmentInfo.visibility = View.VISIBLE
+                layoutBaseAndTargetPrice.visibility = View.VISIBLE
+            } else {
+                mainLayoutUt.visibility = View.GONE
+                txtInvestmentInfo.visibility = View.GONE
+                layoutBaseAndTargetPrice.visibility = View.GONE
+            }
 
-                /* Recycle view of project info detail */
-                val titleInfoDetail = arrayOf(
-                    "Title Deed",
-                    "Land Size",
-                    "Total UT",
-                    "Base Price",
-                    "Target Price",
-                    "Managed by",
-                    "Location"
-                )
-                val valueInfo = arrayOf(
-                    "Hard Title (10)",
-                    "384 761 sqm",
-                    "220 000 UT",
-                    "$1 625/sqm",
-                    "$1 804/sqm",
-                    "Focus Property Co., Ltd.",
-                    "St. 105k, Kbal Damrei 1, Kakab 1, Pur Senchey, Phnom Penh"
-                )
-
-                val projectInfoDetailArrayList = arrayListOf<ProjectInfoDetailModel>()
-
-                for (i in titleInfoDetail.indices) {
-                    val projectInfo = ProjectInfoDetailModel(
-                        titleInfoDetail[i],
-                        valueInfo[i]
-                    )
-                    projectInfoDetailArrayList.add(projectInfo)
-                }
-
-                rvProjectInfoDetail.layoutManager = LinearLayoutManager(UTSwapApp.instance)
-                rvProjectInfoDetail.adapter = ProjectInfoDetailsAdapter(projectInfoDetailArrayList)
-
-
-                /* Recycle Investment info */
-                val perUT = arrayOf(
-
-                    "4.10",
-                    "4.55",
-                )
-                val valueUT = arrayOf(
-                    "902 000",
-                    "1 001 000",
-                )
-                val sqmUT = arrayOf(
-                    "1 625",
-                    "1 804",
-                )
-
-                val projectInfoInvestmentArrayList = arrayListOf<ProjectInfoInvestmentModel>()
-
-                for (i in perUT.indices) {
-                    val projectInvestment = ProjectInfoInvestmentModel(
-                        perUT[i],
-                        valueUT[i],
-                        sqmUT[i]
-                    )
-                    projectInfoInvestmentArrayList.add(projectInvestment)
-                }
-
-                rvProjectInvestmentInfo.layoutManager = LinearLayoutManager(UTSwapApp.instance)
-                rvProjectInvestmentInfo.adapter =
-                    ProjectInfoInvestmentAdapter(projectInfoInvestmentArrayList)
-
-
-                /* Term and condition && Document */
-                txtTermCondition.text =
-                    "1. Locked-up period of 45 days is applicable on all UTS bought on discount. " +
-                            "\n2. NO guaranteed rate of return on investment; Rate of return is variable depending on the deal closing price. " +
-                            "\n3. NO guarantee on the duration to when the deal can be closed. \n4. NO contract for the sale and purchase of UT. " +
-                            "The transaction report testifies your economic benefit. \n5. Right to the decision on the sale of land belongs to Trading Committee. " +
-                            "The SPA will testify the selling price to the third party. This price will be the delisting price of all UT. " +
-                            "\n6. UT will be sold and bought back via digital trading platform only. Once 80% of the UT are collected by the company, " +
-                            "the remaining 20% will be automatically exchanged at the delisting price. \n7. Trading is open 7/7 on UTSWAP Platform from 9 am 4 pm. " +
-                            "\n8. The transaction fee per transaction is 0.3% of traded value. \n9. Minimum investment is 1 UT. \n10. Failure to comply with our terms " +
-                            "and conditions results in penalty of 100% of the violated transaction value in addition to account freezing."
-                layoutTermCondition.setOnClickListener {
-                    if (termCondition) {
-                        arrowDownTermCondition.setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_24)
-
-                        txtTermCondition.visibility = View.VISIBLE
-                        termCondition = !termCondition
-                    } else {
-                        arrowDownTermCondition.setImageResource(R.drawable.ic_baseline_keyboard_arrow_down_24)
-                        txtTermCondition.visibility = View.GONE
-                        termCondition = !termCondition
-                    }
-                }
-                layoutDocument.setOnClickListener {
-                    if (condition) {
-                        arrowDownDocument.setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_24)
-                        pdfDocument.visibility = View.VISIBLE
-                        condition = !condition
-                    } else {
-                        arrowDownDocument.setImageResource(R.drawable.ic_baseline_keyboard_arrow_down_24)
-                        pdfDocument.visibility = View.GONE
-                        condition = !condition
-                    }
-                }
-                layGoogleMap.setOnClickListener {
-                    val url = "https://goo.gl/maps/m4mXAaFMHT2SecpC7"
-                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-                    startActivity(intent)
+            /* Term and condition */
+            txtTermCondition.text = data.term_and_condition
+            layoutTermCondition.setOnClickListener {
+                if (termCondition) {
+                    arrowDownTermCondition.setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_24)
+                    txtTermCondition.visibility = View.VISIBLE
+                    termCondition = !termCondition
+                } else {
+                    arrowDownTermCondition.setImageResource(R.drawable.ic_baseline_keyboard_arrow_down_24)
+                    txtTermCondition.visibility = View.GONE
+                    termCondition = !termCondition
                 }
             }
 
-        } catch (error: Exception) {
-            // Must be safe
+            //Documentation PDF
+            val document = data.documents
+            if (document.isNullOrEmpty()) {
+                layoutDocument.visibility = View.GONE
+                documentLine.visibility = View.GONE
+                pdfDocument.visibility = View.GONE
+            } else {
+                layoutDocument.visibility = View.VISIBLE
+                documentLine.visibility = View.VISIBLE
+                pdfDocument.visibility = View.VISIBLE
+            }
+            layoutDocument.setOnClickListener {
+                if (condition) {
+                    arrowDownDocument.setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_24)
+                    pdfDocument.visibility = View.VISIBLE
+                    condition = !condition
+                } else {
+                    arrowDownDocument.setImageResource(R.drawable.ic_baseline_keyboard_arrow_down_24)
+                    pdfDocument.visibility = View.GONE
+                    condition = !condition
+                }
+            }
+
         }
     }
 
-    private val onclickAdapter: ProjectViewPagerAdapter.OnclickAdapter = object: ProjectViewPagerAdapter.OnclickAdapter{
-        override fun onClickMe(projectInfoSlideImageModel: ProjectInfoSlideImageModel, position: Int, view: View) {
-            /*val imageSlideDialog: DialogProjectSliderImage = DialogProjectSliderImage.newInstance(
-                projectInfoSlideImageModel?.imageSlider
-            )
-            imageSlideDialog.show(supportFragmentManager, "imageSlideDialog")*/
-
-            val intent = Intent(this@ProjectInfoActivity, ImageViewActivity::class.java)
-            val obj = ViewImageModel.ViewImage()
-            obj.gallery = imagesSlider
-            obj.position = position
-            intent.putExtra("VIEW_IMAGE", Gson().toJson(obj))
-            startActivity(
-                intent, ActivityOptions.makeSceneTransitionAnimation(
-                    this@ProjectInfoActivity, view, "UT Swap"
-                ).toBundle()
-            )
+    override fun projectInfoViewFail(data: ProjectInfoDetail.ProjectInfoDetailRes) {
+        binding.apply {
+            progressbarGetData.visibility = View.VISIBLE
+            viewBackground.visibility = View.VISIBLE
         }
-
     }
+
+    private fun onCallApi() {
+        Tovuti.from(UTSwapApp.instance).monitor { _, isConnected, _ ->
+            if (isConnected) {
+                mPresenter.projectInfoView(
+                    ProjectInfoDetail.ProjectInfoDetailObject(id),
+                    UTSwapApp.instance
+                )            }
+        }
+    }
+
+    private val onclickAdapter: ProjectViewPagerAdapter.OnclickAdapter =
+        object : ProjectViewPagerAdapter.OnclickAdapter {
+            override fun onClickMe(
+                projectInfoSlideImageModel: String,
+                position: Int,
+                view: View
+            ) {
+
+                val intent = Intent(this@ProjectInfoActivity, ImageViewActivity::class.java)
+                val obj = ViewImageModel.ViewImage()
+                obj.gallery = imagesSlider
+                obj.position = position
+                intent.putExtra("VIEW_IMAGE", Gson().toJson(obj))
+                startActivity(
+                    intent, ActivityOptions.makeSceneTransitionAnimation(
+                        this@ProjectInfoActivity, view, "UT Swap"
+                    ).toBundle()
+                )
+            }
+
+        }
 
 }

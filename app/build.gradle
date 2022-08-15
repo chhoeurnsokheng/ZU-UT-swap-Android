@@ -194,6 +194,7 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:30.1.0')
     implementation 'com.google.firebase:firebase-firestore-ktx'
     implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.google.firebase:firebase-messaging:23.0.5'
     implementation 'com.google.firebase:firebase-crashlytics-buildtools:2.9.1'
 
     // Glide
@@ -224,6 +225,10 @@ dependencies {
     implementation 'net.yslibrary.keyboardvisibilityevent:keyboardvisibilityevent:3.0.0-RC2'
     implementation 'com.alexvasilkov:gesture-views:2.7.1'
     implementation 'com.github.Toxa2033:ScaleAndSwipeDismissImageView:v0.7'
+
+    //shortcut badge
+    implementation "me.leolin:ShortcutBadger:1.1.22@aar"
+    implementation 'com.github.arturogutierrez:badges:1.0.5@aar'
 
 //    implementation 'com.github.viniciusmo:keyboard-visibility-event-android:1.0.4'
 

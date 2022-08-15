@@ -71,23 +71,23 @@ class DepositAddCardActivity :
                     override fun afterTextChanged(s: Editable?) {
 
                         //Use to format edittext to display spaces after every 4 characters of Card Number
-                        val inputlength: Int = etCardNumber.text.toString().length;
+                        val inputlength: Int = etCardNumber.text.toString().length
 
                         if (count <= inputlength && (inputlength == 4 ||
                                     inputlength == 9 || inputlength == 14 || inputlength == 19)
                         ) {
-                            etCardNumber.setText(etCardNumber.text.toString() + " ");
-                            val pos = etCardNumber.text.length;
-                            etCardNumber.setSelection(pos);
+                            etCardNumber.setText(etCardNumber.text.toString() + " ")
+                            val pos = etCardNumber.text.length
+                            etCardNumber.setSelection(pos)
                         } else if (count >= inputlength && (inputlength == 4 ||
                                     inputlength == 9 || inputlength == 14 || inputlength == 19)
                         ) {
                             etCardNumber.setText(
                                 etCardNumber.text.toString()
                                     .substring(0, etCardNumber.text.toString().length - 1)
-                            );
+                            )
                             val pos = etCardNumber.text.length
-                            etCardNumber.setSelection(pos);
+                            etCardNumber.setSelection(pos)
                         }
                         count = etCardNumber.text.toString().length
 

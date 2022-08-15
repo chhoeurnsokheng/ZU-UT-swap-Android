@@ -10,7 +10,7 @@ abstract class WS : Subscriber<WSInfo>() {
 
     override fun onNext(webSocketInfo: WSInfo?) {
         if (webSocketInfo?.isOnOpen == true) {
-            hasOpened = true;
+            hasOpened = true
             onOpen(webSocketInfo.webSocket)
         } else if (webSocketInfo?.string != null) {
             onMessage(webSocketInfo.string)

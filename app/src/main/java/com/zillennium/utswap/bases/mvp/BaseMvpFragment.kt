@@ -112,10 +112,9 @@ abstract class BaseMvpFragment<in V : BaseMvpView, T : BaseMvpPresenter<V>, M : 
 
 
 }
-/*
 
 @Suppress("UNCHECKED_CAST")
-abstract class BaseMvpFragment<in V : BaseMvpView, T : BaseMvpPresenter<V>> :
+abstract class BaseMvpFragmentSokheng<in V : BaseMvpView, T : BaseMvpPresenter<V>> :
     androidx.fragment.app.Fragment(), BaseMvpView {
     protected val DISMISS_TIMEOUT = 500
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -177,4 +176,3 @@ abstract class BaseMvpFragment<in V : BaseMvpView, T : BaseMvpPresenter<V>> :
     }
 }
 
-*/

@@ -9,10 +9,6 @@ class ContractActivity :  BaseMvpActivity<ContractView.View, ContractView.Presen
     ContractView.View {
     override val layoutResource: Int = R.layout.activity_contract
     override var mPresenter: ContractView.Presenter = ContractPresenter()
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
 
     override fun initView() {
         super.initView()

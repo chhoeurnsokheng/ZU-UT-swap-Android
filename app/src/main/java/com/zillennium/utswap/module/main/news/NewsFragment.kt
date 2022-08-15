@@ -64,9 +64,10 @@ class NewsFragment :
 
                 newsAdapter = NewsAdapter(listener = object : NewsAdapter.Listener{
                     override fun clickNews(id: String) {
-                        val intent = Intent(UTSwapApp.instance, NewsDetailActivity::class.java)
-                        intent.putExtra("id",id)
-                        startActivity(intent)
+                        NewsDetailActivity.launchNewsDetailsActivity(requireActivity(), id)
+//                        val intent = Intent(UTSwapApp.instance, NewsDetailActivity::class.java)
+//                        intent.putExtra("id",id)
+//                        startActivity(intent)
                     }
                 })
                 newsAdapter!!.items = listNews
@@ -75,7 +76,8 @@ class NewsFragment :
 
             if(page!! == totalPage)
             {
-                txtEnd.visibility = View.VISIBLE
+                txtEnd.visibility = View.GONE
+
             }else{
                 layNewsLoading.visibility = View.VISIBLE
                 page = page!! + 1

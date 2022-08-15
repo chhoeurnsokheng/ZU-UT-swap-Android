@@ -10,10 +10,6 @@ class OperationRuleActivity : BaseMvpActivity<OperationRuleView.View, OperationR
 
     override var mPresenter: OperationRuleView.Presenter = OperationRulePresenter()
     override val layoutResource: Int = R.layout.activity_operation_rule
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
 
 
     override fun initView() {
