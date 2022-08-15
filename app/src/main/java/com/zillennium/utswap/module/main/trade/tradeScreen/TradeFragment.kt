@@ -56,15 +56,28 @@ class TradeFragment :
             tradeArrayList.clear()
             for(i in it.market_trend?.url!!.indices)
             {
-                tradeArrayList.add(
-                    TradeModel(it.market_trend?.url!![i][0].toString(),
-                        it.market_trend?.url!![i][13].toString(),
-                        it.market_trend?.url!![i][1].toString(),
-                        it.market_trend?.url!![i][6].toString(),
-                        it.market_trend?.url!![i][8].toString(),
-                        it.market_trend?.url!![i][11].toString()
+                if(!it.market_trend?.url.isNullOrEmpty())
+                {
+                    tradeArrayList.add(
+                        TradeModel(it.market_trend?.url!![i][0].toString(),
+                            it.market_trend?.url!![i][13].toString(),
+                            it.market_trend?.url!![i][1].toString(),
+                            it.market_trend?.url!![i][6].toString(),
+                            it.market_trend?.url!![i][8].toString(),
+                            it.market_trend?.url!![i][11].toString()
+                        )
                     )
-                )
+                }else{
+                    tradeArrayList.add(
+                        TradeModel(it.market_trend?.url!![i][0].toString(),
+                            it.market_trend?.url!![i][13].toString(),
+                            it.market_trend?.url!![i][1].toString(),
+                            it.market_trend?.url!![i][6].toString(),
+                            it.market_trend?.url!![i][8].toString(),
+                            ""
+                        )
+                    )
+                }
             }
             binding.apply {
                 rvTrade.layoutManager = LinearLayoutManager(UTSwapApp.instance)

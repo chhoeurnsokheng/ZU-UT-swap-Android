@@ -3,6 +3,7 @@ package com.zillennium.utswap.api.manager
 import android.annotation.SuppressLint
 import android.content.Context
 import com.zillennium.utswap.BuildConfig
+import com.zillennium.utswap.api.ApiSettings
 import com.zillennium.utswap.bases.websocket.RxWS
 import com.zillennium.utswap.bases.websocket.WSConfig
 import com.zillennium.utswap.bases.websocket.WSInfo
@@ -33,7 +34,7 @@ open class SocketManager {
 
     //INIT ALL PROFIT OBJECT
     private fun initServices() {
-        mTradeListSocket = initSocket("ws/\$all@allTickers")
+        mTradeListSocket = initSocket(ApiSettings.PATH_LIST_TRADE)
     }
 
     private fun initSocket(endpoint: String = ""): Observable<WSInfo> {
