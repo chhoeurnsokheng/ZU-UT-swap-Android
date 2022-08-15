@@ -48,7 +48,7 @@ class FinanceHistoricalFilterAdapter(private var onClickFilterHistory: OnClickFi
                 }
 
                 if(SettingVariable.finance_historical_filter.value == history.name){
-                    layIconCheck.visibility = View.VISIBLE
+                    layIconCheckHistory.visibility = View.VISIBLE
                 }
 
                 layoutFilter.setOnClickListener {
