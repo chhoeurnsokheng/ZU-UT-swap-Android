@@ -7,15 +7,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseViewHolder
-import com.zillennium.utswap.databinding.ItemListProjectBinding
+import com.zillennium.utswap.databinding.ItemListProjectGridBinding
 import com.zillennium.utswap.models.project.ProjectList
 import com.zillennium.utswap.module.project.projectInfoScreen.ProjectInfoActivity
 
-class ProjectAdapter(private var item: List<ProjectList.ProjectListData>) :
-    RecyclerView.Adapter<ProjectAdapter.ProjectListViewHolder>() {
 
-    inner class ProjectListViewHolder(root: ItemListProjectBinding) :
-        BaseViewHolder<ItemListProjectBinding>(root) {
+class ProjectGridAdapter(  var item:List<ProjectList.ProjectListData>) : RecyclerView.Adapter<ProjectGridAdapter.ProjectListViewHolder>() {
+
+
+    inner class ProjectListViewHolder(root: ItemListProjectGridBinding) : BaseViewHolder<ItemListProjectGridBinding>(root) {
         fun bindData(projectList: ProjectList.ProjectListData) {
             binding.apply {
                 Glide.with(UTSwapApp.instance)
@@ -25,30 +25,29 @@ class ProjectAdapter(private var item: List<ProjectList.ProjectListData>) :
                 if (projectList.action == "Upcomming") {
                     txtStatus.visibility = View.VISIBLE
                 }
+
                 titleProject.text = projectList.project_name
                 subTitle.text = projectList.action
 
                 linearCard.setOnClickListener {
                     ProjectInfoActivity.launchProjectInfoActivity(root.context, projectList.id,projectList.project_name)
+
                 }
             }
         }
-
     }
 
 
+    interface OnClickGridProject {
+        fun onClickMe(id: String)
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProjectListViewHolder {
-        return ProjectListViewHolder(
-            ItemListProjectBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
-            )
-        )
+       return  ProjectListViewHolder(ItemListProjectGridBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
     override fun onBindViewHolder(holder: ProjectListViewHolder, position: Int) {
-        holder.bindData(item[position])
+       holder.bindData(item[position])
     }
 
     override fun getItemCount(): Int {

@@ -8,7 +8,8 @@ class SessionPreferences: BaseStoredPreferences(UTSwapApp.instance, "SessionPref
     var SESSION_ID by stringPref()
     var SESSION_USERNAME by stringPref()
     var SESSION_PASSWORD by stringPref()
-    var SESSION_STATUS by booleanPref()
+
+    var SESSION_STATUS by booleanPref(defaultValue = true)
     var SESSION_KYC by booleanPref()
     var SESSION_KYC_STATUS by intPref() // 0 = hide, 1 = Invalid, 2 = Pending
     var SESSION_KYC_SUBMIT_STATUS by booleanPref()
@@ -22,5 +23,7 @@ class SessionPreferences: BaseStoredPreferences(UTSwapApp.instance, "SessionPref
     //store phone number that user add, and image profile user set
     var SESSION_PHONE_NUMBER by stringPref(defaultValue = "")
     var SESSION_USER_PROFILE by stringPref(defaultValue = "")
+
+
 
 }

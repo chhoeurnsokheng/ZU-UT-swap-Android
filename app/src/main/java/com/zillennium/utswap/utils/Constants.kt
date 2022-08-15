@@ -448,6 +448,12 @@ interface Constants {
             const val Status_submit = "KYC"
         }
     }
+    interface Project{
+        companion object{
+            const val ProjectName = "Project_Name"
+            const val Project_Id = "id"
+        }
+    }
 
 
 }

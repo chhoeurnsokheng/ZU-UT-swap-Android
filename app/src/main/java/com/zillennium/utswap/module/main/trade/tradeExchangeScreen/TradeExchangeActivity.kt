@@ -63,6 +63,11 @@ class TradeExchangeActivity :
             intent.putExtra(Constants.TradeExchange.ProjectName, projectName)
             context.startActivity(intent)
         }
+        fun launchTradeExchangeActivityFromWishList(context: Context) {
+            val intent = Intent(context, TradeExchangeActivity::class.java)
+          //  intent.putExtra(Constants.TradeExchange.ProjectName, projectName)
+            context.startActivity(intent)
+        }
     }
 
     override fun initView() {
@@ -454,9 +459,9 @@ class TradeExchangeActivity :
     }
 
     private fun toolBar() {
-        setSupportActionBar(binding.includeLayout.tb)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_arrow_left)
+       // setSupportActionBar(binding.includeLayout.tb)
+      //  supportActionBar?.setDisplayHomeAsUpEnabled(true)
+      //  supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_arrow_left)
         supportActionBar?.setDisplayShowTitleEnabled(false)
         binding.includeLayout.apply {
             if (intent.hasExtra(Constants.TradeExchange.ProjectName)) {
@@ -465,7 +470,7 @@ class TradeExchangeActivity :
             }
 
             tbTitle.setTextColor(ContextCompat.getColor(applicationContext, R.color.primary))
-            tb.setNavigationOnClickListener {
+            tb.setOnClickListener {
                 finish()
             }
 

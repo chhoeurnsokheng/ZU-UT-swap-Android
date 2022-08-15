@@ -10,10 +10,7 @@ package com.zillennium.utswap.api.manager
 import android.annotation.SuppressLint
 import android.content.Context
 import com.zillennium.utswap.BuildConfig
-import com.zillennium.utswap.api.service.FinanceService
-import com.zillennium.utswap.api.service.NewsService
-import com.zillennium.utswap.api.service.ProvincesService
-import com.zillennium.utswap.api.service.UserService
+import com.zillennium.utswap.api.service.*
 import com.zillennium.utswap.utils.LoggerUtil
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -22,7 +19,6 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
-import retrofit2.create
 import java.security.SecureRandom
 import java.security.cert.CertificateException
 import java.security.cert.X509Certificate
@@ -35,11 +31,21 @@ open class ApiManager {
 
     protected lateinit var mUserService: UserService
     protected lateinit var mNewsService: NewsService
+
+    protected lateinit var mAccountLogsService: AccountLogsService
+    protected lateinit var mCustomerSupport: CustomerSupportService
+    protected lateinit var mProjectService: ProjectService
+
+
+    protected lateinit var mHomeService: HomeService
+
     protected lateinit var mFinanceService: FinanceService
     protected lateinit var mProvince: ProvincesService
+
+
     protected lateinit var mContext: Context
 
-
+    
     companion object {
         var mRetryCounter: AtomicInteger = AtomicInteger(0)
     }
@@ -52,15 +58,21 @@ open class ApiManager {
 
         return  BuildConfig.BASE_URL
 
-
     }
 
     //INIT ALL PROFIT OBJECT
     private fun initServices(retrofit: Retrofit) {
         mUserService = retrofit.create(UserService::class.java)
         mNewsService = retrofit.create(NewsService::class.java)
+        mAccountLogsService = retrofit.create(AccountLogsService::class.java)
+        mCustomerSupport = retrofit.create(CustomerSupportService::class.java)
+        mProjectService = retrofit.create(ProjectService::class.java)
+
+        mHomeService = retrofit.create(HomeService::class.java)
+
         mFinanceService = retrofit.create(FinanceService::class.java)
         mProvince = retrofit.create(ProvincesService::class.java)
+
 
     }
 

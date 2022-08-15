@@ -20,8 +20,8 @@ class SystemPreferences: BaseStoredPreferences(UTSwapApp.instance, "SystemPrefer
     var APP_FACEBOOK by stringPref(defaultValue =  "101543225693802")
     var APP_INSTAGRAM by stringPref(defaultValue =  "zillion_united")
     var APP_TELEGRAM by stringPref(defaultValue = "https://t.me/+VfhwdqEfvU8006HH")
-    var APP_PHONE by stringPref(defaultValue = "0239999999")
-    var APP_TWITTER by stringPref(defaultValue = "zillionunited")
+    var APP_PHONE by stringPref(defaultValue = "+85512678987")
+    var APP_TWITTER by stringPref(defaultValue = "ert")
 
     // Device and Permission Phone
     var DEVICE_ID by stringPref(defaultValue = Build.ID)

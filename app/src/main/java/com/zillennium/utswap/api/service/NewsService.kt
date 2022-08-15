@@ -17,4 +17,9 @@ interface NewsService {
     fun newsDetail(
         @Field("id") id: String
     ): Observable<News.NewsDetailRes>
+
+    @POST(ApiSettings.PATH_NEWS_HOME)
+    fun newsHome(
+        @HeaderMap headers: Map<String, String>
+    ):Observable<News.NewsRes>
 }

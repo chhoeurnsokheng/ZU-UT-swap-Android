@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -31,56 +33,137 @@
 
         </RelativeLayout>
 
+
         <LinearLayout
+            android:id="@+id/recycleView_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingHorizontal="@dimen/dimen_20"
+            android:layout_below="@+id/lay_header"
             android:layout_marginBottom="@dimen/dimen_8"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/dimen_20">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/dark_gray"
-                android:gravity="start"
-                android:textAppearance="@style/regular_10"
                 android:layout_weight="1"
-                android:text="@string/time"/>
+                android:gravity="start"
+                android:text="@string/time"
+                android:textAppearance="@style/regular_10"
+                android:textColor="@color/dark_gray" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/dark_gray"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:text="@string/action_remarks"
                 android:textAppearance="@style/regular_10"
-                android:text="@string/action_remarks"/>
+                android:textColor="@color/dark_gray" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/dark_gray"
                 android:layout_weight="1"
                 android:gravity="end"
+                android:text="@string/status"
                 android:textAppearance="@style/regular_10"
-                android:text="@string/status"/>
+                android:textColor="@color/dark_gray" />
 
         </LinearLayout>
 
         <View
+            android:id="@+id/line_header"
             android:layout_width="match_parent"
             android:layout_height="1dp"
+            android:layout_below="@+id/recycleView_header"
             android:layout_marginHorizontal="@dimen/dimen_20"
             android:layout_marginBottom="@dimen/dimen_15"
-            android:background="@color/light_gray"/>
+            android:background="@color/light_gray" />
 
-        <androidx.recyclerview.widget.RecyclerView
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/account_logs_swipe_refresh"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/rv_logs"
-            android:overScrollMode="never"
-            android:scrollbars="none"
-            android:paddingHorizontal="@dimen/dimen_20"/>
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lay_header"
+            android:layout_marginTop="@dimen/dimen_40">
 
-    </LinearLayout>
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:overScrollMode="never"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:id="@+id/layout_recycle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/dimen_20"
+                    android:orientation="vertical">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_logs"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:overScrollMode="never"
+                        android:scrollbars="none" />
+
+                    <LinearLayout
+                        android:id="@+id/lay_account_logs_loading"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:visibility="gone">
+
+                        <LinearLayout
+                            android:id="@+id/read_more"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/txt_read_more"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/read_more"
+                                android:textAppearance="@style/regular_10" />
+
+                            <TextView
+                                android:id="@+id/txt_loading"
+                                android:visibility="gone"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/loading"
+                                android:textAppearance="@style/regular_10" />
+
+                            <ProgressBar
+                                android:id="@+id/progress_bar_read_more"
+                                android:layout_width="@dimen/dimen_20"
+                                android:layout_marginStart="@dimen/dimen_10"
+                                android:layout_height="@dimen/dimen_20" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/txt_end_data"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dimen_15"
+                        android:gravity="center"
+                        android:text="======== End ======== "
+                        android:textColor="@color/primary"
+                        android:visibility="gone" />
+                </LinearLayout>
+            </androidx.core.widget.NestedScrollView>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        <ProgressBar
+            android:id="@+id/main_progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" />
+    </RelativeLayout>
 </layout>

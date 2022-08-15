@@ -4,9 +4,7 @@ package com.zillennium.utswap.module.main.home
 import android.content.Intent
 import android.graphics.BlurMaskFilter
 import android.graphics.MaskFilter
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.MotionEvent
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
@@ -21,26 +19,24 @@ import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentHomeBinding
 import com.zillennium.utswap.models.HomeMenuModel
-import com.zillennium.utswap.models.HomeRecentNewsModel
-import com.zillennium.utswap.models.HomeTabSlideImageModel
-import com.zillennium.utswap.models.HomeWatchlistModel
+import com.zillennium.utswap.models.home.BannerObj
+import com.zillennium.utswap.models.newsService.News
 import com.zillennium.utswap.module.account.accountScreen.AccountActivity
 import com.zillennium.utswap.module.finance.depositScreen.DepositActivity
 import com.zillennium.utswap.module.finance.transferScreen.TransferActivity
 import com.zillennium.utswap.module.finance.withdrawScreen.WithdrawActivity
 import com.zillennium.utswap.module.main.home.adapter.HomeMenuAdapter
 import com.zillennium.utswap.module.main.home.adapter.HomeRecentNewsAdapter
-import com.zillennium.utswap.module.main.home.adapter.HomeTabSlideImageAdapter
 import com.zillennium.utswap.module.main.home.adapter.HomeWatchlistAdapter
 import com.zillennium.utswap.module.main.home.bottomSheet.HomeFinanceBottomSheet
 import com.zillennium.utswap.module.main.news.newsDetail.NewsDetailActivity
-import com.zillennium.utswap.module.main.trade.tradeExchangeScreen.TradeExchangeActivity
 import com.zillennium.utswap.module.project.projectScreen.ProjectActivity
 import com.zillennium.utswap.module.security.securityActivity.signInScreen.SignInActivity
 import com.zillennium.utswap.module.system.notification.NotificationActivity
+import com.zillennium.utswap.utils.SpaceDecoration
+import com.zillennium.utswap.utils.UtilKt
 
-
-class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, FragmentHomeBinding>(),
+class HomeFragment() : BaseMvpFragment<HomeView.View, HomeView.Presenter, FragmentHomeBinding>(),
     HomeView.View {
 
     override var mPresenter: HomeView.Presenter = HomePresenter()
@@ -51,11 +47,25 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
 
     private val HomeArrayList = ArrayList<HomeMenuModel>()
     var bannerLoopingPagerAdapter: BannerLoopingPagerAdapter? = null
+    var homeRecentNewsAdapter :HomeRecentNewsAdapter? = null
+    var homeWatchlistAdapter:HomeWatchlistAdapter? = null
+    var newsList  = ArrayList<News.NewsNew>()
     var isUserSwipe = false
     var currentPosition = 0
 
+
     override fun initView() {
         super.initView()
+        mPresenter.getBanner(requireActivity())
+        onSwipeRefresh()
+        binding.apply {
+            swipeRefresh.setColorSchemeColors(
+                ContextCompat.getColor(
+                    UTSwapApp.instance,
+                    R.color.primary
+                )
+            )
+        }
         try {
             binding.apply {
 
@@ -66,254 +76,216 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
                     linearLayoutBalance.visibility = View.VISIBLE
                     rvHomeWatchlist.visibility = View.VISIBLE
                     linearLayoutWatchlist.visibility = View.VISIBLE
-                    if(SessionVariable.SESSION_STATUS.value == true){
+                    if (SessionVariable.SESSION_STATUS.value == true) {
 
-                    }else{
-                        txtTotalBalance.visibility = View.GONE
-                        linearLayoutBalance.visibility = View.GONE
-                        rvHomeWatchlist.visibility = View.GONE
-                        linearLayoutWatchlist.visibility = View.GONE
-
-                    }
-                }
-                imgMenu.setOnClickListener {
-                    if(SessionPreferences().SESSION_TOKEN != null) {
-                        val intent = Intent(UTSwapApp.instance, AccountActivity::class.java)
-                        startActivity(intent)
-                        requireActivity().overridePendingTransition(
-                            R.anim.slide_in_left,
-                            R.anim.slide_out_right
-                        )
                     } else {
-                        val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
-                        startActivity(intent)
+                        if (SessionVariable.SESSION_STATUS.value == true) {
+                            imgMenu.setOnClickListener {
+                                val intent = Intent(UTSwapApp.instance, AccountActivity::class.java)
+                                startActivity(intent)
+                                requireActivity().overridePendingTransition(
+                                    R.anim.slide_in_left,
+                                    R.anim.slide_out_right
+                                )
+                            }
+                        } else {
+                            txtTotalBalance.visibility = View.GONE
+                            linearLayoutBalance.visibility = View.GONE
+                            rvHomeWatchlist.visibility = View.GONE
+                            linearLayoutWatchlist.visibility = View.GONE
 
+                        }
                     }
-                }
-                /*imgMenu.setOnClickListener {
+                    imgMenu.setOnClickListener {
+                        if (SessionPreferences().SESSION_TOKEN != null) {
+                            val intent = Intent(UTSwapApp.instance, AccountActivity::class.java)
+                            startActivity(intent)
+                            requireActivity().overridePendingTransition(
+                                R.anim.slide_in_left,
+                                R.anim.slide_out_right
+                            )
+                        } else {
+                            val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
+                            startActivity(intent)
+
+                        }
+                    }
+                    /*imgMenu.setOnClickListener {
                     val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
                     startActivity(intent)
                 }*/
 
+                    /* Show or Hide Trading Balance */
+                    tradingBalance.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
+                    tradingBalance.paint.maskFilter = blurMask
 
-
-                /* Show or Hide Trading Balance */
-                tradingBalance.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
-                tradingBalance.paint.maskFilter = blurMask
-
-                buttonShowToggle.setOnClickListener {
-                    showBalanceClick()
-                }
-                tradingBalance.setOnClickListener {
-                    showBalanceClick()
-                }
-
-                /* Home Menu Grid */
-                onHomeMenuGrid(SessionVariable.SESSION_STATUS.value.toString().toBoolean())
-                SessionVariable.SESSION_STATUS.observe(this@HomeFragment) {
-                    if (SessionVariable.SESSION_STATUS.value == true && (SessionPreferences().SESSION_KYC == true)) {
-                        onHomeMenuGrid(true)
-                        txtCountNotification.visibility =View.VISIBLE
-                        imgNotification.setOnClickListener {
-                            val intent = Intent(UTSwapApp.instance, NotificationActivity::class.java)
-                            startActivity(intent)
-                        }
-                    } else {
-                        onHomeMenuGrid(false)
-                        txtCountNotification.visibility =View.INVISIBLE
-                        imgNotification.setOnClickListener {
-                            val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
-                            startActivity(intent)
-                        }
+                    buttonShowToggle.setOnClickListener {
+                        showBalanceClick()
                     }
-                }
-
-               val   homeTabSlideImage = arrayListOf(
-                    HomeTabSlideImageModel(  "https://utswap.io/Upload/article/62b28f4e18eb0.jpg"),
-                    HomeTabSlideImageModel("https://utswap.io/Upload/article/62bad61c5d0e5.jpg"),
-                   HomeTabSlideImageModel(  "https://utswap.io/Upload/article/62b28f4e18eb0.jpg"),
-                   HomeTabSlideImageModel(  "https://utswap.io/Upload/article/62b28f4e18eb0.jpg"),
-                   HomeTabSlideImageModel(  "https://utswap.io/Upload/article/62b28f4e18eb0.jpg"),
-                )
-
-                bannerLoopingPagerAdapter = object : BannerLoopingPagerAdapter(
-                    requireActivity(),homeTabSlideImage,false
-                ){
-                    override fun onBannerItemClick(data: HomeTabSlideImageModel, position: Int) {}
-
-                }
-
-                bannerLoopingPagerAdapter?.apply {
-                    bannerImage.adapter = bannerLoopingPagerAdapter
-//                    AspectRatioUtil.apply(
-//                        10,
-//                        22,
-//                        UtilConvert.convertDpToPixel(32f, UTSwapApp.instance).roundToInt(),
-//                        requireActivity(),
-//                        bannerImage
-//                    )
-                }
-
-//                indicator.attachToPager(bannerImage)
-//                indicator.visibleDotCount = if ((homeTabSlideImage.size ?: 0) > 6) { 7
-//                } else {
-//                    if ((homeTabSlideImage.size)?.rem(2) ?: 0 == 0) {
-//                        (homeTabSlideImage.size ?: 2) - 1
-//                    } else {
-//                        homeTabSlideImage.size ?: 0
-//                    }
-//                }
-                indicator.setViewPager(bannerImage)
-                bannerImage.setLooperPic(true)
-
-                bannerImage.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-                    override fun onPageScrolled(
-                        position: Int,
-                        positionOffset: Float,
-                        positionOffsetPixels: Int,
-                    ) {
+                    tradingBalance.setOnClickListener {
+                        showBalanceClick()
                     }
 
-                    override fun onPageSelected(position: Int) {
-                        try {
-                            if (isUserSwipe) {
-                                if (currentPosition < position) {
-//                                    homeTabSlideImage.get(position)?.title?.apply {
-//                                      //  callback.onSwipeBanner("LEFT-$this")
-//                                    }
-                                } else if (currentPosition > position) {
-//                                    homeTabSlideImage.get(position)?.title?.apply {
-//                                       // callback.onSwipeBanner("RIGHT-$this")
-//                                    }
-                                }
-                                isUserSwipe = false
+                    /* Home Menu Grid */
+                    onHomeMenuGrid(SessionVariable.SESSION_STATUS.value.toString().toBoolean())
+                    SessionVariable.SESSION_STATUS.observe(this@HomeFragment) {
+                        if (SessionVariable.SESSION_STATUS.value == true && (SessionPreferences().SESSION_KYC == true)) {
+                            onHomeMenuGrid(true)
+                            txtCountNotification.visibility = View.VISIBLE
+                            imgNotification.setOnClickListener {
+                                val intent =
+                                    Intent(UTSwapApp.instance, NotificationActivity::class.java)
+                                startActivity(intent)
                             }
-                        } catch (e: Exception) {
-                            e.printStackTrace()
-                        }
-
-
-                    }
-
-                    override fun onPageScrollStateChanged(state: Int) {
-
-                    }
-                })
-                
-                bannerImage.setOnTouchListener { _, event ->
-                    when (event.action) {
-                        MotionEvent.ACTION_DOWN -> {
-
-                        }
-                        MotionEvent.ACTION_UP -> {
-                            isUserSwipe = true
+                        } else {
+                            onHomeMenuGrid(false)
+                            txtCountNotification.visibility = View.INVISIBLE
+                            imgNotification.setOnClickListener {
+                                val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
+                                startActivity(intent)
+                            }
                         }
                     }
-                    false
+
                 }
 
 
+            }
+        } catch (error: Exception) {
+            // Must be safe
+        }
+    }
 
+    override fun onGetBannerSuccess(data: BannerObj.Banner) {
+        mPresenter.getNewsHome(requireActivity())
+        mPresenter.getWishListAndBalance(requireActivity())
+        binding.apply {
+            swipeRefresh.isRefreshing = false
+            bannerLoopingPagerAdapter = object : BannerLoopingPagerAdapter(
+                data.data, false
+            ) {
+                override fun onBannerItemClick(id: String, position: Int) {
+                    if (position != null) {
+                        NewsDetailActivity.launchNewsDetailsActivity(requireActivity(), id)
+                    }
 
-                /* bottom sheet dialog on finance button */
+                }
+            }
 
+            bannerLoopingPagerAdapter?.apply {
+                bannerImage.adapter = bannerLoopingPagerAdapter
+            }
 
-                /* Watchlist Recycle View */
-                val locationProject = arrayOf(
-                    "Siem Reap 17140 Siem Reap 17140",
-                    "Muk Kampul 16644",
-                    "KT",
-                    "New Airport",
-                    "Siem Reap 17140",
-                    "Muk Kampul 16644",
-                    "KT 1665",
-                    "New Airport 38Ha"
-                )
-                val lastValue = doubleArrayOf(
-                    3.68,
-                    13.38,
-                    29.06,
-                    41.20,
-                    19.64,
-                    1.68,
-                    2.30,
-                    1.68
-                )
-                val changeValue = doubleArrayOf(
-                    1.05,
-                    -20.33,
-                    12.00,
-                    -21.68,
-                    12.65,
-                    -20.50,
-                    12.38,
-                    -21.78,
-                )
+            indicator.setViewPager(bannerImage)
+            bannerImage.setLooperPic(true)
 
-                val homeWatchlist = ArrayList<HomeWatchlistModel>()
-
-                for (i in locationProject.indices) {
-                    val watchlist = HomeWatchlistModel(
-                        locationProject[i],
-                        lastValue[i],
-                        changeValue[i]
-                    )
-                    homeWatchlist.add(watchlist)
+            bannerImage.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+                override fun onPageScrolled(
+                    position: Int,
+                    positionOffset: Float,
+                    positionOffsetPixels: Int,
+                ) {
                 }
 
-                rvHomeWatchlist.layoutManager = LinearLayoutManager(UTSwapApp.instance, LinearLayoutManager.HORIZONTAL, false)
-                rvHomeWatchlist.adapter = HomeWatchlistAdapter(homeWatchlist, onClickWatch)
+                override fun onPageSelected(position: Int) {
+                    try {
+
+                        if (isUserSwipe) {
+                            if (currentPosition < position) {
+
+                            } else if (currentPosition > position) {
+
+                            }
+                            isUserSwipe = false
+                        }
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
 
 
-                /* Recent News Recycle View */
-                val imageNews = arrayOf(
-                    "https://utswap.io/Upload/issue/62258e1d402b7.png",
-                    "https://utswap.io/Upload/issue/62258e6ce881f.jpg",
-                    "https://utswap.io/Upload/issue/62258de873321.jpg",
-                    "https://utswap.io/Upload/issue/62258dc331263.jpg",
-                    "https://utswap.io/Upload/issue/62258d2401bb7.jpg"
-                )
-                val titleNews = arrayOf(
-                    "Laoka, Mondulkiri Land Plot Special Price",
-                    "Siem Reap 17140",
-                    "Muk Kampul 16644",
-                    "Veng Sreng 2719",
-                    "Pochentong 555",
-                )
-                val dateNews = arrayOf(
-                    "05 April 2021",
-                    "01 May 2022",
-                    "03 June 2022",
-                    "02 July 2022",
-                    "02 August 2022",
-                )
-
-                val homeRecentNewsList = ArrayList<HomeRecentNewsModel>()
-
-                for (i in imageNews.indices) {
-                    val recentNews = HomeRecentNewsModel(
-                        imageNews[i],
-                        titleNews[i],
-                        dateNews[i]
-                    )
-                    homeRecentNewsList.add(recentNews)
                 }
 
-                rvHomeNews.layoutManager = LinearLayoutManager(UTSwapApp.instance)
-                rvHomeNews.adapter = HomeRecentNewsAdapter(homeRecentNewsList, onClickNews)
+                override fun onPageScrollStateChanged(state: Int) {
 
-
-                layNewsLoading.setOnClickListener {
-                    activity?.findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(
-                        R.id.nav_view
-                    )?.selectedItemId = R.id.navigation_navbar_news
                 }
+            })
+
+
+        }
+    }
+
+    override fun onGetBannerFail(message: String) {
+        binding.apply {
+            swipeRefresh.isRefreshing = false
+        }
+    }
+
+    override fun onGetNewsHomeSuccess(data: News.NewsRes) {
+        newsList.clear()
+        data.data?.NEW?.forEachIndexed { index, itemWishList ->
+
+            if (index<=2){
+                newsList.add(itemWishList)
+            }
+        }
+        binding.apply {
+            swipeRefresh.isRefreshing = false
+
+            rvHomeNews.layoutManager = LinearLayoutManager(UTSwapApp.instance)
+            homeRecentNewsAdapter  = HomeRecentNewsAdapter(newsList)
+                //data.data?.NEW?.let { HomeRecentNewsAdapter(it) }
+            rvHomeNews.adapter = homeRecentNewsAdapter
+            layNewsLoading.setOnClickListener {
+                activity?.findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(
+                    R.id.nav_view
+                )?.selectedItemId = R.id.navigation_navbar_news
+            }
+        }
+
+    }
+
+    override fun onGetNewsHomeFail(message: String) {
+        binding.apply {
+            swipeRefresh.isRefreshing = false
+        }
+    }
+
+    override fun onGetWishListAndBalanceSuccess(data: BannerObj.whistListRes) {
+
+
+        if (data.data?.watch_lists?.size == 0) {
+            binding.apply {
+                linearLayoutWatchlist.visibility = View.GONE
+                rvHomeWatchlist.visibility = View.GONE
+            }
+        } else {
+            binding.rvHomeWatchlist.apply {
+                homeWatchlistAdapter = data.data?.watch_lists?.let { HomeWatchlistAdapter(it) }
+                adapter = homeWatchlistAdapter
+                layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+              //  addItemDecoration(SpaceDecoration(resources.getDimensionPixelSize(R.dimen.dimen_2)))
+
+            }
+        }
+
+        binding.apply {
+
+            if (data.data?.total_user_balance ==0.0){
+                tradingBalance.text =  "$ " + "0.00"
+            }else{
+                tradingBalance.text =  "$ " + "" + "" + data.data?.total_user_balance?.let { UtilKt().formatDecimal("#,###.00", it) }
+
+
 
             }
 
+            swipeRefresh.isRefreshing = false
+        }
+    }
 
-        } catch (error: Exception) {
-            // Must be safe
+    override fun onGetWishListAndBalanceFail(message: String) {
+        binding.apply {
+            swipeRefresh.isRefreshing = false
         }
     }
 
@@ -348,34 +320,6 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
         }
     }
 
-    // Onclick Slide Image
-    private val onclickAdapter: HomeTabSlideImageAdapter.OnclickAdapter =
-        object : HomeTabSlideImageAdapter.OnclickAdapter {
-            override fun onClickSlidetab(homeTabSlideImageModel: HomeTabSlideImageModel) {
-                val intent = Intent(UTSwapApp.instance, NewsDetailActivity::class.java)
-                startActivity(intent)
-            }
-        }
-
-
-    //click to trade exchange
-    val onClickWatch: HomeWatchlistAdapter.OnclickWatch =
-        object : HomeWatchlistAdapter.OnclickWatch {
-            override fun ClickWatch() {
-                val intent: Intent = Intent(UTSwapApp.instance, TradeExchangeActivity::class.java)
-                startActivity(intent)
-            }
-        }
-
-    val onClickNews: HomeRecentNewsAdapter.onclickNews =
-        object : HomeRecentNewsAdapter.onclickNews {
-            override fun ClickNews() {
-                val intent: Intent = Intent(UTSwapApp.instance, NewsDetailActivity::class.java)
-                startActivity(intent)
-            }
-
-        }
-
     private fun onHomeMenuGrid(enabled: Boolean) {
 
         binding.apply {
@@ -397,7 +341,17 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
 
     }
 
-    private fun showBalanceClick(){
+    private fun onSwipeRefresh() {
+        binding.apply {
+            swipeRefresh.setOnRefreshListener {
+                mPresenter.getNewsHome(requireActivity())
+                mPresenter.getBanner(requireActivity())
+
+            }
+        }
+    }
+
+    private fun showBalanceClick() {
         binding.apply {
 
             blurCondition = !blurCondition
