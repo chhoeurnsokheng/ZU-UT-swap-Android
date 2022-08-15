@@ -398,7 +398,6 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginVertical="@dimen/dimen_20"
                                 android:gravity="center"
-                                android:text="@string/__end__"
                                 android:visibility="gone" />
 
                         </LinearLayout>

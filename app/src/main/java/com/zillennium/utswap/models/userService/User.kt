@@ -160,4 +160,68 @@ object User {
     class EnterNewPasswordData{
 
     }
+
+    /** Add Phone Number*/
+    class AddPhoneNumberRes{
+        var status: Int? = null
+        var message: String? = null
+        var data: AddPhoneNumberData? = null
+    }
+
+    class AddPhoneNumberData{
+        var secure_key: String? = null
+    }
+
+    class AddPhoneNumberObject(
+        var cellphone: String?
+    )
+
+    /** Verify Add phone number*/
+    class VerifyAddPhoneNumberRes{
+        var status: Int? = null
+        var message: String? = null
+        var data: VerifyAddPhoneNumberData? = null
+    }
+
+    class VerifyAddPhoneNumberData{
+        var phone: String? = null
+    }
+
+    class VerifyAddPhoneNumberObject(
+        var secure_key: String?,
+        var otp_code: String?
+    )
+
+    /** App Side Bar*/
+    class AppSideBarRes{
+        var status: Int? = null
+        var message: String? = null
+        var data: AppSideBarData? = null
+    }
+
+    class AppSideBarData{
+        var username: String? = null
+        var truename: String? = null
+        var kyc: String? = null
+        var email: String? = null
+        var phonenumber: String? = null
+        var ocupation: String? = null
+        var company_name: String? = null
+        var address: String? = null
+        var image_profile: String? = null
+        var mobile: String? = null
+        var image_lavel: String? = null
+        var name_user_lavel: String? = null
+    }
+
+    /** Check User Login Status*/
+    class CheckUserLoginStatusRes{
+        var status: Int? = null
+        var message: String? = null
+        var data: Any? = null
+    }
+
+    class CheckUserLoginStatusData{
+        var user_id: Int? = null
+    }
 }

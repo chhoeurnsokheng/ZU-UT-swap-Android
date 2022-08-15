@@ -1,29 +1,25 @@
 package com.zillennium.utswap.module.project.projectScreen
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.res.ColorStateList
-import android.os.Build
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityProjectBinding
-import com.zillennium.utswap.models.ProjectModel
-import com.zillennium.utswap.models.TestModel
+import com.zillennium.utswap.models.project.ProjectList
 import com.zillennium.utswap.module.project.projectInfoScreen.ProjectInfoActivity
 import com.zillennium.utswap.module.project.projectScreen.adapter.ProjectAdapter
+import com.zillennium.utswap.module.project.projectScreen.adapter.ProjectGridAdapter
 import com.zillennium.utswap.module.system.notification.NotificationActivity
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
+
 
 class ProjectActivity :
     BaseMvpActivity<ProjectView.View, ProjectView.Presenter, ActivityProjectBinding>(),
@@ -32,30 +28,30 @@ class ProjectActivity :
     override var mPresenter: ProjectView.Presenter = ProjectPresenter()
     override val layoutResource: Int = R.layout.activity_project
 
-    private var projectArrayList = ArrayList<ProjectModel>()
-    private var search = ""
+    private var projectList: ArrayList<ProjectList.ProjectListData> = arrayListOf()
+    private var projectGridAdapter: ProjectGridAdapter? = null
+    private var projectAdapter: ProjectAdapter? = null
+    private var name = ""
     private var viewGrid = false
+    private var sort = " " // asc // desc
     private var sortedDate = true
+    private var page = 1
+    private var lastPosition = 0
+    private var totalItem = 0
 
-    @RequiresApi(Build.VERSION_CODES.O)
-    @SuppressLint("ResourceType")
+    companion object {
+        var order_page: Int? = null
+    }
+
     override fun initView() {
         super.initView()
-//        try {
-        mPresenter.getDataFromApi()
+        requestData()
+        loadMoreData()
+        onSwipeRefresh()
+        onSearchBox()
+        onChangeLayoutManager()
 
-//            mPresenter.getProject().map {
-//                Log.d("Test", it.title)
-//            }
-
-//            Handler().postDelayed({
         binding.apply {
-
-            Log.d("hello", "world")
-
-            pgLoading.visibility = View.GONE
-            rvProject.visibility = View.VISIBLE
-
             backImage.setOnClickListener {
                 finish()
             }
@@ -65,117 +61,98 @@ class ProjectActivity :
                 startActivity(intent)
             }
 
-            val publicDate = arrayOf(
-                "05-05-2021",
-                "01-01-2022",
-                "03-03-2022",
-                "02-01-2022",
-                "02-04-2022",
-            )
-
-            val imageIcon = arrayOf(
-                "https://utswap.io/Upload/issue/62258e1d402b7.png",
-                "https://utswap.io/Upload/issue/62258e6ce881f.jpg",
-                "https://utswap.io/Upload/issue/62258de873321.jpg",
-                "https://utswap.io/Upload/issue/62258dc331263.jpg",
-                "https://utswap.io/Upload/issue/62258d2401bb7.jpg"
-            )
-
-            val titleProject = arrayOf(
-                "KT 1665",
-                "Siem Reap 17140",
-                "Muk Kampul 16644",
-                "Veng Sreng 2719",
-                "Pochentong 555",
-            )
-
-            val subTitle = arrayOf(
-                "KT 1665",
-                "Siem Reap 17140",
-                "Muk Kampul 16644",
-                "Veng Sreng 2719",
-                "Flipping Strategy"
-            )
-
-            val status = arrayOf(
-                "Upcoming",
-                "",
-                "",
-                "",
-                ""
-            )
-
-            for (i in publicDate.indices) {
-                val project = ProjectModel(
-                    i,
-                    publicDate[i],
-                    imageIcon[i],
-                    titleProject[i],
-                    subTitle[i],
-                    status[i]
-                )
-                projectArrayList.add(project)
-            }
-
-            for (i in publicDate.indices) {
-                val project = ProjectModel(
-                    i + 10,
-                    publicDate[i],
-                    imageIcon[i],
-                    titleProject[i],
-                    subTitle[i],
-                    status[i]
-                )
-                projectArrayList.add(project)
-            }
-
-            val dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")
-            projectArrayList.sortByDescending {
-                LocalDate.parse(
-                    it.publicDate,
-                    dateTimeFormatter
-                )
-            }
-
-            /* Sorted on click */
-            layLast.setOnClickListener {
-                sortedDate = !sortedDate
-                if(sortedDate){
-                    imgLast.rotation = 180f
-                }else{
-                    imgLast.rotation = 0f
-                }
-                getData()
-            }
-
-            /* Change View on click */
             layView.setOnClickListener {
                 viewGrid = !viewGrid
-                getData()
+                onChangeLayoutManager()
             }
             layView.callOnClick()
 
+            layLast.setOnClickListener {
+                projectList.clear()
+                sortedDate = !sortedDate
+                if (sortedDate) {
+                    sort = "desc"
+                    imgLast.rotation = 180f
+                    requestData()
+                //    binding.pgLoading.visibility = View.VISIBLE
+
+                } else {
+                    imgLast.rotation = 0f
+                    sort = "asc"
+                    requestData()
+                  //  binding.pgLoading.visibility = View.VISIBLE
+                }
+
+            }
+
+
+        }
+
+    }
+
+    override fun projectListSuccess(data: ProjectList.ProjectListRes) {
+
+        binding.projectListSwipeRefresh.isRefreshing = false
+        totalItem = data.data?.totalpage ?: 0
+
+        if (page == 1) {
+            projectList.clear()
+        }
+
+        data.data?.projects?.let { projectList.addAll(it) }
+
+        binding.apply {
+
+            rvProject.adapter?.notifyDataSetChanged()
+            pgLoading.visibility = View.GONE
+            progressBar.visibility = View.GONE
+        }
+
+    }
+
+
+    override fun projectListFail(data: ProjectList.ProjectListRes) {
+        binding.apply {
+            pgLoading.visibility = View.GONE
+            projectListSwipeRefresh.isRefreshing = false
+        }
+    }
+
+
+    private fun onSearchBox() {
+
+        binding.apply {
             etSearch.setOnFocusChangeListener { _, hasFocus ->
                 if (hasFocus) {
                     laySearch.backgroundTintList =
-                        ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
+                        ColorStateList.valueOf(
+                            ContextCompat.getColor(
+                                UTSwapApp.instance,
+                                R.color.primary
+                            )
+                        )
                 } else {
                     laySearch.backgroundTintList =
-                        ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.light_gray))
+                        ColorStateList.valueOf(
+                            ContextCompat.getColor(
+                                UTSwapApp.instance,
+                                R.color.light_gray
+                            )
+                        )
                 }
             }
 
-            etSearch.addTextChangedListener(object: TextWatcher{
+            etSearch.addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(char: CharSequence?, p1: Int, p2: Int, p3: Int) {
 
                 }
 
                 override fun onTextChanged(char: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                    search = char.toString()
+                    name = char.toString()
+                    requestData()
                 }
 
                 override fun afterTextChanged(p0: Editable?) {
-                    getData()
                 }
 
             })
@@ -187,86 +164,83 @@ class ProjectActivity :
             txtCancel.setOnClickListener {
                 linearLayoutSearch.visibility = View.GONE
                 etSearch.text.clear()
-                val inputMethodManager = UTSwapApp.instance.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+                val inputMethodManager =
+                    UTSwapApp.instance.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
                 inputMethodManager.hideSoftInputFromWindow(etSearch.windowToken, 0)
             }
+
         }
-//            }, 5000)
-
-
-//        } catch (error: Exception) {
-//            // Must be safe
-//        }
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
-    private fun getData(){
-        binding.apply {
 
-            var dataProject: ArrayList<ProjectModel> = arrayListOf()
-
-            if(search.isNotEmpty()){
-                dataProject.clear()
-                projectArrayList.map {
-                    if(it.titleProject.contains(search, ignoreCase = true)){
-                        dataProject.add(it)
+    private fun loadMoreData() {
+        binding.rvProject.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if (dy > 0) {
+                    lastPosition =
+                        (binding.rvProject.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
+                    if (lastPosition == projectList.size - 1 && page < totalItem) {
+                        binding.progressBar.visibility = View.VISIBLE
+                        page++
+                        requestData()
                     }
-                }
-            }else{
-                dataProject = projectArrayList
-            }
 
-            val dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")
-            if(sortedDate){
-                dataProject.sortByDescending {
-                    LocalDate.parse(
-                        it.publicDate,
-                        dateTimeFormatter
-                    )
-                }
-            }else{
-                dataProject.sortBy {
-                    LocalDate.parse(
-                        it.publicDate,
-                        dateTimeFormatter
-                    )
                 }
             }
+        })
+    }
 
-            if(viewGrid){
+    private fun requestData() {
+        val bodyObj = ProjectList.ProjectListBody()
+        bodyObj.page = page
+        bodyObj.sort = sort
+        bodyObj.name = name
+        mPresenter.projectList(bodyObj)
+    }
+
+    private fun onChangeLayoutManager() {
+
+        binding.apply {
+            if (viewGrid) {
+                page = 1
+                requestData()
                 viewType.setImageResource(R.drawable.ic_grid_view)
                 rvProject.layoutManager = GridLayoutManager(UTSwapApp.instance, 2)
-                rvProject.adapter =
-                    ProjectAdapter(dataProject, R.layout.item_list_project_grid, onclickProject)
-            }else{
+                projectGridAdapter = ProjectGridAdapter(projectList)
+                rvProject.adapter = projectGridAdapter
+
+            } else {
+                page = 1
+                requestData()
                 viewType.setImageResource(R.drawable.ic_list_view)
                 rvProject.layoutManager = LinearLayoutManager(UTSwapApp.instance)
-                rvProject.adapter =
-                    ProjectAdapter(dataProject, R.layout.item_list_project, onclickProject)
+                projectAdapter = ProjectAdapter(projectList)
+                rvProject.adapter = projectAdapter
+
             }
-
         }
 
     }
 
-    private val onclickProject: ProjectAdapter.OnclickProject = object :
-        ProjectAdapter.OnclickProject {
-        override fun onClickMe(projectHistory: ProjectModel?, selectedPosition: Int?) {
-//            val bundle = bundleOf("id" to selectedPosition)
-//            findNavController().navigate(R.id.action_to_project_info, bundle)
-                val intent: Intent = Intent(UTSwapApp.instance, ProjectInfoActivity::class.java)
-                startActivity(intent)
-
+    private fun onSwipeRefresh() {
+        binding.apply {
+            projectListSwipeRefresh.setOnRefreshListener {
+                page = 1
+                requestData()
+            }
         }
-
     }
 
-    override fun onGetPhoto(data: List<TestModel>) {
-        Log.d("onGetPhoto Fragment", "onGetPhoto Fragment")
-//        data.map {
-//            Log.d("123213", it.url)
-//        }
 
-    }
 
 }
+
+
+
+
+
+
+
+
+

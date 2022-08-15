@@ -2,8 +2,10 @@ package com.zillennium.utswap.api.service
 
 
 import com.zillennium.utswap.api.ApiSettings
+import com.zillennium.utswap.api.Header
 import com.zillennium.utswap.models.userService.User
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.HeaderMap
 import retrofit2.http.POST
 import rx.Observable
@@ -61,5 +63,28 @@ interface UserService {
         @Body body: User.EnterNewPasswordObject
     ): Observable<User.EnterNewPasswordRes>
 
+    /** Add Phone Number*/
+    @POST(ApiSettings.PATH_ADD_PHONE_NUMBER)
+    fun addPhoneNumberService(
+        @HeaderMap header: Map<String, String>,
+        @Body body: User.AddPhoneNumberObject
+    ): Observable<User.AddPhoneNumberRes>
 
+    @POST(ApiSettings.PATH_VERIFY_CODE_PHONE)
+    fun verifyAddPhoneNumber(
+        @HeaderMap header: Map<String, String>,
+        @Body body: User.VerifyAddPhoneNumberObject
+    ): Observable<User.VerifyAddPhoneNumberRes>
+
+    /** App Side Bar and User detail info*/
+    @GET(ApiSettings.PATH_APP_SIDE_BAR)
+    fun appSideBarUserInfo(
+        @HeaderMap header: Map<String,String>
+    ): Observable<User.AppSideBarRes>
+
+    /** Check User Login Status*/
+    @GET(ApiSettings.PATH_CHECK_USER_LOGIN_STATUS)
+    fun checkUserLoginStatus(
+        @HeaderMap header: Map<String,String>
+    ): Observable<User.CheckUserLoginStatusRes>
 }

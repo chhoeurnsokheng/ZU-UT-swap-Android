@@ -7,7 +7,8 @@ import com.zillennium.utswap.R
 interface Constants {
 
     companion object {
-        const val PREFERENCE_NAME = "Z1"
+        const val PREFERENCE_NAME = "UT_SWAP"
+        const val DEVICE_TOKEN = "DEVICE_TOKEN"
         const val SETTING_INFO = "SETTING_INFO"
         const val LAST_PAYMENT_METHOD = "LAST_PAYMENT_METHOD"
         const val PAYMENT_AUTH_TOKEN = "PAYMENT_AUTH_TOKEN"
@@ -57,6 +58,13 @@ interface Constants {
             var username = ""
             var password = ""
 
+        }
+    }
+
+    /** Add Phone Number for resend code*/
+    interface AddPhoneNumber{
+        companion object{
+            var cellPhone = ""
         }
     }
 
@@ -456,6 +464,12 @@ interface Constants {
     interface TradeExchange {
         companion object {
             const val ProjectName = "ProjectName"
+        }
+    }
+    interface Project{
+        companion object{
+            const val ProjectName = "Project_Name"
+            const val Project_Id = "id"
         }
     }
 

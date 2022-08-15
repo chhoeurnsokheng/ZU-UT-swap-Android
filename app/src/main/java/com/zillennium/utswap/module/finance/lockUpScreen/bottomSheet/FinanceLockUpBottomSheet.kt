@@ -3,6 +3,7 @@ package com.zillennium.utswap.module.finance.lockUpScreen.bottomSheet
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.AdapterView
 import androidx.core.content.ContextCompat
@@ -12,10 +13,12 @@ import com.zillennium.utswap.Datas.GlobalVariable.SettingVariable
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.databinding.BottomSheetFinanceLockUpBinding
+import com.zillennium.utswap.module.finance.lockUpScreen.FinanceLockUpActivity
 
 class FinanceLockUpBottomSheet: BottomSheetDialogFragment(), AdapterView.OnItemSelectedListener {
 
     private var binding: BottomSheetFinanceLockUpBinding? = null
+    private var type: String = ""
 
     override fun getTheme(): Int {
         return R.style.BottomSheetStyle
@@ -43,21 +46,28 @@ class FinanceLockUpBottomSheet: BottomSheetDialogFragment(), AdapterView.OnItemS
             when(arguments?.get("title")){
                 "Buy Back" -> imgCheckBuyBack.visibility = View.VISIBLE
                 "Swap" -> imgCheckSwap.visibility = View.VISIBLE
+                "Lock Balance" -> imgLockBalance.visibility = View.VISIBLE
             }
+            type = arguments?.get("title").toString()
+
 
             val item = arrayOf(
                 btnBuyBack,
                 btnSwap,
+                btnLockBalance
             )
 
             val title = arrayOf(
                 "Buy Back",
                 "Swap",
+                "Lock Balance"
             )
 
             item.mapIndexed { index, it ->
                 it.setOnClickListener {
-                    SettingVariable.finance_lock_up_selected.value = title[index].toString()
+                    if (type != title[index]) {
+                        SettingVariable.finance_lock_up_selected.value = title[index]
+                    }
                     dismiss()
                 }
             }

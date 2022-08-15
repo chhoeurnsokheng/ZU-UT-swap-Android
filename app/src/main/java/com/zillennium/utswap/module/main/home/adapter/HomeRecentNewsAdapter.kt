@@ -1,58 +1,49 @@
 package com.zillennium.utswap.module.main.home.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
-import com.zillennium.utswap.models.HomeRecentNewsModel
+import com.zillennium.utswap.databinding.ItemListHomeRecentNewsBinding
+import com.zillennium.utswap.models.newsService.News
+import com.zillennium.utswap.module.main.news.newsDetail.NewsDetailActivity
 
-class HomeRecentNewsAdapter(arrayList: ArrayList<HomeRecentNewsModel>, onClickNews: onclickNews):
-    RecyclerView.Adapter<HomeRecentNewsAdapter.ViewHolder>() {
 
-    val listData: ArrayList<HomeRecentNewsModel> = arrayList
-    val onClickNews = onClickNews
+class HomeRecentNewsAdapter(private val item: List<News.NewsNew>) :
+    RecyclerView.Adapter<HomeRecentNewsAdapter.HomeRecentNewsViewHolder>() {
 
-    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        var imageImageView: ImageView = view.findViewById<View>(R.id.image_view) as ImageView
-        var txtTitleProject: TextView = view.findViewById<View>(R.id.title_project) as TextView
-        var txtNewDate: TextView = view.findViewById<View>(R.id.news_date) as TextView
-        var layoutRecentNewsCard: LinearLayout = view.findViewById<View>(R.id.linear_news_card) as LinearLayout
-    }
 
-    interface onclickNews {
-        fun ClickNews()
-    }
-
-    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(
-            LayoutInflater.from(viewGroup.context)
-                .inflate(R.layout.item_list_home_recent_news, viewGroup, false)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeRecentNewsViewHolder {
+        return HomeRecentNewsViewHolder(
+            ItemListHomeRecentNewsBinding.inflate(
+                LayoutInflater.from(
+                    parent.context
+                ), parent, false
+            )
         )
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val homeRecentNewsList: HomeRecentNewsModel = listData[position]
-        Glide.with(UTSwapApp.instance)
-            .load(homeRecentNewsList.imageLocation)
-            .diskCacheStrategy(DiskCacheStrategy.NONE)
-            .skipMemoryCache(true)
-            .into(holder.imageImageView)
-        holder.txtTitleProject.text = homeRecentNewsList.titleNews
-        holder.txtNewDate.text = homeRecentNewsList.dateNews
-        holder.layoutRecentNewsCard.setOnClickListener {
-            onClickNews.ClickNews()
+    override fun onBindViewHolder(holder: HomeRecentNewsViewHolder, position: Int) {
+         holder.bind(item[position])
+    }
+
+    class HomeRecentNewsViewHolder(val binding: ItemListHomeRecentNewsBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(data: News.NewsNew) {
+            binding.apply {
+                Glide.with(imageView).load(data.img).fitCenter().into(imageView)
+                titleProject.text = data.title
+                newsDate.text = data.addtime
+                layoutNews.setOnClickListener {
+                    NewsDetailActivity.launchNewsDetailsActivity(root.context,data.id)
+                }
+            }
         }
     }
 
     override fun getItemCount(): Int {
-        val limit = 3
-        return Math.min(listData.size, limit)
+        return item.size
     }
+
 }

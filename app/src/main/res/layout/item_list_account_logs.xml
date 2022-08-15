@@ -1,44 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/dimen_15">
+<layout>
 
-    <LinearLayout
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_marginBottom="@dimen/dimen_15">
 
-        <TextView
-            android:id="@+id/txt_time"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/dark_gray"
-            android:gravity="start"
-            android:textAppearance="@style/regular_10"
-            android:layout_weight="1"
-            android:text="@string/time"/>
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/txt_action_remarks"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black_000000"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:textAppearance="@style/regular_10"
-            android:text="@string/action_remarks"/>
+            <TextView
+                android:id="@+id/txt_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="start"
+                android:text="@string/time"
+                android:textAppearance="@style/regular_10"
+                android:textColor="@color/dark_gray" />
 
-        <TextView
-            android:id="@+id/txt_status"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black_000000"
-            android:layout_weight="1"
-            android:gravity="end"
-            android:textAppearance="@style/regular_10"
-            android:text="@string/status"/>
+            <TextView
+                android:id="@+id/txt_action_remarks"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/action_remarks"
+                android:textAppearance="@style/regular_10"
+                android:textColor="@color/black_000000" />
+
+            <TextView
+                android:id="@+id/txt_status"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:text="@string/status"
+                android:textAppearance="@style/regular_10"
+                android:textColor="@color/black_000000" />
+
+        </LinearLayout>
 
     </LinearLayout>
-
-</LinearLayout>
+</layout>

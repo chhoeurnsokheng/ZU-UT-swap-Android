@@ -1,61 +1,71 @@
 package com.zillennium.utswap.module.project.projectInfoScreen.adapter
 
-import android.R.attr.path
-import android.graphics.drawable.Drawable
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.request.RequestOptions
-import com.bumptech.glide.request.target.Target
+import com.google.android.material.imageview.ShapeableImageView
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
+import com.zillennium.utswap.bases.mvp.BaseRecyclerViewAdapterGeneric
+import com.zillennium.utswap.bases.mvp.BaseViewHolder
+import com.zillennium.utswap.databinding.ItemListProjectInfoSliderImageBinding
 import com.zillennium.utswap.models.ProjectInfoSlideImageModel
 
 
-class ProjectViewPagerAdapter(
-    private val arrayList: ArrayList<ProjectInfoSlideImageModel>,
-    private val onclickAdapter: OnclickAdapter
-) : RecyclerView.Adapter<ProjectViewPagerAdapter.ViewPagerViewHolder>() {
+class ProjectViewPagerAdapter(private var onclickAdapter: OnclickAdapter) :
+    BaseRecyclerViewAdapterGeneric<String, ProjectViewPagerAdapter.ProjectViewPagerViewHolder>() {
+    inner class ProjectViewPagerViewHolder(root: ItemListProjectInfoSliderImageBinding) :
+        BaseViewHolder<ItemListProjectInfoSliderImageBinding>(root) {
+        fun bindData(projectInfoDetailData: String) {
+            println("test$projectInfoDetailData")
+            binding.apply {
+                Glide.with(UTSwapApp.instance)
+                    .asBitmap()
+                    .load(projectInfoDetailData)
+                    .placeholder(R.drawable.ic_placeholder)
+                    .fitCenter()
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true)
+                    .into(ivImage)
 
-    inner class ViewPagerViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        var imageViews: ImageView = view.findViewById<View>(R.id.ivImage) as ImageView
-    }
+                itemView.setOnClickListener {
+                    onclickAdapter.onClickMe(projectInfoDetailData.toString(), position, itemView)
+                }
 
-    override fun onCreateViewHolder(
-        viewGroup: ViewGroup,
-        viewType: Int
-    ): ProjectViewPagerAdapter.ViewPagerViewHolder {
-        return ViewPagerViewHolder(
-            LayoutInflater.from(viewGroup.context)
-                .inflate(R.layout.item_list_project_info_slider_image, viewGroup, false)
-        )
-    }
-
-    override fun onBindViewHolder(holder: ViewPagerViewHolder, position: Int) {
-        val imageList: ProjectInfoSlideImageModel = arrayList[position]
-        Glide.with(UTSwapApp.instance)
-            .asBitmap()
-            .load(imageList.imageSlider)
-            .apply(RequestOptions().override(200, 200))
-            .fitCenter()
-            .diskCacheStrategy(DiskCacheStrategy.NONE)
-            .skipMemoryCache(true)
-            .into(holder.imageViews)
-
-        holder.itemView.setOnClickListener {
-            onclickAdapter.onClickMe(imageList, position, holder.itemView)
+            }
         }
+
     }
 
-    override fun getItemCount(): Int {
-        return arrayList.size
+    override fun onCreateItemHolder(
+        inflater: LayoutInflater,
+        parent: ViewGroup,
+        viewType: Int
+    ) = ProjectViewPagerViewHolder(
+        ItemListProjectInfoSliderImageBinding.inflate(
+            inflater,
+            parent,
+            false
+        )
+    )
+
+    override fun onBindItemHolder(
+        holder: ProjectViewPagerViewHolder,
+        position: Int,
+        context: Context
+    ) {
+        holder.bindData(items[position])
     }
 
     interface OnclickAdapter {
-        fun onClickMe(projectInfoSlideImageModel: ProjectInfoSlideImageModel, position: Int, view: View)
+        fun onClickMe(
+            projectInfoSlideImageModel: String,
+            position: Int,
+            view: View
+        )
     }
+
 }
