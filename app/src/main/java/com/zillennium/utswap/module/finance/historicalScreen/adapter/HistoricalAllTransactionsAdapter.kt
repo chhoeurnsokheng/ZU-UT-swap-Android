@@ -31,8 +31,8 @@ class HistoricalAllTransactionsAdapter : BaseRecyclerViewAdapterGeneric<Historic
             binding.apply {
                 txtDateAllTrans.text = allTransaction.addtime
                 txtVolumeAllTrans.text = allTransaction.num?.let { groupingSeparatorInt(it.toInt()) }
-                txtPriceAllTrans.text = "$" + allTransaction.price?.let { UtilKt().formatValue(it.toDouble(), "###,###.#") }
-                txtGrossAllTrans.text = "$" + allTransaction.gross?.let { UtilKt().formatValue(it.toDouble(), "###,###.#") }
+                txtPriceAllTrans.text = "$" + allTransaction.price?.let { UtilKt().formatValue(it.toDouble(), "###,###.##") }
+                txtGrossAllTrans.text = "$" + allTransaction.gross?.let { UtilKt().formatValue(it.toDouble(), "###,###.##") }
             }
         }
     }

@@ -32,10 +32,10 @@ class HistoricalTradeListAdapter: BaseRecyclerViewAdapterGeneric<Historical.Data
             binding.apply {
                 txtTitleTrade.text = trade.market
                 txtUtAmountTrade.text = trade.volume?.let { groupingSeparatorInt(it.toInt()) } + " UT"
-                txtOpenAmount.text = "$" + trade.opened_price?.let { UtilKt().formatValue(it.toDouble(), "###,###.#") }
-                txtCloseAmount.text = "$" + trade.closed_price?.let { UtilKt().formatValue(it.toDouble(), "###,###.#") }
-                txtHighAmount.text = "$" + trade.high_value?.let { UtilKt().formatValue(it.toDouble(), "###,###.#") }
-                txtLowAmount.text = "$" + trade.min_value?.let { UtilKt().formatValue(it.toDouble(), "###,###.#") }
+                txtOpenAmount.text = "$" + trade.opened_price?.let { UtilKt().formatValue(it.toDouble(), "###,###.##") }
+                txtCloseAmount.text = "$" + trade.closed_price?.let { UtilKt().formatValue(it.toDouble(), "###,###.##") }
+                txtHighAmount.text = "$" + trade.high_value?.let { UtilKt().formatValue(it.toDouble(), "###,###.##") }
+                txtLowAmount.text = "$" + trade.min_value?.let { UtilKt().formatValue(it.toDouble(), "###,###.##") }
             }
         }
     }
