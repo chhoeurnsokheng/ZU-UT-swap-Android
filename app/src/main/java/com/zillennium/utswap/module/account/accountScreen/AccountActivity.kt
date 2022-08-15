@@ -4,21 +4,17 @@ import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.net.Uri
-import android.provider.MediaStore
 import android.text.Html
 import android.util.Base64
 import android.view.View
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.core.net.toUri
+import com.androidstudy.networkmanager.BuildConfig
 import com.androidstudy.networkmanager.Tovuti
 import com.bumptech.glide.Glide
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.commons.io.output.ByteArrayOutputStream
-import com.zillennium.utswap.BuildConfig
 import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
-import com.zillennium.utswap.Datas.GlobalVariable.SettingVariable
 import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
@@ -26,13 +22,12 @@ import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityAccountBinding
 import com.zillennium.utswap.models.userService.User
 import com.zillennium.utswap.module.account.accountDetailScreen.AccountDetailActivity
-import com.zillennium.utswap.module.account.accountScreen.bottomSheet.ChangeProfileBottomSheet
 import com.zillennium.utswap.module.account.addNumberScreen.AddNumberActivity
 import com.zillennium.utswap.module.account.customerSupportScreen.CustomerSupportActivity
 import com.zillennium.utswap.module.account.documentsScreen.DocumentsActivity
 import com.zillennium.utswap.module.account.lockTimeOutScreen.LockTimeOutActivity
 import com.zillennium.utswap.module.account.referralInformationScreen.ReferralInformationActivity
-import com.zillennium.utswap.module.kyc.kycFragment.fundPasswordScreen.FundPasswordFragment
+import com.zillennium.utswap.module.kyc.kycActivity.KYCActivity
 import com.zillennium.utswap.utils.DialogUtil
 import java.io.File
 
@@ -124,12 +119,17 @@ class AccountActivity :
                 startActivity(intent)
             }
 
+            txtVerifyIdentity.setOnClickListener {
+                val intent = Intent(UTSwapApp.instance, KYCActivity::class.java)
+                startActivity(intent)
+            }
+
             profileImageView.setOnClickListener {
 
                 ImagePicker.with(this@AccountActivity)
-                    //  .crop()
-                    // .compress(1024)
-                    //  .maxResultSize(1080, 1080)
+                      .crop()
+                     .compress(1024)
+                      .maxResultSize(1080, 1080)
                     .start { resultCode, data ->4
                         when (resultCode) {
                             Activity.RESULT_OK -> {
@@ -203,7 +203,28 @@ class AccountActivity :
             if(!data.phonenumber.isNullOrEmpty())
             {
                 val phoneNumStr = data.phonenumber.toString()
-                txtPhoneNumber.text = phoneNumStr.replace("+855", "0")
+                //txtPhoneNumber.text = phoneNumStr.replace("+855", "0")
+                val phoneReplace = phoneNumStr.replace("+855", "0")
+                if(phoneReplace.length == 9){
+                    val result = buildString {
+                        for (i in 0 until phoneReplace.length) {
+                            if (i % 3 == 0 && i > 0)
+                                append(' ')
+                            append(phoneReplace[i])
+                        }
+                    }
+                    txtPhoneNumber.text = result
+                }else{
+                    val result = buildString {
+                        for (i in 0 until phoneReplace.length) {
+                            if (i % 3 == 0 && i<9)
+                                append(' ')
+                            append(phoneReplace[i])
+                        }
+                    }
+                    txtPhoneNumber.text = result
+                }
+
                 txtPhoneNumber.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.white))
                 txtPhoneNumber.isEnabled = false
             }else{
@@ -215,6 +236,14 @@ class AccountActivity :
             if (!data.username.isNullOrEmpty())
             {
                 txtName.text = data.truename.toString()
+                txtVerifyIdentity.isEnabled = false
+                txtArrow.visibility = View.GONE
+            }else{
+                txtArrow.visibility = View.VISIBLE
+                txtName.text = Html.fromHtml("<u>Verify your identity</u>")
+                txtName.setTextAppearance(UTSwapApp.instance, R.style.medium_16)
+                txtName.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.white))
+                txtVerifyIdentity.isEnabled = true
             }
 
             Glide
