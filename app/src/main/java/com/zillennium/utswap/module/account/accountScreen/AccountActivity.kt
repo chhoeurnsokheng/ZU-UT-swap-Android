@@ -126,11 +126,12 @@ class AccountActivity :
 
             profileImageView.setOnClickListener {
 
-                ImagePicker.with(this@AccountActivity)
-                      .crop()
+                ImagePicker.Companion.with(this@AccountActivity)
+                    .crop()
+                    .cropSquare()
                      .compress(1024)
                       .maxResultSize(1080, 1080)
-                    .start { resultCode, data ->4
+                    .start { resultCode, data ->
                         when (resultCode) {
                             Activity.RESULT_OK -> {
                                 val fileUri = data?.data
@@ -240,8 +241,8 @@ class AccountActivity :
                 txtArrow.visibility = View.GONE
             }else{
                 txtArrow.visibility = View.VISIBLE
-                txtName.text = Html.fromHtml("<u>Verify your identity</u>")
-                txtName.setTextAppearance(UTSwapApp.instance, R.style.medium_16)
+                txtName.text = Html.fromHtml("<u>Verify Your Identity</u>")
+                txtName.setTextAppearance(UTSwapApp.instance, R.style.medium_18)
                 txtName.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.white))
                 txtVerifyIdentity.isEnabled = true
             }
