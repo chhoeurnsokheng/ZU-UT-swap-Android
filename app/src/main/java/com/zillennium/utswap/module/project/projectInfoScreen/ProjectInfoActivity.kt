@@ -22,6 +22,7 @@ import com.zillennium.utswap.module.project.projectInfoScreen.adapter.ProjectInf
 import com.zillennium.utswap.module.project.projectInfoScreen.adapter.ProjectViewPagerAdapter
 import com.zillennium.utswap.module.project.subscriptionScreen.SubscriptionActivity
 import com.zillennium.utswap.utils.Constants
+import com.zillennium.utswap.utils.groupingSeparatorInt
 
 
 class ProjectInfoActivity() :
@@ -37,7 +38,7 @@ class ProjectInfoActivity() :
     private var id: Int = 0
 
     companion object {
-        fun launchProjectInfoActivity(context: Context, id: String?, projectName:String?) {
+        fun launchProjectInfoActivity(context: Context, id: String?, projectName: String?) {
             val intent = Intent(context, ProjectInfoActivity::class.java)
             intent.putExtra(Constants.Project.Project_Id, id)
             intent.putExtra(Constants.Project.ProjectName, projectName)
@@ -50,17 +51,17 @@ class ProjectInfoActivity() :
         super.initView()
 
         if (intent.hasExtra(Constants.Project.Project_Id)) {
-            id = intent.extras!!.getString(Constants.Project.Project_Id)!!.toInt()
+            id = intent.extras?.getString(Constants.Project.Project_Id)?.toInt() ?: 0
 
             id.let { ProjectInfoDetail.ProjectInfoDetailObject(it) }.let {
                 mPresenter.projectInfoView(it, UTSwapApp.instance)
             }
-
         }
 
         if (intent.hasExtra(Constants.Project.ProjectName)) {
             val projectName = intent?.getStringExtra(Constants.Project.ProjectName)
-            binding.apply { txtDetailTitle.text = projectName
+            binding.apply {
+                txtDetailTitle.text = projectName
             }
         }
 
@@ -72,10 +73,10 @@ class ProjectInfoActivity() :
                 onBackPressed()
             }
 
-            btnSubscriptTrade.setOnClickListener {
-                val intent = Intent(UTSwapApp.instance, SubscriptionActivity::class.java)
-                startActivity(intent)
-            }
+//            btnSubscriptTrade.setOnClickListener {
+//                val intent = Intent(UTSwapApp.instance, SubscriptionActivity::class.java)
+//                startActivity(intent)
+//            }
 
         }
     }
@@ -108,12 +109,13 @@ class ProjectInfoActivity() :
                 "Managed by",
                 "Location"
             )
+            val x = data.land_size?.substring(0, data.land_size!!.length - 4)
             val valueInfo = arrayOf(
                 data.title_deed,
-                data.land_size,
-                "${data.total_ut} UT",
-                data.base_price,
-                data.target_price,
+                groupingSeparatorInt(x?.toInt() ?: 0),
+                "${groupingSeparatorInt(data.total_ut!!.toInt())} UT",
+                "$${groupingSeparatorInt(data.base_price!!.toInt())}/smq",
+                "$${groupingSeparatorInt(data.target_price!!.toInt())}/smq",
                 data.managed_by,
                 data.location
             )
@@ -127,6 +129,7 @@ class ProjectInfoActivity() :
                 )
                 projectInfoDetailArrayList.add(projectInfo)
             }
+
 
             rvProjectInfoDetail.layoutManager = LinearLayoutManager(UTSwapApp.instance)
             val projectAdapter = ProjectInfoDetailsAdapter()
@@ -190,6 +193,18 @@ class ProjectInfoActivity() :
                 }
             }
 
+            if (data.action == "Subscribe") {
+                btnTrade.visibility = View.GONE
+                btnSubscript.visibility = View.VISIBLE
+                btnSubscript.setOnClickListener {
+                    val intent = Intent(UTSwapApp.instance, SubscriptionActivity::class.java)
+                    startActivity(intent)
+                }
+            } else {
+                btnTrade.visibility = View.VISIBLE
+                btnSubscript.visibility = View.GONE
+            }
+
         }
     }
 
@@ -206,7 +221,8 @@ class ProjectInfoActivity() :
                 mPresenter.projectInfoView(
                     ProjectInfoDetail.ProjectInfoDetailObject(id),
                     UTSwapApp.instance
-                )            }
+                )
+            }
         }
     }
 
