@@ -9,11 +9,13 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager.widget.ViewPager
 import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
+import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
@@ -65,27 +67,33 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
                     rvHomeWatchlist.visibility = View.VISIBLE
                     linearLayoutWatchlist.visibility = View.VISIBLE
                     if(SessionVariable.SESSION_STATUS.value == true){
-                        imgMenu.setOnClickListener {
-                            val intent = Intent(UTSwapApp.instance, AccountActivity::class.java)
-                            startActivity(intent)
-                            requireActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
-                        }
+
                     }else{
                         txtTotalBalance.visibility = View.GONE
                         linearLayoutBalance.visibility = View.GONE
                         rvHomeWatchlist.visibility = View.GONE
                         linearLayoutWatchlist.visibility = View.GONE
-                        imgMenu.setOnClickListener {
-                            val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
-                            startActivity(intent)
-                        }
+
                     }
                 }
-
                 imgMenu.setOnClickListener {
+                    if(SessionPreferences().SESSION_TOKEN != null) {
+                        val intent = Intent(UTSwapApp.instance, AccountActivity::class.java)
+                        startActivity(intent)
+                        requireActivity().overridePendingTransition(
+                            R.anim.slide_in_left,
+                            R.anim.slide_out_right
+                        )
+                    } else {
+                        val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
+                        startActivity(intent)
+
+                    }
+                }
+                /*imgMenu.setOnClickListener {
                     val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
                     startActivity(intent)
-                }
+                }*/
 
 
 
@@ -103,7 +111,7 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
                 /* Home Menu Grid */
                 onHomeMenuGrid(SessionVariable.SESSION_STATUS.value.toString().toBoolean())
                 SessionVariable.SESSION_STATUS.observe(this@HomeFragment) {
-                    if (SessionVariable.SESSION_STATUS.value == true) {
+                    if (SessionVariable.SESSION_STATUS.value == true && (SessionPreferences().SESSION_KYC == true)) {
                         onHomeMenuGrid(true)
                         txtCountNotification.visibility =View.VISIBLE
                         imgNotification.setOnClickListener {

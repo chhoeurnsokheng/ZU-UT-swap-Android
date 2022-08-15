@@ -15,6 +15,7 @@ import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentKycIdTypeBinding
+import com.zillennium.utswap.module.kyc.kycActivity.KYCActivity
 import com.zillennium.utswap.module.kyc.kycFragment.employmentInfoScreen.EmploymentInfoFragment
 import com.zillennium.utswap.module.kyc.kycFragment.idTypeScreen.camera.idCardCameraFragment.IDCardCameraFragment
 import com.zillennium.utswap.module.kyc.kycFragment.idTypeScreen.fragment.nationalID.NationalIDFragment
@@ -36,6 +37,12 @@ open class IdTypeFragment :
     override fun initView() {
         super.initView()
         try {
+            if (activity?.intent?.hasExtra("KYCStatus") == true) {
+                (activity as KYCActivity).kycStatus = activity?.intent?.getSerializableExtra("KYCStatus").toString()
+                    if ((activity as KYCActivity).kycStatus== "Pending") {
+                    findNavController().navigate(R.id.action_IDTypeKycFragment_to_KycApplicationKycFragment)
+                }
+            }
             activity?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true){
                 override fun handleOnBackPressed() {
                     IDVerificationFragment.apply {

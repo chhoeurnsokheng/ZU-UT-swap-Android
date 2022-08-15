@@ -3,11 +3,13 @@ package com.zillennium.utswap.module.kyc.kycFragment.kycApplicationScreen
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.navigation.fragment.findNavController
 import com.zillennium.utswap.Datas.StoredPreferences.KYCPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentKycApplicationBinding
+import com.zillennium.utswap.module.kyc.kycActivity.KYCActivity
 import com.zillennium.utswap.module.kyc.kycFragment.employmentInfoScreen.EmploymentInfoFragment
 import com.zillennium.utswap.module.kyc.kycFragment.idTypeScreen.camera.idCardCameraFragment.IDCardCameraFragment
 import com.zillennium.utswap.module.kyc.kycFragment.idVerificationScreen.IDVerificationFragment
@@ -31,8 +33,20 @@ class KycApplicationFragment :
                 status_kyc_submit = KYCPreferences().status_kyc_submit
                 status_kyc_approved = KYCPreferences().status_kyc_approved
                 imgBack.setOnClickListener {
-                    findNavController().popBackStack()
+                    if ((activity as KYCActivity).kycStatus == "Pending") {
+                        activity?.finish()
+                    } else {
+                        findNavController().popBackStack()
+                    }
                 }
+                activity?.let {
+                    activity?.onBackPressedDispatcher?.addCallback(it, object : OnBackPressedCallback(true){
+                        override fun handleOnBackPressed() {
+                            activity?.finish()
+                        }
+                    })
+                }
+
                 if (status_kyc_approved==true){
                     imgPending.setImageResource(R.drawable.ic_baseline_check_circle_24)
                     txtPending.text = "Approved"
@@ -66,7 +80,11 @@ class KycApplicationFragment :
                         occupation = ""
                         company = ""
                     }
-                    startActivity(Intent(requireActivity(),MainActivity::class.java))
+                    if ((activity as KYCActivity).kycStatus == "Pending") {
+                        activity?.finish()
+                    } else {
+                        startActivity(Intent(requireActivity(),MainActivity::class.java))
+                    }
                 }
             }
 

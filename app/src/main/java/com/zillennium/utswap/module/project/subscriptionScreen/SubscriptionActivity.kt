@@ -2,6 +2,7 @@ package com.zillennium.utswap.module.project.subscriptionScreen
 
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
+import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
@@ -98,7 +99,7 @@ class SubscriptionActivity :
 
     private fun onCheckSessionStatusAndKYC(){
         binding.apply {
-            if(SessionVariable.SESSION_STATUS.value == true && SessionVariable.SESSION_KYC.value == true){
+            if(SessionVariable.SESSION_STATUS.value == true && SessionPreferences().SESSION_KYC == true){
                 recycleViewProject.alpha = 1F
             }else{
                 recycleViewProject.alpha = 0.6F
