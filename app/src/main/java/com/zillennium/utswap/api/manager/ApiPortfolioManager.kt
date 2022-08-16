@@ -12,7 +12,6 @@ import rx.android.schedulers.AndroidSchedulers
  * Created by Sokheng Chhoeurn on 15/8/22.
  * Build in Mac
  */
-
 class ApiPortfolioManager : ApiManager() {
     fun getPortfolioGraph(context: Context): Observable<PortfolioGraphObj> =
         mPortfolioService.getPortfolioGraph(
