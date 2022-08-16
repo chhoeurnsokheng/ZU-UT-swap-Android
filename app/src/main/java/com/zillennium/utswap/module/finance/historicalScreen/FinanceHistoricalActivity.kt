@@ -12,7 +12,6 @@ import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.core.widget.NestedScrollView
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.androidstudy.networkmanager.Tovuti
 import com.zillennium.utswap.Datas.GlobalVariable.SettingVariable
 import com.zillennium.utswap.R

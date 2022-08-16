@@ -1,17 +1,12 @@
 package com.zillennium.utswap.module.finance.historicalScreen.bottomSheet
 
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.provider.ContactsContract
 import android.view.*
-import android.widget.AdapterView
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.zillennium.utswap.Datas.GlobalVariable.SettingVariable
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.databinding.BottomSheetFinanceHistoricalTransactionBinding

@@ -3,7 +3,6 @@ package com.zillennium.utswap.module.finance.historicalScreen.adapter
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.compose.ui.unit.Constraints
 import androidx.core.content.ContextCompat
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
@@ -11,10 +10,8 @@ import com.zillennium.utswap.bases.mvp.BaseRecyclerViewAdapterGeneric
 import com.zillennium.utswap.bases.mvp.BaseViewHolder
 import com.zillennium.utswap.databinding.ItemListFinanceHistoricalMyTransactionsBinding
 import com.zillennium.utswap.models.financeHistorical.Historical
-import com.zillennium.utswap.models.financeHistorical.HistoricalMyTransactionsModel
 import com.zillennium.utswap.utils.Constants
 import com.zillennium.utswap.utils.UtilKt
-import com.zillennium.utswap.utils.groupingSeparator
 
 class HistoricalMyTransactionsAdapter: BaseRecyclerViewAdapterGeneric<Historical.DataTransaction, HistoricalMyTransactionsAdapter.ItemViewHolder>(){
 

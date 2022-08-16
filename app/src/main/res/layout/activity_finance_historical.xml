@@ -370,6 +370,7 @@
 
                                 <LinearLayout
                                     android:id="@+id/read_more"
+                                    android:clickable="false"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:gravity="center_vertical"

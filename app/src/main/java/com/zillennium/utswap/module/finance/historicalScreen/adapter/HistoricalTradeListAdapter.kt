@@ -8,7 +8,6 @@ import com.zillennium.utswap.bases.mvp.BaseViewHolder
 import com.zillennium.utswap.databinding.ItemListFinanceHistoricalTradeListBinding
 import com.zillennium.utswap.models.financeHistorical.Historical
 import com.zillennium.utswap.utils.UtilKt
-import com.zillennium.utswap.utils.groupingSeparator
 import com.zillennium.utswap.utils.groupingSeparatorInt
 
 class HistoricalTradeListAdapter: BaseRecyclerViewAdapterGeneric<Historical.DataTradeDateTransaction, HistoricalTradeListAdapter.ItemViewHolder>(){
