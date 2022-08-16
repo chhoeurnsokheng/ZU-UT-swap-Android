@@ -9,6 +9,7 @@ import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityFinanceDepositBinding
 import com.zillennium.utswap.models.DepositModel
+import com.zillennium.utswap.models.deposite.DepositObj
 import com.zillennium.utswap.module.finance.depositScreen.adapter.DepositAdapter
 import com.zillennium.utswap.module.finance.addCardScreen.DepositAddCardActivity
 import com.zillennium.utswap.module.finance.depositScreen.depositBottomSheet.BottomSheetFinanceDepositPayment
@@ -68,6 +69,30 @@ class DepositActivity :
         } catch (error: Exception) {
             // Must be safe
         }
+    }
+
+    override fun onGetListBankSuccess(data: DepositObj) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onGetListBankFailed(message: String) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onDepositBalanceSuccess(data: DepositObj) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onDepositBalanceFailed(message: String) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onGetDepositTransferBalanceLogSuccess(data: DepositObj) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onGetDepositTransferBalanceLogFailed(message: String) {
+        TODO("Not yet implemented")
     }
 
     private fun toolBar() {
