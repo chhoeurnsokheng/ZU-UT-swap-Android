@@ -17,6 +17,7 @@ class KYCActivity :
     var  status_kyc_approved:Boolean? = null
     var bodyRequest :MutableList<User.Kyc> ? = null
     var mIdTypeFragment: IdTypeFragment? = null
+    var kycStatus = ""
 
     fun getBodyRequest(body:MutableList<User.Kyc>){
         getBodyRequest(body)
@@ -24,6 +25,7 @@ class KYCActivity :
 
     override fun initView() {
         super.initView()
+
         try {
 
         } catch (error: Exception) {

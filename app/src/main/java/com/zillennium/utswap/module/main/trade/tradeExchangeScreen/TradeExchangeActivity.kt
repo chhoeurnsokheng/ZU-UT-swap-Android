@@ -12,18 +12,21 @@ import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
+import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
-import com.zillennium.utswap.api.ApiSettings
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityTradeExchangeBinding
 import com.zillennium.utswap.models.TradeModel
 import com.zillennium.utswap.models.tradingList.TradingList
+import com.zillennium.utswap.models.userService.User
 import com.zillennium.utswap.module.kyc.kycActivity.KYCActivity
+import com.zillennium.utswap.module.main.trade.tradeExchangeScreen.dialog.BuyAndSellBottomSheetDialog
 import com.zillennium.utswap.module.main.trade.tradeExchangeScreen.dialog.BuyDialog
 import com.zillennium.utswap.module.main.trade.tradeExchangeScreen.dialog.MarketDialog
 import com.zillennium.utswap.module.main.trade.tradeExchangeScreen.dialog.SellDialog
@@ -36,19 +39,24 @@ import com.zillennium.utswap.module.project.projectInfoScreen.ProjectInfoActivit
 import com.zillennium.utswap.module.security.securityActivity.signInScreen.SignInActivity
 import com.zillennium.utswap.utils.Constants
 import com.zillennium.utswap.utils.DecimalDigitsInputFilter
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 
-class TradeExchangeActivity :
+class TradeExchangeActivity(override var fetchTradeDetailData: MutableLiveData<TradingList.TradingListSummary>) :
     BaseMvpActivity<TradeExchangeView.View, TradeExchangeView.Presenter, ActivityTradeExchangeBinding>(),
     TradeExchangeView.View {
 
     override var mPresenter: TradeExchangeView.Presenter = TradeExchangePresenter()
     override val layoutResource: Int = R.layout.activity_trade_exchange
-    override var fetchTradeDetailData: MutableLiveData<TradingList.TradingListSummary> = MutableLiveData()
 
     val NUM_PAGES = 2
     private var pageAdapter: FragmentStateAdapter? = null
     private var pageTableAdapter: FragmentStateAdapter? = null
+    private var buySellBottomSheet: BuyAndSellBottomSheetDialog? = null
+    private var kycSubmit: Boolean? = false
+    private var kycComplete: Boolean? = false
+
     val NUM_PAGES_TABLE = 3
     var remember: Boolean = true
 
@@ -56,387 +64,416 @@ class TradeExchangeActivity :
     private var mBottomSheetBehavior: BottomSheetBehavior<*>? = null
 
     companion object {
-        fun launchTradeExchangeActivity(context: Context, tradeProject: TradeModel?) {
+        fun launchTradeExchangeActivity(context: Context, trade: TradeModel?) {
             val intent = Intent(context, TradeExchangeActivity::class.java)
-            intent.putExtra(Constants.TradeExchange.ProjectName, tradeProject?.project_name)
-            intent.putExtra(Constants.TradeExchange.MarketName,tradeProject?.market_name)
-            intent.putExtra(Constants.TradeExchange.MarketId,tradeProject?.market_id)
+            intent.putExtra(Constants.TradeExchange.ProjectName, trade?.project_name)
             context.startActivity(intent)
         }
-        fun launchTradeExchangeActivityFromWishList(context: Context,name: String?) {
+        fun launchTradeExchangeActivityFromWishList(context: Context, projectName: String?) {
             val intent = Intent(context, TradeExchangeActivity::class.java)
-            intent.putExtra(Constants.TradeExchange.ProjectName, name)
+            intent.putExtra(Constants.TradeExchange.ProjectName, projectName)
             context.startActivity(intent)
         }
     }
 
     override fun initView() {
         super.initView()
-        onOtherActivity()
-        toolBar()
-        onCheckPreference()
-        mPresenter.startTradeDetailSocket(intent?.getStringExtra(Constants.TradeExchange.MarketName).toString())
+        try {
+            toolBar()
+            mPresenter.onCheckKYCStatus()
+            binding.apply {
+                btnVerifyKyc.setOnClickListener {
+                    val intent = Intent(this@TradeExchangeActivity, KYCActivity::class.java).putExtra(
+                        "KYCStatus", "Pending"
+                    )
+                    startActivity(intent)
+                }
+                btnBuyBottomSheetClick.setOnClickListener {
+                    buySellBottomSheet = BuyAndSellBottomSheetDialog(object :
+                        BuyAndSellBottomSheetDialog.OnDismissListener {
+                        override fun onDismiss(isDismiss: Boolean) {
+                            kycPending()
+                        }
+                    })
+                    buySellBottomSheet?.show(this@TradeExchangeActivity.supportFragmentManager, "")
+                }
+                btnSellBottomSheetClick.setOnClickListener {
+                    buySellBottomSheet = BuyAndSellBottomSheetDialog(object :
+                        BuyAndSellBottomSheetDialog.OnDismissListener {
+                        override fun onDismiss(isDismiss: Boolean) {
+                            kycPending()
 
-//        fetchTradeDetailData.observe(this@TradeExchangeActivity){
-//            println("=====hafaflafnal============"+ it.info?.change.toString())
-//        }
+                        }
+                    })
+                    buySellBottomSheet?.show(this@TradeExchangeActivity.supportFragmentManager, "")
 
-        println("========Market Name=========="+ApiSettings.SEND_TRADE_MARKET_NAME+ intent?.getStringExtra(Constants.TradeExchange.MarketName))
-    }
+                }
+                SessionVariable.SESSION_STATUS.observe(this@TradeExchangeActivity) {
+                    onCheckSessionStatusAndKYC()
+                }
 
-    private fun onOtherActivity(){
-        binding.apply {
-            persistentBottomSheet.txtAvailable.paintFlags =
-                persistentBottomSheet.txtAvailable.paintFlags or Paint.UNDERLINE_TEXT_FLAG
-            persistentBottomSheet.txtAvailableClick.paintFlags =
-                persistentBottomSheet.txtAvailableClick.paintFlags or Paint.UNDERLINE_TEXT_FLAG
-            persistentBottomSheet.txtUt.paintFlags =
-                persistentBottomSheet.txtUt.paintFlags or Paint.UNDERLINE_TEXT_FLAG
-            persistentBottomSheet.txtUtClick.paintFlags =
-                persistentBottomSheet.txtUtClick.paintFlags or Paint.UNDERLINE_TEXT_FLAG
+                SessionVariable.SESSION_KYC.observe(this@TradeExchangeActivity) {
+                    onCheckSessionStatusAndKYC()
+                }
+                SessionVariable.SESSION_KYC_SUBMIT_STATUS.observe(this@TradeExchangeActivity) {
+                    onCheckSessionStatusAndKYC()
+                }
+
+                includeLayout.imgRemember.setOnClickListener {
+                    remember = !remember
+                    if (remember) {
+                        includeLayout.imgRemember.imageTintList = ColorStateList.valueOf(
+                            ContextCompat.getColor(
+                                UTSwapApp.instance,
+                                R.color.warning
+                            )
+                        )
+                    } else {
+                        includeLayout.imgRemember.imageTintList = ColorStateList.valueOf(
+                            ContextCompat.getColor(
+                                UTSwapApp.instance,
+                                R.color.dark_gray
+                            )
+                        )
+                    }
+                }
+
+                SessionVariable.SESSION_KYC_STATUS.observe(this@TradeExchangeActivity) {
+                    if (SessionVariable.SESSION_KYC.value == false && SessionVariable.SESSION_STATUS.value == true) {
+                        when (SessionVariable.SESSION_KYC_STATUS.value) {
+                            2 -> {
+                                layKycStatus.visibility = View.VISIBLE
+                                layKycStatus.backgroundTintList = ColorStateList.valueOf(
+                                    ContextCompat.getColor(UTSwapApp.instance, R.color.warning)
+                                )
+                                txtStatus.text = "Pending Review."
+                                btnVerify.isClickable = false
+                                btnVerify.backgroundTintList = ColorStateList.valueOf(
+                                    ContextCompat.getColor(
+                                        UTSwapApp.instance,
+                                        R.color.gray_999999
+                                    )
+                                )
+                                Handler().postDelayed({
+                                    SessionVariable.SESSION_KYC_STATUS.value = 1
+                                }, 5000)
+
+                            }
+                            1 -> {
+                                layKycStatus.visibility = View.VISIBLE
+                                layKycStatus.backgroundTintList = ColorStateList.valueOf(
+                                    ContextCompat.getColor(
+                                        UTSwapApp.instance,
+                                        R.color.danger
+                                    )
+                                )
+                                txtStatus.text = "Invalid Verification. Please Try Again."
+                                btnVerify.isClickable = true
+                                btnVerify.backgroundTintList = ColorStateList.valueOf(
+                                    ContextCompat.getColor(
+                                        UTSwapApp.instance,
+                                        R.color.primary
+                                    )
+                                )
+                            }
+                            else -> {
+                                layKycStatus.visibility = View.GONE
+                                SessionVariable.SESSION_KYC.value = true
+                            }
+                        }
+                    }
+                }
+
+                persistentBottomSheet.txtAvailable.paintFlags =
+                    persistentBottomSheet.txtAvailable.paintFlags or Paint.UNDERLINE_TEXT_FLAG
+//                persistentBottomSheet.txtAvailableClick.paintFlags =
+//                    persistentBottomSheet.txtAvailableClick.paintFlags or Paint.UNDERLINE_TEXT_FLAG
+                persistentBottomSheet.txtUt.paintFlags =
+                    persistentBottomSheet.txtUt.paintFlags or Paint.UNDERLINE_TEXT_FLAG
+//                persistentBottomSheet.txtUtClick.paintFlags =
+//                    persistentBottomSheet.txtUtClick.paintFlags or Paint.UNDERLINE_TEXT_FLAG
 
 
-            pageAdapter = ScreenSlidePageAdapter(this@TradeExchangeActivity, NUM_PAGES)
-            vpVerify.adapter = pageAdapter
-            vpVerify.isUserInputEnabled = false
-            vpVerify.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+                pageAdapter = ScreenSlidePageAdapter(this@TradeExchangeActivity, NUM_PAGES)
+                vpVerify.adapter = pageAdapter
+                vpVerify.isUserInputEnabled = false
+                vpVerify.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
 
-            })
+                })
 
-            orderBook.setOnClickListener { view ->
-                onChangeTabs(view)
-                vpVerify.setCurrentItem(0, false)
-            }
-            chart.setOnClickListener { view ->
-                onChangeTabs(view)
-                vpVerify.setCurrentItem(1, false)
-            }
+                orderBook.setOnClickListener { view ->
+                    onChangeTabs(view)
+                    vpVerify.setCurrentItem(0, false)
+                }
+                chart.setOnClickListener { view ->
+                    onChangeTabs(view)
+                    vpVerify.setCurrentItem(1, false)
+                }
 
-            pageTableAdapter =
-                ScreenSlidePageTableAdapter(this@TradeExchangeActivity, NUM_PAGES_TABLE)
-            vpTable.adapter = pageTableAdapter
-            vpTable.isUserInputEnabled = false
-            vpTable.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+                pageTableAdapter =
+                    ScreenSlidePageTableAdapter(this@TradeExchangeActivity, NUM_PAGES_TABLE)
+                vpTable.adapter = pageTableAdapter
+                vpTable.isUserInputEnabled = false
+                vpTable.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
 
-            })
+                })
 
-            txtOrders.setOnClickListener { view ->
-                onChangeTabsTable(view)
-                vpTable.setCurrentItem(0, false)
-            }
-            txtTransactions.setOnClickListener { view ->
-                onChangeTabsTable(view)
-                vpTable.setCurrentItem(1, false)
-            }
+                txtOrders.setOnClickListener { view ->
+                    onChangeTabsTable(view)
+                    vpTable.setCurrentItem(0, false)
+                }
+                txtTransactions.setOnClickListener { view ->
+                    onChangeTabsTable(view)
+                    vpTable.setCurrentItem(1, false)
+                }
 
-            layAuth.setOnClickListener {
-                val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
-                startActivity(intent)
-            }
+                layAuth.setOnClickListener {
+                    val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
+                    startActivity(intent)
+                }
 
-            btnVerify.setOnClickListener {
-                val intent = Intent(UTSwapApp.instance, KYCActivity::class.java)
-                startActivity(intent)
-            }
+                btnVerify.setOnClickListener {
+                    val intent = Intent(UTSwapApp.instance, KYCActivity::class.java)
+                    startActivity(intent)
+                }
 
-            // Bottom sheet persistent
-            mBottomSheetBehavior =
-                BottomSheetBehavior.from(persistentBottomSheet.bottomSheetBuySell)
+                // Bottom sheet persistent
+                mBottomSheetBehavior =
+                    BottomSheetBehavior.from(persistentBottomSheet.bottomSheetBuySell)
 
-            (mBottomSheetBehavior as BottomSheetBehavior<*>).addBottomSheetCallback(object :
-                BottomSheetBehavior.BottomSheetCallback() {
-                override fun onStateChanged(bottomSheet: View, newState: Int) {
-                    if (mBottomSheetBehavior?.state == BottomSheetBehavior.STATE_DRAGGING) {
+                (mBottomSheetBehavior as BottomSheetBehavior<*>).addBottomSheetCallback(object :
+                    BottomSheetBehavior.BottomSheetCallback() {
+                    override fun onStateChanged(bottomSheet: View, newState: Int) {
+                        /*if (mBottomSheetBehavior?.state == BottomSheetBehavior.STATE_DRAGGING) {
+                            persistentBottomSheet.layBuyAndSellClick.visibility = View.GONE
+                        } else if (mBottomSheetBehavior?.state == BottomSheetBehavior.STATE_COLLAPSED) {
+                            persistentBottomSheet.layBuyAndSellClick.visibility = View.VISIBLE
+                        }*/
+                    }
+
+                    override fun onSlide(bottomSheet: View, slideOffset: Float) {}
+                })
+
+                /*persistentBottomSheet.btnBuyBottomSheetClick.setOnClickListener {
+                    if (mBottomSheetBehavior?.state == BottomSheetBehavior.STATE_COLLAPSED) {
                         persistentBottomSheet.layBuyAndSellClick.visibility = View.GONE
-                    } else if (mBottomSheetBehavior?.state == BottomSheetBehavior.STATE_COLLAPSED) {
-                        persistentBottomSheet.layBuyAndSellClick.visibility = View.VISIBLE
+                        mBottomSheetBehavior?.state = BottomSheetBehavior.STATE_EXPANDED
+                    }
+                }
+                persistentBottomSheet.btnSellBottomSheetClick.setOnClickListener {
+                    if (mBottomSheetBehavior?.state == BottomSheetBehavior.STATE_COLLAPSED) {
+                        persistentBottomSheet.layBuyAndSellClick.visibility = View.GONE
+                        mBottomSheetBehavior?.state = BottomSheetBehavior.STATE_EXPANDED
+
+                    }
+                }*/
+
+                persistentBottomSheet.btnBuyBottomSheet.setOnClickListener {
+                    var isHaveError = false
+                    if (persistentBottomSheet.etVolume.text.isEmpty()) {
+                        persistentBottomSheet.etVolume.background =
+                            ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_error_red)
+                        isHaveError = true
+                    }
+
+                    if (persistentBottomSheet.linearPrice.visibility == View.VISIBLE) {
+                        if (persistentBottomSheet.etPriceOfVolume.text.isEmpty()) {
+                            persistentBottomSheet.etPriceOfVolume.background =
+                                ContextCompat.getDrawable(
+                                    UTSwapApp.instance,
+                                    R.drawable.bg_error_red
+                                )
+                            isHaveError = true
+                        }
+                    }
+
+                    if (isHaveError) return@setOnClickListener
+
+                    if (click) {
+                        mBottomSheetBehavior?.state = BottomSheetBehavior.STATE_COLLAPSED
+                        val buyDialog: BuyDialog =
+                            BuyDialog.newInstance(
+                                persistentBottomSheet.etVolume.text.toString(),
+                                persistentBottomSheet.etPriceOfVolume.text.toString()
+                            )
+                        buyDialog.show(supportFragmentManager, "limitBuy")
+                    } else {
+                        mBottomSheetBehavior?.state = BottomSheetBehavior.STATE_COLLAPSED
+                        val marketDialog: MarketDialog =
+                            MarketDialog.newInstance(
+                                persistentBottomSheet.etVolume.text.toString(),
+                                "BUY"
+                            )
+                        marketDialog.show(supportFragmentManager, "marketBuy")
+                    }
+
+                }
+                persistentBottomSheet.btnSellBottomSheet.setOnClickListener {
+                    var isHaveError = false
+                    if (persistentBottomSheet.etVolume.text.isEmpty()) {
+                        persistentBottomSheet.etVolume.background =
+                            ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_error_red)
+                        isHaveError = true
+                    }
+
+                    if (persistentBottomSheet.linearPrice.visibility == View.VISIBLE) {
+                        if (persistentBottomSheet.etPriceOfVolume.text.isEmpty()) {
+                            persistentBottomSheet.etPriceOfVolume.background =
+                                ContextCompat.getDrawable(
+                                    UTSwapApp.instance,
+                                    R.drawable.bg_error_red
+                                )
+                            isHaveError = true
+                        }
+                    }
+
+                    if (isHaveError) return@setOnClickListener
+
+                    if (click) {
+                        mBottomSheetBehavior?.state = BottomSheetBehavior.STATE_COLLAPSED
+                        val sellDialog: SellDialog =
+                            SellDialog.newInstance(
+                                persistentBottomSheet.etVolume.text.toString(),
+                                persistentBottomSheet.etPriceOfVolume.text.toString()
+                            )
+                        sellDialog.show(supportFragmentManager, "limitSell")
+                    } else {
+                        mBottomSheetBehavior?.state = BottomSheetBehavior.STATE_COLLAPSED
+                        val marketDialog: MarketDialog =
+                            MarketDialog.newInstance(
+                                persistentBottomSheet.etVolume.text.toString(),
+                                "SELL"
+                            )
+                        marketDialog.show(supportFragmentManager, "marketSell")
                     }
                 }
 
-                override fun onSlide(bottomSheet: View, slideOffset: Float) {}
-            })
+                persistentBottomSheet.etVolume.addTextChangedListener(object : TextWatcher {
+                    var count = 0
 
-            persistentBottomSheet.btnBuyBottomSheetClick.setOnClickListener {
-                if (mBottomSheetBehavior?.state == BottomSheetBehavior.STATE_COLLAPSED) {
-                    persistentBottomSheet.layBuyAndSellClick.visibility = View.GONE
-                    mBottomSheetBehavior?.state = BottomSheetBehavior.STATE_EXPANDED
-                }
-            }
-            persistentBottomSheet.btnSellBottomSheetClick.setOnClickListener {
-                if (mBottomSheetBehavior?.state == BottomSheetBehavior.STATE_COLLAPSED) {
-                    persistentBottomSheet.layBuyAndSellClick.visibility = View.GONE
-                    mBottomSheetBehavior?.state = BottomSheetBehavior.STATE_EXPANDED
+                    override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
 
-                }
-            }
+                    }
 
-            persistentBottomSheet.btnBuyBottomSheet.setOnClickListener {
-                var isHaveError = false
-                if (persistentBottomSheet.etVolume.text.isEmpty()) {
-                    persistentBottomSheet.etVolume.background =
-                        ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_error_red)
-                    isHaveError = true
-                }
+                    override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                        persistentBottomSheet.etVolume.background = ContextCompat.getDrawable(
+                            UTSwapApp.instance,
+                            R.drawable.outline_edittext_change_color_focus
+                        )
+                    }
 
-                if (persistentBottomSheet.linearPrice.visibility == View.VISIBLE) {
-                    if (persistentBottomSheet.etPriceOfVolume.text.isEmpty()) {
+                    override fun afterTextChanged(p0: Editable?) {}
+                })
+                persistentBottomSheet.etPriceOfVolume.filters = arrayOf<InputFilter>(
+                    DecimalDigitsInputFilter(10, 2)
+                )
+                persistentBottomSheet.etPriceOfVolume.addTextChangedListener(object : TextWatcher {
+                    override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+                    }
+
+                    override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                         persistentBottomSheet.etPriceOfVolume.background =
                             ContextCompat.getDrawable(
                                 UTSwapApp.instance,
-                                R.drawable.bg_error_red
+                                R.drawable.outline_edittext_change_color_focus
                             )
-                        isHaveError = true
                     }
-                }
 
-                if (isHaveError) return@setOnClickListener
+                    override fun afterTextChanged(p0: Editable?) {
 
-                if (click) {
-                    mBottomSheetBehavior?.state = BottomSheetBehavior.STATE_COLLAPSED
-                    val buyDialog: BuyDialog =
-                        BuyDialog.newInstance(
-                            persistentBottomSheet.etVolume.text.toString(),
-                            persistentBottomSheet.etPriceOfVolume.text.toString()
-                        )
-                    buyDialog.show(supportFragmentManager, "limitBuy")
-                } else {
-                    mBottomSheetBehavior?.state = BottomSheetBehavior.STATE_COLLAPSED
-                    val marketDialog: MarketDialog =
-                        MarketDialog.newInstance(
-                            persistentBottomSheet.etVolume.text.toString(),
-                            "BUY"
-                        )
-                    marketDialog.show(supportFragmentManager, "marketBuy")
-                }
-
-            }
-            persistentBottomSheet.btnSellBottomSheet.setOnClickListener {
-                var isHaveError = false
-                if (persistentBottomSheet.etVolume.text.isEmpty()) {
-                    persistentBottomSheet.etVolume.background =
-                        ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_error_red)
-                    isHaveError = true
-                }
-
-                if (persistentBottomSheet.linearPrice.visibility == View.VISIBLE) {
-                    if (persistentBottomSheet.etPriceOfVolume.text.isEmpty()) {
-                        persistentBottomSheet.etPriceOfVolume.background =
-                            ContextCompat.getDrawable(
-                                UTSwapApp.instance,
-                                R.drawable.bg_error_red
-                            )
-                        isHaveError = true
                     }
-                }
+                })
 
-                if (isHaveError) return@setOnClickListener
-
-                if (click) {
-                    mBottomSheetBehavior?.state = BottomSheetBehavior.STATE_COLLAPSED
-                    val sellDialog: SellDialog =
-                        SellDialog.newInstance(
-                            persistentBottomSheet.etVolume.text.toString(),
-                            persistentBottomSheet.etPriceOfVolume.text.toString()
+                persistentBottomSheet.btnMarket.setOnClickListener {
+                    persistentBottomSheet.linearPrice.visibility = View.GONE
+                    persistentBottomSheet.btnMarket.background =
+                        ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_circular)
+                    persistentBottomSheet.btnMarket.backgroundTintList = ColorStateList.valueOf(
+                        ContextCompat.getColor(
+                            UTSwapApp.instance,
+                            R.color.primary
                         )
-                    sellDialog.show(supportFragmentManager, "limitSell")
-                } else {
-                    mBottomSheetBehavior?.state = BottomSheetBehavior.STATE_COLLAPSED
-                    val marketDialog: MarketDialog =
-                        MarketDialog.newInstance(
-                            persistentBottomSheet.etVolume.text.toString(),
-                            "SELL"
+                    )
+                    persistentBottomSheet.txtMarket.setTextColor(
+                        ContextCompat.getColor(
+                            UTSwapApp.instance,
+                            R.color.white
                         )
-                    marketDialog.show(supportFragmentManager, "marketSell")
-                }
-            }
-
-            persistentBottomSheet.etVolume.addTextChangedListener(object : TextWatcher {
-                var count = 0
-
-                override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
-                }
-
-                override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                    )
+                    persistentBottomSheet.txtLimit.setTextColor(
+                        ContextCompat.getColor(
+                            UTSwapApp.instance,
+                            R.color.primary
+                        )
+                    )
+                    persistentBottomSheet.btnLimit.backgroundTintList = ColorStateList.valueOf(
+                        ContextCompat.getColor(
+                            UTSwapApp.instance,
+                            R.color.gray
+                        )
+                    )
                     persistentBottomSheet.etVolume.background = ContextCompat.getDrawable(
                         UTSwapApp.instance,
                         R.drawable.outline_edittext_change_color_focus
                     )
+                    click = false
                 }
-
-                override fun afterTextChanged(p0: Editable?) {}
-            })
-            persistentBottomSheet.etPriceOfVolume.filters = arrayOf<InputFilter>(
-                DecimalDigitsInputFilter(10, 2)
-            )
-            persistentBottomSheet.etPriceOfVolume.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
-                }
-
-                override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                    persistentBottomSheet.etPriceOfVolume.background =
-                        ContextCompat.getDrawable(
+                persistentBottomSheet.btnLimit.setOnClickListener {
+                    persistentBottomSheet.linearPrice.visibility = View.VISIBLE
+                    persistentBottomSheet.btnLimit.background =
+                        ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_circular)
+                    persistentBottomSheet.btnLimit.backgroundTintList = ColorStateList.valueOf(
+                        ContextCompat.getColor(
                             UTSwapApp.instance,
-                            R.drawable.outline_edittext_change_color_focus
+                            R.color.primary
                         )
+                    )
+                    persistentBottomSheet.txtLimit.setTextColor(
+                        ContextCompat.getColor(
+                            UTSwapApp.instance,
+                            R.color.white
+                        )
+                    )
+                    persistentBottomSheet.txtMarket.setTextColor(
+                        ContextCompat.getColor(
+                            UTSwapApp.instance,
+                            R.color.primary
+                        )
+                    )
+                    persistentBottomSheet.btnMarket.backgroundTintList = ColorStateList.valueOf(
+                        ContextCompat.getColor(
+                            UTSwapApp.instance,
+                            R.color.gray
+                        )
+                    )
+                    persistentBottomSheet.etPriceOfVolume.background = ContextCompat.getDrawable(
+                        UTSwapApp.instance,
+                        R.drawable.outline_edittext_change_color_focus
+                    )
+                    persistentBottomSheet.etVolume.background = ContextCompat.getDrawable(
+                        UTSwapApp.instance,
+                        R.drawable.outline_edittext_change_color_focus
+                    )
+                    click = true
                 }
+//  end of bottom sheet persistent
 
-                override fun afterTextChanged(p0: Editable?) {
-
-                }
-            })
-
-            persistentBottomSheet.btnMarket.setOnClickListener {
-                persistentBottomSheet.linearPrice.visibility = View.GONE
-                persistentBottomSheet.btnMarket.background =
-                    ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_circular)
-                persistentBottomSheet.btnMarket.backgroundTintList = ColorStateList.valueOf(
-                    ContextCompat.getColor(
-                        UTSwapApp.instance,
-                        R.color.primary
-                    )
-                )
-                persistentBottomSheet.txtMarket.setTextColor(
-                    ContextCompat.getColor(
-                        UTSwapApp.instance,
-                        R.color.white
-                    )
-                )
-                persistentBottomSheet.txtLimit.setTextColor(
-                    ContextCompat.getColor(
-                        UTSwapApp.instance,
-                        R.color.primary
-                    )
-                )
-                persistentBottomSheet.btnLimit.backgroundTintList = ColorStateList.valueOf(
-                    ContextCompat.getColor(
-                        UTSwapApp.instance,
-                        R.color.gray
-                    )
-                )
-                persistentBottomSheet.etVolume.background = ContextCompat.getDrawable(
-                    UTSwapApp.instance,
-                    R.drawable.outline_edittext_change_color_focus
-                )
-                click = false
             }
-            persistentBottomSheet.btnLimit.setOnClickListener {
-                persistentBottomSheet.linearPrice.visibility = View.VISIBLE
-                persistentBottomSheet.btnLimit.background =
-                    ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_circular)
-                persistentBottomSheet.btnLimit.backgroundTintList = ColorStateList.valueOf(
-                    ContextCompat.getColor(
-                        UTSwapApp.instance,
-                        R.color.primary
-                    )
-                )
-                persistentBottomSheet.txtLimit.setTextColor(
-                    ContextCompat.getColor(
-                        UTSwapApp.instance,
-                        R.color.white
-                    )
-                )
-                persistentBottomSheet.txtMarket.setTextColor(
-                    ContextCompat.getColor(
-                        UTSwapApp.instance,
-                        R.color.primary
-                    )
-                )
-                persistentBottomSheet.btnMarket.backgroundTintList = ColorStateList.valueOf(
-                    ContextCompat.getColor(
-                        UTSwapApp.instance,
-                        R.color.gray
-                    )
-                )
-                persistentBottomSheet.etPriceOfVolume.background = ContextCompat.getDrawable(
-                    UTSwapApp.instance,
-                    R.drawable.outline_edittext_change_color_focus
-                )
-                persistentBottomSheet.etVolume.background = ContextCompat.getDrawable(
-                    UTSwapApp.instance,
-                    R.drawable.outline_edittext_change_color_focus
-                )
-                click = true
-            }
+        } catch (error: Exception) {
+            // Must be safe
         }
     }
 
-    private fun onCheckPreference(){
-        binding.apply {
-            SessionVariable.SESSION_STATUS.observe(this@TradeExchangeActivity) {
-                onCheckSessionStatusAndKYC()
-            }
+    override fun onCheckKYCSuccess(data: User.KycRes) {
+        kycSubmit = data.data?.status_submit_kyc
+        kycComplete = data.data?.status_kyc
+        onCheckSessionStatusAndKYC()
 
-            SessionVariable.SESSION_KYC.observe(this@TradeExchangeActivity) {
-                onCheckSessionStatusAndKYC()
-            }
+    }
 
-            includeLayout.imgRemember.setOnClickListener {
-                remember = !remember
-                if (remember) {
-                    includeLayout.imgRemember.imageTintList = ColorStateList.valueOf(
-                        ContextCompat.getColor(
-                            UTSwapApp.instance,
-                            R.color.warning
-                        )
-                    )
-                } else {
-                    includeLayout.imgRemember.imageTintList = ColorStateList.valueOf(
-                        ContextCompat.getColor(
-                            UTSwapApp.instance,
-                            R.color.dark_gray
-                        )
-                    )
-                }
-            }
+    override fun onCheckKYCFail() {
 
-            SessionVariable.SESSION_KYC_STATUS.observe(this@TradeExchangeActivity) {
-                if (SessionVariable.SESSION_KYC.value == false && SessionVariable.SESSION_STATUS.value == true) {
-                    when (SessionVariable.SESSION_KYC_STATUS.value) {
-                        2 -> {
-                            layKycStatus.visibility = View.VISIBLE
-                            layKycStatus.backgroundTintList = ColorStateList.valueOf(
-                                ContextCompat.getColor(UTSwapApp.instance, R.color.warning)
-                            )
-                            txtStatus.text = "Pending Review."
-                            btnVerify.isClickable = false
-                            btnVerify.backgroundTintList = ColorStateList.valueOf(
-                                ContextCompat.getColor(
-                                    UTSwapApp.instance,
-                                    R.color.gray_999999
-                                )
-                            )
-                            Handler().postDelayed({
-                                SessionVariable.SESSION_KYC_STATUS.value = 1
-                            }, 5000)
-
-                        }
-                        1 -> {
-                            layKycStatus.visibility = View.VISIBLE
-                            layKycStatus.backgroundTintList = ColorStateList.valueOf(
-                                ContextCompat.getColor(
-                                    UTSwapApp.instance,
-                                    R.color.danger
-                                )
-                            )
-                            txtStatus.text = "Invalid Verification. Please Try Again."
-                            btnVerify.isClickable = true
-                            btnVerify.backgroundTintList = ColorStateList.valueOf(
-                                ContextCompat.getColor(
-                                    UTSwapApp.instance,
-                                    R.color.primary
-                                )
-                            )
-                        }
-                        else -> {
-                            layKycStatus.visibility = View.GONE
-                            SessionVariable.SESSION_KYC.value = true
-                        }
-                    }
-                }
-            }
-        }
     }
 
     private fun toolBar() {
@@ -466,10 +503,39 @@ class TradeExchangeActivity :
 
     private fun onCheckSessionStatusAndKYC() {
         binding.apply {
+            if (SessionPreferences().SESSION_TOKEN != null) {
+                includeLayout.imgRemember.visibility = View.VISIBLE
+
+                if (kycComplete == true) {
+                    layTransactions.visibility = View.VISIBLE
+                    layVerify.visibility = View.GONE
+                    layAuth.visibility = View.GONE
+                    llBottom.visibility = View.VISIBLE
+                    llBtnVerify.visibility = View.GONE
+                } else if (kycComplete == false && kycSubmit == true) {
+                    layVerify.visibility = View.GONE
+                    layTransactions.visibility = View.GONE
+                    layAuth.visibility = View.GONE
+                    llBottom.visibility = View.VISIBLE
+                    llBtnVerify.visibility = View.VISIBLE
+                } else if (kycComplete == false && kycSubmit == false) {
+                    layVerify.visibility = View.VISIBLE
+                    layTransactions.visibility = View.GONE
+                    layAuth.visibility = View.GONE
+                    llBottom.visibility = View.GONE
+                }
+            } else {
+                layTransactions.visibility = View.GONE
+                layAuth.visibility = View.VISIBLE
+                layVerify.visibility = View.GONE
+                llBottom.visibility = View.GONE
+                includeLayout.imgRemember.visibility = View.GONE
+
+            }
 
             // When did not verify kyc , button kyc show
 
-            if (SessionVariable.SESSION_STATUS.value == true && SessionVariable.SESSION_KYC.value == true) {
+            /*if (SessionVariable.SESSION_STATUS.value == true && SessionVariable.SESSION_KYC.value == true) {
                 includeLayout.imgRemember.visibility = View.VISIBLE
                 persistentBottomSheet.root.visibility = View.VISIBLE
                 layTransactions.visibility = View.VISIBLE
@@ -486,6 +552,28 @@ class TradeExchangeActivity :
                 if (SessionVariable.SESSION_KYC.value == false) {
                     layAuth.visibility = View.GONE
                     layVerify.visibility = View.VISIBLE
+                }
+
+            }*/
+
+
+        }
+    }
+
+    private fun kycPending() {
+        binding.apply {
+            if (SessionPreferences().SESSION_TOKEN != null) {
+                if (SessionPreferences().SESSION_KYC_SUBMIT_STATUS == true) {
+                    btnVerifyKyc.animate().alpha(0.1f).duration = 200
+                    lifecycleScope.launch {
+                        delay(500)
+                        btnVerifyKyc.animate().alpha(1f).duration = 200
+                        delay(500)
+                        btnVerifyKyc.animate().alpha(0.1f).duration = 200
+                        delay(500)
+                        btnVerifyKyc.animate().alpha(1f).duration = 200
+                    }
+
                 }
 
             }

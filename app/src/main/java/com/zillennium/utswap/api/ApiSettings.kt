@@ -51,6 +51,7 @@ object ApiSettings {
     const val PATH_ENTER_NEW_PASSWORD = "login/changeNewPassword"
     /*User add KYC */
     const val PATH_KYC = "user/submitkyc"
+    const val PATH_KYC_STATUS = "user/checkStatusKYC"
 
     const val PATH_GET_PROVINCES = "user/getCityProvince"
 
