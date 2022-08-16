@@ -88,4 +88,7 @@ object ApiSettings {
     const val PATH_GET_BANNNER= "portfolio/app_banner"
     const val PATH_GET_HOME_WISHLIST_BALANCE ="portfolio/index"
 
+    /** Account Upload Profile*/
+    const val PATH_ACCOUNT_UPLOAD_PROFILE = "user/uploadImageProfile"
+
 }

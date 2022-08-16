@@ -18,6 +18,7 @@ import com.zillennium.utswap.models.userService.User
 import com.zillennium.utswap.module.account.accountDetailScreen.dialog.DialogAccountUTType
 import com.zillennium.utswap.module.account.addNumberScreen.AddNumberActivity
 import com.zillennium.utswap.module.account.logsScreen.LogsActivity
+import com.zillennium.utswap.module.kyc.kycActivity.KYCActivity
 import com.zillennium.utswap.module.security.securityActivity.changeFundPassword.ChangeFundPasswordActivity
 import com.zillennium.utswap.module.security.securityActivity.changeLoginPassword.ChangeLoginPasswordActivity
 
@@ -73,6 +74,11 @@ class AccountDetailActivity :
                 val dialogAccountUTType: DialogAccountUTType = DialogAccountUTType.newInstance()
                 dialogAccountUTType.show(supportFragmentManager, "dialogAccountUTType")
             }
+
+            txtName.setOnClickListener {
+                val intent = Intent(UTSwapApp.instance, KYCActivity::class.java)
+                startActivity(intent)
+            }
         }
     }
 
@@ -94,7 +100,28 @@ class AccountDetailActivity :
             if(!data.phonenumber.isNullOrEmpty())
             {
                 val phoneNumStr = data.phonenumber.toString()
-                txtAddPhoneNumber.text = phoneNumStr.replace("+855", "0")
+                //txtPhoneNumber.text = phoneNumStr.replace("+855", "0")
+                val phoneReplace = phoneNumStr.replace("+855", "0")
+                if(phoneReplace.length == 9){
+                    val result = buildString {
+                        for (i in 0 until phoneReplace.length) {
+                            if (i % 3 == 0 && i > 0)
+                                append(' ')
+                            append(phoneReplace[i])
+                        }
+                    }
+                    txtAddPhoneNumber.text = result
+                }else{
+                    val result = buildString {
+                        for (i in 0 until phoneReplace.length) {
+                            if (i % 3 == 0 && i<9)
+                                append(' ')
+                            append(phoneReplace[i])
+                        }
+                    }
+                    txtAddPhoneNumber.text = result
+                }
+
                 txtAddPhoneNumber.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.black_000000))
                 txtAddPhoneNumber.isEnabled = false
             }else{
@@ -106,6 +133,11 @@ class AccountDetailActivity :
             if (!data.username.isNullOrEmpty())
             {
                 txtName.text = data.truename.toString()
+                txtName.isEnabled = false
+            }else{
+                txtName.text = resources.getString(R.string.verify_your_identity)
+                txtName.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
+                txtName.isEnabled = true
             }
 
             Glide
@@ -116,16 +148,20 @@ class AccountDetailActivity :
 
             if (!data.company_name.isNullOrEmpty())
             {
+                linearLayoutCompany.visibility = View.VISIBLE
                 txtCompany.text = data.company_name.toString()
             }
 
             if (!data.email.isNullOrEmpty())
             {
                 txtEmail.text = data.email.toString()
+            }else{
+                txtEmail.text = resources.getString(R.string.n_a)
             }
 
             if (!data.ocupation.isNullOrEmpty())
             {
+                linearLayoutOccupation.visibility = View.VISIBLE
                 txtOccupation.text = data.ocupation.toString()
             }
 
