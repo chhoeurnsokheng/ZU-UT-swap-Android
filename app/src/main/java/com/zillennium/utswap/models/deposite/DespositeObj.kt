@@ -12,7 +12,7 @@ object DepositObj {
     }
     class DataListRes{
         var id:String? = null
-        var tittle:String? = null
+        var title:String? = null
         var img_url:String? = null
         var bic:String? =null
         var storelink:StoreLinkObj? = null

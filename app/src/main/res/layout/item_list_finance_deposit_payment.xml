@@ -6,22 +6,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="?android:attr/selectableItemBackground"
-        android:clickable="true"
-        android:focusable="true"
-        android:paddingHorizontal="@dimen/dimen_20">
+        android:background="?android:attr/selectableItemBackground">
+
         <LinearLayout
             android:id="@+id/layDepositItem"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dimen_56"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:layout_height="@dimen/dimen_58"
+            android:orientation="horizontal"
+            android:layout_marginBottom="@dimen/dimen_10"
+            android:layout_marginTop="@dimen/dimen_10">
 
             <ImageView
                 android:id="@+id/img_cardImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:scaleType="centerCrop"
+                android:layout_marginStart="@dimen/dimen_20"
                 android:adjustViewBounds="true"
                 android:src="@drawable/aba_pay"/>
 
@@ -30,7 +29,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dimen_10"
-                android:gravity="center"
+                android:layout_gravity="center"
                 android:text="@string/aba_pay"
                 android:textAppearance="@style/medium_14"
                 android:textColor="@color/black_000000" />

@@ -27,7 +27,6 @@ class BottomSheetFinanceDepositPayment: BottomSheetDialogFragment(), AdapterView
     private var binding: BottomSheetFinanceDepositPaymentBinding? = null
     override fun getTheme(): Int {
         return R.style.BottomSheetStyle
-
     }
 
     override fun onCreateView(
@@ -53,26 +52,26 @@ class BottomSheetFinanceDepositPayment: BottomSheetDialogFragment(), AdapterView
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding?.apply {
-          //  (view.parent as View).setBackgroundColor(ContextCompat.getColor(UTSwapApp.instance, android.R.color.transparent))
 
             nextBtnFinace.isEnabled = false
             nextBtnFinace.setOnClickListener {
-                if(!etMountPayment.text.isNullOrEmpty()){
-                    if(etMountPayment.text.toString().toLong() > 0){
-                        when(arguments?.getString("titleCard")){
-                            "ABA Pay" -> {
-                                intentOtherApp(UTSwapApp.instance, "com.paygo24.ibank", "C102577521")
-                            }
-                            "Acleda Bank" -> {
-                                intentOtherApp(UTSwapApp.instance, "com.domain.acledabankqr", "C103006903")
-                            }
-                            "Sathapana" -> {
-                                intentOtherApp(UTSwapApp.instance, "kh.com.sathapana.consumer", null)
-                            }
-                        }
-//                        dismiss()
-                    }
-                }
+
+//                if(!etMountPayment.text.isNullOrEmpty()){
+//                    if(etMountPayment.text.toString().toLong() > 0){
+//                        when(arguments?.getString("titleCard")){
+//                            "ABA Pay" -> {
+//                                intentOtherApp(UTSwapApp.instance, "com.paygo24.ibank", "C102577521")
+//                            }
+//                            "Acleda Bank" -> {
+//                                intentOtherApp(UTSwapApp.instance, "com.domain.acledabankqr", "C103006903")
+//                            }
+//                            "Sathapana" -> {
+//                                intentOtherApp(UTSwapApp.instance, "kh.com.sathapana.consumer", null)
+//                            }
+//                        }
+////                        dismiss()
+//                    }
+//                }
             }
 
             arguments?.getInt("imgCard")?.let { imgCard.setImageResource(it) }
@@ -107,7 +106,6 @@ class BottomSheetFinanceDepositPayment: BottomSheetDialogFragment(), AdapterView
                     tvFee.text = "$${groupingSeparator(fee)}"
                     tvTotal.text = "$${groupingSeparator(total)}"
 
-
                     nextBtnFinace.apply {
                         if(amount > 0){
                             backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
@@ -130,12 +128,12 @@ class BottomSheetFinanceDepositPayment: BottomSheetDialogFragment(), AdapterView
     }
 
     companion object{
-        fun newInstance(cardTitle: String?,cardImg: Int?): BottomSheetFinanceDepositPayment {
+        fun newInstance(cardTitle: String?,cardImg: String?): BottomSheetFinanceDepositPayment {
             val depositBottomSheetDialog = BottomSheetFinanceDepositPayment()
             val args = Bundle()
 
             if (cardImg != null) {
-                args.putInt("imgCard", cardImg)
+                args.putString("imgCard", cardImg)
             }
             args.putString("titleCard", cardTitle)
 

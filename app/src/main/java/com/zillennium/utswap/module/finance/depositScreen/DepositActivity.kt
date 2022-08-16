@@ -28,49 +28,48 @@ class DepositActivity :
     private var listBank: List<DepositObj.DataListRes>? = null
     private var depositAdapter: DepositAdapter? = null
     private val SECOND_ACTIVITY_REQUEST_CODE = 0
-    private var imgCardVisa: Int? = 0
+    private var imgCardVisa: String? = ""
     private var cardTitleVisa: String? = ""
 
     override fun initView() {
         super.initView()
         try {
             toolBar()
-
-            binding.apply {
-
-
-
-
-
-            }
+            mPresenter.onGetListBank(this)
 
         } catch (error: Exception) {
-            // Must be safe
+
         }
     }
 
     override fun onGetListBankSuccess(data: DepositObj.DepositRes) {
         listBank = data.data
+        binding.rvPayment.apply {
+
+            adapter = data.data?.let { DepositAdapter(it,onClickDeposit) }
+            layoutManager =
+                LinearLayoutManager(this@DepositActivity, LinearLayoutManager.VERTICAL, false)
+        }
     }
 
     override fun onGetListBankFailed(message: String) {
-        TODO("Not yet implemented")
+
     }
 
     override fun onDepositBalanceSuccess(data: DepositObj.DepositRes) {
-        TODO("Not yet implemented")
+
     }
 
     override fun onDepositBalanceFailed(message: String) {
-        TODO("Not yet implemented")
+
     }
 
     override fun onGetDepositTransferBalanceLogSuccess(data: DepositObj.DepositRes) {
-        TODO("Not yet implemented")
+
     }
 
     override fun onGetDepositTransferBalanceLogFailed(message: String) {
-        TODO("Not yet implemented")
+
     }
 
     private fun toolBar() {
@@ -86,8 +85,11 @@ class DepositActivity :
         }
     }
 
-//    private val onClickDeposit: DepositAdapter.OnClickDeposit = object : DepositAdapter.OnClickDeposit {
-//        override fun ClickDepositCard(cardTitle: String,cardImg: Int) {
+    private val onClickDeposit: DepositAdapter.OnClickDeposit =
+        object : DepositAdapter.OnClickDeposit {
+
+
+            //        override fun ClickDepositCard(cardTitle: String,cardImg: Int) {
 //
 //            when (cardTitle) {
 //                "ABA Pay"-> {
@@ -116,10 +118,22 @@ class DepositActivity :
 //            }
 //
 //        }
-//
-//
-//    }
+            override fun ClickDepositCard(cardTitle: String?, cardImg: String?) {
+                imgCardVisa= cardImg
+                val depositDailogPayment = BottomSheetFinanceDepositPayment.newInstance(cardTitle, cardImg)
+                depositDailogPayment.show(this@DepositActivity.supportFragmentManager, "Deposit Dialog")
+//                when (cardTitle) {
+//                    "ABA Pay" -> {
+//                        imgCardVisa= cardImg
+//                        val depositDailogPayment = BottomSheetFinanceDepositPayment.newInstance(cardTitle, cardImg)
+//                        depositDailogPayment.show(this@DepositActivity.supportFragmentManager, "Deposit Dialog"
+//                        )
+//                    }
+//                }
+            }
 
+
+        }
 
 
     ///use it to pop up bottom sheet dialog and save data
@@ -127,8 +141,14 @@ class DepositActivity :
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode === SECOND_ACTIVITY_REQUEST_CODE) {
             if (resultCode === RESULT_OK) {
-                val depositDailogPayment = BottomSheetFinanceDepositPayment.newInstance(cardTitleVisa.toString(), imgCardVisa)
-                depositDailogPayment.show(this@DepositActivity.supportFragmentManager, "Deposit Dialog")
+                val depositDailogPayment = BottomSheetFinanceDepositPayment.newInstance(
+                    cardTitleVisa.toString(),
+                    imgCardVisa.toString()
+                )
+                depositDailogPayment.show(
+                    this@DepositActivity.supportFragmentManager,
+                    "Deposit Dialog"
+                )
             }
         }
     }
