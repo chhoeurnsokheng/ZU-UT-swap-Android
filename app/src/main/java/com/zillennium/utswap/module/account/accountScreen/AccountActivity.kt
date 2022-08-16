@@ -263,11 +263,11 @@ class AccountActivity :
 
     override fun uploadProfileSuccess(data: User.AccountUploadProfileRes) {
         mPresenter.onGetUserInfo(UTSwapApp.instance)
-        Toast.makeText(UTSwapApp.instance,"Successfully Change Profile", Toast.LENGTH_SHORT).show()
+        Toast.makeText(UTSwapApp.instance,"Successfully Changed Profile", Toast.LENGTH_LONG).show()
     }
 
     override fun uploadProfileFail(data: User.AccountUploadProfileRes) {
-        Toast.makeText(UTSwapApp.instance,"Fail To Change Profile", Toast.LENGTH_SHORT).show()
+        Toast.makeText(UTSwapApp.instance,"Fail To Change Profile", Toast.LENGTH_LONG).show()
     }
 
     override fun onGetUserInfoFail(data: User.AppSideBarData) {
