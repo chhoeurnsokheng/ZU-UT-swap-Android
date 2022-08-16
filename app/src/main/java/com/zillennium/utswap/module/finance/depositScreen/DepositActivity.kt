@@ -25,6 +25,7 @@ class DepositActivity :
     private lateinit var newArrayList: ArrayList<DepositModel>
     lateinit var imageCard: Array<Int>
     lateinit var cardTitle: Array<String>
+    private var listBank: List<DepositObj.DataListRes>? = null
     private var depositAdapter: DepositAdapter? = null
     private val SECOND_ACTIVITY_REQUEST_CODE = 0
     private var imgCardVisa: Int? = 0
@@ -37,31 +38,8 @@ class DepositActivity :
 
             binding.apply {
 
-                imageCard = arrayOf(
-                    R.drawable.aba_pay,
-                    R.drawable.visa_mastercard,
-                    R.drawable.acleda,
-                    R.drawable.sathapana
-                )
 
-                cardTitle = arrayOf(
-                    "ABA Pay",
-                    "Visa/ Master Card",
-                    "Acleda Bank",
-                    "Sathapana"
-                )
 
-                newArrayList = arrayListOf<DepositModel>()
-                for (i in imageCard.indices) {
-                    val deposit = DepositModel(
-                        imageCard[i],
-                        cardTitle[i]
-                    )
-                    newArrayList.add(deposit)
-                }
-                rvPayment.layoutManager = LinearLayoutManager(UTSwapApp.instance)
-                depositAdapter = DepositAdapter(newArrayList, onClickDeposit)
-                rvPayment.adapter = depositAdapter
 
 
             }
@@ -71,15 +49,15 @@ class DepositActivity :
         }
     }
 
-    override fun onGetListBankSuccess(data: DepositObj) {
-        TODO("Not yet implemented")
+    override fun onGetListBankSuccess(data: DepositObj.DepositRes) {
+        listBank = data.data
     }
 
     override fun onGetListBankFailed(message: String) {
         TODO("Not yet implemented")
     }
 
-    override fun onDepositBalanceSuccess(data: DepositObj) {
+    override fun onDepositBalanceSuccess(data: DepositObj.DepositRes) {
         TODO("Not yet implemented")
     }
 
@@ -87,7 +65,7 @@ class DepositActivity :
         TODO("Not yet implemented")
     }
 
-    override fun onGetDepositTransferBalanceLogSuccess(data: DepositObj) {
+    override fun onGetDepositTransferBalanceLogSuccess(data: DepositObj.DepositRes) {
         TODO("Not yet implemented")
     }
 
@@ -108,39 +86,39 @@ class DepositActivity :
         }
     }
 
-    private val onClickDeposit: DepositAdapter.OnClickDeposit = object : DepositAdapter.OnClickDeposit {
-        override fun ClickDepositCard(cardTitle: String,cardImg: Int) {
-
-            when (cardTitle) {
-                "ABA Pay"-> {
-                    val depositDailogPayment = BottomSheetFinanceDepositPayment.newInstance(cardTitle,cardImg)
-                    depositDailogPayment.show(this@DepositActivity.supportFragmentManager, "Deposit Dialog")
-                }
-                "Visa/ Master Card"->{
-//                    args.putString("CardTitle","Visa/ Master Card")
-
-                    cardTitleVisa = cardTitle
-                    imgCardVisa = cardImg
-                    val intent = Intent(this@DepositActivity, DepositAddCardActivity::class.java)
-                    startActivityForResult(intent, SECOND_ACTIVITY_REQUEST_CODE)
-
-                }
-                "Acleda Bank"->{
-                    val depositDailogPayment = BottomSheetFinanceDepositPayment.newInstance(cardTitle.toString(),cardImg)
-                    depositDailogPayment.show(this@DepositActivity.supportFragmentManager, "Deposit Dialog")
-
-                }
-                "Sathapana"->{
-                    val depositDailogPayment = BottomSheetFinanceDepositPayment.newInstance(cardTitle.toString(),cardImg)
-                    depositDailogPayment.show(this@DepositActivity.supportFragmentManager, "Deposit Dialog")
-                }
-
-            }
-
-        }
-
-
-    }
+//    private val onClickDeposit: DepositAdapter.OnClickDeposit = object : DepositAdapter.OnClickDeposit {
+//        override fun ClickDepositCard(cardTitle: String,cardImg: Int) {
+//
+//            when (cardTitle) {
+//                "ABA Pay"-> {
+//                    val depositDailogPayment = BottomSheetFinanceDepositPayment.newInstance(cardTitle,cardImg)
+//                    depositDailogPayment.show(this@DepositActivity.supportFragmentManager, "Deposit Dialog")
+//                }
+//                "Visa/ Master Card"->{
+////                    args.putString("CardTitle","Visa/ Master Card")
+//
+//                    cardTitleVisa = cardTitle
+//                    imgCardVisa = cardImg
+//                    val intent = Intent(this@DepositActivity, DepositAddCardActivity::class.java)
+//                    startActivityForResult(intent, SECOND_ACTIVITY_REQUEST_CODE)
+//
+//                }
+//                "Acleda Bank"->{
+//                    val depositDailogPayment = BottomSheetFinanceDepositPayment.newInstance(cardTitle.toString(),cardImg)
+//                    depositDailogPayment.show(this@DepositActivity.supportFragmentManager, "Deposit Dialog")
+//
+//                }
+//                "Sathapana"->{
+//                    val depositDailogPayment = BottomSheetFinanceDepositPayment.newInstance(cardTitle.toString(),cardImg)
+//                    depositDailogPayment.show(this@DepositActivity.supportFragmentManager, "Deposit Dialog")
+//                }
+//
+//            }
+//
+//        }
+//
+//
+//    }
 
 
 

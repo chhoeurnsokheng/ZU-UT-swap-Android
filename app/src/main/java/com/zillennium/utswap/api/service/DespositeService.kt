@@ -16,14 +16,14 @@ interface DespositeService {
     @GET(ApiSettings.PATH_LIST_PAYMENT_METHOD)
     fun getLIstPaymentMethod(
         @HeaderMap headerMap: Map<String ,String>
-    ):Observable<DepositObj>
+    ):Observable<DepositObj.DepositRes>
     @POST(ApiSettings.PATH_ONLINE_DEPOSIT)
     fun depositMoney(
         @HeaderMap headerMap: Map<String ,String>,
         @Body body: DepositObj.DepositRequestBody
-    ):Observable<DepositObj>
+    ):Observable<DepositObj.DepositRes>
    @POST(ApiSettings.PATH_FINANCE_TRANSFER_LOGS)
    fun getFinanceTransferLog(
        @HeaderMap headerMap: Map<String ,String>
-   ):Observable<DepositObj>
+   ):Observable<DepositObj.DepositRes>
 }

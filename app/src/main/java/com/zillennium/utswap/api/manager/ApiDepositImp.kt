@@ -12,7 +12,7 @@ import rx.schedulers.Schedulers
  * Build in Mac
  */
 class ApiDepositImp : ApiManager() {
-    fun getLIstPaymentMethod(context: Context): Observable<DepositObj> =
+    fun getLIstPaymentMethod(context: Context): Observable<DepositObj.DepositRes> =
         mDespositeService.getLIstPaymentMethod(
             Header.getHeader(
                 Header.Companion.AuthType.REQUIRED_TOKEN,
@@ -25,7 +25,7 @@ class ApiDepositImp : ApiManager() {
     fun depositMoney(
         context: Context,
         body: DepositObj.DepositRequestBody
-    ): Observable<DepositObj> =
+    ): Observable<DepositObj.DepositRes> =
         mDespositeService.depositMoney(
             Header.getHeader(
                 Header.Companion.AuthType.REQUIRED_TOKEN,
@@ -35,7 +35,7 @@ class ApiDepositImp : ApiManager() {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
 
-    fun getFinanceTransferLog(context: Context): Observable<DepositObj> =
+    fun getFinanceTransferLog(context: Context): Observable<DepositObj.DepositRes> =
         mDespositeService.getFinanceTransferLog(
             Header.getHeader(
                 Header.Companion.AuthType.REQUIRED_TOKEN,

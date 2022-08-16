@@ -10,13 +10,13 @@ import com.zillennium.utswap.models.deposite.DepositObj
 class DepositView {
     interface View : BaseMvpView {
         override fun initView()
-        fun onGetListBankSuccess(data:DepositObj)
+        fun onGetListBankSuccess(data:DepositObj.DepositRes)
         fun onGetListBankFailed(message:String)
 
-        fun onDepositBalanceSuccess(data: DepositObj)
+        fun onDepositBalanceSuccess(data: DepositObj.DepositRes)
         fun onDepositBalanceFailed(message: String)
 
-        fun onGetDepositTransferBalanceLogSuccess(data: DepositObj)
+        fun onGetDepositTransferBalanceLogSuccess(data: DepositObj.DepositRes)
         fun onGetDepositTransferBalanceLogFailed(message: String)
     }
 
