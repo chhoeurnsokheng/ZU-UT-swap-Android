@@ -19,6 +19,7 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
+import retrofit2.create
 import java.security.SecureRandom
 import java.security.cert.CertificateException
 import java.security.cert.X509Certificate
@@ -31,7 +32,7 @@ open class ApiManager {
 
     protected lateinit var mUserService: UserService
     protected lateinit var mNewsService: NewsService
-
+    protected  lateinit var mPortfolioService:PortfolioService
     protected lateinit var mAccountLogsService: AccountLogsService
     protected lateinit var mCustomerSupport: CustomerSupportService
     protected lateinit var mProjectService: ProjectService
@@ -72,6 +73,7 @@ open class ApiManager {
 
         mFinanceService = retrofit.create(FinanceService::class.java)
         mProvince = retrofit.create(ProvincesService::class.java)
+        mPortfolioService = retrofit.create(PortfolioService::class.java)
 
 
     }

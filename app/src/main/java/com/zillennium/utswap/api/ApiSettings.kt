@@ -73,4 +73,9 @@ object ApiSettings {
     const val PATH_GET_BANNNER= "portfolio/app_banner"
     const val PATH_GET_HOME_WISHLIST_BALANCE ="portfolio/index"
 
+    /*Finance - Portfolio Graph:*/
+    const val PATH_FINANCE_PORTFOLIOl_GRAPH = "portfolio/dashboardchart"
+    const val PATH_GET_FINANCE_FILTER_TYPE= "portfolio/index"
+
+
 }
