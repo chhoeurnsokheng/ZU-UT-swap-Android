@@ -15,13 +15,16 @@ import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityProjectInfoBinding
 import com.zillennium.utswap.models.ProjectInfoDetailModel
+import com.zillennium.utswap.models.ProjectInfoInvestmentModel
 import com.zillennium.utswap.models.ViewImageModel
 import com.zillennium.utswap.models.project.ProjectInfoDetail
 import com.zillennium.utswap.module.project.ViewImage.ImageViewActivity
 import com.zillennium.utswap.module.project.projectInfoScreen.adapter.ProjectInfoDetailsAdapter
+import com.zillennium.utswap.module.project.projectInfoScreen.adapter.ProjectInfoInvestmentAdapter
 import com.zillennium.utswap.module.project.projectInfoScreen.adapter.ProjectViewPagerAdapter
 import com.zillennium.utswap.module.project.subscriptionScreen.SubscriptionActivity
 import com.zillennium.utswap.utils.Constants
+import com.zillennium.utswap.utils.UtilKt
 import com.zillennium.utswap.utils.formatter.NumberFormatter
 import com.zillennium.utswap.utils.groupingSeparatorInt
 import okhttp3.internal.format
@@ -114,18 +117,18 @@ class ProjectInfoActivity() :
                 "Location"
             )
             var x = data.land_size?.substring(0, data.land_size!!.length - 4)
-            var  basePrice = NumberFormatter.formatNumber(data.base_price.toString())
+            var  basePrice = data.base_price?.let { UtilKt().formatValue(it,"###,###.##") }
+            var targetPrice= data.target_price?.let { UtilKt().formatValue(it,"###,###.##") }
 
             val valueInfo = arrayOf(
                 data.title_deed,
                 "${groupingSeparatorInt(x?.toInt() ?: 0)} sqm",
                 "${groupingSeparatorInt(data.total_ut!!.toInt())} UT",
-                "$${groupingSeparatorInt(basePrice.toInt())}/sqm",
-                "$${groupingSeparatorInt(data.target_price!!.toInt())}/sqm",
+                "$ ${basePrice}/sqm",
+                "$ ${targetPrice}/sqm",
                 data.managed_by,
                 data.location
             )
-            println("basePrice $basePrice")
             val projectInfoDetailArrayList = arrayListOf<ProjectInfoDetailModel>()
 
             for (i in valueInfo.indices) {
@@ -149,8 +152,35 @@ class ProjectInfoActivity() :
                 startActivity(intent)
             }
 
-
             /* Recycle Investment info */
+            val perUT = arrayOf(
+                "4.1",
+                "4.55",
+            )
+            val valueUT = arrayOf(
+                "902 000",
+                "1 001 000",
+            )
+            val sqmUT = arrayOf(
+                "1 625",
+                "1 804",
+            )
+
+            val projectInfoInvestmentArrayList = arrayListOf<ProjectInfoInvestmentModel>()
+
+            for (i in perUT.indices) {
+                val projectInvestment = ProjectInfoInvestmentModel(
+                    perUT[i],
+                    valueUT[i],
+                    sqmUT[i]
+                )
+                projectInfoInvestmentArrayList.add(projectInvestment)
+            }
+
+            rvProjectInvestmentInfo.layoutManager = LinearLayoutManager(UTSwapApp.instance)
+            rvProjectInvestmentInfo.adapter = ProjectInfoInvestmentAdapter(projectInfoInvestmentArrayList)
+
+
 //            val investmentInformation = data.investment_information
 //            if (!investmentInformation.isNullOrEmpty()) {
 //                mainLayoutUt.visibility = View.VISIBLE
@@ -187,6 +217,7 @@ class ProjectInfoActivity() :
 //                documentLine.visibility = View.VISIBLE
 //                pdfDocument.visibility = View.VISIBLE
 //            }
+
             layoutDocument.setOnClickListener {
                 if (condition) {
                     arrowDownDocument.setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_24)

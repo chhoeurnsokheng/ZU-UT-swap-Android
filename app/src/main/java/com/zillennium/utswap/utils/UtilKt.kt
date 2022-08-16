@@ -6,6 +6,8 @@ import android.util.TypedValue
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import java.text.DecimalFormat
+import java.text.DecimalFormatSymbols
+import java.util.*
 
 /**
  * Created by Sokheng Chhoeurn on 27/7/22.
@@ -31,6 +33,13 @@ class UtilKt {
             e.printStackTrace()
             decimal.toString()
         }
+    }
+    fun formatValue(value: Number, formatString: String): String? {
+        val formatSymbols = DecimalFormatSymbols(Locale.ENGLISH)
+        formatSymbols.decimalSeparator = '.'
+        formatSymbols.groupingSeparator = ' '
+        val formatter = DecimalFormat(formatString, formatSymbols)
+        return formatter.format(value)
     }
 }
 class SpaceDecoration(

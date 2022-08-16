@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -85,20 +86,19 @@
                 android:background="@color/white" />
 
             <ScrollView
-                android:layout_margin="@dimen/dimen_15"
                 android:id="@+id/scrollView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_margin="@dimen/dimen_15"
                 android:background="@color/white"
                 android:overScrollMode="never"
                 android:scrollbars="none"
-                android:visibility="invisible">
+                android:visibility="visible">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    >
+                    android:orientation="vertical">
 
                     <!-- Image Slider with View Pager and rectangle indicator -->
                     <RelativeLayout
@@ -194,7 +194,9 @@
                         android:layout_marginTop="@dimen/dimen_50"
                         android:gravity="center"
                         android:text="@string/investment_information"
-                        android:textAppearance="@style/regular_16" />
+                        android:textAppearance="@style/regular_16"
+                        android:textColor="@color/black_0A0B12" />
+
 
                     <RelativeLayout
                         android:id="@+id/main_layout_ut"
@@ -216,8 +218,8 @@
                                 android:layout_weight="30"
                                 android:gravity="center"
                                 android:text="@string/UT"
-                                android:textAppearance="@style/regular_16"
-                                android:textColor="@color/primary" />
+                                android:textAppearance="@style/regular_12"
+                                android:textColor="@color/black_0A0B12" />
 
                             <TextView
                                 android:id="@+id/invest_value"
@@ -227,8 +229,8 @@
                                 android:layout_weight="40"
                                 android:gravity="center"
                                 android:text="@string/value"
-                                android:textAppearance="@style/regular_16"
-                                android:textColor="@color/primary" />
+                                android:textAppearance="@style/regular_12"
+                                android:textColor="@color/black_0A0B12" />
 
                             <TextView
                                 android:id="@+id/invest_sqm"
@@ -238,8 +240,8 @@
                                 android:layout_weight="30"
                                 android:gravity="center"
                                 android:text="@string/sqm"
-                                android:textAppearance="@style/regular_16"
-                                android:textColor="@color/primary" />
+                                android:textAppearance="@style/regular_12"
+                                android:textColor="@color/black_0A0B12" />
 
                         </LinearLayout>
 
@@ -257,13 +259,12 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/layout_ut"
                             android:layout_marginStart="@dimen/dimen_5"
-                            android:layout_marginTop="@dimen/dimen_5"
+                            android:layout_marginTop="23dp"
                             android:nestedScrollingEnabled="false"
                             android:overScrollMode="never"
                             android:scrollbars="none" />
 
                     </RelativeLayout>
-
 
                     <LinearLayout
                         android:id="@+id/layout_base_and_target_price"
@@ -271,17 +272,18 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dimen_5"
                         android:layout_marginTop="@dimen/dimen_25"
-                        android:orientation="horizontal">
+                        android:orientation="vertical">
 
-                        <LinearLayout
-                            android:layout_width="@dimen/dimen_0"
+                        <RelativeLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="50"
-                            android:orientation="vertical">
+                            android:orientation="horizontal">
 
                             <LinearLayout
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_alignParentStart="true"
+                                android:layout_centerVertical="true"
                                 android:orientation="horizontal">
 
                                 <ImageView
@@ -301,9 +303,10 @@
                             </LinearLayout>
 
                             <LinearLayout
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/dimen_5"
+                                android:layout_centerVertical="true"
+                                android:layout_marginStart="@dimen/dimen_120"
                                 android:orientation="horizontal">
 
                                 <ImageView
@@ -322,17 +325,32 @@
 
                             </LinearLayout>
 
-                        </LinearLayout>
+                        </RelativeLayout>
 
-                        <TextView
-                            android:layout_width="@dimen/dimen_0"
-                            android:layout_height="match_parent"
-                            android:layout_weight="50"
-                            android:gravity="center|right"
-                            android:text="17% Minimum \n Expected Return"
-                            android:textAppearance="@style/medium_16"
-                            android:textColor="@color/primary" />
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dimen_5"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="@dimen/dimen_24"
+                                android:layout_height="@dimen/dimen_24"
+                                android:layout_centerVertical="true"
+                                android:src="@drawable/graph" />
+
+                            <TextView
+
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_centerVertical="true"
+                                android:layout_marginStart="@dimen/dimen_30"
+                                android:text="17% Minimum Expected Return"
+                                android:textAppearance="@style/medium_16"
+                                android:textColor="@color/primary" />
+                        </RelativeLayout>
                     </LinearLayout>
+
 
                     <RelativeLayout
                         android:id="@+id/layout_term_condition"
@@ -411,6 +429,7 @@
                         android:layout_marginBottom="@dimen/dimen_10"
                         android:background="@color/light_gray" />
 
+
                     <LinearLayout
                         android:id="@+id/pdf_document"
                         android:layout_width="match_parent"
@@ -419,10 +438,17 @@
                         android:layout_marginBottom="@dimen/dimen_15"
                         android:orientation="vertical">
 
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Coming Soon"
+                            android:textAppearance="@style/regular_12"/>
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:visibility="gone">
 
                             <ImageView
                                 android:layout_width="wrap_content"
@@ -443,7 +469,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/dimen_10"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:visibility="gone">
 
                             <ImageView
                                 android:layout_width="wrap_content"
@@ -464,7 +491,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/dimen_10"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:visibility="gone">
 
                             <ImageView
                                 android:layout_width="wrap_content"

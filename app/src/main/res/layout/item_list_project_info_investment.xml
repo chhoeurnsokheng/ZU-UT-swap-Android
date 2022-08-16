@@ -16,6 +16,7 @@
             android:paddingHorizontal="@dimen/dimen_8">
 
             <TextView
+                android:id="@+id/ic_dollar"
                 android:layout_width="@dimen/dimen_0"
                 android:layout_height="wrap_content"
                 android:layout_weight="20"
@@ -50,6 +51,8 @@
                 android:background="@color/light_gray" />
 
             <TextView
+                android:layout_marginStart="@dimen/dimen_5"
+                android:id="@+id/ic_dollar1"
                 android:layout_width="@dimen/dimen_0"
                 android:layout_height="wrap_content"
                 android:layout_weight="20"
@@ -85,6 +88,7 @@
             android:paddingHorizontal="@dimen/dimen_8">
 
             <TextView
+                android:id="@+id/ic_dollar2"
                 android:layout_width="@dimen/dimen_0"
                 android:layout_height="wrap_content"
                 android:layout_weight="20"
