@@ -2,22 +2,21 @@ package com.zillennium.utswap.module.finance.depositScreen
 
 
 import android.content.Intent
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.zillennium.utswap.R
-import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityFinanceDepositBinding
 import com.zillennium.utswap.models.DepositModel
 import com.zillennium.utswap.models.deposite.DepositObj
 import com.zillennium.utswap.module.finance.depositScreen.adapter.DepositAdapter
-import com.zillennium.utswap.module.finance.addCardScreen.DepositAddCardActivity
 import com.zillennium.utswap.module.finance.depositScreen.depositBottomSheet.BottomSheetFinanceDepositPayment
 
 class DepositActivity :
     BaseMvpActivity<DepositView.View, DepositView.Presenter, ActivityFinanceDepositBinding>(),
     DepositView.View {
-
+    
     override var mPresenter: DepositView.Presenter = DepositPresenter()
     override val layoutResource: Int = R.layout.activity_finance_deposit
 
@@ -30,12 +29,16 @@ class DepositActivity :
     private val SECOND_ACTIVITY_REQUEST_CODE = 0
     private var imgCardVisa: String? = ""
     private var cardTitleVisa: String? = ""
+    private var typeOfCard:String? = ""
 
     override fun initView() {
         super.initView()
         try {
             toolBar()
             mPresenter.onGetListBank(this)
+            binding.apply {
+                progressBar.visibility = View.VISIBLE
+            }
 
         } catch (error: Exception) {
 
@@ -45,18 +48,22 @@ class DepositActivity :
     override fun onGetListBankSuccess(data: DepositObj.DepositRes) {
         listBank = data.data
         binding.rvPayment.apply {
-
             adapter = data.data?.let { DepositAdapter(it,onClickDeposit) }
             layoutManager =
                 LinearLayoutManager(this@DepositActivity, LinearLayoutManager.VERTICAL, false)
         }
+        binding.apply {
+            progressBar.visibility = View.GONE
+        }
     }
 
     override fun onGetListBankFailed(message: String) {
-
+        binding.apply {
+            progressBar.visibility = View.GONE
+        }
     }
 
-    override fun onDepositBalanceSuccess(data: DepositObj.DepositRes) {
+    override fun onDepositBalanceSuccess(data: DepositObj.DepositReturn) {
 
     }
 
@@ -118,18 +125,12 @@ class DepositActivity :
 //            }
 //
 //        }
-            override fun ClickDepositCard(cardTitle: String?, cardImg: String?) {
+            override fun ClickDepositCard(cardTitle: String?, cardImg: String?,bic:String?) {
                 imgCardVisa= cardImg
-                val depositDailogPayment = BottomSheetFinanceDepositPayment.newInstance(cardTitle, cardImg)
+                typeOfCard= bic
+
+                val depositDailogPayment = BottomSheetFinanceDepositPayment.newInstance(cardTitle, cardImg,bic)
                 depositDailogPayment.show(this@DepositActivity.supportFragmentManager, "Deposit Dialog")
-//                when (cardTitle) {
-//                    "ABA Pay" -> {
-//                        imgCardVisa= cardImg
-//                        val depositDailogPayment = BottomSheetFinanceDepositPayment.newInstance(cardTitle, cardImg)
-//                        depositDailogPayment.show(this@DepositActivity.supportFragmentManager, "Deposit Dialog"
-//                        )
-//                    }
-//                }
             }
 
 
@@ -143,7 +144,7 @@ class DepositActivity :
             if (resultCode === RESULT_OK) {
                 val depositDailogPayment = BottomSheetFinanceDepositPayment.newInstance(
                     cardTitleVisa.toString(),
-                    imgCardVisa.toString()
+                    imgCardVisa.toString(),typeOfCard.toString()
                 )
                 depositDailogPayment.show(
                     this@DepositActivity.supportFragmentManager,

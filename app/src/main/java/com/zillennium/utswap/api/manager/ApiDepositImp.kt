@@ -25,7 +25,7 @@ class ApiDepositImp : ApiManager() {
     fun depositMoney(
         context: Context,
         body: DepositObj.DepositRequestBody
-    ): Observable<DepositObj.DepositRes> =
+    ): Observable<DepositObj.DepositReturn> =
         mDespositeService.depositMoney(
             Header.getHeader(
                 Header.Companion.AuthType.REQUIRED_TOKEN,

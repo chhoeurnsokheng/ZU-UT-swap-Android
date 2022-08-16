@@ -21,7 +21,7 @@ interface DespositeService {
     fun depositMoney(
         @HeaderMap headerMap: Map<String ,String>,
         @Body body: DepositObj.DepositRequestBody
-    ):Observable<DepositObj.DepositRes>
+    ):Observable<DepositObj.DepositReturn>
    @POST(ApiSettings.PATH_FINANCE_TRANSFER_LOGS)
    fun getFinanceTransferLog(
        @HeaderMap headerMap: Map<String ,String>

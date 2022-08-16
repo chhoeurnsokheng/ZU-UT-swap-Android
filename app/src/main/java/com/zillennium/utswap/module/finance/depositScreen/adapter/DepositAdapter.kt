@@ -41,7 +41,7 @@ class DepositAdapter( val item: List<DepositObj.DataListRes>, val onClickListene
                     if (linearLayout.isSelected == true){
                         linearLayout.setBackgroundColor(ContextCompat.getColor(root.context,R.color.gray_EDEDED))
                     }
-                  onClickListener.ClickDepositCard(data.title, data.img_url)
+                  onClickListener.ClickDepositCard(data.title, data.img_url,data.bic)
                 }
             }
         }
@@ -52,6 +52,6 @@ class DepositAdapter( val item: List<DepositObj.DataListRes>, val onClickListene
     }
 
     interface OnClickDeposit {
-        fun ClickDepositCard(cardTitle: String?,cardImg: String?)
+        fun ClickDepositCard(cardTitle: String?,cardImg: String?,bic:String?)
     }
 }

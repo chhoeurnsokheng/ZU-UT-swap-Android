@@ -38,6 +38,12 @@ object DepositObj {
         var created_by:String? = null
         var addtimeReadable:String? = null
 
+
+    }
+    class DepositReturn{
+        var status:Int? =null
+        var message:String ? = null
+        var data:DataListRes ? =null
     }
     class StoreLinkObj{
         var ios:String? = null

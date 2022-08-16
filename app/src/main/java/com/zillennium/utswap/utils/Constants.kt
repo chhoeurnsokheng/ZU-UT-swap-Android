@@ -457,6 +457,11 @@ interface Constants {
             const val Project_Id = "id"
         }
     }
+    interface Deposit{
+        companion object{
+            const val Payment_Link ="payment_link"
+        }
+    }
 
 
 }

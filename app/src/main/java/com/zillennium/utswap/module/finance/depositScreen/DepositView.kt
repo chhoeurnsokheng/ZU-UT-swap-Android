@@ -13,7 +13,7 @@ class DepositView {
         fun onGetListBankSuccess(data:DepositObj.DepositRes)
         fun onGetListBankFailed(message:String)
 
-        fun onDepositBalanceSuccess(data: DepositObj.DepositRes)
+        fun onDepositBalanceSuccess(data: DepositObj.DepositReturn)
         fun onDepositBalanceFailed(message: String)
 
         fun onGetDepositTransferBalanceLogSuccess(data: DepositObj.DepositRes)
