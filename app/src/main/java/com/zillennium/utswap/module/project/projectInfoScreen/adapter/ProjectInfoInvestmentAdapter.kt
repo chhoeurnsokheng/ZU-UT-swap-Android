@@ -24,7 +24,6 @@ class ProjectInfoInvestmentAdapter (arrayList: ArrayList<ProjectInfoInvestmentMo
         var txtSqmUT: TextView = view.findViewById<View>(R.id.txt_sqm_ut) as TextView
         var layoutInvestment: LinearLayout = view.findViewById(R.id.layout_investment) as LinearLayout
         var txtIcDollar: TextView = view.findViewById<View>(R.id.ic_dollar) as TextView
-        var txtIcDollar1: TextView = view.findViewById<View>(R.id.ic_dollar1) as TextView
         var txtIcDollar2: TextView = view.findViewById<View>(R.id.ic_dollar2) as TextView
 
 
@@ -52,7 +51,6 @@ class ProjectInfoInvestmentAdapter (arrayList: ArrayList<ProjectInfoInvestmentMo
             holder.txtValueUT.setTextColor(ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.black_0A0B12)))
             holder.txtSqmUT.setTextColor(ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.black_0A0B12)))
             holder.txtIcDollar.setTextColor(ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.black_0A0B12)))
-            holder.txtIcDollar1.setTextColor(ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.black_0A0B12)))
             holder.txtIcDollar2.setTextColor(ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.black_0A0B12)))
         }
 
@@ -62,7 +60,6 @@ class ProjectInfoInvestmentAdapter (arrayList: ArrayList<ProjectInfoInvestmentMo
             holder.txtValueUT.setTextColor(ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.white)))
             holder.txtSqmUT.setTextColor(ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.white)))
             holder.txtIcDollar.setTextColor(ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.white)))
-            holder.txtIcDollar1.setTextColor(ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.white)))
             holder.txtIcDollar2.setTextColor(ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.white)))
         }
     }

@@ -117,8 +117,8 @@ class ProjectInfoActivity() :
                 "Location"
             )
             var x = data.land_size?.substring(0, data.land_size!!.length - 4)
-            var  basePrice = data.base_price?.let { UtilKt().formatValue(it,"###,###.##") }
-            var targetPrice= data.target_price?.let { UtilKt().formatValue(it,"###,###.##") }
+            var basePrice = data.base_price?.let { UtilKt().formatValue(it, "###,###.##") }
+            var targetPrice = data.target_price?.let { UtilKt().formatValue(it, "###,###.##") }
 
             val valueInfo = arrayOf(
                 data.title_deed,
@@ -178,7 +178,8 @@ class ProjectInfoActivity() :
             }
 
             rvProjectInvestmentInfo.layoutManager = LinearLayoutManager(UTSwapApp.instance)
-            rvProjectInvestmentInfo.adapter = ProjectInfoInvestmentAdapter(projectInfoInvestmentArrayList)
+            rvProjectInvestmentInfo.adapter =
+                ProjectInfoInvestmentAdapter(projectInfoInvestmentArrayList)
 
 
 //            val investmentInformation = data.investment_information
@@ -233,15 +234,23 @@ class ProjectInfoActivity() :
             if (data.action == "Subscribe") {
                 btnTrade.visibility = View.GONE
                 btnSubscript.visibility = View.VISIBLE
+                btnUpcoming.visibility = View.GONE
                 btnSubscript.setOnClickListener {
                     val intent = Intent(UTSwapApp.instance, SubscriptionActivity::class.java)
                     startActivity(intent)
                 }
-            } else {
+            }
+            if (data.action == "Trade") {
                 btnTrade.visibility = View.VISIBLE
                 btnSubscript.visibility = View.GONE
+                btnUpcoming.visibility = View.GONE
             }
+            if (data.action == "Upcomming") {
+                btnTrade.visibility = View.GONE
+                btnSubscript.visibility = View.GONE
+                btnUpcoming.visibility = View.VISIBLE
 
+            }
         }
     }
 
