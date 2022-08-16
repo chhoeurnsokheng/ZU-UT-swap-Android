@@ -19,14 +19,12 @@ import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentNavbarTradeBinding
 import com.zillennium.utswap.models.TradeModel
-import com.zillennium.utswap.models.newsService.News
+import com.zillennium.utswap.models.TradeModelCompare
 import com.zillennium.utswap.models.tradingList.TradingList
 import com.zillennium.utswap.module.account.accountScreen.AccountActivity
 import com.zillennium.utswap.module.main.trade.tradeExchangeScreen.TradeExchangeActivity
 import com.zillennium.utswap.module.main.trade.tradeScreen.adapter.TradeAdapter
 import com.zillennium.utswap.module.main.trade.tradeScreen.adapter.TradeUpcomingProjectAdapter
-import com.zillennium.utswap.module.project.projectInfoScreen.ProjectInfoActivity
-import com.zillennium.utswap.module.project.subscriptionScreen.SubscriptionActivity
 import com.zillennium.utswap.module.security.securityActivity.signInScreen.SignInActivity
 import com.zillennium.utswap.module.system.notification.NotificationActivity
 
@@ -50,6 +48,7 @@ class TradeFragment :
     override var fetchTradeData: MutableLiveData<TradingList.TradingListRes> = MutableLiveData()
 
     private var tradeArrayList = ArrayList<TradeModel>()
+    private var tradeCompare = ArrayList<TradeModelCompare>()
 
     @SuppressLint("NotifyDataSetChanged")
     override fun initView() {
@@ -59,25 +58,40 @@ class TradeFragment :
         onCheckPreference()
 
         fetchTradeData.observe(this@TradeFragment){
-            println("${it.market_trend?.url?.size}")
-            tradeArrayList.clear()
-            for(i in it.market_trend?.url?.indices!!)
-            {
-                if(!it.market_trend?.url?.get(i)?.get(11)?.toString().isNullOrEmpty())
-                tradeArrayList.add(
-                    TradeModel(it.market_trend?.url!![i][0].toString(),
-                        it.market_trend?.url!![i][13].toString(),
-                        it.market_trend?.url!![i][1].toString(),
-                        it.market_trend?.url!![i][6].toString(),
-                        it.market_trend?.url!![i][8].toString(),
-                        it.market_trend?.url!![i][11].toString()
-                    )
-                )
-            }
-            binding.apply {
-                tradeAdapter!!.items = tradeArrayList
-                tradeAdapter!!.notifyDataSetChanged()
-            }
+           if(tradeCompare.size == it.market_trend?.url?.size)
+           {
+                println("============================same")
+           }else{
+               println("============================wrong")
+               tradeArrayList.clear()
+               for(i in it.market_trend?.url?.indices!!)
+               {
+                   tradeCompare.add(
+                       TradeModelCompare(it.market_trend?.url!![i][0].toString(),
+                           it.market_trend?.url!![i][13].toString(),
+                           it.market_trend?.url!![i][1].toString(),
+                           it.market_trend?.url!![i][6].toString(),
+                           it.market_trend?.url!![i][8].toString()
+                       )
+                   )
+                   if(!it.market_trend?.url?.get(i)?.get(11)?.toString().isNullOrEmpty())
+                   {
+                       tradeArrayList.add(
+                           TradeModel(it.market_trend?.url!![i][0].toString(),
+                               it.market_trend?.url!![i][13].toString(),
+                               it.market_trend?.url!![i][1].toString(),
+                               it.market_trend?.url!![i][6].toString(),
+                               it.market_trend?.url!![i][8].toString(),
+                               it.market_trend?.url!![i][11].toString()
+                           )
+                       )
+                   }
+               }
+               binding.apply {
+                   tradeAdapter!!.items = tradeArrayList
+                   tradeAdapter!!.notifyDataSetChanged()
+               }
+           }
         }
     }
 
@@ -216,20 +230,27 @@ class TradeFragment :
     override fun onGetUpcomingProjectSuccess(data: TradingList.TradeUpComingProjectRes) {
         binding.apply {
 
-            txtUpcoming.visibility = View.VISIBLE
+            if(data.data?.project?.isNotEmpty() == true){
+                txtUpcoming.visibility = View.VISIBLE
+                linearLayoutUpcomingProject.visibility = View.VISIBLE
 
-            listUpcomingProject.addAll(data.data?.project!!)
+                listUpcomingProject.addAll(data.data?.project!!)
 
-            rvUpcomingProject.layoutManager = LinearLayoutManager(UTSwapApp.instance)
-            tradeUpcomingProjectAdapter = TradeUpcomingProjectAdapter()
-            tradeUpcomingProjectAdapter!!.items = listUpcomingProject
-            rvUpcomingProject.adapter = tradeUpcomingProjectAdapter
+                rvUpcomingProject.layoutManager = LinearLayoutManager(UTSwapApp.instance)
+                tradeUpcomingProjectAdapter = TradeUpcomingProjectAdapter()
+                tradeUpcomingProjectAdapter!!.items = listUpcomingProject
+                rvUpcomingProject.adapter = tradeUpcomingProjectAdapter
+            }else{
+                txtUpcoming.visibility = View.GONE
+                linearLayoutUpcomingProject.visibility = View.GONE
+            }
         }
     }
 
     override fun onGetUpcomingProjectFail(data: TradingList.TradeUpComingProjectRes) {
         binding.apply {
             txtUpcoming.visibility = View.GONE
+            linearLayoutUpcomingProject.visibility = View.GONE
         }
     }
 
@@ -241,7 +262,7 @@ class TradeFragment :
             if(search.isNotEmpty()){
                 tradeData.clear()
                 tradeArrayList.map {
-                    if(it.project_name?.contains(search, ignoreCase = true) == true){
+                    if(it.project_name.contains(search, ignoreCase = true)){
                         tradeData.add(it)
                     }
                 }

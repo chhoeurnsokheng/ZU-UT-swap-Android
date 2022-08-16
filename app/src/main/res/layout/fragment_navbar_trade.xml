@@ -10,8 +10,7 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/dimen_10">
+                android:layout_height="wrap_content">
 
                 <ImageView
                     android:id="@+id/img_menu"
@@ -74,6 +73,12 @@
                 </RelativeLayout>
 
             </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/light_gray"
+                android:layout_marginBottom="@dimen/dimen_10"/>
 
             <LinearLayout
                 android:id="@+id/linear_layout_search"
@@ -141,6 +146,7 @@
                     android:orientation="vertical">
 
                     <LinearLayout
+                        android:id="@+id/linear_layout_upcoming_project"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
