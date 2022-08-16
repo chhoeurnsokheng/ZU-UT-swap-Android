@@ -6,6 +6,7 @@ import com.gis.z1android.api.errorhandler.CallbackWrapper
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.api.ApiSettings
 import com.zillennium.utswap.api.manager.ApiManager
+import com.zillennium.utswap.api.manager.ApiTradeImp
 import com.zillennium.utswap.api.manager.SocketManager
 import com.zillennium.utswap.bases.mvp.BaseMvpPresenterImpl
 import com.zillennium.utswap.bases.websocket.WSModel
@@ -17,6 +18,7 @@ class TradePresenter : BaseMvpPresenterImpl<TradeView.View>(),
     TradeView.Presenter {
 
     private var subscription: Subscription? = null
+    private var subscriptionUpcomingProject: Subscription? = null
 
     override fun initViewPresenter(context: Context, bundle: Bundle?) {
         mBundle = bundle
@@ -57,5 +59,22 @@ class TradePresenter : BaseMvpPresenterImpl<TradeView.View>(),
         if(subscription!=null&&!subscription?.isUnsubscribed!!) {
             subscription?.unsubscribe()
         }
+    }
+
+    override fun onGetUpcomingProject() {
+        subscriptionUpcomingProject?.unsubscribe()
+        subscriptionUpcomingProject = ApiTradeImp().upcomingProject().subscribe({
+            if(it.status == 1){
+                mView?.onGetUpcomingProjectSuccess(it)
+            }else{
+                mView?.onGetUpcomingProjectFail(it)
+            }
+        },{
+            object : CallbackWrapper(it, UTSwapApp.instance, arrayListOf()){
+                override fun onCallbackWrapper(status: ApiManager.NetworkErrorStatus, data: Any) {
+                    mView?.onFail(data.toString())
+                }
+            }
+        })
     }
 }
