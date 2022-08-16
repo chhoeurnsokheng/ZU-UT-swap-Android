@@ -269,16 +269,31 @@
                             android:background="@color/light_gray"
                             android:visibility="gone" />
 
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/rv_project_investment_info"
+                        <include
+                            android:id="@+id/layout_base_price"
+                            layout="@layout/item_list_project_info_investment"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_below="@+id/layout_ut"
-                            android:layout_marginStart="@dimen/dimen_5"
-                            android:layout_marginTop="23dp"
-                            android:nestedScrollingEnabled="false"
-                            android:overScrollMode="never"
-                            android:scrollbars="none" />
+                            android:layout_marginTop="35dp" />
+
+                        <include
+
+                            android:id="@+id/layout_target_price"
+                            layout="@layout/item_list_project_info_investment"
+                            android:layout_height="wrap_content"
+                            android:layout_width="match_parent"
+                            android:layout_below="@+id/layout_base_price"/>
+
+<!--                        <androidx.recyclerview.widget.RecyclerView-->
+<!--                            android:id="@+id/rv_project_investment_info"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_below="@+id/layout_ut"-->
+<!--                            android:layout_marginStart="@dimen/dimen_5"-->
+<!--                            android:layout_marginTop="23dp"-->
+<!--                            android:nestedScrollingEnabled="false"-->
+<!--                            android:overScrollMode="never"-->
+<!--                            android:scrollbars="none" />-->
 
                     </RelativeLayout>
 

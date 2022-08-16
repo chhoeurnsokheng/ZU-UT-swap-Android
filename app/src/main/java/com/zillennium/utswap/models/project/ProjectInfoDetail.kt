@@ -24,12 +24,25 @@ object ProjectInfoDetail {
         var location: String? = null
         var google_map_link: String? = null
         var managed_by: String? = null
-        var investment_information: String? = null
+        var investment_information: InvestmentInformation? = null
         var documents: String? = null
         var images: Array<String> = emptyArray()
         var term_and_condition: String? = null
     }
-
+    class InvestmentInformation{
+        var base:BaseObj ? = null
+        var target:Targetobj? = null
+    }
+    class BaseObj{
+        var base_ut_price:Double ? =  null
+        var sqm:Double ? = null
+        var value:Double ? =null
+    }
+    class Targetobj{
+        var future_ut_price:Double? = null
+        var sqm:Double? = null
+        var value:Double? = null
+    }
     class ProjectInfoDetailObject(
         var id: Int
     )

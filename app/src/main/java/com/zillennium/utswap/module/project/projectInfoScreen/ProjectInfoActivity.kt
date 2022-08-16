@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.androidstudy.networkmanager.Tovuti
@@ -89,6 +90,51 @@ class ProjectInfoActivity() :
     }
 
     override fun projectInfoViewSuccess(data: ProjectInfoDetail.ProjectInfoDetailData) {
+        val DECIMAL_FORMAT = "###,###.##"
+
+        binding.apply {
+            layoutBasePrice.apply {
+                layoutInvestment.setBackgroundColor(ContextCompat.getColor(applicationContext,R.color.gray_D9D9D9))
+                txtPerUt.text = data.investment_information?.base?.base_ut_price?.let {
+                    UtilKt().formatValue(
+                        it,DECIMAL_FORMAT)
+                }
+
+                txtValueUt.text = data.investment_information?.base?.value?.let {
+                    UtilKt().formatValue(
+                        it,DECIMAL_FORMAT)
+                }
+
+                txtSqmUt.text = data.investment_information?.base?.sqm?.let {
+                    UtilKt().formatValue(
+                        it,DECIMAL_FORMAT)
+                }
+
+            }
+            layoutTargetPrice.apply {
+                layoutInvestment.setBackgroundColor(ContextCompat.getColor(applicationContext,R.color.secondary))
+                txtPerUt.text =data.investment_information?.target?.future_ut_price?.let {
+                    UtilKt().formatValue(
+                        it,DECIMAL_FORMAT)
+                }
+
+                txtValueUt.text =data.investment_information?.target?.value?.let {
+                    UtilKt().formatValue(
+                        it,DECIMAL_FORMAT)
+                }
+
+                txtSqmUt.text = data.investment_information?.target?.sqm?.let {
+                    UtilKt().formatValue(
+                        it,DECIMAL_FORMAT)
+                }
+
+            }
+
+        }
+
+
+
+
         binding.apply {
             progressbarGetData.visibility = View.GONE
             scrollView.visibility = View.VISIBLE
@@ -177,9 +223,8 @@ class ProjectInfoActivity() :
                 projectInfoInvestmentArrayList.add(projectInvestment)
             }
 
-            rvProjectInvestmentInfo.layoutManager = LinearLayoutManager(UTSwapApp.instance)
-            rvProjectInvestmentInfo.adapter =
-                ProjectInfoInvestmentAdapter(projectInfoInvestmentArrayList)
+//            rvProjectInvestmentInfo.layoutManager = LinearLayoutManager(UTSwapApp.instance)
+//            rvProjectInvestmentInfo.adapter = ProjectInfoInvestmentAdapter(projectInfoInvestmentArrayList)
 
 
 //            val investmentInformation = data.investment_information
