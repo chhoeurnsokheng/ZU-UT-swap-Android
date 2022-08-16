@@ -94,49 +94,6 @@ class ProjectInfoActivity() :
         val DECIMAL_FORMAT = "###,###.##"
 
         binding.apply {
-//            layoutBasePrice.apply {
-//                layoutInvestment.setBackgroundColor(ContextCompat.getColor(applicationContext,R.color.gray_D9D9D9))
-//                txtPerUt.text = data.investment_information?.base?.base_ut_price?.let {
-//                    UtilKt().formatValue(
-//                        it,DECIMAL_FORMAT)
-//                }
-//
-//                txtValueUt.text = data.investment_information?.base?.value?.let {
-//                    UtilKt().formatValue(
-//                        it,DECIMAL_FORMAT)
-//                }
-//
-//                txtSqmUt.text = data.investment_information?.base?.sqm?.let {
-//                    UtilKt().formatValue(
-//                        it,DECIMAL_FORMAT)
-//                }
-//
-//            }
-//            layoutTargetPrice.apply {
-//                layoutInvestment.setBackgroundColor(ContextCompat.getColor(applicationContext,R.color.secondary))
-//                txtPerUt.text =data.investment_information?.target?.future_ut_price?.let {
-//                    UtilKt().formatValue(
-//                        it,DECIMAL_FORMAT)
-//                }
-//
-//                txtValueUt.text =data.investment_information?.target?.value?.let {
-//                    UtilKt().formatValue(
-//                        it,DECIMAL_FORMAT)
-//                }
-//
-//                txtSqmUt.text = data.investment_information?.target?.sqm?.let {
-//                    UtilKt().formatValue(
-//                        it,DECIMAL_FORMAT)
-//                }
-//
-//            }
-
-        }
-
-
-
-
-        binding.apply {
             progressbarGetData.visibility = View.GONE
             scrollView.visibility = View.VISIBLE
             viewBackground.visibility = View.GONE
