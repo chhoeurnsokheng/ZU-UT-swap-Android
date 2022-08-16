@@ -82,10 +82,9 @@
             android:id="@+id/linear_layout_user_info_detail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/dimen_20"
-            android:background="@color/gray_F7F7F7"
-            android:orientation="vertical"
             android:layout_below="@+id/linear_layout_ut_type"
+            android:layout_marginBottom="@dimen/dimen_20"
+            android:orientation="vertical"
             android:paddingHorizontal="@dimen/dimen_20"
             android:paddingBottom="@dimen/dimen_20">
 
@@ -166,11 +165,13 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/linear_layout_company"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/dimen_16"
                 android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -191,10 +192,12 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/linear_layout_occupation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="wrap_content"
