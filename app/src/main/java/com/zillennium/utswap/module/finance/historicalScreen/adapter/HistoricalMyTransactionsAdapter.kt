@@ -44,11 +44,11 @@ class HistoricalMyTransactionsAdapter: BaseRecyclerViewAdapterGeneric<Historical
                         imageBalance.setImageResource(Constants.HistoricalMyTransactionIcon.Buy)
                     }
 
-                    amountBalance.text = "$" + myTransaction.price?.let { UtilKt().formatValue(it, "###,###.##") }
+                    amountBalance.text = "$" + myTransaction.mum_a?.let { UtilKt().formatValue(it, "###,###.##") }
                     amountBalance.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.red_ee1111))
                 }else if (myTransaction.type == "sell"){
                     imageBalance.setImageResource(Constants.HistoricalMyTransactionIcon.Sell)
-                    amountBalance.text = "$" + myTransaction.price?.let { UtilKt().formatValue(it, "###,###.##") }
+                    amountBalance.text = "$" + myTransaction.mum_a?.let { UtilKt().formatValue(it, "###,###.##") }
                     amountBalance.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.success))
                 }
             }
