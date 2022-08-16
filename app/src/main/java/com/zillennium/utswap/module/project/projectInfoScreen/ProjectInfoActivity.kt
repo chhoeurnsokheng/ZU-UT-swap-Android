@@ -117,16 +117,19 @@ class ProjectInfoActivity() :
                     UtilKt().formatValue(
                         it,DECIMAL_FORMAT)
                 }
-
+                icDollar.setTextColor((ContextCompat.getColor(applicationContext,R.color.white)))
+                icDollar2.setTextColor((ContextCompat.getColor(applicationContext,R.color.white)))
+                txtPerUt.setTextColor((ContextCompat.getColor(applicationContext,R.color.white)))
                 txtValueUt.text =data.investment_information?.target?.value?.let {
                     UtilKt().formatValue(
                         it,DECIMAL_FORMAT)
                 }
-
+                txtValueUt.setTextColor((ContextCompat.getColor(applicationContext,R.color.white)))
                 txtSqmUt.text = data.investment_information?.target?.sqm?.let {
                     UtilKt().formatValue(
                         it,DECIMAL_FORMAT)
                 }
+                txtSqmUt.setTextColor((ContextCompat.getColor(applicationContext,R.color.white)))
 
             }
 
