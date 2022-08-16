@@ -27,6 +27,7 @@ import com.zillennium.utswap.module.account.customerSupportScreen.CustomerSuppor
 import com.zillennium.utswap.module.account.documentsScreen.DocumentsActivity
 import com.zillennium.utswap.module.account.lockTimeOutScreen.LockTimeOutActivity
 import com.zillennium.utswap.module.account.referralInformationScreen.ReferralInformationActivity
+import com.zillennium.utswap.screens.navbar.navbar.MainActivity
 import com.zillennium.utswap.utils.DialogUtil
 import java.io.File
 
@@ -167,6 +168,7 @@ class AccountActivity :
                             SessionPreferences().removeValue("SESSION_KYC_SUBMIT_STATUS")
                             SessionPreferences().removeValue("SESSION_KYC_STATUS")
 
+                            startActivity(Intent(this@AccountActivity, MainActivity::class.java))
                             finish()
                             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                         }

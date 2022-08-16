@@ -33,6 +33,7 @@ import com.zillennium.utswap.module.main.news.newsDetail.NewsDetailActivity
 import com.zillennium.utswap.module.project.projectScreen.ProjectActivity
 import com.zillennium.utswap.module.security.securityActivity.signInScreen.SignInActivity
 import com.zillennium.utswap.module.system.notification.NotificationActivity
+import com.zillennium.utswap.screens.navbar.navbar.MainActivity
 import com.zillennium.utswap.utils.SpaceDecoration
 import com.zillennium.utswap.utils.UtilKt
 
@@ -344,6 +345,7 @@ class HomeFragment() : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragme
     private fun onSwipeRefresh() {
         binding.apply {
             swipeRefresh.setOnRefreshListener {
+                (activity as MainActivity).onRefreshData()
                 mPresenter.getNewsHome(requireActivity())
                 mPresenter.getBanner(requireActivity())
 

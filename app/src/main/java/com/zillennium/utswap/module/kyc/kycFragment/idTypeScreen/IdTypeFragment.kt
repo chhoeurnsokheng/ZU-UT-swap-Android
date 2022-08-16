@@ -268,7 +268,7 @@ open class IdTypeFragment :
                     btnNext.setOnClickListener {
                         findNavController().navigate(R.id.action_to_id_verification_kyc_fragment)
                     }
-                }else{
+                }else if (IDCardCameraFragment.imageFront.isEmpty() || IDCardCameraFragment.imageBack.isEmpty()){
                     btnNext.visibility = View.GONE
                     btnNext.isClickable = false
                     btnNext.setOnClickListener {}

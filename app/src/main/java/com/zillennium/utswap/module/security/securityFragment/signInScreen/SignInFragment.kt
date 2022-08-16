@@ -1,5 +1,6 @@
 package com.zillennium.utswap.module.security.securityFragment.signInScreen
 
+import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.Intent
 import android.content.res.ColorStateList
@@ -204,7 +205,7 @@ class SignInFragment :
             SessionVariable.SESSION_KYC_STATUS.value = 0
         }
         hideKeyboard()
-
+        activity?.setResult(RESULT_OK)
         activity?.finish()
     }
 

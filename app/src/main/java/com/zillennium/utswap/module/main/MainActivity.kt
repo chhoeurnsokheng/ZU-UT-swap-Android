@@ -24,6 +24,7 @@ import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityMainBinding
+import com.zillennium.utswap.models.userService.User
 import com.zillennium.utswap.module.kyc.kycActivity.KYCActivity
 import com.zillennium.utswap.module.kyc.kycFragment.fundPasswordScreen.FundPasswordFragment
 import com.zillennium.utswap.module.main.MainPresenter
@@ -44,17 +45,40 @@ class MainActivity :
 
     override var mPresenter: MainView.Presenter = MainPresenter()
     override val layoutResource: Int = R.layout.activity_main
+    private var kcySubmit: Boolean? = false
+    private var kcyComplete: Boolean? = false
+    private var isSelected = false
+    private var isSignInSuccess = true
 
     private var doubleBackToExitPressedOnce = false
     private var statusKYC = ""
 
     override fun initView() {
         super.initView()
-        onCheckSession()
         onSetUpNavBar()
+        binding.layAuth.setOnClickListener {
+            val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
+            startActivityForResult(intent, 555)
+        }
 
     }
 
+    fun onRefreshData() {
+        mPresenter.onCheckKYCStatus()
+
+    }
+
+    override fun onCheckKYCSuccess(data: User.KycRes) {
+        kcySubmit = data.data?.status_submit_kyc
+        kcyComplete = data.data?.status_kyc
+        onCheckSession()
+
+    }
+
+    override fun onCheckKYCFail() {
+        binding.layAuth.visibility = VISIBLE
+        binding.layVerify.visibility = GONE
+    }
 
 
     object kyc {
@@ -63,7 +87,7 @@ class MainActivity :
 
     override fun onBackPressed() {
         if (doubleBackToExitPressedOnce) {
-            super.onBackPressed()
+            finish()
             return
         }
         doubleBackToExitPressedOnce = true
@@ -81,7 +105,7 @@ class MainActivity :
                 SessionVariable.SESSION_STATUS.observe(this@MainActivity) {
 
                     if (SessionPreferences().SESSION_TOKEN != null) {
-                        if (SessionPreferences().SESSION_KYC_SUBMIT_STATUS == true) {
+                        if (kcySubmit == true) {
                             statusKYC = "Pending"
                             btnVerify.text = "KYC Approval is Pending"
                             tvVerify.text = "Your KYC application is being reviewed by our team."
@@ -96,19 +120,7 @@ class MainActivity :
                                     R.color.white
                                 )
                             )
-
-//                            btnVerify.animate().alpha(0.2f).duration = 500
-//                            lifecycleScope.launch {
-//                                delay(800)
-//                                btnVerify.animate().alpha(1f).duration = 500
-//                                delay(800)
-//                                btnVerify.animate().alpha(0.2f).duration = 500
-//                                delay(800)
-//                                btnVerify.animate().alpha(1f).duration = 500
-//                            }
-
-
-                        } else if (SessionPreferences().SESSION_KYC == false) {
+                        } else if (kcyComplete == false) {
                             btnVerify.visibility = VISIBLE
                             statusKYC = "New"
                             btnVerify.text = "Verify Your Identity"
@@ -125,35 +137,22 @@ class MainActivity :
                             )
 
                         }
-
                         layAuth.visibility = GONE
-
                     } else {
                         layAuth.visibility = VISIBLE
                         layVerify.visibility = GONE
                     }
 
-
-
-
-
                     if (SessionVariable.SESSION_STATUS.value == true) {
                         layAuth.visibility = GONE
                         layVerify.visibility = VISIBLE
                     }
-                    if (SessionPreferences().SESSION_KYC == true) {
+                    if (kcyComplete == true) {
                         layAuth.visibility = GONE
                         layVerify.visibility = GONE
                     } else {
                         layAuth.visibility = GONE
                         layVerify.visibility = VISIBLE
-
-                        /*SessionVariable.SESSION_KYC_STATUS.observe(this@MainActivity){
-                            if (SessionVariable.SESSION_KYC_STATUS.value ==1){
-                                layVerify.visibility = GONE
-                                layAuth.visibility = GONE
-                            }
-                        }*/
 
 
                     }
@@ -165,26 +164,6 @@ class MainActivity :
                         layAuth.visibility = GONE
 
                     }
-                }
-
-                /* if (SessionPreferences().SESSION_KYC_SUBMIT_STATUS == true){
-                       layVerify.visibility =GONE
-                   }else{
-                       layVerify.visibility =View.VISIBLE
-                   }*/
-
-/*
-                SessionVariable.SESSION_KYC.observe(this@MainActivity) {
-                    if(SessionVariable.SESSION_KYC.value == false && SessionVariable.SESSION_STATUS.value == true){
-                        layVerify.visibility = VISIBLE
-                    }else{
-                        layVerify.visibility = GONE
-                    }
-                }*/
-
-                layAuth.setOnClickListener {
-                    val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
-                    startActivity(intent)
                 }
 
                 btnVerify.setOnClickListener {
@@ -199,7 +178,6 @@ class MainActivity :
 
         }
     }
-    var prevMenuItem: MenuItem? = null
 
     private fun onSetUpNavBar() {
         try {
@@ -251,52 +229,55 @@ class MainActivity :
                     ).hide(newsTabFragment)
                 }.commit()
 
-                navView.setOnNavigationItemSelectedListener { item ->
+                navView.setOnItemSelectedListener { item ->
+                    mPresenter.onCheckKYCStatus()
                     when (item.itemId) {
                         R.id.navigation_navbar_home -> {
                             fragmentManager.beginTransaction().hide(activeFragment)
                                 .show(homeFragment).commit()
                             activeFragment = homeFragment
-                            navView.menu.getItem(1).isCheckable = true
+                            isSignInSuccess = true
 
                         }
                         R.id.navigation_navbar_portfolio -> {
                             SessionVariable.SESSION_KYC_STATUS.observe(this@MainActivity) {
-                                if (SessionVariable.SESSION_STATUS.value == true) {
-                                    if (SessionPreferences().SESSION_KYC == false) {
-                                        val intent = Intent(UTSwapApp.instance, KYCActivity::class.java).putExtra(
-                                            "KYCStatus",
-                                            statusKYC
-                                        )
+                                if (SessionPreferences().SESSION_TOKEN != null) {
+                                    if (kcyComplete == false && isSignInSuccess) {
+                                        val intent = Intent(
+                                            UTSwapApp.instance,
+                                            KYCActivity::class.java).putExtra("KYCStatus", statusKYC)
                                         startActivity(intent)
 
-                                    } else if (SessionPreferences().SESSION_KYC == true) {
+                                    } else if (kcyComplete == true) {
                                         fragmentManager.beginTransaction().hide(activeFragment)
                                             .show(portfolioFragment).commit()
                                         activeFragment = portfolioFragment
                                     }
                                 } else {
-                                    navView.menu.getItem(1).isCheckable = false
                                     val intent =
                                         Intent(UTSwapApp.instance, SignInActivity::class.java)
-                                    startActivity(intent)
+                                    startActivityForResult(intent, 555)
                                 }
                             }
+
 
                         }
                         R.id.navigation_navbar_trade -> {
                             fragmentManager.beginTransaction().hide(activeFragment)
                                 .show(tradeFragment).commit()
                             activeFragment = tradeFragment
+
                         }
                         R.id.navigation_navbar_news -> {
                             fragmentManager.beginTransaction().hide(activeFragment)
                                 .show(newsTabFragment).commit()
                             activeFragment = newsTabFragment
+
                         }
                     }
                     true
                 }
+
 
                 fragmentManager.beginTransaction().hide(activeFragment).show(homeFragment).commit()
                 activeFragment = tradeFragment
@@ -306,6 +287,16 @@ class MainActivity :
 
         }
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == RESULT_OK && requestCode == 555) {
+            isSignInSuccess = false
+            isSelected = true
+
+        }
+    }
+
     override fun onResume() {
         super.onResume()
         binding.navView.selectedItemId = R.id.navigation_navbar_home

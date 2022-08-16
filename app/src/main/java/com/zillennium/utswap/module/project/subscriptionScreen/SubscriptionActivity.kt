@@ -9,6 +9,7 @@ import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityProjectSubscriptionBinding
 
 import com.zillennium.utswap.models.SubscriptionModel
+import com.zillennium.utswap.models.userService.User
 import com.zillennium.utswap.module.project.subscriptionScreen.adapter.SubscriptionAdapter
 import com.zillennium.utswap.module.project.subscriptionScreen.bottomSheet.SubscriptionBottomSheet
 
@@ -19,6 +20,8 @@ class SubscriptionActivity :
 
     override var mPresenter: SubscriptionView.Presenter = SubscriptionPresenter()
     override val layoutResource: Int = R.layout.activity_project_subscription
+    private var kycSubmit: Boolean? = false
+    private var kycComplete: Boolean? = false
 
     override fun initView() {
         super.initView()
@@ -97,9 +100,17 @@ class SubscriptionActivity :
         }
     }
 
+    override fun onCheckKYCSuccess(data: User.KycRes) {
+        kycSubmit = data.data?.status_submit_kyc
+        kycComplete = data.data?.status_kyc
+    }
+
+    override fun onCheckKYCFail() {
+    }
+
     private fun onCheckSessionStatusAndKYC(){
         binding.apply {
-            if(SessionVariable.SESSION_STATUS.value == true && SessionPreferences().SESSION_KYC == true){
+            if(SessionVariable.SESSION_STATUS.value == true && kycComplete == true){
                 recycleViewProject.alpha = 1F
             }else{
                 recycleViewProject.alpha = 0.6F
@@ -109,7 +120,7 @@ class SubscriptionActivity :
 
     private val onclickAdapter: SubscriptionAdapter.OnclickAdapter = object: SubscriptionAdapter.OnclickAdapter{
         override fun onClickMe(subscriptionModel: SubscriptionModel) {
-            if(SessionVariable.SESSION_STATUS.value == true && SessionVariable.SESSION_KYC.value == true){
+            if(SessionVariable.SESSION_STATUS.value == true && kycComplete == true){
                 val subscriptionBottomSheetDialog: SubscriptionBottomSheet = SubscriptionBottomSheet.newInstance(
                     subscriptionModel.tv_title,
                 )

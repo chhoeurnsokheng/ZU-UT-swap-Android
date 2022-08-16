@@ -10,6 +10,7 @@ import com.zillennium.utswap.Datas.StoredPreferences.KYCPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentKycNationalIdBinding
+import com.zillennium.utswap.module.kyc.kycActivity.KYCActivity
 import com.zillennium.utswap.module.kyc.kycFragment.idTypeScreen.IdTypeFragment
 import com.zillennium.utswap.module.kyc.kycFragment.idTypeScreen.camera.idCardCameraFragment.IDCardCameraFragment
 
@@ -43,6 +44,7 @@ class NationalIDFragment :
                     imgNationalFronGone.visibility =View.VISIBLE
                     imgDeleteFront.visibility = View.GONE
                     btnCameraFront.isClickable = true
+                    IDCardCameraFragment.imageFront = ""
                     (parentFragment as IdTypeFragment).checkValidation()
                 }
 
@@ -53,6 +55,7 @@ class NationalIDFragment :
                     imgNationalBackGone.visibility =View.VISIBLE
                     imgDeleteBack.visibility = View.GONE
                     btnCameraBack.isClickable = true
+                    IDCardCameraFragment.imageBack = ""
                     (parentFragment as IdTypeFragment).checkValidation()
                 }
 

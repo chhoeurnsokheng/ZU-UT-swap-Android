@@ -21,6 +21,7 @@ import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityTradeExchangeBinding
+import com.zillennium.utswap.models.userService.User
 import com.zillennium.utswap.module.kyc.kycActivity.KYCActivity
 import com.zillennium.utswap.module.main.trade.tradeExchangeScreen.dialog.BuyAndSellBottomSheetDialog
 import com.zillennium.utswap.module.main.trade.tradeExchangeScreen.dialog.BuyDialog
@@ -50,6 +51,8 @@ class TradeExchangeActivity :
     private var pageAdapter: FragmentStateAdapter? = null
     private var pageTableAdapter: FragmentStateAdapter? = null
     private var buySellBottomSheet: BuyAndSellBottomSheetDialog? = null
+    private var kycSubmit: Boolean? = false
+    private var kycComplete: Boolean? = false
 
     val NUM_PAGES_TABLE = 3
     var remember: Boolean = true
@@ -74,6 +77,7 @@ class TradeExchangeActivity :
         super.initView()
         try {
             toolBar()
+            mPresenter.onCheckKYCStatus()
             binding.apply {
                 btnVerifyKyc.setOnClickListener {
                     val intent = Intent(this@TradeExchangeActivity, KYCActivity::class.java).putExtra(
@@ -458,6 +462,17 @@ class TradeExchangeActivity :
         }
     }
 
+    override fun onCheckKYCSuccess(data: User.KycRes) {
+        kycSubmit = data.data?.status_submit_kyc
+        kycComplete = data.data?.status_kyc
+        onCheckSessionStatusAndKYC()
+
+    }
+
+    override fun onCheckKYCFail() {
+
+    }
+
     private fun toolBar() {
        // setSupportActionBar(binding.includeLayout.tb)
       //  supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -488,19 +503,19 @@ class TradeExchangeActivity :
             if (SessionPreferences().SESSION_TOKEN != null) {
                 includeLayout.imgRemember.visibility = View.VISIBLE
 
-                if (SessionPreferences().SESSION_KYC == true) {
+                if (kycComplete == true) {
                     layTransactions.visibility = View.VISIBLE
                     layVerify.visibility = View.GONE
                     layAuth.visibility = View.GONE
                     llBottom.visibility = View.VISIBLE
                     llBtnVerify.visibility = View.GONE
-                } else if (SessionPreferences().SESSION_KYC == false && SessionPreferences().SESSION_KYC_SUBMIT_STATUS == true) {
+                } else if (kycComplete == false && kycSubmit == true) {
                     layVerify.visibility = View.GONE
                     layTransactions.visibility = View.GONE
                     layAuth.visibility = View.GONE
                     llBottom.visibility = View.VISIBLE
                     llBtnVerify.visibility = View.VISIBLE
-                } else if (SessionPreferences().SESSION_KYC == false && SessionPreferences().SESSION_KYC_SUBMIT_STATUS == false) {
+                } else if (kycComplete == false && kycSubmit == false) {
                     layVerify.visibility = View.VISIBLE
                     layTransactions.visibility = View.GONE
                     layAuth.visibility = View.GONE

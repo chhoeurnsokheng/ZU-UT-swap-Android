@@ -12,11 +12,13 @@ import android.util.Base64
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.view.children
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.commons.io.output.ByteArrayOutputStream
 import com.zillennium.utswap.Datas.StoredPreferences.KYCPreferences
+import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
@@ -130,7 +132,7 @@ class FundPasswordFragment :
                     KycInfor.districtcode = IDVerificationFragment.disCode
                     KycInfor.communecode =IDVerificationFragment.comCode
                     KycInfor.streetnumber = IDVerificationFragment.houseNumber
-                    KycInfor.idcardinfo = KYCPreferences().ID_CARD_INFOR.toString()
+                    KycInfor.idcardinfo = "National Id"
                     KycInfor.idcardfront = IDCardCameraFragment.imageFront
                     KycInfor.idcardrear = IDCardCameraFragment.imageBack
                     KycInfor.userImage = KYCPreferences().SELFIE_HOLDING.toString()
@@ -151,7 +153,7 @@ class FundPasswordFragment :
                             KycInfor.companyname,
                             KycInfor.email,
                             "",
-                            "+855",
+                            "",
                             KycInfor.citycode,
                             KycInfor.districtcode,
                             KycInfor.communecode,
@@ -173,13 +175,18 @@ class FundPasswordFragment :
                             UTSwapApp.instance,
                             R.drawable.bg_border_bottom_red
                         )
+                        child as TextView
+                        child.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
                     }
                     for (child in confirmNumberVerification.children) {
                         child.background = ContextCompat.getDrawable(
                             UTSwapApp.instance,
                             R.drawable.bg_border_bottom_red
                         )
+                        child as TextView
+                        child.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
                     }
+                    Toast.makeText(UTSwapApp.instance, "Fund Password is not match", Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -223,6 +230,7 @@ class FundPasswordFragment :
                         )
                         children.text = ""
                         showPassword(clickCountPassword)
+                        children.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.black))
                     }
 
                     if (chr?.length!! <= 3) {
@@ -261,6 +269,7 @@ class FundPasswordFragment :
                             R.drawable.bg_border_bottom
                         )
                         children.text = ""
+                        children.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.black))
                         showConfirmPassword(clickCountConfirmPassword)
                     }
 
@@ -351,16 +360,31 @@ class FundPasswordFragment :
         if (data.status=="1") {
 
             KYCPreferences().DO_KYC_STATUS = data.status
-            KYCPreferences().status_kyc_submit = data.data?.status_kyc_submit
-            KYCPreferences().status_kyc_submit = data.data?.status_kyc_approved
+            SessionPreferences().SESSION_KYC_SUBMIT_STATUS = data.data?.status_kyc_submit
+            SessionPreferences().SESSION_KYC = data.data?.status_kyc_approved
             binding.apply {
                 progressBar.visibility = View.GONE
             }
             findNavController().navigate(R.id.action_to_contract_kyc_fragment)
+            activity?.finish()
+
         }
     }
 
-    override fun addKycFail(data: String) {}
+    override fun addKycFail(data: String) {
+        DialogUtilKyc().customDialog(
+            R.drawable.icon_log_out,
+            "KYC Issue",
+            "There has been an issue with your KYC submission. Please try again.",
+            "ok",
+            object : DialogUtil.OnAlertDialogClick {
+                override fun onLabelCancelClick() {
+                    activity?.finish()
+                }
+            },
+            requireActivity()
+        )
+    }
 
     @SuppressLint("UseCompatLoadingForDrawables")
     private fun showPassword(clickPassword: Int) {
@@ -376,6 +400,7 @@ class FundPasswordFragment :
                 for (child in numberVerification.children) {
                     val children = child as TextView
                     children.transformationMethod = HideReturnsTransformationMethod.getInstance()
+                    children.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.black))
                 }
 
                 imgShowPassword.setImageResource(R.drawable.ic_baseline_remove_red_eye_24)
@@ -396,6 +421,7 @@ class FundPasswordFragment :
                 for (child in confirmNumberVerification.children) {
                     val children = child as TextView
                     children.transformationMethod = HideReturnsTransformationMethod.getInstance()
+
                 }
                 imgShowConfirmPassword.setImageResource(R.drawable.ic_baseline_remove_red_eye_24)
 
