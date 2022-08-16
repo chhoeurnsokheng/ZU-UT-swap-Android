@@ -136,6 +136,7 @@
                                 android:textColor="@color/black" />
 
                             <TextView
+                                android:id="@+id/txt_last"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="end"
@@ -160,6 +161,7 @@
                                 android:textColor="@color/black" />
 
                             <TextView
+                                android:id="@+id/txt_high"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="end"
@@ -191,6 +193,7 @@
                                 android:textColor="@color/black" />
 
                             <TextView
+                                android:id="@+id/txt_change"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="end"
@@ -215,6 +218,7 @@
                                 android:textColor="@color/black" />
 
                             <TextView
+                                android:id="@+id/txt_low"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="end"
@@ -246,6 +250,7 @@
                                 android:textColor="@color/black" />
 
                             <TextView
+                                android:id="@+id/txt_volume"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="end"
@@ -270,6 +275,7 @@
                                 android:textColor="@color/warning" />
 
                             <TextView
+                                android:id="@+id/txt_target_price"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="end"

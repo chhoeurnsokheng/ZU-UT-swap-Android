@@ -8,6 +8,3 @@ class Orders (var txtStatus: String,
               var txtPrice: Double
 ) :
     Serializable
-{
-
-}

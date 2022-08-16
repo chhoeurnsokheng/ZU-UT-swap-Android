@@ -82,21 +82,7 @@ open class IdTypeFragment :
                 vpVerify.isSaveEnabled = false
                 vpVerify.isUserInputEnabled = false
                 vpVerify.registerOnPageChangeCallback(object : OnPageChangeCallback() {
-                    override fun onPageScrolled(
-                        position: Int,
-                        positionOffset: Float,
-                        positionOffsetPixels: Int
-                    ) {
-                        super.onPageScrolled(position, positionOffset, positionOffsetPixels)
-                    }
 
-                    override fun onPageSelected(position: Int) {
-                        super.onPageSelected(position)
-                    }
-
-                    override fun onPageScrollStateChanged(state: Int) {
-                        super.onPageScrollStateChanged(state)
-                    }
                 })
 
                 nationalId.setOnClickListener { view ->
@@ -235,7 +221,7 @@ open class IdTypeFragment :
             } else if (view.id == R.id.passport) {
                 nationalId.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
                 passport.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.white))
-                val size: Int = passport.width ?: 0
+                val size: Int = passport.width
                 tabSelect.animate().x(size.toFloat()).duration = 100
             }
         }

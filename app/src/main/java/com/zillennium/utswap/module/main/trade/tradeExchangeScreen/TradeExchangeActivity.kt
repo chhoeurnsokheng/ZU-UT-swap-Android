@@ -11,6 +11,7 @@ import android.text.TextWatcher
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
@@ -21,6 +22,8 @@ import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityTradeExchangeBinding
+import com.zillennium.utswap.models.TradeModel
+import com.zillennium.utswap.models.tradingList.TradingList
 import com.zillennium.utswap.models.userService.User
 import com.zillennium.utswap.module.kyc.kycActivity.KYCActivity
 import com.zillennium.utswap.module.main.trade.tradeExchangeScreen.dialog.BuyAndSellBottomSheetDialog
@@ -40,7 +43,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 
-class TradeExchangeActivity :
+class TradeExchangeActivity(override var fetchTradeDetailData: MutableLiveData<TradingList.TradingListSummary>) :
     BaseMvpActivity<TradeExchangeView.View, TradeExchangeView.Presenter, ActivityTradeExchangeBinding>(),
     TradeExchangeView.View {
 
@@ -61,14 +64,14 @@ class TradeExchangeActivity :
     private var mBottomSheetBehavior: BottomSheetBehavior<*>? = null
 
     companion object {
-        fun launchTradeExchangeActivity(context: Context, projectName: String?) {
+        fun launchTradeExchangeActivity(context: Context, trade: TradeModel?) {
             val intent = Intent(context, TradeExchangeActivity::class.java)
-            intent.putExtra(Constants.TradeExchange.ProjectName, projectName)
+            intent.putExtra(Constants.TradeExchange.ProjectName, trade?.project_name)
             context.startActivity(intent)
         }
-        fun launchTradeExchangeActivityFromWishList(context: Context) {
+        fun launchTradeExchangeActivityFromWishList(context: Context, projectName: String?) {
             val intent = Intent(context, TradeExchangeActivity::class.java)
-          //  intent.putExtra(Constants.TradeExchange.ProjectName, projectName)
+            intent.putExtra(Constants.TradeExchange.ProjectName, projectName)
             context.startActivity(intent)
         }
     }

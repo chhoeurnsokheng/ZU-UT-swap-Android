@@ -169,9 +169,7 @@ object User {
         var data: EnterNewPasswordData? = null
     }
 
-    class EnterNewPasswordData{
-
-    }
+    class EnterNewPasswordData
 
     /** Add Phone Number*/
     class AddPhoneNumberRes{
@@ -235,5 +233,20 @@ object User {
 
     class CheckUserLoginStatusData{
         var user_id: Int? = null
+    }
+
+    /** Account Upload Profile*/
+    class AccountUploadProfileObject(
+        var image: String?
+    )
+
+    class AccountUploadProfileRes{
+        var status: Int? = null
+        var message: String? = null
+        var data: AccountUploadProfileData? = null
+    }
+
+    class AccountUploadProfileData{
+        var path_image: String? = null
     }
 }

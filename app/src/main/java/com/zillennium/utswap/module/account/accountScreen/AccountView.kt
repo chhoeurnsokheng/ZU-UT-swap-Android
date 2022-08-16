@@ -11,10 +11,13 @@ class AccountView {
         override fun initView()
         fun onGetUserInfoSuccess(data: User.AppSideBarData)
         fun onGetUserInfoFail(data: User.AppSideBarData)
+        fun uploadProfileSuccess(data: User.AccountUploadProfileRes)
+        fun uploadProfileFail(data: User.AccountUploadProfileRes)
     }
 
     interface Presenter : BaseMvpPresenter<View> {
         override fun initViewPresenter(context: Context, bundle: Bundle?)
         fun onGetUserInfo(context: Context)
+        fun uploadProfile(body: User.AccountUploadProfileObject, context: Context)
     }
 }

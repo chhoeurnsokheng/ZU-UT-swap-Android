@@ -48,7 +48,11 @@ class HomeWatchlistAdapter(private val item:List<BannerObj.ItemWishList>): Recyc
                     txtLastValue.text =  data.Last.toString()
 
                      layItem.setOnClickListener {
-                        TradeExchangeActivity.launchTradeExchangeActivity(root.context,data.name)
+                         data.name?.let { it1 ->
+                             TradeExchangeActivity.launchTradeExchangeActivityFromWishList(root.context,
+                                 it1
+                             )
+                         }
                      }
                 }
             }

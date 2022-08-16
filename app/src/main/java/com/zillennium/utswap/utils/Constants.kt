@@ -446,6 +446,9 @@ interface Constants {
         companion object{
             const val ProjectName = "ProjectName"
             const val Status_submit = "KYC"
+            const val ProjectNameToolBar = "ProjectName_toolBar"
+            const val MarketId = "MarketId"
+            const val MarketName="MarketName"
         }
     }
     interface Project{

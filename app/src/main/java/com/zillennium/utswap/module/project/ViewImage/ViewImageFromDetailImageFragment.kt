@@ -12,7 +12,7 @@ import com.bumptech.glide.Glide
 import com.github.toxa2033.ScaleImageView
 import com.zillennium.utswap.R
 
-class ViewImageFromDetailImageFragment () : Fragment() {
+class ViewImageFromDetailImageFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

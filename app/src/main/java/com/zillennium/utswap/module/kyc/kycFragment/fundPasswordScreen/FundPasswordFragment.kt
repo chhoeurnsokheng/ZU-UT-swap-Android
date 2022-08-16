@@ -281,7 +281,7 @@ class FundPasswordFragment :
                             HideReturnsTransformationMethod.getInstance()
                     }
 
-                    for (index in chr?.indices) {
+                    for (index in chr.indices) {
                         val textInput2 = confirmNumberVerification.getChildAt(index) as TextView
                         textInput2.text = chr[index].toString()
                         if (index == numberVerification.childCount - 1) {
@@ -367,6 +367,28 @@ class FundPasswordFragment :
             }
             findNavController().navigate(R.id.action_to_contract_kyc_fragment)
             activity?.finish()
+
+            IDVerificationFragment.apply {
+                provice = ""
+                district = ""
+                commune = ""
+                name = ""
+                sureName = ""
+                gender = ""
+                date = ""
+                houseNumber = ""
+                proCode = ""
+                disCode = ""
+                comCode = ""
+            }
+            IDCardCameraFragment.apply {
+                imageFront = ""
+                imageBack = ""
+            }
+            EmploymentInfoFragment.apply {
+                occupation = ""
+                company = ""
+            }
 
         }
     }

@@ -37,7 +37,7 @@ import com.zillennium.utswap.screens.navbar.navbar.MainActivity
 import com.zillennium.utswap.utils.SpaceDecoration
 import com.zillennium.utswap.utils.UtilKt
 
-class HomeFragment() : BaseMvpFragment<HomeView.View, HomeView.Presenter, FragmentHomeBinding>(),
+class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, FragmentHomeBinding>(),
     HomeView.View {
 
     override var mPresenter: HomeView.Presenter = HomePresenter()
@@ -177,7 +177,7 @@ class HomeFragment() : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragme
                 bannerImage.adapter = bannerLoopingPagerAdapter
             }
 
-            indicator.setViewPager(bannerImage)
+            indicator.attachTo(bannerImage)
             bannerImage.setLooperPic(true)
 
             bannerImage.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
