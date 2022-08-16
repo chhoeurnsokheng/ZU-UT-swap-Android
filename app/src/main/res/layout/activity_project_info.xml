@@ -35,6 +35,7 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_subscript"
+                android:visibility="invisible"
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="@dimen/dimen_110"
                 android:layout_height="@dimen/dimen_40"
