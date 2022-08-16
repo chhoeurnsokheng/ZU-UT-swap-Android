@@ -4,6 +4,7 @@ import android.content.Context
 import com.google.firebase.crashlytics.buildtools.ndk.internal.dwarf.processor.CompilationUnitContext
 import com.zillennium.utswap.models.home.BannerObj
 import com.zillennium.utswap.models.newsService.News
+import com.zillennium.utswap.models.userService.User
 import retrofit2.http.Header
 import rx.Observable
 import rx.android.schedulers.AndroidSchedulers
@@ -32,4 +33,15 @@ class ApiHomeImp : ApiManager() {
                 context
             )
         ).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+
+    fun checkKycStatus(context: Context): Observable<User.KycRes> =
+        mHomeService.checkKYCStatus(
+            com.zillennium.utswap.api.Header.getHeader(
+                com.zillennium.utswap.api.Header.Companion.AuthType.REQUIRED_TOKEN,
+                context
+            ),
+
+            )
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
 }

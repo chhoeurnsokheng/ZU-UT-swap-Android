@@ -12,5 +12,8 @@ class SessionVariable {
         var SESSION_KYC_STATUS = MutableLiveData<Int>(SessionPreferences().SESSION_KYC_STATUS)
         var SESSION_PHONE_NUMBER = MutableLiveData<String>(SessionPreferences().SESSION_PHONE_NUMBER)
         var SESSION_BANK : MutableLiveData<List<FinanceBankModel>> = MutableLiveData<List<FinanceBankModel>>()
+        var SESSION_KYC_SUBMIT_STATUS = MutableLiveData<Boolean>(SessionPreferences().SESSION_KYC_SUBMIT_STATUS)
+
+
     }
 }
