@@ -3,6 +3,7 @@ package com.zillennium.utswap.module.project.projectInfoScreen
 import android.app.ActivityOptions
 import android.content.Context
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.net.Uri
 import android.view.View
 import androidx.core.content.ContextCompat
@@ -93,42 +94,42 @@ class ProjectInfoActivity() :
         val DECIMAL_FORMAT = "###,###.##"
 
         binding.apply {
-            layoutBasePrice.apply {
-                layoutInvestment.setBackgroundColor(ContextCompat.getColor(applicationContext,R.color.gray_D9D9D9))
-                txtPerUt.text = data.investment_information?.base?.base_ut_price?.let {
-                    UtilKt().formatValue(
-                        it,DECIMAL_FORMAT)
-                }
-
-                txtValueUt.text = data.investment_information?.base?.value?.let {
-                    UtilKt().formatValue(
-                        it,DECIMAL_FORMAT)
-                }
-
-                txtSqmUt.text = data.investment_information?.base?.sqm?.let {
-                    UtilKt().formatValue(
-                        it,DECIMAL_FORMAT)
-                }
-
-            }
-            layoutTargetPrice.apply {
-                layoutInvestment.setBackgroundColor(ContextCompat.getColor(applicationContext,R.color.secondary))
-                txtPerUt.text =data.investment_information?.target?.future_ut_price?.let {
-                    UtilKt().formatValue(
-                        it,DECIMAL_FORMAT)
-                }
-
-                txtValueUt.text =data.investment_information?.target?.value?.let {
-                    UtilKt().formatValue(
-                        it,DECIMAL_FORMAT)
-                }
-
-                txtSqmUt.text = data.investment_information?.target?.sqm?.let {
-                    UtilKt().formatValue(
-                        it,DECIMAL_FORMAT)
-                }
-
-            }
+//            layoutBasePrice.apply {
+//                layoutInvestment.setBackgroundColor(ContextCompat.getColor(applicationContext,R.color.gray_D9D9D9))
+//                txtPerUt.text = data.investment_information?.base?.base_ut_price?.let {
+//                    UtilKt().formatValue(
+//                        it,DECIMAL_FORMAT)
+//                }
+//
+//                txtValueUt.text = data.investment_information?.base?.value?.let {
+//                    UtilKt().formatValue(
+//                        it,DECIMAL_FORMAT)
+//                }
+//
+//                txtSqmUt.text = data.investment_information?.base?.sqm?.let {
+//                    UtilKt().formatValue(
+//                        it,DECIMAL_FORMAT)
+//                }
+//
+//            }
+//            layoutTargetPrice.apply {
+//                layoutInvestment.setBackgroundColor(ContextCompat.getColor(applicationContext,R.color.secondary))
+//                txtPerUt.text =data.investment_information?.target?.future_ut_price?.let {
+//                    UtilKt().formatValue(
+//                        it,DECIMAL_FORMAT)
+//                }
+//
+//                txtValueUt.text =data.investment_information?.target?.value?.let {
+//                    UtilKt().formatValue(
+//                        it,DECIMAL_FORMAT)
+//                }
+//
+//                txtSqmUt.text = data.investment_information?.target?.sqm?.let {
+//                    UtilKt().formatValue(
+//                        it,DECIMAL_FORMAT)
+//                }
+//
+//            }
 
         }
 
@@ -199,44 +200,139 @@ class ProjectInfoActivity() :
             }
 
             /* Recycle Investment info */
-            val perUT = arrayOf(
-                "4.1",
-                "4.55",
-            )
-            val valueUT = arrayOf(
-                "902 000",
-                "1 001 000",
-            )
-            val sqmUT = arrayOf(
-                "1 625",
-                "1 804",
-            )
-
-            val projectInfoInvestmentArrayList = arrayListOf<ProjectInfoInvestmentModel>()
-
-            for (i in perUT.indices) {
-                val projectInvestment = ProjectInfoInvestmentModel(
-                    perUT[i],
-                    valueUT[i],
-                    sqmUT[i]
+            layoutBasePrice.apply {
+                layoutInvestment.setBackgroundColor(
+                    ContextCompat.getColor(
+                        applicationContext,
+                        R.color.gray_D9D9D9
+                    )
                 )
-                projectInfoInvestmentArrayList.add(projectInvestment)
+                txtPerUt.text = data.investment_information?.base?.base_ut_price?.let {
+                    UtilKt().formatValue(
+                        it, DECIMAL_FORMAT
+                    )
+                }
+                txtPerUt.setTextColor(
+                    ColorStateList.valueOf(
+                        ContextCompat.getColor(
+                            UTSwapApp.instance,
+                            R.color.black_0A0B12
+                        )
+                    )
+                )
+                icDollar.setTextColor(
+                    ColorStateList.valueOf(
+                        ContextCompat.getColor(
+                            UTSwapApp.instance,
+                            R.color.black_0A0B12
+                        )
+                    )
+                )
+
+                txtValueUt.text = data.investment_information?.base?.value?.let {
+                    UtilKt().formatValue(
+                        it, DECIMAL_FORMAT
+                    )
+                }
+                txtValueUt.setTextColor(
+                    ColorStateList.valueOf(
+                        ContextCompat.getColor(
+                            UTSwapApp.instance,
+                            R.color.black_0A0B12
+                        )
+                    )
+                )
+
+                txtSqmUt.text = data.investment_information?.base?.sqm?.let {
+                    UtilKt().formatValue(
+                        it, DECIMAL_FORMAT
+                    )
+                }
+                txtSqmUt.setTextColor(
+                    ColorStateList.valueOf(
+                        ContextCompat.getColor(
+                            UTSwapApp.instance,
+                            R.color.black_0A0B12
+                        )
+                    )
+                )
+                icDollar2.setTextColor(
+                    ColorStateList.valueOf(
+                        ContextCompat.getColor(
+                            UTSwapApp.instance,
+                            R.color.black_0A0B12
+                        )
+                    )
+                )
+
+            }
+            layoutTargetPrice.apply {
+                layoutInvestment.setBackgroundColor(
+                    ContextCompat.getColor(
+                        applicationContext,
+                        R.color.secondary
+                    )
+                )
+                txtPerUt.text = data.investment_information?.target?.future_ut_price?.let {
+                    UtilKt().formatValue(
+                        it, DECIMAL_FORMAT
+                    )
+                }
+                txtPerUt.setTextColor(
+                    ColorStateList.valueOf(
+                        ContextCompat.getColor(
+                            UTSwapApp.instance,
+                            R.color.write_ECECEC
+                        )
+                    )
+                )
+                icDollar.setTextColor(
+                    ColorStateList.valueOf(
+                        ContextCompat.getColor(
+                            UTSwapApp.instance,
+                            R.color.write_ECECEC
+                        )
+                    )
+                )
+                txtValueUt.text = data.investment_information?.target?.value?.let {
+                    UtilKt().formatValue(
+                        it, DECIMAL_FORMAT
+                    )
+                }
+                txtValueUt.setTextColor(
+                    ColorStateList.valueOf(
+                        ContextCompat.getColor(
+                            UTSwapApp.instance,
+                            R.color.write_ECECEC
+                        )
+                    )
+                )
+                icDollar2.setTextColor(
+                    ColorStateList.valueOf(
+                        ContextCompat.getColor(
+                            UTSwapApp.instance,
+                            R.color.write_ECECEC
+                        )
+                    )
+                )
+                txtSqmUt.text = data.investment_information?.target?.sqm?.let {
+                    UtilKt().formatValue(
+                        it, DECIMAL_FORMAT
+                    )
+                }
+                txtSqmUt.setTextColor(
+                    ColorStateList.valueOf(
+                        ContextCompat.getColor(
+                            UTSwapApp.instance,
+                            R.color.write_ECECEC
+                        )
+                    )
+                )
+
             }
 
-//            rvProjectInvestmentInfo.layoutManager = LinearLayoutManager(UTSwapApp.instance)
-//            rvProjectInvestmentInfo.adapter = ProjectInfoInvestmentAdapter(projectInfoInvestmentArrayList)
-
-
-//            val investmentInformation = data.investment_information
-//            if (!investmentInformation.isNullOrEmpty()) {
-//                mainLayoutUt.visibility = View.VISIBLE
-//                txtInvestmentInfo.visibility = View.VISIBLE
-//                layoutBaseAndTargetPrice.visibility = View.VISIBLE
-//            } else {
-//                mainLayoutUt.visibility = View.GONE
-//                txtInvestmentInfo.visibility = View.GONE
-//                layoutBaseAndTargetPrice.visibility = View.GONE
-//            }
+            /* expected return */
+            txtExpectedReturn.text = "${data.expected_return}%"
 
             /* Term and condition */
             txtTermCondition.text = data.term_and_condition
@@ -253,25 +349,16 @@ class ProjectInfoActivity() :
             }
 
             //Documentation PDF
-//            val document = data.documents
-//            if (document.isNullOrEmpty()) {
-//                layoutDocument.visibility = View.GONE
-//                documentLine.visibility = View.GONE
-//                pdfDocument.visibility = View.GONE
-//            } else {
-//                layoutDocument.visibility = View.VISIBLE
-//                documentLine.visibility = View.VISIBLE
-//                pdfDocument.visibility = View.VISIBLE
-//            }
-
             layoutDocument.setOnClickListener {
                 if (condition) {
                     arrowDownDocument.setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_24)
                     pdfDocument.visibility = View.VISIBLE
+                    txtUpcoming.visibility = View.VISIBLE
                     condition = !condition
                 } else {
                     arrowDownDocument.setImageResource(R.drawable.ic_baseline_keyboard_arrow_down_24)
                     pdfDocument.visibility = View.GONE
+                    txtUpcoming.visibility = View.GONE
                     condition = !condition
                 }
             }

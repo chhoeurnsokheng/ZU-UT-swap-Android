@@ -28,6 +28,7 @@ object ProjectInfoDetail {
         var documents: String? = null
         var images: Array<String> = emptyArray()
         var term_and_condition: String? = null
+        var expected_return: Int? = null
     }
     class InvestmentInformation{
         var base:BaseObj ? = null
