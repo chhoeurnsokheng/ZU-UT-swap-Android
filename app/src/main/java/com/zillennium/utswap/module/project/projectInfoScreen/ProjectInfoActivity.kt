@@ -141,6 +141,7 @@ class ProjectInfoActivity() :
                     valueInfo[i] as Any
                 )
                 projectInfoDetailArrayList.add(projectInfo)
+
             }
 
 
@@ -148,6 +149,7 @@ class ProjectInfoActivity() :
             val projectAdapter = ProjectInfoDetailsAdapter()
             projectAdapter.items = projectInfoDetailArrayList
             rvProjectInfoDetail.adapter = projectAdapter
+
 
             // Google map
             layGoogleMap.setOnClickListener {
