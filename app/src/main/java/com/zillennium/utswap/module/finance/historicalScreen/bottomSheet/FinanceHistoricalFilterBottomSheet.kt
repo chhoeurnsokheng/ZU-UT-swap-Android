@@ -93,6 +93,7 @@ class FinanceHistoricalFilterBottomSheet(
         binding?.apply {
             layoutTxtAllProject.setOnClickListener{
                 filterListener.onFilterChangeSelect("All Projects", "")
+                SettingVariable.finance_historical_filter.value = "All Projects"
                 dismiss()
             }
         }
