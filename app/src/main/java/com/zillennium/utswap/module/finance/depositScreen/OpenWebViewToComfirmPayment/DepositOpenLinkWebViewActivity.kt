@@ -45,30 +45,42 @@ class DepositOpenLinkWebViewActivity :
     private fun openWebView() {
         binding.apply {
 
-            webView.getSettings().setRenderPriority(WebSettings.RenderPriority.HIGH)
-            webView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE)
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                webView.setLayerType(View.LAYER_TYPE_HARDWARE, null)
-            } else {
-                webView.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
-            }
-
-            webView.settings.javaScriptEnabled = true
-            webView.webViewClient = object : WebViewClient() {
-                override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
-                    if (url != null) {
-                        view?.loadUrl(url)
-                    }
-                    return true
-                }
-            }
+//            webView.getSettings().setRenderPriority(WebSettings.RenderPriority.HIGH)
+//            webView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE)
+//
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+//                webView.setLayerType(View.LAYER_TYPE_HARDWARE, null)
+//            } else {
+//                webView.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
+//            }
+//
+//            webView.settings.javaScriptEnabled = true
+//            webView.webViewClient = object : WebViewClient() {
+//                override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
+//                    if (url != null) {
+//                        view?.loadUrl(url)
+//                    }
+//                    return true
+//                }
+//            }
 
             if (intent.hasExtra(Constants.Deposit.Payment_Link)) {
 
                  payment_link = intent.getStringExtra(Constants.Deposit.Payment_Link).toString()
                 //  binding.progressBar.visibility = View.VISIBLE
                 if (payment_link != null) {
+
+
+                    webView.webViewClient = WebViewClient()
+
+                    // this will load the url of the website
+//                    webView.loadUrl("https://www.geeksforgeeks.org/")
+
+                    // this will enable the javascript settings
+                    webView.settings.javaScriptEnabled = true
+
+                    // if you want to enable zoom feature
+                    webView.settings.setSupportZoom(true)
                     binding.progressBar.visibility = View.GONE
                     webView.loadUrl(payment_link)
                 }
@@ -84,10 +96,9 @@ class DepositOpenLinkWebViewActivity :
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_arrow_left)
         supportActionBar?.setDisplayShowTitleEnabled(false)
         binding.includeLayout.apply {
-
-            tbTitle.text = "Deposit Review" // "${R.string.deposit_review}"
+            tbTitle.setText(R.string.deposit_review)
             tbTitle.setTextColor(ContextCompat.getColor(applicationContext, R.color.primary))
-            tb.setOnClickListener {
+            tb.setNavigationOnClickListener {
                 finish()
             }
         }

@@ -57,10 +57,6 @@ class BottomSheetFinanceDepositPayment: BottomSheetDialogFragment(), AdapterView
             (dialog as BottomSheetDialog).behavior.state = STATE_EXPANDED
         }
 
-
-//        dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
-//        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-//        dialog?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
         binding = DataBindingUtil.inflate(inflater, R.layout.bottom_sheet_finance_deposit_payment, container, false)
         return binding?.root
 
