@@ -1,7 +1,10 @@
 package com.zillennium.utswap.module.kyc.kycFragment.idTypeScreen
 
 import android.app.AlertDialog
+import android.view.KeyEvent
 import android.view.View
+import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -12,8 +15,13 @@ import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentKycIdTypeBinding
+import com.zillennium.utswap.module.kyc.kycActivity.KYCActivity
+import com.zillennium.utswap.module.kyc.kycFragment.employmentInfoScreen.EmploymentInfoFragment
+import com.zillennium.utswap.module.kyc.kycFragment.idTypeScreen.camera.idCardCameraFragment.IDCardCameraFragment
 import com.zillennium.utswap.module.kyc.kycFragment.idTypeScreen.fragment.nationalID.NationalIDFragment
 import com.zillennium.utswap.module.kyc.kycFragment.idTypeScreen.fragment.passport.PassportFragment
+import com.zillennium.utswap.module.kyc.kycFragment.idVerificationScreen.IDVerificationFragment
+import com.zillennium.utswap.module.security.securityActivity.registerScreen.RegisterActivity
 
 
 open class IdTypeFragment :
@@ -29,6 +37,39 @@ open class IdTypeFragment :
     override fun initView() {
         super.initView()
         try {
+            if (activity?.intent?.hasExtra("KYCStatus") == true) {
+                (activity as KYCActivity).kycStatus = activity?.intent?.getSerializableExtra("KYCStatus").toString()
+                    if ((activity as KYCActivity).kycStatus== "Pending") {
+                    findNavController().navigate(R.id.action_IDTypeKycFragment_to_KycApplicationKycFragment)
+                }
+            }
+            activity?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true){
+                override fun handleOnBackPressed() {
+                    IDVerificationFragment.apply {
+                        provice = ""
+                        district = ""
+                        commune = ""
+                        name = ""
+                        sureName = ""
+                        gender = ""
+                        date = ""
+                        houseNumber = ""
+                        proCode = ""
+                        disCode = ""
+                        comCode = ""
+                    }
+                    IDCardCameraFragment.apply {
+                        imageFront = ""
+                        imageBack = ""
+                    }
+                    EmploymentInfoFragment.apply {
+                        occupation = ""
+                        company = ""
+                    }
+                    activity?.finish()
+                }
+            })
+
             toolbar()
 //            KYCPreferences().NATIONAL_ID_BACK = ""
 //            KYCPreferences().NATIONAL_ID_FRONT = ""
@@ -128,6 +169,7 @@ open class IdTypeFragment :
                 }
 
             }
+
         } catch (error: Exception) {
             // Must be safe
         }
@@ -138,6 +180,27 @@ open class IdTypeFragment :
           activity.let {
               includeLayout.apply {
                  cdBack.setOnClickListener {
+                     IDVerificationFragment.apply {
+                         provice = ""
+                         district = ""
+                         commune = ""
+                         name = ""
+                         sureName = ""
+                         gender = ""
+                         date = ""
+                         houseNumber = ""
+                         proCode = ""
+                         disCode = ""
+                         comCode = ""
+                     }
+                     IDCardCameraFragment.apply {
+                         imageFront = ""
+                         imageBack = ""
+                     }
+                     EmploymentInfoFragment.apply {
+                         occupation = ""
+                         company = ""
+                     }
                      activity?.finish()
                  }
                   tbTitle.text ="1/4"
@@ -185,13 +248,13 @@ open class IdTypeFragment :
     fun checkValidation(){
         binding.apply {
             if(vpVerify.currentItem == 0){
-                if(!KYCPreferences().NATIONAL_ID_FRONT.isNullOrEmpty() && !KYCPreferences().NATIONAL_ID_BACK.isNullOrEmpty()){
+                if(IDCardCameraFragment.imageFront.isNotEmpty() && IDCardCameraFragment.imageBack.isNotEmpty()){
                     btnNext.visibility = View.VISIBLE
                     btnNext.isClickable = true
                     btnNext.setOnClickListener {
                         findNavController().navigate(R.id.action_to_id_verification_kyc_fragment)
                     }
-                }else{
+                }else if (IDCardCameraFragment.imageFront.isEmpty() || IDCardCameraFragment.imageBack.isEmpty()){
                     btnNext.visibility = View.GONE
                     btnNext.isClickable = false
                     btnNext.setOnClickListener {}
@@ -216,6 +279,7 @@ open class IdTypeFragment :
     override fun onResume() {
         super.onResume()
         checkValidation()
+
     }
 }
 

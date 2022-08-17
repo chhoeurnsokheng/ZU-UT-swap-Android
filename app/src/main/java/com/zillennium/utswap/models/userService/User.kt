@@ -68,7 +68,19 @@ object User {
         var data: ItemRes? = null
     }
 
+    class KYCStatus {
+        var status: String = " "
+        var message:String =""
+        var data: ItemRes? = null
+
+    }
+
     class ItemRes {
+
+        var UserID: String = ""
+        var status_kyc: Boolean = false
+        var status_submit_kyc: Boolean = false
+
         var status_kyc_submit:Boolean? = null
         var status_kyc_approved:Boolean? = null
     }
@@ -221,5 +233,20 @@ object User {
 
     class CheckUserLoginStatusData{
         var user_id: Int? = null
+    }
+
+    /** Account Upload Profile*/
+    class AccountUploadProfileObject(
+        var image: String?
+    )
+
+    class AccountUploadProfileRes{
+        var status: Int? = null
+        var message: String? = null
+        var data: AccountUploadProfileData? = null
+    }
+
+    class AccountUploadProfileData{
+        var path_image: String? = null
     }
 }

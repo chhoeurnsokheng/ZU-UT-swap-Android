@@ -102,4 +102,13 @@ class ApiUserImp : ApiManager() {
         )
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
+
+    /** User Account Upload Profile*/
+    fun uploadProfile(body: User.AccountUploadProfileObject, context: Context): Observable<User.AccountUploadProfileRes> =
+        mUserService.uploadProfile(
+            Header.getHeader(Header.Companion.AuthType.REQUIRED_TOKEN, context),
+            body
+        )
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
 }

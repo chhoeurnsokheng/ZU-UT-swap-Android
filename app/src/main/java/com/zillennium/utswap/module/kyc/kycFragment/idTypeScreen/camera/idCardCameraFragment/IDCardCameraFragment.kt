@@ -48,6 +48,11 @@ class IDCardCameraFragment :
     private val MY_CAMERA_REQUEST_CODE = 100
     private var statusNumber : Int = 0
 
+    companion object {
+        var imageFront = ""
+        var imageBack = ""
+    }
+
     @RequiresApi(Build.VERSION_CODES.M)
     override fun initView() {
         super.initView()
@@ -124,7 +129,7 @@ class IDCardCameraFragment :
         val preview = Preview.Builder()
             .setTargetResolution(Size(metrics.widthPixels, metrics.heightPixels))
             .build()
-        preview.setSurfaceProvider(mPreviewView!!.surfaceProvider)
+        preview.setSurfaceProvider(mPreviewView?.surfaceProvider)
         return preview
     }
 
@@ -138,6 +143,7 @@ class IDCardCameraFragment :
             .setTargetResolution(Size(metrics.widthPixels, metrics.heightPixels))
             .setCaptureMode(ImageCapture.CAPTURE_MODE_MAXIMIZE_QUALITY)
             .build()
+
         val executor: Executor = Executors.newSingleThreadExecutor()
         btnTakePhoto = binding.btnTakePhoto
         btnTakePhoto?.setOnClickListener {
@@ -169,9 +175,11 @@ class IDCardCameraFragment :
                                         try {
                                             when (arguments?.getString("title").toString()){
                                                 "id_card_front" -> {
+                                                    imageFront = path
                                                     KYCPreferences().NATIONAL_ID_FRONT = path
                                                 }
                                                 "id_card_back" -> {
+                                                    imageBack = path
                                                     KYCPreferences().NATIONAL_ID_BACK = path
                                                 }
                                                 "passport_front" -> {

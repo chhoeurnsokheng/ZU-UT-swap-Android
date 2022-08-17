@@ -20,12 +20,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="@dimen/dimen_5"
                 android:layout_weight="90"
-                android:text="UT Pochentong 555"
                 android:textAppearance="@style/medium_14"
                 android:textColor="@color/black" />
 
             <LinearLayout
-                android:id="@+id/lay_icon_check"
+                android:id="@+id/lay_icon_check_history"
                 android:layout_width="@dimen/dimen_0"
                 android:layout_height="wrap_content"
                 android:layout_weight="10"

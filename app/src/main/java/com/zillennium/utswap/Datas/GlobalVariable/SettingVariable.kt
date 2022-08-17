@@ -21,7 +21,7 @@ class SettingVariable {
         val phoneNumber: MutableLiveData<String> = MutableLiveData("")
 
         val finance_historical_selected: MutableLiveData<String> = MutableLiveData("My Transactions")
-        val finance_historical_filter: MutableLiveData<String> = MutableLiveData("UT All Projects")
+        val finance_historical_filter: MutableLiveData<String> = MutableLiveData()
         val finance_historical_date_start: MutableLiveData<String> = MutableLiveData()
         val finance_historical_date_end: MutableLiveData<String> = MutableLiveData()
         val finance_historical_spinner_item: MutableLiveData<Int> = MutableLiveData(0)

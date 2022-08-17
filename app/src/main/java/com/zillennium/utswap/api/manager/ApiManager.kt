@@ -33,14 +33,19 @@ open class ApiManager {
     protected lateinit var mUserService: UserService
     protected lateinit var mNewsService: NewsService
 
+
+    protected lateinit var mHistorical: HistoricalService
+
     protected lateinit var mAccountLogsService: AccountLogsService
     protected lateinit var mCustomerSupport: CustomerSupportService
     protected lateinit var mProjectService: ProjectService
 
 
+
     protected lateinit var mHomeService: HomeService
 
     protected lateinit var mFinanceService: FinanceService
+
     protected lateinit var mProvince: ProvincesService
 
     protected lateinit var mTradeService: TradeService
@@ -71,9 +76,13 @@ open class ApiManager {
         mCustomerSupport = retrofit.create(CustomerSupportService::class.java)
         mProjectService = retrofit.create(ProjectService::class.java)
 
+        mHistorical = retrofit.create(HistoricalService::class.java)
+
+
         mHomeService = retrofit.create(HomeService::class.java)
 
         mFinanceService = retrofit.create(FinanceService::class.java)
+
         mProvince = retrofit.create(ProvincesService::class.java)
 
         mTradeService = retrofit.create(TradeService::class.java)
