@@ -20,7 +20,7 @@ import java.io.IOException
  */
 
 
-class Util() {
+class Util {
     private fun saveState(isFavourite: Boolean, context: Context) {
         val aSharedPreferences = context.getSharedPreferences(
             "Favourite", Context.MODE_PRIVATE

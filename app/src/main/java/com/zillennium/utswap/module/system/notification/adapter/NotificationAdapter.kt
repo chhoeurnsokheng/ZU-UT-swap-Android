@@ -2,29 +2,30 @@ package com.zillennium.utswap.module.system.notification.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.google.firebase.analytics.FirebaseAnalytics.Event.VIEW_ITEM
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseRecyclerViewAdapterGeneric
 import com.zillennium.utswap.bases.mvp.BaseViewHolder
 import com.zillennium.utswap.databinding.ItemListSystemNotificationBinding
+import com.zillennium.utswap.databinding.ItemNewTitleBinding
 import com.zillennium.utswap.models.notification.NotificationModel
-import com.zillennium.utswap.utils.Util.Companion.dpToPx
 import com.zillennium.utswap.utils.dpToPx
 
 class NotificationAdapter() :
-    BaseRecyclerViewAdapterGeneric<NotificationModel, NotificationAdapter.NotificationViewHolder>() {
+    BaseRecyclerViewAdapterGeneric<NotificationModel.NotificationListData, NotificationAdapter.NotificationViewHolder>() {
 
-    private var arrayList: ArrayList<NotificationModel> = ArrayList()
+    private var arrayList: ArrayList<NotificationModel.NotificationListData> = ArrayList()
+    val VIEW_ITEM = 2
+    val VIEW_TITLE = 1
 
     inner class NotificationViewHolder(root: ItemListSystemNotificationBinding) :
         BaseViewHolder<ItemListSystemNotificationBinding>(root) {
 
-        fun bindData(notificationModel: NotificationModel) {
+        fun bindData(notificationModel: NotificationModel.NotificationListData) {
             binding.apply {
                 Glide.with(UTSwapApp.instance)
                     .asBitmap()
@@ -34,10 +35,10 @@ class NotificationAdapter() :
                     .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .skipMemoryCache(true)
                     .into(icNotification)
-                txtTitle.text = notificationModel.txtTitle
-                txtTitleAnnouncement.text = notificationModel.txtTitleAnnouncement
-                txtDescription.text = notificationModel.txtDescription
-                txtDuration.text = notificationModel.txtDuration
+//                txtTitle.text = notificationModel.action_title
+                txtTitleAnnouncement.text = notificationModel.action_title
+                txtDescription.text = notificationModel.body
+                txtDuration.text = notificationModel.sent_time
 
 
 //                if (arrayList.size == 1) {
@@ -55,20 +56,85 @@ class NotificationAdapter() :
 //                            line.visibility = View.VISIBLE
 //                        }
 //                    }
-//                }
             }
         }
-
     }
 
     override fun onCreateItemHolder(
         inflater: LayoutInflater,
         parent: ViewGroup,
         viewType: Int
-    ) = NotificationViewHolder(ItemListSystemNotificationBinding.inflate(inflater, parent, false))
-
+    ): NotificationViewHolder {
+        when (viewType) {
+            VIEW_ITEM -> {
+                return NotificationViewHolder(
+                    ItemListSystemNotificationBinding.inflate(
+                        inflater,
+                        parent,
+                        false
+                    )
+                )
+            }
+        }
+        return NotificationViewHolder(
+            ItemListSystemNotificationBinding.inflate(
+                inflater,
+                parent,
+                false
+            )
+        )
+    }
     override fun onBindItemHolder(holder: NotificationViewHolder, position: Int, context: Context) {
         holder.bindData(items[position])
+
     }
+
+    override fun getItemViewType(position: Int): Int {
+        return super.getItemViewType(position)
+
+    }
+
+//    }
+//}
+//
+//class NotificationViewHolder(root: ItemListSystemNotificationBinding) :
+//    BaseViewHolder<ItemNewTitleBinding>(root) {
+//
+//    fun bindTitleData(notificationData: NotificationModel.NotificationListData) {
+//        binding.apply {
+//            txtTitle.text = notificationData.action_title
+//
+//        }
+//    }
+
+//    override fun onCreateItemHolder(
+//        inflater: LayoutInflater,
+//        parent: ViewGroup,
+//        viewType: Int
+//    ): NotificationAdapter.NotificationViewHolder {
+//        when (viewType) {
+//            VIEW_ITEM -> {
+//                return NotificationViewHolder(
+//                    ItemListSystemNotificationBinding.inflate(
+//                        inflater,
+//                        parent,
+//                        false
+//                    )
+//                )
+//            }
+//
+//            else -> {
+//                return NotificationViewHolder(
+//                    ItemNewTitleBinding.inflate(
+//                        inflater,
+//                        parent,
+//                        false
+//                    )
+//                )
+//            }
+//        }
+//    }
+
+
 
 }

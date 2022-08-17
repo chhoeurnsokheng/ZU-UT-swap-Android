@@ -21,7 +21,17 @@ object ApiSettings {
     /** News */
     const val PATH_NEWS = "Art/ArtList"
     const val PATH_NEWS_DETAIL = "Art/ArtShow"
-    const val PATH_NEWS_HOME  = "Art/ArtList/p/1"
+
+
+    /** historical */
+    const val PATH_GET_MARKET_NAME = "finance/market_name"
+    const val PATH_USER_TRANSACTION = "finance/historical_transaction"
+    const val PATH_TRADE_HISTORY = "finance/tradeHistory"
+    const val PATH_ALL_TRANSACTION = "finance/alltransactions"
+    const val PATH_EXPORT_HISTORICAL_DATA = "finance/exportHistoryData"
+
+
+    const val PATH_NEWS_HOME = "Art/ArtList/p/1"
 
 
     /**     Account Logs       **/
@@ -37,7 +47,7 @@ object ApiSettings {
     const val PATH_PROJECT_LIST = "issue"
 
     /**      Project Detail/Project Info          **/
-    const val PATH_PROJECT_DETAIL =  "issue/project_detail"
+    const val PATH_PROJECT_DETAIL = "issue/project_detail"
 
 
     /** Finance */
@@ -49,10 +59,13 @@ object ApiSettings {
     const val PATH_FORGOT_PASSWORD = "login/forgetPassword"
     const val PATH_FORGOT_PASSWORD_VERIFY = "login/verifyForgetPassword"
     const val PATH_ENTER_NEW_PASSWORD = "login/changeNewPassword"
+
     /*User add KYC */
     const val PATH_KYC = "user/submitkyc"
+    const val PATH_KYC_STATUS = "user/checkStatusKYC"
 
     const val PATH_GET_PROVINCES = "user/getCityProvince"
+
 
     /** Add Phone Number*/
     const val PATH_ADD_PHONE_NUMBER = "add_phone_number"
@@ -64,8 +77,18 @@ object ApiSettings {
     /** Check User Login Status*/
     const val PATH_CHECK_USER_LOGIN_STATUS = "user/checkUserLogin"
 
-     /*Get Banner HomeScreen*/
-    const val PATH_GET_BANNNER= "portfolio/app_banner"
-    const val PATH_GET_HOME_WISHLIST_BALANCE ="portfolio/index"
+    /** Website Socket */
+    const val PATH_LIST_TRADE = "wsocket/"
+    const val SEND_LIST_TRADE = "market_update_stream"
+    const val SEND_TRADE_MARKET_NAME = "trade_market_summary:"
 
+    /*Get Banner HomeScreen*/
+    const val PATH_GET_BANNNER = "portfolio/app_banner"
+    const val PATH_GET_HOME_WISHLIST_BALANCE = "portfolio/index"
+
+    /** Account Upload Profile*/
+    const val PATH_ACCOUNT_UPLOAD_PROFILE = "user/uploadImageProfile"
+
+    /**         Notification List            **/
+    const val PATH_NOTIFICATION_LIST = "notification/loadNotification"
 }

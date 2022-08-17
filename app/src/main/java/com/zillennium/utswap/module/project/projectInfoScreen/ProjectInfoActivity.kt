@@ -35,7 +35,7 @@ import java.text.DecimalFormat
 import java.text.NumberFormat
 
 
-class ProjectInfoActivity() :
+class ProjectInfoActivity :
     BaseMvpActivity<ProjectInfoView.View, ProjectInfoView.Presenter, ActivityProjectInfoBinding>(),
     ProjectInfoView.View {
 

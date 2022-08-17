@@ -12,8 +12,8 @@ class IDVerificationView {
         override fun initView()
         fun OngetAllProvinceSuccess(data: PProvinceObj.ProvinceRes)
         fun OngetAllProvinceFail(data:PProvinceObj.ProvinceRes)
-        fun OnQueryProvinceSucess(data: PProvinceObj.ProvinceRes)
-        fun OnQueryCommuneSucess(data: PProvinceObj.ProvinceRes)
+        fun OnQueryProvinceSucess(data: PProvinceObj.DistrictRes)
+        fun OnQueryCommuneSucess(data: PProvinceObj.CommuneRes)
     }
 
     interface Presenter : BaseMvpPresenter<View> {

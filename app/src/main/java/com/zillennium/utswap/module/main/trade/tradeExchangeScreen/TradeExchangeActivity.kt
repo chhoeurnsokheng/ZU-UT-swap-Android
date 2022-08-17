@@ -11,15 +11,22 @@ import android.text.TextWatcher
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
+import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityTradeExchangeBinding
+import com.zillennium.utswap.models.TradeModel
+import com.zillennium.utswap.models.tradingList.TradingList
+import com.zillennium.utswap.models.userService.User
 import com.zillennium.utswap.module.kyc.kycActivity.KYCActivity
+import com.zillennium.utswap.module.main.trade.tradeExchangeScreen.dialog.BuyAndSellBottomSheetDialog
 import com.zillennium.utswap.module.main.trade.tradeExchangeScreen.dialog.BuyDialog
 import com.zillennium.utswap.module.main.trade.tradeExchangeScreen.dialog.MarketDialog
 import com.zillennium.utswap.module.main.trade.tradeExchangeScreen.dialog.SellDialog
@@ -32,9 +39,11 @@ import com.zillennium.utswap.module.project.projectInfoScreen.ProjectInfoActivit
 import com.zillennium.utswap.module.security.securityActivity.signInScreen.SignInActivity
 import com.zillennium.utswap.utils.Constants
 import com.zillennium.utswap.utils.DecimalDigitsInputFilter
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 
-class TradeExchangeActivity :
+class TradeExchangeActivity(override var fetchTradeDetailData: MutableLiveData<TradingList.TradingListSummary>) :
     BaseMvpActivity<TradeExchangeView.View, TradeExchangeView.Presenter, ActivityTradeExchangeBinding>(),
     TradeExchangeView.View {
 
@@ -44,6 +53,10 @@ class TradeExchangeActivity :
     val NUM_PAGES = 2
     private var pageAdapter: FragmentStateAdapter? = null
     private var pageTableAdapter: FragmentStateAdapter? = null
+    private var buySellBottomSheet: BuyAndSellBottomSheetDialog? = null
+    private var kycSubmit: Boolean? = false
+    private var kycComplete: Boolean? = false
+
     val NUM_PAGES_TABLE = 3
     var remember: Boolean = true
 
@@ -51,14 +64,14 @@ class TradeExchangeActivity :
     private var mBottomSheetBehavior: BottomSheetBehavior<*>? = null
 
     companion object {
-        fun launchTradeExchangeActivity(context: Context, projectName: String?) {
+        fun launchTradeExchangeActivity(context: Context, trade: TradeModel?) {
             val intent = Intent(context, TradeExchangeActivity::class.java)
-            intent.putExtra(Constants.TradeExchange.ProjectName, projectName)
+            intent.putExtra(Constants.TradeExchange.ProjectName, trade?.project_name)
             context.startActivity(intent)
         }
-        fun launchTradeExchangeActivityFromWishList(context: Context) {
+        fun launchTradeExchangeActivityFromWishList(context: Context, projectName: String?) {
             val intent = Intent(context, TradeExchangeActivity::class.java)
-          //  intent.putExtra(Constants.TradeExchange.ProjectName, projectName)
+            intent.putExtra(Constants.TradeExchange.ProjectName, projectName)
             context.startActivity(intent)
         }
     }
@@ -67,13 +80,42 @@ class TradeExchangeActivity :
         super.initView()
         try {
             toolBar()
+            mPresenter.onCheckKYCStatus()
             binding.apply {
+                btnVerifyKyc.setOnClickListener {
+                    val intent = Intent(this@TradeExchangeActivity, KYCActivity::class.java).putExtra(
+                        "KYCStatus", "Pending"
+                    )
+                    startActivity(intent)
+                }
+                btnBuyBottomSheetClick.setOnClickListener {
+                    buySellBottomSheet = BuyAndSellBottomSheetDialog(object :
+                        BuyAndSellBottomSheetDialog.OnDismissListener {
+                        override fun onDismiss(isDismiss: Boolean) {
+                            kycPending()
+                        }
+                    })
+                    buySellBottomSheet?.show(this@TradeExchangeActivity.supportFragmentManager, "")
+                }
+                btnSellBottomSheetClick.setOnClickListener {
+                    buySellBottomSheet = BuyAndSellBottomSheetDialog(object :
+                        BuyAndSellBottomSheetDialog.OnDismissListener {
+                        override fun onDismiss(isDismiss: Boolean) {
+                            kycPending()
 
+                        }
+                    })
+                    buySellBottomSheet?.show(this@TradeExchangeActivity.supportFragmentManager, "")
+
+                }
                 SessionVariable.SESSION_STATUS.observe(this@TradeExchangeActivity) {
                     onCheckSessionStatusAndKYC()
                 }
 
                 SessionVariable.SESSION_KYC.observe(this@TradeExchangeActivity) {
+                    onCheckSessionStatusAndKYC()
+                }
+                SessionVariable.SESSION_KYC_SUBMIT_STATUS.observe(this@TradeExchangeActivity) {
                     onCheckSessionStatusAndKYC()
                 }
 
@@ -144,12 +186,12 @@ class TradeExchangeActivity :
 
                 persistentBottomSheet.txtAvailable.paintFlags =
                     persistentBottomSheet.txtAvailable.paintFlags or Paint.UNDERLINE_TEXT_FLAG
-                persistentBottomSheet.txtAvailableClick.paintFlags =
-                    persistentBottomSheet.txtAvailableClick.paintFlags or Paint.UNDERLINE_TEXT_FLAG
+//                persistentBottomSheet.txtAvailableClick.paintFlags =
+//                    persistentBottomSheet.txtAvailableClick.paintFlags or Paint.UNDERLINE_TEXT_FLAG
                 persistentBottomSheet.txtUt.paintFlags =
                     persistentBottomSheet.txtUt.paintFlags or Paint.UNDERLINE_TEXT_FLAG
-                persistentBottomSheet.txtUtClick.paintFlags =
-                    persistentBottomSheet.txtUtClick.paintFlags or Paint.UNDERLINE_TEXT_FLAG
+//                persistentBottomSheet.txtUtClick.paintFlags =
+//                    persistentBottomSheet.txtUtClick.paintFlags or Paint.UNDERLINE_TEXT_FLAG
 
 
                 pageAdapter = ScreenSlidePageAdapter(this@TradeExchangeActivity, NUM_PAGES)
@@ -202,17 +244,17 @@ class TradeExchangeActivity :
                 (mBottomSheetBehavior as BottomSheetBehavior<*>).addBottomSheetCallback(object :
                     BottomSheetBehavior.BottomSheetCallback() {
                     override fun onStateChanged(bottomSheet: View, newState: Int) {
-                        if (mBottomSheetBehavior?.state == BottomSheetBehavior.STATE_DRAGGING) {
+                        /*if (mBottomSheetBehavior?.state == BottomSheetBehavior.STATE_DRAGGING) {
                             persistentBottomSheet.layBuyAndSellClick.visibility = View.GONE
                         } else if (mBottomSheetBehavior?.state == BottomSheetBehavior.STATE_COLLAPSED) {
                             persistentBottomSheet.layBuyAndSellClick.visibility = View.VISIBLE
-                        }
+                        }*/
                     }
 
                     override fun onSlide(bottomSheet: View, slideOffset: Float) {}
                 })
 
-                persistentBottomSheet.btnBuyBottomSheetClick.setOnClickListener {
+                /*persistentBottomSheet.btnBuyBottomSheetClick.setOnClickListener {
                     if (mBottomSheetBehavior?.state == BottomSheetBehavior.STATE_COLLAPSED) {
                         persistentBottomSheet.layBuyAndSellClick.visibility = View.GONE
                         mBottomSheetBehavior?.state = BottomSheetBehavior.STATE_EXPANDED
@@ -224,7 +266,7 @@ class TradeExchangeActivity :
                         mBottomSheetBehavior?.state = BottomSheetBehavior.STATE_EXPANDED
 
                     }
-                }
+                }*/
 
                 persistentBottomSheet.btnBuyBottomSheet.setOnClickListener {
                     var isHaveError = false
@@ -423,6 +465,17 @@ class TradeExchangeActivity :
         }
     }
 
+    override fun onCheckKYCSuccess(data: User.KycRes) {
+        kycSubmit = data.data?.status_submit_kyc
+        kycComplete = data.data?.status_kyc
+        onCheckSessionStatusAndKYC()
+
+    }
+
+    override fun onCheckKYCFail() {
+
+    }
+
     private fun toolBar() {
        // setSupportActionBar(binding.includeLayout.tb)
       //  supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -450,10 +503,39 @@ class TradeExchangeActivity :
 
     private fun onCheckSessionStatusAndKYC() {
         binding.apply {
+            if (SessionPreferences().SESSION_TOKEN != null) {
+                includeLayout.imgRemember.visibility = View.VISIBLE
+
+                if (kycComplete == true) {
+                    layTransactions.visibility = View.VISIBLE
+                    layVerify.visibility = View.GONE
+                    layAuth.visibility = View.GONE
+                    llBottom.visibility = View.VISIBLE
+                    llBtnVerify.visibility = View.GONE
+                } else if (kycComplete == false && kycSubmit == true) {
+                    layVerify.visibility = View.GONE
+                    layTransactions.visibility = View.GONE
+                    layAuth.visibility = View.GONE
+                    llBottom.visibility = View.VISIBLE
+                    llBtnVerify.visibility = View.VISIBLE
+                } else if (kycComplete == false && kycSubmit == false) {
+                    layVerify.visibility = View.VISIBLE
+                    layTransactions.visibility = View.GONE
+                    layAuth.visibility = View.GONE
+                    llBottom.visibility = View.GONE
+                }
+            } else {
+                layTransactions.visibility = View.GONE
+                layAuth.visibility = View.VISIBLE
+                layVerify.visibility = View.GONE
+                llBottom.visibility = View.GONE
+                includeLayout.imgRemember.visibility = View.GONE
+
+            }
 
             // When did not verify kyc , button kyc show
 
-            if (SessionVariable.SESSION_STATUS.value == true && SessionVariable.SESSION_KYC.value == true) {
+            /*if (SessionVariable.SESSION_STATUS.value == true && SessionVariable.SESSION_KYC.value == true) {
                 includeLayout.imgRemember.visibility = View.VISIBLE
                 persistentBottomSheet.root.visibility = View.VISIBLE
                 layTransactions.visibility = View.VISIBLE
@@ -470,6 +552,28 @@ class TradeExchangeActivity :
                 if (SessionVariable.SESSION_KYC.value == false) {
                     layAuth.visibility = View.GONE
                     layVerify.visibility = View.VISIBLE
+                }
+
+            }*/
+
+
+        }
+    }
+
+    private fun kycPending() {
+        binding.apply {
+            if (SessionPreferences().SESSION_TOKEN != null) {
+                if (SessionPreferences().SESSION_KYC_SUBMIT_STATUS == true) {
+                    btnVerifyKyc.animate().alpha(0.1f).duration = 200
+                    lifecycleScope.launch {
+                        delay(500)
+                        btnVerifyKyc.animate().alpha(1f).duration = 200
+                        delay(500)
+                        btnVerifyKyc.animate().alpha(0.1f).duration = 200
+                        delay(500)
+                        btnVerifyKyc.animate().alpha(1f).duration = 200
+                    }
+
                 }
 
             }

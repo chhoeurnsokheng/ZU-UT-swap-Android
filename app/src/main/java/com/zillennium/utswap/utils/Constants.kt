@@ -1,7 +1,7 @@
 package com.zillennium.utswap.utils
 
 import android.webkit.WebViewClient
-
+import com.zillennium.utswap.R
 
 
 interface Constants {
@@ -36,11 +36,28 @@ interface Constants {
         }
     }
 
+    interface HistoricalTransaction {
+        companion object {
+            const val MyTransactions = "My Transactions"
+            const val Trade = "Trade"
+            const val AllTransactions = "All Transactions"
+        }
+    }
+
+    interface HistoricalMyTransactionIcon {
+        companion object {
+            const val Buy = R.drawable.ic_money_out
+            const val Sell = R.drawable.ic_money_in
+            const val SubScription = R.drawable.ic_hourglass
+        }
+    }
+
     /** Register data for resend code*/
-    interface RegisterData{
-        companion object{
+    interface RegisterData {
+        companion object {
             var username = ""
             var password = ""
+
         }
     }
 
@@ -162,7 +179,8 @@ interface Constants {
             const val ERROR_HOST_LOOKUP = WebViewClient.ERROR_HOST_LOOKUP
             const val ERROR_PROXY_AUTHENTICATION = WebViewClient.ERROR_PROXY_AUTHENTICATION
             const val ERROR_REDIRECT_LOOP = WebViewClient.ERROR_REDIRECT_LOOP
-            const val ERROR_UNSUPPORTED_AUTH_SCHEME = WebViewClient.ERROR_UNSUPPORTED_AUTH_SCHEME
+            const val ERROR_UNSUPPORTED_AUTH_SCHEME =
+                WebViewClient.ERROR_UNSUPPORTED_AUTH_SCHEME
             const val ERROR_FILE = WebViewClient.ERROR_FILE
             const val ERROR_FILE_NOT_FOUND = WebViewClient.ERROR_FILE_NOT_FOUND
             const val ERROR_IO = WebViewClient.ERROR_IO
@@ -227,7 +245,8 @@ interface Constants {
 
     interface KeyUploadImg {
         companion object {
-            const val ERROR_WHILE_UPLOAD = "Error while opening the image file. Please try again."
+            const val ERROR_WHILE_UPLOAD =
+                "Error while opening the image file. Please try again."
             const val NO_IMG = "No image"
             const val SELECT_PIC = "Select Picture"
             const val IMAGE_TYPE = "image/*"
@@ -443,8 +462,12 @@ interface Constants {
     }
 
     interface TradeExchange {
-        companion object{
+        companion object {
             const val ProjectName = "ProjectName"
+            const val Status_submit = "KYC"
+            const val ProjectNameToolBar = "ProjectName_toolBar"
+            const val MarketId = "MarketId"
+            const val MarketName="MarketName"
         }
     }
     interface Project{
@@ -453,6 +476,5 @@ interface Constants {
             const val Project_Id = "id"
         }
     }
-
 
 }
