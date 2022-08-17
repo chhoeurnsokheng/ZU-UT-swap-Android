@@ -13,13 +13,13 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.androidstudy.networkmanager.Tovuti
 import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentNavbarTradeBinding
 import com.zillennium.utswap.models.TradeModel
-import com.zillennium.utswap.models.TradeModelCompare
 import com.zillennium.utswap.models.tradingList.TradingList
 import com.zillennium.utswap.module.account.accountScreen.AccountActivity
 import com.zillennium.utswap.module.main.trade.tradeExchangeScreen.TradeExchangeActivity
@@ -48,7 +48,6 @@ class TradeFragment :
     override var fetchTradeData: MutableLiveData<TradingList.TradingListRes> = MutableLiveData()
 
     private var tradeArrayList = ArrayList<TradeModel>()
-    private var tradeCompare = ArrayList<TradeModelCompare>()
 
     @SuppressLint("NotifyDataSetChanged")
     override fun initView() {
@@ -58,40 +57,41 @@ class TradeFragment :
         onCheckPreference()
 
         fetchTradeData.observe(this@TradeFragment){
-           if(tradeCompare.size == it.market_trend?.url?.size)
-           {
-                println("============================same")
-           }else{
-               println("============================wrong")
-               tradeArrayList.clear()
-               for(i in it.market_trend?.url?.indices!!)
-               {
-                   tradeCompare.add(
-                       TradeModelCompare(it.market_trend?.url!![i][0].toString(),
-                           it.market_trend?.url!![i][13].toString(),
-                           it.market_trend?.url!![i][1].toString(),
-                           it.market_trend?.url!![i][6].toString(),
-                           it.market_trend?.url!![i][8].toString()
-                       )
-                   )
-                   if(!it.market_trend?.url?.get(i)?.get(11)?.toString().isNullOrEmpty())
-                   {
-                       tradeArrayList.add(
-                           TradeModel(it.market_trend?.url!![i][0].toString(),
-                               it.market_trend?.url!![i][13].toString(),
-                               it.market_trend?.url!![i][1].toString(),
-                               it.market_trend?.url!![i][6].toString(),
-                               it.market_trend?.url!![i][8].toString(),
-                               it.market_trend?.url!![i][11].toString()
-                           )
-                       )
-                   }
-               }
-               binding.apply {
-                   tradeAdapter!!.items = tradeArrayList
-                   tradeAdapter!!.notifyDataSetChanged()
-               }
-           }
+            if(search.isNotEmpty())
+            {
+                search()
+            }else{
+                tradeArrayList.clear()
+                for(i in it.market_trend?.url?.indices!!)
+                {
+                    if(!it.market_trend?.url?.get(i)?.get(11)?.toString().isNullOrEmpty())
+                    {
+                        tradeArrayList.add(
+                            TradeModel(it.market_trend?.url!![i][0].toString(),
+                                it.market_trend?.url!![i][13].toString(),
+                                it.market_trend?.url!![i][1].toString(),
+                                it.market_trend?.url!![i][6].toString(),
+                                it.market_trend?.url!![i][8].toString(),
+                                it.market_trend?.url!![i][11].toString()
+                            )
+                        )
+                    }
+                }
+
+                if(filter != 0)
+                {
+                    if(search != ""){
+                        search()
+                    }else{
+                        getFilterData(tradeArrayList)
+                    }
+                }else{
+                    binding.apply {
+                        tradeAdapter!!.items = tradeArrayList
+                        tradeAdapter!!.notifyDataSetChanged()
+                    }
+                }
+            }
         }
     }
 
@@ -127,7 +127,7 @@ class TradeFragment :
 
                 override fun onTextChanged(char: CharSequence, p1: Int, p2: Int, p3: Int) {
                     search = char.toString()
-                    getFilterData()
+                    search()
                 }
 
                 override fun afterTextChanged(p0: Editable?) {
@@ -138,7 +138,7 @@ class TradeFragment :
 
             layProject.setOnClickListener {
                 filter = 0
-                getFilterData()
+                getFilterData(tradeArrayList)
             }
 
             layChange.setOnClickListener {
@@ -147,7 +147,7 @@ class TradeFragment :
                     1 -> 2
                     else -> 1
                 }
-                getFilterData()
+                getFilterData(tradeArrayList)
             }
 
             layLast.setOnClickListener {
@@ -156,7 +156,7 @@ class TradeFragment :
                     3 -> 4
                     else -> 3
                 }
-                getFilterData()
+                getFilterData(tradeArrayList)
             }
 
             layVolume.setOnClickListener {
@@ -165,7 +165,7 @@ class TradeFragment :
                     5 -> 6
                     else -> 5
                 }
-                getFilterData()
+                getFilterData(tradeArrayList)
             }
 
             imgMenu.setOnClickListener {
@@ -175,16 +175,20 @@ class TradeFragment :
 
             icSearch.setOnClickListener {
                 linearLayoutSearch.visibility = View.VISIBLE
-                txtUpcoming.visibility = View.GONE
-                rvUpcomingProject.visibility = View.GONE
+                linearLayoutUpcomingProject.visibility = View.GONE
+
+                etSearch.requestFocus()
+
+                val inputMethodManager =
+                    UTSwapApp.instance.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0)
             }
 
             txtCancel.setOnClickListener {
                 linearLayoutSearch.visibility = View.GONE
                 if(listUpcomingProject.size != 0)
                 {
-                    txtUpcoming.visibility = View.VISIBLE
-                    rvUpcomingProject.visibility = View.VISIBLE
+                    linearLayoutUpcomingProject.visibility = View.VISIBLE
                 }
                 etSearch.text.clear()
                 hideKeyboard()
@@ -223,8 +227,14 @@ class TradeFragment :
     }
 
     private fun onCallWebSocketAndAPI(){
-        mPresenter.startSocketTrading()
-        mPresenter.onGetUpcomingProject()
+
+        Tovuti.from(UTSwapApp.instance).monitor{ _, isConnected, _ ->
+            if(isConnected)
+            {
+                mPresenter.startSocketTrading()
+                mPresenter.onGetUpcomingProject()
+            }
+        }
     }
 
     override fun onGetUpcomingProjectSuccess(data: TradingList.TradeUpComingProjectRes) {
@@ -254,51 +264,69 @@ class TradeFragment :
         }
     }
 
-    private fun getFilterData(){
+    private fun search() {
+        val tradeData = ArrayList<TradeModel>()
+        binding.apply {
+
+            if (search.isNotEmpty()) {
+                tradeData.clear()
+                tradeArrayList.map {
+                    if (it.project_name.contains(search, ignoreCase = true)) {
+                        tradeData.add(it)
+                    }
+                }
+            } else {
+                tradeData.addAll(tradeArrayList)
+            }
+
+            tradeAdapter = TradeAdapter(listener = object : TradeAdapter.Listener{
+                override fun clickMe(tradeProject:TradeModel) {
+                    TradeExchangeActivity.launchTradeExchangeActivity(requireActivity(), tradeProject)
+                }
+
+            })
+            tradeAdapter!!.items = tradeData
+            rvTrade.adapter = tradeAdapter
+        }
+    }
+
+    private fun getFilterData(list: ArrayList<TradeModel>){
 
         val tradeData = ArrayList<TradeModel>()
         binding.apply {
 
-            if(search.isNotEmpty()){
-                tradeData.clear()
-                tradeArrayList.map {
-                    if(it.project_name.contains(search, ignoreCase = true)){
-                        tradeData.add(it)
-                    }
-                }
-            }else{
-                tradeData.addAll(tradeArrayList)
-            }
+            tradeData.clear()
+            tradeData.addAll(list)
 
             onClearFilter()
             when(filter){
                 6 -> {
-                    tradeData.sortByDescending { it.volume }
+                    tradeData.sortByDescending { it.volume.toDouble() }
                     iconVolume.setImageResource(R.drawable.ic_sort_arrow_up_down_selected)
                     iconVolume.rotation = 180f
                 }
                 5 -> {
-                    tradeData.sortBy { it.volume }
+                    tradeData.sortBy { it.volume.toDouble() }
                     iconVolume.setImageResource(R.drawable.ic_sort_arrow_up_down_selected)
                     iconVolume.rotation = 0f
                 }
                 4 -> {
-                    tradeData.sortByDescending { it.last }
+                    tradeData.sortByDescending { it.last.toDouble() }
                     iconLast.setImageResource(R.drawable.ic_sort_arrow_up_down_selected)
                     iconLast.rotation = 180f
                 }
                 3 -> {
-                    tradeData.sortBy { it.last }
+                    tradeData.sortBy { it.last.toDouble() }
                     iconLast.setImageResource(R.drawable.ic_sort_arrow_up_down_selected)
                     iconLast.rotation = 0f
                 }
                 2 -> {
-                    tradeData.sortByDescending { it.change }
+                    tradeData.sortByDescending { it.change.toDouble() }
                     iconChange.setImageResource(R.drawable.ic_sort_arrow_up_down_selected)
                     iconChange.rotation = 180f
                 }
                 1 -> {
-                    tradeData.sortBy { it.change }
+                    tradeData.sortBy { it.change.toDouble() }
                     iconChange.setImageResource(R.drawable.ic_sort_arrow_up_down_selected)
                     iconChange.rotation = 0f
                 }

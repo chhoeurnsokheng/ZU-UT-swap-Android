@@ -150,6 +150,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
+                        android:visibility="gone"
                         android:paddingHorizontal="@dimen/dimen_20"
                         android:layout_marginBottom="@dimen/dimen_18">
                         <TextView
@@ -172,7 +173,6 @@
                             android:id="@+id/view_line"
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
-                            android:layout_below="@+id/rv_upcoming_project"
                             android:background="@color/light_gray" />
 
                     </LinearLayout>
