@@ -52,6 +52,6 @@ class DepositAdapter( val item: List<DepositObj.DataListRes>, val onClickListene
     }
 
     interface OnClickDeposit {
-        fun ClickDepositCard(cardTitle: String?,cardImg: String?,bic:String?)
+        fun ClickDepositCard(paymentMethod: String?,cardImg: String?,type:String?)
     }
 }

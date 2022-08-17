@@ -79,7 +79,7 @@ class BottomSheetFinanceDepositPayment: BottomSheetDialogFragment(), AdapterView
                 bodyObj.coinname = coinname
                 bodyObj.payment_method = payment_method
 
-               onDepositBalance(root.context, bodyObj)
+            onDepositBalance(root.context, bodyObj)
 
                 if(!etMountPayment.text.isNullOrEmpty()){
                     if(etMountPayment.text.toString().toLong() > 0){
@@ -87,20 +87,6 @@ class BottomSheetFinanceDepositPayment: BottomSheetDialogFragment(), AdapterView
                         if (payment_link !=null){
                             DepositOpenLinkWebViewActivity.launchDepositOpenLinkWebViewActivity(root.context,payment_link)
                         }
-
-   /*                     when(arguments?.getString("titleCard")){
-                            "KESS PAY" -> {
-                                startActivity(Intent(root.context, DepositOpenLinkWebViewActivity::class.java))
-                              //  intentOtherApp(UTSwapApp.instance, "com.paygo24.ibank", "C102577521")
-                            }
-//                            "Acleda Bank" -> {
-//                                intentOtherApp(UTSwapApp.instance, "com.domain.acledabankqr", "C103006903")
-//                            }
-//                            "Sathapana" -> {
-//                                intentOtherApp(UTSwapApp.instance, "kh.com.sathapana.consumer", null)
-//                            }
-                        }*/
-//                        dismiss()
                     }
                 }
 
@@ -110,20 +96,15 @@ class BottomSheetFinanceDepositPayment: BottomSheetDialogFragment(), AdapterView
 
             arguments?.getInt("imgCard")?.let {
                 imgCard.setImageResource(it)
+
             }
-            arguments?.getString("titleCard").let {
+            arguments?.getString("payMentMethod").let {
                 titleCard.text = it.toString()
-                payment_method= it.toString()
+                payment_method=  "$it"
             }
             arguments?.getString("typeOfCard").let {
                 typeOfCard = it.toString()
             }
-//            arguments?.getString("totalBalance").let {
-//                  balance = it.toString()
-//            }
-//            arguments?.getString("fee").let {
-//                  fee = it.toString()
-//            }
 
             etMountPayment.filters = arrayOf<InputFilter>(DecimalDigitsInputFilter(10, 2))
             etMountPayment.requestFocus()
@@ -178,16 +159,15 @@ class BottomSheetFinanceDepositPayment: BottomSheetDialogFragment(), AdapterView
     }
 
     companion object{
-        fun newInstance(cardTitle: String?,cardImg: String?, bic:String?): BottomSheetFinanceDepositPayment {
+        fun newInstance(paymentMethod: String?,cardImg: String?, type:String?): BottomSheetFinanceDepositPayment {
             val depositBottomSheetDialog = BottomSheetFinanceDepositPayment()
             val args = Bundle()
             if (cardImg != null) {
                 args.putString("imgCard", cardImg)
             }
-            args.putString("titleCard", cardTitle)
-            args.putString("typeOfCard",bic)
-//            args.putString("totalBalance",totalBalance)
-//            args.putString("fee",fee)
+            args.putString("payMentMethod", paymentMethod)
+            args.putString("typeOfCard",type)
+
 
             depositBottomSheetDialog.arguments = args
             return depositBottomSheetDialog
@@ -207,7 +187,6 @@ class BottomSheetFinanceDepositPayment: BottomSheetDialogFragment(), AdapterView
         subscriptionOnDepositBalance?.unsubscribe()
         subscriptionOnDepositBalance = ApiDepositImp().depositMoney(context, body).subscribe({
             payment_link = it.data?.payment_link.toString()
-
 
         }, { error ->
             object : CallbackWrapper(error, UTSwapApp.instance, arrayListOf()) {

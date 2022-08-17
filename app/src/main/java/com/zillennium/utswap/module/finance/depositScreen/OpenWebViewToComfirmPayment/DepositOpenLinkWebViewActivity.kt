@@ -2,6 +2,7 @@ package com.zillennium.utswap.module.finance.depositScreen.OpenWebViewToComfirmP
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.view.View
 import android.webkit.WebSettings
@@ -43,6 +44,7 @@ class DepositOpenLinkWebViewActivity :
 
     private fun openWebView() {
         binding.apply {
+
             webView.getSettings().setRenderPriority(WebSettings.RenderPriority.HIGH)
             webView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE)
 
@@ -62,6 +64,11 @@ class DepositOpenLinkWebViewActivity :
                 }
             }
 
+            var payment_Link = intent?.getStringExtra(Constants.Deposit.Payment_Link)
+//            val uri: Uri = Uri.parse(payment_Link)
+//            startActivity(Intent(Intent.ACTION_VIEW, uri))
+
+             //   webView.loadUrl("https://devwebpayment.kesspay.io/pay/2034526845778c12e3cb061d?access_token=0ad4c6e4ff1d525bdd08fb8f185e33d69de5aa9cc702a7737baf7d150357dab1&access_key=d70a999937aaa903f74ed5f733c4721a9b88e2ab597fb61ee91d07abbf0c3097")
             if (intent.hasExtra(Constants.Deposit.Payment_Link)) {
                 val payment_link = intent?.getStringExtra(Constants.Deposit.Payment_Link)
                 if (payment_link != null) {

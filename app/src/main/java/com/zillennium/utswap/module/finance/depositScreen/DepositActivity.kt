@@ -94,42 +94,10 @@ class DepositActivity :
 
     private val onClickDeposit: DepositAdapter.OnClickDeposit =
         object : DepositAdapter.OnClickDeposit {
-
-
-            //        override fun ClickDepositCard(cardTitle: String,cardImg: Int) {
-//
-//            when (cardTitle) {
-//                "ABA Pay"-> {
-//                    val depositDailogPayment = BottomSheetFinanceDepositPayment.newInstance(cardTitle,cardImg)
-//                    depositDailogPayment.show(this@DepositActivity.supportFragmentManager, "Deposit Dialog")
-//                }
-//                "Visa/ Master Card"->{
-////                    args.putString("CardTitle","Visa/ Master Card")
-//
-//                    cardTitleVisa = cardTitle
-//                    imgCardVisa = cardImg
-//                    val intent = Intent(this@DepositActivity, DepositAddCardActivity::class.java)
-//                    startActivityForResult(intent, SECOND_ACTIVITY_REQUEST_CODE)
-//
-//                }
-//                "Acleda Bank"->{
-//                    val depositDailogPayment = BottomSheetFinanceDepositPayment.newInstance(cardTitle.toString(),cardImg)
-//                    depositDailogPayment.show(this@DepositActivity.supportFragmentManager, "Deposit Dialog")
-//
-//                }
-//                "Sathapana"->{
-//                    val depositDailogPayment = BottomSheetFinanceDepositPayment.newInstance(cardTitle.toString(),cardImg)
-//                    depositDailogPayment.show(this@DepositActivity.supportFragmentManager, "Deposit Dialog")
-//                }
-//
-//            }
-//
-//        }
-
-            override fun ClickDepositCard(cardTitle: String?, cardImg: String?, bic: String?) {
+            override fun ClickDepositCard(cardTitle: String?, cardImg: String?, type: String?) {
                 imgCardVisa= cardImg
-                typeOfCard= bic
-                val depositDailogPayment = BottomSheetFinanceDepositPayment.newInstance(cardTitle, cardImg,bic)
+                typeOfCard= type
+                val depositDailogPayment = BottomSheetFinanceDepositPayment.newInstance(cardTitle, cardImg,type)
                 depositDailogPayment.show(this@DepositActivity.supportFragmentManager, "Deposit Dialog")
 //
 
