@@ -48,7 +48,7 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
     override fun onGetForceUpdateSuccess(data: ForceUpdate.ForceUpdateRes) {
         if (data.data?.app_url?.android?.isNotEmpty() == true){
             DialogUtilKyc().customDialog(
-                R.drawable.icon_log_out,
+                R.drawable.ic_force_update,
                 "New version available",
                 "Looks like you have an older version of the app. Please update to get latest features and best experience.",
                 "UPDATE NOW",
