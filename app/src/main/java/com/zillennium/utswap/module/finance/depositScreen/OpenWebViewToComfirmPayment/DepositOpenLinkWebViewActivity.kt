@@ -26,7 +26,7 @@ class DepositOpenLinkWebViewActivity :
 
     override val layoutResource: Int = R.layout.deposit_open_link_webview_activity
     override var mPresenter: DepositopenLinkView.Presenter = DepositopenLinkPresenter()
-
+    var payment_link = ""
     companion object {
         fun launchDepositOpenLinkWebViewActivity(context: Context, payment_link: String?) {
             val intent = Intent(context, DepositOpenLinkWebViewActivity::class.java)
@@ -39,7 +39,7 @@ class DepositOpenLinkWebViewActivity :
         super.initView()
         openWebView()
         toolBar()
-        //    binding.progressBar.visibility = View.VISIBLE
+
     }
 
     private fun openWebView() {
@@ -64,14 +64,12 @@ class DepositOpenLinkWebViewActivity :
                 }
             }
 
-            var payment_Link = intent?.getStringExtra(Constants.Deposit.Payment_Link)
-//            val uri: Uri = Uri.parse(payment_Link)
-//            startActivity(Intent(Intent.ACTION_VIEW, uri))
-
-             //   webView.loadUrl("https://devwebpayment.kesspay.io/pay/2034526845778c12e3cb061d?access_token=0ad4c6e4ff1d525bdd08fb8f185e33d69de5aa9cc702a7737baf7d150357dab1&access_key=d70a999937aaa903f74ed5f733c4721a9b88e2ab597fb61ee91d07abbf0c3097")
             if (intent.hasExtra(Constants.Deposit.Payment_Link)) {
-                val payment_link = intent?.getStringExtra(Constants.Deposit.Payment_Link)
+
+                 payment_link = intent.getStringExtra(Constants.Deposit.Payment_Link).toString()
+                //  binding.progressBar.visibility = View.VISIBLE
                 if (payment_link != null) {
+                    binding.progressBar.visibility = View.GONE
                     webView.loadUrl(payment_link)
                 }
             }
