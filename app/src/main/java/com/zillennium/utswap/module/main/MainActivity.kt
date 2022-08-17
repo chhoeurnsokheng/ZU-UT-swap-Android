@@ -1,5 +1,7 @@
 package com.zillennium.utswap.screens.navbar.navbar
 
+
+
 import android.content.Intent
 import android.net.Uri
 import android.os.Handler
@@ -10,8 +12,10 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI.setupWithNavController
+import com.google.android.play.core.appupdate.AppUpdateInfo
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory
+import com.google.android.play.core.install.model.UpdateAvailability
 import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
-import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityMainBinding
@@ -33,7 +37,7 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
     MainView.View {
 
     override var mPresenter: MainView.Presenter = MainPresenter()
-    override val layoutResource: Int = R.layout.activity_main
+    override val layoutResource: Int = com.zillennium.utswap.R.layout.activity_main
 
     private var doubleBackToExitPressedOnce = false
     var statusKYC  = FundPasswordFragment.status
@@ -48,7 +52,7 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
     override fun onGetForceUpdateSuccess(data: ForceUpdate.ForceUpdateRes) {
         if (data.data?.app_url?.android?.isNotEmpty() == true){
             DialogUtilKyc().customDialog(
-                R.drawable.ic_force_update,
+                com.zillennium.utswap.R.drawable.ic_force_update,
                 "New version available",
                 "Looks like you have an older version of the app. Please update to get latest features and best experience.",
                 "UPDATE NOW",
@@ -61,6 +65,33 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
                 this
             )
         }
+
+//
+//        val appUpdateManager = AppUpdateManagerFactory.create(this)
+//        val appUpdateInfoTask: com.google.android.play.core.tasks.Task<AppUpdateInfo> = appUpdateManager.appUpdateInfo
+//        // Checks that the platform will allow the specified type of update.
+//        appUpdateInfoTask.addOnSuccessListener { result: AppUpdateInfo ->
+//            /*if (result.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE) { }*/
+//            if (data.data?.app_url?.android?.isNotEmpty() == true){
+//                DialogUtilKyc().customDialog(
+//                    com.zillennium.utswap.R.drawable.ic_force_update,
+//                    "New version available",
+//                    "Looks like you have an older version of the app. Please update to get latest features and best experience.",
+//                    "UPDATE NOW",
+//                    object : DialogUtil.OnAlertDialogClick {
+//                        override fun onLabelCancelClick() {
+//                            val uri: Uri = Uri.parse(data.data!!.app_url?.android)
+//                            startActivity(Intent(Intent.ACTION_VIEW, uri))
+//                        }
+//                    },
+//                    this
+//                )
+//            }
+//
+//        }
+
+
+
     }
 
     override fun onGetForceUpdateFailed(data: String) {}
@@ -124,19 +155,41 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
         }
     }
 
+
+    fun UpdateApp() {
+        val appUpdateManager = AppUpdateManagerFactory.create(this)
+        val appUpdateInfoTask: com.google.android.play.core.tasks.Task<AppUpdateInfo> = appUpdateManager.appUpdateInfo
+        // Checks that the platform will allow the specified type of update.
+        appUpdateInfoTask.addOnSuccessListener { result: AppUpdateInfo ->
+            if (result.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE) {
+
+        }
+    }
+    }
+
+
+
+
+
+
+
+
+
+
+
     private fun onSetUpNavBar(){
         try {
             binding.apply {
 
                 val appBarConfiguration = AppBarConfiguration.Builder(
-                    R.id.navigation_navbar_home,
-                    R.id.navigation_navbar_portfolio,
-                    R.id.navigation_navbar_trade,
-                    R.id.navigation_navbar_news,
+                    com.zillennium.utswap.R.id.navigation_navbar_home,
+                    com.zillennium.utswap.R.id.navigation_navbar_portfolio,
+                    com.zillennium.utswap.R.id.navigation_navbar_trade,
+                    com.zillennium.utswap.R.id.navigation_navbar_news,
                 )
                     .build()
 
-                val navController = findNavController(this@MainActivity, R.id.nav_host_fragment_activity_navbar_home)
+                val navController = findNavController(this@MainActivity, com.zillennium.utswap.R.id.nav_host_fragment_activity_navbar_home)
 
                 // This Theme haven't use NoActionBar
                 setupWithNavController(navView, navController)
@@ -149,19 +202,19 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
                 var activeFragment: Fragment = tradeFragment
 
                 fragmentManager.beginTransaction().apply {
-                    add(R.id.nav_host_fragment_activity_navbar_home, homeFragment, "HomeFragment").hide(homeFragment)
-                    add(R.id.nav_host_fragment_activity_navbar_home, portfolioFragment, "PortfolioFragment").hide(portfolioFragment)
-                    add(R.id.nav_host_fragment_activity_navbar_home, tradeFragment, "TradeFragment").hide(tradeFragment)
-                    add(R.id.nav_host_fragment_activity_navbar_home, newsTabFragment, "NewsFragment").hide(newsTabFragment)
+                    add(com.zillennium.utswap.R.id.nav_host_fragment_activity_navbar_home, homeFragment, "HomeFragment").hide(homeFragment)
+                    add(com.zillennium.utswap.R.id.nav_host_fragment_activity_navbar_home, portfolioFragment, "PortfolioFragment").hide(portfolioFragment)
+                    add(com.zillennium.utswap.R.id.nav_host_fragment_activity_navbar_home, tradeFragment, "TradeFragment").hide(tradeFragment)
+                    add(com.zillennium.utswap.R.id.nav_host_fragment_activity_navbar_home, newsTabFragment, "NewsFragment").hide(newsTabFragment)
                 }.commit()
 
                 navView.setOnNavigationItemSelectedListener { item ->
                     when (item.itemId) {
-                        R.id.navigation_navbar_home -> {
+                        com.zillennium.utswap.R.id.navigation_navbar_home -> {
                             fragmentManager.beginTransaction().hide(activeFragment).show(homeFragment).commit()
                             activeFragment = homeFragment
                         }
-                        R.id.navigation_navbar_portfolio -> {
+                        com.zillennium.utswap.R.id.navigation_navbar_portfolio -> {
                             SessionVariable.SESSION_KYC_STATUS.observe(this@MainActivity){
                                 if (SessionVariable.SESSION_STATUS.value ==true){
                                     fragmentManager.beginTransaction().hide(activeFragment).show(portfolioFragment).commit()
@@ -173,11 +226,11 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
                             }
 
                         }
-                        R.id.navigation_navbar_trade -> {
+                        com.zillennium.utswap.R.id.navigation_navbar_trade -> {
                             fragmentManager.beginTransaction().hide(activeFragment).show(tradeFragment).commit()
                             activeFragment = tradeFragment
                         }
-                        R.id.navigation_navbar_news -> {
+                        com.zillennium.utswap.R.id.navigation_navbar_news -> {
                             fragmentManager.beginTransaction().hide(activeFragment).show(newsTabFragment).commit()
                             activeFragment = newsTabFragment
                         }
@@ -187,7 +240,7 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
 
                 fragmentManager.beginTransaction().hide(activeFragment).show(homeFragment).commit()
                 activeFragment = tradeFragment
-                navView.selectedItemId = R.id.navigation_navbar_home
+                navView.selectedItemId = com.zillennium.utswap.R.id.navigation_navbar_home
             }
         }catch (e: Exception){
 

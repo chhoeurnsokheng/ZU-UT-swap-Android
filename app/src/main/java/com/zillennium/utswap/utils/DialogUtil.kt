@@ -100,7 +100,7 @@ class DialogUtilKyc {
 //            )
             
             builder.setView(mBinding?.root)
-            builder.setCancelable(true)
+            builder.setCancelable(false)
             try {
                 builder.show()
             } catch (e: Exception) {
