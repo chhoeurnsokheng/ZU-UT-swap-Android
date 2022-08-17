@@ -2,6 +2,7 @@ package com.zillennium.utswap.api.service
 
 import com.zillennium.utswap.api.ApiSettings
 import com.zillennium.utswap.models.home.BannerObj
+import com.zillennium.utswap.models.home.ForceUpdate
 import retrofit2.http.GET
 import retrofit2.http.HeaderMap
 import rx.Observable
@@ -20,4 +21,6 @@ interface HomeService {
     fun getWhistListAndBalance(
         @HeaderMap headers: Map<String, String>
     ): Observable<BannerObj.whistListRes>
+    @GET(ApiSettings.PATH_FORCE_UPDATE)
+    fun checkForceUpdate():Observable<ForceUpdate.ForceUpdateRes>
 }

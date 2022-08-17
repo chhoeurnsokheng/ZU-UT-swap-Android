@@ -73,4 +73,6 @@ object ApiSettings {
     const val PATH_GET_BANNNER= "portfolio/app_banner"
     const val PATH_GET_HOME_WISHLIST_BALANCE ="portfolio/index"
 
+    const val PATH_FORCE_UPDATE= "CheckAppVersion/index"
+
 }

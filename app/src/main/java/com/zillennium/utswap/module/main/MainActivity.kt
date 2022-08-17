@@ -1,8 +1,8 @@
 package com.zillennium.utswap.screens.navbar.navbar
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Handler
-import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.Toast
@@ -11,11 +11,11 @@ import androidx.navigation.Navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
-import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityMainBinding
+import com.zillennium.utswap.models.home.ForceUpdate
 import com.zillennium.utswap.module.kyc.kycActivity.KYCActivity
 import com.zillennium.utswap.module.kyc.kycFragment.fundPasswordScreen.FundPasswordFragment
 import com.zillennium.utswap.module.main.MainPresenter
@@ -25,10 +25,11 @@ import com.zillennium.utswap.module.main.news.NewsFragment
 import com.zillennium.utswap.module.main.portfolio.PortfolioFragment
 import com.zillennium.utswap.module.main.trade.tradeScreen.TradeFragment
 import com.zillennium.utswap.module.security.securityActivity.signInScreen.SignInActivity
+import com.zillennium.utswap.utils.DialogUtil
+import com.zillennium.utswap.utils.DialogUtilKyc
 
 
-class MainActivity :
-    BaseMvpActivity<MainView.View, MainView.Presenter, ActivityMainBinding>(),
+class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, ActivityMainBinding>(),
     MainView.View {
 
     override var mPresenter: MainView.Presenter = MainPresenter()
@@ -41,7 +42,28 @@ class MainActivity :
         super.initView()
         onCheckSession()
         onSetUpNavBar()
+        mPresenter.checkForceUpdate(this)
     }
+
+    override fun onGetForceUpdateSuccess(data: ForceUpdate.ForceUpdateRes) {
+        if (data.data?.app_url?.android?.isNotEmpty() == true){
+            DialogUtilKyc().customDialog(
+                R.drawable.icon_log_out,
+                "New version available",
+                "Looks like you have an older version of the app. Please update to get latest features and best experience.",
+                "UPDATE NOW",
+                object : DialogUtil.OnAlertDialogClick {
+                    override fun onLabelCancelClick() {
+                        val uri: Uri = Uri.parse(data.data!!.app_url?.android)
+                        startActivity(Intent(Intent.ACTION_VIEW, uri))
+                    }
+                },
+                this
+            )
+        }
+    }
+
+    override fun onGetForceUpdateFailed(data: String) {}
 
     override fun onBackPressed() {
         if (doubleBackToExitPressedOnce) {

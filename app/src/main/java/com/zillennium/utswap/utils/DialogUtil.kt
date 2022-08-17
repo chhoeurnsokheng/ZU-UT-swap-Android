@@ -93,10 +93,10 @@ class DialogUtilKyc {
                 false
             )
             val builder = alertDialog.create()
-            builder.window?.setLayout(
-                dpToPx(350),
-                ViewGroup.LayoutParams.WRAP_CONTENT
-            )
+//            builder.window?.setLayout(
+//                dpToPx(350),
+//                ViewGroup.LayoutParams.WRAP_CONTENT
+//            )
             builder.setView(mBinding?.root)
             builder.setCancelable(true)
             try {
