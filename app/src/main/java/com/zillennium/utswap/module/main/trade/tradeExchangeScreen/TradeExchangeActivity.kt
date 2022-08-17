@@ -1,5 +1,6 @@
 package com.zillennium.utswap.module.main.trade.tradeExchangeScreen
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.res.ColorStateList
@@ -20,6 +21,7 @@ import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
 import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
+import com.zillennium.utswap.api.ApiSettings
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityTradeExchangeBinding
 import com.zillennium.utswap.models.TradeModel
@@ -35,10 +37,13 @@ import com.zillennium.utswap.module.main.trade.tradeExchangeScreen.fragment.allT
 import com.zillennium.utswap.module.main.trade.tradeExchangeScreen.fragment.chart.ChartFragment
 import com.zillennium.utswap.module.main.trade.tradeExchangeScreen.fragment.orderBook.OrderBookFragment
 import com.zillennium.utswap.module.main.trade.tradeExchangeScreen.fragment.orders.OrdersFragment
+import com.zillennium.utswap.module.main.trade.tradeScreen.TradeFragment
 import com.zillennium.utswap.module.project.projectInfoScreen.ProjectInfoActivity
 import com.zillennium.utswap.module.security.securityActivity.signInScreen.SignInActivity
 import com.zillennium.utswap.utils.Constants
 import com.zillennium.utswap.utils.DecimalDigitsInputFilter
+import com.zillennium.utswap.utils.groupingSeparator
+import com.zillennium.utswap.utils.groupingSeparatorInt
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -69,6 +74,8 @@ class TradeExchangeActivity :
         fun launchTradeExchangeActivity(context: Context, trade: TradeModel?) {
             val intent = Intent(context, TradeExchangeActivity::class.java)
             intent.putExtra(Constants.TradeExchange.ProjectName, trade?.project_name)
+            intent.putExtra(Constants.TradeExchange.MarketName, trade?.market_name)
+            intent.putExtra(Constants.TradeExchange.ProjectId, trade?.project_id)
             context.startActivity(intent)
         }
         fun launchTradeExchangeActivityFromWishList(context: Context, projectName: String?) {
@@ -78,14 +85,86 @@ class TradeExchangeActivity :
         }
     }
 
+    @SuppressLint("SetTextI18n")
     override fun initView() {
         super.initView()
         try {
             toolBar()
-            mPresenter.onCheckKYCStatus()
 
+            //call API and web socket
+            mPresenter.onCheckKYCStatus()
+            mPresenter.startTradeDetailSocket(intent?.getStringExtra(Constants.TradeExchange.MarketName).toString())
 
             fetchTradeDetailData.observe(this@TradeExchangeActivity){
+                println("===Hello====="+ ApiSettings.SEND_TRADE_MARKET_NAME+intent?.getStringExtra(Constants.TradeExchange.MarketName))
+                println("---dataorderbook==="+it.info.toString())
+                binding.apply {
+
+                    if(it.info?.new_price == false)
+                    {
+                        txtLast.text = resources.getString(R.string.empty_price_order_book)
+                    }else{
+                        txtLast.text = it.info?.new_price.toString()
+                    }
+
+                    if(it.info?.max_price == false)
+                    {
+                        txtHigh.text = resources.getString(R.string.empty_price_order_book)
+                    }else{
+                        txtHigh.text = it.info?.max_price.toString()
+                    }
+
+                    if(it.info?.min_price == false)
+                    {
+                        txtLow.text = resources.getString(R.string.empty_price_order_book)
+                    }else{
+                        txtLow.text = it.info?.min_price.toString()
+                    }
+
+                    if(it.info?.target_price == false)
+                    {
+                        txtTargetPrice.text = resources.getString(R.string.empty_price_order_book)
+                    }else{
+                        txtTargetPrice.text = it.info?.target_price.toString()
+                    }
+
+                    txtVolume.text = groupingSeparatorInt(it.info?.volume.toString().toDouble())
+
+                    //change
+                    if(it.info?.change.toString().toDouble() < 0){
+                        txtChange.text = it.info?.change.toString() + "%"
+                        txtChange.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
+                    }else if(it.info?.change.toString().toDouble() == 0.00)
+                    {
+                        txtChange.text = it.info?.change.toString() + "%"
+                        txtChange.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.black_222222))
+                    }else {
+                        txtChange.text = "+" + it.info?.change.toString() + "%"
+                        txtChange.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.success))
+                    }
+
+                    //change project is live or close
+                    if(it.info?.market_open == true){
+                        includeLayout.btnLive.visibility = View.VISIBLE
+                        includeLayout.btnLive.backgroundTintList = ColorStateList.valueOf(
+                            ContextCompat.getColor(
+                                UTSwapApp.instance,
+                                R.color.success
+                            )
+                        )
+
+                        includeLayout.btnLive.text = resources.getString(R.string.live)
+                    }else{
+                        includeLayout.btnLive.visibility = View.VISIBLE
+                        includeLayout.btnLive.backgroundTintList = ColorStateList.valueOf(
+                            ContextCompat.getColor(
+                                UTSwapApp.instance,
+                                R.color.danger
+                            )
+                        )
+                        includeLayout.btnLive.text = resources.getString(R.string.close)
+                    }
+                }
 
             }
 
@@ -127,6 +206,7 @@ class TradeExchangeActivity :
                     onCheckSessionStatusAndKYC()
                 }
 
+                //add to favorite
                 includeLayout.imgRemember.setOnClickListener {
                     remember = !remember
                     if (remember) {
@@ -498,6 +578,7 @@ class TradeExchangeActivity :
             tbTitle.setTextColor(ContextCompat.getColor(applicationContext, R.color.primary))
             tb.setOnClickListener {
                 finish()
+                mPresenter.closeTradeDetailSocket()
             }
 
             binding.includeLayout.tbLeft.setOnClickListener {
@@ -537,7 +618,7 @@ class TradeExchangeActivity :
                 layAuth.visibility = View.VISIBLE
                 layVerify.visibility = View.GONE
                 llBottom.visibility = View.GONE
-                includeLayout.imgRemember.visibility = View.GONE
+                includeLayout.imgRemember.visibility = View.INVISIBLE
 
             }
 

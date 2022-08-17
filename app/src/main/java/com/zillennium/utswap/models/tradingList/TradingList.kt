@@ -23,13 +23,16 @@ object TradingList {
 
     class TradingListDetailInfo{
         var title: String? = null
-        var new_price: String? = null
-        var max_price: String? = null
-        var min_price: String? = null
+        var new_price: Any? = null
+        var max_price: Any? = null
+        var min_price: Any? = null
         var buy_price: String? = null
         var sell_price: String? = null
         var volume: String? = null
+        var target_price: Any? = null
+        var market_open: Boolean? = null
         var change: String? = null
+
     }
 
     /** Upcoming project trading list*/
