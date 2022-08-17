@@ -456,6 +456,9 @@
     <string name="phone_number_already_used">Phone Number Already Used!</string>
     <string name="verify_your_identity">Verify Your Identity > </string>
     <string name="n_a">N/A</string>
+    <string name="date_in_order_book">01:02:22PM 24-03-2022</string>
+    <string name="limit_buy">Limit / Buy</string>
+    <string name="limit_sell">Limit / Sell</string>
 
 
 </resources>

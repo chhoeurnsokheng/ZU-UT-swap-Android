@@ -85,7 +85,7 @@ class TransactionsFragment :
                     transactionsAdapter!!.notifyDataSetChanged()
 
                     transactionsAdapter = TransactionsAdapter(
-                        OrdersData.LIST_OF_ORDERS(),
+                        TransactionsData.LIST_OF_TRANSACTIONS(),
                         onClickTransactions
                     )
                     rvTransactions.adapter = transactionsAdapter
@@ -95,7 +95,7 @@ class TransactionsFragment :
                 1 -> {
                     val list = arrayListOf<Orders>()
 
-                    OrdersData.LIST_OF_ORDERS().map {
+                    TransactionsData.LIST_OF_TRANSACTIONS().map {
                         if(it.txtStatus == "BUY"){
                             list.add(Orders(it.txtStatus, it.txtUT,it.txtDate, it.txtPrice))
                         }
@@ -117,7 +117,7 @@ class TransactionsFragment :
                 2 -> {
                     val list = arrayListOf<Orders>()
 
-                    OrdersData.LIST_OF_ORDERS().map {
+                    TransactionsData.LIST_OF_TRANSACTIONS().map {
                         if(it.txtStatus == "SELL"){
                             list.add(Orders(it.txtStatus, it.txtUT,it.txtDate, it.txtPrice))
                         }
@@ -146,7 +146,7 @@ class TransactionsFragment :
                 0 -> {
                     val list = arrayListOf<Orders>()
 
-                    OrdersData.LIST_OF_ORDERS().map {
+                    TransactionsData.LIST_OF_TRANSACTIONS().map {
                         list.add(Orders(it.txtStatus, it.txtUT,it.txtDate, it.txtPrice))
                     }
 
@@ -172,7 +172,7 @@ class TransactionsFragment :
                 1 -> {
                     val list = arrayListOf<Orders>()
 
-                    OrdersData.LIST_OF_ORDERS().map {
+                    TransactionsData.LIST_OF_TRANSACTIONS().map {
                         list.add(Orders(it.txtStatus, it.txtUT,it.txtDate, it.txtPrice))
                     }
 

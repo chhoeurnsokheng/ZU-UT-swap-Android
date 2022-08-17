@@ -43,7 +43,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 
-class TradeExchangeActivity(override var fetchTradeDetailData: MutableLiveData<TradingList.TradingListSummary>) :
+class TradeExchangeActivity :
     BaseMvpActivity<TradeExchangeView.View, TradeExchangeView.Presenter, ActivityTradeExchangeBinding>(),
     TradeExchangeView.View {
 
@@ -63,6 +63,8 @@ class TradeExchangeActivity(override var fetchTradeDetailData: MutableLiveData<T
     var click = true
     private var mBottomSheetBehavior: BottomSheetBehavior<*>? = null
 
+    override var fetchTradeDetailData: MutableLiveData<TradingList.TradingListSummary> = MutableLiveData()
+
     companion object {
         fun launchTradeExchangeActivity(context: Context, trade: TradeModel?) {
             val intent = Intent(context, TradeExchangeActivity::class.java)
@@ -81,6 +83,12 @@ class TradeExchangeActivity(override var fetchTradeDetailData: MutableLiveData<T
         try {
             toolBar()
             mPresenter.onCheckKYCStatus()
+
+
+            fetchTradeDetailData.observe(this@TradeExchangeActivity){
+
+            }
+
             binding.apply {
                 btnVerifyKyc.setOnClickListener {
                     val intent = Intent(this@TradeExchangeActivity, KYCActivity::class.java).putExtra(
