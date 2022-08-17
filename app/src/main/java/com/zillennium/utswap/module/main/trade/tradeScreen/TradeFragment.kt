@@ -103,6 +103,7 @@ class TradeFragment :
             tradeAdapter = TradeAdapter(listener = object : TradeAdapter.Listener{
                 override fun clickMe(tradeProject:TradeModel) {
                     TradeExchangeActivity.launchTradeExchangeActivity(requireActivity(), tradeProject)
+                    mPresenter.closeSocketTrading()
                 }
 
             })
@@ -283,6 +284,7 @@ class TradeFragment :
             tradeAdapter = TradeAdapter(listener = object : TradeAdapter.Listener{
                 override fun clickMe(tradeProject:TradeModel) {
                     TradeExchangeActivity.launchTradeExchangeActivity(requireActivity(), tradeProject)
+                    mPresenter.closeSocketTrading()
                 }
 
             })
@@ -340,6 +342,7 @@ class TradeFragment :
             tradeAdapter = TradeAdapter(listener = object : TradeAdapter.Listener{
                 override fun clickMe(tradeProject:TradeModel) {
                     TradeExchangeActivity.launchTradeExchangeActivity(requireActivity(), tradeProject)
+                    mPresenter.closeSocketTrading()
                 }
 
             })

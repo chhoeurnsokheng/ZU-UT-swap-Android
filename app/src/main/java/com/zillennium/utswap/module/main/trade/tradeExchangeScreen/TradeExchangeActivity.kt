@@ -16,6 +16,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
+import com.androidstudy.networkmanager.Tovuti
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
 import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
@@ -40,6 +41,7 @@ import com.zillennium.utswap.module.main.trade.tradeExchangeScreen.fragment.orde
 import com.zillennium.utswap.module.main.trade.tradeScreen.TradeFragment
 import com.zillennium.utswap.module.project.projectInfoScreen.ProjectInfoActivity
 import com.zillennium.utswap.module.security.securityActivity.signInScreen.SignInActivity
+import com.zillennium.utswap.screens.navbar.navbar.MainActivity
 import com.zillennium.utswap.utils.Constants
 import com.zillennium.utswap.utils.DecimalDigitsInputFilter
 import com.zillennium.utswap.utils.groupingSeparator
@@ -92,12 +94,18 @@ class TradeExchangeActivity :
             toolBar()
 
             //call API and web socket
-            mPresenter.onCheckKYCStatus()
-            mPresenter.startTradeDetailSocket(intent?.getStringExtra(Constants.TradeExchange.MarketName).toString())
+            Tovuti.from(UTSwapApp.instance).monitor{ _, isConnected, _ ->
+                if(isConnected)
+                {
+                    mPresenter.onCheckKYCStatus()
+                    mPresenter.startTradeDetailSocket(intent?.getStringExtra(Constants.TradeExchange.MarketName).toString())
+                }
+            }
+
+            println("=====item watch list==="+ Constants.WatchList.itemWatchList.size)
 
             fetchTradeDetailData.observe(this@TradeExchangeActivity){
-                println("===Hello====="+ ApiSettings.SEND_TRADE_MARKET_NAME+intent?.getStringExtra(Constants.TradeExchange.MarketName))
-                println("---dataorderbook==="+it.info.toString())
+
                 binding.apply {
 
                     if(it.info?.new_price == false)

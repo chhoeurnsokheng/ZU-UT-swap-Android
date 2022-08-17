@@ -2,6 +2,7 @@ package com.zillennium.utswap.utils
 
 import android.webkit.WebViewClient
 import com.zillennium.utswap.R
+import com.zillennium.utswap.models.home.BannerObj
 
 
 interface Constants {
@@ -475,6 +476,12 @@ interface Constants {
         companion object{
             const val ProjectName = "Project_Name"
             const val Project_Id = "id"
+        }
+    }
+
+    interface WatchList{
+        companion object{
+            var itemWatchList = ArrayList<BannerObj.ItemWishList>()
         }
     }
 
