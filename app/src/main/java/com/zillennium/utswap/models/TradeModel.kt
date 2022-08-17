@@ -1,7 +1,10 @@
 package com.zillennium.utswap.models
 
 class TradeModel(
-    var project: String,
-    var change: Double,
-    var last: Double,
-    var volume: Int)
+    var project_name: String,
+    var change: String,
+    var last: String,
+    var volume: String,
+    var market_name: String,
+    var market_id: String
+)

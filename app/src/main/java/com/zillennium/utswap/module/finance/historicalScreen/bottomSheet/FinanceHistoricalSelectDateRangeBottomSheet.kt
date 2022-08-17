@@ -7,23 +7,30 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.*
-import android.widget.AdapterView
 import android.widget.DatePicker
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.zillennium.utswap.Datas.GlobalVariable.SettingVariable
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.databinding.BottomSheetFinanceHistoricalSelectDateRangeBinding
 import java.text.SimpleDateFormat
 import java.util.*
 
-class FinanceHistoricalSelectDateRangeBottomSheet: BottomSheetDialogFragment(), AdapterView.OnItemSelectedListener {
+class FinanceHistoricalSelectDateRangeBottomSheet (
+        var startDateSelect: String,
+        var startEndSelect: String,
+        var listener: CallBackDateListener
+        ): BottomSheetDialogFragment(){
     private var binding: BottomSheetFinanceHistoricalSelectDateRangeBinding? = null
 
     override fun getTheme(): Int {
         return R.style.BottomSheetStyle
+    }
+
+    interface CallBackDateListener {
+        fun onSelectDateChangeSelect(startDate: String, endDate: String)
     }
 
     override fun onCreateView(
@@ -47,7 +54,7 @@ class FinanceHistoricalSelectDateRangeBottomSheet: BottomSheetDialogFragment(), 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding?.apply {
-            (view.parent as View).setBackgroundColor(resources.getColor(android.R.color.transparent))
+            (view.parent as View).setBackgroundColor(ContextCompat.getColor(UTSwapApp.instance, R.color.transparent))
 
             val calendar = Calendar.getInstance()
 
@@ -56,7 +63,7 @@ class FinanceHistoricalSelectDateRangeBottomSheet: BottomSheetDialogFragment(), 
                     calendar[Calendar.YEAR] = year
                     calendar[Calendar.MONDAY] = month
                     calendar[Calendar.DAY_OF_MONTH] = day
-                    val format = "dd-MMMM-yyyy"
+                    val format = "dd-MMM-yyyy"
                     val simpleDateFormat =
                         SimpleDateFormat(format, Locale.US)
                     etStartDate.setText(simpleDateFormat.format(calendar.time))
@@ -67,7 +74,7 @@ class FinanceHistoricalSelectDateRangeBottomSheet: BottomSheetDialogFragment(), 
                     calendar[Calendar.YEAR] = year
                     calendar[Calendar.MONDAY] = month
                     calendar[Calendar.DAY_OF_MONTH] = day
-                    val format = "dd-MMMM-yyyy"
+                    val format = "dd-MMM-yyyy"
                     val simpleDateFormat =
                         SimpleDateFormat(format, Locale.US)
                     etEndDate.setText(simpleDateFormat.format(calendar.time))
@@ -120,32 +127,14 @@ class FinanceHistoricalSelectDateRangeBottomSheet: BottomSheetDialogFragment(), 
                         Toast.makeText(
                             UTSwapApp.instance,
                             "EndDate should be greater than StartDate",
-                            Toast.LENGTH_SHORT
+                            Toast.LENGTH_LONG
                         ).show()
+                    }else{
+                        listener.onSelectDateChangeSelect(etStartDate.text.toString(), etEndDate.text.toString())
+                        dismiss()
                     }
-                    SettingVariable.finance_historical_date_start.value =
-                        etStartDate.text.toString()
-                    SettingVariable.finance_historical_date_end.value =
-                        etEndDate.text.toString()
-                    dismiss()
                 }
             })
         }
     }
-
-    companion object {
-        fun newInstance(
-        ): FinanceHistoricalSelectDateRangeBottomSheet {
-            val financeSubscriptionSelectDateRangeBottomSheet =
-                FinanceHistoricalSelectDateRangeBottomSheet()
-            val args = Bundle()
-
-            financeSubscriptionSelectDateRangeBottomSheet.arguments = args
-            return financeSubscriptionSelectDateRangeBottomSheet
-        }
-    }
-
-    override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {}
-
-    override fun onNothingSelected(p0: AdapterView<*>?) {}
 }

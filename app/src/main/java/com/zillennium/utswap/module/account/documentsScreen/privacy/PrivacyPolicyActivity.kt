@@ -11,11 +11,6 @@ class PrivacyPolicyActivity: BaseMvpActivity<PrivacyPolicyView.View, PrivacyPoli
     override val layoutResource: Int = R.layout.activity_privacy_policy
     override var mPresenter: PrivacyPolicyView.Presenter = PrivacyPolicyPresenter()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
 
     override fun initView() {
         super.initView()

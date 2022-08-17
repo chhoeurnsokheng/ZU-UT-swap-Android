@@ -7,7 +7,7 @@ class HistoricalMyTransactionsModel(
     var titleMyTrans: String,
     var dateMyTrans: String,
     var amountMyTrans: Double,
-    var statusMyTrans: Int,
+    var statusMyTrans: String,
     var titleCheckMyTrans: String,
 
     ) : Serializable

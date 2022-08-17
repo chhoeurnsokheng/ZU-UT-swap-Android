@@ -55,8 +55,7 @@ class LogsActivity :
                 logsList.addAll(data)
                 val linearLayoutManager = LinearLayoutManager(this@LogsActivity)
                 rvLogs.layoutManager = linearLayoutManager
-                logsAdapter = LogsAdapter()
-                logsAdapter!!.items = logsList
+                logsAdapter = LogsAdapter(logsList)
                 rvLogs.adapter = logsAdapter
 
                 //Add more data page

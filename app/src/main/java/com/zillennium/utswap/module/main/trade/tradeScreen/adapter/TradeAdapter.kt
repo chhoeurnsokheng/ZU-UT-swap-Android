@@ -1,82 +1,81 @@
 package com.zillennium.utswap.module.main.trade.tradeScreen.adapter
 
-import android.annotation.SuppressLint
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.GONE
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.RecyclerView
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
+import com.zillennium.utswap.bases.mvp.BaseRecyclerViewAdapterGeneric
+import com.zillennium.utswap.bases.mvp.BaseViewHolder
+import com.zillennium.utswap.databinding.ItemListPortfolioTradeBinding
 import com.zillennium.utswap.models.TradeModel
 import com.zillennium.utswap.utils.groupingSeparator
 import com.zillennium.utswap.utils.groupingSeparatorInt
 
-class TradeAdapter(arrayList: ArrayList<TradeModel>, onclickTrade: OnclickTrade) :
-    RecyclerView.Adapter<TradeAdapter.ViewHolder>() {
-    private var listdata: ArrayList<TradeModel> = arrayList
-    private var onclickTrade: OnclickTrade
+class TradeAdapter(private var listener: Listener): BaseRecyclerViewAdapterGeneric<TradeModel, TradeAdapter.ItemViewHolder>(){
 
-    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    inner class ItemViewHolder(root: ItemListPortfolioTradeBinding): BaseViewHolder<ItemListPortfolioTradeBinding>(root)
+    {
+        fun bindData(tradeList: TradeModel,position: Int){
+           binding.apply {
+               txtProject.text = tradeList.project_name
 
-        var linearLayout: LinearLayout = view.findViewById<View>(R.id.linear_layout) as LinearLayout
-        var txtProject: TextView = view.findViewById<View>(R.id.txt_project) as TextView
-        var txtChange: TextView = view.findViewById<View>(R.id.txt_change) as TextView
-        var txtLast: TextView = view.findViewById<View>(R.id.txt_last) as TextView
-        var txtVolume: TextView = view.findViewById<View>(R.id.txt_volume) as TextView
-        var viewLine: View = view.findViewById<View>(R.id.view_line) as View
-    }
+               if(tradeList.change.toDouble() < 0){
+                   txtChange.text = groupingSeparator(tradeList.change.toDouble()) + "%"
+                   txtChange.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
+               }else if(tradeList.change.toDouble() == 0.00)
+               {
+                   txtChange.text = groupingSeparator(tradeList.change.toDouble()) + "%"
+                   txtChange.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.black_222222))
+               }else {
+                   txtChange.text = "+" + groupingSeparator(tradeList.change.toDouble()) + "%"
+                   txtChange.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.success))
+               }
 
-    override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder {
-        return ViewHolder(
-            LayoutInflater.from(viewGroup.context)
-                .inflate(R.layout.item_list_portfolio_trade, viewGroup, false)
-        )
-    }
+               txtLast.text = "$" + groupingSeparator(tradeList.last.toDouble())
+               txtVolume.text = groupingSeparatorInt(tradeList.volume.toDouble())
 
-    override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
-        val tradeList: TradeModel = listdata[i]
-        viewHolder.txtProject.text = tradeList.project
+               if (items.size == 1) {
+                   viewLine.visibility = View.GONE
+               } else {
+                   when (position) {
+                       items.size - 1 -> {
+                           viewLine.visibility = View.GONE
+                       }
+                       0 -> {
+                           viewLine.visibility = View.VISIBLE
+                       }
+                       else -> {
+                           viewLine.visibility = View.VISIBLE
+                       }
+                   }
+               }
 
-        if(tradeList.change < 0){
-            viewHolder.txtChange.text = groupingSeparator(tradeList.change) + "%"
-        }else {
-            viewHolder.txtChange.text = "+" + groupingSeparator(tradeList.change) + "%"
-            viewHolder.txtChange.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.success))
+               linearLayout.setOnClickListener {
+                   listener.clickMe(tradeList)
+               }
+           }
         }
-
-        viewHolder.txtLast.text = "$" + groupingSeparator(tradeList.last)
-        viewHolder.txtVolume.text = groupingSeparatorInt(tradeList.volume)
-
-        if(i + 1 == listdata.size){
-            viewHolder.viewLine.visibility = GONE
-        }
-
-        viewHolder.linearLayout.setOnClickListener {
-            onclickTrade.clickMe(tradeList.project)
-        }
     }
 
-    override fun getItemCount(): Int {
-        return listdata.size
+    override fun onCreateItemHolder(
+        inflater: LayoutInflater,
+        parent: ViewGroup,
+        viewType: Int
+    ) = ItemViewHolder(ItemListPortfolioTradeBinding.inflate(inflater,parent,false))
+
+    override fun onBindItemHolder(
+        holder: TradeAdapter.ItemViewHolder,
+        position: Int,
+        context: Context
+    ) {
+        holder.bindData(items[position],position)
     }
 
-    @SuppressLint("NotifyDataSetChanged")
-    fun filterList(filterList: ArrayList<TradeModel>) {
-        listdata = filterList
-        notifyDataSetChanged()
-    }
-
-    interface OnclickTrade{
-        fun clickMe(projectName:String)
-    }
-
-    init {
-        this.listdata = arrayList
-        this.onclickTrade = onclickTrade
+    interface Listener{
+        fun clickMe(tradeProject:TradeModel)
     }
 
 }

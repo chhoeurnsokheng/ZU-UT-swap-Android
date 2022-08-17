@@ -17,17 +17,17 @@ class ApiProvincesImp : ApiManager() {
         mProvince.getAllProvince(
             Header.getHeader(Header.Companion.AuthType.REQUIRED_TOKEN, context)
         )
-            .subscribeOn(rx.schedulers.Schedulers.io())
+            .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
 
-    fun queryProvince(context: Context, body: PProvinceObj.BodyProvince): Observable<PProvinceObj.ProvinceRes> =
+    fun queryProvince(context: Context, body: PProvinceObj.BodyProvince): Observable<PProvinceObj.DistrictRes> =
         mProvince.queryProvince(
             Header.getHeader(Header.Companion.AuthType.REQUIRED_TOKEN, context),
             body
         )
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-    fun queryCommune(context: Context, body: PProvinceObj.BodyProvince): Observable<PProvinceObj.ProvinceRes> =
+    fun queryCommune(context: Context, body: PProvinceObj.BodyProvince): Observable<PProvinceObj.CommuneRes> =
         mProvince.queryCommune(
             Header.getHeader(Header.Companion.AuthType.REQUIRED_TOKEN, context),
             body

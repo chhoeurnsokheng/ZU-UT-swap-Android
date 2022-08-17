@@ -44,13 +44,4 @@ class DeleteOrdersDialog : DialogFragment() {
         }
     }
 
-    override fun onResume() {
-
-//        val width = (resources.displayMetrics.widthPixels * 0.92).toInt()
-//        dialog!!.window!!.setLayout(
-//            280,
-//            ViewGroup.LayoutParams.WRAP_CONTENT
-//        )
-        super.onResume()
-    }
 }

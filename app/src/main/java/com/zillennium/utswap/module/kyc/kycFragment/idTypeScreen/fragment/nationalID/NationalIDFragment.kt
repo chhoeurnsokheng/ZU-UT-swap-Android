@@ -4,11 +4,15 @@ import android.view.View
 import androidx.core.net.toUri
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.zillennium.utswap.Datas.StoredPreferences.KYCPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentKycNationalIdBinding
+import com.zillennium.utswap.module.kyc.kycActivity.KYCActivity
 import com.zillennium.utswap.module.kyc.kycFragment.idTypeScreen.IdTypeFragment
+import com.zillennium.utswap.module.kyc.kycFragment.idTypeScreen.camera.idCardCameraFragment.IDCardCameraFragment
 
 
 class NationalIDFragment :
@@ -40,6 +44,7 @@ class NationalIDFragment :
                     imgNationalFronGone.visibility =View.VISIBLE
                     imgDeleteFront.visibility = View.GONE
                     btnCameraFront.isClickable = true
+                    IDCardCameraFragment.imageFront = ""
                     (parentFragment as IdTypeFragment).checkValidation()
                 }
 
@@ -50,6 +55,7 @@ class NationalIDFragment :
                     imgNationalBackGone.visibility =View.VISIBLE
                     imgDeleteBack.visibility = View.GONE
                     btnCameraBack.isClickable = true
+                    IDCardCameraFragment.imageBack = ""
                     (parentFragment as IdTypeFragment).checkValidation()
                 }
 
@@ -62,8 +68,12 @@ class NationalIDFragment :
     override fun onResume() {
         super.onResume()
         binding.apply {
-            if (!KYCPreferences().NATIONAL_ID_FRONT.isNullOrEmpty()) {
-                imgNationalFront.setImageURI(KYCPreferences().NATIONAL_ID_FRONT?.toUri())
+            if (IDCardCameraFragment.imageFront.isNotEmpty()) {
+                Glide.with(imgNationalFront)
+                    .asBitmap()
+                    .load(IDCardCameraFragment.imageFront)
+                    .into(imgNationalFront)
+//                imgNationalFront.setImageURI(KYCPreferences().NATIONAL_ID_FRONT?.toUri())
                  imgNationalFronGone.visibility =View.GONE
                 btnCameraFront.isClickable = false
                 imgLogoCameraFront.visibility = View.GONE
@@ -74,8 +84,14 @@ class NationalIDFragment :
                 imgDeleteFront.visibility = View.GONE
                 btnCameraFront.isClickable = true
             }
-            if (!KYCPreferences().NATIONAL_ID_BACK.isNullOrEmpty()) {
-                imgNationalBack.setImageURI(KYCPreferences().NATIONAL_ID_BACK?.toUri())
+
+
+            if (IDCardCameraFragment.imageBack.isNotEmpty()) {
+                Glide.with(imgNationalBack)
+                    .asBitmap()
+                    .load(IDCardCameraFragment.imageBack)
+                    .into(imgNationalBack)
+//                imgNationalBack.setImageURI(KYCPreferences().NATIONAL_ID_BACK?.toUri())
                 imgNationalBackGone.visibility =View.GONE
                 btnCameraBack.isClickable = false
                 imgLogoCameraBack.visibility = View.GONE
