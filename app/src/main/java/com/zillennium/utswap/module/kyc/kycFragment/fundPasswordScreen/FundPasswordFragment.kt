@@ -122,7 +122,7 @@ class FundPasswordFragment :
                     KYCPreferences().FUND_PASSWORD = editFundPassword.text.toString()
 
 
-                    KycInfor.truename = IDVerificationFragment.sureName + IDVerificationFragment.name
+                    KycInfor.truename = "${IDVerificationFragment.sureName} ${IDVerificationFragment.name}"
                     KycInfor.email = KYCPreferences().EMAIL.toString()
                     KycInfor.gender = if (IDVerificationFragment.gender == "Male") "M" else "F"
                     KycInfor.phonenumber = KYCPreferences().PHONE_NUMBER.toString()
@@ -366,29 +366,6 @@ class FundPasswordFragment :
                 progressBar.visibility = View.GONE
             }
             findNavController().navigate(R.id.action_to_contract_kyc_fragment)
-            activity?.finish()
-
-            IDVerificationFragment.apply {
-                provice = ""
-                district = ""
-                commune = ""
-                name = ""
-                sureName = ""
-                gender = ""
-                date = ""
-                houseNumber = ""
-                proCode = ""
-                disCode = ""
-                comCode = ""
-            }
-            IDCardCameraFragment.apply {
-                imageFront = ""
-                imageBack = ""
-            }
-            EmploymentInfoFragment.apply {
-                occupation = ""
-                company = ""
-            }
 
         }
     }

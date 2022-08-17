@@ -1,22 +1,19 @@
 package com.zillennium.utswap.screens.navbar.navbar
 
-import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Handler
 import android.util.Log
-import android.view.MenuItem
 import android.view.View.GONE
 import android.view.View.VISIBLE
-import android.view.animation.LinearInterpolator
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.core.graphics.alpha
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI.setupWithNavController
+import com.google.firebase.FirebaseApp
+import com.google.firebase.messaging.FirebaseMessaging
 import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
 import com.zillennium.utswap.Datas.StoredPreferences.KYCPreferences
 import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
@@ -26,7 +23,6 @@ import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityMainBinding
 import com.zillennium.utswap.models.userService.User
 import com.zillennium.utswap.module.kyc.kycActivity.KYCActivity
-import com.zillennium.utswap.module.kyc.kycFragment.fundPasswordScreen.FundPasswordFragment
 import com.zillennium.utswap.module.main.MainPresenter
 import com.zillennium.utswap.module.main.MainView
 import com.zillennium.utswap.module.main.home.HomeFragment
@@ -34,9 +30,6 @@ import com.zillennium.utswap.module.main.news.NewsFragment
 import com.zillennium.utswap.module.main.portfolio.PortfolioFragment
 import com.zillennium.utswap.module.main.trade.tradeScreen.TradeFragment
 import com.zillennium.utswap.module.security.securityActivity.signInScreen.SignInActivity
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import kotlin.time.toDuration
 
 
 class MainActivity :
@@ -56,10 +49,13 @@ class MainActivity :
     override fun initView() {
         super.initView()
         onSetUpNavBar()
+        FirebaseApp.initializeApp(this)
+        FirebaseMessaging.getInstance().token
         binding.layAuth.setOnClickListener {
             val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
             startActivityForResult(intent, 555)
         }
+        Toast.makeText(this, SessionPreferences().DEVICE_TOKEN, Toast.LENGTH_SHORT).show()
 
     }
 

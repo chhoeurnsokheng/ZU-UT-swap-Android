@@ -1,23 +1,31 @@
-package com.zillennium.utswap.utils
+package com.zillennium.utswap.module.notification
 
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
 import android.media.RingtoneManager
 import android.os.Build
+import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.text.HtmlCompat
+import com.gis.z1android.api.errorhandler.CallbackWrapper
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
+import com.zillennium.utswap.api.manager.ApiFinanceImp
+import com.zillennium.utswap.api.manager.ApiManager
+import com.zillennium.utswap.utils.MobileSetting
 import me.leolin.shortcutbadger.ShortcutBadger
 import java.util.*
 
 
-class MyFirebase : FirebaseMessagingService() {
+class MyFirebaseMessagingService : FirebaseMessagingService() {
+
 
     private val channelId = "com.zillennium.utswap"
 
@@ -32,6 +40,8 @@ class MyFirebase : FirebaseMessagingService() {
     }
 
     override fun onNewToken(token: String) {
+        Log.d("token", token)
+        SessionPreferences().DEVICE_TOKEN = token
     }
 
     private fun displayNotification(
@@ -83,7 +93,27 @@ class MyFirebase : FirebaseMessagingService() {
         val random = Random().nextInt(100)
         notificationManager.notify(random, incomingCallNotification)
 
+    }
+
+    fun sendTokenToServer(context: Context) {
+        val fToken = SessionPreferences().DEVICE_TOKEN
+        val param = HashMap<String, String>()
+        if (fToken?.isNotEmpty() == true) {
+            param["token"] = fToken
+            param["device_id"] = MobileSetting.getDeviceID(context).toString()
+        }
+//        ApiFinanceImp().postLockUpBalance(context, param).subscribe({
+//            Log.d( "success", it.toString() )
+//
+//        }, {
+//            object : CallbackWrapper(it, context, arrayListOf()) {
+//                override fun onCallbackWrapper(status: ApiManager.NetworkErrorStatus, data: Any) {
+//                }
+//            }
+//        })
 
 
     }
+
+
 }

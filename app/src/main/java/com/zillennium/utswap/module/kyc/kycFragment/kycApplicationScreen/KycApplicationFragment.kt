@@ -30,6 +30,7 @@ class KycApplicationFragment :
         try {
 
             binding.apply {
+//                tvFullName.text = "${IDVerificationFragment.sureName} ${IDVerificationFragment.name}"
                 status_kyc_submit = KYCPreferences().status_kyc_submit
                 status_kyc_approved = KYCPreferences().status_kyc_approved
                 imgBack.setOnClickListener {

@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:837131174251:android:6812ea6560e07e0afc4c2e",
         "android_client_info": {
-          "package_name": "com.zillennium.utswap"
+          "package_name": "com.zillennium.utswap.debug"
         }
       },
       "oauth_client": [
