@@ -37,8 +37,20 @@ class TradeAdapter(private var listener: Listener): BaseRecyclerViewAdapterGener
                txtLast.text = "$" + groupingSeparator(tradeList.last.toDouble())
                txtVolume.text = groupingSeparatorInt(tradeList.volume.toDouble())
 
-               if(position + 1 == items.size){
+               if (items.size == 1) {
                    viewLine.visibility = View.GONE
+               } else {
+                   when (position) {
+                       items.size - 1 -> {
+                           viewLine.visibility = View.GONE
+                       }
+                       0 -> {
+                           viewLine.visibility = View.VISIBLE
+                       }
+                       else -> {
+                           viewLine.visibility = View.VISIBLE
+                       }
+                   }
                }
 
                linearLayout.setOnClickListener {

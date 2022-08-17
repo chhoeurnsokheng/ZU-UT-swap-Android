@@ -12,11 +12,14 @@ class TradeView {
         override fun initView()
         //fun fetchTradingDataSuccess(data: String)
         var fetchTradeData: MutableLiveData<TradingList.TradingListRes>
+        fun onGetUpcomingProjectSuccess(data: TradingList.TradeUpComingProjectRes)
+        fun onGetUpcomingProjectFail(data: TradingList.TradeUpComingProjectRes)
     }
 
     interface Presenter : BaseMvpPresenter<View> {
         override fun initViewPresenter(context: Context, bundle: Bundle?)
         fun startSocketTrading()
         fun closeSocketTrading()
+        fun onGetUpcomingProject()
     }
 }

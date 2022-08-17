@@ -85,6 +85,9 @@ object ApiSettings {
     const val SEND_LIST_TRADE = "market_update_stream"
     const val  SEND_TRADE_MARKET_NAME = "trade_market_summary:"
 
+    /** Upcomming project in trading list screen*/
+    const val PATH_UPCOMING_PROJECT_TRADING_LIST = "trade/getUpcomingProject"
+
      /*Get Banner HomeScreen*/
     const val PATH_GET_BANNNER= "portfolio/app_banner"
     const val PATH_GET_HOME_WISHLIST_BALANCE ="portfolio/index"
