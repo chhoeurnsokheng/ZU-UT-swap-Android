@@ -1,6 +1,7 @@
 package com.zillennium.utswap.module.finance.depositScreen.depositBottomSheet
 
 import android.content.Context
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.text.Editable
@@ -22,9 +23,11 @@ import com.zillennium.utswap.api.manager.ApiDepositImp
 import com.zillennium.utswap.api.manager.ApiManager
 import com.zillennium.utswap.databinding.BottomSheetFinanceDepositPaymentBinding
 import com.zillennium.utswap.models.deposite.DepositObj
+import com.zillennium.utswap.module.finance.depositScreen.DepositActivity
 import com.zillennium.utswap.module.finance.depositScreen.OpenWebViewToComfirmPayment.DepositOpenLinkWebViewActivity
 import com.zillennium.utswap.utils.DecimalDigitsInputFilter
 import com.zillennium.utswap.utils.groupingSeparator
+import com.zillennium.utswap.utils.intentOtherApp
 import rx.Subscription
 
 
@@ -35,7 +38,9 @@ class BottomSheetFinanceDepositPayment: BottomSheetDialogFragment(), AdapterView
     var payment_method =""
     var coinname ="usd"
     var balance = ""
+    var fee = ""
     var typeOfCard =""
+    var payment_link =""
 
     override fun getTheme(): Int {
         return R.style.BottomSheetStyle
@@ -67,29 +72,39 @@ class BottomSheetFinanceDepositPayment: BottomSheetDialogFragment(), AdapterView
 
             nextBtnFinace.isEnabled = false
             nextBtnFinace.setOnClickListener {
+
                 var bodyObj = DepositObj.DepositRequestBody()
                 bodyObj.num = balance
                 bodyObj.type = typeOfCard
                 bodyObj.coinname = coinname
                 bodyObj.payment_method = payment_method
-                onDepositBalance(root.context, bodyObj)
 
-//                if(!etMountPayment.text.isNullOrEmpty()){
-//                    if(etMountPayment.text.toString().toLong() > 0){
-//                        when(arguments?.getString("titleCard")){
-//                            "ABA Pay" -> {
-//                                intentOtherApp(UTSwapApp.instance, "com.paygo24.ibank", "C102577521")
-//                            }
+               onDepositBalance(root.context, bodyObj)
+
+                if(!etMountPayment.text.isNullOrEmpty()){
+                    if(etMountPayment.text.toString().toLong() > 0){
+
+                        if (payment_link !=null){
+                            DepositOpenLinkWebViewActivity.launchDepositOpenLinkWebViewActivity(root.context,payment_link)
+                        }
+
+   /*                     when(arguments?.getString("titleCard")){
+                            "KESS PAY" -> {
+                                startActivity(Intent(root.context, DepositOpenLinkWebViewActivity::class.java))
+                              //  intentOtherApp(UTSwapApp.instance, "com.paygo24.ibank", "C102577521")
+                            }
 //                            "Acleda Bank" -> {
 //                                intentOtherApp(UTSwapApp.instance, "com.domain.acledabankqr", "C103006903")
 //                            }
 //                            "Sathapana" -> {
 //                                intentOtherApp(UTSwapApp.instance, "kh.com.sathapana.consumer", null)
 //                            }
-//                        }
-////                        dismiss()
-//                    }
-//                }
+                        }*/
+//                        dismiss()
+                    }
+                }
+
+
 
             }
 
@@ -103,6 +118,12 @@ class BottomSheetFinanceDepositPayment: BottomSheetDialogFragment(), AdapterView
             arguments?.getString("typeOfCard").let {
                 typeOfCard = it.toString()
             }
+//            arguments?.getString("totalBalance").let {
+//                  balance = it.toString()
+//            }
+//            arguments?.getString("fee").let {
+//                  fee = it.toString()
+//            }
 
             etMountPayment.filters = arrayOf<InputFilter>(DecimalDigitsInputFilter(10, 2))
             etMountPayment.requestFocus()
@@ -126,13 +147,14 @@ class BottomSheetFinanceDepositPayment: BottomSheetDialogFragment(), AdapterView
                         '0'.toString().toDouble()
                     }
 
-                    val fee = amount.toString().toDouble() * 0.01
-                    val total = amount.toString().toDouble() + fee
+                    val txtFeeValue = amount.toString().toDouble() * 0.01
+                    val total = amount.toString().toDouble() + txtFeeValue
 
                     tvAmount.text = "$${groupingSeparator(amount)}"
-                    tvFee.text = "$${groupingSeparator(fee)}"
+                    tvFee.text = "$${groupingSeparator(txtFeeValue)}"
                     tvTotal.text = "$${groupingSeparator(total)}"
                     balance = total.toString()
+                    fee = txtFeeValue.toString()
 
                     nextBtnFinace.apply {
                         if(amount > 0){
@@ -156,7 +178,7 @@ class BottomSheetFinanceDepositPayment: BottomSheetDialogFragment(), AdapterView
     }
 
     companion object{
-        fun newInstance(cardTitle: String?,cardImg: String?, bic:String? ): BottomSheetFinanceDepositPayment {
+        fun newInstance(cardTitle: String?,cardImg: String?, bic:String?): BottomSheetFinanceDepositPayment {
             val depositBottomSheetDialog = BottomSheetFinanceDepositPayment()
             val args = Bundle()
             if (cardImg != null) {
@@ -164,6 +186,9 @@ class BottomSheetFinanceDepositPayment: BottomSheetDialogFragment(), AdapterView
             }
             args.putString("titleCard", cardTitle)
             args.putString("typeOfCard",bic)
+//            args.putString("totalBalance",totalBalance)
+//            args.putString("fee",fee)
+
             depositBottomSheetDialog.arguments = args
             return depositBottomSheetDialog
         }
@@ -181,9 +206,8 @@ class BottomSheetFinanceDepositPayment: BottomSheetDialogFragment(), AdapterView
      fun onDepositBalance(context: Context, body: DepositObj.DepositRequestBody) {
         subscriptionOnDepositBalance?.unsubscribe()
         subscriptionOnDepositBalance = ApiDepositImp().depositMoney(context, body).subscribe({
-            if (it.status==1){
-                DepositOpenLinkWebViewActivity.launchDepositOpenLinkWebViewActivity(context,it.data?.payment_link)
-            }
+            payment_link = it.data?.payment_link.toString()
+
 
         }, { error ->
             object : CallbackWrapper(error, UTSwapApp.instance, arrayListOf()) {

@@ -16,7 +16,7 @@ import com.zillennium.utswap.module.finance.depositScreen.depositBottomSheet.Bot
 class DepositActivity :
     BaseMvpActivity<DepositView.View, DepositView.Presenter, ActivityFinanceDepositBinding>(),
     DepositView.View {
-    
+
     override var mPresenter: DepositView.Presenter = DepositPresenter()
     override val layoutResource: Int = R.layout.activity_finance_deposit
 
@@ -29,7 +29,7 @@ class DepositActivity :
     private val SECOND_ACTIVITY_REQUEST_CODE = 0
     private var imgCardVisa: String? = ""
     private var cardTitleVisa: String? = ""
-    private var typeOfCard:String? = ""
+    private var typeOfCard: String? = ""
 
     override fun initView() {
         super.initView()
@@ -48,7 +48,7 @@ class DepositActivity :
     override fun onGetListBankSuccess(data: DepositObj.DepositRes) {
         listBank = data.data
         binding.rvPayment.apply {
-            adapter = data.data?.let { DepositAdapter(it,onClickDeposit) }
+            adapter = data.data?.let { DepositAdapter(it, onClickDeposit) }
             layoutManager =
                 LinearLayoutManager(this@DepositActivity, LinearLayoutManager.VERTICAL, false)
         }
@@ -125,12 +125,14 @@ class DepositActivity :
 //            }
 //
 //        }
-            override fun ClickDepositCard(cardTitle: String?, cardImg: String?,bic:String?) {
+
+            override fun ClickDepositCard(cardTitle: String?, cardImg: String?, bic: String?) {
                 imgCardVisa= cardImg
                 typeOfCard= bic
-
                 val depositDailogPayment = BottomSheetFinanceDepositPayment.newInstance(cardTitle, cardImg,bic)
                 depositDailogPayment.show(this@DepositActivity.supportFragmentManager, "Deposit Dialog")
+//
+
             }
 
 
@@ -144,12 +146,14 @@ class DepositActivity :
             if (resultCode === RESULT_OK) {
                 val depositDailogPayment = BottomSheetFinanceDepositPayment.newInstance(
                     cardTitleVisa.toString(),
-                    imgCardVisa.toString(),typeOfCard.toString()
+                    imgCardVisa.toString(),
+                    typeOfCard.toString()
                 )
                 depositDailogPayment.show(
                     this@DepositActivity.supportFragmentManager,
                     "Deposit Dialog"
                 )
+
             }
         }
     }

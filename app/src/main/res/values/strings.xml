@@ -451,5 +451,6 @@
     <string name="phone_number_already_used">Phone Number Already Used!</string>
     <string name="verify_your_identity">Verify Your Identity > </string>
     <string name="n_a">N/A</string>
-
+    <string name="openWebView">OpenWebView</string>
+    <string name="deposit_review">Deposit Review</string>
 </resources>
