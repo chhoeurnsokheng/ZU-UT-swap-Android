@@ -19,6 +19,7 @@
     <color name="danger">#DD3636</color>
     <color name="warning">#E0AC19</color>
     <color name="info">#17a2b8</color>
+    <color name="blue_0D72E5">#0D72E5</color>
     <color name="light">#f8f9fa</color>
     <color name="dark">#343a40</color>
     <color name="bg_color">#EAEFF3</color>
@@ -37,6 +38,7 @@
     <color name="gray_light">#EEEEEE</color>
     <color name="gray_999999">#999999</color>
     <color name="gray_888888">#888888</color>
+    <color name="gray_CACACA">#CACACA</color>
     <color name="gray_E7E7E7">#E7E7E7</color>
     <color name="gray_F7F7F7">#F7F7F7</color>
     <color name="gray_707070">#707070</color>

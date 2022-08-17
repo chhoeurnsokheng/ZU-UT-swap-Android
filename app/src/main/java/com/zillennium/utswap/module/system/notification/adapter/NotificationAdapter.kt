@@ -1,71 +1,74 @@
 package com.zillennium.utswap.module.system.notification.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.TextView
-import androidx.recyclerview.widget.RecyclerView
+import androidx.core.content.ContextCompat
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.zillennium.utswap.R
-import com.zillennium.utswap.models.notification.Notification
+import com.zillennium.utswap.UTSwapApp
+import com.zillennium.utswap.bases.mvp.BaseRecyclerViewAdapterGeneric
+import com.zillennium.utswap.bases.mvp.BaseViewHolder
+import com.zillennium.utswap.databinding.ItemListSystemNotificationBinding
+import com.zillennium.utswap.models.notification.NotificationModel
+import com.zillennium.utswap.utils.Util.Companion.dpToPx
 import com.zillennium.utswap.utils.dpToPx
 
-class NotificationAdapter (
-    arrayList: ArrayList<Notification>,
-) :
-    RecyclerView.Adapter<NotificationAdapter.ViewHolder>() {
-    private var arrayList: ArrayList<Notification> = ArrayList()
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
-    ): ViewHolder {
-        val view: View = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_list_system_notification, parent, false)
-        return ViewHolder(
-            view
-        )
-    }
+class NotificationAdapter() :
+    BaseRecyclerViewAdapterGeneric<NotificationModel, NotificationAdapter.NotificationViewHolder>() {
 
-    override fun getItemCount(): Int {
-        return arrayList.size
-    }
+    private var arrayList: ArrayList<NotificationModel> = ArrayList()
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        internal val txtTitle: TextView = itemView.findViewById(R.id.txt_title)
-        internal val txtDescription: TextView = itemView.findViewById(R.id.txt_description)
-        internal val txtDuration: TextView = itemView.findViewById(R.id.txt_duration)
-        internal val line: View = itemView.findViewById(R.id.line)
-        internal val linearContainer: LinearLayout = itemView.findViewById(R.id.linear_container)
-    }
+    inner class NotificationViewHolder(root: ItemListSystemNotificationBinding) :
+        BaseViewHolder<ItemListSystemNotificationBinding>(root) {
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val notification: Notification = arrayList[position]
-
-        holder.txtTitle.text = notification.txtTitle
-        holder.txtDescription.text = notification.txtDescription
-        holder.txtDuration.text = notification.txtDuration
+        fun bindData(notificationModel: NotificationModel) {
+            binding.apply {
+                Glide.with(UTSwapApp.instance)
+                    .asBitmap()
+                    .load(notificationModel)
+                    .placeholder(R.drawable.ic_notification)
+                    .fitCenter()
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true)
+                    .into(icNotification)
+                txtTitle.text = notificationModel.txtTitle
+                txtTitleAnnouncement.text = notificationModel.txtTitleAnnouncement
+                txtDescription.text = notificationModel.txtDescription
+                txtDuration.text = notificationModel.txtDuration
 
 
-        if (arrayList.size == 1) {
-            holder.line.visibility = View.GONE
-        } else {
-            when (position) {
-                arrayList.size - 1 -> {
-                    holder.line.visibility = View.GONE
-                }
-                0 -> {
-                    holder.line.visibility = View.VISIBLE
-                    holder.linearContainer.setPadding(dpToPx(20), dpToPx(30), dpToPx(20), 0)
-                }
-                else -> {
-                    holder.line.visibility = View.VISIBLE
-                }
+//                if (arrayList.size == 1) {
+//                    line.visibility = View.GONE
+//                } else {
+//                    when (position) {
+//                        arrayList.size - 1 -> {
+//                            line.visibility = View.GONE
+//                        }
+//                        0 -> {
+//                            line.visibility = View.VISIBLE
+//                            linearContainer.setPadding(dpToPx(20), dpToPx(30), dpToPx(20), 0)
+//                        }
+//                        else -> {
+//                            line.visibility = View.VISIBLE
+//                        }
+//                    }
+//                }
             }
         }
+
     }
 
-    init {
-        this.arrayList = arrayList
+    override fun onCreateItemHolder(
+        inflater: LayoutInflater,
+        parent: ViewGroup,
+        viewType: Int
+    ) = NotificationViewHolder(ItemListSystemNotificationBinding.inflate(inflater, parent, false))
+
+    override fun onBindItemHolder(holder: NotificationViewHolder, position: Int, context: Context) {
+        holder.bindData(items[position])
     }
 
 }
