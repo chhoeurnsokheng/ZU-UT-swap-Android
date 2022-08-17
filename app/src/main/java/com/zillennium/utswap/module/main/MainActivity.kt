@@ -155,7 +155,7 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
         }
     }
 
-
+    //Waiting upload app to Store to config more
     fun UpdateApp() {
         val appUpdateManager = AppUpdateManagerFactory.create(this)
         val appUpdateInfoTask: com.google.android.play.core.tasks.Task<AppUpdateInfo> = appUpdateManager.appUpdateInfo
