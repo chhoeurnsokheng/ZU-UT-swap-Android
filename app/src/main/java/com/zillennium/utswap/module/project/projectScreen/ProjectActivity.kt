@@ -71,16 +71,20 @@ class ProjectActivity :
                 projectList.clear()
                 sortedDate = !sortedDate
                 if (sortedDate) {
+                    page = 1
                     sort = "desc"
+                    txtSort.text ="Latest"
                     imgLast.rotation = 180f
                     requestData()
-                //    binding.pgLoading.visibility = View.VISIBLE
+                    binding.pgLoading.visibility = View.VISIBLE
 
                 } else {
+                    page = 1
                     imgLast.rotation = 0f
                     sort = "asc"
+                    txtSort.text="Oldest"
                     requestData()
-                  //  binding.pgLoading.visibility = View.VISIBLE
+                    binding.pgLoading.visibility = View.VISIBLE
                 }
 
             }
@@ -159,6 +163,7 @@ class ProjectActivity :
 
             icSearch.setOnClickListener {
                 linearLayoutSearch.visibility = View.VISIBLE
+                etSearch.requestFocus()
             }
 
             txtCancel.setOnClickListener {

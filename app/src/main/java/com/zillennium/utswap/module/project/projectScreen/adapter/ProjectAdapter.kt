@@ -24,12 +24,18 @@ class ProjectAdapter(private var item: List<ProjectList.ProjectListData>) :
                     .into(imageView)
                 if (projectList.action == "Upcomming") {
                     txtStatus.visibility = View.VISIBLE
+                } else {
+                    txtStatus.visibility = View.GONE
                 }
                 titleProject.text = projectList.project_name
-                subTitle.text = projectList.action
+                subTitle.text = projectList.strategy
 
                 linearCard.setOnClickListener {
-                    ProjectInfoActivity.launchProjectInfoActivity(root.context, projectList.id,projectList.project_name)
+                    ProjectInfoActivity.launchProjectInfoActivity(
+                        root.context,
+                        projectList.id,
+                        projectList.project_name
+                    )
                 }
             }
         }
