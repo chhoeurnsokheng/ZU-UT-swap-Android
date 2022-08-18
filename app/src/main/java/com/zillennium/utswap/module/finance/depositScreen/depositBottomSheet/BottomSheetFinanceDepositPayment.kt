@@ -22,11 +22,9 @@ import com.zillennium.utswap.api.manager.ApiDepositImp
 import com.zillennium.utswap.api.manager.ApiManager
 import com.zillennium.utswap.databinding.BottomSheetFinanceDepositPaymentBinding
 import com.zillennium.utswap.models.deposite.DepositObj
-import com.zillennium.utswap.module.finance.depositScreen.DepositActivity
 import com.zillennium.utswap.module.finance.depositScreen.OpenWebViewToComfirmPayment.DepositOpenLinkWebViewActivity
 import com.zillennium.utswap.utils.DecimalDigitsInputFilter
 import com.zillennium.utswap.utils.groupingSeparator
-import com.zillennium.utswap.utils.intentOtherApp
 import rx.Subscription
 
 
@@ -72,7 +70,7 @@ class BottomSheetFinanceDepositPayment: BottomSheetDialogFragment(), AdapterView
                 bodyObj.num = balance
                 bodyObj.type = typeOfCard
                 bodyObj.coinname = coinname
-                bodyObj.device_type = "ANDROID"
+                bodyObj.deep_link = "ANDROID"
                 bodyObj.payment_method = payment_method
 
             onDepositBalance(root.context, bodyObj)
