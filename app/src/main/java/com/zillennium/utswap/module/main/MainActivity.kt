@@ -66,45 +66,7 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
                 this
             )
         }
-//        else{
-//          /*  DialogUtilKyc().customDialog(
-//                com.zillennium.utswap.R.drawable.ic_force_update,
-//                "New version available",
-//                "Looks like you have an older version of the app. Please update to get latest features and best experience.",
-//                "UPDATE NOW",
-//                object : DialogUtil.OnAlertDialogClick {
-//                    override fun onLabelCancelClick() {
-//                        val uri: Uri = Uri.parse(data.data!!.app_url?.android)
-//                        startActivity(Intent(Intent.ACTION_VIEW, uri))
-//                    }
-//                },
-//                this
-//            )*/
-//        }
 
-//
-//        val appUpdateManager = AppUpdateManagerFactory.create(this)
-//        val appUpdateInfoTask: com.google.android.play.core.tasks.Task<AppUpdateInfo> = appUpdateManager.appUpdateInfo
-//        // Checks that the platform will allow the specified type of update.
-//        appUpdateInfoTask.addOnSuccessListener { result: AppUpdateInfo ->
-//            /*if (result.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE) { }*/
-//            if (data.data?.app_url?.android?.isNotEmpty() == true){
-//                DialogUtilKyc().customDialog(
-//                    com.zillennium.utswap.R.drawable.ic_force_update,
-//                    "New version available",
-//                    "Looks like you have an older version of the app. Please update to get latest features and best experience.",
-//                    "UPDATE NOW",
-//                    object : DialogUtil.OnAlertDialogClick {
-//                        override fun onLabelCancelClick() {
-//                            val uri: Uri = Uri.parse(data.data!!.app_url?.android)
-//                            startActivity(Intent(Intent.ACTION_VIEW, uri))
-//                        }
-//                    },
-//                    this
-//                )
-//            }
-//
-//        }
     }
 
     override fun onGetForceUpdateFailed(data: String) {}
