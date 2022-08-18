@@ -25,7 +25,6 @@ class NotificationActivity :
 
         mPresenter.getCustomerSupport(UTSwapApp.instance)
         binding.apply {
-
             imgClose.setOnClickListener {
                 finish()
             }
@@ -40,6 +39,7 @@ class NotificationActivity :
             mList.clear()
 
             //notificationList.add(NotificationModel.NotificationListData())
+
             rvNotification.layoutManager = LinearLayoutManager(UTSwapApp.instance)
             val notificationAdapter = NotificationAdapter(object : NotificationAdapter.OnClickNotificationAdapter{
                 override fun clickNotification(action: String) {
@@ -50,11 +50,7 @@ class NotificationActivity :
 
             })
             mList.addAll(data.list ?: arrayListOf())
-
-
             notificationAdapter.items = mList
-//            notificationAdapter.items =
-//                notificationList as ArrayList<NotificationModel.NotificationListData>
             rvNotification.adapter = notificationAdapter
         }
     }
@@ -66,7 +62,7 @@ class NotificationActivity :
     override fun onDestroy() {
         super.onDestroy()
         notificationList.clear()
-        binding.rvNotification.adapter?.notifyDataSetChanged()
+//        binding.rvNotification.adapter?.notifyDataSetChanged()
         binding.unbind()
     }
 }
