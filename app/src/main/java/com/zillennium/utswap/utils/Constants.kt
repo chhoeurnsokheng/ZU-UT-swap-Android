@@ -477,4 +477,27 @@ interface Constants {
         }
     }
 
+    /** User Balance */
+    interface UserBalance {
+        companion object {
+            const val Deposit = "deposit"
+            const val Withdrawal = "withdraw"
+            const val Transfer = "transfer"
+            const val Trading = "trade"
+            const val Subscriptions = "subsciption"
+        }
+    }
+
+    interface UserBalanceIcon {
+        companion object {
+            const val BalanceDeposit = R.drawable.ic_balance_deposit
+            const val BalanceWithdrawal = R.drawable.ic_balance_withdraw
+            const val BalanceTransfer = R.drawable.ic_transfer
+            const val BalanceTrading = R.drawable.ic_trade
+            const val BalanceSubscriptions = R.drawable.ic_hourglass
+            const val BalanceTradeBuy = R.drawable.ic_money_out
+            const val BalanceTradeSell = R.drawable.ic_money_in
+        }
+    }
+
 }

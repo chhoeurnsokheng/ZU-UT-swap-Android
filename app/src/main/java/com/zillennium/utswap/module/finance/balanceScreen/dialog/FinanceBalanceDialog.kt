@@ -20,6 +20,7 @@ import androidx.fragment.app.DialogFragment
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.databinding.DialogFinanceBalanceBinding
+import com.zillennium.utswap.utils.UtilKt
 import eightbitlab.com.blurview.RenderScriptBlur
 import java.io.File
 import java.io.FileOutputStream
@@ -64,32 +65,27 @@ class FinanceBalanceDialog: DialogFragment() {
                 dismiss()
             }
 
-            val status = arguments?.getInt("status")
+            titleTransaction.text = arguments?.getString("title_transaction")
+            dateTransaction.text = arguments?.getString("date_transaction")
+            txtBalanceId.text = arguments?.getString("id_balance")
 
-            if (status == 1){
-                txtSymbol.visibility = View.GONE
-                txtMoneyType.text = "Money In"
-                txtDollar.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.success))
-                amountBalance.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.success))
-            }else{
-                txtSymbol.visibility = View.VISIBLE
+            val typeBalance = arguments?.getString("type_balance")
+
+            if (typeBalance == "2" || typeBalance == "4" || typeBalance == "SEND"){
                 txtMoneyType.text = "Money Out"
                 txtDollar.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
                 amountBalance.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
-            }
-
-            val length = arguments?.getDouble("amountBalance").toString().length
-
-            if ((arguments?.getDouble("amountBalance").toString()[0] == '-')) {
-                if (length > 1) {
-                    amountBalance.text = arguments?.getDouble("amountBalance").toString().substring(1, length)
-                }
             }else{
-                amountBalance.text = arguments?.getDouble("amountBalance").toString()
+                if (typeBalance == "5"){
+                    titleTransaction.text = arguments?.getString("subscriptRemark")
+                }
+                txtMoneyType.text = "Money In"
+                txtDollar.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.success))
+                amountBalance.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.success))
             }
 
-            titleTransaction.text = arguments?.getString("title_transaction")
-            dateTransaction.text = arguments?.getString("date_transaction")
+            amountBalance.text = arguments?.getDouble("amountBalance").toString().let { UtilKt().formatValue(it.toDouble(), "###,###.##") }
+            txtBalance.text = arguments?.getString("balance")?.let { UtilKt().formatValue(it.toDouble(), "###,###.##") }
 
             imgScreenShot.setOnClickListener {
                 val bitmap = getScreenShotFromView(view)
@@ -153,15 +149,24 @@ class FinanceBalanceDialog: DialogFragment() {
         fun newInstance(
         title: String?,
         date: String?,
-        amount: Double,
-        status: Int,
+        id: String?,
+        type: String?,
+        total: Double?,
+        balance: String?,
+        subscriptRemark: String?,
         ): FinanceBalanceDialog {
             val financeBalanceDialog = FinanceBalanceDialog()
             val args = Bundle()
             args.putString("title_transaction", title)
             args.putString("date_transaction", date)
-            args.putDouble("amountBalance", amount)
-            args.putInt("status", status)
+            args.putString("id_balance", id)
+            args.putString("type_balance", type)
+            if (total != null) {
+                args.putDouble("amountBalance", total)
+            }
+            args.putString("balance", balance)
+            args.putString("subscriptRemark", subscriptRemark)
+
             financeBalanceDialog.arguments = args
             return financeBalanceDialog
         }

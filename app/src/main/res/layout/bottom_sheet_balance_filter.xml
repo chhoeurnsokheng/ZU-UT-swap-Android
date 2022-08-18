@@ -34,6 +34,21 @@
                     android:text="@string/deposit"
                     android:textAppearance="@style/medium_16"
                     android:textColor="@color/black" />
+
+                <LinearLayout
+                    android:id="@+id/img_check_deposit"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="end"
+                    android:visibility="invisible">
+
+                    <ImageView
+                        android:layout_width="@dimen/dimen_20"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_baseline_check_24"
+                        app:tint="@color/primary" />
+                </LinearLayout>
+
             </LinearLayout>
 
             <View
@@ -62,6 +77,20 @@
                     android:text="@string/withdrawal"
                     android:textAppearance="@style/medium_16"
                     android:textColor="@color/black" />
+
+                <LinearLayout
+                    android:id="@+id/img_check_withdrawal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="end"
+                    android:visibility="invisible">
+
+                    <ImageView
+                        android:layout_width="@dimen/dimen_20"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_baseline_check_24"
+                        app:tint="@color/primary" />
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -92,6 +121,20 @@
                     android:textAppearance="@style/medium_16"
                     android:textColor="@color/black" />
 
+                <LinearLayout
+                    android:id="@+id/img_check_transfer"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="end"
+                    android:visibility="invisible">
+
+                    <ImageView
+                        android:layout_width="@dimen/dimen_20"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_baseline_check_24"
+                        app:tint="@color/primary" />
+                </LinearLayout>
+
             </LinearLayout>
 
             <View
@@ -121,6 +164,20 @@
                     android:textAppearance="@style/medium_16"
                     android:textColor="@color/black" />
 
+                <LinearLayout
+                    android:id="@+id/img_check_trading"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="end"
+                    android:visibility="invisible">
+
+                    <ImageView
+                        android:layout_width="@dimen/dimen_20"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_baseline_check_24"
+                        app:tint="@color/primary" />
+                </LinearLayout>
+
             </LinearLayout>
 
             <View
@@ -149,6 +206,20 @@
                     android:text="@string/subscriptions"
                     android:textAppearance="@style/medium_16"
                     android:textColor="@color/black" />
+
+                <LinearLayout
+                    android:id="@+id/img_check_subscriptions"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="end"
+                    android:visibility="invisible">
+
+                    <ImageView
+                        android:layout_width="@dimen/dimen_20"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_baseline_check_24"
+                        app:tint="@color/primary" />
+                </LinearLayout>
 
             </LinearLayout>
 

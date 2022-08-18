@@ -61,9 +61,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:gravity="start"
-                                android:text="Bought 29 UT New Airpot 38Ha @ 17.83"
                                 android:textAppearance="@style/medium_18"
-                                android:textColor="@color/black" />
+                                android:textColor="@color/black_0a0b12" />
 
                         </LinearLayout>
 
@@ -91,7 +90,7 @@
                                     android:layout_marginVertical="@dimen/dimen_10"
                                     android:text="@string/date"
                                     android:textAppearance="@style/regular_12"
-                                    android:textColor="@color/black_333333" />
+                                    android:textColor="@color/gray_888888" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -99,16 +98,15 @@
                                     android:layout_marginVertical="@dimen/dimen_10"
                                     android:text="@string/transaction_id"
                                     android:textAppearance="@style/regular_12"
-                                    android:textColor="@color/black_333333" />
+                                    android:textColor="@color/gray_888888" />
 
                                 <TextView
                                     android:id="@+id/txt_money_type"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginVertical="@dimen/dimen_10"
-                                    android:text="@string/money_out"
                                     android:textAppearance="@style/regular_12"
-                                    android:textColor="@color/black_333333" />
+                                    android:textColor="@color/gray_888888" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -116,7 +114,7 @@
                                     android:layout_marginVertical="@dimen/dimen_10"
                                     android:text="@string/balance"
                                     android:textAppearance="@style/regular_12"
-                                    android:textColor="@color/black_333333" />
+                                    android:textColor="@color/gray_888888" />
 
                             </LinearLayout>
 
@@ -132,31 +130,20 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginVertical="@dimen/dimen_10"
-                                    android:text="19-May-2022"
                                     android:textAppearance="@style/regular_12"
-                                    android:textColor="@color/black" />
+                                    android:textColor="@color/black_0a0b12" />
 
                                 <TextView
+                                    android:id="@+id/txt_balance_id"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginVertical="@dimen/dimen_10"
-                                    android:text="TR2203-1648192105941929"
                                     android:textAppearance="@style/regular_12"
-                                    android:textColor="@color/black" />
+                                    android:textColor="@color/black_0a0b12" />
 
                                 <LinearLayout
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content">
-
-                                    <TextView
-                                        android:id="@+id/txt_symbol"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginVertical="@dimen/dimen_10"
-                                        android:text="-"
-                                        android:visibility="gone"
-                                        android:textAppearance="@style/regular_12"
-                                        android:textColor="@color/danger" />
 
                                     <TextView
                                         android:id="@+id/txt_dollar"
@@ -172,19 +159,18 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_marginVertical="@dimen/dimen_10"
-                                        android:text="517.07"
                                         android:textAppearance="@style/regular_12"
                                         android:textColor="@color/danger" />
 
                                 </LinearLayout>
 
                                 <TextView
+                                    android:id="@+id/txt_balance"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginVertical="@dimen/dimen_10"
-                                    android:text="$6 320.31"
                                     android:textAppearance="@style/regular_12"
-                                    android:textColor="@color/black" />
+                                    android:textColor="@color/black_0a0b12" />
 
                             </LinearLayout>
 

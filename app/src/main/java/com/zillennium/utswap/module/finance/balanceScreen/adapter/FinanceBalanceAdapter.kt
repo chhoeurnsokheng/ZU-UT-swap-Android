@@ -1,71 +1,89 @@
 package com.zillennium.utswap.module.finance.balanceScreen.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.RecyclerView
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
-import com.zillennium.utswap.models.FinanceBalanceModel
+import com.zillennium.utswap.bases.mvp.BaseRecyclerViewAdapterGeneric
+import com.zillennium.utswap.bases.mvp.BaseViewHolder
+import com.zillennium.utswap.databinding.ItemListFinanceBalanceBinding
+import com.zillennium.utswap.models.financeBalance.BalanceFinance
+import com.zillennium.utswap.utils.Constants
+import com.zillennium.utswap.utils.UtilKt
 
-class FinanceBalanceAdapter (arrayList: ArrayList<FinanceBalanceModel>, onClickAdapter: OnClickAdapter):
-    RecyclerView.Adapter<FinanceBalanceAdapter.ViewHolder>() {
+class FinanceBalanceAdapter(onClickAdapter: OnClickAdapter): BaseRecyclerViewAdapterGeneric<BalanceFinance.GetBalanceSearchDateTransactionData, FinanceBalanceAdapter.ItemViewHolder>(){
 
-    private var listData: ArrayList<FinanceBalanceModel> = arrayList
     private val onClickAdapter: OnClickAdapter
 
-    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        var imageImageView: ImageView = view.findViewById<View>(R.id.image_balance) as ImageView
-        var titleTransaction: TextView = view.findViewById<View>(R.id.title_transaction) as TextView
-        var dateTransaction: TextView = view.findViewById<View>(R.id.date_transaction) as TextView
-        var amountBalance: TextView = view.findViewById<View>(R.id.amount_balance) as TextView
-        var layoutRecentNewsCard: LinearLayout = view.findViewById<View>(R.id.linear_balance) as LinearLayout
+    override fun onCreateItemHolder(
+        inflater: LayoutInflater,
+        parent: ViewGroup,
+        viewType: Int
+    ) = ItemViewHolder(ItemListFinanceBalanceBinding.inflate(inflater, parent, false))
+
+    override fun onBindItemHolder(
+        holder: FinanceBalanceAdapter.ItemViewHolder,
+        position: Int,
+        context: Context
+    ) {
+        holder.bidData(items[position])
     }
 
-    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(
-            LayoutInflater.from(viewGroup.context)
-                .inflate(R.layout.item_list_finance_balance, viewGroup, false)
-        )
-    }
+    inner class ItemViewHolder(root: ItemListFinanceBalanceBinding) : BaseViewHolder<ItemListFinanceBalanceBinding>(root) {
+        fun bidData(userBalanceTransaction: BalanceFinance.GetBalanceSearchDateTransactionData) {
+            binding.apply {
+                dateTransaction.text =  userBalanceTransaction.addtimeReadable
+                if (userBalanceTransaction.type == "1"){
+                    titleTransaction.text = userBalanceTransaction.remark
+                    amountBalance.text = "$" + userBalanceTransaction.total?.let { UtilKt().formatValue(it, "###,###.##") }
+                    amountBalance.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.success))
+                    imageBalance.setImageResource(Constants.UserBalanceIcon.BalanceTradeSell)
+                }else if (userBalanceTransaction.type == "2"){
+                    titleTransaction.text = userBalanceTransaction.remark
+                    amountBalance.text = "$" + userBalanceTransaction.total?.let { UtilKt().formatValue(it, "###,###.##") }
+                    amountBalance.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
+                    imageBalance.setImageResource(Constants.UserBalanceIcon.BalanceTradeBuy)
+                }else if (userBalanceTransaction.type == "3"){
+                    titleTransaction.text = userBalanceTransaction.remark
+                    amountBalance.text = "$" + userBalanceTransaction.total?.let { UtilKt().formatValue(it, "###,###.##") }
+                    amountBalance.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.success))
+                    imageBalance.setImageResource(Constants.UserBalanceIcon.BalanceDeposit)
+                }else if (userBalanceTransaction.type == "4"){
+                    titleTransaction.text = userBalanceTransaction.remark
+                    amountBalance.text = "$" + userBalanceTransaction.total?.let { UtilKt().formatValue(it, "###,###.##") }
+                    amountBalance.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
+                    imageBalance.setImageResource(Constants.UserBalanceIcon.BalanceWithdrawal)
+                }else if (userBalanceTransaction.type == "5"){
+                    titleTransaction.text = userBalanceTransaction.issue_name
+                    amountBalance.text = "$" + userBalanceTransaction.total?.let { UtilKt().formatValue(it, "###,###.##") }
+                    amountBalance.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.success))
+                    imageBalance.setImageResource(Constants.UserBalanceIcon.BalanceSubscriptions)
+                }else if (userBalanceTransaction.type == "RECEIVE"){
+                    titleTransaction.text = userBalanceTransaction.remark
+                    amountBalance.text = "$" + userBalanceTransaction.total?.let { UtilKt().formatValue(it, "###,###.##") }
+                    amountBalance.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.success))
+                    imageBalance.setImageResource(Constants.UserBalanceIcon.BalanceTransfer)
+                }else if (userBalanceTransaction.type == "SEND"){
+                    titleTransaction.text = userBalanceTransaction.remark
+                    amountBalance.text = "$" + userBalanceTransaction.total?.let { UtilKt().formatValue(it, "###,###.##") }
+                    amountBalance.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
+                    imageBalance.setImageResource(Constants.UserBalanceIcon.BalanceTransfer)
+                }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val financeBalanceList: FinanceBalanceModel = listData[position]
-        holder.imageImageView.setImageResource(financeBalanceList.imageBalance)
-        holder.titleTransaction.text = financeBalanceList.titleTransaction
-        holder.dateTransaction.text =   financeBalanceList.dateTransaction //"${DateFormatter.parse(financeBalanceList.dateTransaction,DateFormatter.DATE_FORMAT)}"
-        if(financeBalanceList.amountBalance < 0){
-            val length = financeBalanceList.amountBalance.toString().length
-            if ((financeBalanceList.amountBalance.toString()[0] == '-')) {
-                if (length > 1) {
-                    holder.amountBalance.text = "-$" + financeBalanceList.amountBalance.toString().substring(1, length)
+                linearBalance.setOnClickListener {
+                    onClickAdapter.onClickMe(userBalanceTransaction)
                 }
             }
-            holder.amountBalance.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.red_ee1111))
-        }else {
-            holder.amountBalance.text = "$" + financeBalanceList.amountBalance
-            holder.amountBalance.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.success))
         }
-        holder.layoutRecentNewsCard.setOnClickListener {
-            onClickAdapter.onClickMe(financeBalanceList)
-        }
-    }
-
-    override fun getItemCount(): Int {
-        val limit = 10
-        return Math.min(listData.size, limit)
     }
 
     interface OnClickAdapter{
-        fun onClickMe(financeBalanceModel: FinanceBalanceModel)
+        fun onClickMe(financeUserBalanceTransaction: BalanceFinance.GetBalanceSearchDateTransactionData)
     }
 
     init {
-        this.listData = arrayList
         this.onClickAdapter = onClickAdapter
     }
 }
