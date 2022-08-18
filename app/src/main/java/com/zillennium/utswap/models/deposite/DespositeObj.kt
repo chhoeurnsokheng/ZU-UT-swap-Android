@@ -54,5 +54,6 @@ object DepositObj {
         var num:String ? =null
         var coinname:String? =null
         var payment_method:String? = null
+        var device_type:String? = null
     }
 }

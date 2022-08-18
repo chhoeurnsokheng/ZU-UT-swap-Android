@@ -73,6 +73,7 @@ class BottomSheetFinanceDepositPayment: BottomSheetDialogFragment(), AdapterView
                 bodyObj.num = balance
                 bodyObj.type = typeOfCard
                 bodyObj.coinname = coinname
+                bodyObj.device_type = "ANDROID"
                 bodyObj.payment_method = payment_method
 
             onDepositBalance(root.context, bodyObj)
