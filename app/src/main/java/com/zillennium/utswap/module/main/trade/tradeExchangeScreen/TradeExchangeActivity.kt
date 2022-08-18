@@ -81,9 +81,11 @@ class TradeExchangeActivity :
             Constants.OrderBookTable.marketNameOrderBook = trade?.market_name.toString()
             context.startActivity(intent)
         }
-        fun launchTradeExchangeActivityFromWishList(context: Context, projectName: String?) {
+        fun launchTradeExchangeActivityFromWishList(context: Context, projectName: String?, marketName: String?,projectId: String?) {
             val intent = Intent(context, TradeExchangeActivity::class.java)
             intent.putExtra(Constants.TradeExchange.ProjectName, projectName)
+            intent.putExtra(Constants.TradeExchange.MarketName,marketName)
+            intent.putExtra(Constants.TradeExchange.ProjectId, projectId)
             context.startActivity(intent)
         }
     }
