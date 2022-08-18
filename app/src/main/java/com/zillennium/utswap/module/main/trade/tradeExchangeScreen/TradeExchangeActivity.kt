@@ -71,6 +71,7 @@ class TradeExchangeActivity :
     private var mBottomSheetBehavior: BottomSheetBehavior<*>? = null
 
     override var fetchTradeDetailData: MutableLiveData<TradingList.TradingListSummary> = MutableLiveData()
+    override var fetchTradeOrderBookTable: MutableLiveData<TradingList.TradeOrderBookTableRes> = MutableLiveData()
 
     companion object {
         fun launchTradeExchangeActivity(context: Context, trade: TradeModel?) {
@@ -78,6 +79,7 @@ class TradeExchangeActivity :
             intent.putExtra(Constants.TradeExchange.ProjectName, trade?.project_name)
             intent.putExtra(Constants.TradeExchange.MarketName, trade?.market_name)
             intent.putExtra(Constants.TradeExchange.ProjectId, trade?.project_id)
+            Constants.OrderBookTable.marketNameOrderBook = trade?.market_name.toString()
             context.startActivity(intent)
         }
         fun launchTradeExchangeActivityFromWishList(context: Context, projectName: String?) {
@@ -90,23 +92,28 @@ class TradeExchangeActivity :
     @SuppressLint("SetTextI18n")
     override fun initView() {
         super.initView()
+        //call API and web socket
+        Tovuti.from(UTSwapApp.instance).monitor{ _, isConnected, _ ->
+            if(isConnected)
+            {
+                mPresenter.onCheckKYCStatus()
+                //mPresenter.startTradeDetailSocket(intent?.getStringExtra(Constants.TradeExchange.MarketName).toString())
+                mPresenter.startTradeOrderBookTable(intent?.getStringExtra(Constants.TradeExchange.MarketName).toString())
+            }
+        }
+
         try {
             toolBar()
 
-            //call API and web socket
-            Tovuti.from(UTSwapApp.instance).monitor{ _, isConnected, _ ->
-                if(isConnected)
-                {
-                    mPresenter.onCheckKYCStatus()
-                    mPresenter.startTradeDetailSocket(intent?.getStringExtra(Constants.TradeExchange.MarketName).toString())
-                }
+            fetchTradeOrderBookTable.observe(this@TradeExchangeActivity){
+                println("===== table  ===")
             }
-
-            println("=====item watch list==="+ Constants.WatchList.itemWatchList.size)
 
             fetchTradeDetailData.observe(this@TradeExchangeActivity){
 
                 binding.apply {
+
+                    println("=== trade order book==="+it)
 
                     if(it.info?.new_price == false)
                     {

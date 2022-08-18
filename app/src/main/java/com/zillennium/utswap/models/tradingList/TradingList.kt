@@ -51,4 +51,14 @@ object TradingList {
         var project_name: String? = null
         var status: String? = null
     }
+
+    /** Trade Order Book Table*/
+    class TradeOrderBookTableRes{
+        var sell: ArrayList<List<Any>>? = arrayListOf()
+        var buy: ArrayList<List<Any>>? = arrayListOf()
+        var buyvol: String? = null
+        var sellvol: String? = null
+        var type: String? = null
+        var market: String? = null
+    }
 }

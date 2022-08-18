@@ -84,6 +84,7 @@ object ApiSettings {
     const val PATH_LIST_TRADE = "wsocket/"
     const val SEND_LIST_TRADE = "market_update_stream"
     const val  SEND_TRADE_MARKET_NAME = "trade_market_summary:"
+    const val SEND_TRADE_MARKET_ORDER_BOOK_TABLE = "market:"
 
     /** Upcomming project in trading list screen*/
     const val PATH_UPCOMING_PROJECT_TRADING_LIST = "trade/getUpcomingProject"

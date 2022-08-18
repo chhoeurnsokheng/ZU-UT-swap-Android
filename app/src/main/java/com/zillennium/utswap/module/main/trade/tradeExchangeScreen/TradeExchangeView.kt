@@ -14,6 +14,7 @@ class TradeExchangeView {
         fun onCheckKYCSuccess(data: User.KycRes)
         fun onCheckKYCFail()
         var fetchTradeDetailData: MutableLiveData<TradingList.TradingListSummary>
+        var fetchTradeOrderBookTable: MutableLiveData<TradingList.TradeOrderBookTableRes>
     }
 
     interface Presenter : BaseMvpPresenter<View> {
@@ -21,5 +22,7 @@ class TradeExchangeView {
         fun onCheckKYCStatus()
         fun startTradeDetailSocket(marketName: String?)
         fun closeTradeDetailSocket()
+        fun startTradeOrderBookTable(marketName: String?)
+        fun closeTradeOrderBookTable()
     }
 }

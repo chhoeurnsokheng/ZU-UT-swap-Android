@@ -464,18 +464,24 @@ interface Constants {
 
     interface TradeExchange {
         companion object {
-            const val ProjectName = "ProjectName"
-            const val Status_submit = "KYC"
-            const val ProjectNameToolBar = "ProjectName_toolBar"
-            const val MarketId = "MarketId"
-            const val MarketName="MarketName"
-            const val ProjectId = "ProjectId"
+            var ProjectName = "ProjectName"
+            var Status_submit = "KYC"
+            var ProjectNameToolBar = "ProjectName_toolBar"
+            var MarketId = "MarketId"
+            var MarketName="MarketName"
+            var ProjectId = "ProjectId"
         }
     }
     interface Project{
         companion object{
             const val ProjectName = "Project_Name"
             const val Project_Id = "id"
+        }
+    }
+
+    interface OrderBookTable{
+        companion object{
+            var marketNameOrderBook = ""
         }
     }
 
