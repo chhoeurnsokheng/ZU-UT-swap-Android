@@ -18,7 +18,6 @@ class TradeExchangePresenter : BaseMvpPresenterImpl<TradeExchangeView.View>(),
     TradeExchangeView.Presenter {
 
     private var subscription: Subscription? = null
-    private var subscriptionOrderBookTable: Subscription? = null
 
     override fun initViewPresenter(context: Context, bundle: Bundle?) {
         mBundle = bundle
@@ -89,40 +88,6 @@ class TradeExchangePresenter : BaseMvpPresenterImpl<TradeExchangeView.View>(),
     override fun closeTradeDetailSocket() {
         if(subscription!=null&&!subscription?.isUnsubscribed!!) {
             subscription?.unsubscribe()
-        }
-    }
-
-    //order book copy paste
-    override fun startTradeOrderBookTable(marketName: String?) {
-        subscriptionOrderBookTable = SocketManager().mTradeListOrderBookTable.subscribe(object : WSModel<TradingList.TradeOrderBookTableRes>(){
-            override fun onOpen(webSocket: WebSocket?) {
-                webSocket?.send(ApiSettings.SEND_TRADE_MARKET_ORDER_BOOK_TABLE+marketName.toString())
-            }
-            override fun onReconnect() {
-            }
-            override fun onClose() {
-                startTradeOrderBookTable(ApiSettings.SEND_TRADE_MARKET_ORDER_BOOK_TABLE+marketName.toString())
-            }
-
-            override fun onMessage(text: TradingList.TradeOrderBookTableRes?) {
-                mView?.fetchTradeOrderBookTable?.value = text
-            }
-
-            override fun onFailure(throwable: Throwable?) {
-                object : CallbackWrapper(throwable!!, UTSwapApp.instance, arrayListOf()){
-                    override fun onCallbackWrapper(status: ApiManager.NetworkErrorStatus, data: Any) {
-//                            mView?.onFail(data.toString())
-                    }
-                }
-                closeTradeOrderBookTable()
-            }
-
-        })
-    }
-
-    override fun closeTradeOrderBookTable() {
-        if(subscriptionOrderBookTable!=null && !subscriptionOrderBookTable?.isUnsubscribed!!){
-            subscriptionOrderBookTable?.unsubscribe()
         }
     }
 }

@@ -71,7 +71,6 @@ class TradeExchangeActivity :
     private var mBottomSheetBehavior: BottomSheetBehavior<*>? = null
 
     override var fetchTradeDetailData: MutableLiveData<TradingList.TradingListSummary> = MutableLiveData()
-    override var fetchTradeOrderBookTable: MutableLiveData<TradingList.TradeOrderBookTableRes> = MutableLiveData()
 
     companion object {
         fun launchTradeExchangeActivity(context: Context, trade: TradeModel?) {
@@ -97,17 +96,12 @@ class TradeExchangeActivity :
             if(isConnected)
             {
                 mPresenter.onCheckKYCStatus()
-                //mPresenter.startTradeDetailSocket(intent?.getStringExtra(Constants.TradeExchange.MarketName).toString())
-                mPresenter.startTradeOrderBookTable(intent?.getStringExtra(Constants.TradeExchange.MarketName).toString())
+                mPresenter.startTradeDetailSocket(intent?.getStringExtra(Constants.TradeExchange.MarketName).toString())
             }
         }
 
         try {
             toolBar()
-
-            fetchTradeOrderBookTable.observe(this@TradeExchangeActivity){
-                println("===== table  ===")
-            }
 
             fetchTradeDetailData.observe(this@TradeExchangeActivity){
 
