@@ -15,6 +15,7 @@ import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.google.android.play.core.appupdate.AppUpdateInfo
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
 import com.google.android.play.core.install.model.UpdateAvailability
+import com.zillennium.utswap.BuildConfig
 import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
@@ -50,7 +51,7 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
     }
 
     override fun onGetForceUpdateSuccess(data: ForceUpdate.ForceUpdateRes) {
-        if (data.data?.app_url?.android?.isNotEmpty() == true){
+        if (BuildConfig.VERSION_NAME <data.data?.version.toString()){
             DialogUtilKyc().customDialog(
                 com.zillennium.utswap.R.drawable.ic_force_update,
                 "New version available",
@@ -65,6 +66,21 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
                 this
             )
         }
+//        else{
+//          /*  DialogUtilKyc().customDialog(
+//                com.zillennium.utswap.R.drawable.ic_force_update,
+//                "New version available",
+//                "Looks like you have an older version of the app. Please update to get latest features and best experience.",
+//                "UPDATE NOW",
+//                object : DialogUtil.OnAlertDialogClick {
+//                    override fun onLabelCancelClick() {
+//                        val uri: Uri = Uri.parse(data.data!!.app_url?.android)
+//                        startActivity(Intent(Intent.ACTION_VIEW, uri))
+//                    }
+//                },
+//                this
+//            )*/
+//        }
 
 //
 //        val appUpdateManager = AppUpdateManagerFactory.create(this)
@@ -89,9 +105,6 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
 //            }
 //
 //        }
-
-
-
     }
 
     override fun onGetForceUpdateFailed(data: String) {}
@@ -166,15 +179,6 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
         }
     }
     }
-
-
-
-
-
-
-
-
-
 
 
     private fun onSetUpNavBar(){
