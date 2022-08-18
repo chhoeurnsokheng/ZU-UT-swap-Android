@@ -1,112 +1,64 @@
 package com.zillennium.utswap.module.finance.historicalScreen.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.TextView
-import androidx.recyclerview.widget.RecyclerView
 import com.zillennium.utswap.Datas.GlobalVariable.SettingVariable
-import com.zillennium.utswap.R
-import com.zillennium.utswap.models.financeHistorical.FinanceHistoricalFilterModel
+import com.zillennium.utswap.bases.mvp.BaseRecyclerViewAdapterGeneric
+import com.zillennium.utswap.bases.mvp.BaseViewHolder
+import com.zillennium.utswap.databinding.ItemListFinanceHistoricalFilterBinding
+import com.zillennium.utswap.models.financeHistorical.Historical
 
+class FinanceHistoricalFilterAdapter(private var onClickFilterHistory: OnClickFilterHistory): BaseRecyclerViewAdapterGeneric<Historical.GetMarketNameData, FinanceHistoricalFilterAdapter.ItemViewHolder>(){
 
-class FinanceHistoricalFilterAdapter(
-    arrayList: ArrayList<FinanceHistoricalFilterModel>,
-    onClickAdapter: OnClickAdapter
-) : RecyclerView.Adapter<FinanceHistoricalFilterAdapter.ViewHolder>() {
-
-    private var listData: ArrayList<FinanceHistoricalFilterModel> = arrayList
-    private var onClickAdapter: OnClickAdapter
-    private var currentSelectedIndex = -1
-
-    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-
-        var titleFilter: TextView = view.findViewById<View>(R.id.title_filter) as TextView
-        var line: View = view.findViewById(R.id.line) as View
-        var layIconCheck: LinearLayout = view.findViewById(R.id.lay_icon_check) as LinearLayout
-        var layoutFilter: LinearLayout = view.findViewById(R.id.layout_filter) as LinearLayout
-
-       /* fun bind(financeHistoricalFilterModel: FinanceHistoricalFilterModel, position: Int) {
-
-            if (financeHistoricalFilterModel.isCheck) {
-                layIconCheck.visibility = View.VISIBLE
-            } else {
-                layIconCheck.visibility = View.GONE
-            }
-            println("===============================")
-            println(financeHistoricalFilterModel.isCheck)
-
-            layoutFilter.setOnLongClickListener { (markSelectedItem(position)) }
-
-        }
-
-        @SuppressLint("NotifyDataSetChanged")
-        private fun markSelectedItem(index: Int): Boolean {
-            for (item in listData) {
-                item.isCheck = false
-            }
-
-            listData[index].isCheck = true
-            currentSelectedIndex = index
-            println("==================== mark Selected Item")
-            println(listData[index].isCheck)
-            notifyDataSetChanged()
-            return true
-        }*/
-
-    }
-
-    override fun onCreateViewHolder(
-        viewGroup: ViewGroup,
+    override fun onCreateItemHolder(
+        inflater: LayoutInflater,
+        parent: ViewGroup,
         viewType: Int
-    ): FinanceHistoricalFilterAdapter.ViewHolder {
-        return ViewHolder(
-            LayoutInflater.from(viewGroup.context)
-                .inflate(R.layout.item_list_finance_historical_filter, viewGroup, false)
-        )
+    ) = ItemViewHolder(ItemListFinanceHistoricalFilterBinding.inflate(inflater, parent, false))
+
+    override fun onBindItemHolder(
+        holder: FinanceHistoricalFilterAdapter.ItemViewHolder,
+        position: Int,
+        context: Context
+    ) {
+        holder.bidData(items[position])
     }
 
-    override fun onBindViewHolder(
-        holder: ViewHolder,
-        position: Int
-    ) {
-        val financeSubscriptionFilterList: FinanceHistoricalFilterModel = listData[position]
-        holder.titleFilter.text = financeSubscriptionFilterList.titleHistorical
-        if (listData.size == 1) {
-            holder.line.visibility = View.GONE
-        } else {
-            when (position) {
-                listData.size - 1 -> {
-                    holder.line.visibility = View.GONE
+    inner class ItemViewHolder(root: ItemListFinanceHistoricalFilterBinding): BaseViewHolder<ItemListFinanceHistoricalFilterBinding>(root)
+    {
+        fun bidData(history: Historical.GetMarketNameData){
+            binding.apply {
+                titleFilter.text = history.name
+                if (items.size == 1) {
+                    line.visibility = View.GONE
+                } else {
+                    when (position) {
+                        items.size - 1 -> {
+                            line.visibility = View.GONE
+                        }
+                        0 -> {
+                            line.visibility = View.VISIBLE
+                        }
+                        else -> {
+                            line.visibility = View.VISIBLE
+                        }
+                    }
                 }
-                0 -> {
-                    holder.line.visibility = View.VISIBLE
+
+                if(SettingVariable.finance_historical_filter.value == history.name){
+                    layIconCheckHistory.visibility = View.VISIBLE
                 }
-                else -> {
-                    holder.line.visibility = View.VISIBLE
+
+                layoutFilter.setOnClickListener {
+                    onClickFilterHistory.onClickMe(history)
                 }
             }
         }
-
-        if(SettingVariable.finance_historical_filter.value == financeSubscriptionFilterList.titleHistorical){
-            holder.layIconCheck.visibility = View.VISIBLE
-        }
-
-        holder.layoutFilter.setOnClickListener {
-            onClickAdapter.onClickMe(financeSubscriptionFilterList)
-        }
     }
 
-    override fun getItemCount(): Int {
-        return listData.size
-    }
-
-    interface OnClickAdapter {
-        fun onClickMe(financeHistoricalFilterModel: FinanceHistoricalFilterModel)
-    }
-
-    init {
-        this.onClickAdapter = onClickAdapter
+    interface OnClickFilterHistory {
+        fun onClickMe(financeHistoricalFilterModel: Historical.GetMarketNameData)
     }
 }

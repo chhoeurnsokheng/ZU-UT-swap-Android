@@ -158,7 +158,7 @@ class SignInFragment :
                     return@setOnClickListener
                 }
 
-                if (txtPassword.length < 6) {
+                if (txtPassword.length < 8) {
                     textInputPassword.backgroundTintList =
                         ColorStateList.valueOf(
                             ContextCompat.getColor(

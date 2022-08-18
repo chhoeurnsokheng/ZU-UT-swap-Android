@@ -9,6 +9,7 @@ import android.text.TextWatcher
 import android.view.*
 import android.widget.AdapterView
 import android.widget.DatePicker
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -18,13 +19,19 @@ import com.zillennium.utswap.databinding.BottomSheetFinanceHistoricalExportPdfBi
 import java.text.SimpleDateFormat
 import java.util.*
 
-class FinanceHistoricalExportFileBottomSheet : BottomSheetDialogFragment(),
+class FinanceHistoricalExportFileBottomSheet(
+    var listener: CallBackDateExportListener
+) : BottomSheetDialogFragment(),
     AdapterView.OnItemSelectedListener {
 
     private var binding: BottomSheetFinanceHistoricalExportPdfBinding? = null
 
     override fun getTheme(): Int {
         return R.style.BottomSheetStyle
+    }
+
+    interface CallBackDateExportListener {
+        fun onExportDate(startDateExport: String, endDateExport: String)
     }
 
     override fun onCreateView(
@@ -55,6 +62,8 @@ class FinanceHistoricalExportFileBottomSheet : BottomSheetDialogFragment(),
                 )
             )
 
+            buttonExport.isEnabled = false
+
             val calendar = Calendar.getInstance()
 
             val dateStart =
@@ -62,7 +71,7 @@ class FinanceHistoricalExportFileBottomSheet : BottomSheetDialogFragment(),
                     calendar[Calendar.YEAR] = year
                     calendar[Calendar.MONDAY] = month
                     calendar[Calendar.DAY_OF_MONTH] = day
-                    val format = "dd-MMMM-yyyy"
+                    val format = "dd-MMM-yyyy"
                     val simpleDateFormat =
                         SimpleDateFormat(format, Locale.US)
                     etStartDate.setText(simpleDateFormat.format(calendar.time))
@@ -73,7 +82,7 @@ class FinanceHistoricalExportFileBottomSheet : BottomSheetDialogFragment(),
                     calendar[Calendar.YEAR] = year
                     calendar[Calendar.MONDAY] = month
                     calendar[Calendar.DAY_OF_MONTH] = day
-                    val format = "dd-MMMM-yyyy"
+                    val format = "dd-MMM-yyyy"
                     val simpleDateFormat =
                         SimpleDateFormat(format, Locale.US)
                     etEndDate.setText(simpleDateFormat.format(calendar.time))
@@ -125,21 +134,23 @@ class FinanceHistoricalExportFileBottomSheet : BottomSheetDialogFragment(),
 
                 override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
-                override fun afterTextChanged(p0: Editable?) {}
+                override fun afterTextChanged(p0: Editable?) {
+                    if (etEndDate.text.toString() < etStartDate.text.toString()) {
+                        Toast.makeText(
+                            UTSwapApp.instance,
+                            "EndDate should be greater than StartDate",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }else{
+                        buttonExport.isEnabled = true
+                    }
+                }
             })
 
-            buttonExport.setOnClickListener {}
-        }
-    }
+            buttonExport.setOnClickListener {
 
-    companion object {
-        fun newInstance(
-        ): FinanceHistoricalExportFileBottomSheet {
-            val financeExportFileBottomSheet = FinanceHistoricalExportFileBottomSheet()
-            val args = Bundle()
-
-            financeExportFileBottomSheet.arguments = args
-            return financeExportFileBottomSheet
+                listener.onExportDate(etStartDate.text.toString(), etEndDate.text.toString())
+            }
         }
     }
 

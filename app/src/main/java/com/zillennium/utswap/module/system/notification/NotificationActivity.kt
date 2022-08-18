@@ -1,12 +1,15 @@
 package com.zillennium.utswap.module.system.notification
 
+import android.graphics.Typeface
+import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivitySystemNotificationBinding
 
-import com.zillennium.utswap.models.notification.Notification
+import com.zillennium.utswap.models.notification.NotificationModel
 import com.zillennium.utswap.module.system.notification.adapter.NotificationAdapter
 
 class NotificationActivity :
@@ -15,51 +18,62 @@ class NotificationActivity :
 
     override var mPresenter: NotificationView.Presenter = NotificationPresenter()
     override val layoutResource: Int = R.layout.activity_system_notification
+    private var mList: ArrayList<NotificationModel.NotificationListData> = arrayListOf()
 
-    private val notificationList = ArrayList<Notification>()
+    private val notificationList: ArrayList<NotificationModel.NotificationListData> = arrayListOf()
+    private var notificationAdapter: NotificationAdapter? = null
 
     override fun initView() {
         super.initView()
-        try {
-            binding.apply {
+        initToolBar()
+        mPresenter.getCustomerSupport(UTSwapApp.instance)
+        initRecyclerView()
+    }
 
-                imgClose.setOnClickListener{
-                    finish()
-                }
-
-                notificationList.add(Notification("Subscription","You have successfully subscribed to UT Pochentong 555...","1 hr(s) ago"))
-                notificationList.add(Notification("Server Maintenance","Attention all users, please be informed that both the UT Swap platform and the UT Swap mobile App will be temporarily disabled for maintenance purposes. Thank you.","5 hr(s) ago"))
-                notificationList.add(Notification("Trade Executed","Bought 100 UT Muk Kampul 16644 @ $1.29","2 day(s) ago"))
-                notificationList.add(Notification("Subscription","You have successfully subscribed to UT Pochentong 555...","2 day(s) ago"))
-                notificationList.add(Notification("New UT Alert","The new UT Chhroy Changvar is now available for subscription. Please refer to the UT Chhroy Changvar project page in order to check when your account class will be able to subscribe to the...","3 day(s) ago"))
-                notificationList.add(Notification("Subscription","You have successfully subscribed to UT Pochentong 555...","1 hr(s) ago"))
-                notificationList.add(Notification("Server Maintenance","Attention all users, please be informed that both the UT Swap platform and the UT Swap mobile App will be temporarily disabled for maintenance purposes. Thank you.","5 hr(s) ago"))
-                notificationList.add(Notification("Trade Executed","Bought 100 UT Muk Kampul 16644 @ $1.29","2 day(s) ago"))
-                notificationList.add(Notification("Subscription","You have successfully subscribed to UT Pochentong 555...","2 day(s) ago"))
-                notificationList.add(Notification("Subscription","You have successfully subscribed to UT Pochentong 555...","1 hr(s) ago"))
-                notificationList.add(Notification("Server Maintenance","Attention all users, please be informed that both the UT Swap platform and the UT Swap mobile App will be temporarily disabled for maintenance purposes. Thank you.","5 hr(s) ago"))
-                notificationList.add(Notification("Trade Executed","Bought 100 UT Muk Kampul 16644 @ $1.29","2 day(s) ago"))
-
-
-                val linearLayoutManager = LinearLayoutManager(UTSwapApp.instance)
-                rvNotification.layoutManager = linearLayoutManager
-                val notificationAdapter = NotificationAdapter(
-                    notificationList
-                )
-                rvNotification.adapter = notificationAdapter
-
+    private fun initToolBar() {
+        setSupportActionBar(binding.toolBar.tb)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_back_black)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        binding.toolBar.apply {
+            tbTitle.setText(R.string.notifications)
+            tbTitle.typeface = Typeface.DEFAULT_BOLD
+            tbTitle.setTextColor(ContextCompat.getColor(this@NotificationActivity, R.color.black))
+            tb.setNavigationOnClickListener {
+                finish()
             }
-        } catch (error: Exception) {
-            // Must be safe
+
+
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        notificationList.clear()
-        binding.rvNotification.adapter?.notifyDataSetChanged()
-        binding.unbind()
+    override fun onNotificationSuccess(data: NotificationModel.NotificationData) {
+        binding.apply {
+            mList.clear()
+            rvNotification.layoutManager = LinearLayoutManager(UTSwapApp.instance)
+            mList.addAll(data.list ?: arrayListOf())
+            rlProgressBar.visibility = View.GONE
+        }
+    }
+
+    override fun onNotificationFail(data: NotificationModel.NotificationRes) {
+
+    }
+
+    private fun initRecyclerView() {
+        binding.apply {
+             notificationAdapter = NotificationAdapter(object : NotificationAdapter.OnClickNotificationAdapter{
+                override fun clickNotification(action: String) {
+                }
+            })
+            rvNotification.layoutManager = LinearLayoutManager(this@NotificationActivity)
+            notificationAdapter?.items = mList
+            rvNotification.adapter = notificationAdapter
+
+        }
     }
 
 
-}
+
+    }
+

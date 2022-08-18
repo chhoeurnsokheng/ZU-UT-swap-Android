@@ -1,46 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/layout_notification"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:layout_height="118dp"
+        android:background="@color/notification_unread"
         android:paddingHorizontal="@dimen/dimen_20"
-        android:layout_marginBottom="@dimen/dimen_8"
-        android:id="@+id/linear_container">
+        android:paddingTop="@dimen/dimen_20">
 
-        <TextView
-            android:id="@+id/txt_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/subscription"
-            android:textAppearance="@style/medium_14"
-            android:layout_marginBottom="@dimen/dimen_8"
-            android:textColor="@color/black_000000"/>
-
-        <TextView
-            android:id="@+id/txt_description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/dimen_8"
-            android:maxLines="3"
-            android:textColor="@color/black_333333"
-            android:textAppearance="@style/regular_12"
-            android:text="You have successfully subscribed to UT Pochentong 555..."/>
-
-        <TextView
-            android:id="@+id/txt_duration"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="1 hr(s) ago"
-            android:layout_marginBottom="@dimen/dimen_8"
-            android:textAppearance="@style/regular_10"
-            android:textColor="@color/dark_gray"/>
-
-        <View
-            android:id="@+id/line"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dimen_1"
-            android:background="@color/light_gray"/>
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-    </LinearLayout>
+            <ImageView
+                android:id="@+id/ic_notification"
+                android:layout_width="@dimen/dimen_24"
+                android:layout_height="@dimen/dimen_24"
+                android:layout_gravity="center_vertical|top"
+                android:layout_marginTop="@dimen/dimen_2"
+                android:src="@drawable/ic_notification" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/dimen_20"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txt_title_announcement"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Z1 Member Ship Announcement"
+                    android:textAppearance="@style/bold_14"
+                    android:textColor="@color/black_000000" />
+
+                <TextView
+                    android:id="@+id/txt_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_8"
+                    android:layout_marginBottom="@dimen/dimen_8"
+                    android:maxLines="3"
+                    android:text="You have successfully subscribed to UT \n Pochentong 555"
+                    android:textAppearance="@style/regular_12"
+                    android:textColor="@color/black_000000" />
+
+                <TextView
+                    android:id="@+id/txt_duration"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1 hr(s) ago"
+                    android:textAppearance="@style/regular_12"
+                    android:textColor="@color/gray_CACACA" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </RelativeLayout>
 </layout>

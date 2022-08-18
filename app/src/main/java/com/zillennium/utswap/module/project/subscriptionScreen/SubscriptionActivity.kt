@@ -37,9 +37,9 @@ class SubscriptionActivity :
                         onCheckSessionStatusAndKYC()
                     }
 
-                    SessionVariable.SESSION_KYC.observe(this@SubscriptionActivity){
-                        onCheckSessionStatusAndKYC()
-                    }
+                SessionVariable.SESSION_KYC.observe(this@SubscriptionActivity){
+                    onCheckSessionStatusAndKYC()
+                }
 
                     /* Recycle view of project info detail */
                     val tvTitle = arrayOf(
@@ -71,6 +71,11 @@ class SubscriptionActivity :
                         99000000
                     )
 
+                if(SessionVariable.SESSION_STATUS.value  == true && kycComplete == true){
+                    recycleViewProject.alpha = 1F
+                } else{
+                    recycleViewProject.alpha = 0.6F
+                }
                     val subscriptionArrayList = arrayListOf<SubscriptionModel>()
                     for (i in tvTitle.indices) {
                         val subscriptionInfo = SubscriptionModel(
@@ -85,7 +90,7 @@ class SubscriptionActivity :
                     recycleViewProject.layoutManager = LinearLayoutManager(UTSwapApp.instance)
                     recycleViewProject.adapter = SubscriptionAdapter(subscriptionArrayList, onclickAdapter)
 
-                    if(SessionVariable.SESSION_STATUS.value  == true && SessionVariable.SESSION_STATUS.value  == true){
+                    if(SessionVariable.SESSION_STATUS.value  == true && kycComplete == true){
                         recycleViewProject.alpha = 1F
                     } else{
                         recycleViewProject.alpha = 0.6F
