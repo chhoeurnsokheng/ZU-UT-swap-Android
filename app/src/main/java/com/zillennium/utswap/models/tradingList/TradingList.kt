@@ -11,6 +11,8 @@ object TradingList {
         var url: ArrayList<List<Any>>? = arrayListOf()
     }
 
+    /** Trade Detail*/
+
     class TradingListDetailRes{
         var market_summary: TradingListSummary? = null
     }
@@ -28,5 +30,22 @@ object TradingList {
         var sell_price: String? = null
         var volume: String? = null
         var change: String? = null
+    }
+
+    /** Upcoming project trading list*/
+    class TradeUpComingProjectRes{
+        var status: Int? = null
+        var message: String? = null
+        var data: TradeUpComingProjectData? = null
+    }
+
+    class TradeUpComingProjectData{
+        var project: List<TradeUpComingProjectList>? = null
+    }
+
+    class TradeUpComingProjectList{
+        var id: String? = null
+        var project_name: String? = null
+        var status: String? = null
     }
 }

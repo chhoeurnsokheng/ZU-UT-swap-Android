@@ -1,7 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="main_company">Zillion United Co.,Ltd.</string>
     <string name="app_name">UT Swap</string>
-    <string name="project">Project</string>
+    <string name="project">Projects</string>
     <string name="trade">Trade</string>
     <string name="forgot_password">Forget Password</string>
     <string name="sign_in">Sign In</string>
@@ -164,6 +164,7 @@
     <string name="resend">Resend</string>
     <string name="back">Back</string>
     <string name="subscribe">Subscribe</string>
+    <string name="upcoming">Upcoming</string>
     <string name="my_wallet">My Wallet</string>
     <string name="no_record">No record</string>
     <string name="more">More</string>
@@ -456,6 +457,11 @@
     <string name="phone_number_already_used">Phone Number Already Used!</string>
     <string name="verify_your_identity">Verify Your Identity > </string>
     <string name="n_a">N/A</string>
+
+    <string name="openWebView">OpenWebView</string>
+    <string name="deposit_review">Deposit Review</string>
+
+
 
 
 </resources>

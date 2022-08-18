@@ -4,17 +4,16 @@
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
+        android:layout_height="wrap_content">
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/dimen_10"
+            android:layout_marginBottom="@dimen/dimen_20"
             android:elevation="@dimen/dimen_16"
-            app:cardElevation="@dimen/dimen_8"
             app:cardCornerRadius="@dimen/dimen_8"
-            android:layout_marginBottom="@dimen/dimen_20">
+            app:cardElevation="@dimen/dimen_8">
 
             <LinearLayout
                 android:id="@+id/linear_card"
@@ -42,12 +41,12 @@
                         android:layout_alignBottom="@+id/image_view"
                         android:background="@color/warning"
                         android:gravity="center"
-                        android:visibility="gone"
-                        android:text="Upcoming"
                         android:paddingHorizontal="@dimen/dimen_10"
                         android:paddingVertical="@dimen/dimen_4"
+                        android:text="Upcoming"
                         android:textAppearance="@style/medium_10"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/white"
+                        android:visibility="gone" />
 
                 </RelativeLayout>
 
@@ -81,9 +80,9 @@
                     android:paddingHorizontal="@dimen/dimen_10"
                     android:singleLine="true"
                     android:text="1/1/2022"
-                    android:visibility="gone"
                     android:textAppearance="@style/medium_12"
-                    android:textColor="@color/primary" />
+                    android:textColor="@color/primary"
+                    android:visibility="gone" />
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
