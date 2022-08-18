@@ -114,7 +114,7 @@ class DialogUtilKyc {
                 ivIcon.setImageResource(icon)
                 tvCancel.setOnClickListener {
                     onAlertDialogClick.onLabelCancelClick()
-                    builder.dismiss()
+
                 }
 
             }
