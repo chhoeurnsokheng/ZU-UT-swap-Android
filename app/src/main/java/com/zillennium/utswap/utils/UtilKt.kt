@@ -35,8 +35,6 @@ class UtilKt {
         }
     }
 
-    private val DECIMAL_FORMAT = "###,###.#"
-
     fun formatValue(value: Number, formatString: String): String? {
         val formatSymbols = DecimalFormatSymbols(Locale.ENGLISH)
         formatSymbols.decimalSeparator = '.'

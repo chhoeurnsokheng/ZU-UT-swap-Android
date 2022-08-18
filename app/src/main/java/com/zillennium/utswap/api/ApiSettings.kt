@@ -105,4 +105,9 @@ object ApiSettings {
     /** Trade Create Order*/
     const val PATH_TRADE_CREATE_ORDER = "trade/upTrade"
 
+    /*Desposite Money*/
+
+    const val PATH_LIST_PAYMENT_METHOD = "finance/listAvailableBank"
+    const val PATH_ONLINE_DEPOSIT      ="finance/onlineMyczUp"
+    const val PATH_FINANCE_TRANSFER_LOGS ="finance/outlog_transfer"
 }
