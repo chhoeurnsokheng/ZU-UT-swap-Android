@@ -96,4 +96,10 @@ object ApiSettings {
     /** Account Upload Profile*/
     const val PATH_ACCOUNT_UPLOAD_PROFILE = "user/uploadImageProfile"
 
+    /** Check favorite project in trade*/
+    const val PATH_CHECK_FAVORITE_PROJECT_TRADE = "trade/checkWatchList"
+
+    /** Add Favorite Project*/
+    const val PATH_ADD_FAVORITE_PROJECT = "trade/addFavorite"
+
 }

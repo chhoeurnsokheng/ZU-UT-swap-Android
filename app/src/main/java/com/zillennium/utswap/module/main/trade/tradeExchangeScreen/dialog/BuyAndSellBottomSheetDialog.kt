@@ -21,6 +21,8 @@ class BuyAndSellBottomSheetDialog(var onDismissListener: OnDismissListener) :
     BottomSheetDialogFragment() {
 
     private var binding: BottomSheetExchangeBuySellBinding? = null
+    private var txtPrice: String? = ""
+    private var txtVolume: String? = ""
 
     override fun getTheme(): Int {
         return R.style.BottomSheetStyle
@@ -155,6 +157,13 @@ class BuyAndSellBottomSheetDialog(var onDismissListener: OnDismissListener) :
                         UTSwapApp.instance,
                         R.drawable.outline_edittext_change_color_focus
                     )
+
+                    if(etVolume.text.toString().isNotEmpty() && etPriceOfVolume.text.toString().isNotEmpty())
+                    {
+                        val price = etVolume.text.toString().toInt() * etPriceOfVolume.text.toString().toDouble()
+                        txtPriceBuy.text = price.toString()
+                        txtPriceSell.text = price.toString()
+                    }
                 }
 
                 override fun afterTextChanged(p0: Editable?) {
@@ -172,6 +181,13 @@ class BuyAndSellBottomSheetDialog(var onDismissListener: OnDismissListener) :
                         UTSwapApp.instance,
                         R.drawable.outline_edittext_change_color_focus
                     )
+
+                    if(etVolume.text.toString().isNotEmpty() && etPriceOfVolume.text.toString().isNotEmpty())
+                    {
+                        val price = etVolume.text.toString().toInt() * etPriceOfVolume.text.toString().toDouble()
+                        txtPriceBuy.text = price.toString()
+                        txtPriceSell.text = price.toString()
+                    }
                 }
 
                 override fun afterTextChanged(p0: Editable?) {

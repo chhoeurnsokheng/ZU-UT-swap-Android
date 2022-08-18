@@ -65,7 +65,7 @@ class TradeExchangeActivity :
     private var kycComplete: Boolean? = false
 
     val NUM_PAGES_TABLE = 3
-    var remember: Boolean = true
+    var remember: Boolean? = null
 
     var click = true
     private var mBottomSheetBehavior: BottomSheetBehavior<*>? = null
@@ -97,6 +97,7 @@ class TradeExchangeActivity :
             {
                 mPresenter.onCheckKYCStatus()
                 mPresenter.startTradeDetailSocket(intent?.getStringExtra(Constants.TradeExchange.MarketName).toString())
+                mPresenter.onCheckFavoriteProject(TradingList.TradeFavoriteProjectObj(intent?.getStringExtra(Constants.TradeExchange.ProjectId).toString().toInt()),UTSwapApp.instance)
             }
         }
 
@@ -217,21 +218,22 @@ class TradeExchangeActivity :
 
                 //add to favorite
                 includeLayout.imgRemember.setOnClickListener {
-                    remember = !remember
-                    if (remember) {
-                        includeLayout.imgRemember.imageTintList = ColorStateList.valueOf(
-                            ContextCompat.getColor(
-                                UTSwapApp.instance,
-                                R.color.warning
-                            )
-                        )
-                    } else {
+                    if (remember == true) {
                         includeLayout.imgRemember.imageTintList = ColorStateList.valueOf(
                             ContextCompat.getColor(
                                 UTSwapApp.instance,
                                 R.color.dark_gray
                             )
                         )
+                        mPresenter.addFavoriteProject(TradingList.TradeAddFavoriteObj(0,intent?.getStringExtra(Constants.TradeExchange.ProjectId).toString().toInt()),UTSwapApp.instance)
+                    } else {
+                        includeLayout.imgRemember.imageTintList = ColorStateList.valueOf(
+                            ContextCompat.getColor(
+                                UTSwapApp.instance,
+                                R.color.warning
+                            )
+                        )
+                        mPresenter.addFavoriteProject(TradingList.TradeAddFavoriteObj(1,intent?.getStringExtra(Constants.TradeExchange.ProjectId).toString().toInt()),UTSwapApp.instance)
                     }
                 }
 
@@ -676,6 +678,41 @@ class TradeExchangeActivity :
 
             }
         }
+    }
+
+    override fun onCheckFavoriteProjectSuccess(data: TradingList.TradeFavoriteProjectRes) {
+        binding.apply {
+            if(data.data?.is_favorite == true)
+            {
+                includeLayout.imgRemember.imageTintList = ColorStateList.valueOf(
+                    ContextCompat.getColor(
+                        UTSwapApp.instance,
+                        R.color.warning
+                    )
+                )
+                remember = true
+            }else{
+                includeLayout.imgRemember.imageTintList = ColorStateList.valueOf(
+                    ContextCompat.getColor(
+                        UTSwapApp.instance,
+                        R.color.dark_gray
+                    )
+                )
+                remember = false
+            }
+        }
+    }
+
+    override fun onCheckFavoriteProjectFail(data: TradingList.TradeFavoriteProjectRes) {
+
+    }
+
+    override fun addFavoriteProjectSuccess(data: TradingList.TradeAddFavoriteRes) {
+
+    }
+
+    override fun addFavoriteProjectFail(data: TradingList.TradeAddFavoriteRes) {
+
     }
 
     private fun onChangeTabs(view: View) {

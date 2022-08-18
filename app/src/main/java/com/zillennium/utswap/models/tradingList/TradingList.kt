@@ -61,4 +61,35 @@ object TradingList {
         var type: String? = null
         var market: String? = null
     }
+
+    /** Check Favorite Project in Trade*/
+    class TradeFavoriteProjectRes{
+        var status: Int? = null
+        var message: String? = null
+        var data: TradeFavoriteProjectData? = null
+    }
+
+    class TradeFavoriteProjectData{
+        var is_favorite: Boolean? = null
+    }
+    
+    class TradeFavoriteProjectObj(
+        var issue_id: Int
+    )
+
+    /** Add Favorite Project*/
+    class TradeAddFavoriteObj(
+        var add_fav: Int,
+        var issue_id: Int
+    )
+
+    class TradeAddFavoriteRes{
+        var status: Int? = null
+        var message: String? = null
+        var data: TradeAddFavoriteData? = null
+    }
+
+    class TradeAddFavoriteData{
+
+    }
 }
