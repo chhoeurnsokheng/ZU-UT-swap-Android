@@ -1,47 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <LinearLayout
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <RelativeLayout
-            android:id="@+id/lay_header"
+        <include
+            android:id="@+id/tool_bar"
+            layout="@layout/appbar_layout" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_notification"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dimen_60"
-            android:background="@color/primary">
+            android:layout_height="match_parent"
+            android:layout_below="@+id/tool_bar"
+            android:clipToPadding="false"
+            android:overScrollMode="never"
+            android:scrollbars="none" />
 
-            <ImageView
-                android:id="@+id/img_close"
-                android:layout_width="@dimen/dimen_60"
-                android:layout_height="@dimen/dimen_60"
-                android:layout_centerVertical="true"
-                android:padding="@dimen/dimen_16"
-                android:src="@drawable/ic_arrow_left"
-                app:tint="@color/white" />
+        <RelativeLayout
+            android:id="@+id/rl_progress_bar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/tool_bar"
+            android:background="@color/ripple_color"
+            android:clickable="true"
+            android:focusable="true">
 
-            <TextView
-                android:id="@+id/title"
+            <ProgressBar
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:gravity="center"
-                android:text="@string/notifications"
-                android:textAlignment="center"
-                android:textAppearance="@style/medium_21"
-                android:textColor="@color/white" />
+                android:layout_centerInParent="true" />
 
         </RelativeLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbars="none"
-            android:overScrollMode="never"
-            android:id="@+id/rv_notification"
-            android:paddingTop="@dimen/dimen_20"
-            android:clipToPadding="false"/>
-
-    </LinearLayout>
+    </RelativeLayout>
 </layout>

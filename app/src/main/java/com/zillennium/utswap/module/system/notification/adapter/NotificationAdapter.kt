@@ -3,6 +3,7 @@ package com.zillennium.utswap.module.system.notification.adapter
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
@@ -14,6 +15,7 @@ import com.zillennium.utswap.bases.mvp.BaseRecyclerViewAdapterGeneric
 import com.zillennium.utswap.databinding.ItemEarlierTitleBinding
 import com.zillennium.utswap.databinding.ItemListSystemNotificationBinding
 import com.zillennium.utswap.models.notification.NotificationModel
+import com.zillennium.utswap.utils.dpToPx
 
 class NotificationAdapter() :
     BaseRecyclerViewAdapterGeneric<NotificationModel.NotificationListData, NotificationAdapter.NotificationViewHolder>() {
@@ -27,7 +29,7 @@ class NotificationAdapter() :
     inner class NotificationViewHolder(var rootView: ViewDataBinding) :
         RecyclerView.ViewHolder(rootView.root) {
 
-        fun bindItem(notificationModel: NotificationModel.NotificationListData) {
+        fun bindItem(notificationModel: NotificationModel.NotificationListData, position: Int) {
             rootView.apply {
                 this as ItemListSystemNotificationBinding
                 Glide.with(UTSwapApp.instance)
@@ -38,11 +40,22 @@ class NotificationAdapter() :
                     .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .skipMemoryCache(true)
                     .into(icNotification)
-//                txtTitle.text = notificationModel.action_title
                 txtTitleAnnouncement.text = notificationModel.action_title
                 txtDescription.text = notificationModel.body
                 txtDuration.text = notificationModel.sent_time
+
+                if (position == items.lastIndex) {
+                    layoutNotification.setPadding(dpToPx(20),dpToPx(20),dpToPx(20), dpToPx(20))
+                }
+
+                if (notificationModel.mark_as_read_msg == "1") {
+                    layoutNotification.setBackgroundColor(ContextCompat.getColor(UTSwapApp.instance, R.color.white))
+                } else {
+                    layoutNotification.setBackgroundColor(ContextCompat.getColor(UTSwapApp.instance, R.color.notification_unread))
+                }
             }
+
+
         }
 
         fun bindTitle(notificationModel: NotificationModel.NotificationListData) {
@@ -100,7 +113,7 @@ class NotificationAdapter() :
 
     override fun onBindItemHolder(holder: NotificationViewHolder, position: Int, context: Context) {
         if (getItemViewType(position) == VIEW_ITEM) {
-            holder.bindItem(items[position])
+            holder.bindItem(items[position], position)
         } else {
             holder.bindTitle(items[position])
         }
