@@ -14,7 +14,8 @@ object NotificationModel {
         var list: ArrayList<NotificationListData>? = null
     }
 
-    class NotificationListData (
+    class NotificationListData(
+        var title: String? = "",
         var id: String? = null,
         var to_userid: String? = null,
         var body: String? = null,
@@ -24,7 +25,8 @@ object NotificationModel {
         var mark_as_read: String? = null,
         var action_title: String? = null,
         var mark_as_read_msg: String? = null
-            )
+
+    )
 }
 //
 //class NotificationModel(

@@ -39,7 +39,9 @@
             android:layout_height="match_parent"
             android:scrollbars="none"
             android:overScrollMode="never"
-            android:id="@+id/rv_notification"/>
+            android:id="@+id/rv_notification"
+            android:paddingTop="@dimen/dimen_20"
+            android:clipToPadding="false"/>
 
     </LinearLayout>
 </layout>

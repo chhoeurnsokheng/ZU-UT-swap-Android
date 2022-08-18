@@ -15,6 +15,7 @@ class NotificationActivity :
 
     override var mPresenter: NotificationView.Presenter = NotificationPresenter()
     override val layoutResource: Int = R.layout.activity_system_notification
+    private var mList: ArrayList<NotificationModel.NotificationListData> = arrayListOf()
 
     private val notificationList: MutableList<NotificationModel.NotificationListData> =
         mutableListOf()
@@ -36,11 +37,16 @@ class NotificationActivity :
 
     override fun onNotificationSuccess(data: NotificationModel.NotificationData) {
         binding.apply {
+            mList.clear()
+
             println("data" + data)
             //notificationList.add(NotificationModel.NotificationListData())
             rvNotification.layoutManager = LinearLayoutManager(UTSwapApp.instance)
             val notificationAdapter = NotificationAdapter()
-            notificationAdapter.items = data.list!!
+            mList.addAll(data.list ?: arrayListOf())
+
+
+            notificationAdapter.items = mList
 //            notificationAdapter.items =
 //                notificationList as ArrayList<NotificationModel.NotificationListData>
             rvNotification.adapter = notificationAdapter

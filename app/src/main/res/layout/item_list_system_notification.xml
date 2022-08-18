@@ -9,14 +9,14 @@
         android:paddingHorizontal="@dimen/dimen_20">
 
         <TextView
-            android:visibility="gone"
             android:id="@+id/txt_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/dimen_8"
             android:text="@string/news"
             android:textAppearance="@style/bold_18"
-            android:textColor="@color/black_000000" />
+            android:textColor="@color/black_000000"
+            android:visibility="gone" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -27,22 +27,21 @@
                 android:id="@+id/ic_notification"
                 android:layout_width="@dimen/dimen_24"
                 android:layout_height="@dimen/dimen_24"
+                android:layout_marginTop="@dimen/dimen_2"
                 android:layout_gravity="center_vertical|top"
                 android:src="@drawable/ic_notification" />
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginStart="@dimen/dimen_10"
-                android:layout_weight="1"
+                android:layout_marginStart="@dimen/dimen_20"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/txt_title_announcement"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/dimen_8"
                     android:text="Z1 Member Ship Announcement"
                     android:textAppearance="@style/bold_14"
                     android:textColor="@color/black_000000" />
@@ -51,6 +50,7 @@
                     android:id="@+id/txt_description"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_8"
                     android:layout_marginBottom="@dimen/dimen_8"
                     android:maxLines="3"
                     android:text="You have successfully subscribed to UT \n Pochentong 555"
