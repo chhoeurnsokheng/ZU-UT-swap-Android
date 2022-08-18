@@ -10,7 +10,9 @@ import com.zillennium.utswap.models.ProjectInfoDetailModel
 import com.zillennium.utswap.models.project.ProjectInfoDetail
 
 
-class ProjectInfoDetailsAdapter : BaseRecyclerViewAdapterGeneric<ProjectInfoDetailModel, ProjectInfoDetailsAdapter.ProjectDetailViewHolder>(){
+
+class ProjectInfoDetailsAdapter() :
+    BaseRecyclerViewAdapterGeneric<ProjectInfoDetailModel, ProjectInfoDetailsAdapter.ProjectDetailViewHolder>() {
     inner class ProjectDetailViewHolder(root: ItemListProjectInfoDetailsBinding) :
         BaseViewHolder<ItemListProjectInfoDetailsBinding>(root) {
         fun bindData(projectInfoDetailData: ProjectInfoDetailModel) {

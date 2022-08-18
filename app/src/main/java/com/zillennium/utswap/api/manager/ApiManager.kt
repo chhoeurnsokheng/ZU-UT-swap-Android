@@ -48,6 +48,8 @@ open class ApiManager {
 
     protected lateinit var mProvince: ProvincesService
 
+    protected lateinit var mTradeService: TradeService
+
 
     protected lateinit var mContext: Context
 
@@ -83,6 +85,7 @@ open class ApiManager {
 
         mProvince = retrofit.create(ProvincesService::class.java)
 
+        mTradeService = retrofit.create(TradeService::class.java)
 
     }
 

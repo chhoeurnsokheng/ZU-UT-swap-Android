@@ -27,71 +27,76 @@ class SubscriptionActivity :
         super.initView()
         try {
 //            Handler().postDelayed({
-            binding.apply {
+                binding.apply {
 
-                btnBack.setOnClickListener {
-                    onBackPressed()
-                }
+                    btnBack.setOnClickListener {
+                        onBackPressed()
+                    }
 
-                SessionVariable.SESSION_STATUS.observe(this@SubscriptionActivity) {
-                    onCheckSessionStatusAndKYC()
-                }
+                    SessionVariable.SESSION_STATUS.observe(this@SubscriptionActivity) {
+                        onCheckSessionStatusAndKYC()
+                    }
 
                 SessionVariable.SESSION_KYC.observe(this@SubscriptionActivity){
                     onCheckSessionStatusAndKYC()
                 }
 
-                /* Recycle view of project info detail */
-                val tvTitle = arrayOf(
-                    "Professional",
-                    "Premium, Professional",
-                    "Standard, Premium, Professional"
-                )
-
-                val tvDollar = arrayOf(
-                    3.90,
-                    1023.98987,
-                    4.10
-                )
-                val tvDayLock = arrayOf(
-                    "60",
-                    "40",
-                    "No Lock"
-                )
-
-                val tvUtValue = arrayOf(
-                    0,
-                    11553,
-                    24753
-                )
-
-                val tvUtMainValue = arrayOf(
-                    44000,
-                    77000,
-                    99000000
-                )
-
-                val subscriptionArrayList = arrayListOf<SubscriptionModel>()
-                for (i in tvTitle.indices) {
-                    val subscriptionInfo = SubscriptionModel(
-                        tvTitle[i],
-                        tvDollar[i].toInt(),
-                        tvDayLock[i],
-                        tvUtValue[i],
-                        tvUtMainValue[i]
+                    /* Recycle view of project info detail */
+                    val tvTitle = arrayOf(
+                        "Professional",
+                        "Premium, Professional",
+                        "Standard, Premium, Professional"
                     )
-                    subscriptionArrayList.add(subscriptionInfo)
-                }
-                recycleViewProject.layoutManager = LinearLayoutManager(UTSwapApp.instance)
-                recycleViewProject.adapter = SubscriptionAdapter(subscriptionArrayList, onclickAdapter)
 
-                if(SessionVariable.SESSION_STATUS.value  == true && SessionVariable.SESSION_STATUS.value  == true){
+                    val tvDollar = arrayOf(
+                        3.90,
+                        1023.98987,
+                        4.10
+                    )
+                    val tvDayLock = arrayOf(
+                        "60",
+                        "40",
+                        "No Lock"
+                    )
+
+                    val tvUtValue = arrayOf(
+                        0,
+                        11553,
+                        24753
+                    )
+
+                    val tvUtMainValue = arrayOf(
+                        44000,
+                        77000,
+                        99000000
+                    )
+
+                if(SessionVariable.SESSION_STATUS.value  == true && kycComplete == true){
                     recycleViewProject.alpha = 1F
                 } else{
                     recycleViewProject.alpha = 0.6F
                 }
+                    val subscriptionArrayList = arrayListOf<SubscriptionModel>()
+                    for (i in tvTitle.indices) {
+                        val subscriptionInfo = SubscriptionModel(
+                            tvTitle[i],
+                            tvDollar[i].toInt(),
+                            tvDayLock[i],
+                            tvUtValue[i],
+                            tvUtMainValue[i]
+                        )
+                        subscriptionArrayList.add(subscriptionInfo)
+                    }
+                    recycleViewProject.layoutManager = LinearLayoutManager(UTSwapApp.instance)
+                    recycleViewProject.adapter = SubscriptionAdapter(subscriptionArrayList, onclickAdapter)
 
-            }
+                    if(SessionVariable.SESSION_STATUS.value  == true && kycComplete == true){
+                        recycleViewProject.alpha = 1F
+                    } else{
+                        recycleViewProject.alpha = 0.6F
+                    }
+
+                }
 //            }, 5000)
 
 
