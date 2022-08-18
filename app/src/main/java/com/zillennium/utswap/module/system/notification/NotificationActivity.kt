@@ -20,6 +20,9 @@ class NotificationActivity :
     override val layoutResource: Int = R.layout.activity_system_notification
     private var mList: ArrayList<NotificationModel.NotificationListData> = arrayListOf()
 
+    private val notificationList: ArrayList<NotificationModel.NotificationListData> = arrayListOf()
+    private var notificationAdapter: NotificationAdapter? = null
+
     override fun initView() {
         super.initView()
         initToolBar()
@@ -39,12 +42,15 @@ class NotificationActivity :
             tb.setNavigationOnClickListener {
                 finish()
             }
+
+
         }
     }
 
     override fun onNotificationSuccess(data: NotificationModel.NotificationData) {
         binding.apply {
             mList.clear()
+            rvNotification.layoutManager = LinearLayoutManager(UTSwapApp.instance)
             mList.addAll(data.list ?: arrayListOf())
             rlProgressBar.visibility = View.GONE
         }
@@ -56,20 +62,18 @@ class NotificationActivity :
 
     private fun initRecyclerView() {
         binding.apply {
-            val notificationAdapter = NotificationAdapter()
+             notificationAdapter = NotificationAdapter(object : NotificationAdapter.OnClickNotificationAdapter{
+                override fun clickNotification(action: String) {
+                }
+            })
             rvNotification.layoutManager = LinearLayoutManager(this@NotificationActivity)
-            notificationAdapter.items = mList
+            notificationAdapter?.items = mList
             rvNotification.adapter = notificationAdapter
 
         }
     }
 
-    /*override fun onDestroy() {
-        super.onDestroy()
-        notificationList.clear()
-//        binding.rvNotification.adapter?.notifyDataSetChanged()
-        binding.unbind()
-    }*/
 
 
-}
+    }
+

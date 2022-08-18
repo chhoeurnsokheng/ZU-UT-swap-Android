@@ -17,7 +17,7 @@ import com.zillennium.utswap.databinding.ItemListSystemNotificationBinding
 import com.zillennium.utswap.models.notification.NotificationModel
 import com.zillennium.utswap.utils.dpToPx
 
-class NotificationAdapter() :
+class NotificationAdapter(var onClickNotificationAdapter: OnClickNotificationAdapter) :
     BaseRecyclerViewAdapterGeneric<NotificationModel.NotificationListData, NotificationAdapter.NotificationViewHolder>() {
 
     private var arrayList: ArrayList<NotificationModel.NotificationListData> = ArrayList()
@@ -45,13 +45,27 @@ class NotificationAdapter() :
                 txtDuration.text = notificationModel.sent_time
 
                 if (position == items.lastIndex) {
-                    layoutNotification.setPadding(dpToPx(20),dpToPx(20),dpToPx(20), dpToPx(20))
+                    layoutNotification.setPadding(dpToPx(20), dpToPx(20), dpToPx(20), dpToPx(20))
                 }
 
                 if (notificationModel.mark_as_read_msg == "1") {
-                    layoutNotification.setBackgroundColor(ContextCompat.getColor(UTSwapApp.instance, R.color.white))
+                    layoutNotification.setBackgroundColor(
+                        ContextCompat.getColor(
+                            UTSwapApp.instance,
+                            R.color.white
+                        )
+                    )
                 } else {
-                    layoutNotification.setBackgroundColor(ContextCompat.getColor(UTSwapApp.instance, R.color.notification_unread))
+                    layoutNotification.setBackgroundColor(
+                        ContextCompat.getColor(
+                            UTSwapApp.instance,
+                            R.color.notification_unread
+                        )
+                    )
+                }
+
+                itemView.setOnClickListener {
+                    onClickNotificationAdapter.clickNotification(notificationModel.action.toString())
                 }
             }
 
@@ -65,23 +79,6 @@ class NotificationAdapter() :
             }
         }
 
-
-
-//                if (arrayList.size == 1) {
-//                    line.visibility = View.GONE
-//                } else {
-//                    when (position) {
-//                        arrayList.size - 1 -> {
-//                            line.visibility = View.GONE
-//                        }
-//                        0 -> {
-//                            line.visibility = View.VISIBLE
-//                            linearContainer.setPadding(dpToPx(20), dpToPx(30), dpToPx(20), 0)
-//                        }
-//                        else -> {
-//                            line.visibility = View.VISIBLE
-//                        }
-//                    }
     }
 
     override fun onCreateItemHolder(
@@ -129,47 +126,11 @@ class NotificationAdapter() :
 
     }
 
-//    }
-//}
-//
-//class NotificationViewHolder(root: ItemListSystemNotificationBinding) :
-//    BaseViewHolder<ItemNewTitleBinding>(root) {
-//
-//    fun bindTitleData(notificationData: NotificationModel.NotificationListData) {
-//        binding.apply {
-//            txtTitle.text = notificationData.action_title
-//
-//        }
-//    }
-
-//    override fun onCreateItemHolder(
-//        inflater: LayoutInflater,
-//        parent: ViewGroup,
-//        viewType: Int
-//    ): NotificationAdapter.NotificationViewHolder {
-//        when (viewType) {
-//            VIEW_ITEM -> {
-//                return NotificationViewHolder(
-//                    ItemListSystemNotificationBinding.inflate(
-//                        inflater,
-//                        parent,
-//                        false
-//                    )
-//                )
-//            }
-//
-//            else -> {
-//                return NotificationViewHolder(
-//                    ItemNewTitleBinding.inflate(
-//                        inflater,
-//                        parent,
-//                        false
-//                    )
-//                )
-//            }
-//        }
-//    }
-
+    interface OnClickNotificationAdapter {
+        fun clickNotification(
+            action: String
+        )
+    }
 
 
 }
