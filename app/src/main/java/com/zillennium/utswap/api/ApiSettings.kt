@@ -102,4 +102,7 @@ object ApiSettings {
     /** Add Favorite Project*/
     const val PATH_ADD_FAVORITE_PROJECT = "trade/addFavorite"
 
+    /** Trade Create Order*/
+    const val PATH_TRADE_CREATE_ORDER = "trade/upTrade"
+
 }

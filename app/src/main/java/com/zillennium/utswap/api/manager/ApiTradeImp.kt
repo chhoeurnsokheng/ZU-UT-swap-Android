@@ -28,4 +28,12 @@ class ApiTradeImp: ApiManager() {
         )
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
+
+    fun createOrder(body: TradingList.TradeCreateOrderObj, context: Context): Observable<TradingList.TradeCreateOrderRes> =
+        mTradeService.createOrder(
+            Header.getHeader(Header.Companion.AuthType.REQUIRED_TOKEN, context),
+            body
+        )
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
 }

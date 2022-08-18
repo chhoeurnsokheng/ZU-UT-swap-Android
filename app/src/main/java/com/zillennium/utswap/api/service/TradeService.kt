@@ -23,4 +23,10 @@ interface TradeService {
         @HeaderMap headerMap: Map<String,String>,
         @Body body: TradingList.TradeAddFavoriteObj
     ): Observable<TradingList.TradeAddFavoriteRes>
+
+    @POST(ApiSettings.PATH_TRADE_CREATE_ORDER)
+    fun createOrder(
+        @HeaderMap headerMap: Map<String,String>,
+        @Body body: TradingList.TradeCreateOrderObj
+    ):Observable<TradingList.TradeCreateOrderRes>
 }

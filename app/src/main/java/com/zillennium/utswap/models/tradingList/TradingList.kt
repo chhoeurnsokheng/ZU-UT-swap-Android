@@ -92,4 +92,26 @@ object TradingList {
     class TradeAddFavoriteData{
 
     }
+
+    /** Trade Create Place Order*/
+    class TradeCreateOrderRes{
+        var status: Int? = null
+        var message: String? = null
+        var data: TradeCreateOrderData? =null
+    }
+
+    class TradeCreateOrderData{
+
+    }
+
+    class TradeCreateOrderObj(
+        var sign_type: String,
+        var sign: String,
+        var market: String,
+        var price: String,
+        var num: String,
+        var type: String,
+        var paypassword: String,
+        var tradeType: String
+    )
 }
