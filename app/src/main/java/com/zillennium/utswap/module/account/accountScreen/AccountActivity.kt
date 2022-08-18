@@ -9,7 +9,7 @@ import android.util.Base64
 import android.view.View
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import com.androidstudy.networkmanager.BuildConfig
+import com.zillennium.utswap.BuildConfig
 import com.androidstudy.networkmanager.Tovuti
 import com.bumptech.glide.Glide
 import com.github.dhaval2404.imagepicker.ImagePicker
