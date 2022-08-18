@@ -17,9 +17,8 @@ class NotificationActivity :
     override val layoutResource: Int = R.layout.activity_system_notification
     private var mList: ArrayList<NotificationModel.NotificationListData> = arrayListOf()
 
-    private val notificationList: MutableList<NotificationModel.NotificationListData> =
-        mutableListOf()
-
+    private val notificationList: ArrayList<NotificationModel.NotificationListData> = arrayListOf()
+    private var notificationAdapter: NotificationAdapter? = null
 
     override fun initView() {
         super.initView()
@@ -31,6 +30,7 @@ class NotificationActivity :
                 finish()
             }
 
+
         }
 
     }
@@ -39,10 +39,16 @@ class NotificationActivity :
         binding.apply {
             mList.clear()
 
-            println("data" + data)
             //notificationList.add(NotificationModel.NotificationListData())
             rvNotification.layoutManager = LinearLayoutManager(UTSwapApp.instance)
-            val notificationAdapter = NotificationAdapter()
+            val notificationAdapter = NotificationAdapter(object : NotificationAdapter.OnClickNotificationAdapter{
+                override fun clickNotification(action: String) {
+                    if (action == "kyc"){
+
+                    }
+                 }
+
+            })
             mList.addAll(data.list ?: arrayListOf())
 
 
@@ -63,6 +69,4 @@ class NotificationActivity :
         binding.rvNotification.adapter?.notifyDataSetChanged()
         binding.unbind()
     }
-
-
 }

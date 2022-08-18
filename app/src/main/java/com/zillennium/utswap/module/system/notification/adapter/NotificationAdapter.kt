@@ -14,8 +14,11 @@ import com.zillennium.utswap.bases.mvp.BaseRecyclerViewAdapterGeneric
 import com.zillennium.utswap.databinding.ItemEarlierTitleBinding
 import com.zillennium.utswap.databinding.ItemListSystemNotificationBinding
 import com.zillennium.utswap.models.notification.NotificationModel
+import com.zillennium.utswap.module.finance.subscriptionScreen.adapter.FinanceSubscriptionsAdapter
 
-class NotificationAdapter() :
+class NotificationAdapter(
+    var onClickNotificationAdapter: OnClickNotificationAdapter
+) :
     BaseRecyclerViewAdapterGeneric<NotificationModel.NotificationListData, NotificationAdapter.NotificationViewHolder>() {
 
     private var arrayList: ArrayList<NotificationModel.NotificationListData> = ArrayList()
@@ -42,6 +45,10 @@ class NotificationAdapter() :
                 txtTitleAnnouncement.text = notificationModel.action_title
                 txtDescription.text = notificationModel.body
                 txtDuration.text = notificationModel.sent_time
+
+                itemView.setOnClickListener{
+                    onClickNotificationAdapter.clickNotification(notificationModel.action.toString())
+                }
             }
         }
 
@@ -115,6 +122,13 @@ class NotificationAdapter() :
         return VIEW_ITEM
 
     }
+
+    interface OnClickNotificationAdapter{
+        fun clickNotification(
+            action: String
+        )
+    }
+
 
 //    }
 //}
