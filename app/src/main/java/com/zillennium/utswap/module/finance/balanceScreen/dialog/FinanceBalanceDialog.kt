@@ -71,33 +71,28 @@ class FinanceBalanceDialog: DialogFragment() {
 
             val typeBalance = arguments?.getString("type_balance")
 
-            if (typeBalance == "2" || typeBalance == "4" || typeBalance == "SEND"){
+            if (typeBalance == "2" || typeBalance == "4" || typeBalance == "5" || typeBalance == "SEND"){
                 txtMoneyType.text = "Money Out"
                 txtDollar.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
                 amountBalance.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
             }else{
-                if (typeBalance == "5"){
-                    titleTransaction.text = arguments?.getString("subscriptRemark")
-                }
                 txtMoneyType.text = "Money In"
                 txtDollar.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.success))
                 amountBalance.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.success))
             }
 
             amountBalance.text = arguments?.getDouble("amountBalance").toString().let { UtilKt().formatValue(it.toDouble(), "###,###.##") }
-            txtBalance.text = arguments?.getString("balance")?.let { UtilKt().formatValue(it.toDouble(), "###,###.##") }
+            txtBalance.text = "$" + arguments?.getString("balance")?.let { UtilKt().formatValue(it.toDouble(), "###,###.##") }
 
-            imgScreenShot.setOnClickListener {
-                val bitmap = getScreenShotFromView(view)
-                if(bitmap != null)
-                {
+            imgScreenShot.setOnClickListener{
+                val bitmap = getScreenShotFromView(materialCardView)
+                if (bitmap != null) {
                     saveMediaToStorage(bitmap)
                 }
                 Handler().postDelayed({
                     dismiss()
                 },1000)
             }
-
         }
     }
 
@@ -153,7 +148,6 @@ class FinanceBalanceDialog: DialogFragment() {
         type: String?,
         total: Double?,
         balance: String?,
-        subscriptRemark: String?,
         ): FinanceBalanceDialog {
             val financeBalanceDialog = FinanceBalanceDialog()
             val args = Bundle()
@@ -165,7 +159,6 @@ class FinanceBalanceDialog: DialogFragment() {
                 args.putDouble("amountBalance", total)
             }
             args.putString("balance", balance)
-            args.putString("subscriptRemark", subscriptRemark)
 
             financeBalanceDialog.arguments = args
             return financeBalanceDialog

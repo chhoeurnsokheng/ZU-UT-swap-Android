@@ -12,6 +12,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -20,8 +21,8 @@
                 <LinearLayout
                     android:layout_width="@dimen/dimen_350"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:orientation="vertical">
 
                     <ImageView
                         android:id="@+id/close_image"
@@ -33,7 +34,170 @@
                         android:src="@drawable/ic_sharp_close_24"
                         app:tint="@color/white" />
 
+
                     <LinearLayout
+                        android:id="@+id/balance_dialog_box"
+                        android:layout_width="@dimen/dimen_350"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@drawable/bg_balance_dialog"
+                        android:gravity="center"
+                        android:paddingVertical="@dimen/dimen_15"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/material_card_view"
+                            android:layout_width="@dimen/dimen_350"
+                            app:cardCornerRadius="0dp"
+                            android:layout_height="wrap_content">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:paddingVertical="@dimen/dimen_25">
+
+                                <LinearLayout
+                                    android:id="@+id/lay_logo"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    android:paddingHorizontal="@dimen/dimen_16">
+
+                                    <ImageView
+                                        android:layout_width="@dimen/dimen_110"
+                                        android:layout_height="@dimen/dimen_64"
+                                        android:layout_gravity="center"
+                                        android:layout_marginBottom="@dimen/dimen_20"
+                                        android:src="@drawable/ic_ut_swap_logo_vertical" />
+
+                                    <TextView
+                                        android:id="@+id/title_transaction"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="start"
+                                        android:textAppearance="@style/medium_18"
+                                        android:textColor="@color/black_0a0b12" />
+
+                                </LinearLayout>
+
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/dimen_1"
+                                    android:layout_marginVertical="@dimen/dimen_20"
+                                    android:background="@color/light_gray" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    android:paddingHorizontal="@dimen/dimen_20">
+
+                                    <LinearLayout
+                                        android:layout_width="@dimen/dimen_0"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="35"
+                                        android:orientation="vertical">
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginVertical="@dimen/dimen_10"
+                                            android:text="@string/date"
+                                            android:textAppearance="@style/regular_12"
+                                            android:textColor="@color/gray_888888" />
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginVertical="@dimen/dimen_10"
+                                            android:text="@string/transaction_id"
+                                            android:textAppearance="@style/regular_12"
+                                            android:textColor="@color/gray_888888" />
+
+                                        <TextView
+                                            android:id="@+id/txt_money_type"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginVertical="@dimen/dimen_10"
+                                            android:textAppearance="@style/regular_12"
+                                            android:textColor="@color/gray_888888" />
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginVertical="@dimen/dimen_10"
+                                            android:text="@string/balance"
+                                            android:textAppearance="@style/regular_12"
+                                            android:textColor="@color/gray_888888" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="@dimen/dimen_0"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="65"
+                                        android:gravity="end"
+                                        android:orientation="vertical">
+
+                                        <TextView
+                                            android:id="@+id/date_transaction"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginVertical="@dimen/dimen_10"
+                                            android:textAppearance="@style/regular_12"
+                                            android:textColor="@color/black_0a0b12" />
+
+                                        <TextView
+                                            android:id="@+id/txt_balance_id"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginVertical="@dimen/dimen_10"
+                                            android:textAppearance="@style/regular_12"
+                                            android:textColor="@color/black_0a0b12" />
+
+                                        <LinearLayout
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content">
+
+                                            <TextView
+                                                android:id="@+id/txt_dollar"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginVertical="@dimen/dimen_10"
+                                                android:text="$"
+                                                android:textAppearance="@style/regular_12"
+                                                android:textColor="@color/danger" />
+
+                                            <TextView
+                                                android:id="@+id/amount_balance"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginVertical="@dimen/dimen_10"
+                                                android:textAppearance="@style/regular_12"
+                                                android:textColor="@color/danger" />
+
+                                        </LinearLayout>
+
+                                        <TextView
+                                            android:id="@+id/txt_balance"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginVertical="@dimen/dimen_10"
+                                            android:textAppearance="@style/regular_12"
+                                            android:textColor="@color/black_0a0b12" />
+
+                                    </LinearLayout>
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                        </com.google.android.material.card.MaterialCardView>
+
+                    </LinearLayout>
+
+                    <!--<LinearLayout
                         android:id="@+id/balance_dialog_box"
                         android:layout_width="@dimen/dimen_350"
                         android:layout_height="wrap_content"
@@ -176,7 +340,7 @@
 
                         </LinearLayout>
 
-                    </LinearLayout>
+                    </LinearLayout>-->
 
                 </LinearLayout>
 
@@ -186,12 +350,11 @@
                 android:id="@+id/img_screen_shot"
                 android:layout_width="@dimen/dimen_36"
                 android:layout_height="@dimen/dimen_36"
-                android:src="@drawable/ic_screenshot"
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/dimen_30"
+                android:src="@drawable/ic_screenshot"
                 app:tint="@color/white" />
         </LinearLayout>
-
 
 
     </eightbitlab.com.blurview.BlurView>

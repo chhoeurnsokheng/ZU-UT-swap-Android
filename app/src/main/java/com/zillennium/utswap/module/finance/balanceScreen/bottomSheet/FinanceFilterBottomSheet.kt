@@ -47,6 +47,11 @@ class FinanceFilterBottomSheet(
         binding?.apply {
             (view.parent as View).setBackgroundColor(ContextCompat.getColor(UTSwapApp.instance, android.R.color.transparent))
 
+            balanceAll.setOnClickListener {
+                listenerFilter.onChangeFilterSelected(Constants.UserBalance.All)
+                dismiss()
+            }
+
             balanceDeposit.setOnClickListener {
                 listenerFilter.onChangeFilterSelected(Constants.UserBalance.Deposit)
                 dismiss()
@@ -71,6 +76,7 @@ class FinanceFilterBottomSheet(
             }
 
             when(balanceFilterSelect){
+                Constants.UserBalance.All -> imgAllBalance.visibility = View.VISIBLE
                 Constants.UserBalance.Deposit -> imgCheckDeposit.visibility = View.VISIBLE
                 Constants.UserBalance.Withdrawal -> imgCheckWithdrawal.visibility = View.VISIBLE
                 Constants.UserBalance.Transfer -> imgCheckTransfer.visibility = View.VISIBLE

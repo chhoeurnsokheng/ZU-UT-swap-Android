@@ -62,5 +62,6 @@ object BalanceFinance {
     class ExportFinanceBalanceObject(
         var start:String? = null,
         var end:String? = null,
+        var filter_type:String? = null
     )
 }

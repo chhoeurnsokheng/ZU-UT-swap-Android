@@ -485,6 +485,7 @@ interface Constants {
     /** User Balance */
     interface UserBalance {
         companion object {
+            const val All = ""
             const val Deposit = "deposit"
             const val Withdrawal = "withdraw"
             const val Transfer = "transfer"

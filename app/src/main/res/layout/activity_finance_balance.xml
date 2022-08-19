@@ -171,7 +171,7 @@
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/dimen_8"
+                        android:layout_marginStart="@dimen/dimen_5"
                         android:layout_marginTop="@dimen/dimen_20"
                         android:layout_marginEnd="@dimen/dimen_20"
                         android:layout_marginBottom="@dimen/dimen_22"
@@ -182,8 +182,7 @@
                             android:id="@+id/select_date_range"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/dimen_16"
-                            android:layout_marginBottom="@dimen/dimen_16"
+                            android:layout_marginVertical="@dimen/dimen_16"
                             android:gravity="center"
                             android:orientation="horizontal"
                             android:paddingHorizontal="@dimen/dimen_15">
@@ -298,6 +297,14 @@
 
                                 </LinearLayout>
                             </LinearLayout>
+
+                            <TextView
+                                android:id="@+id/txt_end"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginVertical="@dimen/dimen_20"
+                                android:gravity="center"
+                                android:visibility="gone" />
 
                         </LinearLayout>
 

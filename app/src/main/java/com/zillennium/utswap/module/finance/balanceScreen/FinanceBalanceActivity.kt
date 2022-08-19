@@ -46,7 +46,7 @@ class FinanceBalanceActivity :
     private var pageBalance = 1
 
     private var totalPageBalance = 1
-    private var countLoop = 1
+    private var countLoop = 2
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun initView() {
@@ -66,7 +66,7 @@ class FinanceBalanceActivity :
                 /* Export as File bottom sheet dialog */
                 exportAsPdf.setOnClickListener {
                     if (selectedDateStart.isNotEmpty() && selectedDateEnd.isNotEmpty()){
-                        mPresenter.onGetExportBalance(BalanceFinance.ExportFinanceBalanceObject(selectedDateStart, selectedDateEnd), UTSwapApp.instance)
+                        mPresenter.onGetExportBalance(BalanceFinance.ExportFinanceBalanceObject(selectedDateStart, selectedDateEnd, balanceFilterSelect), UTSwapApp.instance)
                     } else{
                         val financeExportBalance = FinanceExportFileBottomSheet(
                             object : FinanceExportFileBottomSheet.CallBackExportBalance{
@@ -77,7 +77,7 @@ class FinanceBalanceActivity :
                                     selectStartDateExport = startDateExport
                                     selectEndDateExport = endDateExport
 
-                                    mPresenter.onGetExportBalance(BalanceFinance.ExportFinanceBalanceObject(selectStartDateExport, selectEndDateExport), UTSwapApp.instance)
+                                    mPresenter.onGetExportBalance(BalanceFinance.ExportFinanceBalanceObject(selectStartDateExport, selectEndDateExport, balanceFilterSelect), UTSwapApp.instance)
                                 }
                             }
                         )
@@ -94,10 +94,10 @@ class FinanceBalanceActivity :
                         object: FinanceFilterBottomSheet.CallBackFilterListener{
                             override fun onChangeFilterSelected(balanceFilterSelected: String) {
                                 balanceFilterSelect = balanceFilterSelected
-                                invisibleText()
                                 onClearList()
+                                invisibleText()
                                 pageBalance = 1
-                                countLoop = 1
+                                countLoop = 2
                                 loadingProgressBar.visibility = View.VISIBLE
                                 mPresenter.onGetUserBalanceFilterDate(BalanceFinance.GetBalanceSearchDateObject(selectedDateStart, selectedDateEnd, balanceFilterSelect, pageBalance), UTSwapApp.instance)
                             }
@@ -119,7 +119,7 @@ class FinanceBalanceActivity :
                                 invisibleText()
                                 onClearList()
                                 pageBalance = 1
-                                countLoop = 1
+                                countLoop = 2
                                 loadingProgressBar.visibility = View.VISIBLE
 
                                 if (selectDateEnd.isNotEmpty()){
@@ -168,9 +168,11 @@ class FinanceBalanceActivity :
     /* Get Data From API */
     override fun onGetUserBalanceInfoSuccess(data: BalanceFinance.GetUserBalanceInfoData) {
         binding.apply {
-            txtTotalAmount.text = "$" + data.total_balance?.let { UtilKt().formatValue(it, "###,###.##") }
-            txtAvailableAmount.text = "$" + data.available_balance?.let { UtilKt().formatValue(it.toDouble(), "###,###.##") }
-            txtPendingAmount.text = "$" + data.pending?.let { UtilKt().formatValue(it.toDouble(), "###,###.##") }
+            pageBalance = 1
+            countLoop = 2
+            txtTotalAmount.text = "$ " + data.total_balance?.let { UtilKt().formatValue(it, "###,###.##") }
+            txtAvailableAmount.text = "$ " + data.available_balance?.let { UtilKt().formatValue(it.toDouble(), "###,###.##") }
+            txtPendingAmount.text = "$ " + data.pending?.let { UtilKt().formatValue(it.toDouble(), "###,###.##") }
             mPresenter.onGetUserBalanceFilterDate(BalanceFinance.GetBalanceSearchDateObject(selectedDateStart, selectedDateEnd, balanceFilterSelect, pageBalance), UTSwapApp.instance)
         }
     }
@@ -191,7 +193,9 @@ class FinanceBalanceActivity :
                     financeBalanceAdapter.items = financeBalanceList!!
                     rvFinanceBalance.adapter = financeBalanceAdapter
                 }
-                if (totalPageBalance != pageBalance){
+                if (totalPageBalance == pageBalance){
+                    txtEnd.visibility = View.GONE
+                }else{
                     // Loading More
                     Handler().postDelayed({
                         layNewsLoading.visibility = View.VISIBLE
@@ -227,7 +231,6 @@ class FinanceBalanceActivity :
                     financeUserBalanceTransaction.type,
                     financeUserBalanceTransaction.total,
                     financeUserBalanceTransaction.balance,
-                    financeUserBalanceTransaction.issue_name,
                 )
                 financeBalanceDialog.show(supportFragmentManager, "Balance Data Detail")
             }
@@ -258,8 +261,7 @@ class FinanceBalanceActivity :
             swipeRefreshBalance.setOnRefreshListener {
                 onClearList()
                 invisibleText()
-                pageBalance = 1
-                mPresenter.onGetUserBalanceFilterDate(BalanceFinance.GetBalanceSearchDateObject(selectedDateStart, selectedDateEnd, balanceFilterSelect, pageBalance), UTSwapApp.instance)
+                mPresenter.onGetUserBalanceInfo(UTSwapApp.instance)
             }
         }
     }
