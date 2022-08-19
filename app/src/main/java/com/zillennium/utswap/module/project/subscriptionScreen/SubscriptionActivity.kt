@@ -125,7 +125,7 @@ class SubscriptionActivity :
 
     private val onclickAdapter: SubscriptionAdapter.OnclickAdapter = object: SubscriptionAdapter.OnclickAdapter{
         override fun onClickMe(subscriptionModel: SubscriptionModel) {
-            if(SessionVariable.SESSION_STATUS.value == true && kycComplete == true){
+            if(SessionVariable.SESSION_STATUS.value == true && SessionVariable.SESSION_KYC.value == true){
                 val subscriptionBottomSheetDialog: SubscriptionBottomSheet = SubscriptionBottomSheet.newInstance(
                     subscriptionModel.tv_title,
                 )
@@ -134,5 +134,17 @@ class SubscriptionActivity :
         }
 
     }
+
+//    private val onclickAdapter: SubscriptionAdapter.OnclickAdapter = object: SubscriptionAdapter.OnclickAdapter{
+//        override fun onClickMe(subscriptionModel: SubscriptionModel) {
+//            if(SessionVariable.SESSION_STATUS.value == true && kycComplete == true){
+//                val subscriptionBottomSheetDialog: SubscriptionBottomSheet = SubscriptionBottomSheet.newInstance(
+//                    subscriptionModel.tv_title,
+//                )
+//                subscriptionBottomSheetDialog.show(supportFragmentManager, "balanceHistoryDetailDialog")
+//            }
+//        }
+//
+//    }
 
 }

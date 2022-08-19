@@ -49,6 +49,8 @@ object ApiSettings {
     /**      Project Detail/Project Info          **/
     const val PATH_PROJECT_DETAIL = "issue/project_detail"
 
+    /**        Subscription Project       **/
+
 
     /** Finance */
     const val PATH_SUBSCRIPTION = "Issue/log"
