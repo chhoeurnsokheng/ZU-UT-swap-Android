@@ -34,6 +34,7 @@ import com.zillennium.utswap.module.project.projectScreen.ProjectActivity
 import com.zillennium.utswap.module.security.securityActivity.signInScreen.SignInActivity
 import com.zillennium.utswap.module.system.notification.NotificationActivity
 import com.zillennium.utswap.screens.navbar.navbar.MainActivity
+import com.zillennium.utswap.utils.Constants
 import com.zillennium.utswap.utils.SpaceDecoration
 import com.zillennium.utswap.utils.UtilKt
 
@@ -258,6 +259,8 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
             binding.apply {
                 linearLayoutWatchlist.visibility = View.GONE
                 rvHomeWatchlist.visibility = View.GONE
+
+                Constants.WatchList.itemWatchList = arrayListOf()
             }
         } else {
             binding.rvHomeWatchlist.apply {
@@ -266,6 +269,7 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
                 layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
               //  addItemDecoration(SpaceDecoration(resources.getDimensionPixelSize(R.dimen.dimen_2)))
 
+                Constants.WatchList.itemWatchList = data.data?.watch_lists as ArrayList<BannerObj.ItemWishList>
             }
         }
 

@@ -87,32 +87,32 @@
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-<!--                        <View-->
-<!--                            android:layout_width="@dimen/dimen_18"-->
-<!--                            android:layout_height="@dimen/dimen_18"-->
-<!--                            android:background="@drawable/bg_active" />-->
+                        <!--                        <View-->
+                        <!--                            android:layout_width="@dimen/dimen_18"-->
+                        <!--                            android:layout_height="@dimen/dimen_18"-->
+                        <!--                            android:background="@drawable/bg_active" />-->
 
-<!--                        <TextView-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:layout_marginStart="@dimen/dimen_8"-->
-<!--                            android:text="New Airport 38Ha"-->
-<!--                            android:textAppearance="@style/medium_18"-->
-<!--                            android:textColor="@color/black" />-->
+                        <!--                        <TextView-->
+                        <!--                            android:layout_width="wrap_content"-->
+                        <!--                            android:layout_height="wrap_content"-->
+                        <!--                            android:layout_marginStart="@dimen/dimen_8"-->
+                        <!--                            android:text="New Airport 38Ha"-->
+                        <!--                            android:textAppearance="@style/medium_18"-->
+                        <!--                            android:textColor="@color/black" />-->
 
-<!--                        <LinearLayout-->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:gravity="end">-->
+                        <!--                        <LinearLayout-->
+                        <!--                            android:layout_width="match_parent"-->
+                        <!--                            android:layout_height="wrap_content"-->
+                        <!--                            android:gravity="end">-->
 
-<!--                            <ImageView-->
-<!--                                android:id="@+id/img_remember"-->
-<!--                                android:layout_width="@dimen/dimen_22"-->
-<!--                                android:layout_height="@dimen/dimen_22"-->
-<!--                                android:src="@drawable/ic_baseline_star_24"-->
-<!--                                app:tint="@color/warning" />-->
+                        <!--                            <ImageView-->
+                        <!--                                android:id="@+id/img_remember"-->
+                        <!--                                android:layout_width="@dimen/dimen_22"-->
+                        <!--                                android:layout_height="@dimen/dimen_22"-->
+                        <!--                                android:src="@drawable/ic_baseline_star_24"-->
+                        <!--                                app:tint="@color/warning" />-->
 
-<!--                        </LinearLayout>-->
+                        <!--                        </LinearLayout>-->
 
                     </LinearLayout>
 
@@ -140,7 +140,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="end"
-                                android:text="9.21"
+                                android:text=""
                                 android:textAppearance="@style/medium_14"
                                 android:textColor="@color/black" />
 
@@ -165,7 +165,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="end"
-                                android:text="7.73"
+                                android:text=""
                                 android:textAppearance="@style/medium_14"
                                 android:textColor="@color/black" />
 
@@ -197,7 +197,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="end"
-                                android:text="+1.68%"
+                                android:text=""
                                 android:textAppearance="@style/medium_14"
                                 android:textColor="@color/success" />
 
@@ -222,7 +222,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="end"
-                                android:text="7.03"
+                                android:text=""
                                 android:textAppearance="@style/medium_14"
                                 android:textColor="@color/black" />
 
@@ -254,7 +254,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="end"
-                                android:text="111"
+                                android:text=""
                                 android:textAppearance="@style/medium_14"
                                 android:textColor="@color/black" />
 
@@ -279,7 +279,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="end"
-                                android:text="11.02"
+                                android:text=""
                                 android:textAppearance="@style/bold_14"
                                 android:textColor="@color/warning" />
 

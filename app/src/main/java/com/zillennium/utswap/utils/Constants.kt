@@ -2,6 +2,7 @@ package com.zillennium.utswap.utils
 
 import android.webkit.WebViewClient
 import com.zillennium.utswap.R
+import com.zillennium.utswap.models.home.BannerObj
 
 
 interface Constants {
@@ -463,11 +464,12 @@ interface Constants {
 
     interface TradeExchange {
         companion object {
-            const val ProjectName = "ProjectName"
-            const val Status_submit = "KYC"
-            const val ProjectNameToolBar = "ProjectName_toolBar"
-            const val MarketId = "MarketId"
-            const val MarketName="MarketName"
+            var ProjectName = "ProjectName"
+            var Status_submit = "KYC"
+            var ProjectNameToolBar = "ProjectName_toolBar"
+            var MarketId = "MarketId"
+            var MarketName="MarketName"
+            var ProjectId = "ProjectId"
         }
     }
     interface Project{
@@ -481,6 +483,7 @@ interface Constants {
             const val Payment_Link ="payment_link"
         }
     }
+
 
     /** User Balance */
     interface UserBalance {
@@ -503,6 +506,19 @@ interface Constants {
             const val BalanceSubscriptions = R.drawable.ic_hourglass
             const val BalanceTradeBuy = R.drawable.ic_money_out
             const val BalanceTradeSell = R.drawable.ic_money_in
+        }
+    }
+
+    interface OrderBookTable{
+        companion object{
+            var marketNameOrderBook = ""
+        }
+    }
+
+    interface WatchList{
+        companion object{
+            var itemWatchList = ArrayList<BannerObj.ItemWishList>()
+
         }
     }
 

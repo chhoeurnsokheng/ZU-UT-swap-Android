@@ -1,6 +1,7 @@
 package com.zillennium.utswap.module.main.trade.tradeExchangeScreen.dialog
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -12,6 +13,9 @@ import android.widget.TextView
 import androidx.fragment.app.DialogFragment
 import com.google.android.material.button.MaterialButton
 import com.zillennium.utswap.R
+import com.zillennium.utswap.api.manager.ApiTradeImp
+import com.zillennium.utswap.models.tradingList.TradingList
+import rx.Subscription
 
 class BuyDialog : DialogFragment() {
     internal var view: View? = null
@@ -23,6 +27,8 @@ class BuyDialog : DialogFragment() {
     private var txtNetValue: TextView? = null
     private var volume: String? = ""
     private var price: String? = ""
+
+    private var subscriptions: Subscription? = null
 
     @SuppressLint("SetTextI18n")
     override fun onCreateView(
@@ -58,6 +64,15 @@ class BuyDialog : DialogFragment() {
         }
 
         return view
+    }
+
+    fun test(body: TradingList.TradeCreateOrderObj, context: Context){
+        subscriptions?.unsubscribe()
+        subscriptions = ApiTradeImp().createOrder(body,context).subscribe({
+
+        },{
+
+        })
     }
 
 

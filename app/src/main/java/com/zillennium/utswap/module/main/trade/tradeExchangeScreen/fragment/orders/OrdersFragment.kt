@@ -91,7 +91,7 @@ class OrdersFragment :
                     val list = arrayListOf<Orders>()
 
                     OrdersData.LIST_OF_ORDERS().map {
-                        if(it.txtStatus == "BUY"){
+                        if(it.txtStatus == "Limit / Buy"){
                             list.add(Orders(it.txtStatus, it.txtUT,it.txtDate, it.txtPrice))
                         }
                     }
@@ -113,7 +113,7 @@ class OrdersFragment :
                     val list = arrayListOf<Orders>()
 
                     OrdersData.LIST_OF_ORDERS().map {
-                        if(it.txtStatus == "SELL"){
+                        if(it.txtStatus == "Limit / Sell"){
                             list.add(Orders(it.txtStatus, it.txtUT,it.txtDate, it.txtPrice))
                         }
                     }

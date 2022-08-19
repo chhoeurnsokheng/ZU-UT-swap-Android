@@ -72,6 +72,7 @@ class TradeFragment :
                                 it.market_trend?.url!![i][1].toString(),
                                 it.market_trend?.url!![i][6].toString(),
                                 it.market_trend?.url!![i][8].toString(),
+                                it.market_trend?.url!![i][12].toString(),
                                 it.market_trend?.url!![i][11].toString()
                             )
                         )
@@ -102,6 +103,7 @@ class TradeFragment :
             tradeAdapter = TradeAdapter(listener = object : TradeAdapter.Listener{
                 override fun clickMe(tradeProject:TradeModel) {
                     TradeExchangeActivity.launchTradeExchangeActivity(requireActivity(), tradeProject)
+                    mPresenter.closeSocketTrading()
                 }
 
             })
@@ -282,6 +284,7 @@ class TradeFragment :
             tradeAdapter = TradeAdapter(listener = object : TradeAdapter.Listener{
                 override fun clickMe(tradeProject:TradeModel) {
                     TradeExchangeActivity.launchTradeExchangeActivity(requireActivity(), tradeProject)
+                    mPresenter.closeSocketTrading()
                 }
 
             })
@@ -339,6 +342,7 @@ class TradeFragment :
             tradeAdapter = TradeAdapter(listener = object : TradeAdapter.Listener{
                 override fun clickMe(tradeProject:TradeModel) {
                     TradeExchangeActivity.launchTradeExchangeActivity(requireActivity(), tradeProject)
+                    mPresenter.closeSocketTrading()
                 }
 
             })
