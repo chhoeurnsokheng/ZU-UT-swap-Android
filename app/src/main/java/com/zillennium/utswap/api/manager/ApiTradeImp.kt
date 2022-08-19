@@ -36,4 +36,22 @@ class ApiTradeImp: ApiManager() {
         )
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
+
+    /** Get Trade Order Pending List*/
+    fun getTradeOrderPending(body: TradingList.TradeOrderPendingObj, context: Context): Observable<TradingList.TradeOrderPendingRes> =
+        mTradeService.getTradeOrderPending(
+            Header.getHeader(Header.Companion.AuthType.REQUIRED_TOKEN, context),
+            body
+        )
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+
+    /** Matching Trade Transaction*/
+    fun getTradeMatchingTransaction(body: TradingList.TradeMatchingTransactionObj, context: Context): Observable<TradingList.TradeMatchingTransactionRes> =
+        mTradeService.getTradeMatchingTransaction(
+            Header.getHeader(Header.Companion.AuthType.REQUIRED_TOKEN, context),
+            body
+        )
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
 }

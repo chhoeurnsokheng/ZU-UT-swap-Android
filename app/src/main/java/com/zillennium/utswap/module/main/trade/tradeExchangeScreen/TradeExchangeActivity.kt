@@ -22,7 +22,6 @@ import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
 import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
-import com.zillennium.utswap.api.ApiSettings
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityTradeExchangeBinding
 import com.zillennium.utswap.models.TradeModel
@@ -38,13 +37,10 @@ import com.zillennium.utswap.module.main.trade.tradeExchangeScreen.fragment.allT
 import com.zillennium.utswap.module.main.trade.tradeExchangeScreen.fragment.chart.ChartFragment
 import com.zillennium.utswap.module.main.trade.tradeExchangeScreen.fragment.orderBook.OrderBookFragment
 import com.zillennium.utswap.module.main.trade.tradeExchangeScreen.fragment.orders.OrdersFragment
-import com.zillennium.utswap.module.main.trade.tradeScreen.TradeFragment
 import com.zillennium.utswap.module.project.projectInfoScreen.ProjectInfoActivity
 import com.zillennium.utswap.module.security.securityActivity.signInScreen.SignInActivity
-import com.zillennium.utswap.screens.navbar.navbar.MainActivity
 import com.zillennium.utswap.utils.Constants
 import com.zillennium.utswap.utils.DecimalDigitsInputFilter
-import com.zillennium.utswap.utils.groupingSeparator
 import com.zillennium.utswap.utils.groupingSeparatorInt
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -67,6 +63,8 @@ class TradeExchangeActivity :
     val NUM_PAGES_TABLE = 3
     var remember: Boolean? = null
 
+    private var page: Int = 1
+
     var click = true
     private var mBottomSheetBehavior: BottomSheetBehavior<*>? = null
 
@@ -86,13 +84,18 @@ class TradeExchangeActivity :
             intent.putExtra(Constants.TradeExchange.ProjectName, projectName)
             intent.putExtra(Constants.TradeExchange.MarketName,marketName)
             intent.putExtra(Constants.TradeExchange.ProjectId, projectId)
+            Constants.OrderBookTable.marketNameOrderBook = marketName.toString()
             context.startActivity(intent)
         }
     }
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint("SetTextI18n", "ClickableViewAccessibility")
     override fun initView() {
         super.initView()
+
+        var obj =  TransactionsFragment()
+        obj.onCallApi(page)
+
         //call API and web socket
         Tovuti.from(UTSwapApp.instance).monitor{ _, isConnected, _ ->
             if(isConnected)
@@ -808,4 +811,6 @@ class TradeExchangeActivity :
             return NUM_PAGES_TABLE
         }
     }
+
+
 }

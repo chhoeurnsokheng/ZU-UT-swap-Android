@@ -29,4 +29,18 @@ interface TradeService {
         @HeaderMap headerMap: Map<String,String>,
         @Body body: TradingList.TradeCreateOrderObj
     ):Observable<TradingList.TradeCreateOrderRes>
+
+    /** Get Trade Order Pending List*/
+    @POST(ApiSettings.PATH_GET_TRADE_ORDER_PENDING)
+    fun getTradeOrderPending(
+        @HeaderMap headerMap: Map<String,String>,
+        @Body body: TradingList.TradeOrderPendingObj
+    ):Observable<TradingList.TradeOrderPendingRes>
+
+    /** Matching Trade Transaction*/
+    @POST(ApiSettings.PATH_TRADE_MATCHING_TRANSACTION)
+    fun getTradeMatchingTransaction(
+        @HeaderMap headerMap: Map<String,String>,
+        @Body body: TradingList.TradeMatchingTransactionObj
+    ):Observable<TradingList.TradeMatchingTransactionRes>
 }

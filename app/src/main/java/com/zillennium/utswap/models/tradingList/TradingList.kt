@@ -1,5 +1,7 @@
 package com.zillennium.utswap.models.tradingList
 
+import com.zillennium.utswap.models.newsService.News
+
 object TradingList {
     class TradingListRes{
         var market_trend: TradingMarketTrend? = null
@@ -114,4 +116,64 @@ object TradingList {
         var paypassword: String,
         var tradeType: String
     )
+
+    /** Get Trade Order Pending List*/
+    class TradeOrderPendingObj(
+        var market: String
+    )
+
+    class TradeOrderPendingRes{
+        var status: Int? = null
+        var message: String? = null
+        var data: TradeOrderPendingData? = null
+    }
+
+    class TradeOrderPendingData{
+        var TOTAL_PAGE: Int? = null
+        var entrust: List<TradeOrderPendingEntrust>? = null
+    }
+
+    class TradeOrderPendingEntrust{
+        var market: String? = null
+        var addtime: String? =null
+        var condition: String? = null
+        var stop: String? = null
+        var type: String? = null
+        var price: String? = null
+        var num: Int? = null
+        var deal: Int? = null
+        var id: String? = null
+        var tradetype: String? = null
+        var total: String? = null
+    }
+
+    /** Matching Trade Transaction*/
+    class TradeMatchingTransactionObj(
+        var market: String,
+        var type: Int,
+        var page: Int,
+        var sort: String
+    )
+
+    class TradeMatchingTransactionRes{
+        var status: Int? = null
+        var message: String? = null
+        var data: TradeMatchingTransactionData? = null
+    }
+
+    class TradeMatchingTransactionData{
+        var TOTAL_PAGE: Int? = null
+        var entrust: List<TradeMatchingTransactionEntrust>? = null
+    }
+
+    class TradeMatchingTransactionEntrust{
+        var addtime: String? =null
+        var type: String? = null
+        var price: String? = null
+        var num: Int? = null
+        var id: String? = null
+        var gross: String? = null
+        var value: String? = null
+        var fee_buy: String? = null
+    }
 }
