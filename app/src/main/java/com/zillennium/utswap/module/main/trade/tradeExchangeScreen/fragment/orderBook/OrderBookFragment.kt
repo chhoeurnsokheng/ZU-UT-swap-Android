@@ -29,6 +29,8 @@ class OrderBookFragment :
         super.initView()
         try {
 
+            mPresenter.startTradeOrderBookTable(Constants.OrderBookTable.marketNameOrderBook)
+
 //            Handler().postDelayed({
 //                mPresenter.startTradeOrderBookTable(Constants.OrderBookTable.marketNameOrderBook)
 //            }, 5000)
@@ -43,7 +45,7 @@ class OrderBookFragment :
 //            }
 
             fetchTradeOrderBookTable.observe(this@OrderBookFragment){
-                println("===== table  ===")
+                println("===== table  ===" + it.market.toString())
             }
 
             binding.apply {

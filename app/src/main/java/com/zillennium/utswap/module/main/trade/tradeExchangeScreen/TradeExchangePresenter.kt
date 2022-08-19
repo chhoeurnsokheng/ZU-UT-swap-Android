@@ -60,7 +60,7 @@ class TradeExchangePresenter : BaseMvpPresenterImpl<TradeExchangeView.View>(),
 
     override fun startTradeDetailSocket(marketName: String?) {
         subscription?.unsubscribe()
-        subscription = SocketManager().mTradeListSocket.subscribe(object : WSModel<TradingList.TradingListDetailRes>(){
+        subscription = SocketManager().mTradeTradeExchange.subscribe(object : WSModel<TradingList.TradingListDetailRes>(){
             override fun onOpen(webSocket: WebSocket?) {
                 webSocket?.send(ApiSettings.SEND_TRADE_MARKET_NAME+marketName.toString())
             }
