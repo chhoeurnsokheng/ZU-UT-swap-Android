@@ -340,6 +340,7 @@ class ProjectInfoActivity :
 //                    val intent = Intent(UTSwapApp.instance, TradeExchangeActivity::class.java)
 //                    startActivity(intent)
 //                }
+
             }
             if (data.action == "Upcomming") {
                 btnTrade.visibility = View.GONE

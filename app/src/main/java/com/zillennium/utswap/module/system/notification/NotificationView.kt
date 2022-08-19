@@ -15,6 +15,6 @@ class NotificationView {
 
     interface Presenter : BaseMvpPresenter<View> {
         override fun initViewPresenter(context: Context, bundle: Bundle?)
-        fun getCustomerSupport(context: Context)
+        fun getNotification(context: Context)
     }
 }

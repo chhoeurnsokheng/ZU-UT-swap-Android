@@ -11,6 +11,7 @@ object NotificationModel {
 
     class NotificationData {
         var countGroupNoti: String? = null
+        var total_page: Int? = null
         var list: ArrayList<NotificationListData>? = null
     }
 
@@ -27,13 +28,5 @@ object NotificationModel {
         var mark_as_read_msg: String? = null
 
     )
+
 }
-//
-//class NotificationModel(
-//    var icNotification: Int,
-//    var txtTitle: String,
-//    var txtTitleAnnouncement: String,
-//    var txtDescription: String,
-//    var txtDuration: String
-//) :
-//    Serializable

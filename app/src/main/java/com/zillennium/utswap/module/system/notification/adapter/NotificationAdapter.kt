@@ -35,7 +35,7 @@ class NotificationAdapter(var onClickNotificationAdapter: OnClickNotificationAda
                 Glide.with(UTSwapApp.instance)
                     .asBitmap()
                     .load(notificationModel.icon)
-                    .placeholder(R.drawable.ic_notification)
+//                    .placeholder(R.drawable.ic_notification)
                     .fitCenter()
                     .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .skipMemoryCache(true)
@@ -65,7 +65,7 @@ class NotificationAdapter(var onClickNotificationAdapter: OnClickNotificationAda
                 }
 
                 itemView.setOnClickListener {
-                    onClickNotificationAdapter.clickNotification(notificationModel.action.toString())
+                    onClickNotificationAdapter.clickNotification(notificationModel.action.toString(), notificationModel.id.toString())
                 }
             }
 
@@ -128,7 +128,8 @@ class NotificationAdapter(var onClickNotificationAdapter: OnClickNotificationAda
 
     interface OnClickNotificationAdapter {
         fun clickNotification(
-            action: String
+            action: String,
+            id: String
         )
     }
 

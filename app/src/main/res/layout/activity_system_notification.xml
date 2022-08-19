@@ -11,20 +11,40 @@
             android:id="@+id/tool_bar"
             layout="@layout/appbar_layout" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_notification"
+        <include
+            android:id="@+id/no_notification_sms"
+            layout="@layout/fragment_no_notification"
+            android:visibility="gone" />
+
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/notification_swipe_refresh"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/tool_bar"
-            android:clipToPadding="false"
-            android:overScrollMode="never"
-            android:scrollbars="none" />
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tool_bar">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_notification"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/tool_bar"
+                android:clipToPadding="false"
+                android:overScrollMode="never"
+                android:scrollbars="none" />
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        <ProgressBar
+            android:id="@+id/progressBarNofi"
+            android:layout_width="@dimen/dimen_24"
+            android:layout_height="@dimen/dimen_24"
+            android:layout_alignParentBottom="true"
+            android:layout_centerInParent="true"
+            android:visibility="gone" />
 
         <RelativeLayout
             android:id="@+id/rl_progress_bar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/tool_bar"
             android:background="@color/ripple_color"
             android:clickable="true"
             android:focusable="true">
@@ -35,6 +55,7 @@
                 android:layout_centerInParent="true" />
 
         </RelativeLayout>
+
 
     </RelativeLayout>
 </layout>

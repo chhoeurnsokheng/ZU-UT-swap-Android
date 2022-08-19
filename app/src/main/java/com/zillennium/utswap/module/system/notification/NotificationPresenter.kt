@@ -20,7 +20,7 @@ class NotificationPresenter : BaseMvpPresenterImpl<NotificationView.View>(),
         mView?.initView()
     }
 
-    override fun getCustomerSupport(context: Context) {
+    override fun getNotification(context: Context) {
         subscription?.unsubscribe()
         subscription = ApiNotificationImp().notification(context).subscribe({
             mView?.onNotificationSuccess(it.data!!)

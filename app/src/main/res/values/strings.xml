@@ -397,6 +397,8 @@
     <string name="action_remarks">Action Remarks</string>
     <string name="forgot_login_password">Forgot Login Password</string>
     <string name="news">News</string>
+    <string name="no_notification">No Notification</string>
+    <string name="notification_message">Here’s where you’ll find the newest notifications from Announcement and Transaction</string>
     <string name="share">Share</string>
     <string name="current_address">Current Address</string>
     <string name="finance_balance">Finance Balance</string>
