@@ -10,7 +10,9 @@ import android.text.Editable
 import android.text.InputFilter
 import android.text.TextWatcher
 import android.view.View
+import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.lifecycleScope
@@ -63,7 +65,6 @@ class TradeExchangeActivity :
     val NUM_PAGES_TABLE = 3
     var remember: Boolean? = null
 
-    private var page: Int = 1
 
     var click = true
     private var mBottomSheetBehavior: BottomSheetBehavior<*>? = null
@@ -71,6 +72,8 @@ class TradeExchangeActivity :
     override var fetchTradeDetailData: MutableLiveData<TradingList.TradingListSummary> = MutableLiveData()
 
     companion object {
+         var page: Int = 1
+
         fun launchTradeExchangeActivity(context: Context, trade: TradeModel?) {
             val intent = Intent(context, TradeExchangeActivity::class.java)
             intent.putExtra(Constants.TradeExchange.ProjectName, trade?.project_name)
@@ -92,11 +95,7 @@ class TradeExchangeActivity :
     @SuppressLint("SetTextI18n", "ClickableViewAccessibility")
     override fun initView() {
         super.initView()
-
-        var obj =  TransactionsFragment()
-        obj.onCallApi(page)
-
-        //call API and web socket
+        SessionVariable.requestPage.value = false
         Tovuti.from(UTSwapApp.instance).monitor{ _, isConnected, _ ->
             if(isConnected)
             {
@@ -563,6 +562,13 @@ class TradeExchangeActivity :
                 }
 //  end of bottom sheet persistent
 
+                nestedScroll.setOnScrollChangeListener(
+                    NestedScrollView.OnScrollChangeListener { v, _, scrollY, _, _ ->
+                        if (scrollY == (v.getChildAt(0).measuredHeight - v.measuredHeight)) {
+                            page++
+                            SessionVariable.requestPage.value = true
+                        }
+                    })
             }
         } catch (error: Exception) {
             // Must be safe
@@ -595,6 +601,8 @@ class TradeExchangeActivity :
             tb.setOnClickListener {
                 finish()
                 mPresenter.closeTradeDetailSocket()
+                SessionVariable.requestPage.value = false
+                page = 1
             }
 
             binding.includeLayout.tbLeft.setOnClickListener {

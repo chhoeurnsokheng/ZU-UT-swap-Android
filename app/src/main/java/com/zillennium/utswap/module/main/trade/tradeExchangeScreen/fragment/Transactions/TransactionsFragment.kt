@@ -6,8 +6,10 @@ import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Build
 import android.view.View
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
 import com.zillennium.utswap.Datas.ListDatas.transactionsData.TransactionsData
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
@@ -16,6 +18,7 @@ import com.zillennium.utswap.databinding.FragmentExchangeTransactionsBinding
 import com.zillennium.utswap.models.orders.Orders
 import com.zillennium.utswap.models.tradingList.TradingList
 import com.zillennium.utswap.module.main.trade.tradeDetailScreen.TransactionDetailActivity
+import com.zillennium.utswap.module.main.trade.tradeExchangeScreen.TradeExchangeActivity
 import com.zillennium.utswap.module.main.trade.tradeExchangeScreen.fragment.Transactions.adapter.TransactionAdapter
 import com.zillennium.utswap.utils.Constants
 import java.time.LocalDate
@@ -43,12 +46,22 @@ class TransactionsFragment :
     private var lastPosition = 0
 
 
+
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("UseCompatLoadingForDrawables", "NotifyDataSetChanged")
     override fun initView() {
         super.initView()
         onOtherActivity()
+        page = TradeExchangeActivity.page
         onCallApi(page)
+        SessionVariable.requestPage.observe(this@TransactionsFragment){
+            if(it){
+                if (page <= totalPage) {
+                    onCallApi(page)
+                    binding.progressBar.visibility = View.VISIBLE
+                }
+            }
+        }
     }
 
     override fun onGetMatchingTransactionSuccess(data: TradingList.TradeMatchingTransactionRes) {
