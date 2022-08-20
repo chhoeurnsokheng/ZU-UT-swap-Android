@@ -1,33 +1,32 @@
 package com.zillennium.utswap.module.finance.balanceScreen
 
-import android.content.Intent
+import android.app.DownloadManager
+import android.app.ProgressDialog
+import android.content.Context
 import android.net.Uri
 import android.os.Build
+import android.os.Environment
 import android.os.Handler
 import android.view.View
+import android.webkit.CookieManager
+import android.webkit.URLUtil
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.core.widget.NestedScrollView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.androidstudy.networkmanager.Tovuti
-import com.zillennium.utswap.Datas.GlobalVariable.SettingVariable
-import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
+import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityFinanceBalanceBinding
-import com.zillennium.utswap.models.FinanceBalanceModel
 import com.zillennium.utswap.models.financeBalance.BalanceFinance
-import com.zillennium.utswap.models.financeHistorical.Historical
 import com.zillennium.utswap.module.finance.balanceScreen.adapter.FinanceBalanceAdapter
 import com.zillennium.utswap.module.finance.balanceScreen.bottomSheet.FinanceExportFileBottomSheet
 import com.zillennium.utswap.module.finance.balanceScreen.bottomSheet.FinanceFilterBottomSheet
 import com.zillennium.utswap.module.finance.balanceScreen.bottomSheet.FinanceSelectDateRangeBottomSheet
 import com.zillennium.utswap.module.finance.balanceScreen.dialog.FinanceBalanceDialog
-import com.zillennium.utswap.module.finance.historicalScreen.adapter.HistoricalMyTransactionsAdapter
-import com.zillennium.utswap.utils.Constants
 import com.zillennium.utswap.utils.UtilKt
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 
 class FinanceBalanceActivity :
     BaseMvpActivity<FinanceBalanceView.View, FinanceBalanceView.Presenter, ActivityFinanceBalanceBinding>(),
@@ -47,6 +46,8 @@ class FinanceBalanceActivity :
 
     private var totalPageBalance = 1
     private var countLoop = 2
+
+    private val progressDialog = ProgressDialog(UTSwapApp.instance)
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun initView() {
@@ -214,8 +215,24 @@ class FinanceBalanceActivity :
     }
     override fun onGetExportBalanceSuccess(data: BalanceFinance.ExportFinanceBalanceData) {
         binding.apply {
-            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(data.FILE_PATH))
-            startActivity(browserIntent)
+            // This is download in browser
+//            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(data.FILE_PATH))
+//            startActivity(browserIntent)
+            
+            val request = DownloadManager.Request(Uri.parse(data.FILE_PATH))
+            val title = URLUtil.guessFileName(data.FILE_PATH, null, null)
+            request.setTitle(title)
+            request.setDescription("Downloading File please wait ...")
+            val cookie = CookieManager.getInstance().getCookie(data.FILE_PATH)
+            request.addRequestHeader("cookie", cookie)
+            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED) // This will show notification on top when downloading the file.
+            request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, title) // Title for notification.
+
+            val downloadManager = getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager //This will start downloading
+            downloadManager.enqueue(request)
+
+            Toast.makeText(UTSwapApp.instance, "Downloading File.", Toast.LENGTH_SHORT).show()
+
         }
     }
     override fun onGetExportBalanceFail(data: BalanceFinance.ExportFinanceBalance) {}

@@ -72,16 +72,15 @@ class FinanceBalanceDialog: DialogFragment() {
             val typeBalance = arguments?.getString("type_balance")
 
             if (typeBalance == "2" || typeBalance == "4" || typeBalance == "5" || typeBalance == "SEND"){
-                txtMoneyType.text = "Money Out"
-                txtDollar.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
+                txtMoneyType.text = "Money Out:"
+                amountBalance.text = "-$" + arguments?.getDouble("amountBalance").toString().let { UtilKt().formatValue(it.toDouble(), "###,###.##") }
                 amountBalance.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
             }else{
-                txtMoneyType.text = "Money In"
-                txtDollar.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.success))
+                txtMoneyType.text = "Money In:"
+                amountBalance.text = "$" + arguments?.getDouble("amountBalance").toString().let { UtilKt().formatValue(it.toDouble(), "###,###.##") }
                 amountBalance.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.success))
             }
 
-            amountBalance.text = arguments?.getDouble("amountBalance").toString().let { UtilKt().formatValue(it.toDouble(), "###,###.##") }
             txtBalance.text = "$" + arguments?.getString("balance")?.let { UtilKt().formatValue(it.toDouble(), "###,###.##") }
 
             imgScreenShot.setOnClickListener{

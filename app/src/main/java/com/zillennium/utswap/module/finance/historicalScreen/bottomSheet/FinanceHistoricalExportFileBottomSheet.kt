@@ -148,8 +148,8 @@ class FinanceHistoricalExportFileBottomSheet(
             })
 
             buttonExport.setOnClickListener {
-
                 listener.onExportDate(etStartDate.text.toString(), etEndDate.text.toString())
+                dismiss()
             }
         }
     }

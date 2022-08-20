@@ -133,6 +133,7 @@ class FinanceExportFileBottomSheet(
 
             buttonExport.setOnClickListener{
                 listenerExportBalance.onExportBalance(etStartDate.text.toString(), etEndDate.text.toString())
+                dismiss()
             }
         }
     }
