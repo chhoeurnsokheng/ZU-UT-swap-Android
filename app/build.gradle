@@ -3,8 +3,7 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-android'
     id 'kotlin-kapt'
-//    id 'com.android.application'
- //   id 'com.google.gms.google-services'
+    id 'com.google.gms.google-services'
 }
 
 def major = 1, minor = 0, patch = 0, build = 2
@@ -61,7 +60,7 @@ android {
         
         debug {
             minifyEnabled false
-            applicationIdSuffix ".debug"
+          //  applicationIdSuffix ".debug"
             versionNameSuffix ".$build"
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 
@@ -72,6 +71,7 @@ android {
             buildConfigField "String", 'BASE_URL', '"https://dev-staging.zillionunited.io/api/"'
             //buildConfigField "String", 'BASE_SOCKET_URL', '"ws://192.168.41.222/"'
             buildConfigField "String", 'BASE_SOCKET_URL', '"wss://dev-staging.zillionunited.io/"'
+            buildConfigField "String", 'FIRE_BASE_URL', '"https://utswapdev.page.link"'
 
         }
         stage {
@@ -232,11 +232,7 @@ dependencies {
 
 //    implementation 'com.github.viniciusmo:keyboard-visibility-event-android:1.0.4'
 
-    //Crash Reporting with Firebase
-    implementation 'com.google.firebase:firebase-crash:9.0.0'
-    // firebase core library
-    implementation 'com.google.firebase:firebase-bom:30.2.0'
-    implementation 'com.google.firebase:firebase-analytics'
+
 
     //swipe refresh
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
@@ -246,4 +242,18 @@ dependencies {
 
     //compressor
     implementation 'id.zelory:compressor:3.0.1'
+
+    //Firebase
+   // implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.google.firebase:firebase-analytics'
+
+    implementation platform('com.google.firebase:firebase-bom:30.3.2')
+    implementation 'com.google.firebase:firebase-dynamic-links-ktx:19.1.1'
+    implementation 'com.google.firebase:firebase-analytics-ktx:18.0.0'
+    implementation 'com.google.firebase:firebase-auth:19.2.0'
+    //Crash Reporting with Firebase
+    implementation 'com.google.firebase:firebase-crash:9.0.0'
+    // firebase core library
+    implementation 'com.google.firebase:firebase-bom:30.2.0'
+    implementation 'com.google.firebase:firebase-analytics'
 }

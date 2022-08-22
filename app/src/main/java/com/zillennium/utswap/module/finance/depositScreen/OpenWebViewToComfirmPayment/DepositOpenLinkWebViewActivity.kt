@@ -2,18 +2,14 @@ package com.zillennium.utswap.module.finance.depositScreen.OpenWebViewToComfirmP
 
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
-import android.os.Build
+import android.graphics.Color
+import android.util.Log
 import android.view.View
-import android.webkit.WebSettings
-import android.webkit.WebView
-import android.webkit.WebViewClient
+import android.webkit.*
 import androidx.core.content.ContextCompat
 import com.zillennium.utswap.R
-import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.DepositOpenLinkWebviewActivityBinding
-import com.zillennium.utswap.module.project.projectInfoScreen.ProjectInfoActivity
 import com.zillennium.utswap.utils.Constants
 
 /**
@@ -27,6 +23,7 @@ class DepositOpenLinkWebViewActivity :
     override val layoutResource: Int = R.layout.deposit_open_link_webview_activity
     override var mPresenter: DepositopenLinkView.Presenter = DepositopenLinkPresenter()
     var payment_link = ""
+
     companion object {
         fun launchDepositOpenLinkWebViewActivity(context: Context, payment_link: String?) {
             val intent = Intent(context, DepositOpenLinkWebViewActivity::class.java)
@@ -43,52 +40,49 @@ class DepositOpenLinkWebViewActivity :
     }
 
     private fun openWebView() {
+        val mWebChromeClient = object : WebChromeClient() {
+            override fun onConsoleMessage(consoleMessage: ConsoleMessage): Boolean {
+                Log.d(
+                    "MyApplication", consoleMessage.message() + " -- From line "
+                            + consoleMessage.lineNumber() + " of "
+                            + consoleMessage.sourceId()
+                )
+                return super.onConsoleMessage(consoleMessage)
+            }
+
+            override fun onCloseWindow(window: WebView?) {
+                super.onCloseWindow(window)
+            }
+        }
         binding.apply {
 
-//            webView.getSettings().setRenderPriority(WebSettings.RenderPriority.HIGH)
-//            webView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE)
-//
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-//                webView.setLayerType(View.LAYER_TYPE_HARDWARE, null)
-//            } else {
-//                webView.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
-//            }
-//
-//            webView.settings.javaScriptEnabled = true
-//            webView.webViewClient = object : WebViewClient() {
-//                override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
-//                    if (url != null) {
-//                        view?.loadUrl(url)
-//                    }
-//                    return true
-//                }
-//            }
+            webView.apply {
+                setBackgroundColor(Color.parseColor("#FFFFFF"));
+                isVerticalFadingEdgeEnabled = false
+                isVerticalScrollBarEnabled = false
+                webView.webViewClient = WebViewClient()
+                webChromeClient = mWebChromeClient
+                settings.javaScriptEnabled = true
+                settings.domStorageEnabled = true
+                settings.defaultTextEncodingName = "utf-8"
+                settings.cacheMode = WebSettings.LOAD_NO_CACHE
+                settings.useWideViewPort = true
+                settings.domStorageEnabled = true
+                settings.loadWithOverviewMode = true
+                settings.javaScriptCanOpenWindowsAutomatically = true
+                setLayerType(View.LAYER_TYPE_HARDWARE, null)
+            }
 
             if (intent.hasExtra(Constants.Deposit.Payment_Link)) {
-
-                 payment_link = intent.getStringExtra(Constants.Deposit.Payment_Link).toString()
-                //  binding.progressBar.visibility = View.VISIBLE
-                if (payment_link != null) {
-
-
-                    webView.webViewClient = WebViewClient()
-
-                    // this will load the url of the website
-//                    webView.loadUrl("https://www.geeksforgeeks.org/")
-
-                    // this will enable the javascript settings
-                    webView.settings.javaScriptEnabled = true
-
-                    // if you want to enable zoom feature
-                    webView.settings.setSupportZoom(true)
-                    binding.progressBar.visibility = View.GONE
-                    webView.loadUrl(payment_link)
-                }
+                payment_link = intent.getStringExtra(Constants.Deposit.Payment_Link).toString()
+                webView.settings.javaScriptEnabled = true
+                webView.settings.setSupportZoom(true)
+                binding.progressBar.visibility = View.GONE
+                webView.loadUrl(payment_link)
             }
 
         }
     }
-
 
     private fun toolBar() {
         setSupportActionBar(binding.includeLayout.tb)
@@ -103,5 +97,6 @@ class DepositOpenLinkWebViewActivity :
             }
         }
     }
+
 
 }

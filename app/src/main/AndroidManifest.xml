@@ -10,11 +10,11 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
 
-    <queries>
-        <package android:name="com.paygo24.ibank" />
-        <package android:name="com.domain.acledabankqr" />
-        <package android:name="kh.com.sathapana.consumer" />
-    </queries>
+<!--    <queries>-->
+<!--        <package android:name="com.paygo24.ibank" />-->
+<!--        <package android:name="com.domain.acledabankqr" />-->
+<!--        <package android:name="kh.com.sathapana.consumer" />-->
+<!--    </queries>-->
 
     <application
         android:name=".UTSwapApp"
@@ -60,11 +60,26 @@
         </activity>
         <activity
             android:name=".screens.navbar.navbar.MainActivity"
-            android:configChanges="uiMode|keyboardHidden|screenSize|orientation|screenLayout"
-            android:exported="false"
-            android:label="@string/home"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateVisible|adjustNothing" /> <!-- Activity KYC -->
+            android:exported="true"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
+
+            <intent-filter android:autoVerify="true" >
+
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="utswaptranding.com"
+                    android:scheme="https" />
+
+            </intent-filter>
+
+
+        </activity>
+        <!-- Activity KYC -->
         <activity
             android:name=".module.finance.depositScreen.OpenWebViewToComfirmPayment.DepositOpenLinkWebViewActivity"
             android:configChanges="uiMode|keyboardHidden|screenSize|orientation|screenLayout"
@@ -157,7 +172,7 @@
             android:screenOrientation="portrait" /> <!-- End Activity Project -->
         <!-- Activity Trade -->
         <activity
-            android:name="com.zillennium.utswap.module.main.trade.tradeExchangeScreen.TradeExchangeActivity"
+            android:name=".module.main.trade.tradeExchangeScreen.TradeExchangeActivity"
             android:configChanges="uiMode|keyboardHidden|screenSize|orientation|screenLayout"
             android:label="@string/trade_exchange"
             android:resizeableActivity="true"
@@ -168,12 +183,7 @@
             android:label="@string/trade_exchange"
             android:resizeableActivity="true"
             android:screenOrientation="portrait" /> <!-- End Activity Trade -->
-        <!-- <activity -->
-        <!-- android:name=".screens.finance.depositScreen.DepositActivity" -->
-        <!-- android:exported="false" -->
-        <!-- android:label="@string/deposit" -->
-        <!-- android:screenOrientation="portrait" /> -->
-        <!-- End Activity System -->
+
         <activity
             android:name="com.zillennium.utswap.module.finance.addCardScreen.DepositAddCardActivity"
             android:configChanges="uiMode|keyboardHidden|screenSize|orientation|screenLayout"

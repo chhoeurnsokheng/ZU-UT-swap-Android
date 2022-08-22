@@ -1,5 +1,7 @@
 package com.zillennium.utswap.module.finance.depositScreen.adapter
 
+import android.net.Uri
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.OnReceiveContentListener
 import android.view.View
@@ -10,6 +12,9 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.firebase.dynamiclinks.DynamicLink
+import com.google.firebase.dynamiclinks.FirebaseDynamicLinks
+import com.zillennium.utswap.BuildConfig
 import com.zillennium.utswap.R
 import com.zillennium.utswap.databinding.ItemListFinanceBalanceBinding
 import com.zillennium.utswap.databinding.ItemListFinanceDepositPaymentBinding
@@ -21,7 +26,7 @@ import com.zillennium.utswap.utils.dpToPx
 
 class DepositAdapter( val item: List<DepositObj.DataListRes>, val onClickListener: OnClickDeposit) : RecyclerView.Adapter<DepositAdapter.ViewHolder>(){
 
-
+        var shortLink =""
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
             ItemListFinanceDepositPaymentBinding.inflate(LayoutInflater.from(parent.context),parent,false)
@@ -38,10 +43,11 @@ class DepositAdapter( val item: List<DepositObj.DataListRes>, val onClickListene
                 tvCardName.text = data.title
                 linearLayout.setOnClickListener {
 
+
                     if (linearLayout.isSelected == true){
                         linearLayout.setBackgroundColor(ContextCompat.getColor(root.context,R.color.gray_EDEDED))
                     }
-                  onClickListener.ClickDepositCard(data.title, data.img_url,data.bic)
+                    onClickListener.ClickDepositCard(data.title, data.img_url,data.bic)
                 }
             }
         }

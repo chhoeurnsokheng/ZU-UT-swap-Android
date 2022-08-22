@@ -15,6 +15,7 @@ object DepositObj {
         var title:String? = null
         var img_url:String? = null
         var bic:String? =null
+        var transaction_id:String? = null
         var storelink:StoreLinkObj? = null
        /* PATH_ONLINE_DEPOSIT*/
         var payment_link:String? = null

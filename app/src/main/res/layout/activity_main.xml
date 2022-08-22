@@ -132,6 +132,11 @@
             app:itemTextAppearanceInactive="@style/regular_10"
             app:labelVisibilityMode="labeled"
             app:menu="@menu/bottom_nav_menu" />
+        <TextView
+            android:id="@+id/test"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="https://sokheng.page.link/Go1D"/>
 
     </RelativeLayout>
 </layout>

@@ -1,22 +1,21 @@
 package com.zillennium.utswap.screens.navbar.navbar
 
-import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.net.Uri
 import android.os.Handler
 import android.util.Log
-import android.view.MenuItem
+import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
-import android.view.animation.LinearInterpolator
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.core.graphics.alpha
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI.setupWithNavController
+import com.google.firebase.FirebaseApp
+import com.google.firebase.analytics.FirebaseAnalytics
 import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
 import com.zillennium.utswap.Datas.StoredPreferences.KYCPreferences
 import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
@@ -24,9 +23,11 @@ import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityMainBinding
+import com.zillennium.utswap.databinding.DepositOpenLinkWebviewActivityBinding
 import com.zillennium.utswap.models.userService.User
+import com.zillennium.utswap.module.finance.depositScreen.DepositActivity
+import com.zillennium.utswap.module.finance.depositScreen.OpenWebViewToComfirmPayment.DepositOpenLinkWebViewActivity
 import com.zillennium.utswap.module.kyc.kycActivity.KYCActivity
-import com.zillennium.utswap.module.kyc.kycFragment.fundPasswordScreen.FundPasswordFragment
 import com.zillennium.utswap.module.main.MainPresenter
 import com.zillennium.utswap.module.main.MainView
 import com.zillennium.utswap.module.main.home.HomeFragment
@@ -34,9 +35,6 @@ import com.zillennium.utswap.module.main.news.NewsFragment
 import com.zillennium.utswap.module.main.portfolio.PortfolioFragment
 import com.zillennium.utswap.module.main.trade.tradeScreen.TradeFragment
 import com.zillennium.utswap.module.security.securityActivity.signInScreen.SignInActivity
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import kotlin.time.toDuration
 
 
 class MainActivity :
@@ -49,20 +47,44 @@ class MainActivity :
     private var kcyComplete: Boolean? = false
     private var isSelected = false
     private var isSignInSuccess = true
-
     private var doubleBackToExitPressedOnce = false
     private var statusKYC = ""
 
     override fun initView() {
         super.initView()
         onSetUpNavBar()
+        handleDeepLink()
+        FirebaseAnalytics.getInstance(this)
+        handleIntent(intent)
+        FirebaseApp.initializeApp(this)
+
         binding.layAuth.setOnClickListener {
             val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
             startActivityForResult(intent, 555)
         }
-
+        binding.apply {
+            test.setOnClickListener {
+                val uri: Uri = Uri.parse("https://sokheng.page.link/Go1D")
+                startActivity(Intent(Intent.ACTION_VIEW, uri))
+            }
+        }
     }
+    private fun handleIntent(intent: Intent?) {
+        val appLinkAction: String? = intent?.action
+        val appLinkData: Uri? = intent?.data
+        showDeepLinkOffer(appLinkAction, appLinkData)
+    }
+    private fun showDeepLinkOffer(appLinkAction: String?, appLinkData: Uri?) {
+        // 1
+        if (Intent.ACTION_VIEW == appLinkAction && appLinkData != null) {
+            // 2
+            val promotionCode = appLinkData.getQueryParameter("code")
 
+            if (promotionCode.isNullOrBlank().not()) {
+
+            }
+        }
+    }
     fun onRefreshData() {
         mPresenter.onCheckKYCStatus()
 
@@ -80,7 +102,14 @@ class MainActivity :
         binding.layVerify.visibility = GONE
     }
 
-
+    private fun handleDeepLink(){
+        val intent = intent
+        val action = intent.action
+        val data: Uri? = intent.data
+        if (data !=null){
+            startActivity(Intent(this,DepositActivity::class.java))
+        }
+    }
     object kyc {
         var statusKycSubmit = ""
     }
@@ -300,5 +329,12 @@ class MainActivity :
     override fun onResume() {
         super.onResume()
         binding.navView.selectedItemId = R.id.navigation_navbar_home
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        intent?.let { newIntent ->
+            handleIntent(newIntent)
+        }
     }
 }

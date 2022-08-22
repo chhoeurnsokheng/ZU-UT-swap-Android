@@ -5,6 +5,8 @@ import android.content.Intent
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.FirebaseApp
+import com.google.firebase.ktx.Firebase
 import com.zillennium.utswap.R
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityFinanceDepositBinding
@@ -35,6 +37,7 @@ class DepositActivity :
         super.initView()
         try {
             toolBar()
+            FirebaseApp.initializeApp(this)
             mPresenter.onGetListBank(this)
             binding.apply {
                 progressBar.visibility = View.VISIBLE

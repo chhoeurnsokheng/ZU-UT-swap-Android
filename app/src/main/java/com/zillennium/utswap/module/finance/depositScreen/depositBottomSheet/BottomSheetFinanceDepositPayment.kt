@@ -1,11 +1,14 @@
 package com.zillennium.utswap.module.finance.depositScreen.depositBottomSheet
 
 import android.content.Context
+import android.content.Intent
 import android.content.res.ColorStateList
+import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.InputFilter
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +19,11 @@ import com.gis.z1android.api.errorhandler.CallbackWrapper
 import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_EXPANDED
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.dynamiclinks.DynamicLink
+import com.google.firebase.dynamiclinks.FirebaseDynamicLinks
+import com.google.gson.Gson
+import com.zillennium.utswap.BuildConfig
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.api.manager.ApiDepositImp
@@ -28,17 +36,19 @@ import com.zillennium.utswap.utils.groupingSeparator
 import rx.Subscription
 
 
-class BottomSheetFinanceDepositPayment: BottomSheetDialogFragment(), AdapterView.OnItemSelectedListener{
+class BottomSheetFinanceDepositPayment : BottomSheetDialogFragment(),
+    AdapterView.OnItemSelectedListener {
 
     private var binding: BottomSheetFinanceDepositPaymentBinding? = null
     var subscriptionOnDepositBalance: Subscription? = null
-    var payment_method =""
-    var coinname ="usd"
+    var payment_method = ""
+    var coinname = "usd"
     var balance = ""
     var fee = ""
-    var typeOfCard =""
-    var payment_link =""
-
+    var typeOfCard = ""
+    var payment_link = ""
+    var deep_link_url = ""
+    var transitionId= ""
     override fun getTheme(): Int {
         return R.style.BottomSheetStyle
     }
@@ -54,14 +64,21 @@ class BottomSheetFinanceDepositPayment: BottomSheetDialogFragment(), AdapterView
             (dialog as BottomSheetDialog).behavior.state = STATE_EXPANDED
         }
 
-        binding = DataBindingUtil.inflate(inflater, R.layout.bottom_sheet_finance_deposit_payment, container, false)
+        binding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.bottom_sheet_finance_deposit_payment,
+            container,
+            false
+        )
         return binding?.root
 
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        FirebaseAnalytics.getInstance(requireActivity())
         binding?.apply {
+            var intent = Intent()
 
             nextBtnFinace.isEnabled = false
             nextBtnFinace.setOnClickListener {
@@ -70,21 +87,16 @@ class BottomSheetFinanceDepositPayment: BottomSheetDialogFragment(), AdapterView
                 bodyObj.num = balance
                 bodyObj.type = typeOfCard
                 bodyObj.coinname = coinname
-                bodyObj.deep_link = "ANDROID"
+                bodyObj.deep_link = "https://utswaptranding.page.link/utswap"
                 bodyObj.payment_method = payment_method
 
-            onDepositBalance(root.context, bodyObj)
+                onDepositBalance(root.context, bodyObj)
+                binding?.progressBar?.visibility = View.VISIBLE
 
-                if(!etMountPayment.text.isNullOrEmpty()){
-                    if(etMountPayment.text.toString().toLong() > 0){
-
-                        if (payment_link !=null){
-                            DepositOpenLinkWebViewActivity.launchDepositOpenLinkWebViewActivity(root.context,payment_link)
-                        }
-                    }
-                }
-
-
+//                if(!etMountPayment.text.isNullOrEmpty()){
+//                    if(etMountPayment.text.toString().toLong() > 0){
+//                    }
+//                }
 
             }
 
@@ -94,7 +106,7 @@ class BottomSheetFinanceDepositPayment: BottomSheetDialogFragment(), AdapterView
             }
             arguments?.getString("payMentMethod").let {
                 titleCard.text = it.toString()
-                payment_method=  "$it"
+                payment_method = "$it"
             }
             arguments?.getString("typeOfCard").let {
                 typeOfCard = it.toString()
@@ -103,7 +115,7 @@ class BottomSheetFinanceDepositPayment: BottomSheetDialogFragment(), AdapterView
             etMountPayment.filters = arrayOf<InputFilter>(DecimalDigitsInputFilter(10, 2))
             etMountPayment.requestFocus()
 
-            etMountPayment.addTextChangedListener(object : TextWatcher{
+            etMountPayment.addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(
                     s: CharSequence?,
                     start: Int,
@@ -113,11 +125,16 @@ class BottomSheetFinanceDepositPayment: BottomSheetDialogFragment(), AdapterView
 
                 }
 
-                override fun onTextChanged(char: CharSequence?, start: Int, before: Int, count: Int) {
+                override fun onTextChanged(
+                    char: CharSequence?,
+                    start: Int,
+                    before: Int,
+                    count: Int
+                ) {
 
 
-
-                    val amount: Double = if (!char.isNullOrEmpty()) { char.toString().toDouble()
+                    val amount: Double = if (!char.isNullOrEmpty()) {
+                        char.toString().toDouble()
                     } else {
                         '0'.toString().toDouble()
                     }
@@ -132,11 +149,21 @@ class BottomSheetFinanceDepositPayment: BottomSheetDialogFragment(), AdapterView
                     fee = txtFeeValue.toString()
 
                     nextBtnFinace.apply {
-                        if(amount > 0){
-                            backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
+                        if (amount > 0) {
+                            backgroundTintList = ColorStateList.valueOf(
+                                ContextCompat.getColor(
+                                    UTSwapApp.instance,
+                                    R.color.primary
+                                )
+                            )
                             isEnabled = true
-                        }else{
-                            backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.dark_gray))
+                        } else {
+                            backgroundTintList = ColorStateList.valueOf(
+                                ContextCompat.getColor(
+                                    UTSwapApp.instance,
+                                    R.color.dark_gray
+                                )
+                            )
                             isEnabled = false
                         }
                     }
@@ -152,15 +179,19 @@ class BottomSheetFinanceDepositPayment: BottomSheetDialogFragment(), AdapterView
         }
     }
 
-    companion object{
-        fun newInstance(paymentMethod: String?,cardImg: String?, type:String?): BottomSheetFinanceDepositPayment {
+    companion object {
+        fun newInstance(
+            paymentMethod: String?,
+            cardImg: String?,
+            type: String?
+        ): BottomSheetFinanceDepositPayment {
             val depositBottomSheetDialog = BottomSheetFinanceDepositPayment()
             val args = Bundle()
             if (cardImg != null) {
                 args.putString("imgCard", cardImg)
             }
             args.putString("payMentMethod", paymentMethod)
-            args.putString("typeOfCard",type)
+            args.putString("typeOfCard", type)
 
 
             depositBottomSheetDialog.arguments = args
@@ -173,14 +204,49 @@ class BottomSheetFinanceDepositPayment: BottomSheetDialogFragment(), AdapterView
 
     }
 
-    override fun onNothingSelected(parent: AdapterView<*>?) {
+    override fun onNothingSelected(parent: AdapterView<*>?) {}
 
-    }
+//    private fun fireBase() {
+//
+//        FirebaseDynamicLinks.getInstance().createDynamicLink() // .setLink(dynamicLinkUri)
+//            .setLink(Uri.parse("https://utswapapp.com"))
+//            .setSocialMetaTagParameters(
+//                DynamicLink.SocialMetaTagParameters.Builder()
+//                    .setTitle("Hello sokheng")
+//                    .setImageUrl(Uri.parse(R.drawable.aba_pay.toString()))
+//                    .build()
+//            )
+//            .setDomainUriPrefix(BuildConfig.FIRE_BASE_URL) // Open links with this app on Android
+//            .setAndroidParameters(
+//                DynamicLink.AndroidParameters.Builder().setFallbackUrl(Uri.parse("https://www.youtube.com/watch?v=7aekxC_monc&list=RDVdQHUbv0rMM&index=8"))
+//                .build()
+//            )
+//            .setIosParameters(
+//                DynamicLink.IosParameters.Builder("com.utswapapp.ios")
+//                    .setFallbackUrl(Uri.parse("https://apps.apple.com/us/app/utswapapp-app/id1518963601"))
+//                    .build()
+//            )
+//            .buildShortDynamicLink()
+//            .addOnCompleteListener { task ->
+//                var shortLink = task.result.shortLink.toString()
+//                deep_link_url = shortLink
+//            }
+//            .addOnFailureListener {
+//                Log.e("ShareFail", it.message.toString())
+//            }
+//    }
 
-     fun onDepositBalance(context: Context, body: DepositObj.DepositRequestBody) {
+    fun onDepositBalance(context: Context, body: DepositObj.DepositRequestBody) {
         subscriptionOnDepositBalance?.unsubscribe()
         subscriptionOnDepositBalance = ApiDepositImp().depositMoney(context, body).subscribe({
-            payment_link = it.data?.payment_link.toString()
+            transitionId = it.data?.transaction_id.toString()
+            if (it.data?.payment_link != null) {
+                binding?.progressBar?.visibility = View.GONE
+                DepositOpenLinkWebViewActivity.launchDepositOpenLinkWebViewActivity(
+                    context,
+                    it.data?.payment_link
+                )
+            }
 
         }, { error ->
             object : CallbackWrapper(error, UTSwapApp.instance, arrayListOf()) {
