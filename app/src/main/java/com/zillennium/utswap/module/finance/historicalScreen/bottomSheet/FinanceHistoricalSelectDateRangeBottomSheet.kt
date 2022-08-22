@@ -56,6 +56,8 @@ class FinanceHistoricalSelectDateRangeBottomSheet (
         binding?.apply {
             (view.parent as View).setBackgroundColor(ContextCompat.getColor(UTSwapApp.instance, R.color.transparent))
 
+            val fm = "dd-MMM-yyyy"
+            val sdf = SimpleDateFormat(fm)
             val calendar = Calendar.getInstance()
 
             val dateStart =
@@ -123,15 +125,21 @@ class FinanceHistoricalSelectDateRangeBottomSheet (
                 override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
                 override fun afterTextChanged(p0: Editable?) {
-                    if (etEndDate.text.toString() < etStartDate.text.toString()) {
-                        Toast.makeText(
-                            UTSwapApp.instance,
-                            "EndDate should be greater than StartDate",
-                            Toast.LENGTH_LONG
-                        ).show()
-                    }else{
-                        listener.onSelectDateChangeSelect(etStartDate.text.toString(), etEndDate.text.toString())
-                        dismiss()
+
+                    val dateS = sdf.parse(etStartDate.text.toString())
+                    val dateE = sdf.parse(etEndDate.text.toString())
+
+                    if (dateS != null) {
+                        if (dateS > dateE){
+                            Toast.makeText(
+                                UTSwapApp.instance,
+                                "EndDate should be greater than StartDate",
+                                Toast.LENGTH_LONG
+                            ).show()
+                        }else{
+                            listener.onSelectDateChangeSelect(etStartDate.text.toString(), etEndDate.text.toString())
+                            dismiss()
+                        }
                     }
                 }
             })

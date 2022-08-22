@@ -11,8 +11,6 @@ import android.widget.DatePicker
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
-import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
@@ -57,6 +55,8 @@ class FinanceSelectDateRangeBottomSheet(
         binding?.apply {
             (view.parent as View).setBackgroundColor(ContextCompat.getColor(UTSwapApp.instance, android.R.color.transparent))
 
+            val fm = "dd-MMM-yyyy"
+            val sdf = SimpleDateFormat(fm)
             val calendar = Calendar.getInstance()
 
             val dateStart =
@@ -124,15 +124,21 @@ class FinanceSelectDateRangeBottomSheet(
                 override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
                 override fun afterTextChanged(p0: Editable?) {
-                    if (etEndDate.text.toString() < etStartDate.text.toString()) {
-                        Toast.makeText(
+
+                    val dateS = sdf.parse(etStartDate.text.toString())
+                    val dateE = sdf.parse(etEndDate.text.toString())
+
+                    if (dateS != null) {
+                        if (dateS > dateE){
+                            Toast.makeText(
                             UTSwapApp.instance,
                             "EndDate should be greater than StartDate",
                             Toast.LENGTH_LONG
                         ).show()
-                    }else{
-                        listenerFilter.onChangeFilterSelectDateRange(etStartDate.text.toString(), etEndDate.text.toString())
-                        dismiss()
+                        }else{
+                            listenerFilter.onChangeFilterSelectDateRange(etStartDate.text.toString(), etEndDate.text.toString())
+                            dismiss()
+                        }
                     }
                 }
             })

@@ -39,6 +39,7 @@ object BalanceFinance {
         var issue_name: String? = null
         var name: String? = null
         var transaction_type: String? = null
+        var fee_admin: String? = null
     }
 
     class GetBalanceSearchDateObject(

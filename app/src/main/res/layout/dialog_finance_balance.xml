@@ -124,6 +124,16 @@
                                             android:textColor="@color/gray_888888" />
 
                                         <TextView
+                                            android:id="@+id/txt_fee_admin"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="@string/fee__"
+                                            android:layout_marginVertical="@dimen/dimen_10"
+                                            android:textAppearance="@style/regular_12"
+                                            android:textColor="@color/gray_888888"
+                                            android:visibility="gone"/>
+
+                                        <TextView
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_marginVertical="@dimen/dimen_10"
@@ -156,19 +166,22 @@
                                             android:textAppearance="@style/regular_12"
                                             android:textColor="@color/black_0a0b12" />
 
-                                        <LinearLayout
+                                        <TextView
+                                            android:id="@+id/txt_fee_id"
                                             android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content">
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginVertical="@dimen/dimen_10"
+                                            android:textAppearance="@style/regular_12"
+                                            android:textColor="@color/black_0a0b12"
+                                            android:visibility="gone"/>
 
-                                            <TextView
-                                                android:id="@+id/amount_balance"
-                                                android:layout_width="wrap_content"
-                                                android:layout_height="wrap_content"
-                                                android:layout_marginVertical="@dimen/dimen_10"
-                                                android:textAppearance="@style/regular_12"
-                                                android:textColor="@color/danger" />
-
-                                        </LinearLayout>
+                                        <TextView
+                                            android:id="@+id/amount_balance"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginVertical="@dimen/dimen_10"
+                                            android:textAppearance="@style/regular_12"
+                                            android:textColor="@color/danger" />
 
                                         <TextView
                                             android:id="@+id/txt_balance"

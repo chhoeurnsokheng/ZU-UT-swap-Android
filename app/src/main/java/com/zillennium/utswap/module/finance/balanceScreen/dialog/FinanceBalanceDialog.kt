@@ -69,9 +69,18 @@ class FinanceBalanceDialog: DialogFragment() {
             dateTransaction.text = arguments?.getString("date_transaction")
             txtBalanceId.text = arguments?.getString("id_balance")
 
+            
             val typeBalance = arguments?.getString("type_balance")
+            val feeAdmin = arguments?.getString("fee_admin")
 
             if (typeBalance == "2" || typeBalance == "4" || typeBalance == "5" || typeBalance == "SEND"){
+                if (typeBalance == "4"){
+                    if (feeAdmin == "YES"){
+                        txtFeeAdmin.visibility = View.VISIBLE
+                        txtFeeId.visibility = View.VISIBLE
+                        txtFeeId.text = "$5"
+                    }
+                }
                 txtMoneyType.text = "Money Out:"
                 amountBalance.text = "-$" + arguments?.getDouble("amountBalance").toString().let { UtilKt().formatValue(it.toDouble(), "###,###.##") }
                 amountBalance.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
@@ -147,6 +156,7 @@ class FinanceBalanceDialog: DialogFragment() {
         type: String?,
         total: Double?,
         balance: String?,
+        fee: String?
         ): FinanceBalanceDialog {
             val financeBalanceDialog = FinanceBalanceDialog()
             val args = Bundle()
@@ -158,6 +168,7 @@ class FinanceBalanceDialog: DialogFragment() {
                 args.putDouble("amountBalance", total)
             }
             args.putString("balance", balance)
+            args.putString("fee_admin", fee)
 
             financeBalanceDialog.arguments = args
             return financeBalanceDialog

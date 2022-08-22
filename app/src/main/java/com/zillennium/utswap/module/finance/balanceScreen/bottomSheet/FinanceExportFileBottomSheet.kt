@@ -52,6 +52,8 @@ class FinanceExportFileBottomSheet(
 
             buttonExport.isEnabled = false
 
+            val fm = "dd-MMM-yyyy"
+            val sdf = SimpleDateFormat(fm)
             val calendar = Calendar.getInstance()
 
             val dateStart =
@@ -119,14 +121,19 @@ class FinanceExportFileBottomSheet(
                 override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
                 override fun afterTextChanged(p0: Editable?) {
-                    if (etEndDate.text.toString() < etStartDate.text.toString()) {
-                        Toast.makeText(
-                            UTSwapApp.instance,
-                            "EndDate should be greater than StartDate",
-                            Toast.LENGTH_LONG
-                        ).show()
-                    }else{
-                        buttonExport.isEnabled = true
+                    val dateS = sdf.parse(etStartDate.text.toString())
+                    val dateE = sdf.parse(etEndDate.text.toString())
+
+                    if (dateS != null) {
+                        if (dateS > dateE){
+                            Toast.makeText(
+                                UTSwapApp.instance,
+                                "EndDate should be greater than StartDate",
+                                Toast.LENGTH_LONG
+                            ).show()
+                        }else{
+                            buttonExport.isEnabled = true
+                        }
                     }
                 }
             })

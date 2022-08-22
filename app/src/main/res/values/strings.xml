@@ -470,6 +470,7 @@
     <string name="date__">Date:</string>
     <string name="transaction_id_">Transaction ID:</string>
     <string name="balance__">Balance:</string>
+    <string name="fee__">Fee:</string>
 
 
 </resources>
