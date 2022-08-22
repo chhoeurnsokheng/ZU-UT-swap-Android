@@ -11,10 +11,8 @@ import com.zillennium.utswap.models.userService.User
 class MainView {
     interface View : BaseMvpView {
         override fun initView()
-
         fun onGetForceUpdateSuccess(data:ForceUpdate.ForceUpdateRes)
         fun onGetForceUpdateFailed(data:String)
-
         fun onCheckKYCSuccess(data: User.KycRes)
         fun onCheckKYCFail()
 
@@ -22,9 +20,7 @@ class MainView {
 
     interface Presenter : BaseMvpPresenter<View> {
         override fun initViewPresenter(context: Context, bundle: Bundle?)
-
         fun checkForceUpdate(context: Context)
-
         fun onCheckKYCStatus()
 
     }
