@@ -1,21 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <LinearLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/dialog_bg"
-        android:paddingVertical="@dimen/dimen_10">
+        android:layout_height="match_parent"
+        android:overScrollMode="never"
+        android:scrollbars="none">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_filter_historical"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:nestedScrollingEnabled="false"
-            android:overScrollMode="never"
-            android:padding="@dimen/dimen_20"
-            android:scrollbars="none" />
+            android:background="@drawable/dialog_bg"
+            android:paddingVertical="@dimen/dimen_10"
+            android:orientation="vertical">
 
-    </LinearLayout>
+            <LinearLayout
+                android:id="@+id/layout_txt_all_project"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/dimen_20"
+                android:orientation="vertical"
+                android:visibility="visible">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/all_projects"
+                        android:layout_weight="90"
+                        android:layout_marginVertical="@dimen/dimen_15"
+                        android:textAppearance="@style/medium_14"
+                        android:textColor="@color/black" />
+
+                    <LinearLayout
+                        android:id="@+id/lay_icon_check_historical"
+                        android:layout_width="@dimen/dimen_0"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="10"
+                        android:layout_marginVertical="@dimen/dimen_15"
+                        android:gravity="end"
+                        android:visibility="gone">
+
+                        <ImageView
+                            android:layout_width="@dimen/dimen_20"
+                            android:layout_height="@dimen/dimen_20"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_baseline_check_24"
+                            app:tint="@color/primary" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/line"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/light_gray" />
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_filter_historical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
+                tools:listitem="@layout/item_list_finance_historical_filter"
+                android:overScrollMode="never"
+                android:paddingHorizontal="@dimen/dimen_20"
+                android:scrollbars="none" />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
 
 </layout>

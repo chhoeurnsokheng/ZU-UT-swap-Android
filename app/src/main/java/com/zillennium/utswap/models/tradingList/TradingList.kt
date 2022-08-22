@@ -11,6 +11,8 @@ object TradingList {
         var url: ArrayList<List<Any>>? = arrayListOf()
     }
 
+    /** Trade Detail*/
+
     class TradingListDetailRes{
         var market_summary: TradingListSummary? = null
     }
@@ -21,12 +23,95 @@ object TradingList {
 
     class TradingListDetailInfo{
         var title: String? = null
-        var new_price: String? = null
-        var max_price: String? = null
-        var min_price: String? = null
+        var new_price: Any? = null
+        var max_price: Any? = null
+        var min_price: Any? = null
         var buy_price: String? = null
         var sell_price: String? = null
         var volume: String? = null
+        var target_price: Any? = null
+        var market_open: Boolean? = null
         var change: String? = null
+
     }
+
+    /** Upcoming project trading list*/
+    class TradeUpComingProjectRes{
+        var status: Int? = null
+        var message: String? = null
+        var data: TradeUpComingProjectData? = null
+    }
+
+    class TradeUpComingProjectData{
+        var project: List<TradeUpComingProjectList>? = null
+    }
+
+    class TradeUpComingProjectList{
+        var id: String? = null
+        var project_name: String? = null
+        var status: String? = null
+    }
+
+    /** Trade Order Book Table*/
+    class TradeOrderBookTableRes{
+        var sell: ArrayList<List<Any>>? = arrayListOf()
+        var buy: ArrayList<List<Any>>? = arrayListOf()
+        var buyvol: String? = null
+        var sellvol: String? = null
+        var type: String? = null
+        var market: String? = null
+    }
+
+    /** Check Favorite Project in Trade*/
+    class TradeFavoriteProjectRes{
+        var status: Int? = null
+        var message: String? = null
+        var data: TradeFavoriteProjectData? = null
+    }
+
+    class TradeFavoriteProjectData{
+        var is_favorite: Boolean? = null
+    }
+    
+    class TradeFavoriteProjectObj(
+        var issue_id: Int
+    )
+
+    /** Add Favorite Project*/
+    class TradeAddFavoriteObj(
+        var add_fav: Int,
+        var issue_id: Int
+    )
+
+    class TradeAddFavoriteRes{
+        var status: Int? = null
+        var message: String? = null
+        var data: TradeAddFavoriteData? = null
+    }
+
+    class TradeAddFavoriteData{
+
+    }
+
+    /** Trade Create Place Order*/
+    class TradeCreateOrderRes{
+        var status: Int? = null
+        var message: String? = null
+        var data: TradeCreateOrderData? =null
+    }
+
+    class TradeCreateOrderData{
+
+    }
+
+    class TradeCreateOrderObj(
+        var sign_type: String,
+        var sign: String,
+        var market: String,
+        var price: String,
+        var num: String,
+        var type: String,
+        var paypassword: String,
+        var tradeType: String
+    )
 }

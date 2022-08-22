@@ -5,6 +5,7 @@ import com.google.firebase.crashlytics.buildtools.ndk.internal.dwarf.processor.C
 import com.zillennium.utswap.models.home.BannerObj
 import com.zillennium.utswap.models.home.ForceUpdate
 import com.zillennium.utswap.models.newsService.News
+import com.zillennium.utswap.models.userService.User
 import retrofit2.http.Header
 import rx.Observable
 import rx.android.schedulers.AndroidSchedulers
@@ -36,5 +37,15 @@ class ApiHomeImp : ApiManager() {
 
     fun checkForceUpdate(context: Context): Observable<ForceUpdate.ForceUpdateRes> =
         mHomeService.checkForceUpdate().subscribeOn(Schedulers.io())
+
+    fun checkKycStatus(context: Context): Observable<User.KycRes> =
+        mHomeService.checkKYCStatus(
+            com.zillennium.utswap.api.Header.getHeader(
+                com.zillennium.utswap.api.Header.Companion.AuthType.REQUIRED_TOKEN,
+                context
+            ),
+
+            )
+            .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
 }

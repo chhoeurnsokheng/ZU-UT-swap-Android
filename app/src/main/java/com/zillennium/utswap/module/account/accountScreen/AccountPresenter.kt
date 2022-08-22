@@ -7,12 +7,14 @@ import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.api.manager.ApiManager
 import com.zillennium.utswap.api.manager.ApiUserImp
 import com.zillennium.utswap.bases.mvp.BaseMvpPresenterImpl
+import com.zillennium.utswap.models.userService.User
 import rx.Subscription
 
 class AccountPresenter : BaseMvpPresenterImpl<AccountView.View>(),
     AccountView.Presenter {
 
     private var subscriptions: Subscription? = null
+    private var subscriptionUploadProfile: Subscription? = null
 
     override fun initViewPresenter(context: Context, bundle: Bundle?) {
         mBundle = bundle
@@ -28,6 +30,23 @@ class AccountPresenter : BaseMvpPresenterImpl<AccountView.View>(),
                 mView?.onGetUserInfoSuccess(it.data!!)
             }else{
                 mView?.onGetUserInfoFail(it.data!!)
+            }
+        },{
+            object : CallbackWrapper(it, UTSwapApp.instance, arrayListOf()){
+                override fun onCallbackWrapper(status: ApiManager.NetworkErrorStatus, data: Any) {
+                    mView?.onFail(data.toString())
+                }
+            }
+        })
+    }
+
+    override fun uploadProfile(body: User.AccountUploadProfileObject, context: Context) {
+        subscriptionUploadProfile?.unsubscribe()
+        subscriptionUploadProfile = ApiUserImp().uploadProfile(body,context).subscribe({
+            if(it.status == 1){
+                mView?.uploadProfileSuccess(it)
+            }else{
+                mView?.uploadProfileFail(it)
             }
         },{
             object : CallbackWrapper(it, UTSwapApp.instance, arrayListOf()){

@@ -1,74 +1,57 @@
 package com.zillennium.utswap.module.finance.depositScreen.adapter
 
 import android.view.LayoutInflater
+import android.view.OnReceiveContentListener
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.zillennium.utswap.R
+import com.zillennium.utswap.databinding.ItemListFinanceBalanceBinding
+import com.zillennium.utswap.databinding.ItemListFinanceDepositPaymentBinding
 import com.zillennium.utswap.models.DepositModel
+import com.zillennium.utswap.models.deposite.DepositObj
+import com.zillennium.utswap.module.finance.depositScreen.depositBottomSheet.BottomSheetFinanceDepositPayment
 import com.zillennium.utswap.utils.dpToPx
 
 
-class DepositAdapter(private val arrayList: ArrayList<DepositModel>, onclickDeposit: OnClickDeposit) :
-    RecyclerView.Adapter<DepositAdapter.ViewHolder>(){
-
-    private val listData: ArrayList<DepositModel> = arrayList
-    private lateinit var onclickDeposit: OnClickDeposit
+class DepositAdapter( val item: List<DepositObj.DataListRes>, val onClickListener: OnClickDeposit) : RecyclerView.Adapter<DepositAdapter.ViewHolder>(){
 
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        var layDepositItem: LinearLayout = view.findViewById<LinearLayout>(R.id.layDepositItem)
-        var card_image: ImageView = view.findViewById<View>(R.id.img_cardImage) as ImageView
-        var card_name: TextView = view.findViewById<View>(R.id.tv_cardTitle) as TextView
-
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DepositAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.item_list_finance_deposit_payment, parent, false)
+            ItemListFinanceDepositPaymentBinding.inflate(LayoutInflater.from(parent.context),parent,false)
         )
     }
 
-
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val  depositCurrentItemList: DepositModel = listData[position]
-        holder.card_image.setImageResource(depositCurrentItemList.cardImg)
-        holder.card_name.text = depositCurrentItemList.cardTitle
-        when(depositCurrentItemList.cardTitle)
-        {
-            "ABA Pay"->{
-                holder.card_image.layoutParams.width = dpToPx(30)
-                holder.card_image.layoutParams.height = dpToPx(18)
-            }
-            "Visa/ Master Card"->{
-                holder.card_image.layoutParams.width = dpToPx(64)
-                holder.card_image.layoutParams.height = dpToPx(19)
-            }
-            "Acleda Bank"->{
-                holder.card_image.layoutParams.width = dpToPx(29)
-                holder.card_image.layoutParams.height = dpToPx(29)
-            }
-            "Sathapana"->{
-                holder.card_image.layoutParams.width = dpToPx(27)
-                holder.card_image.layoutParams.height = dpToPx(32)
+            holder.bind(item[position])
+    }
+  inner  class ViewHolder(var binding:ItemListFinanceDepositPaymentBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(data: DepositObj.DataListRes){
+            binding.apply {
+                Glide.with(imgCardImage).load(data.img_url).fitCenter().into(imgCardImage)
+                tvCardName.text = data.title
+                linearLayout.setOnClickListener {
+
+                    if (linearLayout.isSelected == true){
+                        linearLayout.setBackgroundColor(ContextCompat.getColor(root.context,R.color.gray_EDEDED))
+                    }
+                  onClickListener.ClickDepositCard(data.title, data.img_url,data.bic)
+                }
             }
         }
-
-        holder.layDepositItem.setOnClickListener { onclickDeposit.ClickDepositCard(depositCurrentItemList.cardTitle, depositCurrentItemList.cardImg)}
-
     }
+
     override fun getItemCount(): Int {
-        return listData.size
+        return item.size
     }
 
     interface OnClickDeposit {
-        fun ClickDepositCard(cardTitle: String,cardImg: Int)
+        fun ClickDepositCard(paymentMethod: String?,cardImg: String?,type:String?)
     }
-    init {
-        this.onclickDeposit = onclickDeposit
-    }
-
 }

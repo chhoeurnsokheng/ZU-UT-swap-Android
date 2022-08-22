@@ -17,6 +17,7 @@ class MainPresenter : BaseMvpPresenterImpl<MainView.View>(),
         mView?.initView()
     }
 
+
     override fun checkForceUpdate(context: Context) {
         forceUpdateSubscription?.unsubscribe()
         forceUpdateSubscription = ApiHomeImp().checkForceUpdate(context).subscribe({
@@ -28,6 +29,35 @@ class MainPresenter : BaseMvpPresenterImpl<MainView.View>(),
                 }
 
             }
-        })
+        })}
+
+
+    override fun onCheckKYCStatus() {
+        mContext?.let {
+            onCheckKYCStatusSubscription = ApiHomeImp().checkKycStatus(it).subscribe({ it1 ->
+                if (it1.status == "1") {
+                    mView?.onCheckKYCSuccess(it1)
+                } else {
+                    mView?.onCheckKYCFail()
+
+                }
+            }, { it2 ->
+                object : CallbackWrapper(it2, it, arrayListOf()) {
+                    override fun onCallbackWrapper(
+                        status: ApiManager.NetworkErrorStatus,
+                        data: Any
+                    ) {
+                        mView?.onCheckKYCFail()
+                    }
+                }
+
+            })
+
+        }
+    }
+
+    var onCheckKYCStatusSubscription: Subscription? = null
+    override fun onUnSubscript() {
+        onCheckKYCStatusSubscription?.unsubscribe()
     }
 }

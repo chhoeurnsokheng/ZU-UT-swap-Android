@@ -6,11 +6,14 @@ import android.graphics.BlurMaskFilter
 import android.graphics.MaskFilter
 import android.util.Log
 import android.view.View
+import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager.widget.ViewPager
 import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
+import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
@@ -30,6 +33,8 @@ import com.zillennium.utswap.module.main.news.newsDetail.NewsDetailActivity
 import com.zillennium.utswap.module.project.projectScreen.ProjectActivity
 import com.zillennium.utswap.module.security.securityActivity.signInScreen.SignInActivity
 import com.zillennium.utswap.module.system.notification.NotificationActivity
+import com.zillennium.utswap.screens.navbar.navbar.MainActivity
+import com.zillennium.utswap.utils.Constants
 import com.zillennium.utswap.utils.SpaceDecoration
 import com.zillennium.utswap.utils.UtilKt
 
@@ -74,66 +79,80 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
                     rvHomeWatchlist.visibility = View.VISIBLE
                     linearLayoutWatchlist.visibility = View.VISIBLE
                     if (SessionVariable.SESSION_STATUS.value == true) {
-                        imgMenu.setOnClickListener {
+
+                    } else {
+                        if (SessionVariable.SESSION_STATUS.value == true) {
+                            imgMenu.setOnClickListener {
+                                val intent = Intent(UTSwapApp.instance, AccountActivity::class.java)
+                                startActivity(intent)
+                                requireActivity().overridePendingTransition(
+                                    R.anim.slide_in_left,
+                                    R.anim.slide_out_right
+                                )
+                            }
+                        } else {
+                            txtTotalBalance.visibility = View.GONE
+                            linearLayoutBalance.visibility = View.GONE
+                            rvHomeWatchlist.visibility = View.GONE
+                            linearLayoutWatchlist.visibility = View.GONE
+
+                        }
+                    }
+                    imgMenu.setOnClickListener {
+                        if (SessionPreferences().SESSION_TOKEN != null) {
                             val intent = Intent(UTSwapApp.instance, AccountActivity::class.java)
                             startActivity(intent)
                             requireActivity().overridePendingTransition(
                                 R.anim.slide_in_left,
                                 R.anim.slide_out_right
                             )
-                        }
-                    } else {
-                        txtTotalBalance.visibility = View.GONE
-                        linearLayoutBalance.visibility = View.GONE
-                        rvHomeWatchlist.visibility = View.GONE
-                        linearLayoutWatchlist.visibility = View.GONE
-                        imgMenu.setOnClickListener {
+                        } else {
                             val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
                             startActivity(intent)
+
                         }
                     }
-                }
-
-                imgMenu.setOnClickListener {
+                    /*imgMenu.setOnClickListener {
                     val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
                     startActivity(intent)
-                }
+                }*/
 
-                /* Show or Hide Trading Balance */
-                tradingBalance.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
-                tradingBalance.paint.maskFilter = blurMask
+                    /* Show or Hide Trading Balance */
+                    tradingBalance.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
+                    tradingBalance.paint.maskFilter = blurMask
 
-                buttonShowToggle.setOnClickListener {
-                    showBalanceClick()
-                }
-                tradingBalance.setOnClickListener {
-                    showBalanceClick()
-                }
+                    buttonShowToggle.setOnClickListener {
+                        showBalanceClick()
+                    }
+                    tradingBalance.setOnClickListener {
+                        showBalanceClick()
+                    }
 
-                /* Home Menu Grid */
-                onHomeMenuGrid(SessionVariable.SESSION_STATUS.value.toString().toBoolean())
-                SessionVariable.SESSION_STATUS.observe(this@HomeFragment) {
-                    if (SessionVariable.SESSION_STATUS.value == true) {
-                        onHomeMenuGrid(true)
-                        txtCountNotification.visibility = View.VISIBLE
-                        imgNotification.setOnClickListener {
-                            val intent =
-                                Intent(UTSwapApp.instance, NotificationActivity::class.java)
-                            startActivity(intent)
-                        }
-                    } else {
-                        onHomeMenuGrid(false)
-                        txtCountNotification.visibility = View.INVISIBLE
-                        imgNotification.setOnClickListener {
-                            val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
-                            startActivity(intent)
+                    /* Home Menu Grid */
+                    onHomeMenuGrid(SessionVariable.SESSION_STATUS.value.toString().toBoolean())
+                    SessionVariable.SESSION_STATUS.observe(this@HomeFragment) {
+                        if (SessionVariable.SESSION_STATUS.value == true && (SessionPreferences().SESSION_KYC == true)) {
+                            onHomeMenuGrid(true)
+                            txtCountNotification.visibility = View.VISIBLE
+                            imgNotification.setOnClickListener {
+                                val intent =
+                                    Intent(UTSwapApp.instance, NotificationActivity::class.java)
+                                startActivity(intent)
+                            }
+                        } else {
+                            onHomeMenuGrid(false)
+                            txtCountNotification.visibility = View.INVISIBLE
+                            imgNotification.setOnClickListener {
+                                val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
+                                startActivity(intent)
+                            }
                         }
                     }
+
                 }
 
+
             }
-
-
         } catch (error: Exception) {
             // Must be safe
         }
@@ -240,6 +259,8 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
             binding.apply {
                 linearLayoutWatchlist.visibility = View.GONE
                 rvHomeWatchlist.visibility = View.GONE
+
+                Constants.WatchList.itemWatchList = arrayListOf()
             }
         } else {
             binding.rvHomeWatchlist.apply {
@@ -248,6 +269,7 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
                 layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
               //  addItemDecoration(SpaceDecoration(resources.getDimensionPixelSize(R.dimen.dimen_2)))
 
+                Constants.WatchList.itemWatchList = data.data?.watch_lists as ArrayList<BannerObj.ItemWishList>
             }
         }
 
@@ -327,6 +349,7 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
     private fun onSwipeRefresh() {
         binding.apply {
             swipeRefresh.setOnRefreshListener {
+                (activity as MainActivity).onRefreshData()
                 mPresenter.getNewsHome(requireActivity())
                 mPresenter.getBanner(requireActivity())
 

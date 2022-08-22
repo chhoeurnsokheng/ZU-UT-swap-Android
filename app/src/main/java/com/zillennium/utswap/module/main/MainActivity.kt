@@ -1,28 +1,29 @@
 package com.zillennium.utswap.screens.navbar.navbar
 
-
-
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Handler
+import android.util.Log
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI.setupWithNavController
-import com.google.android.play.core.appupdate.AppUpdateInfo
-import com.google.android.play.core.appupdate.AppUpdateManagerFactory
-import com.google.android.play.core.install.model.UpdateAvailability
 import com.zillennium.utswap.BuildConfig
 import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
+import com.zillennium.utswap.Datas.StoredPreferences.KYCPreferences
+import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
+import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityMainBinding
 import com.zillennium.utswap.models.home.ForceUpdate
+import com.zillennium.utswap.models.userService.User
 import com.zillennium.utswap.module.kyc.kycActivity.KYCActivity
-import com.zillennium.utswap.module.kyc.kycFragment.fundPasswordScreen.FundPasswordFragment
 import com.zillennium.utswap.module.main.MainPresenter
 import com.zillennium.utswap.module.main.MainView
 import com.zillennium.utswap.module.main.home.HomeFragment
@@ -34,20 +35,26 @@ import com.zillennium.utswap.utils.DialogUtil
 import com.zillennium.utswap.utils.DialogUtilKyc
 
 
-class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, ActivityMainBinding>(),
-    MainView.View {
+class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, ActivityMainBinding>(), MainView.View {
 
     override var mPresenter: MainView.Presenter = MainPresenter()
-    override val layoutResource: Int = com.zillennium.utswap.R.layout.activity_main
+    override val layoutResource: Int = R.layout.activity_main
+    private var kcySubmit: Boolean? = false
+    private var kcyComplete: Boolean? = false
+    private var isSelected = false
+    private var isSignInSuccess = true
 
     private var doubleBackToExitPressedOnce = false
-    var statusKYC  = FundPasswordFragment.status
+    private var statusKYC = ""
 
     override fun initView() {
         super.initView()
-        onCheckSession()
         onSetUpNavBar()
-        mPresenter.checkForceUpdate(this)
+        binding.layAuth.setOnClickListener {
+            val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
+            startActivityForResult(intent, 555)
+        }
+
     }
 
     override fun onGetForceUpdateSuccess(data: ForceUpdate.ForceUpdateRes) {
@@ -71,91 +78,138 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
 
     override fun onGetForceUpdateFailed(data: String) {}
 
+    fun onRefreshData() {
+        mPresenter.onCheckKYCStatus()
+
+    }
+
+    override fun onCheckKYCSuccess(data: User.KycRes) {
+        kcySubmit = data.data?.status_submit_kyc
+        kcyComplete = data.data?.status_kyc
+        onCheckSession()
+
+    }
+
+    override fun onCheckKYCFail() {
+        binding.layAuth.visibility = VISIBLE
+        binding.layVerify.visibility = GONE
+    }
+
+
+    object kyc {
+        var statusKycSubmit = ""
+    }
+
     override fun onBackPressed() {
         if (doubleBackToExitPressedOnce) {
-            super.onBackPressed()
+            finish()
             return
         }
         doubleBackToExitPressedOnce = true
-        Toast.makeText(UTSwapApp.instance, "Please click BACK again to exit", Toast.LENGTH_SHORT).show()
+        Toast.makeText(UTSwapApp.instance, "Please click BACK again to exit", Toast.LENGTH_SHORT)
+            .show()
         Handler().postDelayed(Runnable { doubleBackToExitPressedOnce = false }, 2000)
     }
 
-    private fun onCheckSession(){
+    @SuppressLint("ResourceType")
+    private fun onCheckSession() {
         try {
+            kyc.statusKycSubmit = KYCPreferences().DO_KYC_STATUS.toString()
+            Log.d("KYC", "${kyc.statusKycSubmit}")
             binding.apply {
-
-//                if (statusKYC == "1"){
-//                    binding.apply {
-//                        btnVerify.visibility= View.GONE
-//                        layVerify.visibility = View.GONE
-//                    }
-//                }else{
-//                    btnVerify.visibility= View.VISIBLE
-//                    layVerify.visibility = View.VISIBLE
-//                }
-
                 SessionVariable.SESSION_STATUS.observe(this@MainActivity) {
-                    if(SessionVariable.SESSION_STATUS.value == true ){
+
+                    if (SessionPreferences().SESSION_TOKEN != null) {
+                        if (kcySubmit == true) {
+                            statusKYC = "Pending"
+                            btnVerify.text = "KYC Approval is Pending"
+                            tvVerify.text = "Your KYC application is being reviewed by our team."
+                            btnVerify.visibility = VISIBLE
+                            btnVerify.backgroundTintList = ContextCompat.getColorStateList(
+                                this@MainActivity,
+                                R.color.secondary
+                            )
+                            btnVerify.setTextColor(
+                                ContextCompat.getColor(
+                                    this@MainActivity,
+                                    R.color.white
+                                )
+                            )
+                        } else if (kcyComplete == false) {
+                            btnVerify.visibility = VISIBLE
+                            statusKYC = "New"
+                            btnVerify.text = "Verify Your Identity"
+                            tvVerify.text = "Please verify your identity to start trading."
+                            btnVerify.backgroundTintList = ContextCompat.getColorStateList(
+                                this@MainActivity,
+                                R.color.primary
+                            )
+                            btnVerify.setTextColor(
+                                ContextCompat.getColor(
+                                    this@MainActivity,
+                                    R.color.white
+                                )
+                            )
+
+                        }
+                        layAuth.visibility = GONE
+                    } else {
+                        layAuth.visibility = VISIBLE
+                        layVerify.visibility = GONE
+                    }
+
+                    if (SessionVariable.SESSION_STATUS.value == true) {
                         layAuth.visibility = GONE
                         layVerify.visibility = VISIBLE
-                        btnVerify.visibility = VISIBLE
-                    }else{
-                        layAuth.visibility = VISIBLE
-                        btnVerify.visibility = GONE
-                        layVerify.visibility = GONE
                     }
-                }
-
-                SessionVariable.SESSION_KYC.observe(this@MainActivity) {
-                    if(SessionVariable.SESSION_KYC.value == false && SessionVariable.SESSION_STATUS.value == true){
+                    if (kcyComplete == true) {
+                        layAuth.visibility = GONE
+                        layVerify.visibility = GONE
+                    } else {
+                        layAuth.visibility = GONE
                         layVerify.visibility = VISIBLE
-                    }else{
-                        layVerify.visibility = GONE
-                    }
-                }
 
-                layAuth.setOnClickListener {
-                    val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
-                    startActivity(intent)
+
+                    }
+                    if (SessionPreferences().SESSION_TOKEN == null) {
+                        layAuth.visibility = VISIBLE
+                        layVerify.visibility = GONE
+
+                    } else {
+                        layAuth.visibility = GONE
+
+                    }
                 }
 
                 btnVerify.setOnClickListener {
-                    val intent = Intent(UTSwapApp.instance, KYCActivity::class.java)
+                    val intent = Intent(UTSwapApp.instance, KYCActivity::class.java).putExtra(
+                        "KYCStatus",
+                        statusKYC
+                    )
                     startActivity(intent)
                 }
             }
-        }catch (e: Exception){
+        } catch (e: Exception) {
 
         }
     }
 
-    //Waiting upload app to Store to config more
-    fun UpdateApp() {
-        val appUpdateManager = AppUpdateManagerFactory.create(this)
-        val appUpdateInfoTask: com.google.android.play.core.tasks.Task<AppUpdateInfo> = appUpdateManager.appUpdateInfo
-        // Checks that the platform will allow the specified type of update.
-        appUpdateInfoTask.addOnSuccessListener { result: AppUpdateInfo ->
-            if (result.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE) {
-
-        }
-    }
-    }
-
-
-    private fun onSetUpNavBar(){
+    private fun onSetUpNavBar() {
         try {
             binding.apply {
 
                 val appBarConfiguration = AppBarConfiguration.Builder(
-                    com.zillennium.utswap.R.id.navigation_navbar_home,
-                    com.zillennium.utswap.R.id.navigation_navbar_portfolio,
-                    com.zillennium.utswap.R.id.navigation_navbar_trade,
-                    com.zillennium.utswap.R.id.navigation_navbar_news,
+                    R.id.navigation_navbar_home,
+                    R.id.navigation_navbar_portfolio,
+                    R.id.navigation_navbar_trade,
+                    R.id.navigation_navbar_news,
                 )
                     .build()
 
-                val navController = findNavController(this@MainActivity, com.zillennium.utswap.R.id.nav_host_fragment_activity_navbar_home)
+                val navController = findNavController(
+                    this@MainActivity,
+                    R.id.nav_host_fragment_activity_navbar_home
+                )
 
                 // This Theme haven't use NoActionBar
                 setupWithNavController(navView, navController)
@@ -168,48 +222,98 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
                 var activeFragment: Fragment = tradeFragment
 
                 fragmentManager.beginTransaction().apply {
-                    add(com.zillennium.utswap.R.id.nav_host_fragment_activity_navbar_home, homeFragment, "HomeFragment").hide(homeFragment)
-                    add(com.zillennium.utswap.R.id.nav_host_fragment_activity_navbar_home, portfolioFragment, "PortfolioFragment").hide(portfolioFragment)
-                    add(com.zillennium.utswap.R.id.nav_host_fragment_activity_navbar_home, tradeFragment, "TradeFragment").hide(tradeFragment)
-                    add(com.zillennium.utswap.R.id.nav_host_fragment_activity_navbar_home, newsTabFragment, "NewsFragment").hide(newsTabFragment)
+                    add(
+                        R.id.nav_host_fragment_activity_navbar_home,
+                        homeFragment,
+                        "HomeFragment"
+                    ).hide(homeFragment)
+                    add(
+                        R.id.nav_host_fragment_activity_navbar_home,
+                        portfolioFragment,
+                        "PortfolioFragment"
+                    ).hide(portfolioFragment)
+                    add(
+                        R.id.nav_host_fragment_activity_navbar_home,
+                        tradeFragment,
+                        "TradeFragment"
+                    ).hide(tradeFragment)
+                    add(
+                        R.id.nav_host_fragment_activity_navbar_home,
+                        newsTabFragment,
+                        "NewsFragment"
+                    ).hide(newsTabFragment)
                 }.commit()
 
-                navView.setOnNavigationItemSelectedListener { item ->
+                navView.setOnItemSelectedListener { item ->
+                    mPresenter.onCheckKYCStatus()
                     when (item.itemId) {
-                        com.zillennium.utswap.R.id.navigation_navbar_home -> {
-                            fragmentManager.beginTransaction().hide(activeFragment).show(homeFragment).commit()
+                        R.id.navigation_navbar_home -> {
+                            fragmentManager.beginTransaction().hide(activeFragment)
+                                .show(homeFragment).commit()
                             activeFragment = homeFragment
+                            isSignInSuccess = true
+
                         }
-                        com.zillennium.utswap.R.id.navigation_navbar_portfolio -> {
-                            SessionVariable.SESSION_KYC_STATUS.observe(this@MainActivity){
-                                if (SessionVariable.SESSION_STATUS.value ==true){
-                                    fragmentManager.beginTransaction().hide(activeFragment).show(portfolioFragment).commit()
-                                    activeFragment = portfolioFragment
-                                }else{
-                                    val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
-                                    startActivity(intent)
+                        R.id.navigation_navbar_portfolio -> {
+                            SessionVariable.SESSION_KYC_STATUS.observe(this@MainActivity) {
+                                if (SessionPreferences().SESSION_TOKEN != null) {
+                                    if (kcyComplete == false && isSignInSuccess) {
+                                        val intent = Intent(
+                                            UTSwapApp.instance,
+                                            KYCActivity::class.java).putExtra("KYCStatus", statusKYC)
+                                        startActivity(intent)
+
+                                    } else if (kcyComplete == true) {
+                                        fragmentManager.beginTransaction().hide(activeFragment)
+                                            .show(portfolioFragment).commit()
+                                        activeFragment = portfolioFragment
+                                    }
+                                } else {
+                                    val intent =
+                                        Intent(UTSwapApp.instance, SignInActivity::class.java)
+                                    startActivityForResult(intent, 555)
                                 }
                             }
 
+
                         }
-                        com.zillennium.utswap.R.id.navigation_navbar_trade -> {
-                            fragmentManager.beginTransaction().hide(activeFragment).show(tradeFragment).commit()
+                        R.id.navigation_navbar_trade -> {
+                            fragmentManager.beginTransaction().hide(activeFragment)
+                                .show(tradeFragment).commit()
                             activeFragment = tradeFragment
+
                         }
-                        com.zillennium.utswap.R.id.navigation_navbar_news -> {
-                            fragmentManager.beginTransaction().hide(activeFragment).show(newsTabFragment).commit()
+                        R.id.navigation_navbar_news -> {
+                            fragmentManager.beginTransaction().hide(activeFragment)
+                                .show(newsTabFragment).commit()
                             activeFragment = newsTabFragment
+
                         }
                     }
                     true
                 }
 
+
                 fragmentManager.beginTransaction().hide(activeFragment).show(homeFragment).commit()
                 activeFragment = tradeFragment
-                navView.selectedItemId = com.zillennium.utswap.R.id.navigation_navbar_home
+                navView.selectedItemId = R.id.navigation_navbar_home
             }
-        }catch (e: Exception){
+        } catch (e: Exception) {
 
         }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == RESULT_OK && requestCode == 555) {
+            isSignInSuccess = false
+            isSelected = true
+
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding.navView.selectedItemId = R.id.navigation_navbar_home
     }
 }

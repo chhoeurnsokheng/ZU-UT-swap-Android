@@ -6,5 +6,6 @@ class TradeModel(
     var last: String,
     var volume: String,
     var market_name: String,
+    var project_id: String,
     var market_id: String
 )

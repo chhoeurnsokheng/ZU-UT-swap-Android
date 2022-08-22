@@ -87,4 +87,11 @@ interface UserService {
     fun checkUserLoginStatus(
         @HeaderMap header: Map<String,String>
     ): Observable<User.CheckUserLoginStatusRes>
+
+    /**User Account Upload Profile*/
+    @POST(ApiSettings.PATH_ACCOUNT_UPLOAD_PROFILE)
+    fun uploadProfile(
+        @HeaderMap header: Map<String,String>,
+        @Body body: User.AccountUploadProfileObject
+    ): Observable<User.AccountUploadProfileRes>
 }

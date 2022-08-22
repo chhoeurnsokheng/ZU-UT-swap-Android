@@ -2,18 +2,19 @@ package com.zillennium.utswap.module.account.accountScreen
 
 import android.app.Activity
 import android.content.Intent
-import android.provider.MediaStore
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.text.Html
+import android.util.Base64
 import android.view.View
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.core.net.toUri
+import com.zillennium.utswap.BuildConfig
 import com.androidstudy.networkmanager.Tovuti
 import com.bumptech.glide.Glide
 import com.github.dhaval2404.imagepicker.ImagePicker
-import com.zillennium.utswap.BuildConfig
+import com.google.firebase.crashlytics.buildtools.reloc.org.apache.commons.io.output.ByteArrayOutputStream
 import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
-import com.zillennium.utswap.Datas.GlobalVariable.SettingVariable
 import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
@@ -21,12 +22,13 @@ import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityAccountBinding
 import com.zillennium.utswap.models.userService.User
 import com.zillennium.utswap.module.account.accountDetailScreen.AccountDetailActivity
-import com.zillennium.utswap.module.account.accountScreen.bottomSheet.ChangeProfileBottomSheet
 import com.zillennium.utswap.module.account.addNumberScreen.AddNumberActivity
 import com.zillennium.utswap.module.account.customerSupportScreen.CustomerSupportActivity
 import com.zillennium.utswap.module.account.documentsScreen.DocumentsActivity
 import com.zillennium.utswap.module.account.lockTimeOutScreen.LockTimeOutActivity
 import com.zillennium.utswap.module.account.referralInformationScreen.ReferralInformationActivity
+import com.zillennium.utswap.screens.navbar.navbar.MainActivity
+import com.zillennium.utswap.module.kyc.kycActivity.KYCActivity
 import com.zillennium.utswap.utils.DialogUtil
 import java.io.File
 
@@ -118,19 +120,26 @@ class AccountActivity :
                 startActivity(intent)
             }
 
+            txtVerifyIdentity.setOnClickListener {
+                val intent = Intent(UTSwapApp.instance, KYCActivity::class.java)
+                startActivity(intent)
+            }
+
             profileImageView.setOnClickListener {
 
-                ImagePicker.with(this@AccountActivity)
-                    //  .crop()
-                    // .compress(1024)
-                    //  .maxResultSize(1080, 1080)
+                ImagePicker.Companion.with(this@AccountActivity)
+                    .crop()
+                    .cropSquare()
+                     .compress(1024)
+                      .maxResultSize(1080, 1080)
                     .start { resultCode, data ->
                         when (resultCode) {
                             Activity.RESULT_OK -> {
                                 val fileUri = data?.data
-                                profileImageView.setImageURI(fileUri)
+
                                 // You can get File object from intent
                                 newImageFile = ImagePicker.getFile(data)
+
                             }
                             ImagePicker.RESULT_ERROR -> {
                                 Toast.makeText(
@@ -139,6 +148,7 @@ class AccountActivity :
                                     Toast.LENGTH_SHORT
                                 ).show()
                             }
+
                         }
                     }
 //                    val changeProfileBottomSheet = ChangeProfileBottomSheet()
@@ -167,6 +177,7 @@ class AccountActivity :
                             SessionPreferences().removeValue("SESSION_KYC_SUBMIT_STATUS")
                             SessionPreferences().removeValue("SESSION_KYC_STATUS")
 
+                            startActivity(Intent(this@AccountActivity, MainActivity::class.java))
                             finish()
                             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                         }
@@ -195,7 +206,28 @@ class AccountActivity :
             if(!data.phonenumber.isNullOrEmpty())
             {
                 val phoneNumStr = data.phonenumber.toString()
-                txtPhoneNumber.text = phoneNumStr.replace("+855", "0")
+                //txtPhoneNumber.text = phoneNumStr.replace("+855", "0")
+                val phoneReplace = phoneNumStr.replace("+855", "0")
+                if(phoneReplace.length == 9){
+                    val result = buildString {
+                        for (i in 0 until phoneReplace.length) {
+                            if (i % 3 == 0 && i > 0)
+                                append(' ')
+                            append(phoneReplace[i])
+                        }
+                    }
+                    txtPhoneNumber.text = result
+                }else{
+                    val result = buildString {
+                        for (i in 0 until phoneReplace.length) {
+                            if (i % 3 == 0 && i<9)
+                                append(' ')
+                            append(phoneReplace[i])
+                        }
+                    }
+                    txtPhoneNumber.text = result
+                }
+
                 txtPhoneNumber.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.white))
                 txtPhoneNumber.isEnabled = false
             }else{
@@ -207,6 +239,14 @@ class AccountActivity :
             if (!data.username.isNullOrEmpty())
             {
                 txtName.text = data.truename.toString()
+                txtVerifyIdentity.isEnabled = false
+                txtArrow.visibility = View.GONE
+            }else{
+                txtArrow.visibility = View.VISIBLE
+                txtName.text = Html.fromHtml("<u>Verify Your Identity</u>")
+                txtName.setTextAppearance(UTSwapApp.instance, R.style.medium_18)
+                txtName.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.white))
+                txtVerifyIdentity.isEnabled = true
             }
 
             Glide
@@ -223,6 +263,15 @@ class AccountActivity :
         }
     }
 
+    override fun uploadProfileSuccess(data: User.AccountUploadProfileRes) {
+        mPresenter.onGetUserInfo(UTSwapApp.instance)
+        Toast.makeText(UTSwapApp.instance,"Successfully Changed Profile", Toast.LENGTH_LONG).show()
+    }
+
+    override fun uploadProfileFail(data: User.AccountUploadProfileRes) {
+        Toast.makeText(UTSwapApp.instance,"Fail To Change Profile", Toast.LENGTH_LONG).show()
+    }
+
     override fun onGetUserInfoFail(data: User.AppSideBarData) {
 
     }
@@ -231,14 +280,36 @@ class AccountActivity :
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == RESULT_OK && data != null) {
-            val pathImage = data.data.toString()
+            val pathImage = data.data
+
 
             binding.apply {
-                val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, pathImage.toUri())
+                profileImageView.setImageURI(pathImage)
+                var profileImage =
+                    "data:image/jpeg;base64," + getFileToByte(newImageFile.toString())
+                mPresenter.uploadProfile(User.AccountUploadProfileObject(profileImage),UTSwapApp.instance)
+                //val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, pathImage.toUri())
                 //   profileImageView.setImageBitmap(bitmap)
                 //  SessionPreferences().SESSION_USER_PROFILE = pathImage
             }
         }
+    }
+
+    fun getFileToByte(filePath: String): String {
+        var bmp: Bitmap?
+        var bos: ByteArrayOutputStream? = null
+        var bt: ByteArray? = null
+        var encodeString: String = ""
+        try {
+            bmp = BitmapFactory.decodeFile(filePath)
+            bos = ByteArrayOutputStream()
+            bmp.compress(Bitmap.CompressFormat.JPEG, 100, bos)
+            bt = bos.toByteArray()
+            encodeString = Base64.encodeToString(bt, Base64.DEFAULT)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return encodeString
     }
 
     override fun onBackPressed() {

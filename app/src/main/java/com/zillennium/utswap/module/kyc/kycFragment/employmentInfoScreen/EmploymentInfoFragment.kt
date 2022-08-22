@@ -13,6 +13,7 @@ import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentKycEmploymentInfoBinding
+import com.zillennium.utswap.utils.Util
 import com.zillennium.utswap.utils.validate
 
 class EmploymentInfoFragment :
@@ -23,10 +24,15 @@ class EmploymentInfoFragment :
     override val layoutResource: Int = R.layout.fragment_kyc_employment_info
 
     object info {
-        var occupation = ""
-        var company = ""
+        var occupation1 = ""
+        var company1 = ""
         var phone_number = ""
         var email_emp = ""
+    }
+
+    companion object {
+        var occupation = ""
+        var company = ""
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
@@ -43,16 +49,30 @@ class EmploymentInfoFragment :
 //            info.occupation = " "
 //            info.phone_number = " "
             binding.apply {
+                if (occupation.isNotEmpty()) {
+                    etOccupation.setText(occupation)
+                } else {
+                    etOccupation.setText("")
+
+                }
+                if (company.isNotEmpty()) {
+                    etCompany.setText(company)
+                } else {
+                    etCompany.setText("")
+                }
+
+                etOccupation.hint = Util().getHtmlText("#DCDCDC", "Occupation", "*", "#EE1111")
+                etCompany.hint = Util().getHtmlText("#DCDCDC", "Company", "*", "#EE1111")
 
                 /* if Data already input */
-                if (!KYCPreferences().OCCUPATION.isNullOrEmpty()) {
+                /*if (!KYCPreferences().OCCUPATION.isNullOrEmpty()) {
                     info.occupation = KYCPreferences().OCCUPATION.toString()
                     etOccupation.setText(info.occupation)
                 }
                 if (!KYCPreferences().COMPANY.isNullOrEmpty()) {
                     info.company = KYCPreferences().OCCUPATION.toString()
                     etCompany.setText(info.company)
-                }
+                }*/
                 if (!KYCPreferences().PHONE_NUMBER.isNullOrEmpty()) {
                     info.phone_number = KYCPreferences().PHONE_NUMBER.toString()
                     etphoneNumber.setText(info.phone_number)
@@ -108,8 +128,8 @@ class EmploymentInfoFragment :
                     if (isHaveError) {
                         return@setOnClickListener
                     } else {
-                        KYCPreferences().OCCUPATION = info.occupation
-                        KYCPreferences().COMPANY = info.company
+                        /*KYCPreferences().OCCUPATION = info.occupation
+                        KYCPreferences().COMPANY = info.company*/
                         KYCPreferences().PHONE_NUMBER = info.phone_number
                         KYCPreferences().EMAIL = info.email_emp
                         findNavController().navigate(R.id.action_to_declaration_kyc_fragment)
@@ -131,7 +151,7 @@ class EmploymentInfoFragment :
                         i1: Int,
                         i2: Int
                     ) {
-                        info.occupation = charSequence.toString()
+                        occupation = charSequence.toString()
                     }
 
                     override fun afterTextChanged(editable: Editable) {
@@ -155,7 +175,7 @@ class EmploymentInfoFragment :
                         i1: Int,
                         i2: Int
                     ) {
-                        info.company = charSequence.toString()
+                        company = charSequence.toString()
                     }
 
                     override fun afterTextChanged(editable: Editable) {
