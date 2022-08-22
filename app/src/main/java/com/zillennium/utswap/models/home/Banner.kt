@@ -36,6 +36,8 @@ object BannerObj {
         var Last:String? = ""
         var status:String ? =null
         var market_id:String?  = null
+        var coinname: String? = null
+        var buycoin: String? = null
     }
     class Listprofolio_dashboard{
         var mkt_project_name:String? =null

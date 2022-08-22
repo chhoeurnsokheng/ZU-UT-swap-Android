@@ -42,7 +42,6 @@ class OrdersAdapter (
         internal val txtUT: TextView = itemView.findViewById(R.id.txt_ut)
         internal val txtPrice: TextView = itemView.findViewById(R.id.txt_price)
         internal val line: View = itemView.findViewById(R.id.line)
-        internal val btnArrow: LinearLayout = itemView.findViewById(R.id.img_arrow)
         internal val btnDelete: LinearLayout = itemView.findViewById(R.id.btn_delete)
     }
 
@@ -54,7 +53,7 @@ class OrdersAdapter (
         holder.txtPrice.text = "$ ${orders.txtPrice}"
         holder.txtDateBuy.text = orders.txtDate
 
-        if(orders.txtStatus == "SELL")
+        if(orders.txtStatus == "Limit / Sell")
         {
             holder.txtStatus.text = orders.txtStatus
             holder.txtStatus.setTextColor(Color.RED)
@@ -80,44 +79,48 @@ class OrdersAdapter (
             }
         }
 
-        holder.btnArrow.isEnabled = true
-        holder.btnArrow.isClickable = true
-        holder.btnArrow.isFocusable = true
-        holder.btnArrow.isFocusableInTouchMode = true
-
-        holder.btnArrow.setOnTouchListener(object : OnSwipeTouchListener(UTSwapApp.instance){
-
-            override fun onTouch(v: View, event: MotionEvent): Boolean {
-                if (event.action == MotionEvent.ACTION_UP) {
-                    holder.btnArrow.visibility = View.GONE
-                    holder.btnDelete.visibility = View.VISIBLE
-                    holder.btnDelete.setOnClickListener {
-                        onClickDelete.clickMe()
-                        holder.btnDelete.visibility = View.GONE
-                        holder.btnArrow.visibility = View.VISIBLE
-                    }
-
-                }
-                return true
-            }
-
-        })
-
-        holder.itemView.setOnClickListener {
-            holder.btnArrow.visibility = View.VISIBLE
-            holder.btnDelete.visibility = View.GONE
-        }
+//        holder.btnArrow.isEnabled = true
+//        holder.btnArrow.isClickable = true
+//        holder.btnArrow.isFocusable = true
+//        holder.btnArrow.isFocusableInTouchMode = true
+//
+//        holder.btnArrow.setOnTouchListener(object : OnSwipeTouchListener(UTSwapApp.instance){
+//
+//            override fun onTouch(v: View, event: MotionEvent): Boolean {
+//                if (event.action == MotionEvent.ACTION_UP) {
+//                    holder.btnArrow.visibility = View.GONE
+//                    holder.btnDelete.visibility = View.VISIBLE
+//                    holder.btnDelete.setOnClickListener {
+//                        onClickDelete.clickMe()
+//                        holder.btnDelete.visibility = View.GONE
+//                        holder.btnArrow.visibility = View.VISIBLE
+//                    }
+//
+//                }
+//                return true
+//            }
+//
+//        })
+//
+//        holder.itemView.setOnClickListener {
+//            holder.btnArrow.visibility = View.VISIBLE
+//            holder.btnDelete.visibility = View.GONE
+//        }
+//
+//        holder.btnDelete.setOnClickListener {
+//            onClickDelete.clickMe()
+//            holder.btnDelete.visibility = View.GONE
+//            holder.btnArrow.visibility = View.VISIBLE
+//        }
+//
+//
+//        holder.btnArrow.setOnClickListener {
+//            holder.btnArrow.visibility = View.GONE
+//            holder.btnDelete.visibility = View.VISIBLE
+//        }
 
         holder.btnDelete.setOnClickListener {
             onClickDelete.clickMe()
-            holder.btnDelete.visibility = View.GONE
-            holder.btnArrow.visibility = View.VISIBLE
-        }
-
-
-        holder.btnArrow.setOnClickListener {
-            holder.btnArrow.visibility = View.GONE
-            holder.btnDelete.visibility = View.VISIBLE
         }
     }
 

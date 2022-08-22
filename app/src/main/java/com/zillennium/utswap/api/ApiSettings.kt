@@ -80,7 +80,8 @@ object ApiSettings {
     /** Website Socket */
     const val PATH_LIST_TRADE = "wsocket/"
     const val SEND_LIST_TRADE = "market_update_stream"
-    const val SEND_TRADE_MARKET_NAME = "trade_market_summary:"
+    const val  SEND_TRADE_MARKET_NAME = "trade_market_summary:"
+    const val SEND_TRADE_MARKET_ORDER_BOOK_TABLE = "market:"
 
     /** Upcomming project in trading list screen*/
     const val PATH_UPCOMING_PROJECT_TRADING_LIST = "trade/getUpcomingProject"
@@ -96,4 +97,18 @@ object ApiSettings {
     const val PATH_NOTIFICATION_LIST = "notification/loadNotification"
     const val PATH_NOTIFICATION_READ = "notification/mask_as_read_msg"
     const val PATH_NOTIFICATION_READ_ALL = "notification/showAllNoti"
+    /** Check favorite project in trade*/
+    const val PATH_CHECK_FAVORITE_PROJECT_TRADE = "trade/checkWatchList"
+
+    /** Add Favorite Project*/
+    const val PATH_ADD_FAVORITE_PROJECT = "trade/addFavorite"
+
+    /** Trade Create Order*/
+    const val PATH_TRADE_CREATE_ORDER = "trade/upTrade"
+
+    /*Desposite Money*/
+
+    const val PATH_LIST_PAYMENT_METHOD = "finance/listAvailableBank"
+    const val PATH_ONLINE_DEPOSIT      ="finance/onlineMyczUp"
+    const val PATH_FINANCE_TRANSFER_LOGS ="finance/outlog_transfer"
 }

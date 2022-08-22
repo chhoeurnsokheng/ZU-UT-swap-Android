@@ -1,5 +1,6 @@
 package com.zillennium.utswap.module.main.trade.tradeExchangeScreen
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.res.ColorStateList
@@ -15,11 +16,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
+import com.androidstudy.networkmanager.Tovuti
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
 import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
+import com.zillennium.utswap.api.ApiSettings
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityTradeExchangeBinding
 import com.zillennium.utswap.models.TradeModel
@@ -35,15 +38,19 @@ import com.zillennium.utswap.module.main.trade.tradeExchangeScreen.fragment.allT
 import com.zillennium.utswap.module.main.trade.tradeExchangeScreen.fragment.chart.ChartFragment
 import com.zillennium.utswap.module.main.trade.tradeExchangeScreen.fragment.orderBook.OrderBookFragment
 import com.zillennium.utswap.module.main.trade.tradeExchangeScreen.fragment.orders.OrdersFragment
+import com.zillennium.utswap.module.main.trade.tradeScreen.TradeFragment
 import com.zillennium.utswap.module.project.projectInfoScreen.ProjectInfoActivity
 import com.zillennium.utswap.module.security.securityActivity.signInScreen.SignInActivity
+import com.zillennium.utswap.screens.navbar.navbar.MainActivity
 import com.zillennium.utswap.utils.Constants
 import com.zillennium.utswap.utils.DecimalDigitsInputFilter
+import com.zillennium.utswap.utils.groupingSeparator
+import com.zillennium.utswap.utils.groupingSeparatorInt
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 
-class TradeExchangeActivity(override var fetchTradeDetailData: MutableLiveData<TradingList.TradingListSummary>) :
+class TradeExchangeActivity :
     BaseMvpActivity<TradeExchangeView.View, TradeExchangeView.Presenter, ActivityTradeExchangeBinding>(),
     TradeExchangeView.View {
 
@@ -58,29 +65,121 @@ class TradeExchangeActivity(override var fetchTradeDetailData: MutableLiveData<T
     private var kycComplete: Boolean? = false
 
     val NUM_PAGES_TABLE = 3
-    var remember: Boolean = true
+    var remember: Boolean? = null
 
     var click = true
     private var mBottomSheetBehavior: BottomSheetBehavior<*>? = null
+
+    override var fetchTradeDetailData: MutableLiveData<TradingList.TradingListSummary> = MutableLiveData()
 
     companion object {
         fun launchTradeExchangeActivity(context: Context, trade: TradeModel?) {
             val intent = Intent(context, TradeExchangeActivity::class.java)
             intent.putExtra(Constants.TradeExchange.ProjectName, trade?.project_name)
+            intent.putExtra(Constants.TradeExchange.MarketName, trade?.market_name)
+            intent.putExtra(Constants.TradeExchange.ProjectId, trade?.project_id)
+            Constants.OrderBookTable.marketNameOrderBook = trade?.market_name.toString()
             context.startActivity(intent)
         }
-        fun launchTradeExchangeActivityFromWishList(context: Context, projectName: String?) {
+        fun launchTradeExchangeActivityFromWishList(context: Context, projectName: String?, marketName: String?,projectId: String?) {
             val intent = Intent(context, TradeExchangeActivity::class.java)
             intent.putExtra(Constants.TradeExchange.ProjectName, projectName)
+            intent.putExtra(Constants.TradeExchange.MarketName,marketName)
+            intent.putExtra(Constants.TradeExchange.ProjectId, projectId)
             context.startActivity(intent)
         }
     }
 
+    @SuppressLint("SetTextI18n")
     override fun initView() {
         super.initView()
+        //call API and web socket
+        Tovuti.from(UTSwapApp.instance).monitor{ _, isConnected, _ ->
+            if(isConnected)
+            {
+                mPresenter.onCheckKYCStatus()
+                mPresenter.startTradeDetailSocket(intent?.getStringExtra(Constants.TradeExchange.MarketName).toString())
+                mPresenter.onCheckFavoriteProject(TradingList.TradeFavoriteProjectObj(intent?.getStringExtra(Constants.TradeExchange.ProjectId).toString().toInt()),UTSwapApp.instance)
+            }
+        }
+
         try {
             toolBar()
-            mPresenter.onCheckKYCStatus()
+
+            fetchTradeDetailData.observe(this@TradeExchangeActivity){
+
+                binding.apply {
+
+                    println("=== trade order book==="+it)
+
+                    if(it.info?.new_price == false)
+                    {
+                        txtLast.text = resources.getString(R.string.empty_price_order_book)
+                    }else{
+                        txtLast.text = it.info?.new_price.toString()
+                    }
+
+                    if(it.info?.max_price == false)
+                    {
+                        txtHigh.text = resources.getString(R.string.empty_price_order_book)
+                    }else{
+                        txtHigh.text = it.info?.max_price.toString()
+                    }
+
+                    if(it.info?.min_price == false)
+                    {
+                        txtLow.text = resources.getString(R.string.empty_price_order_book)
+                    }else{
+                        txtLow.text = it.info?.min_price.toString()
+                    }
+
+                    if(it.info?.target_price == false)
+                    {
+                        txtTargetPrice.text = resources.getString(R.string.empty_price_order_book)
+                    }else{
+                        txtTargetPrice.text = it.info?.target_price.toString()
+                    }
+
+                    txtVolume.text = groupingSeparatorInt(it.info?.volume.toString().toDouble())
+
+                    //change
+                    if(it.info?.change.toString().toDouble() < 0){
+                        txtChange.text = it.info?.change.toString() + "%"
+                        txtChange.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
+                    }else if(it.info?.change.toString().toDouble() == 0.00)
+                    {
+                        txtChange.text = it.info?.change.toString() + "%"
+                        txtChange.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.black_222222))
+                    }else {
+                        txtChange.text = "+" + it.info?.change.toString() + "%"
+                        txtChange.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.success))
+                    }
+
+                    //change project is live or close
+                    if(it.info?.market_open == true){
+                        includeLayout.btnLive.visibility = View.VISIBLE
+                        includeLayout.btnLive.backgroundTintList = ColorStateList.valueOf(
+                            ContextCompat.getColor(
+                                UTSwapApp.instance,
+                                R.color.success
+                            )
+                        )
+
+                        includeLayout.btnLive.text = resources.getString(R.string.live)
+                    }else{
+                        includeLayout.btnLive.visibility = View.VISIBLE
+                        includeLayout.btnLive.backgroundTintList = ColorStateList.valueOf(
+                            ContextCompat.getColor(
+                                UTSwapApp.instance,
+                                R.color.danger
+                            )
+                        )
+                        includeLayout.btnLive.text = resources.getString(R.string.close)
+                    }
+                }
+
+            }
+
             binding.apply {
                 btnVerifyKyc.setOnClickListener {
                     val intent = Intent(this@TradeExchangeActivity, KYCActivity::class.java).putExtra(
@@ -119,22 +218,24 @@ class TradeExchangeActivity(override var fetchTradeDetailData: MutableLiveData<T
                     onCheckSessionStatusAndKYC()
                 }
 
+                //add to favorite
                 includeLayout.imgRemember.setOnClickListener {
-                    remember = !remember
-                    if (remember) {
-                        includeLayout.imgRemember.imageTintList = ColorStateList.valueOf(
-                            ContextCompat.getColor(
-                                UTSwapApp.instance,
-                                R.color.warning
-                            )
-                        )
-                    } else {
+                    if (remember == true) {
                         includeLayout.imgRemember.imageTintList = ColorStateList.valueOf(
                             ContextCompat.getColor(
                                 UTSwapApp.instance,
                                 R.color.dark_gray
                             )
                         )
+                        mPresenter.addFavoriteProject(TradingList.TradeAddFavoriteObj(0,intent?.getStringExtra(Constants.TradeExchange.ProjectId).toString().toInt()),UTSwapApp.instance)
+                    } else {
+                        includeLayout.imgRemember.imageTintList = ColorStateList.valueOf(
+                            ContextCompat.getColor(
+                                UTSwapApp.instance,
+                                R.color.warning
+                            )
+                        )
+                        mPresenter.addFavoriteProject(TradingList.TradeAddFavoriteObj(1,intent?.getStringExtra(Constants.TradeExchange.ProjectId).toString().toInt()),UTSwapApp.instance)
                     }
                 }
 
@@ -490,6 +591,7 @@ class TradeExchangeActivity(override var fetchTradeDetailData: MutableLiveData<T
             tbTitle.setTextColor(ContextCompat.getColor(applicationContext, R.color.primary))
             tb.setOnClickListener {
                 finish()
+                mPresenter.closeTradeDetailSocket()
             }
 
             binding.includeLayout.tbLeft.setOnClickListener {
@@ -529,7 +631,7 @@ class TradeExchangeActivity(override var fetchTradeDetailData: MutableLiveData<T
                 layAuth.visibility = View.VISIBLE
                 layVerify.visibility = View.GONE
                 llBottom.visibility = View.GONE
-                includeLayout.imgRemember.visibility = View.GONE
+                includeLayout.imgRemember.visibility = View.INVISIBLE
 
             }
 
@@ -578,6 +680,41 @@ class TradeExchangeActivity(override var fetchTradeDetailData: MutableLiveData<T
 
             }
         }
+    }
+
+    override fun onCheckFavoriteProjectSuccess(data: TradingList.TradeFavoriteProjectRes) {
+        binding.apply {
+            if(data.data?.is_favorite == true)
+            {
+                includeLayout.imgRemember.imageTintList = ColorStateList.valueOf(
+                    ContextCompat.getColor(
+                        UTSwapApp.instance,
+                        R.color.warning
+                    )
+                )
+                remember = true
+            }else{
+                includeLayout.imgRemember.imageTintList = ColorStateList.valueOf(
+                    ContextCompat.getColor(
+                        UTSwapApp.instance,
+                        R.color.dark_gray
+                    )
+                )
+                remember = false
+            }
+        }
+    }
+
+    override fun onCheckFavoriteProjectFail(data: TradingList.TradeFavoriteProjectRes) {
+
+    }
+
+    override fun addFavoriteProjectSuccess(data: TradingList.TradeAddFavoriteRes) {
+
+    }
+
+    override fun addFavoriteProjectFail(data: TradingList.TradeAddFavoriteRes) {
+
     }
 
     private fun onChangeTabs(view: View) {
