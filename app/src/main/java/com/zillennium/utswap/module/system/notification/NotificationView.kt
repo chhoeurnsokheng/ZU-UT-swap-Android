@@ -19,7 +19,7 @@ class NotificationView {
 
     interface Presenter : BaseMvpPresenter<View> {
         override fun initViewPresenter(context: Context, bundle: Bundle?)
-        fun getNotificationLists(context: Context)
+        fun getNotificationLists(context: Context, page: Int)
         fun readNotification(id: String)
         fun readAllNotification()
     }

@@ -3,6 +3,7 @@ package com.zillennium.utswap.module.main
 import android.content.Context
 import android.os.Bundle
 import com.gis.z1android.api.errorhandler.CallbackWrapper
+import com.google.gson.JsonObject
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.api.manager.ApiHomeImp
 import com.zillennium.utswap.api.manager.ApiManager
@@ -44,7 +45,9 @@ class MainPresenter : BaseMvpPresenterImpl<MainView.View>(),
     }
 
     override fun getNotificationLists(context: Context) {
-        subscription = ApiNotificationImp().notification(context).subscribe({
+        val param: HashMap<String, Int> = HashMap()
+        param["page"] = 1
+        subscription = ApiNotificationImp().notification(context, param).subscribe({
             if (it.status == 1) {
                 mView?.onNotificationSuccess(it.data ?: NotificationModel.NotificationData())
             } else {

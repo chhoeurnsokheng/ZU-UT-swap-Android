@@ -12,6 +12,7 @@ object NotificationModel {
     class NotificationData {
         var countGroupNoti: String? = null
         var list: ArrayList<NotificationListData>? = null
+        var total_page: Int = 0
     }
 
     class NotificationListData(

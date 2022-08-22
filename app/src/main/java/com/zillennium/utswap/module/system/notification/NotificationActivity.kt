@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
@@ -21,6 +22,9 @@ class NotificationActivity :
     override var mPresenter: NotificationView.Presenter = NotificationPresenter()
     override val layoutResource: Int = R.layout.activity_system_notification
     private var mList: ArrayList<NotificationModel.NotificationListData> = arrayListOf()
+    private var totalPage = 1
+    private var lastPosition = 0
+    private var page = 1
 
     private val notificationList: ArrayList<NotificationModel.NotificationListData> = arrayListOf()
     private var notificationAdapter: NotificationAdapter? = null
@@ -28,9 +32,14 @@ class NotificationActivity :
     override fun initView() {
         super.initView()
         initToolBar()
-        mPresenter.getNotificationLists(UTSwapApp.instance)
         mPresenter.readAllNotification()
+        loadMoreData()
         initRecyclerView()
+        requestData()
+        binding.swipeRefresh.setOnRefreshListener {
+            page = 1
+            requestData()
+        }
     }
 
     private fun initToolBar() {
@@ -51,12 +60,21 @@ class NotificationActivity :
     }
 
     override fun onNotificationSuccess(data: NotificationModel.NotificationData) {
-        binding.apply {
+        totalPage = data.total_page
+        if (page == 1) {
             mList.clear()
-            rvNotification.layoutManager = LinearLayoutManager(UTSwapApp.instance)
+        }
+        binding.apply {
             mList.addAll(data.list ?: arrayListOf())
             rlProgressBar.visibility = View.GONE
+            pbLoadMore.visibility = View.INVISIBLE
+            swipeRefresh.isRefreshing = false
+            notificationAdapter?.notifyDataSetChanged()
         }
+    }
+    private fun requestData() {
+        mPresenter.getNotificationLists(this, page)
+
     }
 
     override fun onNotificationFail(data: NotificationModel.NotificationRes) {
@@ -93,6 +111,26 @@ class NotificationActivity :
             rvNotification.adapter = notificationAdapter
 
         }
+    }
+
+    private fun loadMoreData() {
+        binding.rvNotification.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if (dy > 0) {
+                    lastPosition =
+                        (binding.rvNotification.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
+                    if (lastPosition == mList.size - 1 && page < totalPage) {
+                        binding.pbLoadMore.visibility = View.VISIBLE
+                        page++
+                        requestData()
+                    }
+
+
+                }
+            }
+        })
+
     }
 
 

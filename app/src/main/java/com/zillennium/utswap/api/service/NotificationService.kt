@@ -3,16 +3,14 @@ package com.zillennium.utswap.api.service
 import com.google.gson.JsonObject
 import com.zillennium.utswap.api.ApiSettings
 import com.zillennium.utswap.models.notification.NotificationModel
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.HeaderMap
-import retrofit2.http.POST
+import retrofit2.http.*
 import rx.Observable
 
 interface NotificationService {
     @GET(ApiSettings.PATH_NOTIFICATION_LIST)
     fun notificationList(
-        @HeaderMap headers: Map<String, String>
+        @HeaderMap headers: Map<String, String>,
+        @QueryMap query: Map<String, Int>
     ): Observable<NotificationModel.NotificationRes>
 
     @POST(ApiSettings.PATH_NOTIFICATION_READ)
