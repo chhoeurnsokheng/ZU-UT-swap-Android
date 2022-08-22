@@ -93,12 +93,14 @@ class DialogUtilKyc {
                 false
             )
             val builder = alertDialog.create()
-            builder.window?.setLayout(
-                dpToPx(350),
-                ViewGroup.LayoutParams.WRAP_CONTENT
-            )
+
+//            builder.window?.setLayout(
+//                280,
+//                207
+//            )
+            
             builder.setView(mBinding?.root)
-            builder.setCancelable(true)
+            builder.setCancelable(false)
             try {
                 builder.show()
             } catch (e: Exception) {
@@ -112,7 +114,7 @@ class DialogUtilKyc {
                 ivIcon.setImageResource(icon)
                 tvCancel.setOnClickListener {
                     onAlertDialogClick.onLabelCancelClick()
-                    builder.dismiss()
+
                 }
 
             }

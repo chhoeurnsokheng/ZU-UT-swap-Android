@@ -90,6 +90,10 @@ object ApiSettings {
     const val PATH_GET_BANNNER = "portfolio/app_banner"
     const val PATH_GET_HOME_WISHLIST_BALANCE = "portfolio/index"
 
+
+    const val PATH_FORCE_UPDATE= "CheckAppVersion/index"
+
+
     /** Account Upload Profile*/
     const val PATH_ACCOUNT_UPLOAD_PROFILE = "user/uploadImageProfile"
 
@@ -111,4 +115,5 @@ object ApiSettings {
     const val PATH_LIST_PAYMENT_METHOD = "finance/listAvailableBank"
     const val PATH_ONLINE_DEPOSIT      ="finance/onlineMyczUp"
     const val PATH_FINANCE_TRANSFER_LOGS ="finance/outlog_transfer"
+
 }

@@ -14,11 +14,27 @@ import rx.Subscription
 
 class MainPresenter : BaseMvpPresenterImpl<MainView.View>(),
     MainView.Presenter {
+    var forceUpdateSubscription: Subscription? = null
     override fun initViewPresenter(context: Context, bundle: Bundle?) {
         mBundle = bundle
         mContext = context
         mView?.initView()
     }
+
+
+    override fun checkForceUpdate(context: Context) {
+        forceUpdateSubscription?.unsubscribe()
+        forceUpdateSubscription = ApiHomeImp().checkForceUpdate(context).subscribe({
+            mView?.onGetForceUpdateSuccess(it)
+        }, { error ->
+            object : CallbackWrapper(error, context.applicationContext, arrayListOf()) {
+                override fun onCallbackWrapper(status: ApiManager.NetworkErrorStatus, data: Any) {
+                    mView?.onGetForceUpdateFailed("Failed")
+                }
+
+            }
+        })}
+
 
     override fun onCheckKYCStatus() {
         mContext?.let {
