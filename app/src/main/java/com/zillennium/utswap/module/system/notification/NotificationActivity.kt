@@ -1,9 +1,11 @@
 package com.zillennium.utswap.module.system.notification
 
 import android.graphics.Typeface
+import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
@@ -26,7 +28,8 @@ class NotificationActivity :
     override fun initView() {
         super.initView()
         initToolBar()
-        mPresenter.getCustomerSupport(UTSwapApp.instance)
+        mPresenter.getNotificationLists(UTSwapApp.instance)
+        mPresenter.readAllNotification()
         initRecyclerView()
     }
 
@@ -60,10 +63,29 @@ class NotificationActivity :
 
     }
 
+    override fun onReadNotificationSuccess(message: String) {
+        Log.d("Read", message)
+
+    }
+
+    override fun onReadNotificationFail() {
+    }
+
+    override fun onReadAllNotificationSuccess(message: String) {
+        Log.d("Read", message)
+        SessionVariable.BADGE_NUMBER.value = ""
+
+    }
+
+    override fun onReadAllNotificationFail() {
+    }
+
     private fun initRecyclerView() {
         binding.apply {
              notificationAdapter = NotificationAdapter(object : NotificationAdapter.OnClickNotificationAdapter{
-                override fun clickNotification(action: String) {
+                override fun clickNotification(action: String, idNotifi: String) {
+                    mPresenter.readNotification(idNotifi)
+
                 }
             })
             rvNotification.layoutManager = LinearLayoutManager(this@NotificationActivity)

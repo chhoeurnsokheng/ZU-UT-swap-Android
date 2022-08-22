@@ -4,8 +4,10 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Handler
 import android.util.Log
+import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -21,6 +23,7 @@ import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityMainBinding
+import com.zillennium.utswap.models.notification.NotificationModel
 import com.zillennium.utswap.models.userService.User
 import com.zillennium.utswap.module.kyc.kycActivity.KYCActivity
 import com.zillennium.utswap.module.main.MainPresenter
@@ -38,10 +41,13 @@ class MainActivity :
 
     override var mPresenter: MainView.Presenter = MainPresenter()
     override val layoutResource: Int = R.layout.activity_main
-    private var kcySubmit: Boolean? = false
-    private var kcyComplete: Boolean? = false
+    var kcySubmit: Boolean? = false
+    var kcyComplete: Boolean? = false
     private var isSelected = false
     private var isSignInSuccess = true
+    var badgeNumber: String = ""
+    val homeFragment = HomeFragment()
+
 
     private var doubleBackToExitPressedOnce = false
     private var statusKYC = ""
@@ -55,12 +61,20 @@ class MainActivity :
             val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
             startActivityForResult(intent, 555)
         }
-        Toast.makeText(this, SessionPreferences().DEVICE_TOKEN, Toast.LENGTH_SHORT).show()
+        SessionVariable.SESSION_STATUS.observe(this@MainActivity) {
+            if (it) {
+                mPresenter.getNotificationLists(this)
+            } else {
+                SessionVariable.BADGE_NUMBER.value = ""
+            }
+        }
+       Toast.makeText(this, SessionPreferences().DEVICE_TOKEN, Toast.LENGTH_SHORT).show()
 
     }
 
     fun onRefreshData() {
         mPresenter.onCheckKYCStatus()
+        mPresenter.getNotificationLists(this)
 
     }
 
@@ -68,18 +82,31 @@ class MainActivity :
         kcySubmit = data.data?.status_submit_kyc
         kcyComplete = data.data?.status_kyc
         onCheckSession()
-
+        homeFragment.actionAfterKYC()
     }
 
     override fun onCheckKYCFail() {
         binding.layAuth.visibility = VISIBLE
         binding.layVerify.visibility = GONE
+        kcyComplete = false
+        homeFragment.actionAfterKYC()
+
+    }
+
+    override fun onNotificationSuccess(data: NotificationModel.NotificationData) {
+        SessionVariable.BADGE_NUMBER.value = data.countGroupNoti ?: ""
+        homeFragment.setBadgeNumber()
+
+    }
+
+    override fun onNotificationFail(data: NotificationModel.NotificationRes) {
     }
 
 
     object kyc {
         var statusKycSubmit = ""
     }
+
 
     override fun onBackPressed() {
         if (doubleBackToExitPressedOnce) {
@@ -195,7 +222,6 @@ class MainActivity :
                 // This Theme haven't use NoActionBar
                 setupWithNavController(navView, navController)
 
-                val homeFragment = HomeFragment()
                 val portfolioFragment = PortfolioFragment()
                 val tradeFragment = TradeFragment()
                 val newsTabFragment = NewsFragment()
@@ -248,6 +274,7 @@ class MainActivity :
                                         fragmentManager.beginTransaction().hide(activeFragment)
                                             .show(portfolioFragment).commit()
                                         activeFragment = portfolioFragment
+                                        portfolioFragment.setBadgeNumberPortfolio()
                                     }
                                 } else {
                                     val intent =
@@ -262,12 +289,14 @@ class MainActivity :
                             fragmentManager.beginTransaction().hide(activeFragment)
                                 .show(tradeFragment).commit()
                             activeFragment = tradeFragment
+                            tradeFragment.setBadgeNumberTrade()
 
                         }
                         R.id.navigation_navbar_news -> {
                             fragmentManager.beginTransaction().hide(activeFragment)
                                 .show(newsTabFragment).commit()
                             activeFragment = newsTabFragment
+                            newsTabFragment.setBadgeNumberNews()
 
                         }
                     }

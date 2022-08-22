@@ -27,6 +27,8 @@ object NotificationModel {
         var mark_as_read_msg: String? = null
 
     )
+
+    data class NotificationSection(var title: String?)
 }
 //
 //class NotificationModel(

@@ -85,13 +85,15 @@ object ApiSettings {
     /** Upcomming project in trading list screen*/
     const val PATH_UPCOMING_PROJECT_TRADING_LIST = "trade/getUpcomingProject"
 
-     /*Get Banner HomeScreen*/
-    const val PATH_GET_BANNNER= "portfolio/app_banner"
-    const val PATH_GET_HOME_WISHLIST_BALANCE ="portfolio/index"
+    /*Get Banner HomeScreen*/
+    const val PATH_GET_BANNNER = "portfolio/app_banner"
+    const val PATH_GET_HOME_WISHLIST_BALANCE = "portfolio/index"
 
     /** Account Upload Profile*/
     const val PATH_ACCOUNT_UPLOAD_PROFILE = "user/uploadImageProfile"
 
     /**         Notification List            **/
     const val PATH_NOTIFICATION_LIST = "notification/loadNotification"
+    const val PATH_NOTIFICATION_READ = "notification/mask_as_read_msg"
+    const val PATH_NOTIFICATION_READ_ALL = "notification/showAllNoti"
 }

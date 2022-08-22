@@ -3,9 +3,12 @@ package com.zillennium.utswap.module.main
 import android.content.Context
 import android.os.Bundle
 import com.gis.z1android.api.errorhandler.CallbackWrapper
+import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.api.manager.ApiHomeImp
 import com.zillennium.utswap.api.manager.ApiManager
+import com.zillennium.utswap.api.manager.ApiNotificationImp
 import com.zillennium.utswap.bases.mvp.BaseMvpPresenterImpl
+import com.zillennium.utswap.models.notification.NotificationModel
 import rx.Subscription
 
 class MainPresenter : BaseMvpPresenterImpl<MainView.View>(),
@@ -40,8 +43,32 @@ class MainPresenter : BaseMvpPresenterImpl<MainView.View>(),
         }
     }
 
+    override fun getNotificationLists(context: Context) {
+        subscription = ApiNotificationImp().notification(context).subscribe({
+            if (it.status == 1) {
+                mView?.onNotificationSuccess(it.data ?: NotificationModel.NotificationData())
+            } else {
+                mView?.onNotificationFail(it)
+            }
+        }, {
+            object : CallbackWrapper(it, UTSwapApp.instance, arrayListOf()) {
+                override fun onCallbackWrapper(
+                    status: ApiManager.NetworkErrorStatus,
+                    data: Any
+                ) {
+                    mView?.onFail(data.toString())
+                }
+
+            }
+        })
+    }
+
     var onCheckKYCStatusSubscription: Subscription? = null
+    private var subscription: Subscription? = null
+
     override fun onUnSubscript() {
         onCheckKYCStatusSubscription?.unsubscribe()
+        subscription?.unsubscribe()
+
     }
 }

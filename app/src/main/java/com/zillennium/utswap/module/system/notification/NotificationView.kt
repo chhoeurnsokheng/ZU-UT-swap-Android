@@ -11,10 +11,16 @@ class NotificationView {
         override fun initView()
         fun onNotificationSuccess(data: NotificationModel.NotificationData)
         fun onNotificationFail(data: NotificationModel.NotificationRes)
+        fun onReadNotificationSuccess(message: String)
+        fun onReadNotificationFail()
+        fun onReadAllNotificationSuccess(message: String)
+        fun onReadAllNotificationFail()
     }
 
     interface Presenter : BaseMvpPresenter<View> {
         override fun initViewPresenter(context: Context, bundle: Bundle?)
-        fun getCustomerSupport(context: Context)
+        fun getNotificationLists(context: Context)
+        fun readNotification(id: String)
+        fun readAllNotification()
     }
 }

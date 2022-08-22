@@ -28,6 +28,7 @@ import com.zillennium.utswap.module.main.portfolio.adapter.*
 import com.zillennium.utswap.module.main.portfolio.dialog.FilterPortfolioDialogBottomSheet
 import com.zillennium.utswap.module.security.securityActivity.signInScreen.SignInActivity
 import com.zillennium.utswap.module.system.notification.NotificationActivity
+import com.zillennium.utswap.screens.navbar.navbar.MainActivity
 
 class PortfolioFragment :
     BaseMvpFragment<PortfolioView.View, PortfolioView.Presenter, FragmentNavbarPortfolioBinding>(),
@@ -107,19 +108,29 @@ class PortfolioFragment :
 
                 SessionVariable.SESSION_STATUS.observe(this@PortfolioFragment) {
                     if (SessionVariable.SESSION_STATUS.value == true) {
+
                         imgNotification.setOnClickListener {
-                            val intent =
-                                Intent(UTSwapApp.instance, NotificationActivity::class.java)
-                            startActivity(intent)
+                            SessionVariable.SESSION_STATUS.observe(this@PortfolioFragment) {
+                                if (SessionVariable.SESSION_STATUS.value == true) {
+                                    val intent =
+                                        Intent(UTSwapApp.instance, NotificationActivity::class.java)
+                                    startActivity(intent)
+
+                                } else {
+                                    tvBadgeNumber.visibility = View.INVISIBLE
+                                    val intent =
+                                        Intent(UTSwapApp.instance, SignInActivity::class.java)
+                                    startActivity(intent)
+                                }
+                            }
+
                         }
-                        txtCountNotification.visibility = View.VISIBLE
 
                     } else {
                         imgNotification.setOnClickListener {
                             val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
                             startActivity(intent)
                         }
-                        txtCountNotification.visibility = View.GONE
                     }
                 }
                 //pass value to pie chart of another class
@@ -433,6 +444,24 @@ class PortfolioFragment :
 
         } catch (error: Exception) {
             // Must be safe
+        }
+    }
+
+    fun setBadgeNumberPortfolio() {
+        binding.apply {
+            SessionVariable.BADGE_NUMBER.observe(this@PortfolioFragment) {
+                if (SessionVariable.BADGE_NUMBER.value?.isNotEmpty() == true && SessionVariable.BADGE_NUMBER.value != "0") {
+                    tvBadgeNumber.visibility = View.VISIBLE
+                    if (it.toInt() > 9) {
+                        tvBadgeNumber.text = "9+"
+                    } else {
+                        tvBadgeNumber.text = it
+                    }
+                } else {
+                    tvBadgeNumber.visibility = View.INVISIBLE
+
+                }
+            }
         }
     }
 

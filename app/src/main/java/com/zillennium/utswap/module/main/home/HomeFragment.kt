@@ -48,9 +48,9 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
 
     private val HomeArrayList = ArrayList<HomeMenuModel>()
     var bannerLoopingPagerAdapter: BannerLoopingPagerAdapter? = null
-    var homeRecentNewsAdapter :HomeRecentNewsAdapter? = null
-    var homeWatchlistAdapter:HomeWatchlistAdapter? = null
-    var newsList  = ArrayList<News.NewsNew>()
+    var homeRecentNewsAdapter: HomeRecentNewsAdapter? = null
+    var homeWatchlistAdapter: HomeWatchlistAdapter? = null
+    var newsList = ArrayList<News.NewsNew>()
     var isUserSwipe = false
     var currentPosition = 0
 
@@ -129,24 +129,22 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
 
                     /* Home Menu Grid */
                     onHomeMenuGrid(SessionVariable.SESSION_STATUS.value.toString().toBoolean())
-                    SessionVariable.SESSION_STATUS.observe(this@HomeFragment) {
-                        if (SessionVariable.SESSION_STATUS.value == true && (SessionPreferences().SESSION_KYC == true)) {
-                            onHomeMenuGrid(true)
-                            txtCountNotification.visibility = View.VISIBLE
-                            imgNotification.setOnClickListener {
+                    imgNotification.setOnClickListener {
+                        SessionVariable.SESSION_STATUS.observe(this@HomeFragment) {
+                            if (SessionVariable.SESSION_STATUS.value == true) {
                                 val intent =
                                     Intent(UTSwapApp.instance, NotificationActivity::class.java)
                                 startActivity(intent)
-                            }
-                        } else {
-                            onHomeMenuGrid(false)
-                            txtCountNotification.visibility = View.INVISIBLE
-                            imgNotification.setOnClickListener {
+
+                            } else {
+                                tvBadgeNumber.visibility = View.INVISIBLE
                                 val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
                                 startActivity(intent)
                             }
                         }
+
                     }
+
 
                 }
 
@@ -154,6 +152,34 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
             }
         } catch (error: Exception) {
             // Must be safe
+        }
+    }
+
+    fun setBadgeNumber() {
+        binding.apply {
+            SessionVariable.BADGE_NUMBER.observe(this@HomeFragment) {
+                if (SessionVariable.BADGE_NUMBER.value?.isNotEmpty() == true && SessionVariable.BADGE_NUMBER.value != "0") {
+                    tvBadgeNumber.visibility = View.VISIBLE
+                    if (it.toInt() > 9) {
+                        tvBadgeNumber.text = "9+"
+                    } else {
+                        tvBadgeNumber.text = it
+                    }
+                } else {
+                    tvBadgeNumber.visibility = View.INVISIBLE
+
+                }
+            }
+        }
+    }
+
+    fun actionAfterKYC() {
+        binding.apply {
+            if ((activity as MainActivity).kcyComplete == true) {
+                onHomeMenuGrid(true)
+            } else {
+                onHomeMenuGrid(false)
+            }
         }
     }
 
@@ -166,9 +192,7 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
                 data.data, false
             ) {
                 override fun onBannerItemClick(id: String, position: Int) {
-                    if (position != null) {
-                        NewsDetailActivity.launchNewsDetailsActivity(requireActivity(), id)
-                    }
+                    NewsDetailActivity.launchNewsDetailsActivity(requireActivity(), id)
 
                 }
             }
@@ -225,7 +249,7 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
         newsList.clear()
         data.data?.NEW?.forEachIndexed { index, itemWishList ->
 
-            if (index<=2){
+            if (index <= 2) {
                 newsList.add(itemWishList)
             }
         }
@@ -233,8 +257,8 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
             swipeRefresh.isRefreshing = false
 
             rvHomeNews.layoutManager = LinearLayoutManager(UTSwapApp.instance)
-            homeRecentNewsAdapter  = HomeRecentNewsAdapter(newsList)
-                //data.data?.NEW?.let { HomeRecentNewsAdapter(it) }
+            homeRecentNewsAdapter = HomeRecentNewsAdapter(newsList)
+            //data.data?.NEW?.let { HomeRecentNewsAdapter(it) }
             rvHomeNews.adapter = homeRecentNewsAdapter
             layNewsLoading.setOnClickListener {
                 activity?.findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(
@@ -263,19 +287,24 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
             binding.rvHomeWatchlist.apply {
                 homeWatchlistAdapter = data.data?.watch_lists?.let { HomeWatchlistAdapter(it) }
                 adapter = homeWatchlistAdapter
-                layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-              //  addItemDecoration(SpaceDecoration(resources.getDimensionPixelSize(R.dimen.dimen_2)))
+                layoutManager =
+                    LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+                //  addItemDecoration(SpaceDecoration(resources.getDimensionPixelSize(R.dimen.dimen_2)))
 
             }
         }
 
         binding.apply {
 
-            if (data.data?.total_user_balance ==0.0){
-                tradingBalance.text =  "$ " + "0.00"
-            }else{
-                tradingBalance.text =  "$ " + "" + "" + data.data?.total_user_balance?.let { UtilKt().formatDecimal("#,###.00", it) }
-
+            if (data.data?.total_user_balance == 0.0) {
+                tradingBalance.text = "$ " + "0.00"
+            } else {
+                tradingBalance.text = "$ " + "" + "" + data.data?.total_user_balance?.let {
+                    UtilKt().formatDecimal(
+                        "#,###.00",
+                        it
+                    )
+                }
 
 
             }

@@ -17,6 +17,7 @@ import com.zillennium.utswap.module.main.news.adapter.NewsAdapter
 import com.zillennium.utswap.module.main.news.newsDetail.NewsDetailActivity
 import com.zillennium.utswap.module.security.securityActivity.signInScreen.SignInActivity
 import com.zillennium.utswap.module.system.notification.NotificationActivity
+import com.zillennium.utswap.screens.navbar.navbar.MainActivity
 
 
 class NewsFragment :
@@ -27,8 +28,8 @@ class NewsFragment :
     override val layoutResource: Int = R.layout.fragment_news
 
     private var newsAdapter: NewsAdapter? = null
-    private var listNews =  ArrayList<News.NewsNew>()
-    private var totalPage: Int?  = null
+    private var listNews = ArrayList<News.NewsNew>()
+    private var totalPage: Int? = null
     private var page: Int? = 1
 
     override fun initView() {
@@ -39,11 +40,10 @@ class NewsFragment :
         onSwipeRefresh()
     }
 
-    private fun onCallApi(){
-        Tovuti.from(UTSwapApp.instance).monitor{ _, isConnected, _ ->
-            if(isConnected)
-            {
-                mPresenter.onGetNews(UTSwapApp.instance,page!!)
+    private fun onCallApi() {
+        Tovuti.from(UTSwapApp.instance).monitor { _, isConnected, _ ->
+            if (isConnected) {
+                mPresenter.onGetNews(UTSwapApp.instance, page!!)
             }
         }
     }
@@ -58,11 +58,10 @@ class NewsFragment :
 
             totalPage = data.TOTALPAGE
 
-            if(data.NEW!!.isNotEmpty())
-            {
+            if (data.NEW!!.isNotEmpty()) {
                 listNews.addAll(data.NEW!!)
 
-                newsAdapter = NewsAdapter(listener = object : NewsAdapter.Listener{
+                newsAdapter = NewsAdapter(listener = object : NewsAdapter.Listener {
                     override fun clickNews(id: String) {
                         NewsDetailActivity.launchNewsDetailsActivity(requireActivity(), id)
 //                        val intent = Intent(UTSwapApp.instance, NewsDetailActivity::class.java)
@@ -74,11 +73,10 @@ class NewsFragment :
                 rvNews.adapter = newsAdapter
             }
 
-            if(page!! == totalPage)
-            {
+            if (page!! == totalPage) {
                 txtEnd.visibility = View.GONE
 
-            }else{
+            } else {
                 layNewsLoading.visibility = View.VISIBLE
                 page = page!! + 1
             }
@@ -92,35 +90,46 @@ class NewsFragment :
         }
     }
 
-    private fun onCheckPreference(){
+
+    private fun onCheckPreference() {
         binding.apply {
             SessionVariable.SESSION_STATUS.observe(this@NewsFragment) {
-                if(SessionVariable.SESSION_STATUS.value == true){
+                if (SessionVariable.SESSION_STATUS.value == true) {
                     imgMenu.setOnClickListener {
                         val intent = Intent(UTSwapApp.instance, AccountActivity::class.java)
                         startActivity(intent)
-                        requireActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+                        requireActivity().overridePendingTransition(
+                            R.anim.slide_in_left,
+                            R.anim.slide_out_right
+                        )
                     }
+
                     imgNotification.setOnClickListener {
-                        val intent = Intent(UTSwapApp.instance, NotificationActivity::class.java)
-                        startActivity(intent)
+                        SessionVariable.SESSION_STATUS.observe(this@NewsFragment) {
+                            if (SessionVariable.SESSION_STATUS.value == true) {
+                                val intent =
+                                    Intent(UTSwapApp.instance, NotificationActivity::class.java)
+                                startActivity(intent)
+
+                            } else {
+                                tvBadgeNumber.visibility = View.INVISIBLE
+                                val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
+                                startActivity(intent)
+                            }
+                        }
+
                     }
-                    txtCountNotification.visibility =View.VISIBLE
-                }else{
+
+                } else {
                     imgMenu.setOnClickListener {
                         val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
                         startActivity(intent)
                     }
-                    imgNotification.setOnClickListener {
-                        val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
-                        startActivity(intent)
-                    }
-                    txtCountNotification.visibility = View.GONE
                 }
                 page = 1
                 listNews.clear()
                 binding.txtEnd.visibility = View.GONE
-                mPresenter.onGetNews(UTSwapApp.instance,1)
+                mPresenter.onGetNews(UTSwapApp.instance, 1)
             }
 
         }
@@ -128,14 +137,37 @@ class NewsFragment :
             page = 1
             listNews.clear()
             binding.txtEnd.visibility = View.GONE
-            mPresenter.onGetNews(UTSwapApp.instance,1)
+            mPresenter.onGetNews(UTSwapApp.instance, 1)
         }
     }
 
-    private fun onOrderActivity(){
+    fun setBadgeNumberNews() {
+        binding.apply {
+            SessionVariable.BADGE_NUMBER.observe(this@NewsFragment) {
+                if (SessionVariable.BADGE_NUMBER.value?.isNotEmpty() == true && SessionVariable.BADGE_NUMBER.value != "0") {
+                    tvBadgeNumber.visibility = View.VISIBLE
+                    if (it.toInt() > 9) {
+                        tvBadgeNumber.text = "9+"
+                    } else {
+                        tvBadgeNumber.text = it
+                    }
+                } else {
+                    tvBadgeNumber.visibility = View.INVISIBLE
+
+                }
+            }
+        }
+    }
+
+    private fun onOrderActivity() {
         binding.apply {
 
-            swipeRefresh.setColorSchemeColors(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
+            swipeRefresh.setColorSchemeColors(
+                ContextCompat.getColor(
+                    UTSwapApp.instance,
+                    R.color.primary
+                )
+            )
 
             imgMenu.setOnClickListener {
                 val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
@@ -148,7 +180,7 @@ class NewsFragment :
             }
 
             readMore.setOnClickListener {
-                mPresenter.onGetNews(UTSwapApp.instance,page!!)
+                mPresenter.onGetNews(UTSwapApp.instance, page!!)
                 progressBarReadMore.visibility = View.VISIBLE
             }
 
@@ -158,14 +190,15 @@ class NewsFragment :
         }
     }
 
-    private fun onSwipeRefresh(){
+    private fun onSwipeRefresh() {
         binding.apply {
             //swipe refresh to get page 1 again
             swipeRefresh.setOnRefreshListener {
                 page = 1
                 listNews.clear()
                 txtEnd.visibility = View.GONE
-                mPresenter.onGetNews(UTSwapApp.instance,1)
+                mPresenter.onGetNews(UTSwapApp.instance, 1)
+                (activity as MainActivity).onRefreshData()
             }
         }
     }
