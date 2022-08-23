@@ -6,10 +6,10 @@ import retrofit2.http.*
 import rx.Observable
 
 interface NewsService {
-    @GET(ApiSettings.PATH_NEWS)
+    @POST(ApiSettings.PATH_NEWS)
     fun news(
         @HeaderMap headers: Map<String, String>,
-        @Query("p") p: Int
+        @Body body: News.NewsObj
     ): Observable<News.NewsRes>
 
     @FormUrlEncoded

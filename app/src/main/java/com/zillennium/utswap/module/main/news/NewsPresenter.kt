@@ -7,6 +7,7 @@ import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.api.manager.ApiManager
 import com.zillennium.utswap.api.manager.ApiNewsImp
 import com.zillennium.utswap.bases.mvp.BaseMvpPresenterImpl
+import com.zillennium.utswap.models.newsService.News
 import rx.Subscription
 
 class NewsPresenter: BaseMvpPresenterImpl<NewsView.View>(),
@@ -20,9 +21,9 @@ class NewsPresenter: BaseMvpPresenterImpl<NewsView.View>(),
         mView?.initView()
     }
 
-    override fun onGetNews(context: Context,p : Int) {
+    override fun onGetNews(context: Context,body : News.NewsObj) {
         subscription?.unsubscribe()
-        subscription = ApiNewsImp().getNews(context,p).subscribe({
+        subscription = ApiNewsImp().getNews(context,body).subscribe({
             if(it.status == 1){
                 mView?.onGetNewsSuccess(it.data!!)
             }else{
