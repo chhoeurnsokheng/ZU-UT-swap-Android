@@ -14,6 +14,7 @@ import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentExchangeOrdersBinding
 import com.zillennium.utswap.models.tradingList.TradingList
+import com.zillennium.utswap.module.main.trade.tradeExchangeScreen.dialog.SuccessPlaceOrderDialog
 import com.zillennium.utswap.module.main.trade.tradeExchangeScreen.fragment.orders.adapter.OrderAdapter
 import com.zillennium.utswap.module.main.trade.tradeExchangeScreen.fragment.orders.dialog.DeleteOrdersDialog
 import com.zillennium.utswap.utils.Constants

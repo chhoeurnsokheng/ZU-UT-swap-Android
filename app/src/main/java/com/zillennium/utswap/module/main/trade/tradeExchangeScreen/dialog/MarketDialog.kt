@@ -104,10 +104,7 @@ class MarketDialog : DialogFragment() {
         subscriptions?.unsubscribe()
         subscriptions = ApiTradeImp().createOrder(body,context).subscribe({
             if(it.status == 1){
-
-                SuccessPlaceOrderDialog().show(
-                    childFragmentManager, "fsfs")
-
+                Toast.makeText(UTSwapApp.instance,it.message.toString(), Toast.LENGTH_LONG).show()
                 SessionVariable.createMatchingTransaction.value = true
                 SessionVariable.callAvailableBalance.value = true
             }else{

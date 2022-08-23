@@ -11,6 +11,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_marginTop="@dimen/dimen_24"
+            android:layout_marginHorizontal="@dimen/dimen_25"
             android:orientation="vertical">
 
             <ImageView
@@ -28,9 +29,10 @@
                 android:layout_marginBottom="@dimen/dimen_24"/>
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/dimen_150"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/regular_12"
+                android:gravity="center"
                 android:textColor="@color/black_333333"
                 android:text="@string/you_have_successfully_placed_an_order"
                 android:layout_marginBottom="@dimen/dimen_24"/>

@@ -11,6 +11,9 @@ import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityTradeTransactionsDetailBinding
 import com.zillennium.utswap.models.tradingList.TradingList
+import com.zillennium.utswap.module.main.trade.tradeExchangeScreen.dialog.MarketDialog
+import com.zillennium.utswap.module.main.trade.tradeExchangeScreen.dialog.SuccessPlaceOrderDialog
+import kotlin.concurrent.fixedRateTimer
 
 
 class TransactionDetailActivity :
