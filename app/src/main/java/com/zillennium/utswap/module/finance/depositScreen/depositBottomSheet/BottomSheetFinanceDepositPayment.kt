@@ -92,12 +92,6 @@ class BottomSheetFinanceDepositPayment : BottomSheetDialogFragment(),
 
                 onDepositBalance(root.context, bodyObj)
                 binding?.progressBar?.visibility = View.VISIBLE
-
-//                if(!etMountPayment.text.isNullOrEmpty()){
-//                    if(etMountPayment.text.toString().toLong() > 0){
-//                    }
-//                }
-
             }
 
             arguments?.getInt("imgCard")?.let {
@@ -200,16 +194,14 @@ class BottomSheetFinanceDepositPayment : BottomSheetDialogFragment(),
 
     }
 
-    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-
-    }
+    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {}
 
     override fun onNothingSelected(parent: AdapterView<*>?) {}
 
     private fun fireBase() {
 
         FirebaseDynamicLinks.getInstance().createDynamicLink()
-           // .setLink(Uri.parse("http://m.utswaptranding.com"))
+            .setLink(Uri.parse("http://m.utswaptranding.com"))
             .setSocialMetaTagParameters(
                 DynamicLink.SocialMetaTagParameters.Builder()
                     .setTitle("Hello sokheng")
@@ -221,11 +213,11 @@ class BottomSheetFinanceDepositPayment : BottomSheetDialogFragment(),
                 DynamicLink.AndroidParameters.Builder()  //.setFallbackUrl(Uri.parse("https://www.youtube.com/watch?v=7aekxC_monc&list=RDVdQHUbv0rMM&index=8"))
                 .build()
             )
-//            .setIosParameters(
-//                DynamicLink.IosParameters.Builder("com.utswapapp.ios")
-//                    .setFallbackUrl(Uri.parse("https://apps.apple.com/us/app/utswapapp-app/id1518963601"))
-//                    .build()
-//            )
+            .setIosParameters(
+                DynamicLink.IosParameters.Builder("com.utswapapp.ios")
+                    .setFallbackUrl(Uri.parse("https://apps.apple.com/us/app/utswapapp-app/id1518963601"))
+                    .build()
+            )
             .buildShortDynamicLink()
             .addOnCompleteListener { task ->
                 deep_link_url = task.result.shortLink.toString()

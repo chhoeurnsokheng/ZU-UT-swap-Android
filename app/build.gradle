@@ -64,10 +64,6 @@ android {
             versionNameSuffix ".$build"
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 
-            buildConfigField "String", 'CORE_SUB_DOMAIN', '"demo"'
-            buildConfigField "String", 'CORE_APP_ID', '"37fe30c0-ad17-11ea-b572-31a193d8c9ee"'
-            buildConfigField "String", 'CORE_APP_SECRET', '"GPQ6Ccy8EJ25s1xY6bQhZfRToHhnYbHc7oY7"'
-
             buildConfigField "String", 'BASE_URL', '"https://dev-staging.zillionunited.io/api/"'
             //buildConfigField "String", 'BASE_SOCKET_URL', '"ws://192.168.41.222/"'
             buildConfigField "String", 'BASE_SOCKET_URL', '"wss://dev-staging.zillionunited.io/"'
@@ -83,14 +79,13 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 
 
-            buildConfigField "String", 'CORE_SUB_DOMAIN', '"demo"'
-            buildConfigField "String", 'CORE_APP_ID', '"37fe30c0-ad17-11ea-b572-31a193d8c9ee"'
-            buildConfigField "String", 'CORE_APP_SECRET', '"GPQ6Ccy8EJ25s1xY6bQhZfRToHhnYbHc7oY7"'
 
             buildConfigField "String", 'BASE_URL',  '"https://sandbox.utswap.io/api/"'
 
             //buildConfigField "String", 'BASE_SOCKET_URL', '"ws://192.168.41.222/"'
             buildConfigField "String", 'BASE_SOCKET_URL', '"wss://dev-staging.zillionunited.io/"'
+
+            buildConfigField "String", 'FIRE_BASE_URL', '"https://devzu.page.link"'
 
         }
         release {
@@ -100,16 +95,14 @@ android {
             signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 
-            buildConfigField "String", 'CORE_SUB_DOMAIN', '"demo"'
-            buildConfigField "String", 'CORE_APP_ID', '"37fe30c0-ad17-11ea-b572-31a193d8c9ee"'
-            buildConfigField "String", 'CORE_APP_SECRET', '"GPQ6Ccy8EJ25s1xY6bQhZfRToHhnYbHc7oY7"'
-
         //    buildConfigField "String", 'BASE_URL', '"https://sandbox.utswap.io/api/"'
             buildConfigField "String", 'BASE_URL', '"https://dev-staging.zillionunited.io/api/"'
 
 
             //buildConfigField "String", 'BASE_SOCKET_URL', '"ws://192.168.41.222/"'
             buildConfigField "String", 'BASE_SOCKET_URL', '"wss://dev-staging.zillionunited.io/"'
+
+            buildConfigField "String", 'FIRE_BASE_URL', '"https://devzu.page.link"'
         }
     }
 
@@ -136,11 +129,6 @@ dependencies {
 
     implementation 'androidx.core:core-ktx:1.8.0'
     implementation 'androidx.appcompat:appcompat:1.4.2'
-    // no need to add live data cos not MVVm
-//    implementation 'com.google.android.material:material:1.6.1'
-//    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-//    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.0'
-//    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.0'
     implementation 'androidx.navigation:navigation-fragment-ktx:2.5.0'
     implementation 'androidx.navigation:navigation-ui-ktx:2.5.0'
     testImplementation 'junit:junit:4.13.2'
