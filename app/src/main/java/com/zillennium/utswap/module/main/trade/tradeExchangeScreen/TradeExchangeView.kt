@@ -22,6 +22,9 @@ class TradeExchangeView {
 
         fun addFavoriteProjectSuccess(data: TradingList.TradeAddFavoriteRes)
         fun addFavoriteProjectFail(data: TradingList.TradeAddFavoriteRes)
+
+        fun getAvailableBalanceSuccess(data: TradingList.AvailableBalanceRes)
+        fun getAvailableBalanceFail(data: TradingList.AvailableBalanceRes)
     }
 
     interface Presenter : BaseMvpPresenter<View> {
@@ -34,5 +37,7 @@ class TradeExchangeView {
         fun onCheckFavoriteProject(body: TradingList.TradeFavoriteProjectObj, context: Context)
 
         fun addFavoriteProject(body: TradingList.TradeAddFavoriteObj, context: Context)
+
+        fun getAvailableBalance(body: TradingList.AvailableBalanceObj, context: Context)
     }
 }

@@ -53,23 +53,7 @@ class TradeAdapter(private var listener: Listener): BaseRecyclerViewAdapterGener
                    }
                }
 
-               linearLayout.setOnClickListener {
-                   listener.clickMe(tradeList)
-               }
-
-               txtLast.setOnClickListener {
-                   listener.clickMe(tradeList)
-               }
-
-               txtProject.setOnClickListener {
-                   listener.clickMe(tradeList)
-               }
-
-               txtVolume.setOnClickListener {
-                   listener.clickMe(tradeList)
-               }
-
-               txtChange.setOnClickListener {
+               itemView.setOnClickListener {
                    listener.clickMe(tradeList)
                }
            }

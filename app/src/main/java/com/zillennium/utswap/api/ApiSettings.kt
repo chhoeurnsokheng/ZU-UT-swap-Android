@@ -108,11 +108,20 @@ object ApiSettings {
     /** Trade Create Order*/
     const val PATH_TRADE_CREATE_ORDER = "trade/upTrade"
 
+    /** Trade Chart*/
+    const val PATH_TRADE_CHART = "trade/getTradedata"
+
     /** Get Trade Order Pending*/
     const val PATH_GET_TRADE_ORDER_PENDING = "trade/getTradeOrder"
 
     /** Matching Trade Transaction*/
     const val PATH_TRADE_MATCHING_TRANSACTION = "trade/getTradeLog"
+
+    /** Get Available Balance*/
+    const val PATH_GET_AVAILABLE_BALANCE = "trade/getUserBalance"
+
+    /** Trade Cancel Order*/
+    const val PATH_TRADE_CANCEL_ORDER = "trade/cancelTradeOrder"
 
     /*Desposite Money*/
 

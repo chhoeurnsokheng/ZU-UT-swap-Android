@@ -3,26 +3,21 @@ package com.zillennium.utswap.module.main.trade.tradeExchangeScreen.fragment.Tra
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.res.ColorStateList
-import android.graphics.Color
 import android.os.Build
 import android.view.View
-import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.androidstudy.networkmanager.Tovuti
 import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
-import com.zillennium.utswap.Datas.ListDatas.transactionsData.TransactionsData
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentExchangeTransactionsBinding
-import com.zillennium.utswap.models.orders.Orders
 import com.zillennium.utswap.models.tradingList.TradingList
 import com.zillennium.utswap.module.main.trade.tradeDetailScreen.TransactionDetailActivity
-import com.zillennium.utswap.module.main.trade.tradeExchangeScreen.TradeExchangeActivity
 import com.zillennium.utswap.module.main.trade.tradeExchangeScreen.fragment.Transactions.adapter.TransactionAdapter
 import com.zillennium.utswap.utils.Constants
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 
 
 class TransactionsFragment :
@@ -41,44 +36,46 @@ class TransactionsFragment :
 
     private var listMatchingTransaction =  ArrayList<TradingList.TradeMatchingTransactionEntrust>()
     private var page: Int = 1
-    private var totalPage = 1
-    private var sortString: String= ""
-    private var lastPosition = 0
-
-
+    private var filterPageBuy: Int =1
+    private var filterPageSell: Int = 1
+    private var sortString: String= "desc"
 
     @RequiresApi(Build.VERSION_CODES.O)
-    @SuppressLint("UseCompatLoadingForDrawables", "NotifyDataSetChanged")
     override fun initView() {
         super.initView()
         onOtherActivity()
-        page = TradeExchangeActivity.page
-        onCallApi(page)
-        SessionVariable.requestPage.observe(this@TransactionsFragment){
+        onCallApi()
+        SessionVariable.refreshMatchingTransaction.observe(this@TransactionsFragment){
             if(it){
-                if (page <= totalPage) {
-                    onCallApi(page)
-                    binding.progressBar.visibility = View.VISIBLE
-                }
+                onSwipeRefresh()
+                SessionVariable.refreshMatchingTransaction.value = false
+            }
+        }
+
+        SessionVariable.createMatchingTransaction.observe(this@TransactionsFragment){
+            if(it){
+                onSwipeRefresh()
+                SessionVariable.createMatchingTransaction.value = false
             }
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onGetMatchingTransactionSuccess(data: TradingList.TradeMatchingTransactionRes) {
         binding.apply {
-            if (page == 1) {
-                listMatchingTransaction.clear()
-            }
 
-            totalPage = data.data?.TOTAL_PAGE!!
+            progressBarReadMore.visibility = View.GONE
+            layLoading.visibility = View.GONE
+            progressBar.visibility = View.GONE
 
             if(data.data?.entrust?.isNotEmpty() == true){
 
                 txtNoData.visibility = View.GONE
+                rvTransactions.visibility = View.VISIBLE
 
-                page++
+                data.data?.entrust?.let { listMatchingTransaction.addAll(it) }
 
-                listMatchingTransaction.addAll(data.data?.entrust!!)
+//                listMatchingTransaction.addAll(data.data?.entrust)
 
                 transactionsAdapter = TransactionAdapter(
                     onClickTransactions
@@ -88,12 +85,55 @@ class TransactionsFragment :
 
                 rvTransactions.adapter = transactionsAdapter
 
-                progressBar.visibility = View.GONE
-
                 transactionsAdapter?.notifyDataSetChanged()
             }else{
                 txtNoData.visibility = View.VISIBLE
                 rvTransactions.visibility = View.GONE
+                layLoading.visibility = View.GONE
+                readMore.visibility = View.GONE
+            }
+
+            if(filter == 1){
+                if(filterPageBuy == data.data?.TOTAL_PAGE){
+                    layLoading.visibility = View.GONE
+                    readMore.visibility = View.GONE
+                }
+                else if(filterPageBuy > data.data?.TOTAL_PAGE!!){
+                    layLoading.visibility = View.GONE
+                    readMore.visibility = View.GONE
+                    txtNoData.visibility = View.VISIBLE
+                }
+                else{
+                    layLoading.visibility = View.VISIBLE
+                    readMore.visibility = View.VISIBLE
+                    filterPageBuy += 1
+                }
+            }else if(filter == 2){
+                if(filterPageSell == data.data?.TOTAL_PAGE){
+                    layLoading.visibility = View.GONE
+                    readMore.visibility = View.GONE
+                }else if(filterPageSell > data.data?.TOTAL_PAGE!!){
+                    layLoading.visibility = View.GONE
+                    readMore.visibility = View.GONE
+                    txtNoData.visibility = View.VISIBLE
+                }else{
+                    layLoading.visibility = View.VISIBLE
+                    readMore.visibility = View.VISIBLE
+                    filterPageSell += 1
+                }
+            }else{
+                if(page == data.data?.TOTAL_PAGE){
+                    layLoading.visibility = View.GONE
+                    readMore.visibility = View.GONE
+                }else if(page > data.data?.TOTAL_PAGE!!){
+                    layLoading.visibility = View.GONE
+                    readMore.visibility = View.GONE
+                    txtNoData.visibility = View.VISIBLE
+                }else{
+                    layLoading.visibility = View.VISIBLE
+                    readMore.visibility = View.VISIBLE
+                    page += 1
+                }
             }
         }
     }
@@ -111,6 +151,11 @@ class TransactionsFragment :
                     1-> 2
                     else -> 0
                 }
+                page = 1
+                filterPageSell = 1
+                filterPageBuy = 1
+                listMatchingTransaction.clear()
+                progressBar.visibility = View.VISIBLE
                 getFilter(filter)
             }
 
@@ -119,130 +164,91 @@ class TransactionsFragment :
                     0 -> 1
                     else -> 0
                 }
+                page = 1
+                filterPageSell = 1
+                filterPageBuy = 1
+                listMatchingTransaction.clear()
+                progressBar.visibility = View.VISIBLE
                 getSort(sort)
             }
 
             val linearLayoutManager = LinearLayoutManager(requireContext())
             rvTransactions.layoutManager = linearLayoutManager
 
-            rvTransactions.isNestedScrollingEnabled = false
+            readMore.setOnClickListener {
+                when(filter){
+                    0 -> {
+                        mPresenter.onGetMatchingTransaction(TradingList.TradeMatchingTransactionObj(Constants.OrderBookTable.marketNameOrderBook,filter,page,sortString),UTSwapApp.instance)
+                    }
+                    1 -> {
+                        mPresenter.onGetMatchingTransaction(TradingList.TradeMatchingTransactionObj(Constants.OrderBookTable.marketNameOrderBook,filter,filterPageBuy,sortString),UTSwapApp.instance)
+                    }
+                    2 -> {
+                        mPresenter.onGetMatchingTransaction(TradingList.TradeMatchingTransactionObj(Constants.OrderBookTable.marketNameOrderBook,filter,filterPageSell,sortString),UTSwapApp.instance)
+                    }
+                }
+                progressBarReadMore.visibility = View.VISIBLE
+            }
         }
     }
 
-    fun onCallApi(page: Int){
-        mPresenter.onGetMatchingTransaction(TradingList.TradeMatchingTransactionObj(Constants.OrderBookTable.marketNameOrderBook,0,page,sortString),UTSwapApp.instance)
+    private fun onCallApi(){
+        Tovuti.from(UTSwapApp.instance).monitor { _, isConnected, _ ->
+            if (isConnected) {
+                mPresenter.onGetMatchingTransaction(TradingList.TradeMatchingTransactionObj(Constants.OrderBookTable.marketNameOrderBook,filter,page,sortString),UTSwapApp.instance)
+            }
+        }
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     private fun getFilter(filter: Int){
         binding.apply {
             when(filter){
                 0 -> {
-                    transactionsAdapter!!.notifyDataSetChanged()
-
-                    transactionsAdapter = TransactionAdapter(
-                        onClickTransactions
+                    icFilter.imageTintList = ColorStateList.valueOf(
+                        ContextCompat.getColor(
+                            UTSwapApp.instance,
+                            R.color.backgroundHint
+                        )
                     )
-                    rvTransactions.adapter = transactionsAdapter
-                    icFilter.imageTintList =  ColorStateList.valueOf(UTSwapApp.instance.getColor(R.color.backgroundHint))
-                    txtFilter.setTextColor(Color.parseColor("#808080"))
+                    txtFilter.setTextColor(resources.getColor(R.color.backgroundHint))
+                    mPresenter.onGetMatchingTransaction(TradingList.TradeMatchingTransactionObj(Constants.OrderBookTable.marketNameOrderBook,filter,page,sortString),UTSwapApp.instance)
                 }
                 1 -> {
-                    val list = arrayListOf<Orders>()
-
-                    TransactionsData.LIST_OF_TRANSACTIONS().map {
-                        if(it.txtStatus == "BUY"){
-                            list.add(Orders(it.txtStatus, it.txtUT,it.txtDate, it.txtPrice))
-                        }
-                    }
-
-
-                    transactionsAdapter!!.notifyDataSetChanged()
-
-                    transactionsAdapter = TransactionAdapter(
-                        onClickTransactions
+                    txtFilter.setTextColor(resources.getColor(R.color.primary))
+                    icFilter.imageTintList = ColorStateList.valueOf(
+                        ContextCompat.getColor(
+                            UTSwapApp.instance,
+                            R.color.primary
+                        )
                     )
-
-                    rvTransactions.adapter = transactionsAdapter
-                    icFilter.imageTintList =  ColorStateList.valueOf(UTSwapApp.instance.getColor(R.color.primary))
-                    txtFilter.setTextColor(Color.parseColor("#1B2266"))
-
+                    mPresenter.onGetMatchingTransaction(TradingList.TradeMatchingTransactionObj(Constants.OrderBookTable.marketNameOrderBook,1,filterPageBuy,sortString),UTSwapApp.instance)
                 }
                 2 -> {
-                    val list = arrayListOf<Orders>()
-
-                    TransactionsData.LIST_OF_TRANSACTIONS().map {
-                        if(it.txtStatus == "SELL"){
-                            list.add(Orders(it.txtStatus, it.txtUT,it.txtDate, it.txtPrice))
-                        }
-                    }
-
-                    transactionsAdapter!!.notifyDataSetChanged()
-
-                    transactionsAdapter = TransactionAdapter(
-                        onClickTransactions
+                    icFilter.imageTintList = ColorStateList.valueOf(
+                        ContextCompat.getColor(
+                            UTSwapApp.instance,
+                            R.color.red_ee1111
+                        )
                     )
-
-                    rvTransactions.adapter = transactionsAdapter
-                    icFilter.imageTintList =  ColorStateList.valueOf(UTSwapApp.instance.getColor(R.color.primary))
-                    txtFilter.setTextColor(Color.parseColor("#1B2266"))
+                    txtFilter.setTextColor(resources.getColor(R.color.red_ee1111))
+                    mPresenter.onGetMatchingTransaction(TradingList.TradeMatchingTransactionObj(Constants.OrderBookTable.marketNameOrderBook,2,filterPageSell,sortString),UTSwapApp.instance)
                 }
             }
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
-    @SuppressLint("NotifyDataSetChanged", "UseCompatLoadingForDrawables")
+    @SuppressLint("UseCompatLoadingForDrawables")
     private fun getSort(sort: Int){
         binding.apply {
             when(sort){
                 0 -> {
-                    val list = arrayListOf<Orders>()
-
-                    TransactionsData.LIST_OF_TRANSACTIONS().map {
-                        list.add(Orders(it.txtStatus, it.txtUT,it.txtDate, it.txtPrice))
-                    }
-
-                    val dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")
-                    list.sortByDescending {
-                        LocalDate.parse(
-                            it.txtDate,
-                            dateTimeFormatter
-                        )
-                    }
-
-                    transactionsAdapter!!.notifyDataSetChanged()
-
-                    transactionsAdapter = TransactionAdapter(
-                        onClickTransactions
-                    )
-
-                    rvTransactions.adapter = transactionsAdapter
+                    sortString = "desc"
+                    mPresenter.onGetMatchingTransaction(TradingList.TradeMatchingTransactionObj(Constants.OrderBookTable.marketNameOrderBook,filter,1,sortString),UTSwapApp.instance)
                     icSort.setImageDrawable(UTSwapApp.instance.getDrawable(R.drawable.ic_sort))
                 }
-
                 1 -> {
-                    val list = arrayListOf<Orders>()
-
-                    TransactionsData.LIST_OF_TRANSACTIONS().map {
-                        list.add(Orders(it.txtStatus, it.txtUT,it.txtDate, it.txtPrice))
-                    }
-
-                    val dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")
-                    list.sortBy {
-                        LocalDate.parse(
-                            it.txtDate,
-                            dateTimeFormatter
-                        )
-                    }
-
-                    transactionsAdapter!!.notifyDataSetChanged()
-
-                    transactionsAdapter = TransactionAdapter(
-                        onClickTransactions
-                    )
-
-                    rvTransactions.adapter = transactionsAdapter
+                    sortString = "asc"
+                    mPresenter.onGetMatchingTransaction(TradingList.TradeMatchingTransactionObj(Constants.OrderBookTable.marketNameOrderBook,filter,1,sortString),UTSwapApp.instance)
                     icSort.setImageDrawable(UTSwapApp.instance.getDrawable(R.drawable.ic_sort_up))
                 }
             }
@@ -260,5 +266,26 @@ class TransactionsFragment :
         }
 
 
+    }
+
+    private fun onSwipeRefresh(){
+        binding.apply {
+            page = 1
+            filterPageBuy = 1
+            filterPageSell = 1
+            listMatchingTransaction.clear()
+            filter = 0
+            sortString = "desc"
+
+            icFilter.imageTintList = ColorStateList.valueOf(
+                ContextCompat.getColor(
+                    UTSwapApp.instance,
+                    R.color.backgroundHint
+                )
+            )
+            txtFilter.setTextColor(resources.getColor(R.color.backgroundHint))
+            icSort.setImageDrawable(UTSwapApp.instance.getDrawable(R.drawable.ic_sort))
+            onCallApi()
+        }
     }
 }

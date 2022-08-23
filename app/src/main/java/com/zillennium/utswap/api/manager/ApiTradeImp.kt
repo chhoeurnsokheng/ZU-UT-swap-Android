@@ -54,4 +54,31 @@ class ApiTradeImp: ApiManager() {
         )
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
+
+    /** Get Available Balance*/
+    fun getAvailableBalance(body:TradingList.AvailableBalanceObj, context: Context):Observable<TradingList.AvailableBalanceRes> =
+        mTradeService.getAvailableBalance(
+            Header.getHeader(Header.Companion.AuthType.REQUIRED_TOKEN, context),
+            body
+        )
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+
+    /** Trade Cancel Order*/
+    fun cancelTradeOrder(body:TradingList.TradeCancelOrderObj, context: Context):Observable<TradingList.TradeCancelOrderRes> =
+        mTradeService.cancelTradeOrder(
+            Header.getHeader(Header.Companion.AuthType.REQUIRED_TOKEN, context),
+            body
+        )
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+
+    /** Trade Chart*/
+    fun tradeChart(body:TradingList.TradeChartObj, context: Context): Observable<TradingList.TradeChartRes> =
+        mTradeService.tradeChart(
+            Header.getHeader(Header.Companion.AuthType.REQUIRED, context),
+            body
+        )
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
 }

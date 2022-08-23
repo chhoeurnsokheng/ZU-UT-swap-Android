@@ -10,9 +10,7 @@ import android.text.Editable
 import android.text.InputFilter
 import android.text.TextWatcher
 import android.view.View
-import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.lifecycleScope
@@ -61,9 +59,12 @@ class TradeExchangeActivity :
     private var buySellBottomSheet: BuyAndSellBottomSheetDialog? = null
     private var kycSubmit: Boolean? = false
     private var kycComplete: Boolean? = false
+    private var positionFragment = 0
 
     val NUM_PAGES_TABLE = 3
     var remember: Boolean? = null
+
+    var orderScroll : Boolean = false
 
 
     var click = true
@@ -72,14 +73,18 @@ class TradeExchangeActivity :
     override var fetchTradeDetailData: MutableLiveData<TradingList.TradingListSummary> = MutableLiveData()
 
     companion object {
-         var page: Int = 1
+        var page: Int = 0
+        var orderPage: Int = 1
 
         fun launchTradeExchangeActivity(context: Context, trade: TradeModel?) {
             val intent = Intent(context, TradeExchangeActivity::class.java)
             intent.putExtra(Constants.TradeExchange.ProjectName, trade?.project_name)
             intent.putExtra(Constants.TradeExchange.MarketName, trade?.market_name)
             intent.putExtra(Constants.TradeExchange.ProjectId, trade?.project_id)
+            intent.putExtra(Constants.TradeExchange.MarketId, trade?.market_id)
             Constants.OrderBookTable.marketNameOrderBook = trade?.market_name.toString()
+            Constants.OrderBookTable.marketIdChart = trade?.market_id.toString()
+            Constants.OrderBookTable.projectName = trade?.project_name.toString()
             context.startActivity(intent)
         }
         fun launchTradeExchangeActivityFromWishList(context: Context, projectName: String?, marketName: String?,projectId: String?) {
@@ -88,6 +93,7 @@ class TradeExchangeActivity :
             intent.putExtra(Constants.TradeExchange.MarketName,marketName)
             intent.putExtra(Constants.TradeExchange.ProjectId, projectId)
             Constants.OrderBookTable.marketNameOrderBook = marketName.toString()
+            Constants.OrderBookTable.projectName = projectName.toString()
             context.startActivity(intent)
         }
     }
@@ -95,13 +101,46 @@ class TradeExchangeActivity :
     @SuppressLint("SetTextI18n", "ClickableViewAccessibility")
     override fun initView() {
         super.initView()
-        SessionVariable.requestPage.value = false
+        onSwipeRefresh()
+
+        /** for recall request available balance and order book table socket*/
+        SessionVariable.requestOrderBookSocket.value = true
+        SessionVariable.refreshOrderPending.value = false
+        SessionVariable.createMatchingTransaction.value = false
+        SessionVariable.createPendingOrder.value = false
+        SessionVariable.refreshMatchingTransaction.value = false
+
+        SessionVariable.refreshOrderPending.observe(this@TradeExchangeActivity){
+            if(it){
+
+            }else{
+                binding.swipeRefresh.isRefreshing = false
+            }
+        }
+
+        SessionVariable.refreshMatchingTransaction.observe(this@TradeExchangeActivity){
+            if(it){
+
+            }else{
+                binding.swipeRefresh.isRefreshing = false
+            }
+        }
+
+        //Recall available balance after spend
+        SessionVariable.callAvailableBalance.observe(this@TradeExchangeActivity){
+            if(it){
+                mPresenter.getAvailableBalance(TradingList.AvailableBalanceObj(intent?.getStringExtra(Constants.TradeExchange.MarketName).toString()),UTSwapApp.instance)
+                SessionVariable.callAvailableBalance.value = false
+            }
+        }
+
         Tovuti.from(UTSwapApp.instance).monitor{ _, isConnected, _ ->
             if(isConnected)
             {
                 mPresenter.onCheckKYCStatus()
                 mPresenter.startTradeDetailSocket(intent?.getStringExtra(Constants.TradeExchange.MarketName).toString())
                 mPresenter.onCheckFavoriteProject(TradingList.TradeFavoriteProjectObj(intent?.getStringExtra(Constants.TradeExchange.ProjectId).toString().toInt()),UTSwapApp.instance)
+                mPresenter.getAvailableBalance(TradingList.AvailableBalanceObj(intent?.getStringExtra(Constants.TradeExchange.MarketName).toString()),UTSwapApp.instance)
             }
         }
 
@@ -111,8 +150,6 @@ class TradeExchangeActivity :
             fetchTradeDetailData.observe(this@TradeExchangeActivity){
 
                 binding.apply {
-
-                    println("=== trade order book==="+it)
 
                     if(it.info?.new_price == false)
                     {
@@ -183,6 +220,8 @@ class TradeExchangeActivity :
             }
 
             binding.apply {
+                swipeRefresh.setColorSchemeColors(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
+
                 btnVerifyKyc.setOnClickListener {
                     val intent = Intent(this@TradeExchangeActivity, KYCActivity::class.java).putExtra(
                         "KYCStatus", "Pending"
@@ -324,10 +363,20 @@ class TradeExchangeActivity :
                 txtOrders.setOnClickListener { view ->
                     onChangeTabsTable(view)
                     vpTable.setCurrentItem(0, false)
+//                    page = 1
+//                    SessionVariable.request.value = false
+//                    SessionVariable.requestPage.value = false
+                    positionFragment = 0
                 }
                 txtTransactions.setOnClickListener { view ->
                     onChangeTabsTable(view)
                     vpTable.setCurrentItem(1, false)
+//                    if(!orderScroll){
+//                        page = 1
+//                        SessionVariable.requestPage.value = true
+//                    }
+//                    SessionVariable.request.value = false
+                    positionFragment = 1
                 }
 
                 layAuth.setOnClickListener {
@@ -397,7 +446,8 @@ class TradeExchangeActivity :
                         val buyDialog: BuyDialog =
                             BuyDialog.newInstance(
                                 persistentBottomSheet.etVolume.text.toString(),
-                                persistentBottomSheet.etPriceOfVolume.text.toString()
+                                persistentBottomSheet.etPriceOfVolume.text.toString(),
+                                "limit"
                             )
                         buyDialog.show(supportFragmentManager, "limitBuy")
                     } else {
@@ -405,7 +455,8 @@ class TradeExchangeActivity :
                         val marketDialog: MarketDialog =
                             MarketDialog.newInstance(
                                 persistentBottomSheet.etVolume.text.toString(),
-                                "BUY"
+                                "BUY",
+                                "market"
                             )
                         marketDialog.show(supportFragmentManager, "marketBuy")
                     }
@@ -445,7 +496,8 @@ class TradeExchangeActivity :
                         val marketDialog: MarketDialog =
                             MarketDialog.newInstance(
                                 persistentBottomSheet.etVolume.text.toString(),
-                                "SELL"
+                                "SELL",
+                                "market"
                             )
                         marketDialog.show(supportFragmentManager, "marketSell")
                     }
@@ -562,13 +614,27 @@ class TradeExchangeActivity :
                 }
 //  end of bottom sheet persistent
 
-                nestedScroll.setOnScrollChangeListener(
-                    NestedScrollView.OnScrollChangeListener { v, _, scrollY, _, _ ->
-                        if (scrollY == (v.getChildAt(0).measuredHeight - v.measuredHeight)) {
-                            page++
-                            SessionVariable.requestPage.value = true
-                        }
-                    })
+//                nestedScroll.setOnScrollChangeListener(
+//                    NestedScrollView.OnScrollChangeListener { v, _, scrollY, _, _ ->
+//                        if (scrollY == (v.getChildAt(0).measuredHeight - v.measuredHeight)) {
+//
+//                            if(positionFragment == 0){
+//                                if(orderPage <= OrdersFragment.totalPage)
+//                                {
+//                                    orderPage++
+//                                    SessionVariable.request.value = true
+//
+//                                    orderScroll = true
+//                                }
+//
+//                            }else{
+//                               if(page <= TransactionsFragment.totalPage){
+//                                   page++
+//                                   SessionVariable.requestPage.value = true
+//                               }
+//                            }
+//                        }
+//                    })
             }
         } catch (error: Exception) {
             // Must be safe
@@ -601,13 +667,20 @@ class TradeExchangeActivity :
             tb.setOnClickListener {
                 finish()
                 mPresenter.closeTradeDetailSocket()
-                SessionVariable.requestPage.value = false
-                page = 1
+                SessionVariable.requestOrderBookSocket.value = false
+                SessionVariable.requestTradingList.value = true
+                SessionVariable.callAvailableBalance.value = true
+
+                page = 0
+                orderPage = 1
             }
 
             binding.includeLayout.tbLeft.setOnClickListener {
-                val intent: Intent = Intent(UTSwapApp.instance, ProjectInfoActivity::class.java)
-                startActivity(intent)
+                ProjectInfoActivity.launchProjectInfoActivity(
+                    root.context,
+                    intent?.getStringExtra(Constants.TradeExchange.ProjectId),
+                    intent?.getStringExtra(Constants.TradeExchange.ProjectName)
+                )
             }
 
 
@@ -820,5 +893,43 @@ class TradeExchangeActivity :
         }
     }
 
+    private fun onSwipeRefresh(){
+        binding.swipeRefresh.setOnRefreshListener {
+            SessionVariable.refreshOrderPending.value = true
+            SessionVariable.refreshMatchingTransaction.value = true
+            SessionVariable.callAvailableBalance.value = true
+        }
+    }
+
+
+    //get Available Balance
+    override fun getAvailableBalanceSuccess(data: TradingList.AvailableBalanceRes) {
+        binding.apply {
+            if(data.data?.usd.toString().isNotEmpty()){
+                txtAvailableClick.text = data.data?.usd.toString()
+                Constants.TradeExchange.availableBalance = data.data?.usd.toString()
+            }
+
+            if(data.data?.sum_ut.toString().isNotEmpty()){
+                txtUtClick.text = data.data?.sum_ut.toString()
+                Constants.TradeExchange.utBalance = data.data?.sum_ut.toString()
+            }
+        }
+    }
+
+    override fun getAvailableBalanceFail(data: TradingList.AvailableBalanceRes) {
+
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mPresenter.closeTradeDetailSocket()
+        SessionVariable.requestOrderBookSocket.value = false
+        SessionVariable.requestTradingList.value = true
+        SessionVariable.callAvailableBalance.value = false
+
+        page = 0
+        orderPage = 1
+    }
 
 }

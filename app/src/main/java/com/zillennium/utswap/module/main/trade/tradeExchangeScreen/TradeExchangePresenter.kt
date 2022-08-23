@@ -21,6 +21,7 @@ class TradeExchangePresenter : BaseMvpPresenterImpl<TradeExchangeView.View>(),
     private var subscription: Subscription? = null
     private var subscriptionFavoriteProject: Subscription? = null
     private var subscriptionAddFavorite: Subscription? = null
+    private var subscriptionAvailableBalance: Subscription? = null
 
     override fun initViewPresenter(context: Context, bundle: Bundle?) {
         mBundle = bundle
@@ -122,6 +123,23 @@ class TradeExchangePresenter : BaseMvpPresenterImpl<TradeExchangeView.View>(),
                 mView?.addFavoriteProjectSuccess(it)
             }else{
                 mView?.addFavoriteProjectFail(it)
+            }
+        },{
+            object : CallbackWrapper(it, UTSwapApp.instance, arrayListOf()){
+                override fun onCallbackWrapper(status: ApiManager.NetworkErrorStatus, data: Any) {
+                    mView?.onFail(data.toString())
+                }
+            }
+        })
+    }
+
+    override fun getAvailableBalance(body: TradingList.AvailableBalanceObj, context: Context) {
+        subscriptionAvailableBalance?.unsubscribe()
+        subscriptionAvailableBalance = ApiTradeImp().getAvailableBalance(body,context).subscribe({
+            if(it.status == 1){
+                mView?.getAvailableBalanceSuccess(it)
+            }else{
+                mView?.getAvailableBalanceFail(it)
             }
         },{
             object : CallbackWrapper(it, UTSwapApp.instance, arrayListOf()){

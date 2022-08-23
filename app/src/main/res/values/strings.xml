@@ -464,7 +464,8 @@
 
     <string name="openWebView">OpenWebView</string>
     <string name="deposit_review">Deposit Review</string>
-
+    <string name="you_have_successfully_placed_an_order">You have successfully placed an order.</string>
+    <string name="ok">OK</string>
 
 
 

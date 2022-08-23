@@ -38,9 +38,10 @@
                     android:textAppearance="@style/regular_12"/>
 
                 <TextView
+                    android:id="@+id/txt_project_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="New Airport 38Ha"
+                    android:text=""
                     android:gravity="end"
                     android:textColor="@color/black"
                     android:textAppearance="@style/regular_12"/>

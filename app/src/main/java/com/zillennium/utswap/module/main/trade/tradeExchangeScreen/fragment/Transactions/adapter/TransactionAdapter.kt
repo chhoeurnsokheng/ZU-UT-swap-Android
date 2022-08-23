@@ -42,8 +42,6 @@ class TransactionAdapter(private var listener: OnClickTransactions): BaseRecycle
                     }
                 }
 
-                imgArrow.visibility = View.GONE
-
                 itemView.setOnClickListener {
                     listener.onClickMe(orders)
                 }

@@ -1,13 +1,14 @@
 package com.zillennium.utswap.module.main.trade.tradeExchangeScreen.fragment.orders
 
 import android.annotation.SuppressLint
+import android.content.res.ColorStateList
 import android.os.Build
-import android.os.Handler
 import android.view.View
 import androidx.annotation.RequiresApi
-import androidx.core.widget.NestedScrollView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.androidstudy.networkmanager.Tovuti
+import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
@@ -32,21 +33,43 @@ class OrdersFragment :
 
     private var listOrder =  ArrayList<TradingList.TradeOrderPendingEntrust>()
     private var page: Int = 1
-    private var countLoop: Int = 2
-    private var totalPageTrans: Int  = 1
+    private var filterPageBuy: Int =1
+    private var filterPageSell: Int = 1
+    private var sortString: String = "desc"
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun initView() {
         super.initView()
         onOtherActivity()
         onCallApi()
+        SessionVariable.refreshOrderPending.observe(this@OrdersFragment){
+            if(it){
+                onSwipeRefresh()
+                SessionVariable.refreshOrderPending.value = false
+            }
+        }
+
+        SessionVariable.createPendingOrder.observe(this@OrdersFragment){
+            if(it){
+                onSwipeRefresh()
+                SessionVariable.createPendingOrder.value = false
+            }
+        }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onGetOrderPendingSuccess(data: TradingList.TradeOrderPendingRes) {
+
         binding.apply {
+
+            progressBarReadMore.visibility = View.GONE
+            layLoading.visibility = View.GONE
+            progressBar.visibility = View.GONE
+
             if(data.data?.entrust?.isNotEmpty() == true){
                 txtNoData.visibility = View.GONE
+                rvOrders.visibility = View.VISIBLE
 
                 listOrder.addAll(data.data?.entrust!!)
 
@@ -57,9 +80,56 @@ class OrdersFragment :
                 ordersAdapter?.items = listOrder
 
                 rvOrders.adapter = ordersAdapter
+
+                ordersAdapter?.notifyDataSetChanged()
             }else{
                 txtNoData.visibility = View.VISIBLE
                 rvOrders.visibility = View.GONE
+                layLoading.visibility = View.GONE
+                readMore.visibility = View.GONE
+            }
+
+            if(filter == 1){
+                if(filterPageBuy == data.data?.TOTAL_PAGE){
+                    layLoading.visibility = View.GONE
+                    readMore.visibility = View.GONE
+                }
+                else if(filterPageBuy > data.data?.TOTAL_PAGE!!){
+                    layLoading.visibility = View.GONE
+                    readMore.visibility = View.GONE
+                    txtNoData.visibility = View.VISIBLE
+                }
+                else{
+                    layLoading.visibility = View.VISIBLE
+                    readMore.visibility = View.VISIBLE
+                    filterPageBuy += 1
+                }
+            }else if(filter == 2){
+                if(filterPageSell == data.data?.TOTAL_PAGE){
+                    layLoading.visibility = View.GONE
+                    readMore.visibility = View.GONE
+                }else if(filterPageSell > data.data?.TOTAL_PAGE!!){
+                    layLoading.visibility = View.GONE
+                    readMore.visibility = View.GONE
+                    txtNoData.visibility = View.VISIBLE
+                }else{
+                    layLoading.visibility = View.VISIBLE
+                    readMore.visibility = View.VISIBLE
+                    filterPageSell += 1
+                }
+            }else{
+                if(page == data.data?.TOTAL_PAGE){
+                    layLoading.visibility = View.GONE
+                    readMore.visibility = View.GONE
+                }else if(page > data.data?.TOTAL_PAGE!!){
+                    layLoading.visibility = View.GONE
+                    readMore.visibility = View.GONE
+                    txtNoData.visibility = View.VISIBLE
+                }else{
+                    layLoading.visibility = View.VISIBLE
+                    readMore.visibility = View.VISIBLE
+                    page += 1
+                }
             }
         }
     }
@@ -78,7 +148,12 @@ class OrdersFragment :
                     1-> 2
                     else -> 0
                 }
-                //getFilter(filter)
+                page = 1
+                filterPageSell = 1
+                filterPageBuy = 1
+                listOrder.clear()
+                progressBar.visibility = View.VISIBLE
+                getFilter(filter)
             }
 
             imgSort.setOnClickListener {
@@ -86,11 +161,31 @@ class OrdersFragment :
                     0 -> 1
                     else -> 0
                 }
-                //getSort(sort)
+                page = 1
+                filterPageSell = 1
+                filterPageBuy = 1
+                listOrder.clear()
+                progressBar.visibility = View.VISIBLE
+                getSort(sort)
             }
 
             val linearLayoutManager = LinearLayoutManager(requireContext())
             rvOrders.layoutManager = linearLayoutManager
+
+            readMore.setOnClickListener {
+               when (filter) {
+                   0 -> {
+                       mPresenter.onGetOrderPending(TradingList.TradeOrderPendingObj(Constants.OrderBookTable.marketNameOrderBook,filter,page,sortString),UTSwapApp.instance)
+                   }
+                   1 -> {
+                       mPresenter.onGetOrderPending(TradingList.TradeOrderPendingObj(Constants.OrderBookTable.marketNameOrderBook,filter,filterPageBuy,sortString),UTSwapApp.instance)
+                   }
+                   else -> {
+                       mPresenter.onGetOrderPending(TradingList.TradeOrderPendingObj(Constants.OrderBookTable.marketNameOrderBook,filter,filterPageSell,sortString),UTSwapApp.instance)
+                   }
+               }
+                progressBarReadMore.visibility = View.VISIBLE
+            }
         }
     }
 
@@ -98,136 +193,93 @@ class OrdersFragment :
         Tovuti.from(UTSwapApp.instance).monitor{ _, isConnected, _ ->
             if(isConnected)
             {
-                mPresenter.onGetOrderPending(TradingList.TradeOrderPendingObj(Constants.OrderBookTable.marketNameOrderBook),UTSwapApp.instance)
+                mPresenter.onGetOrderPending(TradingList.TradeOrderPendingObj(Constants.OrderBookTable.marketNameOrderBook,filter,page,sortString),UTSwapApp.instance)
             }
         }
     }
 
-    @SuppressLint("NotifyDataSetChanged")
-//    private fun getFilter(filter: Int){
-//        binding.apply {
-//            when(filter){
-//                0 -> {
-//                    ordersAdapter?.notifyDataSetChanged()
-//
-//                    ordersAdapter = OrdersAdapter(
-//                        listOrder, onClickDelete
-//                    )
-//                    rvOrders.adapter = ordersAdapter
-//                    icFilter.imageTintList =  ColorStateList.valueOf(UTSwapApp.instance.getColor(R.color.backgroundHint))
-//                    txtFilter.setTextColor(Color.parseColor("#808080"))
-//                }
-//                1 -> {
-//                    val list = arrayListOf<Orders>()
-//
-//                    OrdersData.LIST_OF_ORDERS().map {
-//                        if(it.txtStatus == "Limit / Buy"){
-//                            list.add(Orders(it.txtStatus, it.txtUT,it.txtDate, it.txtPrice))
-//                        }
-//                    }
-//
-//
-//                    ordersAdapter?.notifyDataSetChanged()
-//
-//                    ordersAdapter = OrdersAdapter(
-//                        list,
-//                        onClickDelete
-//                    )
-//
-//                    rvOrders.adapter = ordersAdapter
-//                    icFilter.imageTintList =  ColorStateList.valueOf(UTSwapApp.instance.getColor(R.color.primary))
-//                    txtFilter.setTextColor(Color.parseColor("#1B2266"))
-//
-//                }
-//                2 -> {
-//                    val list = arrayListOf<Orders>()
-//
-//                    OrdersData.LIST_OF_ORDERS().map {
-//                        if(it.txtStatus == "Limit / Sell"){
-//                            list.add(Orders(it.txtStatus, it.txtUT,it.txtDate, it.txtPrice))
-//                        }
-//                    }
-//
-//                    ordersAdapter?.notifyDataSetChanged()
-//
-//                    ordersAdapter = OrdersAdapter(
-//                        list,
-//                        onClickDelete
-//                    )
-//
-//                    rvOrders.adapter = ordersAdapter
-//                    icFilter.imageTintList =  ColorStateList.valueOf(UTSwapApp.instance.getColor(R.color.primary))
-//                    txtFilter.setTextColor(Color.parseColor("#1B2266"))
-//                }
-//            }
-//        }
-//    }
+    private fun getFilter(filter: Int){
+        binding.apply {
+            when(filter){
+                0 -> {
+                    icFilter.imageTintList = ColorStateList.valueOf(
+                        ContextCompat.getColor(
+                            UTSwapApp.instance,
+                            R.color.backgroundHint
+                        )
+                    )
+                    txtFilter.setTextColor(resources.getColor(R.color.backgroundHint))
+                    mPresenter.onGetOrderPending(TradingList.TradeOrderPendingObj(Constants.OrderBookTable.marketNameOrderBook,filter,1,sortString),UTSwapApp.instance)
+                }
+                1 -> {
+                    txtFilter.setTextColor(resources.getColor(R.color.primary))
+                    icFilter.imageTintList = ColorStateList.valueOf(
+                        ContextCompat.getColor(
+                            UTSwapApp.instance,
+                            R.color.primary
+                        )
+                    )
+                    mPresenter.onGetOrderPending(TradingList.TradeOrderPendingObj(Constants.OrderBookTable.marketNameOrderBook,1,1,sortString),UTSwapApp.instance)
+                }
+                2 -> {
+                    icFilter.imageTintList = ColorStateList.valueOf(
+                        ContextCompat.getColor(
+                            UTSwapApp.instance,
+                            R.color.red_ee1111
+                        )
+                    )
+                    txtFilter.setTextColor(resources.getColor(R.color.red_ee1111))
+                    mPresenter.onGetOrderPending(TradingList.TradeOrderPendingObj(Constants.OrderBookTable.marketNameOrderBook,2,1,sortString),UTSwapApp.instance)
+                }
+            }
+        }
+    }
 
-    @RequiresApi(Build.VERSION_CODES.O)
-//    private fun getSort(sort: Int){
-//        binding.apply {
-//            when(sort){
-//                0 -> {
-//                    val list = arrayListOf<Orders>()
-//
-//                    OrdersData.LIST_OF_ORDERS().map {
-//                        list.add(Orders(it.txtStatus, it.txtUT,it.txtDate, it.txtPrice))
-//                    }
-//
-//                    val dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")
-//                    list.sortByDescending {
-//                        LocalDate.parse(
-//                            it.txtDate,
-//                            dateTimeFormatter
-//                        )
-//                    }
-//
-//                    ordersAdapter!!.notifyDataSetChanged()
-//
-//                    ordersAdapter = OrdersAdapter(
-//                        list,
-//                        onClickDelete
-//                    )
-//
-//                    rvOrders.adapter = ordersAdapter
-//                    icSort.setImageDrawable(UTSwapApp.instance.getDrawable(R.drawable.ic_sort))
-//                }
-//
-//                1 -> {
-//                    val list = arrayListOf<Orders>()
-//
-//                    OrdersData.LIST_OF_ORDERS().map {
-//                        list.add(Orders(it.txtStatus, it.txtUT,it.txtDate, it.txtPrice))
-//                    }
-//
-//                    val dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")
-//                    list.sortBy {
-//                        LocalDate.parse(
-//                            it.txtDate,
-//                            dateTimeFormatter
-//                        )
-//                    }
-//
-//                    ordersAdapter?.notifyDataSetChanged()
-//
-//                    ordersAdapter = OrdersAdapter(
-//                        list,
-//                        onClickDelete
-//                    )
-//
-//                    rvOrders.adapter = ordersAdapter
-//                    icSort.setImageDrawable(UTSwapApp.instance.getDrawable(R.drawable.ic_sort_up))
-//                }
-//            }
-//        }
-//    }
+    @SuppressLint("UseCompatLoadingForDrawables")
+    private fun getSort(sort: Int){
+        binding.apply {
+            when(sort){
+                0 -> {
+                    sortString = "desc"
+                    mPresenter.onGetOrderPending(TradingList.TradeOrderPendingObj(Constants.OrderBookTable.marketNameOrderBook,filter,1,sortString),UTSwapApp.instance)
+                    icSort.setImageDrawable(UTSwapApp.instance.getDrawable(R.drawable.ic_sort))
+                }
+                1 -> {
+                    sortString = "asc"
+                    mPresenter.onGetOrderPending(TradingList.TradeOrderPendingObj(Constants.OrderBookTable.marketNameOrderBook,filter,1,sortString),UTSwapApp.instance)
+                    icSort.setImageDrawable(UTSwapApp.instance.getDrawable(R.drawable.ic_sort_up))
+                }
+            }
+        }
+    }
 
     private val onClickDelete: OrderAdapter.OnClickDelete = object : OrderAdapter.OnClickDelete{
-        override fun clickMe() {
+        override fun clickMe(tradeOrder: TradingList.TradeOrderPendingEntrust) {
             val deleteOrdersDialog: DeleteOrdersDialog =
-                DeleteOrdersDialog.newInstance()
+                DeleteOrdersDialog.newInstance(tradeOrder.id.toString())
             activity?.supportFragmentManager?.let { deleteOrdersDialog.show(it, "asaf") }
         }
 
+    }
+
+    private fun onSwipeRefresh(){
+        binding.apply {
+            page = 1
+            filterPageBuy = 1
+            filterPageSell = 1
+            listOrder.clear()
+            filter = 0
+            sortString = "desc"
+
+            icFilter.imageTintList = ColorStateList.valueOf(
+                ContextCompat.getColor(
+                    UTSwapApp.instance,
+                    R.color.backgroundHint
+                )
+            )
+            txtFilter.setTextColor(resources.getColor(R.color.backgroundHint))
+            icSort.setImageDrawable(UTSwapApp.instance.getDrawable(R.drawable.ic_sort))
+            onCallApi()
+        }
     }
 }

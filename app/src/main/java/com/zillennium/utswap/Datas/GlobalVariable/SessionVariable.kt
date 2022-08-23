@@ -14,7 +14,18 @@ class SessionVariable {
         var SESSION_BANK : MutableLiveData<List<FinanceBankModel>> = MutableLiveData<List<FinanceBankModel>>()
         var SESSION_KYC_SUBMIT_STATUS = MutableLiveData<Boolean>(SessionPreferences().SESSION_KYC_SUBMIT_STATUS)
 
-        var requestPage: MutableLiveData<Boolean> = MutableLiveData()
+        var callAvailableBalance: MutableLiveData<Boolean> = MutableLiveData()
 
+        var requestOrderBookSocket: MutableLiveData<Boolean> = MutableLiveData()
+        var requestTradingList: MutableLiveData<Boolean> = MutableLiveData()
+
+        var refreshOrderPending: MutableLiveData<Boolean> = MutableLiveData()
+        var refreshMatchingTransaction: MutableLiveData<Boolean> = MutableLiveData()
+
+        var createPendingOrder: MutableLiveData<Boolean> = MutableLiveData()
+        var createMatchingTransaction: MutableLiveData<Boolean> = MutableLiveData()
+
+        var marketPriceSell: MutableLiveData<String> = MutableLiveData()
+        var marketPriceBuy: MutableLiveData<String> = MutableLiveData()
     }
 }

@@ -24,6 +24,7 @@ interface TradeService {
         @Body body: TradingList.TradeAddFavoriteObj
     ): Observable<TradingList.TradeAddFavoriteRes>
 
+    /** Create Trade Order*/
     @POST(ApiSettings.PATH_TRADE_CREATE_ORDER)
     fun createOrder(
         @HeaderMap headerMap: Map<String,String>,
@@ -43,4 +44,25 @@ interface TradeService {
         @HeaderMap headerMap: Map<String,String>,
         @Body body: TradingList.TradeMatchingTransactionObj
     ):Observable<TradingList.TradeMatchingTransactionRes>
+
+    /** Get Available Balance*/
+    @POST(ApiSettings.PATH_GET_AVAILABLE_BALANCE)
+    fun getAvailableBalance(
+        @HeaderMap headerMap: Map<String,String>,
+        @Body body: TradingList.AvailableBalanceObj
+    ): Observable<TradingList.AvailableBalanceRes>
+
+    /** Trade Cancel Order*/
+    @POST(ApiSettings.PATH_TRADE_CANCEL_ORDER)
+    fun cancelTradeOrder(
+        @HeaderMap headerMap: Map<String,String>,
+        @Body body: TradingList.TradeCancelOrderObj
+    ):Observable<TradingList.TradeCancelOrderRes>
+
+    /** Trade Chart*/
+    @POST(ApiSettings.PATH_TRADE_CHART)
+    fun tradeChart(
+        @HeaderMap headerMap: Map<String,String>,
+        @Body body: TradingList.TradeChartObj
+    ):Observable<TradingList.TradeChartRes>
 }

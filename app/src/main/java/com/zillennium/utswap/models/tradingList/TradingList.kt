@@ -113,13 +113,15 @@ object TradingList {
         var price: String,
         var num: String,
         var type: String,
-        var paypassword: String,
         var tradeType: String
     )
 
     /** Get Trade Order Pending List*/
     class TradeOrderPendingObj(
-        var market: String
+        var market: String,
+        var type: Int,
+        var page: Int,
+        var sort: String
     )
 
     class TradeOrderPendingRes{
@@ -176,4 +178,58 @@ object TradingList {
         var value: String? = null
         var fee_buy: String? = null
     }
+
+    /** Get Available Balance*/
+    class AvailableBalanceObj(
+        var market: String
+    )
+
+    class AvailableBalanceRes{
+        var status: Int? = null
+        var message: String? = null
+        var data: AvailableBalanceData? = null
+    }
+
+    class AvailableBalanceData{
+        var xnb: Double? = null
+        var xnbd: Double? = null
+        var usd: Double? = null
+        var usdd: Double? = null
+        var lock_ut: Int? = null
+        var sum_usd: Double? = null
+        var sum_ut: Int? = null
+        var lock_usd: Double? = null
+    }
+
+    /** Trade Cancel Order*/
+    class TradeCancelOrderRes{
+        var status: Int? = null
+        var message: String? = null
+        var data: TradeCancelOrderData? = null
+    }
+
+    class TradeCancelOrderData{
+
+    }
+
+    class TradeCancelOrderObj(
+        var trade_id: Int
+    )
+
+    /** Trade Chart*/
+    class TradeChartObj(
+        var marketid: Int?
+    )
+
+    class TradeChartRes{
+        var status: Int? = null
+        var message: String? = null
+        var data: TradeChartData? = null
+    }
+
+    class TradeChartData{
+        var marketid: Int? = null
+        var trading_view: String? = null
+    }
+
 }

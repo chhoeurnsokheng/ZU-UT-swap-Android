@@ -11,11 +11,15 @@ import android.text.TextWatcher
 import android.view.*
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.MutableLiveData
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
 import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.databinding.BottomSheetExchangeBuySellBinding
+import com.zillennium.utswap.utils.Constants
+import kotlin.math.roundToInt
 
 class BuyAndSellBottomSheetDialog(var onDismissListener: OnDismissListener) :
     BottomSheetDialogFragment() {
@@ -23,6 +27,11 @@ class BuyAndSellBottomSheetDialog(var onDismissListener: OnDismissListener) :
     private var binding: BottomSheetExchangeBuySellBinding? = null
     private var txtPrice: String? = ""
     private var txtVolume: String? = ""
+
+    private var marketPriceSell: MutableLiveData<String> = MutableLiveData()
+    private var marketPriceBuy: MutableLiveData<String> = MutableLiveData()
+
+    private var tradeType: String = "limit"
 
     override fun getTheme(): Int {
         return R.style.BottomSheetStyle
@@ -59,6 +68,19 @@ class BuyAndSellBottomSheetDialog(var onDismissListener: OnDismissListener) :
             )
             var click = true
 
+            txtUt.text = Constants.TradeExchange.utBalance
+            txtAvailable.text = Constants.TradeExchange.availableBalance
+
+            SessionVariable.marketPriceSell.observe(this@BuyAndSellBottomSheetDialog){
+                marketPriceSell.value = SessionVariable.marketPriceSell.value.toString()
+            }
+
+            SessionVariable.marketPriceBuy.observe(this@BuyAndSellBottomSheetDialog){
+                marketPriceBuy.value = SessionVariable.marketPriceBuy.value.toString()
+            }
+
+            println("//// " + marketPriceBuy.value.toString() + " live data" + SessionVariable.marketPriceBuy.value + "*** market sell"+ marketPriceSell.value.toString() )
+
             btnBuyBottomSheet.setOnClickListener {
                 if (SessionPreferences().SESSION_KYC_SUBMIT_STATUS == true && SessionPreferences().SESSION_KYC == false) {
                     dismiss()
@@ -89,20 +111,22 @@ class BuyAndSellBottomSheetDialog(var onDismissListener: OnDismissListener) :
                         val buyDialog: BuyDialog =
                             BuyDialog.newInstance(
                                 etVolume.text.toString(),
-                                etPriceOfVolume.text.toString()
+                                etPriceOfVolume.text.toString(),
+                                tradeType
                             )
                         activity?.supportFragmentManager?.let { buyDialog.show(it, "asaf") }
 
                         dismiss()
                     } else {
                         val marketDialog: MarketDialog =
-                            MarketDialog.newInstance(etVolume.text.toString(), "BUY")
+                            MarketDialog.newInstance(etVolume.text.toString(), "BUY",tradeType)
                         activity?.supportFragmentManager?.let { marketDialog.show(it, "asaf") }
                         dismiss()
                     }
                 }
 
             }
+
 
             btnSellBottomSheet.setOnClickListener {
                 if (SessionPreferences().SESSION_KYC_SUBMIT_STATUS == true && SessionPreferences().SESSION_KYC == false) {
@@ -140,7 +164,7 @@ class BuyAndSellBottomSheetDialog(var onDismissListener: OnDismissListener) :
                         dismiss()
                     } else {
                         val marketDialog: MarketDialog =
-                            MarketDialog.newInstance(etVolume.text.toString(), "SELL")
+                            MarketDialog.newInstance(etVolume.text.toString(), "SELL",tradeType)
                         activity?.supportFragmentManager?.let { marketDialog.show(it, "asaf") }
                         dismiss()
                     }
@@ -158,11 +182,31 @@ class BuyAndSellBottomSheetDialog(var onDismissListener: OnDismissListener) :
                         R.drawable.outline_edittext_change_color_focus
                     )
 
-                    if(etVolume.text.toString().isNotEmpty() && etPriceOfVolume.text.toString().isNotEmpty())
-                    {
-                        val price = etVolume.text.toString().toInt() * etPriceOfVolume.text.toString().toDouble()
-                        txtPriceBuy.text = price.toString()
-                        txtPriceSell.text = price.toString()
+                    if(tradeType == "limit"){
+                        if(etVolume.text.toString().isNotEmpty() && etPriceOfVolume.text.toString().isNotEmpty())
+                        {
+                            val price = etVolume.text.toString().toInt() * etPriceOfVolume.text.toString().toDouble()
+                            val priceAfterConvert = (price * 100.0).roundToInt() / 100.0
+                            txtPriceBuy.text = priceAfterConvert.toString()
+                            txtPriceSell.text = priceAfterConvert.toString()
+                        }else{
+                            txtPriceSell.text = "0"
+                            txtPriceBuy.text = "0"
+                        }
+                    }else{
+                        if(etVolume.text.toString().isNotEmpty())
+                        {
+                            val priceSell = etVolume.text.toString().toInt() * SessionVariable.marketPriceBuy.value.toString().toDouble()
+                            val priceSellConvert = (priceSell* 100.0).roundToInt() / 100.0
+                            txtPriceSell.text = priceSellConvert.toString()
+
+                            val priceBuy = etVolume.text.toString().toInt() * SessionVariable.marketPriceSell.value.toString().toDouble()
+                            val priceBuyConvert = (priceBuy* 100.0).roundToInt() / 100.0
+                            txtPriceBuy.text = priceBuyConvert.toString()
+                        }else{
+                            txtPriceSell.text = "0"
+                            txtPriceBuy.text = "0"
+                        }
                     }
                 }
 
@@ -182,11 +226,33 @@ class BuyAndSellBottomSheetDialog(var onDismissListener: OnDismissListener) :
                         R.drawable.outline_edittext_change_color_focus
                     )
 
-                    if(etVolume.text.toString().isNotEmpty() && etPriceOfVolume.text.toString().isNotEmpty())
-                    {
-                        val price = etVolume.text.toString().toInt() * etPriceOfVolume.text.toString().toDouble()
-                        txtPriceBuy.text = price.toString()
-                        txtPriceSell.text = price.toString()
+                    if(tradeType == "limit"){
+                        if(etVolume.text.toString().isNotEmpty() && etPriceOfVolume.text.toString().isNotEmpty())
+                        {
+                            val price = etVolume.text.toString().toInt() * etPriceOfVolume.text.toString().toDouble()
+                            val priceAfterConvert = (price * 100.0).roundToInt() / 100.0
+                            txtPriceBuy.text = priceAfterConvert.toString()
+                            txtPriceSell.text = priceAfterConvert.toString()
+                        }else{
+                            txtPriceSell.text = "0"
+                            txtPriceBuy.text = "0"
+                        }
+                    }else{
+                        if(etVolume.text.toString().isNotEmpty())
+                        {
+                            val priceSell = etVolume.text.toString().toInt() * SessionVariable.marketPriceBuy.value.toString().toDouble()
+                            val priceSellConvert = (priceSell* 100.0).roundToInt() / 100.0
+                            txtPriceSell.text = priceSellConvert.toString()
+
+                            val priceBuy = etVolume.text.toString().toInt() * SessionVariable.marketPriceSell.value.toString().toDouble()
+                            val priceBuyConvert = (priceBuy* 100.0).roundToInt() / 100.0
+                            txtPriceBuy.text = priceBuyConvert.toString()
+                        }else{
+                            etVolume.text.clear()
+                            etPriceOfVolume.text.clear()
+                            txtPriceSell.text = "0"
+                            txtPriceBuy.text = "0"
+                        }
                     }
                 }
 
@@ -196,6 +262,15 @@ class BuyAndSellBottomSheetDialog(var onDismissListener: OnDismissListener) :
             })
 
             btnMarket.setOnClickListener {
+
+                //change trade type
+                tradeType = "market"
+
+                etVolume.text.clear()
+                etPriceOfVolume.text.clear()
+                txtPriceSell.text = "0"
+                txtPriceBuy.text = "0"
+
                 linearPrice.visibility = View.GONE
                 btnMarket.background =
                     ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_circular)
@@ -217,6 +292,15 @@ class BuyAndSellBottomSheetDialog(var onDismissListener: OnDismissListener) :
             }
 
             btnLimit.setOnClickListener {
+
+                //change trade type
+                tradeType = "limit"
+
+                etVolume.text.clear()
+                etPriceOfVolume.text.clear()
+                txtPriceSell.text = "0"
+                txtPriceBuy.text = "0"
+
                 linearPrice.visibility = View.VISIBLE
                 btnLimit.background =
                     ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_circular)

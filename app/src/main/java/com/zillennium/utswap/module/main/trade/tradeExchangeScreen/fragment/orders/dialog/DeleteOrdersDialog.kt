@@ -1,17 +1,27 @@
 package com.zillennium.utswap.module.main.trade.tradeExchangeScreen.fragment.orders.dialog
 
+import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
+import com.gis.z1android.api.errorhandler.CallbackWrapper
 import com.google.android.material.button.MaterialButton
+import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
 import com.zillennium.utswap.R
+import com.zillennium.utswap.UTSwapApp
+import com.zillennium.utswap.api.manager.ApiManager
+import com.zillennium.utswap.api.manager.ApiTradeImp
+import com.zillennium.utswap.models.tradingList.TradingList
+import rx.Subscription
 
 class DeleteOrdersDialog : DialogFragment() {
     internal var view: View? = null
     private var btnConfirm: MaterialButton? = null
     private var btnBack: MaterialButton? = null
+    private var subscriptions: Subscription? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,7 +36,7 @@ class DeleteOrdersDialog : DialogFragment() {
         btnBack = view?.findViewById(R.id.btn_cancel)
 
         btnConfirm?.setOnClickListener {
-            dismiss()
+            cancelOrder(TradingList.TradeCancelOrderObj(arguments?.getString("tradeId")?.toInt()!!),UTSwapApp.instance)
         }
 
         btnBack?.setOnClickListener {
@@ -36,10 +46,33 @@ class DeleteOrdersDialog : DialogFragment() {
         return view
     }
 
+    private fun cancelOrder(body: TradingList.TradeCancelOrderObj, context: Context){
+        subscriptions?.unsubscribe()
+        subscriptions = ApiTradeImp().cancelTradeOrder(body,context).subscribe({
+            if(it.status == 1){
+                Toast.makeText(UTSwapApp.instance,"Successfully Cancel",Toast.LENGTH_LONG).show()
+                SessionVariable.createPendingOrder.value = true
+                dismiss()
+            }else{
+                Toast.makeText(UTSwapApp.instance,"Can not Cancel",Toast.LENGTH_LONG).show()
+            }
+        },{
+            object : CallbackWrapper(it, UTSwapApp.instance, arrayListOf()){
+                override fun onCallbackWrapper(status: ApiManager.NetworkErrorStatus, data: Any) {
+
+                }
+            }
+        })
+    }
+
     companion object {
-        fun newInstance(): DeleteOrdersDialog {
+        fun newInstance(
+            tradeId: String?
+        ): DeleteOrdersDialog {
             val deleteOrdersDialog = DeleteOrdersDialog()
-            deleteOrdersDialog.arguments = Bundle()
+            val args = Bundle()
+            args.putString("tradeId", tradeId)
+            deleteOrdersDialog.arguments = args
             return deleteOrdersDialog
         }
     }

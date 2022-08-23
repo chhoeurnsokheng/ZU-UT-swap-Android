@@ -60,7 +60,7 @@ class OrderAdapter(private var listener: OnClickDelete): BaseRecyclerViewAdapter
                 }
 
                 btnDelete.setOnClickListener {
-                    listener.clickMe()
+                    listener.clickMe(orders)
                 }
             }
         }
@@ -77,6 +77,6 @@ class OrderAdapter(private var listener: OnClickDelete): BaseRecyclerViewAdapter
     }
 
     interface OnClickDelete{
-        fun clickMe()
+        fun clickMe(tradeOrder: TradingList.TradeOrderPendingEntrust)
     }
 }

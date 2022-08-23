@@ -470,6 +470,10 @@ interface Constants {
             var MarketId = "MarketId"
             var MarketName="MarketName"
             var ProjectId = "ProjectId"
+            var availableBalance = ""
+            var utBalance = ""
+            var marketPriceSell = ""
+            var marketPriceBuy = ""
         }
     }
     interface Project{
@@ -487,6 +491,8 @@ interface Constants {
     interface OrderBookTable{
         companion object{
             var marketNameOrderBook = ""
+            var marketIdChart =""
+            var projectName = ""
         }
     }
 
