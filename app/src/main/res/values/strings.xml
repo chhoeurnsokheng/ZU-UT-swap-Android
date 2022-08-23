@@ -455,6 +455,11 @@
     <string name="success">Success</string>
     <string name="phone_number_has_been_add_successfully">Phone Number has been added Successfully</string>
     <string name="phone_number_already_used">Phone Number Already Used!</string>
+
+    <string name="new_version_available">New version available</string>
+    <string name="look_like_you_have_an_older_version_of_the_app_please_update_to_get_latest_features_and_best_experience">Looks like you have an older version of the app. Please update to get latest features and best experience.</string>
+    <string name="update_now">UPDATE NOW</string>
+
     <string name="verify_your_identity">Verify Your Identity > </string>
     <string name="n_a">N/A</string>
     <string name="date_in_order_book">01:02:22PM 24-03-2022</string>
@@ -471,6 +476,7 @@
     <string name="transaction_id_">Transaction ID:</string>
     <string name="balance__">Balance:</string>
     <string name="fee__">Fee:</string>
+
 
 
 </resources>
