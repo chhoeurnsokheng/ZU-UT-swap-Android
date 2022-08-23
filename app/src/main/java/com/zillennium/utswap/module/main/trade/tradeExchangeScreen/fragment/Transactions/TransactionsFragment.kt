@@ -15,6 +15,7 @@ import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentExchangeTransactionsBinding
 import com.zillennium.utswap.models.tradingList.TradingList
+import com.zillennium.utswap.module.main.news.newsDetail.NewsDetailActivity
 import com.zillennium.utswap.module.main.trade.tradeDetailScreen.TransactionDetailActivity
 import com.zillennium.utswap.module.main.trade.tradeExchangeScreen.fragment.Transactions.adapter.TransactionAdapter
 import com.zillennium.utswap.utils.Constants
@@ -257,12 +258,7 @@ class TransactionsFragment :
 
     private val onClickTransactions: TransactionAdapter.OnClickTransactions = object : TransactionAdapter.OnClickTransactions{
         override fun onClickMe(orders: TradingList.TradeMatchingTransactionEntrust) {
-            val i = Intent(UTSwapApp.instance, TransactionDetailActivity::class.java)
-            i.putExtra("date", orders.addtime)
-            i.putExtra("price", orders.price)
-            i.putExtra("status", orders.type)
-            i.putExtra("ut", orders.num)
-            startActivity(i)
+            TransactionDetailActivity.launchTransactionDetailsActivity(requireActivity(), orders.id)
         }
 
 

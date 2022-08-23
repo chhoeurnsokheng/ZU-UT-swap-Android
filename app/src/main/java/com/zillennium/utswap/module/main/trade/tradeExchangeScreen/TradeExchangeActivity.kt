@@ -109,6 +109,7 @@ class TradeExchangeActivity :
         SessionVariable.createMatchingTransaction.value = false
         SessionVariable.createPendingOrder.value = false
         SessionVariable.refreshMatchingTransaction.value = false
+        SessionVariable.callAvailableBalance.value = false
 
         SessionVariable.refreshOrderPending.observe(this@TradeExchangeActivity){
             if(it){
@@ -669,7 +670,7 @@ class TradeExchangeActivity :
                 mPresenter.closeTradeDetailSocket()
                 SessionVariable.requestOrderBookSocket.value = false
                 SessionVariable.requestTradingList.value = true
-                SessionVariable.callAvailableBalance.value = true
+                SessionVariable.callAvailableBalance.value = false
 
                 page = 0
                 orderPage = 1
@@ -905,6 +906,8 @@ class TradeExchangeActivity :
     //get Available Balance
     override fun getAvailableBalanceSuccess(data: TradingList.AvailableBalanceRes) {
         binding.apply {
+            txtAvailableClick.text = ""
+            txtUtClick.text = ""
             if(data.data?.usd.toString().isNotEmpty()){
                 txtAvailableClick.text = data.data?.usd.toString()
                 Constants.TradeExchange.availableBalance = data.data?.usd.toString()

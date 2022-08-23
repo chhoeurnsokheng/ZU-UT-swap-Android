@@ -232,4 +232,27 @@ object TradingList {
         var trading_view: String? = null
     }
 
+    /** Trade Transaction Detail*/
+    class TradeTransactionDetailObj(
+        var trade_log_id: Int?
+    )
+
+    class TradeTransactionDetailRes{
+        var status: Int? = null
+        var message: String? = null
+        var data: TradeTransactionDetailData? = null
+    }
+
+    class TradeTransactionDetailData{
+        var name: String? = null
+        var addtime: String? = null
+        var transaction_id: String? = null
+        var type: String? = null
+        var price: String? = null
+        var volume: String? = null
+        var gross: String? = null
+        var fee: String? = null
+        var net: String? = null
+    }
+
 }

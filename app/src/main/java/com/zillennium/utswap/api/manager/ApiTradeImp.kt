@@ -81,4 +81,13 @@ class ApiTradeImp: ApiManager() {
         )
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
+
+    /** Trade Transaction Detail*/
+    fun getTransactionDetail(body: TradingList.TradeTransactionDetailObj, context: Context): Observable<TradingList.TradeTransactionDetailRes> =
+        mTradeService.getTransactionDetail(
+            Header.getHeader(Header.Companion.AuthType.REQUIRED_TOKEN, context),
+            body
+        )
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
 }

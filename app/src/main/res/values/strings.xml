@@ -155,6 +155,7 @@
     <string name="lock_up_period">Lock-up Period</string>
     <string name="no_data_available_in_table">No data available in table</string>
     <string name="date">Date</string>
+    <string name="date_and_time">Date &amp; Time</string>
     <string name="filter">Filter:</string>
     <string name="register">Register</string>
     <string name="enter_account_details">Enter Account Details</string>

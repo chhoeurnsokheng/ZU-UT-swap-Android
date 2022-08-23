@@ -123,6 +123,9 @@ object ApiSettings {
     /** Trade Cancel Order*/
     const val PATH_TRADE_CANCEL_ORDER = "trade/cancelTradeOrder"
 
+    /** Trade Transaction Detail*/
+    const val PATH_TRANSACTION_DETAIL = "trade/matchingTransactionDetail"
+
     /*Desposite Money*/
 
     const val PATH_LIST_PAYMENT_METHOD = "finance/listAvailableBank"

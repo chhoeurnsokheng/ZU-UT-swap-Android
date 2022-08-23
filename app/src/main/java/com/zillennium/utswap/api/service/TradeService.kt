@@ -65,4 +65,11 @@ interface TradeService {
         @HeaderMap headerMap: Map<String,String>,
         @Body body: TradingList.TradeChartObj
     ):Observable<TradingList.TradeChartRes>
+
+    /** Trade Transaction Detail*/
+    @POST(ApiSettings.PATH_TRANSACTION_DETAIL)
+    fun getTransactionDetail(
+        @HeaderMap headerMap: Map<String,String>,
+        @Body body: TradingList.TradeTransactionDetailObj
+    ): Observable<TradingList.TradeTransactionDetailRes>
 }
