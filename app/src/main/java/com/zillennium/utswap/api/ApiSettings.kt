@@ -101,6 +101,13 @@ object ApiSettings {
     const val PATH_NOTIFICATION_LIST = "notification/loadNotification"
     const val PATH_NOTIFICATION_READ = "notification/mask_as_read_msg"
     const val PATH_NOTIFICATION_READ_ALL = "notification/showAllNoti"
+
+
+    /** User Balance */
+    const val PATH_FINANCE_USER_BALANCE = "finance/mytx"
+    const val PATH_FINANCE_ACCOUNT_BALANCE_SEARCH_DATA = "finance/index"
+    const val PATH_FINANCE_ACCOUNT_BALANCE_EXPORT_PDF = "finance/exportPdf"
+
     /** Check favorite project in trade*/
     const val PATH_CHECK_FAVORITE_PROJECT_TRADE = "trade/checkWatchList"
 
@@ -109,6 +116,7 @@ object ApiSettings {
 
     /** Trade Create Order*/
     const val PATH_TRADE_CREATE_ORDER = "trade/upTrade"
+
 
     /*Desposite Money*/
 

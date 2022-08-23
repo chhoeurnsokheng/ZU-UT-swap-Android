@@ -4,11 +4,8 @@ package com.zillennium.utswap.module.main.home
 import android.content.Intent
 import android.graphics.BlurMaskFilter
 import android.graphics.MaskFilter
-import android.util.Log
 import android.view.View
-import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager.widget.ViewPager
@@ -35,7 +32,6 @@ import com.zillennium.utswap.module.security.securityActivity.signInScreen.SignI
 import com.zillennium.utswap.module.system.notification.NotificationActivity
 import com.zillennium.utswap.screens.navbar.navbar.MainActivity
 import com.zillennium.utswap.utils.Constants
-import com.zillennium.utswap.utils.SpaceDecoration
 import com.zillennium.utswap.utils.UtilKt
 
 class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, FragmentHomeBinding>(),
@@ -58,8 +54,10 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
 
     override fun initView() {
         super.initView()
-        mPresenter.getBanner(requireActivity())
         onSwipeRefresh()
+        SessionVariable.SESSION_STATUS.observe(this){
+            requestData()
+        }
         binding.apply {
             swipeRefresh.setColorSchemeColors(
                 ContextCompat.getColor(
@@ -155,6 +153,12 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
             // Must be safe
         }
     }
+    private fun requestData() {
+        mPresenter.getNewsHome(requireActivity())
+        mPresenter.getWatchListAndBalance(requireActivity())
+        mPresenter.getBanner(requireActivity())
+
+    }
 
     fun setBadgeNumber() {
         binding.apply {
@@ -185,8 +189,7 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
     }
 
     override fun onGetBannerSuccess(data: BannerObj.Banner) {
-        mPresenter.getNewsHome(requireActivity())
-        mPresenter.getWishListAndBalance(requireActivity())
+
         binding.apply {
             swipeRefresh.isRefreshing = false
             bannerLoopingPagerAdapter = object : BannerLoopingPagerAdapter(
@@ -294,7 +297,8 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
                     LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
                 //  addItemDecoration(SpaceDecoration(resources.getDimensionPixelSize(R.dimen.dimen_2)))
 
-                Constants.WatchList.itemWatchList = data.data?.watch_lists as ArrayList<BannerObj.ItemWishList>
+                Constants.WatchList.itemWatchList =
+                    data.data?.watch_lists as ArrayList<BannerObj.ItemWishList>
             }
         }
 
@@ -379,12 +383,12 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
         binding.apply {
             swipeRefresh.setOnRefreshListener {
                 (activity as MainActivity).onRefreshData()
-                mPresenter.getNewsHome(requireActivity())
-                mPresenter.getBanner(requireActivity())
+                requestData()
 
             }
         }
     }
+
 
     private fun showBalanceClick() {
         binding.apply {

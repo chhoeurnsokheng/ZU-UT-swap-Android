@@ -69,7 +69,8 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
                 SessionVariable.BADGE_NUMBER.value = ""
             }
         }
-       Toast.makeText(this, SessionPreferences().DEVICE_TOKEN, Toast.LENGTH_SHORT).show()
+
+
 
     }
 

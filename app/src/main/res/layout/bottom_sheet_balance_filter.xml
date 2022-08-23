@@ -14,18 +14,63 @@
             android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/balance_deposit"
+                android:id="@+id/balance_all"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="@dimen/dimen_20"
+                android:layout_gravity="center_vertical"
                 android:gravity="center_vertical"
-                android:layout_gravity="center_vertical">
+                android:orientation="horizontal"
+                android:padding="@dimen/dimen_20">
 
                 <ImageView
                     android:layout_width="@dimen/dimen_18"
                     android:layout_height="@dimen/dimen_18"
-                    android:src="@drawable/ic_balance_deposit"/>
+                    android:src="@drawable/ic_all" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_15"
+                    android:text="@string/all"
+                    android:textAppearance="@style/medium_16"
+                    android:textColor="@color/black" />
+
+                <LinearLayout
+                    android:id="@+id/img_all_balance"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="end"
+                    android:visibility="invisible">
+
+                    <ImageView
+                        android:layout_width="@dimen/dimen_20"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_baseline_check_24"
+                        app:tint="@color/primary" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_1"
+                android:layout_marginHorizontal="@dimen/dimen_20"
+                android:background="@color/light_gray" />
+
+
+            <LinearLayout
+                android:id="@+id/balance_deposit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/dimen_20">
+
+                <ImageView
+                    android:layout_width="@dimen/dimen_18"
+                    android:layout_height="@dimen/dimen_18"
+                    android:src="@drawable/ic_balance_deposit" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -34,26 +79,41 @@
                     android:text="@string/deposit"
                     android:textAppearance="@style/medium_16"
                     android:textColor="@color/black" />
+
+                <LinearLayout
+                    android:id="@+id/img_check_deposit"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="end"
+                    android:visibility="invisible">
+
+                    <ImageView
+                        android:layout_width="@dimen/dimen_20"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_baseline_check_24"
+                        app:tint="@color/primary" />
+                </LinearLayout>
+
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dimen_1"
-                android:background="@color/light_gray"
-                android:layout_marginHorizontal="@dimen/dimen_20"/>
+                android:layout_marginHorizontal="@dimen/dimen_20"
+                android:background="@color/light_gray" />
 
             <LinearLayout
                 android:id="@+id/balance_withdrawal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/dimen_20"
                 android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:padding="@dimen/dimen_20">
 
                 <ImageView
                     android:layout_width="@dimen/dimen_18"
                     android:layout_height="@dimen/dimen_18"
-                    android:src="@drawable/ic_balance_withdraw"/>
+                    android:src="@drawable/ic_balance_withdraw" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -63,26 +123,40 @@
                     android:textAppearance="@style/medium_16"
                     android:textColor="@color/black" />
 
+                <LinearLayout
+                    android:id="@+id/img_check_withdrawal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="end"
+                    android:visibility="invisible">
+
+                    <ImageView
+                        android:layout_width="@dimen/dimen_20"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_baseline_check_24"
+                        app:tint="@color/primary" />
+                </LinearLayout>
+
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dimen_1"
-                android:background="@color/light_gray"
-                android:layout_marginHorizontal="@dimen/dimen_20"/>
+                android:layout_marginHorizontal="@dimen/dimen_20"
+                android:background="@color/light_gray" />
 
             <LinearLayout
                 android:id="@+id/balance_transfer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/dimen_20"
                 android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:padding="@dimen/dimen_20">
 
                 <ImageView
                     android:layout_width="@dimen/dimen_18"
                     android:layout_height="@dimen/dimen_18"
-                    android:src="@drawable/ic_transfer"/>
+                    android:src="@drawable/ic_transfer" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -92,26 +166,40 @@
                     android:textAppearance="@style/medium_16"
                     android:textColor="@color/black" />
 
+                <LinearLayout
+                    android:id="@+id/img_check_transfer"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="end"
+                    android:visibility="invisible">
+
+                    <ImageView
+                        android:layout_width="@dimen/dimen_20"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_baseline_check_24"
+                        app:tint="@color/primary" />
+                </LinearLayout>
+
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dimen_1"
-                android:background="@color/light_gray"
-                android:layout_marginHorizontal="@dimen/dimen_20"/>
+                android:layout_marginHorizontal="@dimen/dimen_20"
+                android:background="@color/light_gray" />
 
             <LinearLayout
                 android:id="@+id/balance_trading"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/dimen_20"
                 android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:padding="@dimen/dimen_20">
 
                 <ImageView
                     android:layout_width="@dimen/dimen_18"
                     android:layout_height="@dimen/dimen_18"
-                    android:src="@drawable/ic_trade"/>
+                    android:src="@drawable/ic_trade" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -121,26 +209,40 @@
                     android:textAppearance="@style/medium_16"
                     android:textColor="@color/black" />
 
+                <LinearLayout
+                    android:id="@+id/img_check_trading"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="end"
+                    android:visibility="invisible">
+
+                    <ImageView
+                        android:layout_width="@dimen/dimen_20"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_baseline_check_24"
+                        app:tint="@color/primary" />
+                </LinearLayout>
+
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dimen_1"
-                android:background="@color/light_gray"
-                android:layout_marginHorizontal="@dimen/dimen_20"/>
+                android:layout_marginHorizontal="@dimen/dimen_20"
+                android:background="@color/light_gray" />
 
             <LinearLayout
                 android:id="@+id/balance_subscription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/dimen_20"
                 android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:padding="@dimen/dimen_20">
 
                 <ImageView
                     android:layout_width="@dimen/dimen_18"
                     android:layout_height="@dimen/dimen_18"
-                    android:src="@drawable/ic_hourglass"/>
+                    android:src="@drawable/ic_hourglass" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -149,6 +251,20 @@
                     android:text="@string/subscriptions"
                     android:textAppearance="@style/medium_16"
                     android:textColor="@color/black" />
+
+                <LinearLayout
+                    android:id="@+id/img_check_subscriptions"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="end"
+                    android:visibility="invisible">
+
+                    <ImageView
+                        android:layout_width="@dimen/dimen_20"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_baseline_check_24"
+                        app:tint="@color/primary" />
+                </LinearLayout>
 
             </LinearLayout>
 

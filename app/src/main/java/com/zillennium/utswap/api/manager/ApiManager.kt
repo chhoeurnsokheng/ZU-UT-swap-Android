@@ -55,6 +55,8 @@ open class ApiManager {
     protected lateinit var mContext: Context
 
 
+    protected lateinit var mFinanceUserBalance: BalanceUserService
+    
     companion object {
         var mRetryCounter: AtomicInteger = AtomicInteger(0)
     }
@@ -82,7 +84,12 @@ open class ApiManager {
         mHomeService = retrofit.create(HomeService::class.java)
         mFinanceService = retrofit.create(FinanceService::class.java)
         mProvince = retrofit.create(ProvincesService::class.java)
+
+
+        mFinanceUserBalance = retrofit.create(BalanceUserService::class.java)
+
         mTradeService = retrofit.create(TradeService::class.java)
+
 
     }
 

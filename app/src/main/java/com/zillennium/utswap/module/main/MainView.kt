@@ -12,7 +12,6 @@ import com.zillennium.utswap.models.userService.User
 class MainView {
     interface View : BaseMvpView {
         override fun initView()
-
         fun onGetForceUpdateSuccess(data:ForceUpdate.ForceUpdateRes)
         fun onGetForceUpdateFailed(data:String)
         fun onCheckKYCSuccess(data: User.KycRes)
