@@ -460,8 +460,7 @@
 
     <string name="openWebView">OpenWebView</string>
     <string name="deposit_review">Deposit Review</string>
-
-
+    <string name="deposit_success">Deposit Successfully</string>
 
 
 </resources>

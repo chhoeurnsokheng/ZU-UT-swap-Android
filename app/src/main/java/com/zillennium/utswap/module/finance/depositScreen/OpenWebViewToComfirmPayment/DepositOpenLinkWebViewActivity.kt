@@ -1,7 +1,9 @@
 package com.zillennium.utswap.module.finance.depositScreen.OpenWebViewToComfirmPayment
 
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.Color
 import android.util.Log
 import android.view.View
@@ -10,7 +12,9 @@ import androidx.core.content.ContextCompat
 import com.zillennium.utswap.R
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.DepositOpenLinkWebviewActivityBinding
+import com.zillennium.utswap.models.deposite.DataQueryOrderObj
 import com.zillennium.utswap.utils.Constants
+
 
 /**
  * Created by Sokheng Chhoeurn on 16/8/22.
@@ -36,6 +40,14 @@ class DepositOpenLinkWebViewActivity :
         super.initView()
         openWebView()
         toolBar()
+
+    }
+
+    override fun getQueryOrderSuccess(data: DataQueryOrderObj.DataQueryOrderRes) {
+
+    }
+
+    override fun getQueryOrderFail(data: String) {
 
     }
 
@@ -81,6 +93,56 @@ class DepositOpenLinkWebViewActivity :
                 webView.loadUrl(payment_link)
             }
 
+            webView.webViewClient = object : WebViewClient() {
+                override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
+                    super.onPageStarted(view, url, favicon)
+                    Log.d("Start", "onPageStarted")
+                }
+
+                override fun onPageFinished(view: WebView?, url: String?) {
+                    super.onPageFinished(view, url)
+
+                    Log.d("Finished", "onPageFinished")
+                }
+
+                override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?): Boolean {
+                    return false
+                }
+            }
+//            webView.webChromeClient = object : WebChromeClient() {
+//                override fun onProgressChanged(view: WebView?, newProgress: Int) {
+//                    super.onProgressChanged(view, newProgress)
+//                    Log.d(TAG, "onProgressChanged Progress $newProgress")
+//                    if (newProgress ==100){
+//                     //   startActivity(Intent(this@DepositOpenLinkWebViewActivity,MainActivity::class.java))
+//                    }
+//                }
+//            }
+
+//            webView.webViewClient = object : WebViewClient() {
+//                override fun shouldInterceptRequest(
+//                    view: WebView,
+//                    request: WebResourceRequest
+//                ): WebResourceResponse? {
+//                    return super.shouldInterceptRequest(view, request)
+//                    Log.d(TAG, "Request Data  $request")
+//                }
+//            }
+//            webView.webChromeClient = object: WebChromeClient() {
+//                override fun onConsoleMessage(message: String?, lineNumber: Int, sourceID: String?) {
+//                    if (message != null) {
+//                        Log.i("WebViewConsole", message)
+//                    }
+//                }
+//            }
+//            webView.webViewClient = object : WebViewClient(){
+//                override fun onReceivedClientCertRequest(
+//                    view: WebView?,
+//                    request: ClientCertRequest?
+//                ) {
+//                    super.onReceivedClientCertRequest(view, request)
+//                }
+//            }
         }
     }
 
@@ -97,6 +159,14 @@ class DepositOpenLinkWebViewActivity :
             }
         }
     }
-
+    override fun onBackPressed() {
+       binding.apply {
+           if (webView.canGoBack()) {
+               webView.goBack()
+           } else {
+               super.onBackPressed()
+           }
+       }
+    }
 
 }

@@ -87,7 +87,7 @@ class BottomSheetFinanceDepositPayment : BottomSheetDialogFragment(),
                 bodyObj.num = balance
                 bodyObj.type = typeOfCard
                 bodyObj.coinname = coinname
-                bodyObj.deep_link =   deep_link_url // "https://utswaptranding.page.link/utswap?data=1661140965780133"
+                bodyObj.deep_link = ""     // deep_link_url
                 bodyObj.payment_method = payment_method
 
                 onDepositBalance(root.context, bodyObj)

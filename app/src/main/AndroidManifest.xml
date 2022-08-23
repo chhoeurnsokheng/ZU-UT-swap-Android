@@ -58,44 +58,64 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".screens.navbar.navbar.MainActivity"
             android:exported="true"
             android:launchMode="singleTask"
             android:screenOrientation="portrait">
 
-            <!--            <intent-filter android:autoVerify="true" >-->
+            <intent-filter android:autoVerify="true">
 
-            <!--                <action android:name="android.intent.action.VIEW" />-->
-
-            <!--                <category android:name="android.intent.category.DEFAULT" />-->
-            <!--                <category android:name="android.intent.category.BROWSABLE" />-->
-
-
-            <!--&lt;!&ndash;                <data android:host="www.utswaptranding.com" />&ndash;&gt;-->
-            <!--&lt;!&ndash;                <data android:host="m.utswaptranding.com" />&ndash;&gt;-->
-            <!--&lt;!&ndash;                <data android:scheme="http" />&ndash;&gt;-->
-            <!--&lt;!&ndash;                <data android:scheme="https" />&ndash;&gt;-->
-            <!--                -->
-            <!--                <data android:scheme="http" android:host="www.example.com" />-->
-            <!--                <data android:scheme="https" />-->
-
-
-            <!--            </intent-filter>-->
-
-
-            <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />
+
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <data
-                    android:scheme="http"
-                    android:host="ut-swap.com"
-                    android:pathPattern="/zuapp/" />
+                <data android:scheme="http" />
+
+                <data android:scheme="https" />
+
+                <data  android:host="ut-swap.com" />
+
             </intent-filter>
+
+
+
         </activity>
+
+<!--        <activity-->
+
+<!--            android:name=".screens.navbar.navbar.MainActivity"-->
+
+<!--            android:launchMode="singleTask">-->
+
+<!--            <intent-filter android:autoVerify="true">-->
+
+<!--                <action android:name="android.intent.action.MAIN" />-->
+
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+
+<!--            </intent-filter>-->
+
+<!--            <intent-filter>-->
+
+<!--                <action android:name="android.intent.action.VIEW" />-->
+
+<!--                <category android:name="android.intent.category.DEFAULT" />-->
+
+<!--                <category android:name="android.intent.category.BROWSABLE" />-->
+
+<!--                <data android:scheme="your_URI_" />-->
+
+<!--                <data android:scheme="https" android:host="your_URL" />-->
+
+<!--                <data android:scheme="http" android:host="your_URL" />-->
+
+<!--            </intent-filter>-->
+
+<!--        </activity>-->
         <!-- Activity KYC -->
         <activity
             android:name=".module.finance.depositScreen.OpenWebViewToComfirmPayment.DepositOpenLinkWebViewActivity"

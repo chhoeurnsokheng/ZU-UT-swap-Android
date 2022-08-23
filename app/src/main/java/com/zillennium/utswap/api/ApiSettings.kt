@@ -100,4 +100,7 @@ object ApiSettings {
     const val PATH_LIST_PAYMENT_METHOD = "finance/listAvailableBank"
     const val PATH_ONLINE_DEPOSIT      ="finance/onlineMyczUp"
     const val PATH_FINANCE_TRANSFER_LOGS ="finance/outlog_transfer"
+
+
+    const val PATH_QUERY_ORDER = "finance/DataQueryOrder"
 }

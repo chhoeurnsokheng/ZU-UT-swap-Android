@@ -86,13 +86,13 @@ class MainActivity :
                 .buildShortDynamicLink()
                 .addOnCompleteListener { task ->
                    binding.apply {
-                       test.setOnClickListener {
-                           test.text = task.result.shortLink.toString()
-
-                           val uri: Uri = Uri.parse("${task.result.shortLink.toString()}")
-                           Log.d("Link","${task.result.shortLink.toString()}")
-                           startActivity(Intent(Intent.ACTION_VIEW, uri))
-                       }
+//                       test.setOnClickListener {
+//                           test.text = task.result.shortLink.toString()
+//
+//                           val uri: Uri = Uri.parse("${task.result.shortLink.toString()}")
+//                           Log.d("Link","${task.result.shortLink.toString()}")
+//                           startActivity(Intent(Intent.ACTION_VIEW, uri))
+//                       }
                    }
                 }
                 .addOnFailureListener {
