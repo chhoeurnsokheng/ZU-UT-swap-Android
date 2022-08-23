@@ -28,10 +28,7 @@ import com.zillennium.utswap.models.TradeModel
 import com.zillennium.utswap.models.tradingList.TradingList
 import com.zillennium.utswap.models.userService.User
 import com.zillennium.utswap.module.kyc.kycActivity.KYCActivity
-import com.zillennium.utswap.module.main.trade.tradeExchangeScreen.dialog.BuyAndSellBottomSheetDialog
-import com.zillennium.utswap.module.main.trade.tradeExchangeScreen.dialog.BuyDialog
-import com.zillennium.utswap.module.main.trade.tradeExchangeScreen.dialog.MarketDialog
-import com.zillennium.utswap.module.main.trade.tradeExchangeScreen.dialog.SellDialog
+import com.zillennium.utswap.module.main.trade.tradeExchangeScreen.dialog.*
 import com.zillennium.utswap.module.main.trade.tradeExchangeScreen.fragment.Transactions.TransactionsFragment
 import com.zillennium.utswap.module.main.trade.tradeExchangeScreen.fragment.allTransactions.AllTransactionsFragment
 import com.zillennium.utswap.module.main.trade.tradeExchangeScreen.fragment.chart.ChartFragment
@@ -118,6 +115,13 @@ class TradeExchangeActivity :
                 binding.swipeRefresh.isRefreshing = false
             }
         }
+
+//        SessionVariable.createPendingOrder.observe(this@TradeExchangeActivity){
+//            if(it){
+//                val buyDialog = SuccessPlaceOrderDialog()
+//                this@TradeExchangeActivity.supportFragmentManager?.let { it1 -> buyDialog.show(it1, "asaf") }
+//            }
+//        }
 
         SessionVariable.refreshMatchingTransaction.observe(this@TradeExchangeActivity){
             if(it){
