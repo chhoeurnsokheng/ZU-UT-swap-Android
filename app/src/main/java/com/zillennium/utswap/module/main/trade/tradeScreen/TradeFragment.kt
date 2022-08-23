@@ -59,7 +59,7 @@ class TradeFragment :
 
         SessionVariable.requestTradingList.observe(this@TradeFragment){
             if(it){
-                onCallWebSocketAndAPI()
+                mPresenter.startSocketTrading()
                 SessionVariable.requestTradingList.value = false
             }
         }
