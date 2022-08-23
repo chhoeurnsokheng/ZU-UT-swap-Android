@@ -470,7 +470,12 @@
     <string name="openWebView">OpenWebView</string>
     <string name="deposit_review">Deposit Review</string>
 
+    <string name="all">All</string>
 
+    <string name="date__">Date:</string>
+    <string name="transaction_id_">Transaction ID:</string>
+    <string name="balance__">Balance:</string>
+    <string name="fee__">Fee:</string>
 
 
 

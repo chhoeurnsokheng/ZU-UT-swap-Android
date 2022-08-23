@@ -100,6 +100,13 @@ object ApiSettings {
     /** Account Upload Profile*/
     const val PATH_ACCOUNT_UPLOAD_PROFILE = "user/uploadImageProfile"
 
+
+
+    /** User Balance */
+    const val PATH_FINANCE_USER_BALANCE = "finance/mytx"
+    const val PATH_FINANCE_ACCOUNT_BALANCE_SEARCH_DATA = "finance/index"
+    const val PATH_FINANCE_ACCOUNT_BALANCE_EXPORT_PDF = "finance/exportPdf"
+
     /** Check favorite project in trade*/
     const val PATH_CHECK_FAVORITE_PROJECT_TRADE = "trade/checkWatchList"
 
@@ -108,6 +115,7 @@ object ApiSettings {
 
     /** Trade Create Order*/
     const val PATH_TRADE_CREATE_ORDER = "trade/upTrade"
+
 
     /*Desposite Money*/
 
