@@ -104,6 +104,7 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
     override fun onCheckKYCSuccess(data: User.KycRes) {
         kcySubmit = data.data?.status_submit_kyc
         kcyComplete = data.data?.status_kyc
+        homeFragment.onHomeMenuGrid(data.data?.status_kyc ?: false)
         onCheckSession()
         homeFragment.actionAfterKYC()
     }

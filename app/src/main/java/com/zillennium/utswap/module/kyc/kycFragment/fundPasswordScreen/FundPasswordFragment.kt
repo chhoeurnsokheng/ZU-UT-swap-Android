@@ -367,6 +367,28 @@ class FundPasswordFragment :
             }
             findNavController().navigate(R.id.action_to_contract_kyc_fragment)
 
+            IDVerificationFragment.apply {
+                provice = ""
+                district = ""
+                commune = ""
+                name = ""
+                sureName = ""
+                gender = ""
+                date = ""
+                houseNumber = ""
+                proCode = ""
+                disCode = ""
+                comCode = ""
+            }
+            IDCardCameraFragment.apply {
+                imageFront = ""
+                imageBack = ""
+            }
+            EmploymentInfoFragment.apply {
+                occupation = ""
+                company = ""
+            }
+
         }
     }
 
