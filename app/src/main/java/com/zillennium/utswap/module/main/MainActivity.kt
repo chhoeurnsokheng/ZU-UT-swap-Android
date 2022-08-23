@@ -40,9 +40,10 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
     override var mPresenter: MainView.Presenter = MainPresenter()
     override val layoutResource: Int = R.layout.activity_main
     private var kcySubmit: Boolean? = false
-    private var kcyComplete: Boolean? = false
+    var kcyComplete: Boolean? = false
     private var isSelected = false
     private var isSignInSuccess = true
+    private val homeFragment = HomeFragment()
 
     private var doubleBackToExitPressedOnce = false
     private var statusKYC = ""
@@ -86,6 +87,7 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
     override fun onCheckKYCSuccess(data: User.KycRes) {
         kcySubmit = data.data?.status_submit_kyc
         kcyComplete = data.data?.status_kyc
+        homeFragment.onHomeMenuGrid(data.data?.status_kyc ?: false)
         onCheckSession()
 
     }
@@ -214,7 +216,6 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
                 // This Theme haven't use NoActionBar
                 setupWithNavController(navView, navController)
 
-                val homeFragment = HomeFragment()
                 val portfolioFragment = PortfolioFragment()
                 val tradeFragment = TradeFragment()
                 val newsTabFragment = NewsFragment()

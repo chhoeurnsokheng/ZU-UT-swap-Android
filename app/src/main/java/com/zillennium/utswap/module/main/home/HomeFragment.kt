@@ -332,7 +332,7 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
         }
     }
 
-    private fun onHomeMenuGrid(enabled: Boolean) {
+     fun onHomeMenuGrid(enabled: Boolean) {
 
         binding.apply {
             HomeArrayList.clear()
