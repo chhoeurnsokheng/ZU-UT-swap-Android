@@ -10,7 +10,7 @@ interface NotificationService {
     @GET(ApiSettings.PATH_NOTIFICATION_LIST)
     fun notificationList(
         @HeaderMap headers: Map<String, String>,
-        @QueryMap query: Map<String, Int>
+        @Query ("page") page: Int
     ): Observable<NotificationModel.NotificationRes>
 
     @POST(ApiSettings.PATH_NOTIFICATION_READ)

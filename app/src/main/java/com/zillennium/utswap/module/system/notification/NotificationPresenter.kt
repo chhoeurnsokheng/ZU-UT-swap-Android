@@ -23,9 +23,7 @@ class NotificationPresenter : BaseMvpPresenterImpl<NotificationView.View>(),
     }
 
     override fun getNotificationLists(context: Context, page: Int) {
-        val param: HashMap<String, Int> = HashMap()
-        param["page"] = page
-        subscription = ApiNotificationImp().notification(context, param).subscribe({
+        subscription = ApiNotificationImp().notification(context, page).subscribe({
             if (it.status == 1) {
                 mView?.onNotificationSuccess(it.data ?: NotificationModel.NotificationData())
             } else {

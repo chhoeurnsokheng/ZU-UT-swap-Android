@@ -1,5 +1,6 @@
 package com.zillennium.utswap.module.system.notification
 
+import android.content.Intent
 import android.graphics.Typeface
 import android.util.Log
 import android.view.View
@@ -13,7 +14,9 @@ import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivitySystemNotificationBinding
 
 import com.zillennium.utswap.models.notification.NotificationModel
+import com.zillennium.utswap.module.finance.balanceScreen.FinanceBalanceActivity
 import com.zillennium.utswap.module.system.notification.adapter.NotificationAdapter
+import com.zillennium.utswap.utils.Constants
 
 class NotificationActivity :
     BaseMvpActivity<NotificationView.View, NotificationView.Presenter, ActivitySystemNotificationBinding>(),
@@ -72,6 +75,7 @@ class NotificationActivity :
             notificationAdapter?.notifyDataSetChanged()
         }
     }
+
     private fun requestData() {
         mPresenter.getNotificationLists(this, page)
 
@@ -100,12 +104,44 @@ class NotificationActivity :
 
     private fun initRecyclerView() {
         binding.apply {
-             notificationAdapter = NotificationAdapter(object : NotificationAdapter.OnClickNotificationAdapter{
-                override fun clickNotification(action: String, idNotifi: String) {
-                    mPresenter.readNotification(idNotifi)
+            notificationAdapter =
+                NotificationAdapter(object : NotificationAdapter.OnClickNotificationAdapter {
+                    override fun clickNotification(notify_type: String, idNotifi: String) {
+                        mPresenter.readNotification(idNotifi)
+                        when(notify_type) {
+                            Constants.NotificationType.DEPOSIT -> {
+                                startActivity(Intent(this@NotificationActivity, FinanceBalanceActivity::class.java))
+                            }
+                            Constants.NotificationType.WITHDRAW -> {
+                                startActivity(Intent(this@NotificationActivity, FinanceBalanceActivity::class.java))
 
-                }
-            })
+                            }
+                            Constants.NotificationType.TRANSFER -> {
+                                startActivity(Intent(this@NotificationActivity, FinanceBalanceActivity::class.java))
+
+                            }
+                            Constants.NotificationType.TRADE -> {
+                                startActivity(Intent(this@NotificationActivity, FinanceBalanceActivity::class.java))
+
+                            }
+                            Constants.NotificationType.SUBSCRIPTION -> {
+                                startActivity(Intent(this@NotificationActivity, FinanceBalanceActivity::class.java))
+
+                            }
+                            Constants.NotificationType.PROJECT_INFO -> {
+
+                            }
+                            Constants.NotificationType.NEWS_DETAIL -> {
+
+                            }
+                            Constants.NotificationType.KYC -> {
+
+                            }
+
+                        }
+
+                    }
+                })
             rvNotification.layoutManager = LinearLayoutManager(this@NotificationActivity)
             notificationAdapter?.items = mList
             rvNotification.adapter = notificationAdapter
@@ -134,6 +170,5 @@ class NotificationActivity :
     }
 
 
-
-    }
+}
 

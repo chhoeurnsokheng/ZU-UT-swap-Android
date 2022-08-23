@@ -16,6 +16,7 @@ object NotificationModel {
     }
 
     class NotificationListData(
+        var notifi_type:String = "",
         var title: String? = "",
         var id: String? = null,
         var to_userid: String? = null,
@@ -25,6 +26,7 @@ object NotificationModel {
         var action: String? = null,
         var mark_as_read: String? = null,
         var action_title: String? = null,
+        var action_type: String = "",
         var mark_as_read_msg: String? = null
 
     )

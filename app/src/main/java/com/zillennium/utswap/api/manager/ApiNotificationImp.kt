@@ -12,9 +12,9 @@ import rx.schedulers.Schedulers
 
 
 class ApiNotificationImp : ApiManager() {
-    fun notification(context: Context, map: Map<String, Int>): Observable<NotificationModel.NotificationRes> =
+    fun notification(context: Context, page: Int): Observable<NotificationModel.NotificationRes> =
         mNotificationService.notificationList(
-            Header.getHeader(Header.Companion.AuthType.REQUIRED_TOKEN, context),map
+            Header.getHeader(Header.Companion.AuthType.REQUIRED_TOKEN, context), page
 
             ).subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

@@ -23,6 +23,20 @@ interface Constants {
         const val DELAY: Long = 500 //MILI
     }
 
+    interface NotificationType{
+        companion object {
+            const val TRANSFER = "trx_transfer"
+            const val WITHDRAW = "trx_withdraw"
+            const val DEPOSIT = "trx_deposit"
+            const val TRADE = "trx_trade"
+            const val SUBSCRIPTION = "trx_subscription"
+            const val KYC = "kyc"
+            const val PROJECT_INFO = ""
+            const val NEWS_DETAIL = ""
+
+        }
+    }
+
     interface FundPassword{
         companion object{
             const val SignIn = "sign in"

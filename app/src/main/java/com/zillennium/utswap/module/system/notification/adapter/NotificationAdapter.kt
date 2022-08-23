@@ -44,7 +44,7 @@ class NotificationAdapter(var onClickNotificationAdapter: OnClickNotificationAda
                     .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .skipMemoryCache(true)
                     .into(icNotification)
-                txtTitleAnnouncement.text = notificationModel.action_title
+                txtTitleAnnouncement.text = notificationModel.action_type
                 txtDescription.text = notificationModel.body
                 txtDuration.text = notificationModel.sent_time
 
@@ -78,7 +78,7 @@ class NotificationAdapter(var onClickNotificationAdapter: OnClickNotificationAda
                 }
 
                 itemView.setOnClickListener {
-                    onClickNotificationAdapter.clickNotification(notificationModel.action.toString(), notificationModel.id.toString())
+                    onClickNotificationAdapter.clickNotification(notificationModel.notifi_type, notificationModel.id.toString())
                     layoutNotification.setBackgroundColor(
                         ContextCompat.getColor(
                             UTSwapApp.instance,
@@ -146,9 +146,7 @@ class NotificationAdapter(var onClickNotificationAdapter: OnClickNotificationAda
     }
 
     interface OnClickNotificationAdapter {
-        fun clickNotification(
-            action: String, idNotifi: String
-        )
+        fun clickNotification(notify_type: String, idNotifi: String)
     }
 
 
