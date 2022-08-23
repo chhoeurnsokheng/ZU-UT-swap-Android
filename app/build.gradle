@@ -71,7 +71,7 @@ android {
             buildConfigField "String", 'BASE_URL', '"https://dev-staging.zillionunited.io/api/"'
             //buildConfigField "String", 'BASE_SOCKET_URL', '"ws://192.168.41.222/"'
             buildConfigField "String", 'BASE_SOCKET_URL', '"wss://dev-staging.zillionunited.io/"'
-            buildConfigField "String", 'FIRE_BASE_URL', '"https://utswapdev.page.link"'
+            buildConfigField "String", 'FIRE_BASE_URL', '"https://devzu.page.link"'
 
         }
         stage {

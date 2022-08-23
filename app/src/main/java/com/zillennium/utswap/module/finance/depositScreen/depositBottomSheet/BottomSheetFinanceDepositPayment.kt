@@ -79,15 +79,15 @@ class BottomSheetFinanceDepositPayment : BottomSheetDialogFragment(),
         FirebaseAnalytics.getInstance(requireActivity())
         binding?.apply {
             var intent = Intent()
-
+             fireBase()
             nextBtnFinace.isEnabled = false
             nextBtnFinace.setOnClickListener {
-
+                val data = Gson().toJson("TR2208-1661140965780133")
                 var bodyObj = DepositObj.DepositRequestBody()
                 bodyObj.num = balance
                 bodyObj.type = typeOfCard
                 bodyObj.coinname = coinname
-                bodyObj.deep_link = "https://utswaptranding.page.link/utswap"
+                bodyObj.deep_link =   deep_link_url // "https://utswaptranding.page.link/utswap?data=1661140965780133"
                 bodyObj.payment_method = payment_method
 
                 onDepositBalance(root.context, bodyObj)
@@ -206,35 +206,34 @@ class BottomSheetFinanceDepositPayment : BottomSheetDialogFragment(),
 
     override fun onNothingSelected(parent: AdapterView<*>?) {}
 
-//    private fun fireBase() {
-//
-//        FirebaseDynamicLinks.getInstance().createDynamicLink() // .setLink(dynamicLinkUri)
-//            .setLink(Uri.parse("https://utswapapp.com"))
-//            .setSocialMetaTagParameters(
-//                DynamicLink.SocialMetaTagParameters.Builder()
-//                    .setTitle("Hello sokheng")
-//                    .setImageUrl(Uri.parse(R.drawable.aba_pay.toString()))
-//                    .build()
-//            )
-//            .setDomainUriPrefix(BuildConfig.FIRE_BASE_URL) // Open links with this app on Android
-//            .setAndroidParameters(
-//                DynamicLink.AndroidParameters.Builder().setFallbackUrl(Uri.parse("https://www.youtube.com/watch?v=7aekxC_monc&list=RDVdQHUbv0rMM&index=8"))
-//                .build()
-//            )
+    private fun fireBase() {
+
+        FirebaseDynamicLinks.getInstance().createDynamicLink()
+           // .setLink(Uri.parse("http://m.utswaptranding.com"))
+            .setSocialMetaTagParameters(
+                DynamicLink.SocialMetaTagParameters.Builder()
+                    .setTitle("Hello sokheng")
+                    .setImageUrl(Uri.parse(R.drawable.aba_pay.toString()))
+                    .build()
+            )
+            .setDomainUriPrefix(BuildConfig.FIRE_BASE_URL) // Open links with this app on Android
+            .setAndroidParameters(
+                DynamicLink.AndroidParameters.Builder()  //.setFallbackUrl(Uri.parse("https://www.youtube.com/watch?v=7aekxC_monc&list=RDVdQHUbv0rMM&index=8"))
+                .build()
+            )
 //            .setIosParameters(
 //                DynamicLink.IosParameters.Builder("com.utswapapp.ios")
 //                    .setFallbackUrl(Uri.parse("https://apps.apple.com/us/app/utswapapp-app/id1518963601"))
 //                    .build()
 //            )
-//            .buildShortDynamicLink()
-//            .addOnCompleteListener { task ->
-//                var shortLink = task.result.shortLink.toString()
-//                deep_link_url = shortLink
-//            }
-//            .addOnFailureListener {
-//                Log.e("ShareFail", it.message.toString())
-//            }
-//    }
+            .buildShortDynamicLink()
+            .addOnCompleteListener { task ->
+                deep_link_url = task.result.shortLink.toString()
+            }
+            .addOnFailureListener {
+                Log.e("ShareFail", it.message.toString())
+            }
+    }
 
     fun onDepositBalance(context: Context, body: DepositObj.DepositRequestBody) {
         subscriptionOnDepositBalance?.unsubscribe()

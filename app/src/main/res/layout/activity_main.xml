@@ -136,7 +136,7 @@
             android:id="@+id/test"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="https://sokheng.page.link/Go1D"/>
+            android:text="Hello"/>
 
     </RelativeLayout>
 </layout>

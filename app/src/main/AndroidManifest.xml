@@ -10,11 +10,11 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
 
-<!--    <queries>-->
-<!--        <package android:name="com.paygo24.ibank" />-->
-<!--        <package android:name="com.domain.acledabankqr" />-->
-<!--        <package android:name="kh.com.sathapana.consumer" />-->
-<!--    </queries>-->
+    <!--    <queries>-->
+    <!--        <package android:name="com.paygo24.ibank" />-->
+    <!--        <package android:name="com.domain.acledabankqr" />-->
+    <!--        <package android:name="kh.com.sathapana.consumer" />-->
+    <!--    </queries>-->
 
     <application
         android:name=".UTSwapApp"
@@ -64,20 +64,37 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait">
 
-            <intent-filter android:autoVerify="true" >
+            <!--            <intent-filter android:autoVerify="true" >-->
 
+            <!--                <action android:name="android.intent.action.VIEW" />-->
+
+            <!--                <category android:name="android.intent.category.DEFAULT" />-->
+            <!--                <category android:name="android.intent.category.BROWSABLE" />-->
+
+
+            <!--&lt;!&ndash;                <data android:host="www.utswaptranding.com" />&ndash;&gt;-->
+            <!--&lt;!&ndash;                <data android:host="m.utswaptranding.com" />&ndash;&gt;-->
+            <!--&lt;!&ndash;                <data android:scheme="http" />&ndash;&gt;-->
+            <!--&lt;!&ndash;                <data android:scheme="https" />&ndash;&gt;-->
+            <!--                -->
+            <!--                <data android:scheme="http" android:host="www.example.com" />-->
+            <!--                <data android:scheme="https" />-->
+
+
+            <!--            </intent-filter>-->
+
+
+            <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
-                    android:host="utswaptranding.com"
-                    android:scheme="https" />
-
+                    android:scheme="http"
+                    android:host="ut-swap.com"
+                    android:pathPattern="/zuapp/" />
             </intent-filter>
-
-
         </activity>
         <!-- Activity KYC -->
         <activity

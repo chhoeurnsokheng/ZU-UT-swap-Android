@@ -1,33 +1,41 @@
 {
   "project_info": {
-    "project_number": "286985671755",
-    "project_id": "ut-swap-tranding",
-    "storage_bucket": "ut-swap-tranding.appspot.com"
+    "project_number": "1093239456421",
+    "project_id": "ut-swap-test",
+    "storage_bucket": "ut-swap-test.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:286985671755:android:dd59bd9723815287e9a9ce",
+        "mobilesdk_app_id": "1:1093239456421:android:6a2963e9e32fff0272034c",
         "android_client_info": {
           "package_name": "com.zillennium.utswap"
         }
       },
       "oauth_client": [
         {
-          "client_id": "286985671755-dcopdg9a4s83j458gqev1upb8ujtff21.apps.googleusercontent.com",
+          "client_id": "1093239456421-8ul7aehua727pip397aagqbuebtfbkkl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.zillennium.utswap",
+            "certificate_hash": "c9f2eaed64db11f96940dcfad0c912cb581d5d22"
+          }
+        },
+        {
+          "client_id": "1093239456421-dfvc4arrv918tr494du7opokmq319g57.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAXvzA0A_8oFoKtPsdXHzxPf52tDPWwi3U"
+          "current_key": "AIzaSyDacKwg082JgFAIzyCgPkk75cdzAQDntt0"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "286985671755-dcopdg9a4s83j458gqev1upb8ujtff21.apps.googleusercontent.com",
+              "client_id": "1093239456421-dfvc4arrv918tr494du7opokmq319g57.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

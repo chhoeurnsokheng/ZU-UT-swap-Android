@@ -5,7 +5,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Handler
 import android.util.Log
-import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.Toast
@@ -16,6 +15,9 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.google.firebase.FirebaseApp
 import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.dynamiclinks.DynamicLink
+import com.google.firebase.dynamiclinks.FirebaseDynamicLinks
+import com.zillennium.utswap.BuildConfig
 import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
 import com.zillennium.utswap.Datas.StoredPreferences.KYCPreferences
 import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
@@ -23,10 +25,8 @@ import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityMainBinding
-import com.zillennium.utswap.databinding.DepositOpenLinkWebviewActivityBinding
 import com.zillennium.utswap.models.userService.User
 import com.zillennium.utswap.module.finance.depositScreen.DepositActivity
-import com.zillennium.utswap.module.finance.depositScreen.OpenWebViewToComfirmPayment.DepositOpenLinkWebViewActivity
 import com.zillennium.utswap.module.kyc.kycActivity.KYCActivity
 import com.zillennium.utswap.module.main.MainPresenter
 import com.zillennium.utswap.module.main.MainView
@@ -63,12 +63,44 @@ class MainActivity :
             startActivityForResult(intent, 555)
         }
         binding.apply {
-            test.setOnClickListener {
-                val uri: Uri = Uri.parse("https://sokheng.page.link/Go1D")
-                startActivity(Intent(Intent.ACTION_VIEW, uri))
-            }
+
+
+            FirebaseDynamicLinks.getInstance().createDynamicLink()
+              //  .setLink(Uri.parse("http://m.utswaptranding.com"))
+                .setSocialMetaTagParameters(
+                    DynamicLink.SocialMetaTagParameters.Builder()
+                        .setTitle("Hello sokheng")
+                        .setImageUrl(Uri.parse(R.drawable.aba_pay.toString()))
+                        .build()
+                )
+                .setDomainUriPrefix(BuildConfig.FIRE_BASE_URL) // Open links with this app on Android
+                .setAndroidParameters(
+                    DynamicLink.AndroidParameters.Builder().setFallbackUrl(Uri.parse("https://www.youtube.com/watch?v=7aekxC_monc&list=RDVdQHUbv0rMM&index=8"))
+                        .build()
+                )
+                .setIosParameters(
+                    DynamicLink.IosParameters.Builder("com.utswapapp.ios")
+                        .setFallbackUrl(Uri.parse("https://apps.apple.com/us/app/utswapapp-app/id1518963601"))
+                        .build()
+                )
+                .buildShortDynamicLink()
+                .addOnCompleteListener { task ->
+                   binding.apply {
+                       test.setOnClickListener {
+                           test.text = task.result.shortLink.toString()
+
+                           val uri: Uri = Uri.parse("${task.result.shortLink.toString()}")
+                           Log.d("Link","${task.result.shortLink.toString()}")
+                           startActivity(Intent(Intent.ACTION_VIEW, uri))
+                       }
+                   }
+                }
+                .addOnFailureListener {
+                    Log.e("ShareFail", it.message.toString())
+                }
         }
-    }
+        }
+
     private fun handleIntent(intent: Intent?) {
         val appLinkAction: String? = intent?.action
         val appLinkData: Uri? = intent?.data
