@@ -95,8 +95,10 @@ class SubscriptionBottomSheet : BottomSheetDialogFragment(), AdapterView.OnItemS
             )
 
             if (arguments?.getString("volume").toString().isNotEmpty()) {
+
                 etInputVolume.setText(arguments?.getString("volume").toString())
                 tvSubscriptPrice.text = arguments?.getString("subscription_price").toString()
+
                 btnSubscript.backgroundTintList = ColorStateList.valueOf(
                     ContextCompat.getColor(
                         UTSwapApp.instance,
@@ -110,7 +112,7 @@ class SubscriptionBottomSheet : BottomSheetDialogFragment(), AdapterView.OnItemS
                 val utSubscriptionPrice =
                     volumeDollarPrice?.let { formatThreeDigitValue(it, "###,###.##") }
                 if (!etInputVolume.text.isNullOrEmpty()) {
-                    if (etInputVolume.text.toString().toLong() > 0) {
+                    if (etInputVolume.text.toString().replace("\\s".toRegex(), "").toLong() > 0) {
                         val subscriptionConfirmDialog: SubscriptionConfirmDialog =
                             SubscriptionConfirmDialog.newInstance(
                                 etInputVolume.text.toString(),
