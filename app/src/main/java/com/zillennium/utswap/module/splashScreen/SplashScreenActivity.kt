@@ -10,7 +10,6 @@ import com.zillennium.utswap.databinding.ActivitySplashScreenBinding
 import com.zillennium.utswap.screens.navbar.navbar.MainActivity
 import java.util.*
 
-
 @SuppressLint("CustomSplashScreen")
 class SplashScreenActivity :
     BaseMvpActivity<SplashScreenView.View, SplashScreenView.Presenter, ActivitySplashScreenBinding>(),

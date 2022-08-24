@@ -13,10 +13,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI.setupWithNavController
-import com.google.firebase.FirebaseApp
-import com.google.firebase.analytics.FirebaseAnalytics
-import com.google.firebase.dynamiclinks.DynamicLink
-import com.google.firebase.dynamiclinks.FirebaseDynamicLinks
 import com.zillennium.utswap.BuildConfig
 import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
 import com.zillennium.utswap.Datas.StoredPreferences.KYCPreferences
@@ -25,8 +21,8 @@ import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityMainBinding
+import com.zillennium.utswap.models.home.ForceUpdate
 import com.zillennium.utswap.models.userService.User
-import com.zillennium.utswap.module.finance.depositScreen.DepositActivity
 import com.zillennium.utswap.module.kyc.kycActivity.KYCActivity
 import com.zillennium.utswap.module.main.MainPresenter
 import com.zillennium.utswap.module.main.MainView
@@ -35,88 +31,54 @@ import com.zillennium.utswap.module.main.news.NewsFragment
 import com.zillennium.utswap.module.main.portfolio.PortfolioFragment
 import com.zillennium.utswap.module.main.trade.tradeScreen.TradeFragment
 import com.zillennium.utswap.module.security.securityActivity.signInScreen.SignInActivity
+import com.zillennium.utswap.utils.DialogUtil
+import com.zillennium.utswap.utils.DialogUtilKyc
 
 
-class MainActivity :
-    BaseMvpActivity<MainView.View, MainView.Presenter, ActivityMainBinding>(),
-    MainView.View {
+class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, ActivityMainBinding>(), MainView.View {
 
     override var mPresenter: MainView.Presenter = MainPresenter()
     override val layoutResource: Int = R.layout.activity_main
     private var kcySubmit: Boolean? = false
-    private var kcyComplete: Boolean? = false
+    var kcyComplete: Boolean? = false
     private var isSelected = false
     private var isSignInSuccess = true
+    private val homeFragment = HomeFragment()
+
     private var doubleBackToExitPressedOnce = false
     private var statusKYC = ""
 
     override fun initView() {
         super.initView()
         onSetUpNavBar()
-        handleDeepLink()
-        FirebaseAnalytics.getInstance(this)
-        handleIntent(intent)
-        FirebaseApp.initializeApp(this)
-
         binding.layAuth.setOnClickListener {
             val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
             startActivityForResult(intent, 555)
         }
-        binding.apply {
 
-
-            FirebaseDynamicLinks.getInstance().createDynamicLink()
-              //  .setLink(Uri.parse("http://m.utswaptranding.com"))
-                .setSocialMetaTagParameters(
-                    DynamicLink.SocialMetaTagParameters.Builder()
-                        .setTitle("Hello sokheng")
-                        .setImageUrl(Uri.parse(R.drawable.aba_pay.toString()))
-                        .build()
-                )
-                .setDomainUriPrefix(BuildConfig.FIRE_BASE_URL) // Open links with this app on Android
-                .setAndroidParameters(
-                    DynamicLink.AndroidParameters.Builder().setFallbackUrl(Uri.parse("https://www.youtube.com/watch?v=7aekxC_monc&list=RDVdQHUbv0rMM&index=8"))
-                        .build()
-                )
-                .setIosParameters(
-                    DynamicLink.IosParameters.Builder("com.utswapapp.ios")
-                        .setFallbackUrl(Uri.parse("https://apps.apple.com/us/app/utswapapp-app/id1518963601"))
-                        .build()
-                )
-                .buildShortDynamicLink()
-                .addOnCompleteListener { task ->
-                   binding.apply {
-//                       test.setOnClickListener {
-//                           test.text = task.result.shortLink.toString()
-//
-//                           val uri: Uri = Uri.parse("${task.result.shortLink.toString()}")
-//                           Log.d("Link","${task.result.shortLink.toString()}")
-//                           startActivity(Intent(Intent.ACTION_VIEW, uri))
-//                       }
-                   }
-                }
-                .addOnFailureListener {
-                    Log.e("ShareFail", it.message.toString())
-                }
-        }
-        }
-
-    private fun handleIntent(intent: Intent?) {
-        val appLinkAction: String? = intent?.action
-        val appLinkData: Uri? = intent?.data
-        showDeepLinkOffer(appLinkAction, appLinkData)
     }
-    private fun showDeepLinkOffer(appLinkAction: String?, appLinkData: Uri?) {
-        // 1
-        if (Intent.ACTION_VIEW == appLinkAction && appLinkData != null) {
-            // 2
-            val promotionCode = appLinkData.getQueryParameter("code")
 
-            if (promotionCode.isNullOrBlank().not()) {
-
-            }
+    override fun onGetForceUpdateSuccess(data: ForceUpdate.ForceUpdateRes) {
+        if (BuildConfig.VERSION_NAME <data.data?.version.toString()){
+            DialogUtilKyc().customDialog(
+                com.zillennium.utswap.R.drawable.ic_force_update,
+                "New version available",
+                "Looks like you have an older version of the app. Please update to get latest features and best experience.",
+                "UPDATE NOW",
+                object : DialogUtil.OnAlertDialogClick {
+                    override fun onLabelCancelClick() {
+                        val uri: Uri = Uri.parse(data.data!!.app_url?.android)
+                        startActivity(Intent(Intent.ACTION_VIEW, uri))
+                    }
+                },
+                this
+            )
         }
+
     }
+
+    override fun onGetForceUpdateFailed(data: String) {}
+
     fun onRefreshData() {
         mPresenter.onCheckKYCStatus()
 
@@ -125,6 +87,7 @@ class MainActivity :
     override fun onCheckKYCSuccess(data: User.KycRes) {
         kcySubmit = data.data?.status_submit_kyc
         kcyComplete = data.data?.status_kyc
+        homeFragment.onHomeMenuGrid(data.data?.status_kyc ?: false)
         onCheckSession()
 
     }
@@ -134,14 +97,7 @@ class MainActivity :
         binding.layVerify.visibility = GONE
     }
 
-    private fun handleDeepLink(){
-        val intent = intent
-        val action = intent.action
-        val data: Uri? = intent.data
-        if (data !=null){
-            startActivity(Intent(this,DepositActivity::class.java))
-        }
-    }
+
     object kyc {
         var statusKycSubmit = ""
     }
@@ -260,7 +216,6 @@ class MainActivity :
                 // This Theme haven't use NoActionBar
                 setupWithNavController(navView, navController)
 
-                val homeFragment = HomeFragment()
                 val portfolioFragment = PortfolioFragment()
                 val tradeFragment = TradeFragment()
                 val newsTabFragment = NewsFragment()
@@ -361,12 +316,5 @@ class MainActivity :
     override fun onResume() {
         super.onResume()
         binding.navView.selectedItemId = R.id.navigation_navbar_home
-    }
-
-    override fun onNewIntent(intent: Intent?) {
-        super.onNewIntent(intent)
-        intent?.let { newIntent ->
-            handleIntent(newIntent)
-        }
     }
 }

@@ -7,8 +7,8 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.*
-import android.widget.AdapterView
 import android.widget.DatePicker
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -18,13 +18,18 @@ import com.zillennium.utswap.databinding.BottomSheetBalanceSelectDateRangeBindin
 import java.text.SimpleDateFormat
 import java.util.*
 
-class FinanceSelectDateRangeBottonSheet : BottomSheetDialogFragment(),
-    AdapterView.OnItemSelectedListener {
+class FinanceSelectDateRangeBottomSheet(
+    var listenerFilter: CallBackSelectDateRangeBalance
+) : BottomSheetDialogFragment(){
 
     private var binding: BottomSheetBalanceSelectDateRangeBinding? = null
 
     override fun getTheme(): Int {
         return R.style.BottomSheetStyle
+    }
+
+    interface CallBackSelectDateRangeBalance{
+        fun onChangeFilterSelectDateRange(selectDateStart: String, selectDateEnd: String)
     }
 
     override fun onCreateView(
@@ -50,6 +55,8 @@ class FinanceSelectDateRangeBottonSheet : BottomSheetDialogFragment(),
         binding?.apply {
             (view.parent as View).setBackgroundColor(ContextCompat.getColor(UTSwapApp.instance, android.R.color.transparent))
 
+            val fm = "dd-MMM-yyyy"
+            val sdf = SimpleDateFormat(fm)
             val calendar = Calendar.getInstance()
 
             val dateStart =
@@ -57,7 +64,7 @@ class FinanceSelectDateRangeBottonSheet : BottomSheetDialogFragment(),
                     calendar[Calendar.YEAR] = year
                     calendar[Calendar.MONDAY] = month
                     calendar[Calendar.DAY_OF_MONTH] = day
-                    val format = "dd-MM-yyyy"
+                    val format = "dd-MMM-yyyy"
                     val simpleDateFormat =
                         SimpleDateFormat(format, Locale.US)
                     etStartDate.setText(simpleDateFormat.format(calendar.time))
@@ -68,7 +75,7 @@ class FinanceSelectDateRangeBottonSheet : BottomSheetDialogFragment(),
                     calendar[Calendar.YEAR] = year
                     calendar[Calendar.MONDAY] = month
                     calendar[Calendar.DAY_OF_MONTH] = day
-                    val format = "dd-MM-yyyy"
+                    val format = "dd-MMM-yyyy"
                     val simpleDateFormat =
                         SimpleDateFormat(format, Locale.US)
                     etEndDate.setText(simpleDateFormat.format(calendar.time))
@@ -78,7 +85,7 @@ class FinanceSelectDateRangeBottonSheet : BottomSheetDialogFragment(),
             etStartDate.isLongClickable = false
             etStartDate.setOnClickListener {
                 DatePickerDialog(
-                    this@FinanceSelectDateRangeBottonSheet.requireActivity(),
+                    this@FinanceSelectDateRangeBottomSheet.requireActivity(),
                     dateStart,
                     calendar[Calendar.YEAR],
                     calendar[Calendar.MONTH],
@@ -88,9 +95,10 @@ class FinanceSelectDateRangeBottonSheet : BottomSheetDialogFragment(),
 
             etEndDate.isFocusableInTouchMode = false
             etEndDate.isLongClickable = false
+            etEndDate.isEnabled = false
             etEndDate.setOnClickListener {
                 DatePickerDialog(
-                    this@FinanceSelectDateRangeBottonSheet.requireActivity(),
+                    this@FinanceSelectDateRangeBottomSheet.requireActivity(),
                     dateEnd,
                     calendar[Calendar.YEAR],
                     calendar[Calendar.MONTH],
@@ -104,7 +112,8 @@ class FinanceSelectDateRangeBottonSheet : BottomSheetDialogFragment(),
                 override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
                 override fun afterTextChanged(p0: Editable?) {
-                   etEndDate.setHintTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
+                    etEndDate.setHintTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
+                    etEndDate.isEnabled = true
                 }
 
             })
@@ -115,27 +124,24 @@ class FinanceSelectDateRangeBottonSheet : BottomSheetDialogFragment(),
                 override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
                 override fun afterTextChanged(p0: Editable?) {
-                    dismiss()
+
+                    val dateS = sdf.parse(etStartDate.text.toString())
+                    val dateE = sdf.parse(etEndDate.text.toString())
+
+                    if (dateS != null) {
+                        if (dateS > dateE){
+                            Toast.makeText(
+                            UTSwapApp.instance,
+                            "EndDate should be greater than StartDate",
+                            Toast.LENGTH_LONG
+                        ).show()
+                        }else{
+                            listenerFilter.onChangeFilterSelectDateRange(etStartDate.text.toString(), etEndDate.text.toString())
+                            dismiss()
+                        }
+                    }
                 }
-
             })
-
-
         }
     }
-
-    companion object {
-        fun newInstance(
-        ): FinanceSelectDateRangeBottonSheet {
-            val financeSelectDateRangeBottomSheet = FinanceSelectDateRangeBottonSheet()
-            val args = Bundle()
-
-            financeSelectDateRangeBottomSheet.arguments = args
-            return financeSelectDateRangeBottomSheet
-        }
-    }
-
-    override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {}
-
-    override fun onNothingSelected(p0: AdapterView<*>?) {}
 }

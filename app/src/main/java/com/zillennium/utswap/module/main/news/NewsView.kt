@@ -15,6 +15,6 @@ class NewsView {
 
     interface Presenter : BaseMvpPresenter<View> {
         override fun initViewPresenter(context: Context, bundle: Bundle?)
-        fun onGetNews(context: Context,p: Int)
+        fun onGetNews(context: Context,body: News.NewsObj)
     }
 }

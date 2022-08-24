@@ -46,16 +46,14 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textAppearance="@style/regular_12"
-                            android:textColor="@color/black"
-                            android:text="Bought 29 UT New Airport 38Ha @ 17.83" />
+                            android:textColor="@color/primary" />
 
                         <TextView
                             android:id="@+id/date_transaction"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/dimen_10"
-                            android:textColor="@color/dark_gray"
-                            android:text="19-May-2022"
+                            android:textColor="@color/gray_888888"
                             android:textAppearance="@style/regular_10"/>
 
                     </LinearLayout>
@@ -66,7 +64,6 @@
                         android:layout_weight="30"
                         android:layout_height="wrap_content"
                         android:textColor="@color/danger"
-                        android:text="517.07"
                         android:textAppearance="@style/medium_12"
                         android:gravity="end"/>
 

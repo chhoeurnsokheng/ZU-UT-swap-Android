@@ -82,6 +82,7 @@ object ApiSettings {
     const val PATH_LIST_TRADE = "wsocket/"
     const val SEND_LIST_TRADE = "market_update_stream"
     const val  SEND_TRADE_MARKET_NAME = "trade_market_summary:"
+    const val SEND_TRADE_MARKET_ORDER_BOOK_TABLE = "market:"
 
     /** Upcomming project in trading list screen*/
     const val PATH_UPCOMING_PROJECT_TRADING_LIST = "trade/getUpcomingProject"
@@ -90,8 +91,29 @@ object ApiSettings {
     const val PATH_GET_BANNNER= "portfolio/app_banner"
     const val PATH_GET_HOME_WISHLIST_BALANCE ="portfolio/index"
 
+
+    const val PATH_FORCE_UPDATE= "CheckAppVersion/index"
+
+
     /** Account Upload Profile*/
     const val PATH_ACCOUNT_UPLOAD_PROFILE = "user/uploadImageProfile"
+
+
+
+    /** User Balance */
+    const val PATH_FINANCE_USER_BALANCE = "finance/mytx"
+    const val PATH_FINANCE_ACCOUNT_BALANCE_SEARCH_DATA = "finance/index"
+    const val PATH_FINANCE_ACCOUNT_BALANCE_EXPORT_PDF = "finance/exportPdf"
+
+    /** Check favorite project in trade*/
+    const val PATH_CHECK_FAVORITE_PROJECT_TRADE = "trade/checkWatchList"
+
+    /** Add Favorite Project*/
+    const val PATH_ADD_FAVORITE_PROJECT = "trade/addFavorite"
+
+    /** Trade Create Order*/
+    const val PATH_TRADE_CREATE_ORDER = "trade/upTrade"
+
 
     /*Desposite Money*/
 
@@ -100,5 +122,8 @@ object ApiSettings {
     const val PATH_FINANCE_TRANSFER_LOGS ="finance/outlog_transfer"
 
 
+
     const val PATH_QUERY_ORDER = "finance/DataQueryOrder"
+
+
 }

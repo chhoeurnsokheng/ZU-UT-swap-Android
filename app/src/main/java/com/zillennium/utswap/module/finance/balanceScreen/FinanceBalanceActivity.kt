@@ -1,22 +1,32 @@
 package com.zillennium.utswap.module.finance.balanceScreen
 
+import android.app.DownloadManager
+import android.app.ProgressDialog
+import android.content.Context
+import android.net.Uri
 import android.os.Build
+import android.os.Environment
+import android.os.Handler
+import android.view.View
+import android.webkit.CookieManager
+import android.webkit.URLUtil
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
+import androidx.core.widget.NestedScrollView
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.zillennium.utswap.Datas.GlobalVariable.SettingVariable
-import com.zillennium.utswap.bases.mvp.BaseMvpActivity
+import com.androidstudy.networkmanager.Tovuti
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
+import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityFinanceBalanceBinding
-import com.zillennium.utswap.models.FinanceBalanceModel
+import com.zillennium.utswap.models.financeBalance.BalanceFinance
 import com.zillennium.utswap.module.finance.balanceScreen.adapter.FinanceBalanceAdapter
 import com.zillennium.utswap.module.finance.balanceScreen.bottomSheet.FinanceExportFileBottomSheet
 import com.zillennium.utswap.module.finance.balanceScreen.bottomSheet.FinanceFilterBottomSheet
-import com.zillennium.utswap.module.finance.balanceScreen.bottomSheet.FinanceSelectDateRangeBottonSheet
+import com.zillennium.utswap.module.finance.balanceScreen.bottomSheet.FinanceSelectDateRangeBottomSheet
 import com.zillennium.utswap.module.finance.balanceScreen.dialog.FinanceBalanceDialog
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
+import com.zillennium.utswap.utils.UtilKt
 
 class FinanceBalanceActivity :
     BaseMvpActivity<FinanceBalanceView.View, FinanceBalanceView.Presenter, ActivityFinanceBalanceBinding>(),
@@ -25,157 +35,116 @@ class FinanceBalanceActivity :
     override var mPresenter: FinanceBalanceView.Presenter = FinanceBalancePresenter()
     override val layoutResource: Int = R.layout.activity_finance_balance
 
-    val filter = SettingVariable.balance_filter
+    private var financeBalanceList: ArrayList<BalanceFinance.GetBalanceSearchDateTransactionData>? = arrayListOf()
+
+    private var balanceFilterSelect = ""
+    private var selectedDateStart = ""
+    private var selectedDateEnd = ""
+    private var selectStartDateExport = ""
+    private var selectEndDateExport = ""
+    private var pageBalance = 1
+
+    private var totalPageBalance = 1
+    private var countLoop = 2
+
+    private val progressDialog = ProgressDialog(UTSwapApp.instance)
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun initView() {
         super.initView()
 
-
         toolBar()
-
-
 
         try {
             binding.apply {
 
+                onCallApi()
+                onSwapRefresh()
+                loadMoreData()
+
+                swipeRefreshBalance.setColorSchemeColors(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
+
                 /* Export as File bottom sheet dialog */
                 exportAsPdf.setOnClickListener {
-                    FinanceExportFileBottomSheet.newInstance().show(
-                        supportFragmentManager, "Export File"
-                    )
+                    if (selectedDateStart.isNotEmpty() && selectedDateEnd.isNotEmpty()){
+                        mPresenter.onGetExportBalance(BalanceFinance.ExportFinanceBalanceObject(selectedDateStart, selectedDateEnd, balanceFilterSelect), UTSwapApp.instance)
+                    } else{
+                        val financeExportBalance = FinanceExportFileBottomSheet(
+                            object : FinanceExportFileBottomSheet.CallBackExportBalance{
+                                override fun onExportBalance(
+                                    startDateExport: String,
+                                    endDateExport: String
+                                ) {
+                                    selectStartDateExport = startDateExport
+                                    selectEndDateExport = endDateExport
+
+                                    mPresenter.onGetExportBalance(BalanceFinance.ExportFinanceBalanceObject(selectStartDateExport, selectEndDateExport, balanceFilterSelect), UTSwapApp.instance)
+                                }
+                            }
+                        )
+                        financeExportBalance.show(
+                            supportFragmentManager, "Export File User Balance"
+                        )
+                    }
                 }
 
                 /* Filter bottom sheet dialog */
                 filterButton.setOnClickListener {
-                    FinanceFilterBottomSheet.newInstance().show(
-                        supportFragmentManager, "Filter"
+                    val financeFilterBottomSheet = FinanceFilterBottomSheet(
+                        balanceFilterSelect,
+                        object: FinanceFilterBottomSheet.CallBackFilterListener{
+                            override fun onChangeFilterSelected(balanceFilterSelected: String) {
+                                balanceFilterSelect = balanceFilterSelected
+                                onClearList()
+                                invisibleText()
+                                pageBalance = 1
+                                countLoop = 2
+                                loadingProgressBar.visibility = View.VISIBLE
+                                mPresenter.onGetUserBalanceFilterDate(BalanceFinance.GetBalanceSearchDateObject(selectedDateStart, selectedDateEnd, balanceFilterSelect, pageBalance), UTSwapApp.instance)
+                            }
+                        }
                     )
+                    financeFilterBottomSheet.show(supportFragmentManager, "Filter User Balance")
                 }
 
                 /* Select Date Range bottom sheet dialog */
                 selectDateRange.setOnClickListener {
-                    FinanceSelectDateRangeBottonSheet.newInstance().show(
-                        supportFragmentManager, "Select Date Range"
-                    )
-                }
+                    val financeSelectDateRangeBottomSheetBalance = FinanceSelectDateRangeBottomSheet(
+                        object: FinanceSelectDateRangeBottomSheet.CallBackSelectDateRangeBalance{
+                            override fun onChangeFilterSelectDateRange(
+                                selectDateStart: String,
+                                selectDateEnd: String
+                            ) {
+                                selectedDateStart = selectDateStart
+                                selectedDateEnd = selectDateEnd
+                                invisibleText()
+                                onClearList()
+                                pageBalance = 1
+                                countLoop = 2
+                                loadingProgressBar.visibility = View.VISIBLE
 
-                /* Recycle view of transaction balance */
-                val imageBalance = arrayOf(
-                    R.drawable.ic_money_out,
-                    R.drawable.ic_money_in,
-                    R.drawable.ic_hourglass,
-                    R.drawable.ic_balance_withdraw,
-                    R.drawable.ic_balance_deposit,
-                    R.drawable.ic_money_out,
-                )
+                                if (selectDateEnd.isNotEmpty()){
+                                    txtBalanceDateStart.visibility = View.VISIBLE
+                                    txtBalanceDateEnd.visibility = View.VISIBLE
+                                    txtBalanceDateTo.visibility = View.VISIBLE
+                                    txtBalanceSelectDateFromTo.visibility = View.GONE
+                                    txtBalanceDateStart.text = selectDateStart
+                                    txtBalanceDateEnd.text = selectDateEnd
+                                }
 
-                val titleTransaction = arrayOf(
-                    "Bought 29 UT New Airport 38Ha @ 17.83",
-                    "Sold 388 UT Muk Kampul 16644 @ 1.30",
-                    "Subscribed 29 UT New Airport 38Ha @",
-                    "Sold 388 UT Muk Kampul 16644 @ 1.30",
-                    "Withdraw $168.99",
-                    "Deposit $420.99",
-                )
+                                mPresenter.onGetUserBalanceFilterDate(BalanceFinance.GetBalanceSearchDateObject(selectedDateStart, selectedDateEnd, balanceFilterSelect, pageBalance), UTSwapApp.instance)
 
-                val dateTransaction = arrayOf(
-                    "19-May-2022",
-                    "18-May-2022",
-                    "17-May-2022",
-                    "15-May-2022",
-                    "13-May-2022",
-                    "12-May-2022",
-                )
-
-                val amountBalance = arrayOf(
-                    -517.07,
-                    5437.07,
-                    -178.99,
-                    420.99,
-                    -168.99,
-                    420.99,
-                )
-
-                val status = arrayOf(
-                    1,
-                    1,
-                    3,
-                    4,
-                    5,
-                    1
-                )
-
-                val financeBalanceArrayList = ArrayList<FinanceBalanceModel>()
-
-                for (i in dateTransaction.indices) {
-                    val financeBalance = FinanceBalanceModel(
-                        imageBalance[i],
-                        titleTransaction[i],
-                        dateTransaction[i],
-                        amountBalance[i],
-                        status[i]
-                    )
-                    financeBalanceArrayList.add(financeBalance)
-                }
-
-                for (i in dateTransaction.indices) {
-                    val financeBalance = FinanceBalanceModel(
-                        imageBalance[i],
-                        titleTransaction[i],
-                        dateTransaction[i],
-                        amountBalance[i],
-                        status[i]
-                    )
-                    financeBalanceArrayList.add(financeBalance)
-                }
-
-                /* Sorted Date */
-                val dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MMMM-yyyy")
-                financeBalanceArrayList.sortByDescending {
-                    LocalDate.parse(
-                        it.dateTransaction,
-                        dateTimeFormatter
-                    )
-                }
-
-
-                filter.observe(this@FinanceBalanceActivity) {
-                    if (filter.value != 0) {
-                        financeBalanceArrayList.clear()
-                        for (i in dateTransaction.indices) {
-                            if (filter.value == status[i]) {
-                                val financeBalance = FinanceBalanceModel(
-                                    imageBalance[i],
-                                    titleTransaction[i],
-                                    dateTransaction[i],
-                                    amountBalance[i],
-                                    status[i]
-                                )
-                                financeBalanceArrayList.add(financeBalance)
                             }
-                            if (filter.value == status[i]) {
-                                val financeBalance = FinanceBalanceModel(
-                                    imageBalance[i],
-                                    titleTransaction[i],
-                                    dateTransaction[i],
-                                    amountBalance[i],
-                                    status[i]
-                                )
-                                financeBalanceArrayList.add(financeBalance)
-                            }
-
-                            rvFinanceBalance.layoutManager = LinearLayoutManager(UTSwapApp.instance)
-                            rvFinanceBalance.adapter =
-                                FinanceBalanceAdapter(financeBalanceArrayList, onClickAdapter)
                         }
-                    }
+                    )
+                    financeSelectDateRangeBottomSheetBalance.show(
+                        supportFragmentManager, "Select Date Range User Balance"
+                    )
                 }
 
-                rvFinanceBalance.layoutManager = LinearLayoutManager(UTSwapApp.instance)
-                rvFinanceBalance.adapter =
-                    FinanceBalanceAdapter(financeBalanceArrayList, onClickAdapter)
-
+                readMore.setOnClickListener{
+                    mPresenter.onGetUserBalanceFilterDate(BalanceFinance.GetBalanceSearchDateObject(selectedDateStart, selectedDateEnd, balanceFilterSelect, pageBalance), UTSwapApp.instance)
+                }
 
             }
         } catch (error: Exception) {
@@ -183,25 +152,149 @@ class FinanceBalanceActivity :
         }
     }
 
+    private fun onCallApi(){
+        Tovuti.from(UTSwapApp.instance).monitor{ _, isConnected, _ ->
+            if(isConnected) {
+                mPresenter.onGetUserBalanceInfo(UTSwapApp.instance)
+                binding.progressBar.visibility = View.GONE
+                binding.loadingProgressBar.visibility = View.VISIBLE
+                binding.swipeRefreshBalance.visibility = View.VISIBLE
+            }else{
+                binding.swipeRefreshBalance.visibility = View.GONE
+                binding.progressBar.visibility = View.VISIBLE
+            }
+        }
+    }
+
+    /* Get Data From API */
+    override fun onGetUserBalanceInfoSuccess(data: BalanceFinance.GetUserBalanceInfoData) {
+        binding.apply {
+            pageBalance = 1
+            countLoop = 2
+            txtTotalAmount.text = "$ " + data.total_balance?.let { UtilKt().formatValue(it, "###,###.##") }
+            txtAvailableAmount.text = "$ " + data.available_balance?.let { UtilKt().formatValue(it.toDouble(), "###,###.##") }
+            txtPendingAmount.text = "$ " + data.pending?.let { UtilKt().formatValue(it.toDouble(), "###,###.##") }
+            mPresenter.onGetUserBalanceFilterDate(BalanceFinance.GetBalanceSearchDateObject(selectedDateStart, selectedDateEnd, balanceFilterSelect, pageBalance), UTSwapApp.instance)
+        }
+    }
+    override fun onGetUserBalanceInfoFail(data: BalanceFinance.GetUserBalanceInfo) {}
+    override fun onGetUserBalanceFilterDateSuccess(data: BalanceFinance.GetBalanceSearchDateData) {
+        binding.apply {
+            loadingProgressBar.visibility = View.GONE
+            invisibleText()
+            swipeRefreshBalance.isRefreshing = false
+
+            totalPageBalance = data.total_page!!
+
+            if (totalPageBalance >= pageBalance){
+                if (data.transaction.isNotEmpty()){
+                    financeBalanceList?.addAll(data.transaction)
+                    rvFinanceBalance.layoutManager = LinearLayoutManager(UTSwapApp.instance)
+                    val financeBalanceAdapter = FinanceBalanceAdapter(onClickAdapter)
+                    financeBalanceAdapter.items = financeBalanceList!!
+                    rvFinanceBalance.adapter = financeBalanceAdapter
+                }
+                if (totalPageBalance == pageBalance){
+                    txtEnd.visibility = View.GONE
+                }else{
+                    // Loading More
+                    Handler().postDelayed({
+                        layNewsLoading.visibility = View.VISIBLE
+                    }, 500)
+                    pageBalance++
+                }
+            }else{
+                onClearList()
+                layNewsLoading.visibility =View.GONE
+                txtNoData.visibility = View.VISIBLE
+            }
+        }
+    }
+    override fun onGetUserBalanceFilterDateFail(data: BalanceFinance.GetBalanceSearchDate) {
+        binding.swipeRefreshBalance.isRefreshing = false
+    }
+    override fun onGetExportBalanceSuccess(data: BalanceFinance.ExportFinanceBalanceData) {
+        binding.apply {
+            // This is download in browser
+//            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(data.FILE_PATH))
+//            startActivity(browserIntent)
+            
+            val request = DownloadManager.Request(Uri.parse(data.FILE_PATH))
+            val title = URLUtil.guessFileName(data.FILE_PATH, null, null)
+            request.setTitle(title)
+            request.setDescription("Downloading File please wait ...")
+            val cookie = CookieManager.getInstance().getCookie(data.FILE_PATH)
+            request.addRequestHeader("cookie", cookie)
+            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED) // This will show notification on top when downloading the file.
+            request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, title) // Title for notification.
+
+            val downloadManager = getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager //This will start downloading
+            downloadManager.enqueue(request)
+
+            Toast.makeText(UTSwapApp.instance, "Downloading File.", Toast.LENGTH_SHORT).show()
+
+        }
+    }
+    override fun onGetExportBalanceFail(data: BalanceFinance.ExportFinanceBalance) {}
+
+    /* On click item recyclerview */
     private val onClickAdapter: FinanceBalanceAdapter.OnClickAdapter =
         object : FinanceBalanceAdapter.OnClickAdapter {
-            override fun onClickMe(financeBalanceModel: FinanceBalanceModel) {
+            override fun onClickMe(financeUserBalanceTransaction: BalanceFinance.GetBalanceSearchDateTransactionData) {
                 val financeBalanceDialog: FinanceBalanceDialog = FinanceBalanceDialog.newInstance(
-                    financeBalanceModel.titleTransaction,
-                    financeBalanceModel.dateTransaction,
-                    financeBalanceModel.amountBalance,
-                    financeBalanceModel.status,
+                    financeUserBalanceTransaction.remark,
+                    financeUserBalanceTransaction.addtimeReadable,
+                    financeUserBalanceTransaction.id,
+                    financeUserBalanceTransaction.type,
+                    financeUserBalanceTransaction.total,
+                    financeUserBalanceTransaction.balance,
+                    financeUserBalanceTransaction.fee_admin
                 )
                 financeBalanceDialog.show(supportFragmentManager, "Balance Data Detail")
             }
         }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        filter.value = 0
-        filter.removeObservers(this@FinanceBalanceActivity)
+    /* Auto Loading */
+    private fun loadMoreData(){
+        binding.apply {
+            nestedRvBalance.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
+                if (v.getChildAt(v.childCount - 1) != null) {
+                    if (scrollY > oldScrollY) {
+                        if (countLoop <= totalPageBalance) {
+                            if (scrollY >= (v.getChildAt(v.childCount - 1).measuredHeight - v.measuredHeight)) {
+                                Handler().postDelayed({
+                                    readMore.performClick()
+                                }, 500)
+                                countLoop++
+                            }
+                        }
+                    }
+                }
+            })
+        }
     }
 
+    private fun onSwapRefresh(){
+        binding.apply {
+            swipeRefreshBalance.setOnRefreshListener {
+                onClearList()
+                invisibleText()
+                mPresenter.onGetUserBalanceInfo(UTSwapApp.instance)
+            }
+        }
+    }
+
+    private fun onClearList(){
+        financeBalanceList?.clear()
+        binding.rvFinanceBalance.adapter?.notifyDataSetChanged()
+    }
+
+    private fun invisibleText(){
+        binding.apply {
+            txtNoData.visibility = View.GONE
+            layNewsLoading.visibility = View.GONE
+        }
+    }
 
     private fun toolBar() {
         setSupportActionBar(binding.includeLayout.tb)

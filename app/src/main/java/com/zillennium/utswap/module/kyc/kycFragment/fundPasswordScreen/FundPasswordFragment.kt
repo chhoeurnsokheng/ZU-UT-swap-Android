@@ -366,7 +366,6 @@ class FundPasswordFragment :
                 progressBar.visibility = View.GONE
             }
             findNavController().navigate(R.id.action_to_contract_kyc_fragment)
-            activity?.finish()
 
             IDVerificationFragment.apply {
                 provice = ""
