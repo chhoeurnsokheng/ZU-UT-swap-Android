@@ -64,9 +64,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:singleLine="false"
-                    android:minLines="2"
-                    android:layout_marginBottom="@dimen/dimen_20"
+
+                    android:layout_marginBottom="@dimen/dimen_10"
                     android:text=" You have made a deposit $100.6 with your Bank Account " />
 
                 <LinearLayout
