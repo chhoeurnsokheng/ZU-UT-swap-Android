@@ -1,25 +1,37 @@
 package com.zillennium.utswap.module.finance.depositScreen.OpenWebViewToComfirmPayment
 
-import android.content.ContentValues.TAG
+
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.View
 import android.webkit.*
+import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
 import com.zillennium.utswap.R
+import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.DepositOpenLinkWebviewActivityBinding
 import com.zillennium.utswap.models.deposite.DataQueryOrderObj
+import com.zillennium.utswap.models.deposite.DepositObj
+import com.zillennium.utswap.module.finance.depositScreen.depositSuccessfully.DepositSuccessfullyActivity
+import com.zillennium.utswap.screens.navbar.navbar.MainActivity
 import com.zillennium.utswap.utils.Constants
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import java.util.*
 
 
 /**
  * Created by Sokheng Chhoeurn on 16/8/22.
  * Build in Mac
  */
+
 class DepositOpenLinkWebViewActivity :
     BaseMvpActivity<DepositopenLinkView.View, DepositopenLinkView.Presenter, DepositOpenLinkWebviewActivityBinding>(),
     DepositopenLinkView.View {
@@ -27,11 +39,19 @@ class DepositOpenLinkWebViewActivity :
     override val layoutResource: Int = R.layout.deposit_open_link_webview_activity
     override var mPresenter: DepositopenLinkView.Presenter = DepositopenLinkPresenter()
     var payment_link = ""
+    var transaction_id = ""
+    var mainHandler = Handler(Looper.getMainLooper())
+    var timer = Timer()
 
     companion object {
-        fun launchDepositOpenLinkWebViewActivity(context: Context, payment_link: String?) {
+        fun launchDepositOpenLinkWebViewActivity(
+            context: Context,
+            payment_link: String?,
+            transaction_id: String?
+        ) {
             val intent = Intent(context, DepositOpenLinkWebViewActivity::class.java)
             intent.putExtra(Constants.Deposit.Payment_Link, payment_link)
+            intent.putExtra(Constants.Deposit.TRANSATION_ID, transaction_id)
             context.startActivity(intent)
         }
     }
@@ -40,16 +60,48 @@ class DepositOpenLinkWebViewActivity :
         super.initView()
         openWebView()
         toolBar()
+        repeatTimer()
+    }
 
+    private fun repeatTimer() {
+        timer.scheduleAtFixedRate(
+            object : TimerTask() {
+                override fun run() {
+                    callApi()
+                }
+            }, 1000, 18000
+        )
+    }
+
+    private fun callApi() {
+        if (intent.hasExtra(Constants.Deposit.TRANSATION_ID)) {
+            transaction_id = intent.getStringExtra(Constants.Deposit.TRANSATION_ID).toString()
+            mPresenter.getQueryOrder(
+                UTSwapApp.instance,
+                DepositObj.DataQueryOrderBody(transaction_id)
+            )
+        }
     }
 
     override fun getQueryOrderSuccess(data: DataQueryOrderObj.DataQueryOrderRes) {
-
+        if (data.data?.dataQueryOrder?.data?.status == "SUCCESS") {
+            timer.cancel()
+            Toast.makeText(this@DepositOpenLinkWebViewActivity, "Sussess", Toast.LENGTH_SHORT)
+                .show()
+            startActivity(Intent(this, DepositSuccessfullyActivity::class.java))
+        }
+//        else{
+//            repeatTimer()
+//           // callApi()
+////            lifecycleScope.launch {
+////                delay(60000)
+////                callApi()
+////                Toast.makeText(this@DepositOpenLinkWebViewActivity, "Call again", Toast.LENGTH_SHORT).show()
+////            }
+//        }
     }
 
-    override fun getQueryOrderFail(data: String) {
-
-    }
+    override fun getQueryOrderFail(data: String) {}
 
     private fun openWebView() {
         val mWebChromeClient = object : WebChromeClient() {
@@ -105,44 +157,14 @@ class DepositOpenLinkWebViewActivity :
                     Log.d("Finished", "onPageFinished")
                 }
 
-                override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?): Boolean {
+                override fun shouldOverrideUrlLoading(
+                    view: WebView?,
+                    request: WebResourceRequest?
+                ): Boolean {
                     return false
                 }
             }
-//            webView.webChromeClient = object : WebChromeClient() {
-//                override fun onProgressChanged(view: WebView?, newProgress: Int) {
-//                    super.onProgressChanged(view, newProgress)
-//                    Log.d(TAG, "onProgressChanged Progress $newProgress")
-//                    if (newProgress ==100){
-//                     //   startActivity(Intent(this@DepositOpenLinkWebViewActivity,MainActivity::class.java))
-//                    }
-//                }
-//            }
 
-//            webView.webViewClient = object : WebViewClient() {
-//                override fun shouldInterceptRequest(
-//                    view: WebView,
-//                    request: WebResourceRequest
-//                ): WebResourceResponse? {
-//                    return super.shouldInterceptRequest(view, request)
-//                    Log.d(TAG, "Request Data  $request")
-//                }
-//            }
-//            webView.webChromeClient = object: WebChromeClient() {
-//                override fun onConsoleMessage(message: String?, lineNumber: Int, sourceID: String?) {
-//                    if (message != null) {
-//                        Log.i("WebViewConsole", message)
-//                    }
-//                }
-//            }
-//            webView.webViewClient = object : WebViewClient(){
-//                override fun onReceivedClientCertRequest(
-//                    view: WebView?,
-//                    request: ClientCertRequest?
-//                ) {
-//                    super.onReceivedClientCertRequest(view, request)
-//                }
-//            }
         }
     }
 
@@ -159,14 +181,15 @@ class DepositOpenLinkWebViewActivity :
             }
         }
     }
+
     override fun onBackPressed() {
-       binding.apply {
-           if (webView.canGoBack()) {
-               webView.goBack()
-           } else {
-               super.onBackPressed()
-           }
-       }
+        binding.apply {
+            if (webView.canGoBack()) {
+                webView.goBack()
+            } else {
+                super.onBackPressed()
+            }
+        }
     }
 
 }

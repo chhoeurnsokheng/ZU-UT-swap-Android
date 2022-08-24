@@ -134,7 +134,7 @@ class BottomSheetFinanceDepositPayment : BottomSheetDialogFragment(),
                     }
 
                     val txtFeeValue = amount.toString().toDouble() * 0.01
-                    val total = amount.toString().toDouble() + txtFeeValue
+                    val total = amount.toString().toDouble() // + txtFeeValue
 
                     tvAmount.text = "$${groupingSeparator(amount)}"
                     tvFee.text = "$${groupingSeparator(txtFeeValue)}"
@@ -233,10 +233,7 @@ class BottomSheetFinanceDepositPayment : BottomSheetDialogFragment(),
             transitionId = it.data?.transaction_id.toString()
             if (it.data?.payment_link != null) {
                 binding?.progressBar?.visibility = View.GONE
-                DepositOpenLinkWebViewActivity.launchDepositOpenLinkWebViewActivity(
-                    context,
-                    it.data?.payment_link
-                )
+                DepositOpenLinkWebViewActivity.launchDepositOpenLinkWebViewActivity(context, it.data?.payment_link, it.data?.transaction_id)
             }
 
         }, { error ->

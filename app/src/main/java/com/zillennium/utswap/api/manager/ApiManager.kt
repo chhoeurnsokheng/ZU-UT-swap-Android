@@ -81,7 +81,6 @@ open class ApiManager {
         mHistorical = retrofit.create(HistoricalService::class.java)
 
 
-
         mHomeService = retrofit.create(HomeService::class.java)
 
         mFinanceService = retrofit.create(FinanceService::class.java)

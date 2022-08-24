@@ -479,6 +479,7 @@ interface Constants {
     interface Deposit{
         companion object{
             const val Payment_Link ="payment_link"
+            const val  TRANSATION_ID= "transaction_id"
         }
     }
 

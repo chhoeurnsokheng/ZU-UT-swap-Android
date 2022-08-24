@@ -57,7 +57,7 @@ object DepositObj {
         var payment_method:String? = null
         var deep_link:String? = null
     }
-    class DataQueryOrderBody{
+    class DataQueryOrderBody(
         var out_trade_no:String? = null
-    }
+    )
 }

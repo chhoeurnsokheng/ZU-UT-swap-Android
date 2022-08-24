@@ -36,6 +36,7 @@
                 android:text="@string/deposit_success"/>
 
             <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/transaction_id"
                 android:background="@drawable/bg_gray"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -61,10 +62,10 @@
                 android:orientation="vertical">
 
                 <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/txt_total_balance"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-
                     android:layout_marginBottom="@dimen/dimen_10"
                     android:text=" You have made a deposit $100.6 with your Bank Account " />
 

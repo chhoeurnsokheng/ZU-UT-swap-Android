@@ -20,8 +20,9 @@ class DataQueryOrderObj {
         var data:Data? = null
     }
     class Data {
-        var total_amount:Int ? =null
+        var total_amount:String ? =null
         var currency:String ? = null
-        var status:String ? = null
+        var status:String? = null
     }
+
 }
