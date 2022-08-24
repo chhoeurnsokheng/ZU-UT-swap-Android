@@ -19,6 +19,7 @@ import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.api.manager.ApiFinanceImp
 import com.zillennium.utswap.api.manager.ApiManager
+import com.zillennium.utswap.module.system.notification.NotificationActivity
 import com.zillennium.utswap.utils.MobileSetting
 import me.leolin.shortcutbadger.ShortcutBadger
 import java.util.*
@@ -37,6 +38,8 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             var message = data["body"]
             var id = data["id"]
         }
+        val intent = (Intent(this, NotificationActivity::class.java))
+        displayNotification(message.notification?.title.toString(), message.notification?.body.toString(),intent, 1)
     }
 
     override fun onNewToken(token: String) {

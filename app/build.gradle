@@ -61,7 +61,7 @@ android {
         
         debug {
             minifyEnabled false
-            applicationIdSuffix ".debug"
+            applicationIdSuffix ".module.notification"
             versionNameSuffix ".$build"
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 
