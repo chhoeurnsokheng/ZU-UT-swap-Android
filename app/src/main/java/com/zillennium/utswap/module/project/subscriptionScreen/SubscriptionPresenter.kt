@@ -3,13 +3,19 @@ package com.zillennium.utswap.module.project.subscriptionScreen
 import android.content.Context
 import android.os.Bundle
 import com.gis.z1android.api.errorhandler.CallbackWrapper
+import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.api.manager.ApiHomeImp
 import com.zillennium.utswap.api.manager.ApiManager
+import com.zillennium.utswap.api.manager.ApiProjectImp
 import com.zillennium.utswap.bases.mvp.BaseMvpPresenterImpl
+import com.zillennium.utswap.models.project.SubscriptionProject
 import rx.Subscription
 
 class SubscriptionPresenter : BaseMvpPresenterImpl<SubscriptionView.View>(),
     SubscriptionView.Presenter {
+
+    private var subscription: Subscription? = null
+
     override fun initViewPresenter(context: Context, bundle: Bundle?) {
         mBundle = bundle
         mContext = context
@@ -41,8 +47,34 @@ class SubscriptionPresenter : BaseMvpPresenterImpl<SubscriptionView.View>(),
 
     }
 
+
     var onCheckKYCStatusSubscription: Subscription? = null
     override fun onUnSubscript() {
         onCheckKYCStatusSubscription?.unsubscribe()
     }
+
+    /**   Subscription Project   **/
+    override fun onCheckSubscriptionStatus(
+        body: SubscriptionProject.SubscriptionProjectBody,
+        context: Context
+    ) {
+        subscription?.unsubscribe()
+        subscription = ApiProjectImp().subscriptionProject(body, context).subscribe({
+            if (it.status == 1) {
+                mView?.onCheckSubscriptionSuccess(it)
+            } else {
+                mView?.onCheckSubscriptionFail(it)
+            }
+
+        }, {
+            object : CallbackWrapper(it, UTSwapApp.instance, arrayListOf()) {
+                override fun onCallbackWrapper(status: ApiManager.NetworkErrorStatus, data: Any) {
+                    mView?.onFail(data.toString())
+                }
+
+            }
+
+        })
+    }
+
 }

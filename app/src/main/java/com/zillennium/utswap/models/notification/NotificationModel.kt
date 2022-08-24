@@ -1,7 +1,5 @@
 package com.zillennium.utswap.models.notification
 
-import com.zillennium.utswap.models.project.ProjectList
-
 object NotificationModel {
     class NotificationRes {
         var status: Int? = null

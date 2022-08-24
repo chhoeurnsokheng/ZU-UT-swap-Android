@@ -27,30 +27,54 @@
                 android:layout_marginTop="@dimen/dimen_20"
                 android:text="@string/Premium_Professional"
                 android:textAppearance="@style/medium_24"
-                android:textColor="@color/primary"/>
+                android:textColor="@color/primary" />
 
             <TextView
+                android:id="@+id/tv_project_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_10"
                 android:text="@string/ut_pochentong"
                 android:textAppearance="@style/medium_16"
-                android:textColor="@color/black_000000"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_20"
-                android:text="@string/subscription_lock_period"
-                android:textAppearance="@style/regular_10"
                 android:textColor="@color/black_000000" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_20"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/subscription_lock_period"
+                    android:textAppearance="@style/regular_10"
+                    android:textColor="@color/black_000000" />
+
+                <TextView
+                    android:id="@+id/tv_time_lock"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_3"
+                    android:text="60"
+                    android:textAppearance="@style/regular_10"
+                    android:textColor="@color/black_000000" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_3"
+                    android:text="Day(s)"
+                    android:textAppearance="@style/regular_10"
+                    android:textColor="@color/black_000000" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_25"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -71,49 +95,67 @@
                         android:background="@drawable/outline_subscription"
                         android:backgroundTint="@color/primary"
                         android:inputType="number"
-                        android:maxLength="10"
                         android:paddingHorizontal="@dimen/dimen_35"
                         android:singleLine="true"
-                        android:textAppearance="@style/regular_14"
                         android:textAlignment="textEnd"
-                        android:textColor="@color/black_222222"/>
+                        android:textAppearance="@style/regular_14"
+                        android:textColor="@color/black_222222" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="UT"
-                        android:textAppearance="@style/regular_14"
-                        android:textColor="@color/dark_gray"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
-                        android:layout_marginEnd="@dimen/dimen_12"/>
+                        android:layout_marginEnd="@dimen/dimen_12"
+                        android:text="UT"
+                        android:textAppearance="@style/regular_14"
+                        android:textColor="@color/dark_gray" />
 
                 </RelativeLayout>
             </LinearLayout>
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="@dimen/dimen_10"
+                android:gravity="center"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dimen_10"
+                    android:layout_alignParentStart="true"
+                    android:gravity="center_vertical"
                     android:text="@string/subscription_price"
                     android:textAppearance="@style/regular_12"
                     android:textColor="@color/black_000000" />
 
-                <TextView
-                    android:id="@+id/txt_subscript_price"
-                    android:layout_width="match_parent"
+                <LinearLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dimen_10"
-                    android:gravity="end"
-                    android:text="0.00"
-                    android:textAppearance="@style/regular_12"
-                    android:textColor="@color/black_000000" />
-            </LinearLayout>
+                    android:layout_alignParentEnd="true">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center"
+                        android:text="$"
+                        android:textAppearance="@style/medium_12"
+                        android:textColor="@color/black_000000" />
+
+                    <TextView
+                        android:id="@+id/tv_subscript_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="@dimen/dimen_2"
+                        android:text="0.00"
+                        android:textAppearance="@style/regular_12"
+                        android:textColor="@color/black_000000" />
+                </LinearLayout>
+            </RelativeLayout>
 
             <LinearLayout
                 android:id="@+id/btn_subscript"

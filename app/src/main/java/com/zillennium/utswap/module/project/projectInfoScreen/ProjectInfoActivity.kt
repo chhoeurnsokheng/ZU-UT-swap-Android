@@ -41,7 +41,7 @@ class ProjectInfoActivity :
 
     override var mPresenter: ProjectInfoView.Presenter = ProjectInfoPresenter()
     override val layoutResource: Int = R.layout.activity_project_info
-
+    private var projectName = ""
     private var termCondition = true
     private var condition = true
     private var imagesSlider: ArrayList<String> = arrayListOf()
@@ -69,7 +69,7 @@ class ProjectInfoActivity :
         }
 
         if (intent.hasExtra(Constants.Project.ProjectName)) {
-            val projectName = intent?.getStringExtra(Constants.Project.ProjectName)
+            projectName = intent?.getStringExtra(Constants.Project.ProjectName).toString()
             binding.apply {
                 txtDetailTitle.text = projectName
             }
@@ -328,8 +328,10 @@ class ProjectInfoActivity :
                 btnSubscript.visibility = View.VISIBLE
                 btnUpcoming.visibility = View.GONE
                 btnSubscript.setOnClickListener {
-                    val intent = Intent(UTSwapApp.instance, SubscriptionActivity::class.java)
-                    startActivity(intent)
+                    SubscriptionActivity.launchSubscriptionActivity(this@ProjectInfoActivity,
+                        data.id,
+                        projectName
+                    )
                 }
             }
             if (data.action == "Trade") {

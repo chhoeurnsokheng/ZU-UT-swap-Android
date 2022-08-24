@@ -15,6 +15,7 @@ import androidx.fragment.app.DialogFragment
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.databinding.DialogSecurityFundPasswordBinding
+import com.zillennium.utswap.module.project.subscriptionScreen.SubscriptionActivity
 import com.zillennium.utswap.module.project.subscriptionScreen.dialog.SubscriptionConfirmDialog
 import eightbitlab.com.blurview.RenderScriptBlur
 import java.lang.Exception
@@ -25,6 +26,28 @@ class FundPasswordDialog : DialogFragment() {
     private var binding: DialogSecurityFundPasswordBinding? = null
     private var codes: String = ""
     private var subCode: String = ""
+
+    companion object {
+        fun newInstance(
+            volume: String?,
+            title: String?,
+            lockTime: String,
+            projectName: String,
+            volumePrice: Double,
+            subscriptionPrice: String
+        ): FundPasswordDialog {
+            val subscriptionConfirmDialog = FundPasswordDialog()
+            val args = Bundle()
+            args.putString("volume", volume)
+            args.putString("title", title)
+            args.putString("project_name", projectName)
+            args.putString("lock_time", lockTime)
+            args.putDouble("volume_price", volumePrice)
+            args.putString("subscription_price", subscriptionPrice)
+            subscriptionConfirmDialog.arguments = args
+            return subscriptionConfirmDialog
+        }
+    }
 
     override fun getTheme(): Int {
         return R.style.FullScreenDialog
@@ -37,7 +60,12 @@ class FundPasswordDialog : DialogFragment() {
     ): View? {
         dialog?.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        binding = DataBindingUtil.inflate(inflater, R.layout.dialog_security_fund_password, container, true)
+        binding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.dialog_security_fund_password,
+            container,
+            true
+        )
         return binding?.root
     }
 
@@ -54,7 +82,7 @@ class FundPasswordDialog : DialogFragment() {
                         .setHasFixedTransformationMatrix(false)
                         .setOverlayColor(getColor(R.color.white))
                     imgBack.setOnClickListener {
-                        when(javaClass.simpleName.toString()){
+                        when (javaClass.simpleName.toString()) {
                             "WithdrawActivity" -> {
                                 dismiss()
                             }
@@ -62,8 +90,19 @@ class FundPasswordDialog : DialogFragment() {
                                 dismiss()
                             }
                             else -> {
-                                val subscriptionConfirmDialog: SubscriptionConfirmDialog = SubscriptionConfirmDialog.newInstance(arguments?.get("volume").toString(),arguments?.get("title").toString())
-                                subscriptionConfirmDialog.show(requireActivity().supportFragmentManager, "balanceHistoryDetailDialog")
+                                val subscriptionConfirmDialog: SubscriptionConfirmDialog =
+                                    SubscriptionConfirmDialog.newInstance(
+                                        arguments?.get("volume").toString(),
+                                        arguments?.get("title").toString(),
+                                        arguments?.get("project_name").toString(),
+                                        arguments?.get("lock_time").toString(),
+                                        arguments?.get("volume_price").toString().toDouble(),
+                                        arguments?.get("subscription_price").toString(),
+                                    )
+                                subscriptionConfirmDialog.show(
+                                    requireActivity().supportFragmentManager,
+                                    "balanceHistoryDetailDialog"
+                                )
                                 dismiss()
                             }
                         }
@@ -89,64 +128,91 @@ class FundPasswordDialog : DialogFragment() {
                         }
                     }
 
-                    removeNumber.setOnClickListener { removeNumber()  }
+                    removeNumber.setOnClickListener { removeNumber() }
                 }
 
 
-
             }
-        }catch (error: Exception){
+        } catch (error: Exception) {
             Log.d("error", error.toString())
         }
 
     }
 
-    private fun setNumber(number: Number){
-        codes += if(codes.length < 4){ number.toString() } else { "" }
+    private fun setNumber(number: Number) {
+        codes += if (codes.length < 4) {
+            number.toString()
+        } else {
+            ""
+        }
         setPingCode()
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
-    private fun setPingCode(){
+    private fun setPingCode() {
         binding?.apply {
-            for (pingCode in layPingCode.children){
-                pingCode.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_circular_border)
+            for (pingCode in layPingCode.children) {
+                pingCode.background =
+                    ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_circular_border)
             }
 
             if (codes.isNotEmpty()) {
                 for (i in codes.indices) {
-                    layPingCode.getChildAt(i).background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_circular)
+                    layPingCode.getChildAt(i).background =
+                        ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_circular)
                 }
             } else {
                 for (i in subCode.indices) {
-                    layPingCode.getChildAt(i).background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_circular)
+                    layPingCode.getChildAt(i).background =
+                        ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_circular)
                 }
             }
 
 
 
-            if(codes.length == 4){
+            if (codes.length == 4) {
                 subCode = codes
                 layProgressBar.visibility = View.VISIBLE
                 Handler().postDelayed({
-                    if(codes == "1111"){
+                    if (codes == "1111") {
+                        SubscriptionActivity.funPassword = codes
                         imgIcon.setImageResource(R.drawable.ic_fund_key_success)
                         txtMessage.text = "Success"
-                        txtMessage.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.success))
-                        for (pingCode in layPingCode.children){
-                            pingCode.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.success))
+                        txtMessage.setTextColor(
+                            ContextCompat.getColor(
+                                UTSwapApp.instance,
+                                R.color.success
+                            )
+                        )
+                        for (pingCode in layPingCode.children) {
+                            pingCode.backgroundTintList = ColorStateList.valueOf(
+                                ContextCompat.getColor(
+                                    UTSwapApp.instance,
+                                    R.color.success
+                                )
+                            )
                         }
                         Handler().postDelayed({
                             layProgressBar.visibility = View.GONE
                             dismiss()
                         }, 3000)
 
-                    }else{
+                    } else {
                         imgIcon.setImageResource(R.drawable.ic_fund_key_invalid)
                         txtMessage.text = "Invalid"
-                        txtMessage.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
-                        for (pingCode in layPingCode.children){
-                            pingCode.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
+                        txtMessage.setTextColor(
+                            ContextCompat.getColor(
+                                UTSwapApp.instance,
+                                R.color.danger
+                            )
+                        )
+                        for (pingCode in layPingCode.children) {
+                            pingCode.backgroundTintList = ColorStateList.valueOf(
+                                ContextCompat.getColor(
+                                    UTSwapApp.instance,
+                                    R.color.danger
+                                )
+                            )
                         }
                         layProgressBar.visibility = View.GONE
                         codes = ""
@@ -155,27 +221,32 @@ class FundPasswordDialog : DialogFragment() {
                 }, 3000)
 
 
-            }else{
+            } else {
                 imgIcon.setImageResource(R.drawable.ic_fund_key_normal)
                 txtMessage.text = "Enter Fund Password"
                 txtMessage.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
-                for (pingCode in layPingCode.children){
-                    pingCode.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
+                for (pingCode in layPingCode.children) {
+                    pingCode.backgroundTintList = ColorStateList.valueOf(
+                        ContextCompat.getColor(
+                            UTSwapApp.instance,
+                            R.color.primary
+                        )
+                    )
                 }
             }
 
         }
     }
 
-    private fun removeNumber(){
+    private fun removeNumber() {
         if (codes.isNotEmpty()) {
-            if(codes.length in 1..4){
-                codes = codes.substring(0, codes.length -1)
+            if (codes.length in 1..4) {
+                codes = codes.substring(0, codes.length - 1)
                 setPingCode()
             }
         } else {
-            if(subCode.length in 1..4){
-                subCode = subCode.substring(0, subCode.length -1)
+            if (subCode.length in 1..4) {
+                subCode = subCode.substring(0, subCode.length - 1)
                 setPingCode()
             }
         }
@@ -183,18 +254,5 @@ class FundPasswordDialog : DialogFragment() {
 
     }
 
-    companion object {
-        fun newInstance(
-            volume: String?,
-            title: String?
-        ): FundPasswordDialog {
-            val subscriptionConfirmDialog = FundPasswordDialog()
-            val args = Bundle()
-            args.putString("volume",volume)
-            args.putString("title",title)
-            subscriptionConfirmDialog.arguments = args
-            return subscriptionConfirmDialog
-        }
-    }
 
 }

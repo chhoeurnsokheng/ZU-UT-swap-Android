@@ -4,6 +4,7 @@ import android.text.InputFilter
 import android.text.Spanned
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
+import java.util.*
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 
@@ -29,6 +30,16 @@ fun groupingSeparatorInt(number: Any): String{
 //    df.maximumFractionDigits = 2
 
     return df.format(number)
+}
+
+
+fun formatThreeDigitValue(value: Number, formatString: String): String? {
+   val DECIMAL_FORMAT = "###,###.#"
+    val formatSymbols = DecimalFormatSymbols(Locale.ENGLISH)
+    formatSymbols.decimalSeparator = '.'
+    formatSymbols.groupingSeparator = ' '
+    val formatter = DecimalFormat(formatString, formatSymbols)
+    return formatter.format(value)
 }
 
 internal class DecimalDigitsInputFilter(digitsBeforeZero: Int, digitsAfterZero: Int) :

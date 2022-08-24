@@ -50,7 +50,7 @@ object ApiSettings {
     const val PATH_PROJECT_DETAIL = "issue/project_detail"
 
     /**        Subscription Project       **/
-
+    const val PATH_SUBSCRIPTION_PROJECT = "issue/available_subscription"
 
     /** Finance */
     const val PATH_SUBSCRIPTION = "Issue/log"
@@ -87,9 +87,9 @@ object ApiSettings {
     /** Upcomming project in trading list screen*/
     const val PATH_UPCOMING_PROJECT_TRADING_LIST = "trade/getUpcomingProject"
 
-     /*Get Banner HomeScreen*/
-    const val PATH_GET_BANNNER= "portfolio/app_banner"
-    const val PATH_GET_HOME_WISHLIST_BALANCE ="portfolio/index"
+    /*Get Banner HomeScreen*/
+    const val PATH_GET_BANNNER = "portfolio/app_banner"
+    const val PATH_GET_HOME_WISHLIST_BALANCE = "portfolio/index"
 
     /** Account Upload Profile*/
     const val PATH_ACCOUNT_UPLOAD_PROFILE = "user/uploadImageProfile"

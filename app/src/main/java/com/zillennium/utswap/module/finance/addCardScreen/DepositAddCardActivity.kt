@@ -91,19 +91,6 @@ class DepositAddCardActivity :
                         }
                         count = etCardNumber.text.toString().length
 
-//                        var source = s.toString()
-//                        if (lastSource != source) {
-//                            source = source.replace(WHITE_SPACE, EMPTY_STRING)
-//                            val stringBuilder = StringBuilder()
-//                            for (i in source.indices) {
-//                                if (i > 0 && i % 4 == 0) {
-//                                    stringBuilder.append(WHITE_SPACE)
-//                                }
-//                                stringBuilder.append(source[i])
-//                            }
-//                            lastSource = stringBuilder.toString()
-//                            s!!.replace(0, s.length, lastSource)
-//                        }
                     }
 
                 })

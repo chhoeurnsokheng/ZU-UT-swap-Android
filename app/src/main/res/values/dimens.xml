@@ -15,6 +15,7 @@
     <dimen name="font_size_12">12sp</dimen>
     <dimen name="font_size_10">10sp</dimen>
     <dimen name="font_size_8">8sp</dimen>
+    <dimen name="font_size_9">9sp</dimen>
     <dimen name="font_size_6">6sp</dimen>
 
     <!--dimens for margins/other dimensions-->

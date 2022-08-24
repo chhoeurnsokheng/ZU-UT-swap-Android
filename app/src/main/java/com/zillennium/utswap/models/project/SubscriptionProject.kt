@@ -4,16 +4,29 @@ object SubscriptionProject {
     class SubscriptionProjectRes {
         var status: Int? = null
         var message: String? = null
-        var data: ArrayList<SubscriptionProjectData>? = null
+        var data: ArrayList<SubscriptionProjectData>? = arrayListOf()
     }
 
     class SubscriptionProjectData {
+        var id: Int = 0
         var num: Int? = null
         var deal: Int? = null
-        var price: Int? = null
+        var price: Double? = null
         var jian: Int? = null
         var addtime: String? = null
         var endtime: String? = null
         var user_account_type: String? = null
     }
+
+    class SubscriptionProjectBody(
+        var id: Int? = null,
+        var date_range: String? = null
+    )
+
+    class SubscribeBody {
+        var id = 0
+        var ut_number = 0
+        var fund_password = ""
+    }
+
 }

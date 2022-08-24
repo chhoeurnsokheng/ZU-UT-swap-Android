@@ -16,9 +16,31 @@ import com.zillennium.utswap.module.project.subscriptionScreen.bottomSheet.Subsc
 import com.zillennium.utswap.module.security.securityDialog.FundPasswordDialog
 import eightbitlab.com.blurview.RenderScriptBlur
 
-class SubscriptionConfirmDialog : DialogFragment(){
+class SubscriptionConfirmDialog : DialogFragment() {
 
     private var binding: DialogNavbarProjectSubscriptionConfirmBinding? = null
+
+    companion object {
+        fun newInstance(
+            volume: String?,
+            title: String?,
+            projectName: String?,
+            lockTime: String?,
+            volumePrice: Double,
+            subscriptionPrice: String?
+        ): SubscriptionConfirmDialog {
+            val subscriptionConfirmDialog = SubscriptionConfirmDialog()
+            val args = Bundle()
+            args.putString("volume", volume)
+            args.putString("title", title)
+            args.putString("project_name", projectName)
+            args.putString("lock_time", lockTime)
+            args.putDouble("volume_price", volumePrice)
+            args.putString("subscription_price", subscriptionPrice)
+            subscriptionConfirmDialog.arguments = args
+            return subscriptionConfirmDialog
+        }
+    }
 
     override fun getTheme(): Int {
         return R.style.FullScreenDialog
@@ -32,9 +54,16 @@ class SubscriptionConfirmDialog : DialogFragment(){
         dialog?.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         binding =
-            DataBindingUtil.inflate(inflater, R.layout.dialog_navbar_project_subscription_confirm, container, true)
-
+            DataBindingUtil.inflate(
+                inflater,
+                R.layout.dialog_navbar_project_subscription_confirm,
+                container,
+                true
+            )
         binding?.txtVolume?.text = arguments?.get("volume").toString()
+        binding?.tvSubscriptionsPrice?.text = arguments?.get("subscription_price").toString()
+        binding?.tvProjectTitle?.text = arguments?.get("project_name").toString()
+        binding?.tvTimeLock?.text = arguments?.get("lock_time").toString()
         return binding?.root
     }
 
@@ -42,19 +71,36 @@ class SubscriptionConfirmDialog : DialogFragment(){
         super.onViewCreated(view, savedInstanceState)
 
         binding?.apply {
+
             btnBack.setOnClickListener {
-                val subscriptionBottomSheetDialog: SubscriptionBottomSheet = SubscriptionBottomSheet.newInstance(
-                    arguments?.get("title").toString(),
+                val subscriptionBottomSheetDialog: SubscriptionBottomSheet =
+                    SubscriptionBottomSheet.newInstance(
+                        arguments?.get("volume").toString(),
+                        arguments?.get("title").toString(),
+                        arguments?.get("project_name").toString(),
+                        arguments?.get("lock_time").toString(),
+                        arguments?.get("volume_price").toString().toDouble(),
+                        arguments?.get("subscription_price").toString(),
+                    )
+                subscriptionBottomSheetDialog.show(
+                    requireActivity().supportFragmentManager,
+                    "balanceHistoryDetailDialog"
                 )
-                subscriptionBottomSheetDialog.show(requireActivity().supportFragmentManager, "balanceHistoryDetailDialog")
                 dismiss()
             }
             btnConfirm.setOnClickListener {
                 val fundPasswordDialog: FundPasswordDialog = FundPasswordDialog.newInstance(
                     arguments?.get("volume").toString(),
-                    arguments?.get("title").toString()
+                    arguments?.get("title").toString(),
+                    arguments?.get("project_name").toString(),
+                    arguments?.get("lock_time").toString(),
+                    arguments?.get("volume_price").toString().toDouble(),
+                    arguments?.get("subscription_price").toString()
                 )
-                fundPasswordDialog.show(requireActivity().supportFragmentManager, "balanceHistoryDetailDialog")
+                fundPasswordDialog.show(
+                    requireActivity().supportFragmentManager,
+                    "balanceHistoryDetailDialog"
+                )
                 dismiss()
             }
             activity?.apply {
@@ -68,20 +114,6 @@ class SubscriptionConfirmDialog : DialogFragment(){
         }
 
 
-
     }
 
-    companion object {
-        fun newInstance(
-            volume: String?,
-            title: String?
-        ): SubscriptionConfirmDialog {
-            val subscriptionConfirmDialog = SubscriptionConfirmDialog()
-            val args = Bundle()
-            args.putString("volume",volume)
-            args.putString("title",title)
-            subscriptionConfirmDialog.arguments = args
-            return subscriptionConfirmDialog
-        }
-    }
 }

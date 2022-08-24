@@ -1,63 +1,66 @@
 package com.zillennium.utswap.module.project.subscriptionScreen.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
-import android.widget.TextView
-import androidx.recyclerview.widget.RecyclerView
-import com.zillennium.utswap.R
-import com.zillennium.utswap.models.SubscriptionModel
-import com.zillennium.utswap.utils.groupingSeparator
+import com.zillennium.utswap.bases.mvp.BaseRecyclerViewAdapterGeneric
+import com.zillennium.utswap.bases.mvp.BaseViewHolder
+import com.zillennium.utswap.databinding.ItemListProjectSubscriptionBinding
+import com.zillennium.utswap.models.project.SubscriptionProject
+import com.zillennium.utswap.utils.formatThreeDigitValue
+import com.zillennium.utswap.utils.groupingSeparatorInt
 
-class SubscriptionAdapter(arrayList: ArrayList<SubscriptionModel>, onclickAdapter: OnclickAdapter):
-    RecyclerView.Adapter<SubscriptionAdapter.ViewHolder>()
-{
-    private var list_data: ArrayList<SubscriptionModel> = arrayList
-    private val onclickAdapter: OnclickAdapter
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        var tv_title: TextView = view.findViewById<View>(R.id.tv_title) as TextView
-        var tv_dollar: TextView = view.findViewById<View>(R.id.tv_dollar) as TextView
-        var tv_day_lock: TextView = view.findViewById<View>(R.id.tv_day_lock) as TextView
-        var tv_ut_value: TextView = view.findViewById<View>(R.id.tv_ut_value) as TextView
-        var tv_ut_main_value: TextView = view.findViewById<View>(R.id.tv_ut_main_value) as TextView
-        var determinateBar: ProgressBar = view.findViewById<View>(R.id.determinateBar) as ProgressBar
-        var tv_day_lock_text: TextView = view.findViewById(R.id.tv_day_lock_text)
-    }
+class SubscriptionAdapter(var onclickAdapter: OnclickAdapter) :
+    BaseRecyclerViewAdapterGeneric<SubscriptionProject.SubscriptionProjectData, SubscriptionAdapter.SubscriptionViewHolder>() {
+    inner class SubscriptionViewHolder(root: ItemListProjectSubscriptionBinding) :
+        BaseViewHolder<ItemListProjectSubscriptionBinding>(root) {
+        fun bindData(subscriptionList: SubscriptionProject.SubscriptionProjectData) {
+            binding.apply {
+                val Dollar = subscriptionList.price.let { formatThreeDigitValue(it?:0, "###,###.##") }
+                val UtValue = subscriptionList.deal?.let { groupingSeparatorInt(it.toInt()) }
+                val UtMainValue = subscriptionList.num?.let { groupingSeparatorInt(it.toInt()) }
+                tvTitle.text = subscriptionList.user_account_type
+                tvDollar.text = Dollar.toString()
+                tvDayLock.text = subscriptionList.jian.toString()
+                tvUtValue.text = UtValue.toString()
+                tvUtMainValue.text = UtMainValue.toString()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.item_list_project_subscription, parent, false)
-        )
-    }
+                itemView.setOnClickListener {
+                    if (Dollar != null) {
+                        onclickAdapter.onClickMe(
+                            subscriptionList.user_account_type.toString(),
+                            subscriptionList.jian.toString(),
+                            subscriptionList.id,
+                            Dollar.toDouble()
+                        )
+                    }
+                }
+                determinateBar.progress =
+                    ((subscriptionList.deal?.toInt() ?: 0) * 100) / (subscriptionList.num?.toInt()
+                        ?: 0)
+            }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val subscriptionList: SubscriptionModel = list_data[position]
-        holder.tv_title.text = subscriptionList.tv_title
-        holder.tv_dollar.text = groupingSeparator(subscriptionList.tv_dollar)
-        holder.tv_day_lock.text = subscriptionList.tv_day_lock
-        holder.tv_ut_value.text = subscriptionList.tv_ut_value.toString()
-        holder.tv_ut_main_value.text = subscriptionList.tv_ut_main_value.toString()
-        holder.tv_day_lock_text.visibility = if (subscriptionList.tv_day_lock == "No Lock") View.GONE else View.VISIBLE
 
-        holder.itemView.setOnClickListener{
-            onclickAdapter.onClickMe(subscriptionList)
         }
-        holder.determinateBar.progress = (subscriptionList.tv_ut_value.toInt() * 100)/subscriptionList.tv_ut_main_value.toInt()
+
     }
 
-    override fun getItemCount(): Int {
-        return list_data.size
+    override fun onCreateItemHolder(
+        inflater: LayoutInflater,
+        parent: ViewGroup,
+        viewType: Int
+    ) = SubscriptionViewHolder(
+        ItemListProjectSubscriptionBinding.inflate(inflater, parent, false)
+    )
+
+    override fun onBindItemHolder(holder: SubscriptionViewHolder, position: Int, context: Context) {
+        holder.bindData(items[position])
     }
 
-    interface OnclickAdapter{
-        fun onClickMe(subscriptionModel: SubscriptionModel)
+    interface OnclickAdapter {
+        fun onClickMe(title: String, lockTime: String, subscriptionId: Int, volumePrice: Double)
     }
 
-    init {
-        this.list_data = arrayList
-        this.onclickAdapter = onclickAdapter
-    }
 }
 
 

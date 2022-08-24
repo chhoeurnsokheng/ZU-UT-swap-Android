@@ -12,29 +12,30 @@
             android:layout_width="280dp"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:layout_gravity="center"
             android:layout_marginStart="@dimen/dimen_10"
             android:layout_marginTop="@dimen/dimen_10"
             android:layout_marginEnd="@dimen/dimen_10"
             android:layout_marginBottom="@dimen/dimen_10"
             android:orientation="vertical"
-            app:cardCornerRadius="@dimen/dimen_10"
-            android:layout_gravity="center">
+            app:cardCornerRadius="@dimen/dimen_10">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="@dimen/dimen_24"
                 android:layout_marginHorizontal="@dimen/dimen_25"
-                android:layout_marginBottom="@dimen/dimen_20">
+                android:layout_marginTop="@dimen/dimen_24"
+                android:layout_marginBottom="@dimen/dimen_20"
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dimen_28"
                     android:gravity="center"
                     android:text="@string/Please_confirm_your_order"
                     android:textAppearance="@style/regular_14"
-                    android:layout_marginBottom="@dimen/dimen_28"/>
+                    android:textColor="@color/gray_999999" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -50,14 +51,17 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/Subscription"
-                            android:textAppearance="@style/regular_12" />
+                            android:textAppearance="@style/regular_12"
+                            android:textColor="@color/gray_999999" />
 
                         <TextView
+                            android:id="@+id/tv_project_title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
                             android:text="@string/ut_pochentong"
-                            android:textAppearance="@style/regular_12" />
+                            android:textAppearance="@style/regular_12"
+                            android:textColor="@color/gray_999999" />
                     </RelativeLayout>
 
                     <View
@@ -80,7 +84,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/volume_input"
-                            android:textAppearance="@style/regular_12" />
+                            android:textAppearance="@style/regular_12"
+                            android:textColor="@color/gray_999999" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -93,14 +98,16 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentEnd="true"
                                 android:text="500"
-                                android:textAppearance="@style/regular_12" />
+                                android:textAppearance="@style/regular_12"
+                                android:textColor="@color/gray_999999" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/dimen_5"
                                 android:text="UT"
-                                android:textAppearance="@style/regular_12" />
+                                android:textAppearance="@style/regular_12"
+                                android:textColor="@color/gray_999999" />
                         </LinearLayout>
                     </RelativeLayout>
 
@@ -113,38 +120,101 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginBottom="@dimen/dimen_20">
+                    android:layout_marginBottom="@dimen/dimen_20"
+                    android:orientation="vertical">
 
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
                         android:layout_marginVertical="@dimen/dimen_10">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/price"
-                            android:textAppearance="@style/regular_12" />
+                            android:textAppearance="@style/regular_12"
+                            android:textColor="@color/gray_999999" />
 
-                        <TextView
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
-                            android:text="@string/money3"
-                            android:textAppearance="@style/regular_12" />
+                            android:layout_centerInParent="true"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:gravity="center"
+                                android:text="$"
+                                android:textAppearance="@style/medium_12"
+                                android:textColor="@color/gray_999999" />
+
+                            <TextView
+                                android:id="@+id/tv_subscriptions_price"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginStart="@dimen/dimen_3"
+                                android:text="@string/money3"
+                                android:textAppearance="@style/regular_12"
+                                android:textColor="@color/gray_999999" />
+                        </LinearLayout>
                     </RelativeLayout>
 
 
                 </LinearLayout>
 
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:layout_marginBottom="@dimen/dimen_20"
                     android:gravity="center"
-                    android:text="@string/subscription_lock_period"
-                    android:textAppearance="@style/regular_10" />
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/subscription_lock_period"
+                        android:textAppearance="@style/regular_10"
+                        android:textColor="@color/gray_999999" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/dimen_3"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="period of "
+                            android:textAppearance="@style/regular_10"
+                            android:textColor="@color/gray_999999" />
+
+                        <TextView
+                            android:id="@+id/tv_time_lock"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="60"
+                            android:textAppearance="@style/regular_10"
+                            android:textColor="@color/gray_999999" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dimen_3"
+                            android:text="day(s)"
+                            android:textAppearance="@style/regular_10"
+                            android:textColor="@color/gray_999999" />
+                    </LinearLayout>
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"

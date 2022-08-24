@@ -4,6 +4,7 @@ import android.content.Context
 import com.zillennium.utswap.api.Header
 import com.zillennium.utswap.models.project.ProjectInfoDetail
 import com.zillennium.utswap.models.project.ProjectList
+import com.zillennium.utswap.models.project.SubscriptionProject
 import rx.Observable
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
@@ -32,5 +33,15 @@ class ApiProjectImp : ApiManager() {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
 
-
+    /**     Subscription Project      **/
+    fun subscriptionProject(
+        body: SubscriptionProject.SubscriptionProjectBody,
+        context: Context
+    ): Observable<SubscriptionProject.SubscriptionProjectRes> =
+        mProjectService.subscriptionProject(
+            Header.getHeader(Header.Companion.AuthType.REQUIRED, context),
+            body
+        )
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
 }

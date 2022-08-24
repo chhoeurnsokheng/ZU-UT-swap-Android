@@ -1,17 +1,19 @@
 package com.zillennium.utswap.module.project.subscriptionScreen
 
+import android.content.Context
+import android.content.Intent
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
-import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityProjectSubscriptionBinding
 
-import com.zillennium.utswap.models.SubscriptionModel
+import com.zillennium.utswap.models.project.SubscriptionProject
 import com.zillennium.utswap.models.userService.User
 import com.zillennium.utswap.module.project.subscriptionScreen.adapter.SubscriptionAdapter
 import com.zillennium.utswap.module.project.subscriptionScreen.bottomSheet.SubscriptionBottomSheet
+import com.zillennium.utswap.utils.Constants
 
 
 class SubscriptionActivity :
@@ -22,87 +24,71 @@ class SubscriptionActivity :
     override val layoutResource: Int = R.layout.activity_project_subscription
     private var kycSubmit: Boolean? = false
     private var kycComplete: Boolean? = false
+    private var mBottomSheet: SubscriptionBottomSheet? = null
+    private var subscriptionList: ArrayList<SubscriptionProject.SubscriptionProjectData> =
+        arrayListOf()
+    private var date_range = ""
+    private var projectName = ""
+
+    companion object {
+        var subId: Int = 0
+        var volume: Int = 0
+        var funPassword: String = ""
+
+        fun launchSubscriptionActivity(context: Context, id: String?, project_name: String?) {
+            val intent = Intent(context, SubscriptionActivity::class.java)
+            intent.putExtra("subscription_id", id)
+            intent.putExtra(Constants.Project.ProjectName, project_name)
+            context.startActivity(intent)
+        }
+    }
+
+//    private fun submitData(){
+//        val param = SubscriptionProject.SubscribeBody()
+//        param.id = subId
+//        param.ut_number = volume
+//        param.fund_password = funPassword
+////        mPresenter.onSubscribeData(param)
+//    }
+//
 
     override fun initView() {
         super.initView()
-        try {
+
+
 //            Handler().postDelayed({
-                binding.apply {
+        binding.apply {
+            if (intent.hasExtra("subscription_id")) {
+                var id = intent?.getStringExtra("subscription_id")
+                mPresenter.onCheckSubscriptionStatus(
+                    SubscriptionProject.SubscriptionProjectBody(
+                        id?.toInt(),
+                        ""
+                    ), UTSwapApp.instance
+                )
+            }
+            if (intent.hasExtra(Constants.Project.ProjectName)) {
+                 projectName = intent?.getStringExtra(Constants.Project.ProjectName).toString()
+                txtSubscriptionTitle.text = projectName
+            }
+//            requestDataApi()
 
-                    btnBack.setOnClickListener {
-                        onBackPressed()
-                    }
+            btnBack.setOnClickListener {
+                onBackPressed()
+            }
 
-                    SessionVariable.SESSION_STATUS.observe(this@SubscriptionActivity) {
-                        onCheckSessionStatusAndKYC()
-                    }
+            SessionVariable.SESSION_STATUS.observe(this@SubscriptionActivity) {
+                onCheckSessionStatusAndKYC()
+            }
 
-                SessionVariable.SESSION_KYC.observe(this@SubscriptionActivity){
-                    onCheckSessionStatusAndKYC()
-                }
+            SessionVariable.SESSION_KYC.observe(this@SubscriptionActivity) {
+                onCheckSessionStatusAndKYC()
+            }
 
-                    /* Recycle view of project info detail */
-                    val tvTitle = arrayOf(
-                        "Professional",
-                        "Premium, Professional",
-                        "Standard, Premium, Professional"
-                    )
-
-                    val tvDollar = arrayOf(
-                        3.90,
-                        1023.98987,
-                        4.10
-                    )
-                    val tvDayLock = arrayOf(
-                        "60",
-                        "40",
-                        "No Lock"
-                    )
-
-                    val tvUtValue = arrayOf(
-                        0,
-                        11553,
-                        24753
-                    )
-
-                    val tvUtMainValue = arrayOf(
-                        44000,
-                        77000,
-                        99000000
-                    )
-
-                if(SessionVariable.SESSION_STATUS.value  == true && kycComplete == true){
-                    recycleViewProject.alpha = 1F
-                } else{
-                    recycleViewProject.alpha = 0.6F
-                }
-                    val subscriptionArrayList = arrayListOf<SubscriptionModel>()
-                    for (i in tvTitle.indices) {
-                        val subscriptionInfo = SubscriptionModel(
-                            tvTitle[i],
-                            tvDollar[i].toInt(),
-                            tvDayLock[i],
-                            tvUtValue[i],
-                            tvUtMainValue[i]
-                        )
-                        subscriptionArrayList.add(subscriptionInfo)
-                    }
-                    recycleViewProject.layoutManager = LinearLayoutManager(UTSwapApp.instance)
-                    recycleViewProject.adapter = SubscriptionAdapter(subscriptionArrayList, onclickAdapter)
-
-                    if(SessionVariable.SESSION_STATUS.value  == true && kycComplete == true){
-                        recycleViewProject.alpha = 1F
-                    } else{
-                        recycleViewProject.alpha = 0.6F
-                    }
-
-                }
+        }
 //            }, 5000)
 
 
-        } catch (error: Exception) {
-            // Must be safe
-        }
     }
 
     override fun onCheckKYCSuccess(data: User.KycRes) {
@@ -113,38 +99,67 @@ class SubscriptionActivity :
     override fun onCheckKYCFail() {
     }
 
-    private fun onCheckSessionStatusAndKYC(){
+
+    private fun onCheckSessionStatusAndKYC() {
         binding.apply {
-            if(SessionVariable.SESSION_STATUS.value == true && kycComplete == true){
-                recycleViewProject.alpha = 1F
-            }else{
-                recycleViewProject.alpha = 0.6F
+            if (SessionVariable.SESSION_STATUS.value == true && kycComplete == true) {
+                recycleViewSubscriptionProject.alpha = 1F
+
+            } else {
+                recycleViewSubscriptionProject.alpha = 0.6F
+
             }
         }
     }
 
-    private val onclickAdapter: SubscriptionAdapter.OnclickAdapter = object: SubscriptionAdapter.OnclickAdapter{
-        override fun onClickMe(subscriptionModel: SubscriptionModel) {
-            if(SessionVariable.SESSION_STATUS.value == true && SessionVariable.SESSION_KYC.value == true){
-                val subscriptionBottomSheetDialog: SubscriptionBottomSheet = SubscriptionBottomSheet.newInstance(
-                    subscriptionModel.tv_title,
-                )
-                subscriptionBottomSheetDialog.show(supportFragmentManager, "balanceHistoryDetailDialog")
-            }
-        }
+    /**   Subscription Project   **/
+    override fun onCheckSubscriptionSuccess(data: SubscriptionProject.SubscriptionProjectRes) {
+        binding.apply {
+            data.data?.forEach {
+                txtEndTime.text = it.endtime
 
+            }
+            /* Recycle view of project info detail */
+
+            recycleViewSubscriptionProject.layoutManager = LinearLayoutManager(UTSwapApp.instance)
+            val subscriptionAdapter = SubscriptionAdapter(onclickAdapter)
+            subscriptionAdapter.items =
+                data.data as ArrayList<SubscriptionProject.SubscriptionProjectData>
+            recycleViewSubscriptionProject.adapter = subscriptionAdapter
+            subscriptionAdapter.notifyDataSetChanged()
+
+            if (SessionVariable.SESSION_STATUS.value == true && kycComplete == true) {
+                recycleViewSubscriptionProject.alpha = 1F
+            } else {
+                recycleViewSubscriptionProject.alpha = 0.6F
+            }
+
+        }
     }
 
-//    private val onclickAdapter: SubscriptionAdapter.OnclickAdapter = object: SubscriptionAdapter.OnclickAdapter{
-//        override fun onClickMe(subscriptionModel: SubscriptionModel) {
-//            if(SessionVariable.SESSION_STATUS.value == true && kycComplete == true){
-//                val subscriptionBottomSheetDialog: SubscriptionBottomSheet = SubscriptionBottomSheet.newInstance(
-//                    subscriptionModel.tv_title,
-//                )
-//                subscriptionBottomSheetDialog.show(supportFragmentManager, "balanceHistoryDetailDialog")
-//            }
-//        }
-//
-//    }
+    override fun onCheckSubscriptionFail(data: SubscriptionProject.SubscriptionProjectRes) {}
+
+    private val onclickAdapter: SubscriptionAdapter.OnclickAdapter =
+        object : SubscriptionAdapter.OnclickAdapter {
+            override fun onClickMe(title: String, lockTime: String, subscriptionId: Int, volumePrice: Double) {
+                subId = subscriptionId
+                if (SessionVariable.SESSION_STATUS.value == true && SessionVariable.SESSION_KYC.value == true) {
+                    val subscriptionBottomSheetDialog: SubscriptionBottomSheet =
+                        SubscriptionBottomSheet.newInstance(
+                            "",
+                            title,
+                            projectName,
+                            lockTime,
+                            volumePrice,
+                            ""
+                        )
+                    subscriptionBottomSheetDialog.show(
+                        supportFragmentManager,
+                        "balanceHistoryDetailDialog"
+                    )
+                }
+            }
+
+        }
 
 }
