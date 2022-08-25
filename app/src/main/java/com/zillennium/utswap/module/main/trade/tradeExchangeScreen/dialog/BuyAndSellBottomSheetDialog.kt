@@ -75,11 +75,25 @@ class BuyAndSellBottomSheetDialog(var onDismissListener: OnDismissListener) :
             txtUt.text = Constants.TradeExchange.utBalance
 
             SessionVariable.marketPriceSell.observe(this@BuyAndSellBottomSheetDialog){
-                marketPriceSell.value = SessionVariable.marketPriceSell.value.toString()
+                if(it.toString() != "" && SessionVariable.marketPriceBuy.value != ""){
+                    marketPriceSell.value = SessionVariable.marketPriceSell.value.toString()
+                    btnMarket.isClickable = true
+                    btnMarket.isEnabled = true
+                }else{
+                    btnMarket.isClickable = false
+                    btnMarket.isEnabled = false
+                }
             }
 
             SessionVariable.marketPriceBuy.observe(this@BuyAndSellBottomSheetDialog){
-                marketPriceBuy.value = SessionVariable.marketPriceBuy.value.toString()
+                if(it.toString() != "" && SessionVariable.marketPriceSell.value != ""){
+                    marketPriceBuy.value = SessionVariable.marketPriceBuy.value.toString()
+                    btnMarket.isClickable = true
+                    btnMarket.isEnabled = true
+                }else{
+                    btnMarket.isClickable = false
+                    btnMarket.isEnabled = false
+                }
             }
 
             btnBuyBottomSheet.setOnClickListener {

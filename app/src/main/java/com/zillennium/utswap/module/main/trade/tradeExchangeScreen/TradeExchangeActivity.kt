@@ -109,6 +109,8 @@ class TradeExchangeActivity :
         SessionVariable.refreshMatchingTransaction.value = false
         SessionVariable.callAvailableBalance.value = false
         SessionVariable.callDialogErrorCreateOrder.value = false
+        SessionVariable.marketPriceSell.value = ""
+        SessionVariable.marketPriceBuy.value = ""
 
         SessionVariable.refreshOrderPending.observe(this@TradeExchangeActivity){
             if(it){
@@ -932,9 +934,9 @@ class TradeExchangeActivity :
                 Constants.TradeExchange.availableBalance = "${data.data?.usd?.let { groupingSeparator(it) }}"
             }
 
-            if(data.data?.sum_ut.toString().isNotEmpty()){
-                txtUtClick.text = "${data.data?.sum_ut?.let { groupingSeparatorInt(it) }}"
-                Constants.TradeExchange.utBalance = "${data.data?.sum_ut?.let { groupingSeparatorInt(it) }}"
+            if(data.data?.xnb.toString().isNotEmpty()){
+                txtUtClick.text = "${data.data?.xnb?.let { groupingSeparatorInt(it) }}"
+                Constants.TradeExchange.utBalance = "${data.data?.xnb?.let { groupingSeparatorInt(it) }}"
             }
         }
     }
@@ -950,6 +952,8 @@ class TradeExchangeActivity :
         SessionVariable.requestTradingList.value = true
         SessionVariable.callAvailableBalance.value = false
         SessionVariable.callDialogErrorCreateOrder.value = false
+        SessionVariable.marketPriceSell.value = ""
+        SessionVariable.marketPriceBuy.value = ""
 
         page = 0
         orderPage = 1
@@ -962,6 +966,8 @@ class TradeExchangeActivity :
         SessionVariable.requestTradingList.value = true
         SessionVariable.callAvailableBalance.value = false
         SessionVariable.callDialogErrorCreateOrder.value = false
+        SessionVariable.marketPriceSell.value = ""
+        SessionVariable.marketPriceBuy.value = ""
 
         page = 0
         orderPage = 1

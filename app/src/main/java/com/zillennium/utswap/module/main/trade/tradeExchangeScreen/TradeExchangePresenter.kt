@@ -72,10 +72,11 @@ class TradeExchangePresenter : BaseMvpPresenterImpl<TradeExchangeView.View>(),
             }
 
             override fun onMessage(text: TradingList.TradingListDetailRes?) {
-                if(mView?.fetchTradeDetailData?.value != text?.market_summary)
-                {
-                    mView?.fetchTradeDetailData?.value =  text?.market_summary
-                }
+//                if(mView?.fetchTradeDetailData?.value != text?.market_summary)
+//                {
+//                    mView?.fetchTradeDetailData?.value =  text?.market_summary
+//                }
+                mView?.fetchTradeDetailData?.value =  text?.market_summary
             }
 
             override fun onFailure(throwable: Throwable?) {

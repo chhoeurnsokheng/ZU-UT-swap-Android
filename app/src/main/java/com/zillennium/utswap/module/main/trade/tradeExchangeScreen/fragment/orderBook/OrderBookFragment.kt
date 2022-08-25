@@ -62,6 +62,8 @@ class OrderBookFragment :
                 orderBookBid = OrderBookBidAdapter()
                 orderBookAsk?.items = orderBookAskList
                 binding.rvAsk.adapter = orderBookAsk
+            }else{
+                SessionVariable.marketPriceSell.value = ""
             }
 
             if(!it.buy.isNullOrEmpty()){
@@ -78,6 +80,8 @@ class OrderBookFragment :
                 orderBookAsk = OrderBookAskAdapter()
                 orderBookBid?.items = orderBookBidList
                 binding.rvBid.adapter = orderBookBid
+            }else{
+                SessionVariable.marketPriceBuy.value = ""
             }
 
         }
