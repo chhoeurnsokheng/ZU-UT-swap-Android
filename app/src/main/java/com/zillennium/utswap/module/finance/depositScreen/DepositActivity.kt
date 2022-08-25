@@ -27,7 +27,7 @@ class DepositActivity :
     private lateinit var newArrayList: ArrayList<DepositModel>
     lateinit var imageCard: Array<Int>
     lateinit var cardTitle: Array<String>
-    private var listBank: ArrayList<DepositObj.DataListRes>? =  arrayListOf()
+    private var listBank: ArrayList<DepositObj.DataListRes>? = arrayListOf()
     private var depositAdapter: DepositAdapter? = null
     private val SECOND_ACTIVITY_REQUEST_CODE = 0
     private var imgCardVisa: String? = ""
@@ -55,10 +55,10 @@ class DepositActivity :
         var indexAliPay = 0
         var indexKessPay = 0
         listBank?.forEachIndexed { index, dataListRes ->
-            if (dataListRes.title =="AliPay") {
+            if (dataListRes.title == "AliPay") {
                 indexAliPay = index
             }
-            if (dataListRes.title=="KESS PAY"){
+            if (dataListRes.title == "KESS PAY") {
                 indexKessPay = index
             }
         }
@@ -113,12 +113,21 @@ class DepositActivity :
 
     private val onClickDeposit: DepositAdapter.OnClickDeposit =
         object : DepositAdapter.OnClickDeposit {
-            override fun ClickDepositCard(cardTitle: String?, cardImg: String?, type: String?,storelink:String?) {
-                imgCardVisa= cardImg
-                typeOfCard= type
+            override fun ClickDepositCard(
+                cardTitle: String?,
+                cardImg: String?,
+                type: String?,
+                storelink: String?
+            ) {
+                imgCardVisa = cardImg
+                typeOfCard = type
 
-                val depositDailogPayment = BottomSheetFinanceDepositPayment.newInstance(cardTitle, cardImg,type)
-                depositDailogPayment.show(this@DepositActivity.supportFragmentManager, "Deposit Dialog")
+                val depositDailogPayment =
+                    BottomSheetFinanceDepositPayment.newInstance(cardTitle, cardImg, type)
+                depositDailogPayment.show(
+                    this@DepositActivity.supportFragmentManager,
+                    "Deposit Dialog"
+                )
 
 
             }

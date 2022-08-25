@@ -7,6 +7,7 @@ import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
+import android.view.View
 import android.webkit.*
 import androidx.core.content.ContextCompat
 import com.zillennium.utswap.R
@@ -77,11 +78,12 @@ class DepositOpenLinkWebViewActivity :
 
             override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
                 super.onPageStarted(view, url, favicon)
+                binding.progressBar.visibility =View.VISIBLE
             }
 
             override fun onPageFinished(view: WebView, url: String) {
                 super.onPageFinished(view, url)
-
+                binding.progressBar.visibility =View.GONE
             }
 
             override fun onReceivedError(
