@@ -209,7 +209,10 @@ class TransferActivity :
                     start: Int,
                     before: Int,
                     count: Int
-                ) {}
+                ) {
+                    if (etMountTransfer.text.toString().startsWith("0"))
+                        etMountTransfer.setText(etMountTransfer.text.toString().substring(1));
+                }
 
                 override fun afterTextChanged(s: Editable?) {}
 
