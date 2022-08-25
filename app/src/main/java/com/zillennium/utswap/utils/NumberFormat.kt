@@ -34,21 +34,27 @@ fun groupingSeparatorInt(number: Any): String{
 internal class DecimalDigitsInputFilter(digitsBeforeZero: Int, digitsAfterZero: Int) :
     InputFilter {
     private val mPattern: Pattern
-    override fun filter(
-        source: CharSequence,
-        start: Int,
-        end: Int,
-        dest: Spanned,
-        dstart: Int,
-        dend: Int
-    ): CharSequence? {
-        val matcher: Matcher = mPattern.matcher(dest)
-        return if (!matcher.matches()) "" else null
+    override fun filter(source: CharSequence, start: Int, end: Int, dest: Spanned, dstart: Int, dend: Int): CharSequence? {
+        return if (source.isEmpty()) {
+            // When the source text is empty, we need to remove characters and check the result
+            if (mPattern.matcher(dest.removeRange(dstart, dend)).matches()) {
+                null
+            } else {
+                dest.subSequence(dstart, dend)
+            }
+        } else {
+            // Check the result
+            if (mPattern.matcher(dest.replaceRange(dstart, dend, source)).matches()) {
+                null
+            } else {
+                // Return nothing
+                ""
+            }
+        }
     }
 
     init {
-        mPattern =
-            Pattern.compile("[0-9]{0," + (digitsBeforeZero - 1) + "}+((\\.[0-9]{0," + (digitsAfterZero - 1) + "})?)||(\\.)?")
+        mPattern = Pattern.compile("(\\d{0,$digitsBeforeZero})|(\\d{0,$digitsBeforeZero}\\.\\d{0,$digitsAfterZero})")
     }
 }
 fun groupingSeparatorPhoneNumber(number: Any): String{

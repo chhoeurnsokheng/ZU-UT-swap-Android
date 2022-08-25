@@ -2,6 +2,7 @@ package com.zillennium.utswap.module.finance.transferScreen
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.os.Handler
 import android.text.Editable
 import android.text.InputFilter
@@ -10,21 +11,19 @@ import android.text.TextWatcher
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
-import androidx.compose.ui.unit.Constraints
+import androidx.core.content.ContextCompat
 import com.androidstudy.networkmanager.Tovuti
 import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityFinanceTransferBinding
-import com.zillennium.utswap.models.deposite.DepositObj
 import com.zillennium.utswap.models.financeBalance.BalanceFinance
 import com.zillennium.utswap.models.financeTransfer.Transfer
 import com.zillennium.utswap.models.userService.User
 import com.zillennium.utswap.module.account.addNumberScreen.AddNumberActivity
 import com.zillennium.utswap.module.finance.transferScreen.dialog.TransferSuccessDialog
 import com.zillennium.utswap.module.security.securityDialog.FundPasswordDialog
-import com.zillennium.utswap.screens.navbar.navbar.MainActivity
 import com.zillennium.utswap.utils.Constants
 import com.zillennium.utswap.utils.DecimalDigitsInputFilter
 import com.zillennium.utswap.utils.UtilKt
@@ -62,10 +61,13 @@ class TransferActivity :
                     if(it){
                         etPhoneNumberScanQR.setText("0")
                         etMountTransfer.setText("")
+                        layTransactions.visibility = View.GONE
                         val transferSuccessDialog = TransferSuccessDialog()
                         transferSuccessDialog.show(supportFragmentManager, "Transfer Success Dialog")
 
                         SessionVariable.successTransfer.value = false
+
+                        mPresenter.onGetUserInfo(UTSwapApp.instance)
                     }
                 }
 
@@ -80,18 +82,18 @@ class TransferActivity :
 
                 imgClose.setOnClickListener {
                     etMountTransfer.hideKeyboard()
-                    binding.layTransactions.visibility = View.GONE
+                    layTransactions.visibility = View.GONE
                     finish()
                 }
                 imgCloseNoPhoneNumber.setOnClickListener{
                     etMountTransfer.hideKeyboard()
-                    binding.layTransactions.visibility = View.GONE
+                    layTransactions.visibility = View.GONE
                     finish()
                 }
                 layFragmentTransfer.setOnClickListener {
                     etMountTransfer.hideKeyboard()
                     etPhoneNumberScanQR.hideKeyboard()
-                    binding.layTransactions.visibility = View.GONE
+                    layTransactions.visibility = View.GONE
                     etPhoneNumberScanQR.clearFocus()
                 }
 
@@ -135,7 +137,7 @@ class TransferActivity :
     override fun onGetUserInfoFail(data: User.AppSideBarData) {}
     override fun onGetUserBalanceInfoSuccess(data: BalanceFinance.GetUserBalanceInfoData) {
         binding.apply {
-            txtTransferBalance.text = "$ " + data.total_balance?.let { UtilKt().formatValue(it, "###,###.##") }
+            txtTransferBalance.text = "$ " + data.transfer_balance?.let { UtilKt().formatValue(it.toDouble(), "###,###.##") }
             txtAvailableBalance.text = "$ " + data.available_balance?.let { UtilKt().formatValue(it.toDouble(), "###,###.##") }
             txtPending.text = "$ " + data.pending?.let { UtilKt().formatValue(it.toDouble(), "###,###.##") }
             txtLockUp.text = "$ " + data.lock_up?.let { UtilKt().formatValue(it.toDouble(), "###,###.##") }
@@ -210,8 +212,14 @@ class TransferActivity :
                     before: Int,
                     count: Int
                 ) {
-                    if (etMountTransfer.text.toString().startsWith("0"))
-                        etMountTransfer.setText(etMountTransfer.text.toString().substring(1));
+                    if (etMountTransfer.text.toString().isEmpty()){
+                        dollarSymbol.setTextColor(Color.parseColor("#CCCCCC"))
+                    }else{
+                        dollarSymbol.setTextColor(ContextCompat.getColor(UTSwapApp.instance, android.R.color.white))
+                    }
+                    if (etMountTransfer.text.toString().startsWith(".") || etMountTransfer.text.toString().startsWith("0"))
+                        etMountTransfer.setText(etMountTransfer.text.toString().substring(1))
+
                 }
 
                 override fun afterTextChanged(s: Editable?) {}
