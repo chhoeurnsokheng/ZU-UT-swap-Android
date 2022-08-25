@@ -122,8 +122,7 @@ class DepositActivity :
                 imgCardVisa = cardImg
                 typeOfCard = type
 
-                val depositDailogPayment =
-                    BottomSheetFinanceDepositPayment.newInstance(cardTitle, cardImg, type)
+                val depositDailogPayment = BottomSheetFinanceDepositPayment.newInstance(cardTitle, cardImg, type)
                 depositDailogPayment.show(
                     this@DepositActivity.supportFragmentManager,
                     "Deposit Dialog"

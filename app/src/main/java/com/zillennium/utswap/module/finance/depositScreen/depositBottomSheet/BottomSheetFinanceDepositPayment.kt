@@ -15,6 +15,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
+import com.bumptech.glide.Glide
 import com.gis.z1android.api.errorhandler.CallbackWrapper
 import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_EXPANDED
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -46,6 +47,7 @@ class BottomSheetFinanceDepositPayment : BottomSheetDialogFragment(),
     var balance = ""
     var fee = ""
     var typeOfCard = ""
+    var image = ""
     var payment_link = ""
     var deep_link_url = ""
     var transitionId= ""
@@ -93,8 +95,9 @@ class BottomSheetFinanceDepositPayment : BottomSheetDialogFragment(),
                 binding?.progressBar?.visibility = View.VISIBLE
             }
 
-            arguments?.getInt("imgCard")?.let {
-                imgCard.setImageResource(it)
+            arguments?.getString("imgCard")?.let {
+
+                Glide.with(imgCard).load(it).fitCenter().into(imgCard)
 
             }
             arguments?.getString("payMentMethod").let {
@@ -182,6 +185,7 @@ class BottomSheetFinanceDepositPayment : BottomSheetDialogFragment(),
             val args = Bundle()
             if (cardImg != null) {
                 args.putString("imgCard", cardImg)
+                var image = cardImg
             }
             args.putString("payMentMethod", paymentMethod)
             args.putString("typeOfCard", type)
@@ -235,34 +239,6 @@ class BottomSheetFinanceDepositPayment : BottomSheetDialogFragment(),
                 binding?.progressBar?.visibility = View.GONE
                 DepositOpenLinkWebViewActivity.launchDepositOpenLinkWebViewActivity(context, it.data?.payment_link, it.data?.transaction_id)
             }
-
-//            if (payment_method =="Visa/Master Card"){
-//                if (it.data?.payment_link != null) {
-//                    binding?.progressBar?.visibility = View.GONE
-//                    DepositOpenLinkWebViewActivity.launchDepositOpenLinkWebViewActivity(context, it.data?.payment_link, it.data?.transaction_id)
-//                }
-//            }
-//
-//            if (payment_method =="ABA PAY"){
-//                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(it.data?.payment_link))
-//                intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_MULTIPLE_TASK)
-//                startActivity(intent)
-//            }
-//            if (payment_method =="ACLEDA Bank"){
-//                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(it.data?.payment_link))
-//                intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_MULTIPLE_TASK)
-//                startActivity(intent)
-//            }
-//            if (payment_method =="Sathapana"){
-//                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(it.data?.payment_link))
-//                intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_MULTIPLE_TASK)
-//                startActivity(intent)
-//            }
-//            if (payment_method =="AliPay"){
-//                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(it.data?.payment_link))
-//                intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_MULTIPLE_TASK)
-//                startActivity(intent)
-//            }
 
         }, { error ->
             object : CallbackWrapper(error, UTSwapApp.instance, arrayListOf()) {
