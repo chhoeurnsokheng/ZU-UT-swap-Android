@@ -3,6 +3,7 @@ package com.zillennium.utswap.module.finance.balanceScreen
 import android.app.DownloadManager
 import android.app.ProgressDialog
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Environment
@@ -26,6 +27,8 @@ import com.zillennium.utswap.module.finance.balanceScreen.bottomSheet.FinanceExp
 import com.zillennium.utswap.module.finance.balanceScreen.bottomSheet.FinanceFilterBottomSheet
 import com.zillennium.utswap.module.finance.balanceScreen.bottomSheet.FinanceSelectDateRangeBottomSheet
 import com.zillennium.utswap.module.finance.balanceScreen.dialog.FinanceBalanceDialog
+import com.zillennium.utswap.module.finance.depositScreen.depositSuccessfully.DepositSuccessfullyActivity
+import com.zillennium.utswap.screens.navbar.navbar.MainActivity
 import com.zillennium.utswap.utils.UtilKt
 
 class FinanceBalanceActivity :
@@ -306,6 +309,9 @@ class FinanceBalanceActivity :
             tbTitle.setTextColor(ContextCompat.getColor(applicationContext, R.color.primary))
             tb.setNavigationOnClickListener {
                 finish()
+                if (DepositSuccessfullyActivity.backToHome){
+                    startActivity(Intent(this@FinanceBalanceActivity,MainActivity::class.java))
+                }
             }
         }
     }

@@ -3,16 +3,12 @@ package com.zillennium.utswap.module.finance.depositScreen.OpenWebViewToComfirmP
 
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.graphics.Color
-import android.os.Handler
-import android.os.Looper
-import android.util.Log
-import android.view.View
+import android.net.Uri
+import android.os.Bundle
 import android.webkit.*
-import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.lifecycleScope
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
@@ -20,10 +16,9 @@ import com.zillennium.utswap.databinding.DepositOpenLinkWebviewActivityBinding
 import com.zillennium.utswap.models.deposite.DataQueryOrderObj
 import com.zillennium.utswap.models.deposite.DepositObj
 import com.zillennium.utswap.module.finance.depositScreen.depositSuccessfully.DepositSuccessfullyActivity
-import com.zillennium.utswap.screens.navbar.navbar.MainActivity
 import com.zillennium.utswap.utils.Constants
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import com.zillennium.utswap.utils.Constants.KeyViewPdf.Companion.content
+import com.zillennium.utswap.utils.intentOtherApp
 import java.util.*
 
 
@@ -35,12 +30,10 @@ import java.util.*
 class DepositOpenLinkWebViewActivity :
     BaseMvpActivity<DepositopenLinkView.View, DepositopenLinkView.Presenter, DepositOpenLinkWebviewActivityBinding>(),
     DepositopenLinkView.View {
-
     override val layoutResource: Int = R.layout.deposit_open_link_webview_activity
     override var mPresenter: DepositopenLinkView.Presenter = DepositopenLinkPresenter()
     var payment_link = ""
     var transaction_id = ""
-    var mainHandler = Handler(Looper.getMainLooper())
     var timer = Timer()
 
     companion object {
@@ -54,14 +47,152 @@ class DepositOpenLinkWebViewActivity :
             intent.putExtra(Constants.Deposit.TRANSATION_ID, transaction_id)
             context.startActivity(intent)
         }
+
     }
 
-    override fun initView() {
-        super.initView()
-        openWebView()
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
         toolBar()
+        if (intent.hasExtra(Constants.Deposit.Payment_Link)) {
+            payment_link = intent.getStringExtra(Constants.Deposit.Payment_Link).toString()
+        }
         repeatTimer()
+        val webPay: WebView = findViewById(R.id.web_view)
+        val webSettings: WebSettings = webPay.settings
+        webSettings.javaScriptEnabled = true
+        webSettings.javaScriptCanOpenWindowsAutomatically = true
+        webSettings.useWideViewPort = true
+        webSettings.setAppCacheEnabled(true)
+        webSettings.domStorageEnabled = true
+        webSettings.loadWithOverviewMode = true
+        webSettings.allowFileAccess = true
+        webSettings.pluginState = WebSettings.PluginState.ON
+        webSettings.allowContentAccess = true
+        webSettings.allowUniversalAccessFromFileURLs = true
+        webSettings.javaScriptCanOpenWindowsAutomatically = true
+        webSettings.loadsImagesAutomatically = true
+
+        webPay.webViewClient = object : WebViewClient() {
+
+            override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
+                super.onPageStarted(view, url, favicon)
+            }
+
+            override fun onPageFinished(view: WebView, url: String) {
+                super.onPageFinished(view, url)
+
+            }
+
+            override fun onReceivedError(
+                view: WebView,
+                request: WebResourceRequest,
+                error: WebResourceError,
+            ) {
+                super.onReceivedError(view, request, error)
+            }
+
+            override fun onReceivedHttpError(
+                view: WebView,
+                request: WebResourceRequest,
+                errorResponse: WebResourceResponse,
+            ) {
+                super.onReceivedHttpError(view, request, errorResponse)
+                //error
+            }
+
+            //need to checking in here if has schema deeplink
+            override fun shouldOverrideUrlLoading(
+                view: WebView,
+                request: WebResourceRequest,
+            ): Boolean {
+
+
+                val abaScheme = "abamobilebank"
+                val acledaScheme = "market"
+                val kessChatScheme = "kesspay.io"
+                val spnScheme = "spnb"
+                //if url
+                val url = request.url.authority
+
+                //if schema
+                val uri = request.url
+                val schema = request.url.scheme
+
+                if (url == "https://qr.alipay.com/9446219319446735") {
+                    return true
+                } else if (schema == abaScheme) {  //ABA
+                    val packagePlayStoreABA = "com.paygo24.ibank"
+                    var intent: Intent? =
+                        binding.root.context.packageManager?.getLaunchIntentForPackage("com.paygo24.ibank")
+                    if (intent != null) {
+                        val intent = Intent(Intent.ACTION_VIEW)
+                        intent.data = uri
+                        startActivity(intent)
+                    } else {
+                        intent = Intent(Intent.ACTION_VIEW)
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        intent.data = Uri.parse("market://details?id=$packagePlayStoreABA")
+                        startActivity(intent)
+                    }
+
+                } else if (schema == acledaScheme) {    //Acleda
+                    val packagePlayStoreAcleda = "com.domain.acledabankqr"
+                    var intent: Intent? =
+                        binding.root.context.packageManager?.getLaunchIntentForPackage("$packagePlayStoreAcleda")
+                    if (intent != null) {
+                        val intent = Intent(Intent.ACTION_VIEW)
+                        intent.data = uri
+                        startActivity(intent)
+                    } else {
+                        val intent = Intent(Intent.ACTION_VIEW)
+                        intent.data = uri
+                        startActivity(intent)
+                    }
+
+                } else if (schema == kessChatScheme) { //Kesss
+
+                    val intent = Intent(Intent.ACTION_VIEW)
+                    intent.data = uri
+                    startActivity(intent)
+
+                } else if (schema == spnScheme) {   //Sathapana
+                    val packagePlayStoreSathapana = "kh.com.sathapana.consumer"
+                    var intent: Intent? =
+                        binding.root.context.packageManager?.getLaunchIntentForPackage("$packagePlayStoreSathapana")
+                    if (intent != null) {
+                        val intent = Intent(Intent.ACTION_VIEW)
+                        intent.data = uri
+                        startActivity(intent)
+                    } else {
+                        val intent = Intent(Intent.ACTION_VIEW)
+                        intent.data = uri
+                        startActivity(intent)
+                    }
+
+
+                }
+
+                val mUrl: String = request.url.toString()
+                return !(mUrl.startsWith("http:") || mUrl.startsWith("https://"))
+            }
+        }
+        webPay.loadUrl(payment_link)
+
     }
+
+    override fun getQueryOrderSuccess(data: DataQueryOrderObj.DataQueryOrderRes) {
+        if (data.data?.dataQueryOrder?.data?.status == "SUCCESS") {
+            timer.cancel()
+            DepositSuccessfullyActivity.lunchDepositSuccessfullyActivity(
+                this, transaction_id,
+                data.data?.dataQueryOrder?.data?.total_amount
+            )
+        }
+
+    }
+
+    override fun getQueryOrderFail(data: String) {}
 
     private fun repeatTimer() {
         timer.scheduleAtFixedRate(
@@ -69,7 +200,7 @@ class DepositOpenLinkWebViewActivity :
                 override fun run() {
                     callApi()
                 }
-            }, 1000, 18000
+            }, 1000, 17000
         )
     }
 
@@ -80,91 +211,6 @@ class DepositOpenLinkWebViewActivity :
                 UTSwapApp.instance,
                 DepositObj.DataQueryOrderBody(transaction_id)
             )
-        }
-    }
-
-    override fun getQueryOrderSuccess(data: DataQueryOrderObj.DataQueryOrderRes) {
-        if (data.data?.dataQueryOrder?.data?.status == "SUCCESS") {
-            timer.cancel()
-            Toast.makeText(this@DepositOpenLinkWebViewActivity, "Sussess", Toast.LENGTH_SHORT)
-                .show()
-            startActivity(Intent(this, DepositSuccessfullyActivity::class.java))
-        }
-//        else{
-//            repeatTimer()
-//           // callApi()
-////            lifecycleScope.launch {
-////                delay(60000)
-////                callApi()
-////                Toast.makeText(this@DepositOpenLinkWebViewActivity, "Call again", Toast.LENGTH_SHORT).show()
-////            }
-//        }
-    }
-
-    override fun getQueryOrderFail(data: String) {}
-
-    private fun openWebView() {
-        val mWebChromeClient = object : WebChromeClient() {
-            override fun onConsoleMessage(consoleMessage: ConsoleMessage): Boolean {
-                Log.d(
-                    "MyApplication", consoleMessage.message() + " -- From line "
-                            + consoleMessage.lineNumber() + " of "
-                            + consoleMessage.sourceId()
-                )
-                return super.onConsoleMessage(consoleMessage)
-            }
-
-            override fun onCloseWindow(window: WebView?) {
-                super.onCloseWindow(window)
-            }
-        }
-        binding.apply {
-
-            webView.apply {
-                setBackgroundColor(Color.parseColor("#FFFFFF"));
-                isVerticalFadingEdgeEnabled = false
-                isVerticalScrollBarEnabled = false
-                webView.webViewClient = WebViewClient()
-                webChromeClient = mWebChromeClient
-                settings.javaScriptEnabled = true
-                settings.domStorageEnabled = true
-                settings.defaultTextEncodingName = "utf-8"
-                settings.cacheMode = WebSettings.LOAD_NO_CACHE
-                settings.useWideViewPort = true
-                settings.domStorageEnabled = true
-                settings.loadWithOverviewMode = true
-                settings.javaScriptCanOpenWindowsAutomatically = true
-                setLayerType(View.LAYER_TYPE_HARDWARE, null)
-            }
-
-            if (intent.hasExtra(Constants.Deposit.Payment_Link)) {
-                payment_link = intent.getStringExtra(Constants.Deposit.Payment_Link).toString()
-                webView.settings.javaScriptEnabled = true
-                webView.settings.setSupportZoom(true)
-                binding.progressBar.visibility = View.GONE
-                webView.loadUrl(payment_link)
-            }
-
-            webView.webViewClient = object : WebViewClient() {
-                override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
-                    super.onPageStarted(view, url, favicon)
-                    Log.d("Start", "onPageStarted")
-                }
-
-                override fun onPageFinished(view: WebView?, url: String?) {
-                    super.onPageFinished(view, url)
-
-                    Log.d("Finished", "onPageFinished")
-                }
-
-                override fun shouldOverrideUrlLoading(
-                    view: WebView?,
-                    request: WebResourceRequest?
-                ): Boolean {
-                    return false
-                }
-            }
-
         }
     }
 
@@ -182,14 +228,6 @@ class DepositOpenLinkWebViewActivity :
         }
     }
 
-    override fun onBackPressed() {
-        binding.apply {
-            if (webView.canGoBack()) {
-                webView.goBack()
-            } else {
-                super.onBackPressed()
-            }
-        }
-    }
-
 }
+
+

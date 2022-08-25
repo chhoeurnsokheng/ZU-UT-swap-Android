@@ -78,8 +78,7 @@ class BottomSheetFinanceDepositPayment : BottomSheetDialogFragment(),
         super.onViewCreated(view, savedInstanceState)
         FirebaseAnalytics.getInstance(requireActivity())
         binding?.apply {
-            var intent = Intent()
-             fireBase()
+
             nextBtnFinace.isEnabled = false
             nextBtnFinace.setOnClickListener {
                 val data = Gson().toJson("TR2208-1661140965780133")
@@ -134,7 +133,7 @@ class BottomSheetFinanceDepositPayment : BottomSheetDialogFragment(),
                     }
 
                     val txtFeeValue = amount.toString().toDouble() * 0.01
-                    val total = amount.toString().toDouble() // + txtFeeValue
+                    val total = amount.toString().toDouble()  + txtFeeValue
 
                     tvAmount.text = "$${groupingSeparator(amount)}"
                     tvFee.text = "$${groupingSeparator(txtFeeValue)}"
@@ -231,10 +230,39 @@ class BottomSheetFinanceDepositPayment : BottomSheetDialogFragment(),
         subscriptionOnDepositBalance?.unsubscribe()
         subscriptionOnDepositBalance = ApiDepositImp().depositMoney(context, body).subscribe({
             transitionId = it.data?.transaction_id.toString()
+
             if (it.data?.payment_link != null) {
                 binding?.progressBar?.visibility = View.GONE
                 DepositOpenLinkWebViewActivity.launchDepositOpenLinkWebViewActivity(context, it.data?.payment_link, it.data?.transaction_id)
             }
+
+//            if (payment_method =="Visa/Master Card"){
+//                if (it.data?.payment_link != null) {
+//                    binding?.progressBar?.visibility = View.GONE
+//                    DepositOpenLinkWebViewActivity.launchDepositOpenLinkWebViewActivity(context, it.data?.payment_link, it.data?.transaction_id)
+//                }
+//            }
+//
+//            if (payment_method =="ABA PAY"){
+//                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(it.data?.payment_link))
+//                intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_MULTIPLE_TASK)
+//                startActivity(intent)
+//            }
+//            if (payment_method =="ACLEDA Bank"){
+//                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(it.data?.payment_link))
+//                intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_MULTIPLE_TASK)
+//                startActivity(intent)
+//            }
+//            if (payment_method =="Sathapana"){
+//                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(it.data?.payment_link))
+//                intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_MULTIPLE_TASK)
+//                startActivity(intent)
+//            }
+//            if (payment_method =="AliPay"){
+//                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(it.data?.payment_link))
+//                intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_MULTIPLE_TASK)
+//                startActivity(intent)
+//            }
 
         }, { error ->
             object : CallbackWrapper(error, UTSwapApp.instance, arrayListOf()) {

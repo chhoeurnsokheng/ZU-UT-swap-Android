@@ -482,6 +482,7 @@ interface Constants {
         companion object{
             const val Payment_Link ="payment_link"
             const val  TRANSATION_ID= "transaction_id"
+            const val  TOTAL_BALANCE= "Total_balance"
         }
     }
 

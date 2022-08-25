@@ -8,7 +8,7 @@ object DepositObj {
     class DepositRes{
         var status:Int? =null
         var message:String ? = null
-        var data:List<DataListRes> ? =null
+        var data:ArrayList<DataListRes>  = arrayListOf()
     }
     class DataListRes{
         var id:String? = null

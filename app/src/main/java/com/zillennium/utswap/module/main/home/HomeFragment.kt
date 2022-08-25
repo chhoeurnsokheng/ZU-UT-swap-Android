@@ -171,7 +171,6 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
             ) {
                 override fun onBannerItemClick(id: String, position: Int) {
                     NewsDetailActivity.launchNewsDetailsActivity(requireActivity(), id)
-
                 }
             }
 

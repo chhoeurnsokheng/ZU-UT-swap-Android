@@ -23,6 +23,10 @@ class DataQueryOrderObj {
         var total_amount:String ? =null
         var currency:String ? = null
         var status:String? = null
+        var meta:Meta? = null
+    }
+    class Meta{
+
     }
 
 }

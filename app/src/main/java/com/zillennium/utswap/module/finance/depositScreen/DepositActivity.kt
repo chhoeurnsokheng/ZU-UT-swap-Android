@@ -2,6 +2,7 @@ package com.zillennium.utswap.module.finance.depositScreen
 
 
 import android.content.Intent
+import android.net.Uri
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -26,7 +27,7 @@ class DepositActivity :
     private lateinit var newArrayList: ArrayList<DepositModel>
     lateinit var imageCard: Array<Int>
     lateinit var cardTitle: Array<String>
-    private var listBank: List<DepositObj.DataListRes>? = null
+    private var listBank: ArrayList<DepositObj.DataListRes>? =  arrayListOf()
     private var depositAdapter: DepositAdapter? = null
     private val SECOND_ACTIVITY_REQUEST_CODE = 0
     private var imgCardVisa: String? = ""
@@ -50,8 +51,23 @@ class DepositActivity :
 
     override fun onGetListBankSuccess(data: DepositObj.DepositRes) {
         listBank = data.data
+
+        var indexAliPay = 0
+        var indexKessPay = 0
+        listBank?.forEachIndexed { index, dataListRes ->
+            if (dataListRes.title =="AliPay") {
+                indexAliPay = index
+            }
+            if (dataListRes.title=="KESS PAY"){
+                indexKessPay = index
+            }
+        }
+        listBank?.removeAt(indexAliPay)
+        listBank?.removeAt(indexKessPay)
+
+
         binding.rvPayment.apply {
-            adapter = data.data?.let { DepositAdapter(it, onClickDeposit) }
+            adapter = data.data.let { DepositAdapter(it, onClickDeposit) }
             layoutManager =
                 LinearLayoutManager(this@DepositActivity, LinearLayoutManager.VERTICAL, false)
         }
@@ -97,20 +113,19 @@ class DepositActivity :
 
     private val onClickDeposit: DepositAdapter.OnClickDeposit =
         object : DepositAdapter.OnClickDeposit {
-            override fun ClickDepositCard(cardTitle: String?, cardImg: String?, type: String?) {
+            override fun ClickDepositCard(cardTitle: String?, cardImg: String?, type: String?,storelink:String?) {
                 imgCardVisa= cardImg
                 typeOfCard= type
+
                 val depositDailogPayment = BottomSheetFinanceDepositPayment.newInstance(cardTitle, cardImg,type)
                 depositDailogPayment.show(this@DepositActivity.supportFragmentManager, "Deposit Dialog")
-//
+
 
             }
 
 
         }
 
-
-    ///use it to pop up bottom sheet dialog and save data
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode === SECOND_ACTIVITY_REQUEST_CODE) {
