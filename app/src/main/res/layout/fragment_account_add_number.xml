@@ -9,8 +9,7 @@
         <RelativeLayout
             android:id="@+id/lay_header"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/dimen_30">
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/img_close"
@@ -34,10 +33,19 @@
 
         </RelativeLayout>
 
+        <View
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/lay_header"
+            android:background="@color/gray_light"/>
+
+
         <LinearLayout
             android:layout_below="@+id/lay_header"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/dimen_30"
             android:orientation="vertical">
 
             <TextView

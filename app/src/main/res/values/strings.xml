@@ -145,7 +145,7 @@
     <string name="sender">Sender</string>
     <string name="receiver">Receiver</string>
     <string name="transfer_balance_0_00">Transfer Balance: $ 0.00</string>
-    <string name="zero">000 000 000</string>
+    <string name="zero">000 000 0000</string>
     <string name="enter_receiver_s_phone_number">Enter Receiver\'s phone number</string>
     <string name="transfer_amount">Transfer Amount:</string>
     <string name="receiver_s_phone_number">Receiver\'s Phone Number:</string>
@@ -471,6 +471,13 @@
     <string name="transaction_id_">Transaction ID:</string>
     <string name="balance__">Balance:</string>
     <string name="fee__">Fee:</string>
-
+    <string name="please_enter_your_fund_password">Please enter your fund password</string>
+    <string name="transfer_successfully">Transfer Successfully</string>
+    <string name="internal_cash_transfer">Internal Cash Transfer</string>
+    <string name="trx.id">Trx. ID:</string>
+    <string name="transaction_date">Transaction date:</string>
+    <string name="from_account">From account:</string>
+    <string name="to_account">To account:</string>
+    <string name="your_phone_number_is_required_to_transfer_funds">Your Phone Number is Required to Transfer Funds</string>
 
 </resources>
