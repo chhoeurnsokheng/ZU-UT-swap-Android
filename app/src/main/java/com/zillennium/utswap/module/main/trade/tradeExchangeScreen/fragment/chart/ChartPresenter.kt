@@ -21,9 +21,9 @@ class ChartPresenter : BaseMvpPresenterImpl<ChartView.View>(),
         mView?.initView()
     }
 
-    override fun getTradeChart(body: TradingList.TradeChartObj, context: Context) {
+    override fun getTradeChart(marketid: Int, context: Context) {
         subscriptions?.unsubscribe()
-        subscriptions = ApiTradeImp().tradeChart(body,context).subscribe({
+        subscriptions = ApiTradeImp().tradeChart(marketid,context).subscribe({
             if(it.status == 1){
                 mView?.getTradeChartSuccess(it)
             }else{

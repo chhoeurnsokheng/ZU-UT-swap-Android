@@ -15,6 +15,6 @@ class ChartView {
 
     interface Presenter : BaseMvpPresenter<View> {
         override fun initViewPresenter(context: Context, bundle: Bundle?)
-        fun getTradeChart(body: TradingList.TradeChartObj, context: Context)
+        fun getTradeChart(marketid: Int, context: Context)
     }
 }

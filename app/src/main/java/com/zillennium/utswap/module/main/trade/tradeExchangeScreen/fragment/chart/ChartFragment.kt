@@ -22,7 +22,7 @@ class ChartFragment :
     override fun initView() {
         super.initView()
         onOtherActivity()
-        mPresenter.getTradeChart(TradingList.TradeChartObj(Integer.parseInt(Constants.OrderBookTable.marketIdChart)),UTSwapApp.instance)
+        mPresenter.getTradeChart(Integer.parseInt(Constants.OrderBookTable.marketIdChart),UTSwapApp.instance)
     }
 
     @SuppressLint("SetJavaScriptEnabled")

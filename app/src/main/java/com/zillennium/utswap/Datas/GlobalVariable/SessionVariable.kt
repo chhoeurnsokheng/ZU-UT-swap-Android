@@ -27,5 +27,7 @@ class SessionVariable {
 
         var marketPriceSell: MutableLiveData<String> = MutableLiveData()
         var marketPriceBuy: MutableLiveData<String> = MutableLiveData()
+
+        var callDialogErrorCreateOrder: MutableLiveData<Boolean> = MutableLiveData()
     }
 }

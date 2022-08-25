@@ -217,10 +217,6 @@ object TradingList {
     )
 
     /** Trade Chart*/
-    class TradeChartObj(
-        var marketid: Int?
-    )
-
     class TradeChartRes{
         var status: Int? = null
         var message: String? = null
@@ -228,7 +224,6 @@ object TradingList {
     }
 
     class TradeChartData{
-        var marketid: Int? = null
         var trading_view: String? = null
     }
 

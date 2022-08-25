@@ -74,10 +74,10 @@ class ApiTradeImp: ApiManager() {
             .observeOn(AndroidSchedulers.mainThread())
 
     /** Trade Chart*/
-    fun tradeChart(body:TradingList.TradeChartObj, context: Context): Observable<TradingList.TradeChartRes> =
+    fun tradeChart(marketid: Int, context: Context): Observable<TradingList.TradeChartRes> =
         mTradeService.tradeChart(
             Header.getHeader(Header.Companion.AuthType.REQUIRED, context),
-            body
+            marketid
         )
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

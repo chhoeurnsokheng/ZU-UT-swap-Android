@@ -36,9 +36,8 @@ import com.zillennium.utswap.module.main.trade.tradeExchangeScreen.fragment.orde
 import com.zillennium.utswap.module.main.trade.tradeExchangeScreen.fragment.orders.OrdersFragment
 import com.zillennium.utswap.module.project.projectInfoScreen.ProjectInfoActivity
 import com.zillennium.utswap.module.security.securityActivity.signInScreen.SignInActivity
-import com.zillennium.utswap.utils.Constants
+import com.zillennium.utswap.utils.*
 import com.zillennium.utswap.utils.DecimalDigitsInputFilter
-import com.zillennium.utswap.utils.groupingSeparatorInt
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -60,6 +59,7 @@ class TradeExchangeActivity :
 
     val NUM_PAGES_TABLE = 3
     var remember: Boolean? = null
+    var clickCount: Int = 2
 
     var orderScroll : Boolean = false
 
@@ -84,13 +84,14 @@ class TradeExchangeActivity :
             Constants.OrderBookTable.projectName = trade?.project_name.toString()
             context.startActivity(intent)
         }
-        fun launchTradeExchangeActivityFromWishList(context: Context, projectName: String?, marketName: String?,projectId: String?) {
+        fun launchTradeExchangeActivityFromWishList(context: Context, projectName: String?, marketName: String?,projectId: String?,marketId: String?) {
             val intent = Intent(context, TradeExchangeActivity::class.java)
             intent.putExtra(Constants.TradeExchange.ProjectName, projectName)
             intent.putExtra(Constants.TradeExchange.MarketName,marketName)
             intent.putExtra(Constants.TradeExchange.ProjectId, projectId)
             Constants.OrderBookTable.marketNameOrderBook = marketName.toString()
             Constants.OrderBookTable.projectName = projectName.toString()
+            Constants.OrderBookTable.marketIdChart = marketId.toString()
             context.startActivity(intent)
         }
     }
@@ -107,6 +108,7 @@ class TradeExchangeActivity :
         SessionVariable.createPendingOrder.value = false
         SessionVariable.refreshMatchingTransaction.value = false
         SessionVariable.callAvailableBalance.value = false
+        SessionVariable.callDialogErrorCreateOrder.value = false
 
         SessionVariable.refreshOrderPending.observe(this@TradeExchangeActivity){
             if(it){
@@ -122,6 +124,14 @@ class TradeExchangeActivity :
 //                this@TradeExchangeActivity.supportFragmentManager?.let { it1 -> buyDialog.show(it1, "asaf") }
 //            }
 //        }
+
+        SessionVariable.callDialogErrorCreateOrder.observe(this@TradeExchangeActivity){
+            if (it){
+                val errorPlaceOrderDialog = ErrorPlaceOrderDialog()
+                this@TradeExchangeActivity.supportFragmentManager.let { it1 -> errorPlaceOrderDialog.show(it1, "asaf") }
+                SessionVariable.callDialogErrorCreateOrder.value = false
+            }
+        }
 
         SessionVariable.refreshMatchingTransaction.observe(this@TradeExchangeActivity){
             if(it){
@@ -274,6 +284,7 @@ class TradeExchangeActivity :
                             )
                         )
                         mPresenter.addFavoriteProject(TradingList.TradeAddFavoriteObj(0,intent?.getStringExtra(Constants.TradeExchange.ProjectId).toString().toInt()),UTSwapApp.instance)
+                        remember = false
                     } else {
                         includeLayout.imgRemember.imageTintList = ColorStateList.valueOf(
                             ContextCompat.getColor(
@@ -282,6 +293,7 @@ class TradeExchangeActivity :
                             )
                         )
                         mPresenter.addFavoriteProject(TradingList.TradeAddFavoriteObj(1,intent?.getStringExtra(Constants.TradeExchange.ProjectId).toString().toInt()),UTSwapApp.instance)
+                        remember = true
                     }
                 }
 
@@ -671,13 +683,14 @@ class TradeExchangeActivity :
             tbTitle.setTextColor(ContextCompat.getColor(applicationContext, R.color.primary))
             tb.setOnClickListener {
                 finish()
-                mPresenter.closeTradeDetailSocket()
-                SessionVariable.requestOrderBookSocket.value = false
-                SessionVariable.requestTradingList.value = true
-                SessionVariable.callAvailableBalance.value = false
-
-                page = 0
-                orderPage = 1
+                onBackPressed()
+//                mPresenter.closeTradeDetailSocket()
+//                SessionVariable.requestOrderBookSocket.value = false
+//                SessionVariable.requestTradingList.value = true
+//                SessionVariable.callAvailableBalance.value = false
+//
+//                page = 0
+//                orderPage = 1
             }
 
             binding.includeLayout.tbLeft.setOnClickListener {
@@ -903,6 +916,8 @@ class TradeExchangeActivity :
             SessionVariable.refreshOrderPending.value = true
             SessionVariable.refreshMatchingTransaction.value = true
             SessionVariable.callAvailableBalance.value = true
+            SessionVariable.requestOrderBookSocket.value = true
+            mPresenter.startTradeDetailSocket(intent?.getStringExtra(Constants.TradeExchange.MarketName).toString())
         }
     }
 
@@ -913,13 +928,13 @@ class TradeExchangeActivity :
             txtAvailableClick.text = ""
             txtUtClick.text = ""
             if(data.data?.usd.toString().isNotEmpty()){
-                txtAvailableClick.text = data.data?.usd.toString()
-                Constants.TradeExchange.availableBalance = data.data?.usd.toString()
+                txtAvailableClick.text = "${data.data?.usd?.let { groupingSeparator(it) }}"
+                Constants.TradeExchange.availableBalance = "${data.data?.usd?.let { groupingSeparator(it) }}"
             }
 
             if(data.data?.sum_ut.toString().isNotEmpty()){
-                txtUtClick.text = data.data?.sum_ut.toString()
-                Constants.TradeExchange.utBalance = data.data?.sum_ut.toString()
+                txtUtClick.text = "${data.data?.sum_ut?.let { groupingSeparatorInt(it) }}"
+                Constants.TradeExchange.utBalance = "${data.data?.sum_ut?.let { groupingSeparatorInt(it) }}"
             }
         }
     }
@@ -928,12 +943,25 @@ class TradeExchangeActivity :
 
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        mPresenter.closeTradeDetailSocket()
+        SessionVariable.requestOrderBookSocket.value = false
+        SessionVariable.requestTradingList.value = true
+        SessionVariable.callAvailableBalance.value = false
+        SessionVariable.callDialogErrorCreateOrder.value = false
+
+        page = 0
+        orderPage = 1
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         mPresenter.closeTradeDetailSocket()
         SessionVariable.requestOrderBookSocket.value = false
         SessionVariable.requestTradingList.value = true
         SessionVariable.callAvailableBalance.value = false
+        SessionVariable.callDialogErrorCreateOrder.value = false
 
         page = 0
         orderPage = 1

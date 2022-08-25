@@ -454,6 +454,7 @@
     <string name="this_account_already_have_phone_number">This account already have phone number</string>
     <string name="please_enter_valid_phone_number">Please enter valid phone number</string>
     <string name="success">Success</string>
+    <string name="failed">Failed</string>
     <string name="phone_number_has_been_add_successfully">Phone Number has been added Successfully</string>
     <string name="phone_number_already_used">Phone Number Already Used!</string>
     <string name="verify_your_identity">Verify Your Identity > </string>

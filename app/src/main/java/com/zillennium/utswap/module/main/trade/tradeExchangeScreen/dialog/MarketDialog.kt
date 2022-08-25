@@ -24,6 +24,7 @@ import com.zillennium.utswap.api.manager.ApiTradeImp
 import com.zillennium.utswap.models.tradingList.TradingList
 import com.zillennium.utswap.utils.Constants
 import com.zillennium.utswap.utils.VerifyClientData
+import com.zillennium.utswap.utils.groupingSeparatorInt
 import rx.Subscription
 
 class MarketDialog : DialogFragment() {
@@ -51,7 +52,7 @@ class MarketDialog : DialogFragment() {
         txtVolume = view?.findViewById(R.id.txt_volume)
         txtProjectName = view?.findViewById(R.id.txt_project_name)
 
-        txtVolume?.text = arguments?.get("volume").toString()
+        txtVolume?.text = arguments?.get("volume").toString().toInt().let { groupingSeparatorInt(it) }
         btnBuy?.text = arguments?.get("status").toString()
         btnBuy?.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.white))
         txtProjectName?.text = Constants.OrderBookTable.projectName
@@ -77,6 +78,8 @@ class MarketDialog : DialogFragment() {
             "from" to "upTrade"
         )
         val result = VerifyClientData.makeSign(params, SessionPreferences().SESSION_X_TOKEN_API.toString())
+
+        println("===result  $result")
 
         btnCancel?.setOnClickListener {
             dismiss()

@@ -1,5 +1,6 @@
 package com.zillennium.utswap.module.main.trade.tradeExchangeScreen.fragment.Transactions.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
 import android.view.LayoutInflater
@@ -9,13 +10,16 @@ import com.zillennium.utswap.bases.mvp.BaseRecyclerViewAdapterGeneric
 import com.zillennium.utswap.bases.mvp.BaseViewHolder
 import com.zillennium.utswap.databinding.ItemListExchangeTransactionsBinding
 import com.zillennium.utswap.models.tradingList.TradingList
+import com.zillennium.utswap.utils.groupingSeparator
+import com.zillennium.utswap.utils.groupingSeparatorInt
 
 class TransactionAdapter(private var listener: OnClickTransactions): BaseRecyclerViewAdapterGeneric<TradingList.TradeMatchingTransactionEntrust,TransactionAdapter.ItemViewHolder>() {
     inner class ItemViewHolder(root: ItemListExchangeTransactionsBinding): BaseViewHolder<ItemListExchangeTransactionsBinding>(root) {
+        @SuppressLint("SetTextI18n")
         fun bindData(orders: TradingList.TradeMatchingTransactionEntrust, position: Int) {
             binding.apply {
-                txtUt.text = orders.num.toString()
-                txtPrice.text = "$ ${orders.price.toString()}"
+                txtUt.text = groupingSeparatorInt(orders.num.toString().toInt())
+                txtPrice.text = "$ ${orders.price.toString().toDouble().let { groupingSeparator(it) }}"
                 txtDate.text = orders.addtime.toString()
 
                 if(orders.type.toString() == "1"){

@@ -13,6 +13,8 @@ import com.zillennium.utswap.databinding.ActivityTradeTransactionsDetailBinding
 import com.zillennium.utswap.models.tradingList.TradingList
 import com.zillennium.utswap.module.main.trade.tradeExchangeScreen.dialog.MarketDialog
 import com.zillennium.utswap.module.main.trade.tradeExchangeScreen.dialog.SuccessPlaceOrderDialog
+import com.zillennium.utswap.utils.groupingSeparator
+import com.zillennium.utswap.utils.groupingSeparatorInt
 import kotlin.concurrent.fixedRateTimer
 
 
@@ -60,11 +62,11 @@ class TransactionDetailActivity :
         binding.apply {
             txtDate.text = data.addtime.toString()
             txtTransactionId.text = data.transaction_id.toString()
-            txtPrice.text = data.price.toString()
-            txtVolume.text = data.volume.toString()
-            txtGross.text = data.gross.toString()
+            txtPrice.text = groupingSeparator(data.price.toString().toDouble())
+            txtVolume.text = groupingSeparatorInt(data.volume.toString().toInt())
+            txtGross.text = groupingSeparator(data.gross.toString().toDouble())
             txtFee.text = data.fee.toString()
-            txtNet.text = data.net.toString()
+            txtNet.text = groupingSeparator(data.net.toString().toDouble())
             txtName.text = data.name.toString()
 
             txtUnitUt.visibility = View.VISIBLE

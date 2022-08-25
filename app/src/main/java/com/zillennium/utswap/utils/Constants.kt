@@ -474,6 +474,7 @@ interface Constants {
             var utBalance = ""
             var marketPriceSell = ""
             var marketPriceBuy = ""
+            var errorMessagePlaceOrder = ""
         }
     }
     interface Project{

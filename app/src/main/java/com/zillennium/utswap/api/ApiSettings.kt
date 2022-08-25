@@ -109,7 +109,7 @@ object ApiSettings {
     const val PATH_TRADE_CREATE_ORDER = "trade/upTrade"
 
     /** Trade Chart*/
-    const val PATH_TRADE_CHART = "trade/getTradedata"
+    const val PATH_TRADE_CHART = "trade/tradingView"
 
     /** Get Trade Order Pending*/
     const val PATH_GET_TRADE_ORDER_PENDING = "trade/getTradeOrder"

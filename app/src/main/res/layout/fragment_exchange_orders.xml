@@ -37,10 +37,10 @@
 
                             <ImageView
                                 android:id="@+id/ic_filter"
-                                android:layout_width="@dimen/dimen_20"
-                                android:layout_height="@dimen/dimen_20"
+                                android:layout_width="@dimen/dimen_18"
+                                android:layout_height="@dimen/dimen_13"
                                 android:src="@drawable/ic_filter"
-                                app:tint="@color/backgroundHint" />
+                                app:tint="@color/gray_888888" />
 
                             <TextView
                                 android:id="@+id/txt_filter"
@@ -48,7 +48,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/dimen_6"
                                 android:text="@string/order_type"
-                                android:textAppearance="@style/regular_14"/>
+                                android:textAppearance="@style/regular_14"
+                                android:textColor="@color/gray_888888"/>
 
                         </LinearLayout>
 
@@ -62,8 +63,8 @@
 
                             <ImageView
                                 android:id="@+id/ic_sort"
-                                android:layout_width="@dimen/dimen_20"
-                                android:layout_height="@dimen/dimen_20"
+                                android:layout_width="@dimen/dimen_13"
+                                android:layout_height="@dimen/dimen_13"
                                 android:layout_gravity="center_vertical"
                                 android:src="@drawable/ic_sort"
                                 app:tint="@color/backgroundHint" />
@@ -74,7 +75,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/dimen_6"
                                 android:text="@string/sort"
-                                android:textAppearance="@style/regular_14" />
+                                android:textAppearance="@style/regular_14"
+                                android:textColor="@color/gray_888888"/>
 
                         </LinearLayout>
 

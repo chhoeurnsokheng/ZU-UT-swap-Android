@@ -2,10 +2,7 @@ package com.zillennium.utswap.api.service
 
 import com.zillennium.utswap.api.ApiSettings
 import com.zillennium.utswap.models.tradingList.TradingList
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.HeaderMap
-import retrofit2.http.POST
+import retrofit2.http.*
 import rx.Observable
 
 interface TradeService {
@@ -63,7 +60,7 @@ interface TradeService {
     @POST(ApiSettings.PATH_TRADE_CHART)
     fun tradeChart(
         @HeaderMap headerMap: Map<String,String>,
-        @Body body: TradingList.TradeChartObj
+        @Query("marketid") marketid : Int
     ):Observable<TradingList.TradeChartRes>
 
     /** Trade Transaction Detail*/

@@ -9,6 +9,8 @@ import com.zillennium.utswap.bases.mvp.BaseRecyclerViewAdapterGeneric
 import com.zillennium.utswap.bases.mvp.BaseViewHolder
 import com.zillennium.utswap.databinding.ItemListExchangeOrdersBinding
 import com.zillennium.utswap.models.tradingList.TradingList
+import com.zillennium.utswap.utils.groupingSeparator
+import com.zillennium.utswap.utils.groupingSeparatorInt
 
 class OrderAdapter(private var listener: OnClickDelete): BaseRecyclerViewAdapterGeneric<TradingList.TradeOrderPendingEntrust, OrderAdapter.ItemViewHolder>() {
 
@@ -16,8 +18,8 @@ class OrderAdapter(private var listener: OnClickDelete): BaseRecyclerViewAdapter
     {
         fun bindData(orders: TradingList.TradeOrderPendingEntrust, position: Int){
             binding.apply {
-                txtUt.text = orders.num.toString()
-                txtPrice.text = "$ ${orders.price}"
+                txtUt.text = groupingSeparatorInt(orders.num.toString().toInt())
+                txtPrice.text = "$ ${orders.price.toString().toDouble().let { groupingSeparator(it) }}"
                 txtDate.text = orders.addtime.toString()
 
 //        if(orders.txtStatus == "Limit / Sell")

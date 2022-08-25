@@ -206,10 +206,10 @@ class OrdersFragment :
                     icFilter.imageTintList = ColorStateList.valueOf(
                         ContextCompat.getColor(
                             UTSwapApp.instance,
-                            R.color.backgroundHint
+                            R.color.gray_888888
                         )
                     )
-                    txtFilter.setTextColor(resources.getColor(R.color.backgroundHint))
+                    txtFilter.setTextColor(resources.getColor(R.color.gray_888888))
                     mPresenter.onGetOrderPending(TradingList.TradeOrderPendingObj(Constants.OrderBookTable.marketNameOrderBook,filter,1,sortString),UTSwapApp.instance)
                 }
                 1 -> {
@@ -226,10 +226,10 @@ class OrdersFragment :
                     icFilter.imageTintList = ColorStateList.valueOf(
                         ContextCompat.getColor(
                             UTSwapApp.instance,
-                            R.color.red_ee1111
+                            R.color.primary
                         )
                     )
-                    txtFilter.setTextColor(resources.getColor(R.color.red_ee1111))
+                    txtFilter.setTextColor(resources.getColor(R.color.primary))
                     mPresenter.onGetOrderPending(TradingList.TradeOrderPendingObj(Constants.OrderBookTable.marketNameOrderBook,2,1,sortString),UTSwapApp.instance)
                 }
             }
@@ -244,11 +244,13 @@ class OrdersFragment :
                     sortString = "desc"
                     mPresenter.onGetOrderPending(TradingList.TradeOrderPendingObj(Constants.OrderBookTable.marketNameOrderBook,filter,1,sortString),UTSwapApp.instance)
                     icSort.setImageDrawable(UTSwapApp.instance.getDrawable(R.drawable.ic_sort))
+                    icSort.rotation = 0f
                 }
                 1 -> {
                     sortString = "asc"
                     mPresenter.onGetOrderPending(TradingList.TradeOrderPendingObj(Constants.OrderBookTable.marketNameOrderBook,filter,1,sortString),UTSwapApp.instance)
-                    icSort.setImageDrawable(UTSwapApp.instance.getDrawable(R.drawable.ic_sort_up))
+                    icSort.setImageDrawable(UTSwapApp.instance.getDrawable(R.drawable.ic_sort))
+                    icSort.rotation = 180f
                 }
             }
         }
@@ -278,8 +280,9 @@ class OrdersFragment :
                     R.color.backgroundHint
                 )
             )
-            txtFilter.setTextColor(resources.getColor(R.color.backgroundHint))
+            txtFilter.setTextColor(resources.getColor(R.color.gray_888888))
             icSort.setImageDrawable(UTSwapApp.instance.getDrawable(R.drawable.ic_sort))
+            icSort.rotation = 0f
             onCallApi()
         }
     }

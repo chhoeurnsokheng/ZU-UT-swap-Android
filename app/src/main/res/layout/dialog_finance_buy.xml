@@ -35,7 +35,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Project: "
-                    android:textColor="@color/dark_gray"
+                    android:textColor="@color/gray_888888"
                     android:textAppearance="@style/regular_12"/>
 
                 <TextView
@@ -65,7 +65,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Volume: "
-                    android:textColor="@color/dark_gray"
+                    android:textColor="@color/gray_888888"
                     android:textAppearance="@style/regular_12"/>
 
                 <LinearLayout
@@ -112,7 +112,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Price: "
-                    android:textColor="@color/dark_gray"
+                    android:textColor="@color/gray_888888"
                     android:textAppearance="@style/regular_12"/>
 
                 <LinearLayout
@@ -123,7 +123,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="$"
+                        android:text="$ "
                         android:textColor="@color/black"
                         android:textAppearance="@style/regular_12"/>
 
@@ -155,7 +155,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Gross Value: "
-                    android:textColor="@color/dark_gray"
+                    android:textColor="@color/gray_888888"
                     android:textAppearance="@style/regular_12"/>
 
                 <LinearLayout
@@ -167,7 +167,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="end"
-                        android:text="$"
+                        android:text="$ "
                         android:layout_marginStart="@dimen/dimen_10"
                         android:textColor="@color/black"
                         android:textAppearance="@style/regular_12"/>
@@ -201,7 +201,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Fee: "
-                    android:textColor="@color/dark_gray"
+                    android:textColor="@color/gray_888888"
                     android:textAppearance="@style/regular_12"/>
 
                 <LinearLayout
@@ -213,7 +213,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="end"
-                        android:text="$"
+                        android:text="$ "
                         android:textColor="@color/black"
                         android:textAppearance="@style/regular_12"/>
 
@@ -246,7 +246,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Net Value: "
-                    android:textColor="@color/dark_gray"
+                    android:textColor="@color/gray_888888"
                     android:textAppearance="@style/regular_12"/>
 
                 <LinearLayout
@@ -258,7 +258,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="end"
-                        android:text="$"
+                        android:text="$ "
                         android:layout_marginStart="@dimen/dimen_10"
                         android:textColor="@color/black"
                         android:textAppearance="@style/regular_12"/>

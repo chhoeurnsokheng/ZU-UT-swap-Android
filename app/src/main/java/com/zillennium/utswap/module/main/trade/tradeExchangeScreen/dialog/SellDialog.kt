@@ -23,7 +23,10 @@ import com.zillennium.utswap.api.manager.ApiTradeImp
 import com.zillennium.utswap.models.tradingList.TradingList
 import com.zillennium.utswap.utils.Constants
 import com.zillennium.utswap.utils.VerifyClientData
+import com.zillennium.utswap.utils.groupingSeparator
+import com.zillennium.utswap.utils.groupingSeparatorInt
 import rx.Subscription
+import kotlin.math.roundToInt
 
 class SellDialog : DialogFragment() {
     internal var view: View? = null
@@ -57,14 +60,15 @@ class SellDialog : DialogFragment() {
         txtNetValue = view?.findViewById(R.id.txt_net_value)
         txtProjectName = view?.findViewById(R.id.txt_project_name)
 
-        volume = arguments?.getString("volume")
-        price = arguments?.getString("price")
+        volume = arguments?.getString("volume").toString()
+        price = arguments?.getString("price").toString()
 
-        txtVolume?.text = volume.toString()
-        txtPrice?.text = price.toString()
+        txtVolume?.text = groupingSeparatorInt(volume.toString().toInt())
+        txtPrice?.text = price?.toDouble()?.let { groupingSeparator(it) }
         txtProjectName?.text = Constants.OrderBookTable.projectName
-        txtGrossValue?.text = (volume?.toFloat()?.times(price!!.toFloat())).toString()
-        txtNetValue?.text = (txtGrossValue?.text.toString().toFloat()).toString()
+        val grossValue = ((volume?.toDouble()?.times(price!!.toDouble())))
+        txtGrossValue?.text = grossValue?.let { groupingSeparator(it) }
+        txtNetValue?.text = grossValue?.let { groupingSeparator(it) }
 
         //convert md 5
         var params: Map<String, String> = emptyMap()
@@ -108,7 +112,8 @@ class SellDialog : DialogFragment() {
                 SessionVariable.callAvailableBalance.value = true
                 SessionVariable.createPendingOrder.value = true
             }else{
-                Toast.makeText(UTSwapApp.instance,it.message.toString(), Toast.LENGTH_LONG).show()
+                SessionVariable.callDialogErrorCreateOrder.value = true
+                Constants.TradeExchange.errorMessagePlaceOrder = it.message.toString()
             }
         },{
             object : CallbackWrapper(it, UTSwapApp.instance, arrayListOf()){

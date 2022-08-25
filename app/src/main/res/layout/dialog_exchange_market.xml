@@ -34,7 +34,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Project: "
-                    android:textColor="@color/dark_gray"
+                    android:textColor="@color/gray_888888"
                     android:textAppearance="@style/regular_12"/>
 
                 <TextView
@@ -63,7 +63,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Volume: "
-                    android:textColor="@color/dark_gray"
+                    android:textColor="@color/gray_888888"
                     android:textAppearance="@style/regular_12"/>
 
                 <LinearLayout
@@ -108,7 +108,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Price: "
-                    android:textColor="@color/dark_gray"
+                    android:textColor="@color/gray_888888"
                     android:textAppearance="@style/regular_12"/>
 
                 <LinearLayout

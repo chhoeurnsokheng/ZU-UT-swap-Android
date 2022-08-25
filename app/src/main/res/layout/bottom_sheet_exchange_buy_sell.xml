@@ -271,7 +271,7 @@
                                     android:id="@+id/txt_price_buy"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="0"
+                                    android:text="0.00"
                                     android:textColor="@color/white"
                                     android:textAppearance="@style/regular_16"
                                     android:layout_marginBottom="@dimen/dimen_5"/>
@@ -363,7 +363,7 @@
                                     android:id="@+id/txt_price_sell"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="0"
+                                    android:text="0.00"
                                     android:textColor="@color/white"
                                     android:textAppearance="@style/regular_16"
                                     android:layout_marginBottom="@dimen/dimen_5"/>

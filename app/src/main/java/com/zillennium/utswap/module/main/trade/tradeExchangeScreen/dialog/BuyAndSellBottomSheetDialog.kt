@@ -19,6 +19,8 @@ import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.databinding.BottomSheetExchangeBuySellBinding
 import com.zillennium.utswap.utils.Constants
+import com.zillennium.utswap.utils.groupingSeparator
+import com.zillennium.utswap.utils.groupingSeparatorInt
 import kotlin.math.roundToInt
 
 class BuyAndSellBottomSheetDialog(var onDismissListener: OnDismissListener) :
@@ -68,8 +70,9 @@ class BuyAndSellBottomSheetDialog(var onDismissListener: OnDismissListener) :
             )
             var click = true
 
-            txtUt.text = Constants.TradeExchange.utBalance
             txtAvailable.text = Constants.TradeExchange.availableBalance
+
+            txtUt.text = Constants.TradeExchange.utBalance
 
             SessionVariable.marketPriceSell.observe(this@BuyAndSellBottomSheetDialog){
                 marketPriceSell.value = SessionVariable.marketPriceSell.value.toString()
@@ -78,8 +81,6 @@ class BuyAndSellBottomSheetDialog(var onDismissListener: OnDismissListener) :
             SessionVariable.marketPriceBuy.observe(this@BuyAndSellBottomSheetDialog){
                 marketPriceBuy.value = SessionVariable.marketPriceBuy.value.toString()
             }
-
-            println("//// " + marketPriceBuy.value.toString() + " live data" + SessionVariable.marketPriceBuy.value + "*** market sell"+ marketPriceSell.value.toString() )
 
             btnBuyBottomSheet.setOnClickListener {
                 if (SessionPreferences().SESSION_KYC_SUBMIT_STATUS == true && SessionPreferences().SESSION_KYC == false) {
@@ -176,36 +177,43 @@ class BuyAndSellBottomSheetDialog(var onDismissListener: OnDismissListener) :
 
                 }
 
+                @SuppressLint("SetTextI18n")
                 override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                     etVolume.background = ContextCompat.getDrawable(
                         UTSwapApp.instance,
                         R.drawable.outline_edittext_change_color_focus
                     )
 
+                    if(etPriceOfVolume.text.toString() == "."){
+                        etPriceOfVolume.text.clear()
+
+                    }
+
                     if(tradeType == "limit"){
                         if(etVolume.text.toString().isNotEmpty() && etPriceOfVolume.text.toString().isNotEmpty())
                         {
-                            val price = etVolume.text.toString().toInt() * etPriceOfVolume.text.toString().toDouble()
-                            val priceAfterConvert = (price * 100.0).roundToInt() / 100.0
-                            txtPriceBuy.text = priceAfterConvert.toString()
-                            txtPriceSell.text = priceAfterConvert.toString()
+                            if(etPriceOfVolume.text.toString() != ".")
+                            {
+                                val price = etVolume.text.toString().toInt() * etPriceOfVolume.text.toString().toDouble()
+
+                                txtPriceBuy.text = groupingSeparator(price)
+                                txtPriceSell.text = groupingSeparator(price)
+                            }
                         }else{
-                            txtPriceSell.text = "0"
-                            txtPriceBuy.text = "0"
+                            txtPriceSell.text = "0.00"
+                            txtPriceBuy.text = "0.00"
                         }
                     }else{
                         if(etVolume.text.toString().isNotEmpty())
                         {
                             val priceSell = etVolume.text.toString().toInt() * SessionVariable.marketPriceBuy.value.toString().toDouble()
-                            val priceSellConvert = (priceSell* 100.0).roundToInt() / 100.0
-                            txtPriceSell.text = priceSellConvert.toString()
+                            txtPriceSell.text = groupingSeparator(priceSell)
 
                             val priceBuy = etVolume.text.toString().toInt() * SessionVariable.marketPriceSell.value.toString().toDouble()
-                            val priceBuyConvert = (priceBuy* 100.0).roundToInt() / 100.0
-                            txtPriceBuy.text = priceBuyConvert.toString()
+                            txtPriceBuy.text = groupingSeparator(priceBuy)
                         }else{
-                            txtPriceSell.text = "0"
-                            txtPriceBuy.text = "0"
+                            txtPriceSell.text = "0.00"
+                            txtPriceBuy.text = "0.00"
                         }
                     }
                 }
@@ -220,38 +228,44 @@ class BuyAndSellBottomSheetDialog(var onDismissListener: OnDismissListener) :
 
                 }
 
+                @SuppressLint("SetTextI18n")
                 override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                     etPriceOfVolume.background = ContextCompat.getDrawable(
                         UTSwapApp.instance,
                         R.drawable.outline_edittext_change_color_focus
                     )
 
+                    if(etPriceOfVolume.text.toString() == "."){
+                        etPriceOfVolume.text.clear()
+
+                    }
+
                     if(tradeType == "limit"){
                         if(etVolume.text.toString().isNotEmpty() && etPriceOfVolume.text.toString().isNotEmpty())
                         {
-                            val price = etVolume.text.toString().toInt() * etPriceOfVolume.text.toString().toDouble()
-                            val priceAfterConvert = (price * 100.0).roundToInt() / 100.0
-                            txtPriceBuy.text = priceAfterConvert.toString()
-                            txtPriceSell.text = priceAfterConvert.toString()
+                            if(etPriceOfVolume.text.toString() != ".")
+                            {
+                                val price = etVolume.text.toString().toInt() * etPriceOfVolume.text.toString().toDouble()
+                                txtPriceBuy.text = groupingSeparator(price)
+                                txtPriceSell.text = groupingSeparator(price)
+                            }
                         }else{
-                            txtPriceSell.text = "0"
-                            txtPriceBuy.text = "0"
+                            txtPriceSell.text = "0.00"
+                            txtPriceBuy.text = "0.00"
                         }
                     }else{
                         if(etVolume.text.toString().isNotEmpty())
                         {
                             val priceSell = etVolume.text.toString().toInt() * SessionVariable.marketPriceBuy.value.toString().toDouble()
-                            val priceSellConvert = (priceSell* 100.0).roundToInt() / 100.0
-                            txtPriceSell.text = priceSellConvert.toString()
+                            txtPriceSell.text = groupingSeparator(priceSell)
 
                             val priceBuy = etVolume.text.toString().toInt() * SessionVariable.marketPriceSell.value.toString().toDouble()
-                            val priceBuyConvert = (priceBuy* 100.0).roundToInt() / 100.0
-                            txtPriceBuy.text = priceBuyConvert.toString()
+                            txtPriceBuy.text = groupingSeparator(priceBuy)
                         }else{
                             etVolume.text.clear()
                             etPriceOfVolume.text.clear()
-                            txtPriceSell.text = "0"
-                            txtPriceBuy.text = "0"
+                            txtPriceSell.text = "0.00"
+                            txtPriceBuy.text = "0.00"
                         }
                     }
                 }
