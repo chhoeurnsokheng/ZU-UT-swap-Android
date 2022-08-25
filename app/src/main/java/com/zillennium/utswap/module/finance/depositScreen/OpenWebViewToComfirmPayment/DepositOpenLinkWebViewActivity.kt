@@ -147,13 +147,14 @@ class DepositOpenLinkWebViewActivity :
                         intent.data = uri
                         startActivity(intent)
                     } else {
-                        val intent = Intent(Intent.ACTION_VIEW)
-                        intent.data = uri
+
+                        intent = Intent(Intent.ACTION_VIEW)
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        intent.data = Uri.parse("market://details?id=$packagePlayStoreAcleda")
                         startActivity(intent)
                     }
 
                 } else if (schema == kessChatScheme) { //Kesss
-
                     val intent = Intent(Intent.ACTION_VIEW)
                     intent.data = uri
                     startActivity(intent)
@@ -167,8 +168,9 @@ class DepositOpenLinkWebViewActivity :
                         intent.data = uri
                         startActivity(intent)
                     } else {
-                        val intent = Intent(Intent.ACTION_VIEW)
-                        intent.data = uri
+                        intent = Intent(Intent.ACTION_VIEW)
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        intent.data = Uri.parse("market://details?id=$packagePlayStoreSathapana")
                         startActivity(intent)
                     }
 

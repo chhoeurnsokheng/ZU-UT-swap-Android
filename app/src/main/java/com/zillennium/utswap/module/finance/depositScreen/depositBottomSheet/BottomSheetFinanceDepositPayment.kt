@@ -13,6 +13,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
@@ -93,6 +94,21 @@ class BottomSheetFinanceDepositPayment : BottomSheetDialogFragment(),
 
                 onDepositBalance(root.context, bodyObj)
                 binding?.progressBar?.visibility = View.VISIBLE
+                val txtAmount = etMountPayment.text.toString().replace(",", "")
+                 var totalAmountValue = 0.0
+                if (txtAmount.isNotEmpty()){
+                    totalAmountValue = txtAmount.toDouble()
+                }
+
+                if (totalAmountValue <1){
+                    binding?.progressBar?.visibility = View.GONE
+                    Toast.makeText(UTSwapApp.instance, "Minimum deposit is $ 1.00",Toast.LENGTH_SHORT).show()
+                }else{
+                       onDepositBalance(root.context, bodyObj)
+                        binding?.progressBar?.visibility = View.VISIBLE
+                }
+
+
             }
 
             arguments?.getString("imgCard")?.let {
@@ -163,12 +179,14 @@ class BottomSheetFinanceDepositPayment : BottomSheetDialogFragment(),
                             isEnabled = false
                         }
                     }
-
+                    if (binding?.etMountPayment?.getText()?.startsWith("0") == true)
+                        binding?.etMountPayment?.setText("");
 
                 }
 
                 override fun afterTextChanged(s: Editable?) {
 
+                    binding?.txtDorlla?.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.white))
                 }
 
             })
