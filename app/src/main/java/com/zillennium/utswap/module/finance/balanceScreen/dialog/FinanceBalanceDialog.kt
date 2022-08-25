@@ -71,15 +71,12 @@ class FinanceBalanceDialog: DialogFragment() {
 
             
             val typeBalance = arguments?.getString("type_balance")
-            val feeAdmin = arguments?.getString("fee_admin")
 
             if (typeBalance == "2" || typeBalance == "4" || typeBalance == "5" || typeBalance == "SEND"){
                 if (typeBalance == "4"){
-                    if (feeAdmin == "YES"){
-                        txtFeeAdmin.visibility = View.VISIBLE
-                        txtFeeId.visibility = View.VISIBLE
-                        txtFeeId.text = "$5"
-                    }
+                    txtFeeAdmin.visibility = View.VISIBLE
+                    txtFeeId.visibility = View.VISIBLE
+                    txtFeeId.text = "$" + arguments?.getString("fee")?.let { UtilKt().formatValue(it.toDouble(), "###,###.##") }
                 }
                 txtMoneyType.text = "Money Out:"
                 amountBalance.text = "-$" + arguments?.getDouble("amountBalance").toString().let { UtilKt().formatValue(it.toDouble(), "###,###.##") }
@@ -156,7 +153,8 @@ class FinanceBalanceDialog: DialogFragment() {
         type: String?,
         total: Double?,
         balance: String?,
-        fee: String?
+        feeStatus: String?,
+        fee: String?,
         ): FinanceBalanceDialog {
             val financeBalanceDialog = FinanceBalanceDialog()
             val args = Bundle()
@@ -168,7 +166,8 @@ class FinanceBalanceDialog: DialogFragment() {
                 args.putDouble("amountBalance", total)
             }
             args.putString("balance", balance)
-            args.putString("fee_admin", fee)
+            args.putString("fee_admin", feeStatus)
+            args.putString("fee", fee)
 
             financeBalanceDialog.arguments = args
             return financeBalanceDialog
