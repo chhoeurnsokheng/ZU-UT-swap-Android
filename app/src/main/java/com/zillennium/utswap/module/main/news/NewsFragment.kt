@@ -43,7 +43,7 @@ class NewsFragment :
         Tovuti.from(UTSwapApp.instance).monitor{ _, isConnected, _ ->
             if(isConnected)
             {
-                mPresenter.onGetNews(UTSwapApp.instance,page!!)
+                mPresenter.onGetNews(UTSwapApp.instance, News.NewsObj(page))
             }
         }
     }
@@ -120,7 +120,7 @@ class NewsFragment :
                 page = 1
                 listNews.clear()
                 binding.txtEnd.visibility = View.GONE
-                mPresenter.onGetNews(UTSwapApp.instance,1)
+                mPresenter.onGetNews(UTSwapApp.instance,News.NewsObj(1))
             }
 
         }
@@ -128,7 +128,7 @@ class NewsFragment :
             page = 1
             listNews.clear()
             binding.txtEnd.visibility = View.GONE
-            mPresenter.onGetNews(UTSwapApp.instance,1)
+            mPresenter.onGetNews(UTSwapApp.instance, News.NewsObj(1))
         }
     }
 
@@ -148,7 +148,7 @@ class NewsFragment :
             }
 
             readMore.setOnClickListener {
-                mPresenter.onGetNews(UTSwapApp.instance,page!!)
+                mPresenter.onGetNews(UTSwapApp.instance, News.NewsObj(page))
                 progressBarReadMore.visibility = View.VISIBLE
             }
 
@@ -165,7 +165,7 @@ class NewsFragment :
                 page = 1
                 listNews.clear()
                 txtEnd.visibility = View.GONE
-                mPresenter.onGetNews(UTSwapApp.instance,1)
+                mPresenter.onGetNews(UTSwapApp.instance, News.NewsObj(page))
             }
         }
     }

@@ -4,11 +4,8 @@ package com.zillennium.utswap.module.main.home
 import android.content.Intent
 import android.graphics.BlurMaskFilter
 import android.graphics.MaskFilter
-import android.util.Log
 import android.view.View
-import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager.widget.ViewPager
@@ -35,7 +32,6 @@ import com.zillennium.utswap.module.security.securityActivity.signInScreen.SignI
 import com.zillennium.utswap.module.system.notification.NotificationActivity
 import com.zillennium.utswap.screens.navbar.navbar.MainActivity
 import com.zillennium.utswap.utils.Constants
-import com.zillennium.utswap.utils.SpaceDecoration
 import com.zillennium.utswap.utils.UtilKt
 
 class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, FragmentHomeBinding>(),
@@ -49,17 +45,19 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
 
     private val HomeArrayList = ArrayList<HomeMenuModel>()
     var bannerLoopingPagerAdapter: BannerLoopingPagerAdapter? = null
-    var homeRecentNewsAdapter :HomeRecentNewsAdapter? = null
-    var homeWatchlistAdapter:HomeWatchlistAdapter? = null
-    var newsList  = ArrayList<News.NewsNew>()
+    var homeRecentNewsAdapter: HomeRecentNewsAdapter? = null
+    var homeWatchlistAdapter: HomeWatchlistAdapter? = null
+    var newsList = ArrayList<News.NewsNew>()
     var isUserSwipe = false
     var currentPosition = 0
 
 
     override fun initView() {
         super.initView()
-        mPresenter.getBanner(requireActivity())
         onSwipeRefresh()
+        SessionVariable.SESSION_STATUS.observe(this){
+            requestData()
+        }
         binding.apply {
             swipeRefresh.setColorSchemeColors(
                 ContextCompat.getColor(
@@ -157,19 +155,22 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
             // Must be safe
         }
     }
+    private fun requestData() {
+        mPresenter.getNewsHome(requireActivity())
+        mPresenter.getWatchListAndBalance(requireActivity())
+        mPresenter.getBanner(requireActivity())
+
+    }
 
     override fun onGetBannerSuccess(data: BannerObj.Banner) {
-        mPresenter.getNewsHome(requireActivity())
-        mPresenter.getWishListAndBalance(requireActivity())
+
         binding.apply {
             swipeRefresh.isRefreshing = false
             bannerLoopingPagerAdapter = object : BannerLoopingPagerAdapter(
                 data.data, false
             ) {
                 override fun onBannerItemClick(id: String, position: Int) {
-                    if (position != null) {
-                        NewsDetailActivity.launchNewsDetailsActivity(requireActivity(), id)
-                    }
+                    NewsDetailActivity.launchNewsDetailsActivity(requireActivity(), id)
 
                 }
             }
@@ -226,7 +227,7 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
         newsList.clear()
         data.data?.NEW?.forEachIndexed { index, itemWishList ->
 
-            if (index<=2){
+            if (index <= 2) {
                 newsList.add(itemWishList)
             }
         }
@@ -234,8 +235,8 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
             swipeRefresh.isRefreshing = false
 
             rvHomeNews.layoutManager = LinearLayoutManager(UTSwapApp.instance)
-            homeRecentNewsAdapter  = HomeRecentNewsAdapter(newsList)
-                //data.data?.NEW?.let { HomeRecentNewsAdapter(it) }
+            homeRecentNewsAdapter = HomeRecentNewsAdapter(newsList)
+            //data.data?.NEW?.let { HomeRecentNewsAdapter(it) }
             rvHomeNews.adapter = homeRecentNewsAdapter
             layNewsLoading.setOnClickListener {
                 activity?.findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(
@@ -266,20 +267,26 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
             binding.rvHomeWatchlist.apply {
                 homeWatchlistAdapter = data.data?.watch_lists?.let { HomeWatchlistAdapter(it) }
                 adapter = homeWatchlistAdapter
-                layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-              //  addItemDecoration(SpaceDecoration(resources.getDimensionPixelSize(R.dimen.dimen_2)))
+                layoutManager =
+                    LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+                //  addItemDecoration(SpaceDecoration(resources.getDimensionPixelSize(R.dimen.dimen_2)))
 
-                Constants.WatchList.itemWatchList = data.data?.watch_lists as ArrayList<BannerObj.ItemWishList>
+                Constants.WatchList.itemWatchList =
+                    data.data?.watch_lists as ArrayList<BannerObj.ItemWishList>
             }
         }
 
         binding.apply {
 
-            if (data.data?.total_user_balance ==0.0){
-                tradingBalance.text =  "$ " + "0.00"
-            }else{
-                tradingBalance.text =  "$ " + "" + "" + data.data?.total_user_balance?.let { UtilKt().formatDecimal("#,###.00", it) }
-
+            if (data.data?.total_user_balance == 0.0) {
+                tradingBalance.text = "$ " + "0.00"
+            } else {
+                tradingBalance.text = "$ " + "" + "" + data.data?.total_user_balance?.let {
+                    UtilKt().formatDecimal(
+                        "#,###.00",
+                        it
+                    )
+                }
 
 
             }
@@ -325,7 +332,7 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
         }
     }
 
-    private fun onHomeMenuGrid(enabled: Boolean) {
+     fun onHomeMenuGrid(enabled: Boolean) {
 
         binding.apply {
             HomeArrayList.clear()
@@ -350,12 +357,12 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
         binding.apply {
             swipeRefresh.setOnRefreshListener {
                 (activity as MainActivity).onRefreshData()
-                mPresenter.getNewsHome(requireActivity())
-                mPresenter.getBanner(requireActivity())
+                requestData()
 
             }
         }
     }
+
 
     private fun showBalanceClick() {
         binding.apply {

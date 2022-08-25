@@ -19,6 +19,10 @@ object News {
         var img: String? = null
     }
 
+    class NewsObj(
+        var page: Int?
+    )
+
     /** News Detail */
     class NewsDetailRes{
         var status: Int? = null

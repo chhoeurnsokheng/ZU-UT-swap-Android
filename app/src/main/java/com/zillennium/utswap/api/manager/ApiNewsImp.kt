@@ -8,10 +8,10 @@ import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
 
 class ApiNewsImp: ApiManager() {
-    fun getNews(context: Context,p: Int): Observable<News.NewsRes> =
+    fun getNews(context: Context,body: News.NewsObj): Observable<News.NewsRes> =
         mNewsService.news(
             Header.getHeader(Header.Companion.AuthType.REQUIRED_TOKEN, context),
-            p
+            body
         )
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

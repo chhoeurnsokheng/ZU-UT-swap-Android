@@ -248,7 +248,8 @@ class FinanceBalanceActivity :
                     financeUserBalanceTransaction.type,
                     financeUserBalanceTransaction.total,
                     financeUserBalanceTransaction.balance,
-                    financeUserBalanceTransaction.fee_admin
+                    financeUserBalanceTransaction.fee_admin,
+                    financeUserBalanceTransaction.fee,
                 )
                 financeBalanceDialog.show(supportFragmentManager, "Balance Data Detail")
             }

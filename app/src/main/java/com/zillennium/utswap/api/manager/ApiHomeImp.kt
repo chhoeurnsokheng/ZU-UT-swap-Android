@@ -3,6 +3,7 @@ package com.zillennium.utswap.api.manager
 import android.content.Context
 import com.google.firebase.crashlytics.buildtools.ndk.internal.dwarf.processor.CompilationUnitContext
 import com.zillennium.utswap.models.home.BannerObj
+import com.zillennium.utswap.models.home.ForceUpdate
 import com.zillennium.utswap.models.newsService.News
 import com.zillennium.utswap.models.userService.User
 import retrofit2.http.Header
@@ -33,6 +34,9 @@ class ApiHomeImp : ApiManager() {
                 context
             )
         ).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+
+    fun checkForceUpdate(context: Context): Observable<ForceUpdate.ForceUpdateRes> =
+        mHomeService.checkForceUpdate().subscribeOn(Schedulers.io())
 
     fun checkKycStatus(context: Context): Observable<User.KycRes> =
         mHomeService.checkKYCStatus(
