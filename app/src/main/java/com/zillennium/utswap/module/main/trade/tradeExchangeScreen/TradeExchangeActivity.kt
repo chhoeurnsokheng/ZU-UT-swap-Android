@@ -814,11 +814,11 @@ class TradeExchangeActivity :
     }
 
     override fun addFavoriteProjectSuccess(data: TradingList.TradeAddFavoriteRes) {
-
+        SessionVariable.realTimeWatchList.value = true
     }
 
     override fun addFavoriteProjectFail(data: TradingList.TradeAddFavoriteRes) {
-
+        SessionVariable.realTimeWatchList.value = true
     }
 
     private fun onChangeTabs(view: View) {

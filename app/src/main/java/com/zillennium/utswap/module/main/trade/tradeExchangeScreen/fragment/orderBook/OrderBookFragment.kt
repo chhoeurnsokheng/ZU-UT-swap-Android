@@ -93,19 +93,11 @@ class OrderBookFragment :
             rvBid.layoutManager = linearLayoutManager
             orderBookBid = OrderBookBidAdapter()
             rvBid.adapter = orderBookBid
-//            val tradeOrderBookBidAdapter = TradeOrderBookBidAdapter(
-//                OrderBookListBidData.LIST_OF_ORDER_BOOK_BID()
-//            )
-//            rvBid.adapter = tradeOrderBookBidAdapter
 
             val linearLayoutManagerAsk = LinearLayoutManager(requireContext())
             rvAsk.layoutManager = linearLayoutManagerAsk
             orderBookAsk = OrderBookAskAdapter()
             rvAsk.adapter = orderBookAsk
-//            val tradeOrderBookAskAdapter = TradeOrderBookAskAdapter(
-//                OrderBookListAskData.LIST_OF_ORDER_BOOK_ASK()
-//            )
-//            rvAsk.adapter = tradeOrderBookAskAdapter
         }
     }
 }

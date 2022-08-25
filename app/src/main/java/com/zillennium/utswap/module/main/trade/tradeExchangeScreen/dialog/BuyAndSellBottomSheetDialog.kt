@@ -20,8 +20,7 @@ import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.databinding.BottomSheetExchangeBuySellBinding
 import com.zillennium.utswap.utils.Constants
 import com.zillennium.utswap.utils.groupingSeparator
-import com.zillennium.utswap.utils.groupingSeparatorInt
-import kotlin.math.roundToInt
+import java.text.DecimalFormat
 
 class BuyAndSellBottomSheetDialog(var onDismissListener: OnDismissListener) :
     BottomSheetDialogFragment() {
@@ -244,6 +243,7 @@ class BuyAndSellBottomSheetDialog(var onDismissListener: OnDismissListener) :
 
                 @SuppressLint("SetTextI18n")
                 override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
                     etPriceOfVolume.background = ContextCompat.getDrawable(
                         UTSwapApp.instance,
                         R.drawable.outline_edittext_change_color_focus

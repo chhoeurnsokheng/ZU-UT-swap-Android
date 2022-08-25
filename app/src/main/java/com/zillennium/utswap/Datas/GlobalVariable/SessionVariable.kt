@@ -29,5 +29,7 @@ class SessionVariable {
         var marketPriceBuy: MutableLiveData<String> = MutableLiveData()
 
         var callDialogErrorCreateOrder: MutableLiveData<Boolean> = MutableLiveData()
+
+        var realTimeWatchList: MutableLiveData<Boolean> = MutableLiveData()
     }
 }

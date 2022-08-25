@@ -58,6 +58,7 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
 
     override fun initView() {
         super.initView()
+        SessionVariable.realTimeWatchList.value = true
         mPresenter.getBanner(requireActivity())
         onSwipeRefresh()
         binding.apply {
@@ -70,6 +71,13 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
         }
         try {
             binding.apply {
+                //real time watchlist
+                SessionVariable.realTimeWatchList.observe(this@HomeFragment){
+                    if(it){
+                        mPresenter.getWishListAndBalance(requireActivity())
+                        SessionVariable.realTimeWatchList.value = false
+                    }
+                }
 
                 //check share preference
                 SessionVariable.SESSION_STATUS.observe(this@HomeFragment) {
