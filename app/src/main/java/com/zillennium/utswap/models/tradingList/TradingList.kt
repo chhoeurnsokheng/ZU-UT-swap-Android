@@ -199,6 +199,7 @@ object TradingList {
         var sum_usd: Double? = null
         var sum_ut: Int? = null
         var lock_usd: Double? = null
+        var market_open: Boolean? = null
     }
 
     /** Trade Cancel Order*/

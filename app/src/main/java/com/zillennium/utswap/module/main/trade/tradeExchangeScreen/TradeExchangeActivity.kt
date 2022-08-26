@@ -10,6 +10,7 @@ import android.text.Editable
 import android.text.InputFilter
 import android.text.TextWatcher
 import android.view.View
+import android.view.WindowManager
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
@@ -36,8 +37,10 @@ import com.zillennium.utswap.module.main.trade.tradeExchangeScreen.fragment.orde
 import com.zillennium.utswap.module.main.trade.tradeExchangeScreen.fragment.orders.OrdersFragment
 import com.zillennium.utswap.module.project.projectInfoScreen.ProjectInfoActivity
 import com.zillennium.utswap.module.security.securityActivity.signInScreen.SignInActivity
-import com.zillennium.utswap.utils.*
+import com.zillennium.utswap.utils.Constants
 import com.zillennium.utswap.utils.DecimalDigitsInputFilter
+import com.zillennium.utswap.utils.groupingSeparator
+import com.zillennium.utswap.utils.groupingSeparatorInt
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -59,20 +62,17 @@ class TradeExchangeActivity :
 
     val NUM_PAGES_TABLE = 3
     var remember: Boolean? = null
-    var clickCount: Int = 2
-
-    var orderScroll : Boolean = false
-
 
     var click = true
     private var mBottomSheetBehavior: BottomSheetBehavior<*>? = null
 
     override var fetchTradeDetailData: MutableLiveData<TradingList.TradingListSummary> = MutableLiveData()
 
-    companion object {
-        var page: Int = 0
-        var orderPage: Int = 1
+    var handler = Handler()
+    var runnable: Runnable? = null
+    var delay = 1000
 
+    companion object {
         fun launchTradeExchangeActivity(context: Context, trade: TradeModel?) {
             val intent = Intent(context, TradeExchangeActivity::class.java)
             intent.putExtra(Constants.TradeExchange.ProjectName, trade?.project_name)
@@ -104,11 +104,14 @@ class TradeExchangeActivity :
         /** for recall request available balance and order book table socket*/
         SessionVariable.requestOrderBookSocket.value = true
         SessionVariable.refreshOrderPending.value = false
-        SessionVariable.createMatchingTransaction.value = false
-        SessionVariable.createPendingOrder.value = false
+        //SessionVariable.createMatchingTransaction.value = false
+        //SessionVariable.createPendingOrder.value = false
         SessionVariable.refreshMatchingTransaction.value = false
-        SessionVariable.callAvailableBalance.value = false
         SessionVariable.callDialogErrorCreateOrder.value = false
+        SessionVariable.callDialogSuccessPlaceOrder.value = false
+        SessionVariable.waitingPlaceOrder.value = false
+        SessionVariable.callDialogSuccessPlaceOrder.value = false
+        SessionVariable.cancelPlaceOrder.value = false
         SessionVariable.marketPriceSell.value = ""
         SessionVariable.marketPriceBuy.value = ""
 
@@ -120,18 +123,43 @@ class TradeExchangeActivity :
             }
         }
 
-//        SessionVariable.createPendingOrder.observe(this@TradeExchangeActivity){
-//            if(it){
-//                val buyDialog = SuccessPlaceOrderDialog()
-//                this@TradeExchangeActivity.supportFragmentManager?.let { it1 -> buyDialog.show(it1, "asaf") }
-//            }
-//        }
+        //waiting screen
+        SessionVariable.waitingPlaceOrder.observe(this@TradeExchangeActivity){
+            if(it){
+                binding.progressBar.visibility = View.VISIBLE
+                window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+            }else{
+                binding.progressBar.visibility = View.GONE
+                window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+            }
+        }
+
+        //cancel place order
+        SessionVariable.cancelPlaceOrder.observe(this@TradeExchangeActivity){
+            if(it){
+                val cancelOrderDialog = CancelOrderDialog()
+                this@TradeExchangeActivity.supportFragmentManager.let { it1 -> cancelOrderDialog.show(it1, "asaf") }
+                SessionVariable.cancelPlaceOrder.value = false
+                SessionVariable.waitingPlaceOrder.value = false
+            }
+        }
+
+        SessionVariable.callDialogSuccessPlaceOrder.observe(this@TradeExchangeActivity){
+            if(it){
+                val successPlaceOrderDialog = SuccessPlaceOrderDialog()
+                this@TradeExchangeActivity.supportFragmentManager.let { it1 -> successPlaceOrderDialog.show(it1, "asaf") }
+                SessionVariable.callDialogSuccessPlaceOrder.value = false
+                SessionVariable.waitingPlaceOrder.value = false
+            }
+        }
 
         SessionVariable.callDialogErrorCreateOrder.observe(this@TradeExchangeActivity){
             if (it){
                 val errorPlaceOrderDialog = ErrorPlaceOrderDialog()
                 this@TradeExchangeActivity.supportFragmentManager.let { it1 -> errorPlaceOrderDialog.show(it1, "asaf") }
                 SessionVariable.callDialogErrorCreateOrder.value = false
+                SessionVariable.waitingPlaceOrder.value = false
             }
         }
 
@@ -140,14 +168,6 @@ class TradeExchangeActivity :
 
             }else{
                 binding.swipeRefresh.isRefreshing = false
-            }
-        }
-
-        //Recall available balance after spend
-        SessionVariable.callAvailableBalance.observe(this@TradeExchangeActivity){
-            if(it){
-                mPresenter.getAvailableBalance(TradingList.AvailableBalanceObj(intent?.getStringExtra(Constants.TradeExchange.MarketName).toString()),UTSwapApp.instance)
-                SessionVariable.callAvailableBalance.value = false
             }
         }
 
@@ -209,28 +229,6 @@ class TradeExchangeActivity :
                     }else {
                         txtChange.text = "+" + it.info?.change.toString() + "%"
                         txtChange.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.success))
-                    }
-
-                    //change project is live or close
-                    if(it.info?.market_open == true){
-                        includeLayout.btnLive.visibility = View.VISIBLE
-                        includeLayout.btnLive.backgroundTintList = ColorStateList.valueOf(
-                            ContextCompat.getColor(
-                                UTSwapApp.instance,
-                                R.color.success
-                            )
-                        )
-
-                        includeLayout.btnLive.text = resources.getString(R.string.live)
-                    }else{
-                        includeLayout.btnLive.visibility = View.VISIBLE
-                        includeLayout.btnLive.backgroundTintList = ColorStateList.valueOf(
-                            ContextCompat.getColor(
-                                UTSwapApp.instance,
-                                R.color.danger
-                            )
-                        )
-                        includeLayout.btnLive.text = resources.getString(R.string.close)
                     }
                 }
 
@@ -523,7 +521,6 @@ class TradeExchangeActivity :
                 }
 
                 persistentBottomSheet.etVolume.addTextChangedListener(object : TextWatcher {
-                    var count = 0
 
                     override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
 
@@ -686,13 +683,6 @@ class TradeExchangeActivity :
             tb.setOnClickListener {
                 finish()
                 onBackPressed()
-//                mPresenter.closeTradeDetailSocket()
-//                SessionVariable.requestOrderBookSocket.value = false
-//                SessionVariable.requestTradingList.value = true
-//                SessionVariable.callAvailableBalance.value = false
-//
-//                page = 0
-//                orderPage = 1
             }
 
             binding.includeLayout.tbLeft.setOnClickListener {
@@ -917,7 +907,6 @@ class TradeExchangeActivity :
         binding.swipeRefresh.setOnRefreshListener {
             SessionVariable.refreshOrderPending.value = true
             SessionVariable.refreshMatchingTransaction.value = true
-            SessionVariable.callAvailableBalance.value = true
             SessionVariable.requestOrderBookSocket.value = true
             mPresenter.startTradeDetailSocket(intent?.getStringExtra(Constants.TradeExchange.MarketName).toString())
         }
@@ -938,6 +927,28 @@ class TradeExchangeActivity :
                 txtUtClick.text = "${data.data?.xnb?.let { groupingSeparatorInt(it) }}"
                 Constants.TradeExchange.utBalance = "${data.data?.xnb?.let { groupingSeparatorInt(it) }}"
             }
+
+            //change project is live or close
+            if(data.data?.market_open == true){
+                includeLayout.btnLive.visibility = View.VISIBLE
+                includeLayout.btnLive.backgroundTintList = ColorStateList.valueOf(
+                    ContextCompat.getColor(
+                        UTSwapApp.instance,
+                        R.color.success
+                    )
+                )
+
+                includeLayout.btnLive.text = resources.getString(R.string.live)
+            }else{
+                includeLayout.btnLive.visibility = View.VISIBLE
+                includeLayout.btnLive.backgroundTintList = ColorStateList.valueOf(
+                    ContextCompat.getColor(
+                        UTSwapApp.instance,
+                        R.color.danger
+                    )
+                )
+                includeLayout.btnLive.text = resources.getString(R.string.close)
+            }
         }
     }
 
@@ -950,13 +961,9 @@ class TradeExchangeActivity :
         mPresenter.closeTradeDetailSocket()
         SessionVariable.requestOrderBookSocket.value = false
         SessionVariable.requestTradingList.value = true
-        SessionVariable.callAvailableBalance.value = false
         SessionVariable.callDialogErrorCreateOrder.value = false
         SessionVariable.marketPriceSell.value = ""
         SessionVariable.marketPriceBuy.value = ""
-
-        page = 0
-        orderPage = 1
     }
 
     override fun onDestroy() {
@@ -964,13 +971,19 @@ class TradeExchangeActivity :
         mPresenter.closeTradeDetailSocket()
         SessionVariable.requestOrderBookSocket.value = false
         SessionVariable.requestTradingList.value = true
-        SessionVariable.callAvailableBalance.value = false
         SessionVariable.callDialogErrorCreateOrder.value = false
         SessionVariable.marketPriceSell.value = ""
         SessionVariable.marketPriceBuy.value = ""
 
-        page = 0
-        orderPage = 1
+        runnable?.let { handler.removeCallbacks(it) }
+    }
+
+    override fun onResume() {
+        handler.postDelayed(Runnable {
+            runnable?.let { handler.postDelayed(it, delay.toLong()) }
+            mPresenter.getAvailableBalance(TradingList.AvailableBalanceObj(intent?.getStringExtra(Constants.TradeExchange.MarketName).toString()),UTSwapApp.instance)
+        }.also { runnable = it }, delay.toLong())
+        super.onResume()
     }
 
 }

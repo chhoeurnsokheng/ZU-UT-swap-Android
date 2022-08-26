@@ -87,7 +87,7 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
                     rvHomeWatchlist.visibility = View.VISIBLE
                     linearLayoutWatchlist.visibility = View.VISIBLE
                     if (SessionVariable.SESSION_STATUS.value == true) {
-
+                        mPresenter.getWishListAndBalance(requireActivity())
                     } else {
                         if (SessionVariable.SESSION_STATUS.value == true) {
                             imgMenu.setOnClickListener {

@@ -84,6 +84,7 @@ class SellDialog : DialogFragment() {
         val result = VerifyClientData.makeSign(params, SessionPreferences().SESSION_X_TOKEN_API.toString())
 
         btnSell?.setOnClickListener {
+            SessionVariable.waitingPlaceOrder.value = true
             createTradeOrder(
                 TradingList.TradeCreateOrderObj(
                     "MD5",
@@ -108,9 +109,9 @@ class SellDialog : DialogFragment() {
         subscriptions?.unsubscribe()
         subscriptions = ApiTradeImp().createOrder(body,context).subscribe({
             if(it.status == 1){
-                Toast.makeText(UTSwapApp.instance,it.message.toString(), Toast.LENGTH_LONG).show()
-                SessionVariable.callAvailableBalance.value = true
-                SessionVariable.createPendingOrder.value = true
+                //Toast.makeText(UTSwapApp.instance,it.message.toString(), Toast.LENGTH_LONG).show()
+                //SessionVariable.createPendingOrder.value = true
+                SessionVariable.callDialogSuccessPlaceOrder.value = true
             }else{
                 SessionVariable.callDialogErrorCreateOrder.value = true
                 Constants.TradeExchange.errorMessagePlaceOrder = it.message.toString()

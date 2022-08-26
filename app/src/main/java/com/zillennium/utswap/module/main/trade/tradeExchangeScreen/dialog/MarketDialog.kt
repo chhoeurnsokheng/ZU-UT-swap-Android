@@ -86,6 +86,7 @@ class MarketDialog : DialogFragment() {
         }
 
         btnBuy?.setOnClickListener {
+            SessionVariable.waitingPlaceOrder.value = true
             createTradeOrder(
                 TradingList.TradeCreateOrderObj(
                     "MD5",
@@ -107,11 +108,12 @@ class MarketDialog : DialogFragment() {
         subscriptions?.unsubscribe()
         subscriptions = ApiTradeImp().createOrder(body,context).subscribe({
             if(it.status == 1){
-                Toast.makeText(UTSwapApp.instance,it.message.toString(), Toast.LENGTH_LONG).show()
-                SessionVariable.createMatchingTransaction.value = true
-                SessionVariable.callAvailableBalance.value = true
+                //Toast.makeText(UTSwapApp.instance,it.message.toString(), Toast.LENGTH_LONG).show()
+                SessionVariable.refreshMatchingTransaction.value = true
+                SessionVariable.callDialogSuccessPlaceOrder.value = true
             }else{
-                Toast.makeText(UTSwapApp.instance,it.message.toString(), Toast.LENGTH_LONG).show()
+                SessionVariable.callDialogErrorCreateOrder.value = true
+                Constants.TradeExchange.errorMessagePlaceOrder = it.message.toString()
             }
         },{
             object : CallbackWrapper(it, UTSwapApp.instance, arrayListOf()){

@@ -42,8 +42,6 @@ class OrderBookFragment :
 
         fetchTradeOrderBookTable.observe(this@OrderBookFragment){
 
-            println("========= Table Sell")
-
             orderBookBidList.clear()
             orderBookAskList.clear()
 
@@ -59,11 +57,12 @@ class OrderBookFragment :
                     )
                 }
                 SessionVariable.marketPriceSell.value = it.sell?.get(0)?.get(0).toString()
-                orderBookBid = OrderBookBidAdapter()
+                orderBookAsk = OrderBookAskAdapter()
                 orderBookAsk?.items = orderBookAskList
                 binding.rvAsk.adapter = orderBookAsk
             }else{
                 SessionVariable.marketPriceSell.value = ""
+                orderBookAsk?.clear()
             }
 
             if(!it.buy.isNullOrEmpty()){
@@ -77,11 +76,12 @@ class OrderBookFragment :
                     )
                 }
                 SessionVariable.marketPriceBuy.value = it.buy?.get(0)?.get(0).toString()
-                orderBookAsk = OrderBookAskAdapter()
+                orderBookBid = OrderBookBidAdapter()
                 orderBookBid?.items = orderBookBidList
                 binding.rvBid.adapter = orderBookBid
             }else{
                 SessionVariable.marketPriceBuy.value = ""
+                orderBookBid?.clear()
             }
 
         }

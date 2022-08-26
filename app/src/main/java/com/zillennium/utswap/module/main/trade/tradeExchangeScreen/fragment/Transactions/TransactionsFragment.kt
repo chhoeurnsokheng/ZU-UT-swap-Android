@@ -53,12 +53,12 @@ class TransactionsFragment :
             }
         }
 
-        SessionVariable.createMatchingTransaction.observe(this@TransactionsFragment){
-            if(it){
-                onSwipeRefresh()
-                SessionVariable.createMatchingTransaction.value = false
-            }
-        }
+//        SessionVariable.createMatchingTransaction.observe(this@TransactionsFragment){
+//            if(it){
+//                onSwipeRefresh()
+//                SessionVariable.createMatchingTransaction.value = false
+//            }
+//        }
     }
 
     @SuppressLint("NotifyDataSetChanged")

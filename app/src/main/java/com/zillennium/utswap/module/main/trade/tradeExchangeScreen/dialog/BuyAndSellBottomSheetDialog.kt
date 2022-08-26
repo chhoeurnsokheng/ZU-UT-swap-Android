@@ -20,14 +20,11 @@ import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.databinding.BottomSheetExchangeBuySellBinding
 import com.zillennium.utswap.utils.Constants
 import com.zillennium.utswap.utils.groupingSeparator
-import java.text.DecimalFormat
 
 class BuyAndSellBottomSheetDialog(var onDismissListener: OnDismissListener) :
     BottomSheetDialogFragment() {
 
     private var binding: BottomSheetExchangeBuySellBinding? = null
-    private var txtPrice: String? = ""
-    private var txtVolume: String? = ""
 
     private var marketPriceSell: MutableLiveData<String> = MutableLiveData()
     private var marketPriceBuy: MutableLiveData<String> = MutableLiveData()
@@ -252,6 +249,11 @@ class BuyAndSellBottomSheetDialog(var onDismissListener: OnDismissListener) :
                     if(etPriceOfVolume.text.toString() == "."){
                         etPriceOfVolume.text.clear()
 
+                    }
+
+                    if (p0.toString().contains(".") && p0.toString().substring(p0.toString().indexOf(".") + 1).length > 2) {
+                        etPriceOfVolume.setText(p0.toString().substring(0, p0.toString().length - 1))
+                        etPriceOfVolume.setSelection(etPriceOfVolume.text.length)
                     }
 
                     if(tradeType == "limit"){

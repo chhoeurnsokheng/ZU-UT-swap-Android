@@ -3,7 +3,9 @@ package com.zillennium.utswap.module.main.trade.tradeExchangeScreen.fragment.ord
 import android.annotation.SuppressLint
 import android.content.res.ColorStateList
 import android.os.Build
+import android.os.Handler
 import android.view.View
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -38,6 +40,10 @@ class OrdersFragment :
     private var filterPageSell: Int = 1
     private var sortString: String = "desc"
 
+    var handler = Handler()
+    var runnable: Runnable? = null
+    var delay = 5000
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun initView() {
         super.initView()
@@ -50,18 +56,17 @@ class OrdersFragment :
             }
         }
 
-        SessionVariable.createPendingOrder.observe(this@OrdersFragment){
-            if(it){
-                onSwipeRefresh()
-                SessionVariable.createPendingOrder.value = false
-            }
-        }
+//        SessionVariable.createPendingOrder.observe(this@OrdersFragment){
+//            if(it){
+//                onSwipeRefresh()
+//                SessionVariable.createPendingOrder.value = false
+//            }
+//        }
     }
 
     @SuppressLint("NotifyDataSetChanged")
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onGetOrderPendingSuccess(data: TradingList.TradeOrderPendingRes) {
-
         binding.apply {
 
             progressBarReadMore.visibility = View.GONE
@@ -75,7 +80,7 @@ class OrdersFragment :
                 listOrder.addAll(data.data?.entrust!!)
 
                 ordersAdapter = OrderAdapter(
-                   onClickDelete
+                    onClickDelete
                 )
 
                 ordersAdapter?.items = listOrder
@@ -286,4 +291,17 @@ class OrdersFragment :
             onCallApi()
         }
     }
+
+//    override fun onResume() {
+//        handler.postDelayed(Runnable {
+//            runnable?.let { handler.postDelayed(it, delay.toLong()) }
+//            mPresenter.onGetOrderPending(TradingList.TradeOrderPendingObj(Constants.OrderBookTable.marketNameOrderBook,filter,page,sortString),UTSwapApp.instance)
+//        }.also { runnable = it }, delay.toLong())
+//        super.onResume()
+//    }
+//
+//    override fun onDestroy() {
+//        super.onDestroy()
+//        runnable?.let { handler.removeCallbacks(it) }; //stop handler when activity not visible super.onPause();
+//    }
 }

@@ -36,6 +36,7 @@ class DeleteOrdersDialog : DialogFragment() {
         btnBack = view?.findViewById(R.id.btn_cancel)
 
         btnConfirm?.setOnClickListener {
+            SessionVariable.waitingPlaceOrder.value = true
             cancelOrder(TradingList.TradeCancelOrderObj(arguments?.getString("tradeId")?.toInt()!!),UTSwapApp.instance)
         }
 
@@ -50,10 +51,10 @@ class DeleteOrdersDialog : DialogFragment() {
         subscriptions?.unsubscribe()
         subscriptions = ApiTradeImp().cancelTradeOrder(body,context).subscribe({
             if(it.status == 1){
-                Toast.makeText(UTSwapApp.instance,"Successfully Cancel",Toast.LENGTH_LONG).show()
-                SessionVariable.createPendingOrder.value = true
+                SessionVariable.cancelPlaceOrder.value = true
                 dismiss()
             }else{
+                SessionVariable.waitingPlaceOrder.value = false
                 Toast.makeText(UTSwapApp.instance,"Can not Cancel",Toast.LENGTH_LONG).show()
             }
         },{
