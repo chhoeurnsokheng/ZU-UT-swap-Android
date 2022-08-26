@@ -45,7 +45,7 @@ class TransferSuccessDialog: DialogFragment() {
                     dismiss()
                 }
 
-                txtTransferBalance.text = Constants.Transfer.amount + " USD"
+                txtTransferBalance.text = Constants.Transfer.amount
                 txtTrxId.text = Constants.Transfer.trxTransfer
                 txtTransactionDate.text = Constants.Transfer.trxDate
                 txtFromAccount.text = Constants.Transfer.fromAccount

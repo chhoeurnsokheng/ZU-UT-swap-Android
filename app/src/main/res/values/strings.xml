@@ -484,6 +484,6 @@
     <string name="from_account">From account:</string>
     <string name="to_account">To account:</string>
     <string name="your_phone_number_is_required_to_transfer_funds">Your Phone Number is Required to Transfer Funds</string>
-
+    <string name="usd">USD</string>
 
 </resources>
