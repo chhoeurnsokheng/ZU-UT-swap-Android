@@ -12,6 +12,7 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.DrawableCompat
 import com.androidstudy.networkmanager.Tovuti
 import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
 import com.zillennium.utswap.R
@@ -45,6 +46,7 @@ class TransferActivity :
     private var receiverTransfer = ""
 
     private var countLoop = 0
+    private var count = 0
 
 
     override fun initView() {
@@ -157,6 +159,7 @@ class TransferActivity :
     override fun onGetValidateTransferFail(data: Transfer.GetValidateTransfer) {
         binding.apply {
             loadingTransfer.visibility = View.GONE
+            DrawableCompat.setTint(etPhoneNumberScanQR.background, ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
             Toast.makeText(UTSwapApp.instance, data.message, Toast.LENGTH_LONG).show()
 
         }
@@ -245,6 +248,7 @@ class TransferActivity :
                     before: Int,
                     count: Int
                 ) {
+                    DrawableCompat.setTint(etPhoneNumberScanQR.background, ContextCompat.getColor(UTSwapApp.instance, R.color.light_gray))
                     if (s.toString().matches("^00".toRegex())) {
                         etPhoneNumberScanQR.removeTextChangedListener(this)
                         etPhoneNumberScanQR.setText("0")
