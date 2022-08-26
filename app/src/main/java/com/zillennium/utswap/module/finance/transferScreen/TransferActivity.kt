@@ -62,10 +62,10 @@ class TransferActivity :
                         etPhoneNumberScanQR.setText("0")
                         etMountTransfer.setText("")
                         layTransactions.visibility = View.GONE
+                        etMountTransfer.hideKeyboard()
+
                         val transferSuccessDialog = TransferSuccessDialog()
                         transferSuccessDialog.show(supportFragmentManager, "Transfer Success Dialog")
-
-                        SessionVariable.successTransfer.value = false
 
                         mPresenter.onGetUserInfo(UTSwapApp.instance)
                     }
@@ -127,7 +127,9 @@ class TransferActivity :
                 layNoPhoneNumber.visibility = View.GONE
                 layNoPhoneNumberTransparent.visibility = View.GONE
                 mPresenter.onGetUserBalanceInfo(UTSwapApp.instance)
-                onRequestKeyBoard()
+                if (SessionVariable.successTransfer.value == false){
+                    onRequestKeyBoard()
+                }
             }else{
                 layNoPhoneNumber.visibility = View.VISIBLE
                 layNoPhoneNumberTransparent.visibility = View.VISIBLE
@@ -317,7 +319,7 @@ class TransferActivity :
     }
     override fun onBackPressed() {
         super.onBackPressed()
-        SessionVariable.successTransfer.value =false
+        SessionVariable.successTransfer.value = false
     }
 
 }
