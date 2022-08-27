@@ -2,6 +2,7 @@ package com.zillennium.utswap.api.manager
 
 import android.content.Context
 import com.zillennium.utswap.api.Header
+import com.zillennium.utswap.models.tradingList.TradingList
 import com.zillennium.utswap.models.userService.User
 import okhttp3.RequestBody
 import rx.Observable

@@ -79,10 +79,13 @@ object ApiSettings {
     const val PATH_CHECK_USER_LOGIN_STATUS = "user/checkUserLogin"
 
     /** Website Socket */
-    const val PATH_LIST_TRADE = "wsocket/"
+    const val PATH_LIST_TRADE = "wsocket/?path=listtrade"
     const val SEND_LIST_TRADE = "market_update_stream"
     const val  SEND_TRADE_MARKET_NAME = "trade_market_summary:"
     const val SEND_TRADE_MARKET_ORDER_BOOK_TABLE = "market:"
+
+    const val PATH_TRADE_EXCHANGE = "wsocket/?path=listtradeexchange"
+    const val PATH_TRADE_ORDER_BOOK = "wsocket/?path=listtradeorderbook"
 
     /** Upcomming project in trading list screen*/
     const val PATH_UPCOMING_PROJECT_TRADING_LIST = "trade/getUpcomingProject"
@@ -113,6 +116,27 @@ object ApiSettings {
 
     /** Trade Create Order*/
     const val PATH_TRADE_CREATE_ORDER = "trade/upTrade"
+
+    /** Trade Chart*/
+    const val PATH_TRADE_CHART = "trade/tradingView"
+
+    /** Get Trade Order Pending*/
+    const val PATH_GET_TRADE_ORDER_PENDING = "trade/getTradeOrder"
+
+    /** Matching Trade Transaction*/
+    const val PATH_TRADE_MATCHING_TRANSACTION = "trade/getTradeLog"
+
+    /** Get Available Balance*/
+    const val PATH_GET_AVAILABLE_BALANCE = "trade/getUserBalance"
+
+    /** Trade Cancel Order*/
+    const val PATH_TRADE_CANCEL_ORDER = "trade/cancelTradeOrder"
+
+    /** Trade Transaction Detail*/
+    const val PATH_TRANSACTION_DETAIL = "trade/matchingTransactionDetail"
+
+    /** Trade Market Open */
+    const val PATH_MARKET_OPEN = "trade/checkMarketOpen"
 
 
     /*Desposite Money*/

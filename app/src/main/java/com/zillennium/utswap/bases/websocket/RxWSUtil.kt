@@ -74,7 +74,7 @@ class RxWSUtil {
         if (observable == null) {
             observable = Observable.create<WSInfo>(WebSocketOnSubscribe(url))
                 .timeout(timeout, timeUnit)
-                .retry() //共享
+                .retry()
                 .doOnUnsubscribe {
                     observableMap.remove(url)
                     webSocketMap.remove(url)
