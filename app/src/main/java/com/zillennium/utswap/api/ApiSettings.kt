@@ -146,8 +146,14 @@ object ApiSettings {
     const val PATH_FINANCE_TRANSFER_LOGS ="finance/outlog_transfer"
 
 
+    /** Finance Transfer */
+    const val PATH_FINANCE_TRANSFER = "finance/direct_transfer"
+    const val PATH_FINANCE_VALIDATE_TRANSFER = "finance/validate_transfer"
+
+
 
     const val PATH_QUERY_ORDER = "finance/DataQueryOrder"
+
 
 
 }

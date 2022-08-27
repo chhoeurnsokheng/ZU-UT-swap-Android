@@ -62,14 +62,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/txt_total_balance"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginBottom="@dimen/dimen_10"
-                    android:text=" You have made a deposit $100.6 with your Bank Account " />
+                    android:layout_gravity="center">
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/txt_total_balance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dimen_10"
+                        android:text=" You have made a deposit $100.6 with your Bank Account " />
+                </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/btn_done"
