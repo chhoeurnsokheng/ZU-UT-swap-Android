@@ -10,6 +10,7 @@ object BalanceFinance {
     }
 
     class GetUserBalanceInfoData{
+        var transfer_balance: String? = null
         var withdrawal_balance: String? = null
         var available_balance: String? = null
         var pending: String? = null

@@ -42,15 +42,32 @@ internal class DecimalDigitsInputFilter(digitsBeforeZero: Int, digitsAfterZero: 
         dstart: Int,
         dend: Int
     ): CharSequence? {
-        val matcher: Matcher = mPattern.matcher(dest)
-        return if (!matcher.matches()) "" else null
+
+        return if (source.isEmpty()){
+            if (mPattern.matcher(dest.removeRange(dstart, dend)).matches()) {
+                // No changes to source
+                null
+            } else {
+                // Don't delete characters, return the old subsequence
+                dest.subSequence(dstart, dend)
+            }
+        } else {
+            // Check the result
+            if (mPattern.matcher(dest.replaceRange(dstart, dend, source)).matches()) {
+                // No changes to source
+                null
+            } else {
+                // Return nothing
+                ""
+            }
+        }
     }
 
     init {
-        mPattern =
-            Pattern.compile("[0-9]{0," + (digitsBeforeZero - 1) + "}+((\\.[0-9]{0," + (digitsAfterZero - 1) + "})?)||(\\.)?")
+        mPattern = Pattern.compile("(\\d{0,$digitsBeforeZero})|(\\d{0,$digitsBeforeZero}\\.\\d{0,$digitsAfterZero})")
     }
 }
+
 fun groupingSeparatorPhoneNumber(number: Any): String{
     val symbols = DecimalFormatSymbols()
     symbols.groupingSeparator = ' '
