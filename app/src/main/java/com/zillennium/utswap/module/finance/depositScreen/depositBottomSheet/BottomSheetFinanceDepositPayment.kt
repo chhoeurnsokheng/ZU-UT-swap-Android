@@ -1,12 +1,12 @@
 package com.zillennium.utswap.module.finance.depositScreen.depositBottomSheet
 
 import android.content.Context
-import android.content.Intent
 import android.content.res.ColorStateList
 import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.InputFilter
+import android.text.Spanned
 import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
@@ -34,8 +34,11 @@ import com.zillennium.utswap.databinding.BottomSheetFinanceDepositPaymentBinding
 import com.zillennium.utswap.models.deposite.DepositObj
 import com.zillennium.utswap.module.finance.depositScreen.OpenWebViewToComfirmPayment.DepositOpenLinkWebViewActivity
 import com.zillennium.utswap.utils.DecimalDigitsInputFilter
+import com.zillennium.utswap.utils.UtilKt
 import com.zillennium.utswap.utils.groupingSeparator
 import rx.Subscription
+import java.util.regex.Matcher
+import java.util.regex.Pattern
 
 
 class BottomSheetFinanceDepositPayment : BottomSheetDialogFragment(),
@@ -51,7 +54,7 @@ class BottomSheetFinanceDepositPayment : BottomSheetDialogFragment(),
     var image = ""
     var payment_link = ""
     var deep_link_url = ""
-    var transitionId= ""
+    var transitionId = ""
     override fun getTheme(): Int {
         return R.style.BottomSheetStyle
     }
@@ -95,19 +98,22 @@ class BottomSheetFinanceDepositPayment : BottomSheetDialogFragment(),
                 onDepositBalance(root.context, bodyObj)
                 binding?.progressBar?.visibility = View.VISIBLE
                 val txtAmount = etMountPayment.text.toString().replace(",", "")
-                 var totalAmountValue = 0.0
-                if (txtAmount.isNotEmpty()){
+                var totalAmountValue = 0.0
+                if (txtAmount.isNotEmpty()) {
                     totalAmountValue = txtAmount.toDouble()
                 }
 
-                if (totalAmountValue <1){
+                if (totalAmountValue < 1) {
                     binding?.progressBar?.visibility = View.GONE
-                    Toast.makeText(UTSwapApp.instance, "Minimum deposit is $ 1.00",Toast.LENGTH_SHORT).show()
-                }else{
-                       onDepositBalance(root.context, bodyObj)
-                        binding?.progressBar?.visibility = View.VISIBLE
+                    Toast.makeText(
+                        UTSwapApp.instance,
+                        "Minimum deposit is $ 1.00",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
+                    onDepositBalance(root.context, bodyObj)
+                    binding?.progressBar?.visibility = View.VISIBLE
                 }
-
 
             }
 
@@ -144,21 +150,23 @@ class BottomSheetFinanceDepositPayment : BottomSheetDialogFragment(),
                     count: Int
                 ) {
 
-
-                    val amount: Double = if (!char.isNullOrEmpty()) {
-                        char.toString().toDouble()
-                    } else {
-                        '0'.toString().toDouble()
+                    var amount = 0.0
+                    if (!char.isNullOrEmpty() && !char.toString().startsWith(".")) {
+                        amount = char.toString().toDouble()
                     }
 
-                    val txtFeeValue = amount.toString().toDouble() * 0.01
-                    val total = amount.toString().toDouble()  + txtFeeValue
+                    if (binding?.etMountPayment?.getText()?.startsWith("0") == true || binding?.etMountPayment?.getText()?.startsWith(".") == true) {
+                        binding?.etMountPayment?.setText("")
+                    }
+
+                    val total = amount.toString().toDouble()
+
 
                     tvAmount.text = "$${groupingSeparator(amount)}"
-                    tvFee.text = "$${groupingSeparator(txtFeeValue)}"
+
                     tvTotal.text = "$${groupingSeparator(total)}"
                     balance = total.toString()
-                    fee = txtFeeValue.toString()
+
 
                     nextBtnFinace.apply {
                         if (amount > 0) {
@@ -179,14 +187,19 @@ class BottomSheetFinanceDepositPayment : BottomSheetDialogFragment(),
                             isEnabled = false
                         }
                     }
-                    if (binding?.etMountPayment?.getText()?.startsWith("0") == true)
-                        binding?.etMountPayment?.setText("");
+
+
 
                 }
 
                 override fun afterTextChanged(s: Editable?) {
 
-                    binding?.txtDorlla?.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.white))
+                    binding?.txtDorlla?.setTextColor(
+                        ContextCompat.getColor(
+                            UTSwapApp.instance,
+                            R.color.white
+                        )
+                    )
                 }
 
             })
@@ -232,7 +245,7 @@ class BottomSheetFinanceDepositPayment : BottomSheetDialogFragment(),
             .setDomainUriPrefix(BuildConfig.FIRE_BASE_URL) // Open links with this app on Android
             .setAndroidParameters(
                 DynamicLink.AndroidParameters.Builder()  //.setFallbackUrl(Uri.parse("https://www.youtube.com/watch?v=7aekxC_monc&list=RDVdQHUbv0rMM&index=8"))
-                .build()
+                    .build()
             )
             .setIosParameters(
                 DynamicLink.IosParameters.Builder("com.utswapapp.ios")
@@ -255,7 +268,11 @@ class BottomSheetFinanceDepositPayment : BottomSheetDialogFragment(),
 
             if (it.data?.payment_link != null) {
                 binding?.progressBar?.visibility = View.GONE
-                DepositOpenLinkWebViewActivity.launchDepositOpenLinkWebViewActivity(context, it.data?.payment_link, it.data?.transaction_id)
+                DepositOpenLinkWebViewActivity.launchDepositOpenLinkWebViewActivity(
+                    context,
+                    it.data?.payment_link,
+                    it.data?.transaction_id
+                )
             }
 
         }, { error ->
@@ -268,3 +285,23 @@ class BottomSheetFinanceDepositPayment : BottomSheetDialogFragment(),
     }
 }
 
+class DecimalDigitsInputFilter(digitsBeforeZero: Int, digitsAfterZero: Int) :
+    InputFilter {
+    var mPattern: Pattern
+    override fun filter(
+        source: CharSequence,
+        start: Int,
+        end: Int,
+        dest: Spanned,
+        dstart: Int,
+        dend: Int
+    ): CharSequence? {
+        val matcher: Matcher = mPattern.matcher(dest)
+        return if (!matcher.matches()) "" else null
+    }
+
+    init {
+        mPattern =
+            Pattern.compile("[0-9]{0," + (digitsBeforeZero - 1) + "}+((\\.[0-9]{0," + (digitsAfterZero - 1) + "})?)||(\\.)?")
+    }
+}
