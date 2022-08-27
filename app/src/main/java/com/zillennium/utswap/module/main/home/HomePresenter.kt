@@ -49,7 +49,7 @@ class HomePresenter : BaseMvpPresenterImpl<HomeView.View>(),
         })
     }
 
-    override fun getWishListAndBalance(context: Context) {
+    override fun getWatchListAndBalance(context: Context) {
         subscriptionGetWishListBalance?.unsubscribe()
         subscriptionGetWishListBalance = ApiHomeImp().getWishListAndBalance(context).subscribe({
             mView?.onGetWishListAndBalanceSuccess(it)

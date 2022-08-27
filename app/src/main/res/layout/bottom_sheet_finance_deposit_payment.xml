@@ -10,7 +10,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
             <LinearLayout
                 android:id="@+id/payment"
                 android:layout_width="match_parent"
@@ -45,6 +44,7 @@
                     android:background="@color/primary">
 
                     <TextView
+                        android:id="@+id/txt_dorlla"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="$"
@@ -103,7 +103,7 @@
                         <ImageView
                             android:id="@+id/imgCard"
                             android:layout_width="@dimen/dimen_40"
-                            android:layout_height="@dimen/dimen_24"
+                            android:layout_height="@dimen/dimen_30"
                             android:src="@drawable/ic_home" />
 
                         <TextView
@@ -126,7 +126,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/amount"
+                        android:text="Amount:"
                         android:textAppearance="@style/regular_12"
                         android:textColor="@color/dark_gray" />
 
@@ -209,6 +209,12 @@
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="gone"/>
     </RelativeLayout>
 
 

@@ -17,7 +17,7 @@
                 android:name="androidx.navigation.fragment.NavHostFragment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:defaultNavHost="true"/>
+                app:defaultNavHost="true" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -132,6 +132,7 @@
             app:itemTextAppearanceInactive="@style/regular_10"
             app:labelVisibilityMode="labeled"
             app:menu="@menu/bottom_nav_menu" />
+
 
     </RelativeLayout>
 </layout>

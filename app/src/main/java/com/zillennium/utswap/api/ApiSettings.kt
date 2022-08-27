@@ -1,7 +1,5 @@
 package com.zillennium.utswap.api
 
-import io.reactivex.internal.operators.parallel.ParallelDoOnNextTry
-
 /**
  * @author chhoeurnsokheng
  * Created 5/7/22 at 4:42 PM
@@ -96,8 +94,19 @@ object ApiSettings {
     const val PATH_GET_BANNNER= "portfolio/app_banner"
     const val PATH_GET_HOME_WISHLIST_BALANCE ="portfolio/index"
 
+
+    const val PATH_FORCE_UPDATE= "CheckAppVersion/index"
+
+
     /** Account Upload Profile*/
     const val PATH_ACCOUNT_UPLOAD_PROFILE = "user/uploadImageProfile"
+
+
+
+    /** User Balance */
+    const val PATH_FINANCE_USER_BALANCE = "finance/mytx"
+    const val PATH_FINANCE_ACCOUNT_BALANCE_SEARCH_DATA = "finance/index"
+    const val PATH_FINANCE_ACCOUNT_BALANCE_EXPORT_PDF = "finance/exportPdf"
 
     /** Check favorite project in trade*/
     const val PATH_CHECK_FAVORITE_PROJECT_TRADE = "trade/checkWatchList"
@@ -129,9 +138,16 @@ object ApiSettings {
     /** Trade Market Open */
     const val PATH_MARKET_OPEN = "trade/checkMarketOpen"
 
+
     /*Desposite Money*/
 
     const val PATH_LIST_PAYMENT_METHOD = "finance/listAvailableBank"
     const val PATH_ONLINE_DEPOSIT      ="finance/onlineMyczUp"
     const val PATH_FINANCE_TRANSFER_LOGS ="finance/outlog_transfer"
+
+
+
+    const val PATH_QUERY_ORDER = "finance/DataQueryOrder"
+
+
 }

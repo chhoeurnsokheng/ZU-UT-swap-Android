@@ -34,11 +34,14 @@
 
                     <TextView
                         android:id="@+id/title_project"
-                        android:layout_width="@dimen/dimen_200"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignParentTop="true"
                         android:layout_marginTop="@dimen/dimen_4"
-                        android:text="Laoka, Mondulkiri Land Plot Special Price"
+                        android:paddingEnd="@dimen/dimen_20"
+                        android:maxLines="2"
+                        android:ellipsize="end"
+                        android:text="Laoka, Mondulkiri Land Plot Special Price Laoka, Mondulkiri Land Plot Special PriceLaoka, Mondulkiri Land Plot Special Price"
                         android:textAppearance="@style/medium_14"
                         android:textColor="@color/black" />
 

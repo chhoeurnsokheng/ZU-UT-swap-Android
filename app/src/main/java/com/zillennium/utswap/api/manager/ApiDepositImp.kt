@@ -2,6 +2,7 @@ package com.zillennium.utswap.api.manager
 
 import android.content.Context
 import com.zillennium.utswap.api.Header
+import com.zillennium.utswap.models.deposite.DataQueryOrderObj
 import com.zillennium.utswap.models.deposite.DepositObj
 import rx.Observable
 import rx.android.schedulers.AndroidSchedulers
@@ -41,6 +42,18 @@ class ApiDepositImp : ApiManager() {
                 Header.Companion.AuthType.REQUIRED_TOKEN,
                 context
             )
+        )
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+
+    fun getQueryOrder(
+        context: Context,
+        body: DepositObj.DataQueryOrderBody
+    ): Observable<DataQueryOrderObj.DataQueryOrderRes> =
+        mDespositeService.getQueryOrder(
+            Header.getHeader(
+                Header.Companion.AuthType.REQUIRED_TOKEN, context
+            ), body
         )
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

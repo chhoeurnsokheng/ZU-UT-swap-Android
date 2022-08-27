@@ -1,11 +1,16 @@
 package com.zillennium.utswap.module.finance.historicalScreen
 
 
+import android.app.DownloadManager
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
+import android.os.Environment
 import android.os.Handler
 import android.view.View
+import android.webkit.CookieManager
+import android.webkit.URLUtil
 import android.widget.AdapterView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
@@ -478,8 +483,19 @@ class FinanceHistoricalActivity :
     }
     override fun onExportHistoricalSuccess(data: Historical.DataExportHistorical) {
         binding.apply {
-            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(data.FILE_PATH))
-            startActivity(browserIntent)
+            val request = DownloadManager.Request(Uri.parse(data.FILE_PATH))
+            val title = URLUtil.guessFileName(data.FILE_PATH, null, null)
+            request.setTitle(title)
+            request.setDescription("Downloading File please wait ...")
+            val cookie = CookieManager.getInstance().getCookie(data.FILE_PATH)
+            request.addRequestHeader("cookie", cookie)
+            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED) // This will show notification on top when downloading the file.
+            request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, title) // Title for notification.
+
+            val downloadManager = getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager //This will start downloading
+            downloadManager.enqueue(request)
+
+            Toast.makeText(UTSwapApp.instance, "Downloading File.", Toast.LENGTH_SHORT).show()
         }
     }
     override fun onExportHistoricalFail(data: Historical.exportHistorical) {}

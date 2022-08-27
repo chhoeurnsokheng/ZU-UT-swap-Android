@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+    <include
+        android:id="@+id/includeLayout"
+        layout="@layout/appbar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+        <RelativeLayout
+            android:id="@+id/layoutStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true">
+        <LinearLayout
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+            <ImageView
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dimen_25"
+                android:src="@drawable/ic_succesful_payment"/>
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:gravity="center"
+                style="@style/bold_18"
+                android:text="@string/deposit_success"/>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/transaction_id"
+                android:background="@drawable/bg_gray"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/simple_green"
+                android:paddingEnd="@dimen/dimen_15"
+                android:paddingStart="@dimen/dimen_15"
+                android:paddingTop="@dimen/dimen_10"
+                android:paddingBottom="@dimen/dimen_10"
+                android:layout_marginTop="@dimen/dimen_17"
+                style="@style/bold_14"
+                android:text="Transaction ID: 33849"/>
+
+        </LinearLayout>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_marginBottom="@dimen/dimen_18"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/txt_total_balance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="@dimen/dimen_10"
+                    android:text=" You have made a deposit $100.6 with your Bank Account " />
+
+                <LinearLayout
+                    android:id="@+id/btn_done"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_18"
+                    android:layout_marginEnd="@dimen/dimen_18"
+                    android:paddingBottom="@dimen/dimen_12"
+                    android:paddingTop="@dimen/dimen_12"
+                    style="@style/SelectableItemBackground"
+                    android:background="@drawable/bg_circular_condition"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/dimen_12"
+                        android:clickable="false"
+                        android:text="@string/done"
+                        android:textAllCaps="false"
+                        android:textAppearance="@style/bold_18"
+                        android:textColor="@color/white" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </RelativeLayout>
+
+    </RelativeLayout>
+</layout>
