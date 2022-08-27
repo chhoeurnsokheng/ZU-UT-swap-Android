@@ -44,4 +44,17 @@ class ApiProjectImp : ApiManager() {
         )
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
+
+    /**     Check Subscription Project Order     **/
+    fun subscriptionProjectOrder(
+        body: SubscriptionProject.SubscribeConfirmBody,
+        context: Context
+    ): Observable<SubscriptionProject.SubscriptionConfirmRes> =
+        mProjectService.subscriptionProjectOrder(
+            Header.getHeader(Header.Companion.AuthType.REQUIRED_TOKEN, context),
+            body
+        )
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+
 }

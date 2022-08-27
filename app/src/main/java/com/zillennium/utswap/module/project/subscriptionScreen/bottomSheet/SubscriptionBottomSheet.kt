@@ -2,6 +2,7 @@ package com.zillennium.utswap.module.project.subscriptionScreen.bottomSheet
 
 import android.content.res.ColorStateList
 import android.os.Bundle
+import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
@@ -13,10 +14,12 @@ import androidx.databinding.DataBindingUtil
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.databinding.BottomSheetProjectSubscriptionBinding
 import com.zillennium.utswap.module.project.subscriptionScreen.dialog.SubscriptionConfirmDialog
+import com.zillennium.utswap.utils.Constants
 import com.zillennium.utswap.utils.formatThreeDigitValue
 
 
@@ -33,6 +36,7 @@ class SubscriptionBottomSheet : BottomSheetDialogFragment(), AdapterView.OnItemS
     //companion object == static
     companion object {
         fun newInstance(
+            id: Int,
             volume: String?,
             title: String?,
             projectName: String?,
@@ -42,6 +46,7 @@ class SubscriptionBottomSheet : BottomSheetDialogFragment(), AdapterView.OnItemS
         ): SubscriptionBottomSheet {
             val subscriptionBottomSheetDialog = SubscriptionBottomSheet()
             val args = Bundle()
+            args.putInt("id", id)
             args.putString("volume", volume)
             args.putString("title", title)
             args.putString("project_name", projectName)
@@ -109,27 +114,43 @@ class SubscriptionBottomSheet : BottomSheetDialogFragment(), AdapterView.OnItemS
             }
 
             btnSubscript.setOnClickListener {
+//                val utSubscriptionPrice =
+//                    volumeDollarPrice?.let { formatThreeDigitValue(it, "###,###.##") }
+//                if (!etInputVolume.text.isNullOrEmpty()) {
+//                    if (etInputVolume.text.toString().replace("\\s".toRegex(), "").toLong() > 0) {
+//                        val subscriptionConfirmDialog: SubscriptionConfirmDialog =
+//                            SubscriptionConfirmDialog.newInstance(
+////                                arguments?.get("id").toString().toInt(),
+//                                etInputVolume.text.toString(),
+////                                arguments?.get("title").toString(),
+////                                arguments?.get("project_name").toString(),
+////                                arguments?.get("lock_time").toString(),
+////                                arguments?.get("volume_price").toString().toDouble(),
+//                                utSubscriptionPrice.toString(),
+//                            )
+//                        subscriptionConfirmDialog.show(
+//                            requireActivity().supportFragmentManager,
+//                            "balanceHistoryDetailDialog"
+//                        )
+
                 val utSubscriptionPrice =
                     volumeDollarPrice?.let { formatThreeDigitValue(it, "###,###.##") }
                 if (!etInputVolume.text.isNullOrEmpty()) {
                     if (etInputVolume.text.toString().replace("\\s".toRegex(), "").toLong() > 0) {
-                        val subscriptionConfirmDialog: SubscriptionConfirmDialog =
-                            SubscriptionConfirmDialog.newInstance(
-                                etInputVolume.text.toString(),
-                                arguments?.get("title").toString(),
-                                arguments?.get("project_name").toString(),
-                                arguments?.get("lock_time").toString(),
-                                arguments?.get("volume_price").toString().toDouble(),
-                                utSubscriptionPrice.toString(),
-                            )
-                        subscriptionConfirmDialog.show(
-                            requireActivity().supportFragmentManager,
-                            "balanceHistoryDetailDialog"
-                        )
-                        dismiss()
+                        Constants.SubscriptionBottomSheet.id = arguments?.get("id").toString().toInt()
+                        Constants.SubscriptionBottomSheet.title = arguments?.get("title").toString()
+                        Constants.SubscriptionBottomSheet.project_name = arguments?.get("project_name").toString()
+                        Constants.SubscriptionBottomSheet.lock_time = arguments?.get("lock_time").toString()
+                        Constants.SubscriptionBottomSheet.volume_price = arguments?.get("volume_price").toString().toDouble()
+                        Constants.SubscriptionBottomSheet.volume = etInputVolume.text.toString()
+                        Constants.SubscriptionBottomSheet.subscription = utSubscriptionPrice.toString()
+                        Handler().postDelayed({
+                            dismiss()
+                        }, 1000)
+
+                        SessionVariable.SESSION_SUBSCRIPTION_BOTTOM_SHEET.value = true
                     }
                 }
-
             }
 
             txtStandard.text = arguments?.getString("title")
@@ -217,4 +238,6 @@ class SubscriptionBottomSheet : BottomSheetDialogFragment(), AdapterView.OnItemS
     override fun onNothingSelected(parent: AdapterView<*>?) {
 
     }
+
+
 }

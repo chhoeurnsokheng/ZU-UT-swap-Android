@@ -13,6 +13,7 @@ import com.zillennium.utswap.models.project.SubscriptionProject
 import com.zillennium.utswap.models.userService.User
 import com.zillennium.utswap.module.project.subscriptionScreen.adapter.SubscriptionAdapter
 import com.zillennium.utswap.module.project.subscriptionScreen.bottomSheet.SubscriptionBottomSheet
+import com.zillennium.utswap.module.project.subscriptionScreen.dialog.SubscriptionConfirmDialog
 import com.zillennium.utswap.utils.Constants
 
 
@@ -29,11 +30,9 @@ class SubscriptionActivity :
         arrayListOf()
     private var date_range = ""
     private var projectName = ""
+    private var userLevel = ""
 
     companion object {
-        var subId: Int = 0
-        var volume: Int = 0
-        var funPassword: String = ""
 
         fun launchSubscriptionActivity(context: Context, id: String?, project_name: String?) {
             val intent = Intent(context, SubscriptionActivity::class.java)
@@ -43,38 +42,37 @@ class SubscriptionActivity :
         }
     }
 
-//    private fun submitData(){
-//        val param = SubscriptionProject.SubscribeBody()
-//        param.id = subId
-//        param.ut_number = volume
-//        param.fund_password = funPassword
-////        mPresenter.onSubscribeData(param)
-//    }
-//
-
     override fun initView() {
         super.initView()
 
 
 //            Handler().postDelayed({
         binding.apply {
-            if (intent.hasExtra("subscription_id")) {
-                var id = intent?.getStringExtra("subscription_id")
-                mPresenter.onCheckSubscriptionStatus(
-                    SubscriptionProject.SubscriptionProjectBody(
-                        id?.toInt(),
-                        ""
-                    ), UTSwapApp.instance
-                )
-            }
+            mPresenter.onGetUserInfo(this@SubscriptionActivity)
             if (intent.hasExtra(Constants.Project.ProjectName)) {
                  projectName = intent?.getStringExtra(Constants.Project.ProjectName).toString()
                 txtSubscriptionTitle.text = projectName
             }
-//            requestDataApi()
 
             btnBack.setOnClickListener {
                 onBackPressed()
+            }
+            SessionVariable.SESSION_SUBSCRIPTION_BOTTOM_SHEET.value = false
+
+            SessionVariable.SESSION_SUBSCRIPTION_BOTTOM_SHEET.observe(this@SubscriptionActivity){
+                if (it){
+                    val subscriptionConfirmDialog: SubscriptionConfirmDialog =
+                        SubscriptionConfirmDialog.newInstance(
+                            Constants.SubscriptionBottomSheet.id,
+                            Constants.SubscriptionBottomSheet.volume,
+                            Constants.SubscriptionBottomSheet.title,
+                            Constants.SubscriptionBottomSheet.project_name,
+                            Constants.SubscriptionBottomSheet.lock_time,
+                            Constants.SubscriptionBottomSheet.volume_price,
+                            Constants.SubscriptionBottomSheet.subscription
+                        )
+                    subscriptionConfirmDialog.show(supportFragmentManager, "balanceHistoryDetailDialog")
+                }
             }
 
             SessionVariable.SESSION_STATUS.observe(this@SubscriptionActivity) {
@@ -122,7 +120,7 @@ class SubscriptionActivity :
             /* Recycle view of project info detail */
 
             recycleViewSubscriptionProject.layoutManager = LinearLayoutManager(UTSwapApp.instance)
-            val subscriptionAdapter = SubscriptionAdapter(onclickAdapter)
+            val subscriptionAdapter = SubscriptionAdapter(onclickAdapter, userLevel)
             subscriptionAdapter.items =
                 data.data as ArrayList<SubscriptionProject.SubscriptionProjectData>
             recycleViewSubscriptionProject.adapter = subscriptionAdapter
@@ -139,13 +137,30 @@ class SubscriptionActivity :
 
     override fun onCheckSubscriptionFail(data: SubscriptionProject.SubscriptionProjectRes) {}
 
+    /**   User Profile Level      **/
+    override fun onGetUserInfoSuccess(data: User.AppSideBarData) {
+        userLevel = data.name_user_lavel.toString()
+        if (intent.hasExtra("subscription_id")) {
+            val id = intent?.getStringExtra("subscription_id")
+            mPresenter.onCheckSubscriptionStatus(
+                SubscriptionProject.SubscriptionProjectBody(
+                    id?.toInt(),
+                    ""
+                ), UTSwapApp.instance
+            )
+        }
+    }
+
+    override fun onGetUserInfoFail(data: User.AppSideBarData) {
+    }
+
     private val onclickAdapter: SubscriptionAdapter.OnclickAdapter =
         object : SubscriptionAdapter.OnclickAdapter {
-            override fun onClickMe(title: String, lockTime: String, subscriptionId: Int, volumePrice: Double) {
-                subId = subscriptionId
+            override fun onClickMe(title: String, lockTime: String, id: Int, volumePrice: Double) {
                 if (SessionVariable.SESSION_STATUS.value == true && SessionVariable.SESSION_KYC.value == true) {
                     val subscriptionBottomSheetDialog: SubscriptionBottomSheet =
                         SubscriptionBottomSheet.newInstance(
+                            id,
                             "",
                             title,
                             projectName,
@@ -161,5 +176,15 @@ class SubscriptionActivity :
             }
 
         }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        SessionVariable.SESSION_SUBSCRIPTION_BOTTOM_SHEET.value = false
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        SessionVariable.SESSION_SUBSCRIPTION_BOTTOM_SHEET.value = false
+    }
 
 }

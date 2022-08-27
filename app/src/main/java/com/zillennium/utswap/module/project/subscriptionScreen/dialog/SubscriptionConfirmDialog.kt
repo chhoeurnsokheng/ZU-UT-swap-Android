@@ -3,6 +3,7 @@ package com.zillennium.utswap.module.project.subscriptionScreen.dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +15,7 @@ import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.databinding.DialogNavbarProjectSubscriptionConfirmBinding
 import com.zillennium.utswap.module.project.subscriptionScreen.bottomSheet.SubscriptionBottomSheet
 import com.zillennium.utswap.module.security.securityDialog.FundPasswordDialog
+import com.zillennium.utswap.utils.Constants
 import eightbitlab.com.blurview.RenderScriptBlur
 
 class SubscriptionConfirmDialog : DialogFragment() {
@@ -22,6 +24,7 @@ class SubscriptionConfirmDialog : DialogFragment() {
 
     companion object {
         fun newInstance(
+            id: Int,
             volume: String?,
             title: String?,
             projectName: String?,
@@ -31,6 +34,7 @@ class SubscriptionConfirmDialog : DialogFragment() {
         ): SubscriptionConfirmDialog {
             val subscriptionConfirmDialog = SubscriptionConfirmDialog()
             val args = Bundle()
+            args.putInt("id", id)
             args.putString("volume", volume)
             args.putString("title", title)
             args.putString("project_name", projectName)
@@ -73,8 +77,17 @@ class SubscriptionConfirmDialog : DialogFragment() {
         binding?.apply {
 
             btnBack.setOnClickListener {
+                Constants.SubscriptionBottomSheet.id = 0
+                Constants.SubscriptionBottomSheet.volume = ""
+                Constants.SubscriptionBottomSheet.title = ""
+                Constants.SubscriptionBottomSheet.project_name = ""
+                Constants.SubscriptionBottomSheet.lock_time = ""
+                Constants.SubscriptionBottomSheet.volume_price = 0.0
+                Constants.SubscriptionBottomSheet.subscription = ""
+
                 val subscriptionBottomSheetDialog: SubscriptionBottomSheet =
                     SubscriptionBottomSheet.newInstance(
+                        arguments?.get("id").toString().toInt(),
                         arguments?.get("volume").toString(),
                         arguments?.get("title").toString(),
                         arguments?.get("project_name").toString(),
@@ -86,22 +99,36 @@ class SubscriptionConfirmDialog : DialogFragment() {
                     requireActivity().supportFragmentManager,
                     "balanceHistoryDetailDialog"
                 )
-                dismiss()
+                Handler().postDelayed({
+                    dismiss()
+                }, 2000)
             }
             btnConfirm.setOnClickListener {
+
+                Constants.SubscriptionBottomSheet.id = 0
+                Constants.SubscriptionBottomSheet.volume = ""
+                Constants.SubscriptionBottomSheet.title = ""
+                Constants.SubscriptionBottomSheet.project_name = ""
+                Constants.SubscriptionBottomSheet.lock_time = ""
+                Constants.SubscriptionBottomSheet.volume_price = 0.0
+                Constants.SubscriptionBottomSheet.subscription = ""
+
                 val fundPasswordDialog: FundPasswordDialog = FundPasswordDialog.newInstance(
+                    arguments?.get("id").toString().toInt(),
                     arguments?.get("volume").toString(),
                     arguments?.get("title").toString(),
                     arguments?.get("project_name").toString(),
                     arguments?.get("lock_time").toString(),
                     arguments?.get("volume_price").toString().toDouble(),
-                    arguments?.get("subscription_price").toString()
+                    arguments?.get("subscription_price").toString(),
                 )
                 fundPasswordDialog.show(
                     requireActivity().supportFragmentManager,
                     "balanceHistoryDetailDialog"
                 )
-                dismiss()
+                Handler().postDelayed({
+                    dismiss()
+                }, 2000)
             }
             activity?.apply {
                 blurView.setupWith(findViewById<ViewGroup>(android.R.id.content))

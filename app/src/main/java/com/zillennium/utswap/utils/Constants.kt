@@ -477,4 +477,17 @@ interface Constants {
         }
     }
 
+    /** Subscription */
+    interface SubscriptionBottomSheet{
+        companion object{
+            var id = 0
+            var volume = ""
+            var title = ""
+            var project_name = ""
+            var lock_time = ""
+            var volume_price = 0.0
+            var subscription = ""
+        }
+    }
+
 }

@@ -23,10 +23,17 @@ object SubscriptionProject {
         var date_range: String? = null
     )
 
-    class SubscribeBody {
-        var id = 0
-        var ut_number = 0
-        var fund_password = ""
+    /** Project Subscription Order*/
+    class SubscriptionConfirmRes {
+        var status: Int? = null
+        var message: String? = null
+        var data: SubscribeConfirmBody? = null
     }
+
+    class SubscribeConfirmBody (
+        var id: Int? = null,
+        var ut_number: Int? = null,
+        var fund_password: String = ""
+    )
 
 }

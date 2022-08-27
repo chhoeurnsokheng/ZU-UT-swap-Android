@@ -16,6 +16,10 @@ class SubscriptionView {
         /**   Subscription Project   **/
         fun onCheckSubscriptionSuccess(data: SubscriptionProject.SubscriptionProjectRes)
         fun onCheckSubscriptionFail(data: SubscriptionProject.SubscriptionProjectRes)
+
+        /**   User Profile Level      **/
+        fun onGetUserInfoSuccess(data: User.AppSideBarData)
+        fun onGetUserInfoFail(data: User.AppSideBarData)
     }
 
     interface Presenter : BaseMvpPresenter<View> {
@@ -24,6 +28,9 @@ class SubscriptionView {
 
         /**   Subscription Project   **/
         fun onCheckSubscriptionStatus(body: SubscriptionProject.SubscriptionProjectBody, context: Context)
+
+        /**  User Profile Level   **/
+        fun onGetUserInfo(context: Context)
 
     }
 }

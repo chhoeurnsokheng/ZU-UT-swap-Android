@@ -7,6 +7,7 @@ import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.api.manager.ApiHomeImp
 import com.zillennium.utswap.api.manager.ApiManager
 import com.zillennium.utswap.api.manager.ApiProjectImp
+import com.zillennium.utswap.api.manager.ApiUserImp
 import com.zillennium.utswap.bases.mvp.BaseMvpPresenterImpl
 import com.zillennium.utswap.models.project.SubscriptionProject
 import rx.Subscription
@@ -74,6 +75,25 @@ class SubscriptionPresenter : BaseMvpPresenterImpl<SubscriptionView.View>(),
 
             }
 
+        })
+    }
+
+    /**  User Profile Level   **/
+    override fun onGetUserInfo(context: Context) {
+        subscription?.unsubscribe()
+        subscription = ApiUserImp().appSideBarUserInfo(context).subscribe({
+            if(it.status == 1)
+            {
+                mView?.onGetUserInfoSuccess(it.data!!)
+            }else{
+                mView?.onGetUserInfoFail(it.data!!)
+            }
+        },{
+            object : CallbackWrapper(it, UTSwapApp.instance, arrayListOf()){
+                override fun onCallbackWrapper(status: ApiManager.NetworkErrorStatus, data: Any) {
+                    mView?.onFail(data.toString())
+                }
+            }
         })
     }
 

@@ -52,6 +52,9 @@ object ApiSettings {
     /**        Subscription Project       **/
     const val PATH_SUBSCRIPTION_PROJECT = "issue/available_subscription"
 
+    /**    Check Subscription Project Order     **/
+    const val PATH_SUBSCRIPTION_PROJECT_ORDER = "issue/check_subscription_order"
+
     /** Finance */
     const val PATH_SUBSCRIPTION = "Issue/log"
     const val PATH_LOCK_UP = "finance/lockbalance"
@@ -96,4 +99,6 @@ object ApiSettings {
 
     /**         Notification List            **/
     const val PATH_NOTIFICATION_LIST = "notification/loadNotification"
+
+
 }
