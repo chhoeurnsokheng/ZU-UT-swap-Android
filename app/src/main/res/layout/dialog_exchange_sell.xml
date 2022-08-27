@@ -34,13 +34,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Project: "
-                    android:textColor="@color/black_333333"
+                    android:textColor="@color/gray_888888"
                     android:textAppearance="@style/regular_12"/>
 
                 <TextView
+                    android:id="@+id/txt_project_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="New Airport 38Ha"
+                    android:text=""
                     android:gravity="end"
                     android:textColor="@color/black"
                     android:textAppearance="@style/regular_12"/>
@@ -63,7 +64,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Volume: "
-                    android:textColor="@color/black_333333"
+                    android:textColor="@color/gray_888888"
                     android:textAppearance="@style/regular_12"/>
 
                 <LinearLayout
@@ -110,7 +111,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Price: "
-                    android:textColor="@color/black_333333"
+                    android:textColor="@color/gray_888888"
                     android:textAppearance="@style/regular_12"/>
 
                 <LinearLayout
@@ -122,7 +123,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="end"
-                        android:text="$"
+                        android:text="$ "
                         android:layout_marginStart="@dimen/dimen_10"
                         android:textColor="@color/black"
                         android:textAppearance="@style/regular_12"/>
@@ -156,7 +157,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Gross Value: "
-                    android:textColor="@color/black_333333"
+                    android:textColor="@color/gray_888888"
                     android:textAppearance="@style/regular_12"/>
 
                 <LinearLayout
@@ -168,7 +169,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="end"
-                        android:text="$"
+                        android:text="$ "
                         android:layout_marginStart="@dimen/dimen_10"
                         android:textColor="@color/black"
                         android:textAppearance="@style/regular_12"/>
@@ -202,7 +203,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Fee: "
-                    android:textColor="@color/black_333333"
+                    android:textColor="@color/gray_888888"
                     android:textAppearance="@style/regular_12"/>
 
                 <LinearLayout
@@ -214,7 +215,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="end"
-                        android:text="$"
+                        android:text="$ "
                         android:layout_marginStart="@dimen/dimen_10"
                         android:textColor="@color/black"
                         android:textAppearance="@style/regular_12"/>
@@ -223,7 +224,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="end"
-                        android:text="13.81"
+                        android:text="0.00"
                         android:textColor="@color/black"
                         android:textAppearance="@style/regular_12"/>
 
@@ -247,7 +248,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Net Value: "
-                    android:textColor="@color/black_333333"
+                    android:textColor="@color/gray_888888"
                     android:textAppearance="@style/regular_12"/>
 
                 <LinearLayout
@@ -259,7 +260,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="end"
-                        android:text="$"
+                        android:text="$ "
                         android:layout_marginStart="@dimen/dimen_10"
                         android:textColor="@color/black"
                         android:textAppearance="@style/regular_12"/>

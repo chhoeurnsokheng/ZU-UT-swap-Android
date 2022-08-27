@@ -26,7 +26,7 @@ class OrderBookPresenter : BaseMvpPresenterImpl<OrderBookView.View>(),
 
     override fun startTradeOrderBookTable(marketName: String?) {
         subscriptionOrderBookTable?.unsubscribe()
-        subscriptionOrderBookTable = SocketManager().mTradeListOrderBookTable.subscribe(object : WSModel<TradingList.TradeOrderBookTableRes>(){
+        subscriptionOrderBookTable = SocketManager().mTradeOrderBookTable.subscribe(object : WSModel<TradingList.TradeOrderBookTableRes>(){
             override fun onOpen(webSocket: WebSocket?) {
                 webSocket?.send(ApiSettings.SEND_TRADE_MARKET_ORDER_BOOK_TABLE+marketName.toString())
             }

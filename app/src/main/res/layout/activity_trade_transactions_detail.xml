@@ -1,301 +1,362 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:app="http://schemas.android.com/apk/res-auto">
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <include
-            android:id="@+id/includeLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            layout="@layout/appbar_layout"/>
-<!--        <LinearLayout-->
+<!--        <include-->
+<!--            android:id="@+id/includeLayout"-->
 <!--            android:layout_width="match_parent"-->
 <!--            android:layout_height="wrap_content"-->
-<!--            android:orientation="horizontal">-->
+<!--            layout="@layout/appbar_layout"/>-->
 
-<!--            <ImageView-->
-<!--                android:id="@+id/btn_back"-->
-<!--                android:layout_width="@dimen/dimen_60"-->
-<!--                android:layout_height="@dimen/dimen_60"-->
-<!--                android:padding="@dimen/dimen_14"-->
-<!--                android:src="@drawable/ic_baseline_arrow_back_24"-->
-<!--                app:tint="@color/primary" />-->
-
-<!--        </LinearLayout>-->
-
-        <LinearLayout
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingEnd="@dimen/dimen_15"
-            android:paddingStart="@dimen/dimen_15">
+            android:layout_height="wrap_content">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="@style/medium_24"
-                android:textColor="@color/black"
-                android:text="UT New Airport 38Ha"
-                android:layout_marginBottom="@dimen/dimen_10"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/img_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:tint="@color/primary"
+                    android:layout_marginEnd="@dimen/dimen_28"
+                    android:src="@drawable/ic_baseline_arrow_back_24"/>
+
+                <TextView
+                    android:id="@+id/txt_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/bold_16"
+                    android:textColor="@color/black"
+                    android:text="" />
+
+            </LinearLayout>
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_refresh"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/toolbar">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingEnd="@dimen/dimen_15"
+                android:paddingStart="@dimen/dimen_15">
+
+                <!--            <LinearLayout-->
+                <!--                android:layout_width="match_parent"-->
+                <!--                android:layout_height="wrap_content"-->
+                <!--                android:orientation="horizontal">-->
+
+                <!--                <TextView-->
+                <!--                    android:id="@+id/txt_status"-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:text="BUY"-->
+                <!--                    android:textAppearance="@style/regular_14"-->
+                <!--                    android:textColor="@color/success"/>-->
+
+                <!--                <TextView-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:text="-"-->
+                <!--                    android:layout_marginStart="@dimen/dimen_10"-->
+                <!--                    android:textAppearance="@style/regular_14"-->
+                <!--                    android:textColor="@color/black_333333"/>-->
+                <!--                <TextView-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:text="Limit"-->
+                <!--                    android:layout_marginStart="@dimen/dimen_10"-->
+                <!--                    android:textAppearance="@style/regular_14"-->
+                <!--                    android:textColor="@color/black_333333"/>-->
+
+                <!--            </LinearLayout>-->
 
                 <TextView
                     android:id="@+id/txt_status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="BUY"
-                    android:textAppearance="@style/regular_14"
+                    android:text=""
+                    android:layout_marginStart="53dp"
+                    android:textAppearance="@style/medium_16"
                     android:textColor="@color/success"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="-"
-                    android:layout_marginStart="@dimen/dimen_10"
-                    android:textAppearance="@style/regular_14"
-                    android:textColor="@color/black_333333"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Limit"
-                    android:layout_marginStart="@dimen/dimen_10"
-                    android:textAppearance="@style/regular_14"
-                    android:textColor="@color/black_333333"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="@dimen/dimen_30">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Date and Time"
-                    android:textColor="@color/black_333333"
-                    android:textAppearance="@style/regular_14"/>
-
-                <TextView
-                    android:id="@+id/txt_date"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="28-03-2022"
-                    android:gravity="end"
-                    android:textColor="@color/black_333333"
-                    android:textAppearance="@style/regular_14"/>
+                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/dimen_30">
 
-            </LinearLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/date_and_time"
+                        android:textColor="@color/black_000000"
+                        android:textAppearance="@style/regular_14"/>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="@dimen/dimen_15">
+                    <TextView
+                        android:id="@+id/txt_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:gravity="end"
+                        android:textColor="@color/black_000000"
+                        android:textAppearance="@style/regular_14"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Transaction ID"
-                    android:textColor="@color/black_333333"
-                    android:textAppearance="@style/regular_14"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="TR2203-1648192105941929"
-                    android:gravity="end"
-                    android:textColor="@color/black_333333"
-                    android:textAppearance="@style/regular_14"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="@dimen/dimen_15">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Price"
-                    android:textColor="@color/black_333333"
-                    android:textAppearance="@style/regular_14"/>
-
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="end">
+                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/dimen_15">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:text="Transaction ID"
+                        android:textColor="@color/black_000000"
+                        android:textAppearance="@style/regular_14"/>
+
+                    <TextView
+                        android:id="@+id/txt_transaction_id"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text=""
                         android:gravity="end"
-                        android:text="$"
-                        android:layout_marginStart="@dimen/dimen_10"
-                        android:textColor="@color/black"
+                        android:textColor="@color/black_000000"
                         android:textAppearance="@style/regular_14"/>
 
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/dimen_15">
+
                     <TextView
-                        android:id="@+id/txt_price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="19.90"
-                        android:textColor="@color/black_333333"
+                        android:text="Price"
+                        android:textColor="@color/black_000000"
                         android:textAppearance="@style/regular_14"/>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="end">
+
+                        <TextView
+                            android:id="@+id/txt_unit_price"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="end"
+                            android:text="$ "
+                            android:visibility="invisible"
+                            android:layout_marginStart="@dimen/dimen_10"
+                            android:textColor="@color/black_000000"
+                            android:textAppearance="@style/regular_14"/>
+
+                        <TextView
+                            android:id="@+id/txt_price"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=""
+                            android:textColor="@color/black_000000"
+                            android:textAppearance="@style/regular_14"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/dimen_15">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Volume"
+                        android:textColor="@color/black_000000"
+                        android:textAppearance="@style/regular_14"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="end">
+
+                        <TextView
+                            android:id="@+id/txt_volume"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=""
+                            android:gravity="end"
+                            android:textColor="@color/black_000000"
+                            android:textAppearance="@style/regular_14"/>
+
+                        <TextView
+                            android:id="@+id/txt_unit_ut"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dimen_5"
+                            android:text="UT"
+                            android:visibility="invisible"
+                            android:gravity="end"
+                            android:textColor="@color/black_000000"
+                            android:textAppearance="@style/regular_14"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/dimen_15">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Gross"
+                        android:textColor="@color/black_000000"
+                        android:textAppearance="@style/regular_14"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="end">
+
+                        <TextView
+                            android:id="@+id/txt_unit_gross"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="end"
+                            android:text="$ "
+                            android:visibility="invisible"
+                            android:layout_marginStart="@dimen/dimen_10"
+                            android:textColor="@color/black_000000"
+                            android:textAppearance="@style/regular_14"/>
+
+                        <TextView
+                            android:id="@+id/txt_gross"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=""
+                            android:textColor="@color/black_000000"
+                            android:textAppearance="@style/regular_14"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/dimen_15">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Fee"
+                        android:textColor="@color/black_000000"
+                        android:textAppearance="@style/regular_14"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="end">
+
+                        <TextView
+                            android:id="@+id/txt_unit_fee"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="end"
+                            android:visibility="invisible"
+                            android:text="$ "
+                            android:layout_marginStart="@dimen/dimen_10"
+                            android:textColor="@color/black_000000"
+                            android:textAppearance="@style/regular_14"/>
+
+                        <TextView
+                            android:id="@+id/txt_fee"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=""
+                            android:gravity="end"
+                            android:textColor="@color/black_000000"
+                            android:textAppearance="@style/regular_14"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/dimen_15">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Net"
+                        android:textColor="@color/black_000000"
+                        android:textAppearance="@style/regular_14"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="end">
+
+                        <TextView
+                            android:id="@+id/txt_unit_net"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="end"
+                            android:visibility="invisible"
+                            android:text="$ "
+                            android:layout_marginStart="@dimen/dimen_10"
+                            android:textColor="@color/black_000000"
+                            android:textAppearance="@style/regular_14"/>
+
+                        <TextView
+                            android:id="@+id/txt_net"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=""
+                            android:textColor="@color/black_000000"
+                            android:textAppearance="@style/regular_14"/>
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="@dimen/dimen_15">
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Volume"
-                    android:textColor="@color/black_333333"
-                    android:textAppearance="@style/regular_14"/>
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"/>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="end">
-
-                    <TextView
-                        android:id="@+id/txt_volume"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="10"
-                        android:gravity="end"
-                        android:textColor="@color/black_333333"
-                        android:textAppearance="@style/regular_14"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/dimen_5"
-                        android:text="UT"
-                        android:gravity="end"
-                        android:textColor="@color/black_333333"
-                        android:textAppearance="@style/regular_14"/>
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="@dimen/dimen_15">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Gross"
-                    android:textColor="@color/black_333333"
-                    android:textAppearance="@style/regular_14"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="end">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="end"
-                        android:text="$"
-                        android:layout_marginStart="@dimen/dimen_10"
-                        android:textColor="@color/black"
-                        android:textAppearance="@style/regular_14"/>
-
-                    <TextView
-                        android:id="@+id/txt_gross"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="199.00"
-                        android:textColor="@color/black_333333"
-                        android:textAppearance="@style/regular_14"/>
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="@dimen/dimen_15">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Fee"
-                    android:textColor="@color/black_333333"
-                    android:textAppearance="@style/regular_14"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="$0.30"
-                    android:gravity="end"
-                    android:textColor="@color/black_333333"
-                    android:textAppearance="@style/regular_14"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="@dimen/dimen_15">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Net"
-                    android:textColor="@color/black_333333"
-                    android:textAppearance="@style/regular_14"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="end">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="end"
-                        android:text="$"
-                        android:layout_marginStart="@dimen/dimen_10"
-                        android:textColor="@color/black"
-                        android:textAppearance="@style/regular_14"/>
-
-                    <TextView
-                        android:id="@+id/txt_net"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="199.30"
-                        android:textColor="@color/black_333333"
-                        android:textAppearance="@style/regular_14"/>
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-    </LinearLayout>
+    </RelativeLayout>
 </layout>

@@ -65,374 +65,381 @@
 <!--                </LinearLayout>-->
 <!--            </RelativeLayout>-->
 
-            <ScrollView
+            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:id="@+id/swipe_refresh"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@+id/includeLayout"
-                android:fillViewport="true"
-                android:overScrollMode="never"
-                android:scrollbars="none">
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/includeLayout">
 
-                <LinearLayout
+                <androidx.core.widget.NestedScrollView
+                    android:id="@+id/nested_scroll"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:paddingStart="@dimen/dimen_20"
-                    android:paddingEnd="@dimen/dimen_20"
-                    android:paddingBottom="@dimen/dimen_15">
+                    android:layout_height="match_parent"
+                    android:fillViewport="true"
+                    android:overScrollMode="never"
+                    android:scrollbars="none">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <!--                        <View-->
-                        <!--                            android:layout_width="@dimen/dimen_18"-->
-                        <!--                            android:layout_height="@dimen/dimen_18"-->
-                        <!--                            android:background="@drawable/bg_active" />-->
-
-                        <!--                        <TextView-->
-                        <!--                            android:layout_width="wrap_content"-->
-                        <!--                            android:layout_height="wrap_content"-->
-                        <!--                            android:layout_marginStart="@dimen/dimen_8"-->
-                        <!--                            android:text="New Airport 38Ha"-->
-                        <!--                            android:textAppearance="@style/medium_18"-->
-                        <!--                            android:textColor="@color/black" />-->
-
-                        <!--                        <LinearLayout-->
-                        <!--                            android:layout_width="match_parent"-->
-                        <!--                            android:layout_height="wrap_content"-->
-                        <!--                            android:gravity="end">-->
-
-                        <!--                            <ImageView-->
-                        <!--                                android:id="@+id/img_remember"-->
-                        <!--                                android:layout_width="@dimen/dimen_22"-->
-                        <!--                                android:layout_height="@dimen/dimen_22"-->
-                        <!--                                android:src="@drawable/ic_baseline_star_24"-->
-                        <!--                                app:tint="@color/warning" />-->
-
-                        <!--                        </LinearLayout>-->
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dimen_32"
-                        android:orientation="horizontal">
+                        android:orientation="vertical"
+                        android:paddingStart="@dimen/dimen_20"
+                        android:paddingEnd="@dimen/dimen_20"
+                        android:paddingBottom="@dimen/dimen_15">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
+                            android:gravity="center_vertical"
                             android:orientation="horizontal">
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Last"
-                                android:textAppearance="@style/regular_14"
-                                android:textColor="@color/black" />
+                            <!--                        <View-->
+                            <!--                            android:layout_width="@dimen/dimen_18"-->
+                            <!--                            android:layout_height="@dimen/dimen_18"-->
+                            <!--                            android:background="@drawable/bg_active" />-->
 
-                            <TextView
-                                android:id="@+id/txt_last"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="end"
-                                android:text=""
-                                android:textAppearance="@style/medium_14"
-                                android:textColor="@color/black" />
+                            <!--                        <TextView-->
+                            <!--                            android:layout_width="wrap_content"-->
+                            <!--                            android:layout_height="wrap_content"-->
+                            <!--                            android:layout_marginStart="@dimen/dimen_8"-->
+                            <!--                            android:text="New Airport 38Ha"-->
+                            <!--                            android:textAppearance="@style/medium_18"-->
+                            <!--                            android:textColor="@color/black" />-->
+
+                            <!--                        <LinearLayout-->
+                            <!--                            android:layout_width="match_parent"-->
+                            <!--                            android:layout_height="wrap_content"-->
+                            <!--                            android:gravity="end">-->
+
+                            <!--                            <ImageView-->
+                            <!--                                android:id="@+id/img_remember"-->
+                            <!--                                android:layout_width="@dimen/dimen_22"-->
+                            <!--                                android:layout_height="@dimen/dimen_22"-->
+                            <!--                                android:src="@drawable/ic_baseline_star_24"-->
+                            <!--                                app:tint="@color/warning" />-->
+
+                            <!--                        </LinearLayout>-->
 
                         </LinearLayout>
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/dimen_20"
-                            android:layout_weight="1"
+                            android:layout_marginTop="@dimen/dimen_32"
                             android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="24H High"
-                                android:textAppearance="@style/regular_14"
-                                android:textColor="@color/black" />
-
-                            <TextView
-                                android:id="@+id/txt_high"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="end"
-                                android:text=""
-                                android:textAppearance="@style/medium_14"
-                                android:textColor="@color/black" />
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dimen_18"
-                        android:orientation="horizontal">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="24H Change"
-                                android:textAppearance="@style/regular_14"
-                                android:textColor="@color/black" />
-
-                            <TextView
-                                android:id="@+id/txt_change"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="end"
-                                android:text=""
-                                android:textAppearance="@style/medium_14"
-                                android:textColor="@color/success" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/dimen_20"
-                            android:layout_weight="1"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="24H Low"
-                                android:textAppearance="@style/regular_14"
-                                android:textColor="@color/black" />
-
-                            <TextView
-                                android:id="@+id/txt_low"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="end"
-                                android:text=""
-                                android:textAppearance="@style/medium_14"
-                                android:textColor="@color/black" />
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dimen_18"
-                        android:orientation="horizontal">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="24H Volume"
-                                android:textAppearance="@style/regular_14"
-                                android:textColor="@color/black" />
-
-                            <TextView
-                                android:id="@+id/txt_volume"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="end"
-                                android:text=""
-                                android:textAppearance="@style/medium_14"
-                                android:textColor="@color/black" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/dimen_20"
-                            android:layout_weight="1"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Target Price"
-                                android:textAppearance="@style/medium_14"
-                                android:textColor="@color/warning" />
-
-                            <TextView
-                                android:id="@+id/txt_target_price"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="end"
-                                android:text=""
-                                android:textAppearance="@style/bold_14"
-                                android:textColor="@color/warning" />
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <FrameLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/dimen_38"
-                            android:layout_marginTop="@dimen/dimen_40"
-                            android:background="@drawable/bg_tabs">
 
                             <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
                                 android:orientation="horizontal">
 
                                 <TextView
-                                    android:id="@+id/tab_select"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="1"
-                                    android:background="@drawable/bg_tab_select"
-                                    android:text=""
-                                    android:textAppearance="@style/regular_16" />
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Last"
+                                    android:textAppearance="@style/regular_14"
+                                    android:textColor="@color/black" />
 
                                 <TextView
+                                    android:id="@+id/txt_last"
                                     android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="1"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="end"
                                     android:text=""
-                                    android:textAppearance="@style/regular_16" />
+                                    android:textAppearance="@style/medium_14"
+                                    android:textColor="@color/black" />
 
                             </LinearLayout>
 
                             <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/dimen_20"
+                                android:layout_weight="1"
                                 android:orientation="horizontal">
 
                                 <TextView
-                                    android:id="@+id/order_book"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="1"
-                                    android:gravity="center"
-                                    android:text="@string/order_book"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="24H High"
                                     android:textAppearance="@style/regular_14"
-                                    android:textColor="@color/white" />
+                                    android:textColor="@color/black" />
 
                                 <TextView
-                                    android:id="@+id/chart"
+                                    android:id="@+id/txt_high"
                                     android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="1"
-                                    android:gravity="center"
-                                    android:text="@string/chart"
-                                    android:textAppearance="@style/regular_14"
-                                    android:textColor="@color/primary" />
+                                    android:layout_height="wrap_content"
+                                    android:gravity="end"
+                                    android:text=""
+                                    android:textAppearance="@style/medium_14"
+                                    android:textColor="@color/black" />
 
                             </LinearLayout>
 
-                        </FrameLayout>
+                        </LinearLayout>
 
-                        <androidx.viewpager2.widget.ViewPager2
-                            android:id="@+id/vp_verify"
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/dimen_20"
-                            android:touchscreenBlocksFocus="true" />
-                    </LinearLayout>
-
-
-                    <LinearLayout
-                        android:id="@+id/lay_transactions"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <FrameLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/dimen_38"
-                            android:layout_marginTop="@dimen/dimen_30"
-                            android:background="@drawable/bg_tabs">
+                            android:layout_marginTop="@dimen/dimen_18"
+                            android:orientation="horizontal">
 
                             <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
                                 android:orientation="horizontal">
 
                                 <TextView
-                                    android:id="@+id/tab_select_orders"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="1"
-                                    android:background="@drawable/bg_tab_select"
-                                    android:text=""
-                                    android:textAppearance="@style/regular_14" />
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="24H Change"
+                                    android:textAppearance="@style/regular_14"
+                                    android:textColor="@color/black" />
 
                                 <TextView
+                                    android:id="@+id/txt_change"
                                     android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="1"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="end"
                                     android:text=""
-                                    android:textAppearance="@style/regular_14" />
+                                    android:textAppearance="@style/medium_14"
+                                    android:textColor="@color/success" />
 
                             </LinearLayout>
 
                             <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/dimen_20"
+                                android:layout_weight="1"
                                 android:orientation="horizontal">
 
                                 <TextView
-                                    android:id="@+id/txt_orders"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="1"
-                                    android:gravity="center"
-                                    android:text="@string/orders"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="24H Low"
                                     android:textAppearance="@style/regular_14"
-                                    android:textColor="@color/white" />
+                                    android:textColor="@color/black" />
 
                                 <TextView
-                                    android:id="@+id/txt_transactions"
+                                    android:id="@+id/txt_low"
                                     android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="1"
-                                    android:gravity="center"
-                                    android:text="@string/transactions"
-                                    android:textAppearance="@style/regular_14"
-                                    android:textColor="@color/primary" />
+                                    android:layout_height="wrap_content"
+                                    android:gravity="end"
+                                    android:text=""
+                                    android:textAppearance="@style/medium_14"
+                                    android:textColor="@color/black" />
 
                             </LinearLayout>
 
-                        </FrameLayout>
+                        </LinearLayout>
 
-                        <androidx.viewpager2.widget.ViewPager2
-                            android:id="@+id/vp_table"
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginTop="@dimen/dimen_15"
-                            android:touchscreenBlocksFocus="true" />
-                    </LinearLayout>
-                </LinearLayout>
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dimen_18"
+                            android:orientation="horizontal">
 
-            </ScrollView>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="24H Volume"
+                                    android:textAppearance="@style/regular_14"
+                                    android:textColor="@color/black" />
+
+                                <TextView
+                                    android:id="@+id/txt_volume"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="end"
+                                    android:text=""
+                                    android:textAppearance="@style/medium_14"
+                                    android:textColor="@color/black" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/dimen_20"
+                                android:layout_weight="1"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Target Price"
+                                    android:textAppearance="@style/medium_14"
+                                    android:textColor="@color/warning" />
+
+                                <TextView
+                                    android:id="@+id/txt_target_price"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="end"
+                                    android:text=""
+                                    android:textAppearance="@style/bold_14"
+                                    android:textColor="@color/warning" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <FrameLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/dimen_38"
+                                android:layout_marginTop="@dimen/dimen_40"
+                                android:background="@drawable/bg_tabs">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        android:id="@+id/tab_select"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:layout_weight="1"
+                                        android:background="@drawable/bg_tab_select"
+                                        android:text=""
+                                        android:textAppearance="@style/regular_16" />
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:layout_weight="1"
+                                        android:text=""
+                                        android:textAppearance="@style/regular_16" />
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        android:id="@+id/order_book"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:layout_weight="1"
+                                        android:gravity="center"
+                                        android:text="@string/order_book"
+                                        android:textAppearance="@style/regular_14"
+                                        android:textColor="@color/white" />
+
+                                    <TextView
+                                        android:id="@+id/chart"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:layout_weight="1"
+                                        android:gravity="center"
+                                        android:text="@string/chart"
+                                        android:textAppearance="@style/regular_14"
+                                        android:textColor="@color/primary" />
+
+                                </LinearLayout>
+
+                            </FrameLayout>
+
+                            <androidx.viewpager2.widget.ViewPager2
+                                android:id="@+id/vp_verify"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/dimen_20"
+                                android:touchscreenBlocksFocus="true" />
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:id="@+id/lay_transactions"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <FrameLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/dimen_38"
+                                android:layout_marginTop="@dimen/dimen_30"
+                                android:background="@drawable/bg_tabs">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        android:id="@+id/tab_select_orders"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:layout_weight="1"
+                                        android:background="@drawable/bg_tab_select"
+                                        android:text=""
+                                        android:textAppearance="@style/regular_14" />
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:layout_weight="1"
+                                        android:text=""
+                                        android:textAppearance="@style/regular_14" />
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        android:id="@+id/txt_orders"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:layout_weight="1"
+                                        android:gravity="center"
+                                        android:text="@string/orders"
+                                        android:textAppearance="@style/regular_14"
+                                        android:textColor="@color/white" />
+
+                                    <TextView
+                                        android:id="@+id/txt_transactions"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:layout_weight="1"
+                                        android:gravity="center"
+                                        android:text="@string/transactions"
+                                        android:textAppearance="@style/regular_14"
+                                        android:textColor="@color/primary" />
+
+                                </LinearLayout>
+
+                            </FrameLayout>
+
+                            <androidx.viewpager2.widget.ViewPager2
+                                android:id="@+id/vp_table"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginTop="@dimen/dimen_15"
+                                android:touchscreenBlocksFocus="true" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                </androidx.core.widget.NestedScrollView>
+            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
         </RelativeLayout>
 
@@ -600,14 +607,28 @@
                             android:textAppearance="@style/regular_12"
                             android:textColor="@color/black" />
 
-                        <TextView
-                            android:id="@+id/txt_available_click"
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="$0.00"
-                            android:textAppearance="@style/bold_12"
-                            android:textColor="@color/black"
-                            android:textStyle="" />
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="$"
+                                android:textAppearance="@style/bold_12"
+                                android:textColor="@color/black"
+                                android:textStyle="" />
+
+                            <TextView
+                                android:id="@+id/txt_available_click"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="0.00"
+                                android:textAppearance="@style/bold_12"
+                                android:textColor="@color/black"
+                                android:textStyle="" />
+                        </LinearLayout>
                     </LinearLayout>
 
                 </LinearLayout>
@@ -688,6 +709,14 @@
             </LinearLayout>
 
         </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="gone"/>
+
     </RelativeLayout>
 
 
