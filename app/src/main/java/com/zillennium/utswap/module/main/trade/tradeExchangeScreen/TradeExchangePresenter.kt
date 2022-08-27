@@ -22,6 +22,7 @@ class TradeExchangePresenter : BaseMvpPresenterImpl<TradeExchangeView.View>(),
     private var subscriptionFavoriteProject: Subscription? = null
     private var subscriptionAddFavorite: Subscription? = null
     private var subscriptionAvailableBalance: Subscription? = null
+    private var subscriptionMarketOpen: Subscription? = null
 
     override fun initViewPresenter(context: Context, bundle: Bundle?) {
         mBundle = bundle
@@ -141,6 +142,23 @@ class TradeExchangePresenter : BaseMvpPresenterImpl<TradeExchangeView.View>(),
                 mView?.getAvailableBalanceSuccess(it)
             }else{
                 mView?.getAvailableBalanceFail(it)
+            }
+        },{
+            object : CallbackWrapper(it, UTSwapApp.instance, arrayListOf()){
+                override fun onCallbackWrapper(status: ApiManager.NetworkErrorStatus, data: Any) {
+                    mView?.onFail(data.toString())
+                }
+            }
+        })
+    }
+
+    override fun getMarketOpen(market_id: String,context: Context) {
+        subscriptionMarketOpen?.unsubscribe()
+        subscriptionMarketOpen = ApiTradeImp().getMarketOpen(market_id,context).subscribe({
+            if(it.status == 1){
+                mView?.getMarketOpenSuccess(it)
+            }else{
+                mView?.getMarketOpenFail(it)
             }
         },{
             object : CallbackWrapper(it, UTSwapApp.instance, arrayListOf()){

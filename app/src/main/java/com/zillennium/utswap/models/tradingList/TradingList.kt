@@ -103,7 +103,7 @@ object TradingList {
     }
 
     class TradeCreateOrderData{
-
+        var num_after_deal: Int? = null
     }
 
     class TradeCreateOrderObj(
@@ -120,7 +120,6 @@ object TradingList {
     class TradeOrderPendingObj(
         var market: String,
         var type: Int,
-        var page: Int,
         var sort: String
     )
 
@@ -249,6 +248,17 @@ object TradingList {
         var gross: String? = null
         var fee: String? = null
         var net: String? = null
+    }
+
+    /** Trade Market Open*/
+    class TradeMarketOpenRes{
+        var status: Int? = null
+        var message: String? = null
+        var data: TradeMarketOpenData? = null
+    }
+
+    class TradeMarketOpenData{
+        var market_open: Boolean? = null
     }
 
 }

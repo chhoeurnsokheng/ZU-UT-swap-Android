@@ -25,6 +25,9 @@ class TradeExchangeView {
 
         fun getAvailableBalanceSuccess(data: TradingList.AvailableBalanceRes)
         fun getAvailableBalanceFail(data: TradingList.AvailableBalanceRes)
+
+        fun getMarketOpenSuccess(data: TradingList.TradeMarketOpenRes)
+        fun getMarketOpenFail(data: TradingList.TradeMarketOpenRes)
     }
 
     interface Presenter : BaseMvpPresenter<View> {
@@ -39,5 +42,7 @@ class TradeExchangeView {
         fun addFavoriteProject(body: TradingList.TradeAddFavoriteObj, context: Context)
 
         fun getAvailableBalance(body: TradingList.AvailableBalanceObj, context: Context)
+
+        fun getMarketOpen(market_id: String,context: Context)
     }
 }

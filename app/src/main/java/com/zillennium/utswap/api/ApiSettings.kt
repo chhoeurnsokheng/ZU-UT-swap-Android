@@ -126,6 +126,9 @@ object ApiSettings {
     /** Trade Transaction Detail*/
     const val PATH_TRANSACTION_DETAIL = "trade/matchingTransactionDetail"
 
+    /** Trade Market Open */
+    const val PATH_MARKET_OPEN = "trade/checkMarketOpen"
+
     /*Desposite Money*/
 
     const val PATH_LIST_PAYMENT_METHOD = "finance/listAvailableBank"

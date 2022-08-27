@@ -90,4 +90,13 @@ class ApiTradeImp: ApiManager() {
         )
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
+
+    /** Trade Market Open*/
+    fun getMarketOpen(market_id: String,context: Context): Observable<TradingList.TradeMarketOpenRes> =
+        mTradeService.getMarketOpen(
+            Header.getHeader(Header.Companion.AuthType.REQUIRED, context),
+            market_id
+        )
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
 }

@@ -79,7 +79,7 @@ class MarketDialog : DialogFragment() {
         )
         val result = VerifyClientData.makeSign(params, SessionPreferences().SESSION_X_TOKEN_API.toString())
 
-        println("===result  $result")
+        println("===result  $result" + "token"+ SessionPreferences().SESSION_TOKEN.toString())
 
         btnCancel?.setOnClickListener {
             dismiss()
@@ -109,9 +109,35 @@ class MarketDialog : DialogFragment() {
         subscriptions = ApiTradeImp().createOrder(body,context).subscribe({
             if(it.status == 1){
                 //Toast.makeText(UTSwapApp.instance,it.message.toString(), Toast.LENGTH_LONG).show()
-                SessionVariable.refreshMatchingTransaction.value = true
-                SessionVariable.callDialogSuccessPlaceOrder.value = true
-            }else{
+                if(it.data?.num_after_deal == null)
+                {
+                    SessionVariable.refreshMatchingTransaction.value = true
+                    SessionVariable.callDialogSuccessPlaceOrder.value = true
+                }else{
+                    var placeOrderAgain: Map<String, String> = emptyMap()
+                    placeOrderAgain = mapOf(
+                        "sign_type" to "MD5",
+                        "market" to Constants.OrderBookTable.marketNameOrderBook,
+                        "price" to "",
+                        "num" to it.data?.num_after_deal.toString(),
+                        "type" to type.toString(),
+                        "tradeType" to "market",
+                        "from" to "upTrade"
+                    )
+                    val result = VerifyClientData.makeSign(placeOrderAgain, SessionPreferences().SESSION_X_TOKEN_API.toString())
+                    createTradeOrder(
+                        TradingList.TradeCreateOrderObj(
+                            "MD5",
+                            result,
+                            Constants.OrderBookTable.marketNameOrderBook,
+                            "",
+                            it.data?.num_after_deal.toString(),
+                            type.toString(),
+                            "market"
+                        ),UTSwapApp.instance)
+                }
+            }
+            else{
                 SessionVariable.callDialogErrorCreateOrder.value = true
                 Constants.TradeExchange.errorMessagePlaceOrder = it.message.toString()
             }

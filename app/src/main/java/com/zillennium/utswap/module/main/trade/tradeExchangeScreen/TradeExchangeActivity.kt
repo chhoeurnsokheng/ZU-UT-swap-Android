@@ -178,6 +178,7 @@ class TradeExchangeActivity :
                 mPresenter.startTradeDetailSocket(intent?.getStringExtra(Constants.TradeExchange.MarketName).toString())
                 mPresenter.onCheckFavoriteProject(TradingList.TradeFavoriteProjectObj(intent?.getStringExtra(Constants.TradeExchange.ProjectId).toString().toInt()),UTSwapApp.instance)
                 mPresenter.getAvailableBalance(TradingList.AvailableBalanceObj(intent?.getStringExtra(Constants.TradeExchange.MarketName).toString()),UTSwapApp.instance)
+                mPresenter.getMarketOpen(intent?.getStringExtra(Constants.TradeExchange.MarketName).toString(),UTSwapApp.instance)
             }
         }
 
@@ -927,7 +928,15 @@ class TradeExchangeActivity :
                 txtUtClick.text = "${data.data?.xnb?.let { groupingSeparatorInt(it) }}"
                 Constants.TradeExchange.utBalance = "${data.data?.xnb?.let { groupingSeparatorInt(it) }}"
             }
+        }
+    }
 
+    override fun getAvailableBalanceFail(data: TradingList.AvailableBalanceRes) {
+
+    }
+
+    override fun getMarketOpenSuccess(data: TradingList.TradeMarketOpenRes) {
+        binding.apply {
             //change project is live or close
             if(data.data?.market_open == true){
                 includeLayout.btnLive.visibility = View.VISIBLE
@@ -952,7 +961,7 @@ class TradeExchangeActivity :
         }
     }
 
-    override fun getAvailableBalanceFail(data: TradingList.AvailableBalanceRes) {
+    override fun getMarketOpenFail(data: TradingList.TradeMarketOpenRes) {
 
     }
 
@@ -982,6 +991,7 @@ class TradeExchangeActivity :
         handler.postDelayed(Runnable {
             runnable?.let { handler.postDelayed(it, delay.toLong()) }
             mPresenter.getAvailableBalance(TradingList.AvailableBalanceObj(intent?.getStringExtra(Constants.TradeExchange.MarketName).toString()),UTSwapApp.instance)
+            mPresenter.getMarketOpen(intent?.getStringExtra(Constants.TradeExchange.MarketName).toString(),UTSwapApp.instance)
         }.also { runnable = it }, delay.toLong())
         super.onResume()
     }

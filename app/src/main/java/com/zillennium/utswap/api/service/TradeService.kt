@@ -69,4 +69,11 @@ interface TradeService {
         @HeaderMap headerMap: Map<String,String>,
         @Body body: TradingList.TradeTransactionDetailObj
     ): Observable<TradingList.TradeTransactionDetailRes>
+
+    /** Trade Market Open */
+    @POST(ApiSettings.PATH_MARKET_OPEN)
+    fun getMarketOpen(
+        @HeaderMap headerMap: Map<String,String>,
+        @Query("market_id") market_id: String
+    ): Observable<TradingList.TradeMarketOpenRes>
 }

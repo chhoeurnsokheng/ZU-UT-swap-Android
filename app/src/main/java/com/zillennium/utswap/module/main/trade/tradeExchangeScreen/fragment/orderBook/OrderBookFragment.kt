@@ -2,8 +2,10 @@ package com.zillennium.utswap.module.main.trade.tradeExchangeScreen.fragment.ord
 
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.androidstudy.networkmanager.Tovuti
 import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
 import com.zillennium.utswap.R
+import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentExchangeOrderBookBinding
 import com.zillennium.utswap.models.tradingList.TradeOrderBookAsk
@@ -34,7 +36,11 @@ class OrderBookFragment :
         onOtherActivity()
         SessionVariable.requestOrderBookSocket.observe(this@OrderBookFragment){
             if(it){
-                mPresenter.startTradeOrderBookTable(Constants.OrderBookTable.marketNameOrderBook)
+                Tovuti.from(UTSwapApp.instance).monitor { _, isConnected, _ ->
+                    if (isConnected) {
+                        mPresenter.startTradeOrderBookTable(Constants.OrderBookTable.marketNameOrderBook)
+                    }
+                }
             }else{
                 mPresenter.closeTradeOrderBookTable()
             }

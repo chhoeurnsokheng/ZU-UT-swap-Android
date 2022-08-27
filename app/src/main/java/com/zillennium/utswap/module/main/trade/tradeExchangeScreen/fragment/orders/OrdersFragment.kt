@@ -35,14 +35,11 @@ class OrdersFragment :
                               // 1: sort from oldest to latest
 
     private var listOrder =  ArrayList<TradingList.TradeOrderPendingEntrust>()
-    private var page: Int = 1
-    private var filterPageBuy: Int =1
-    private var filterPageSell: Int = 1
     private var sortString: String = "desc"
 
     var handler = Handler()
     var runnable: Runnable? = null
-    var delay = 5000
+    var delay = 1000
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun initView() {
@@ -68,10 +65,8 @@ class OrdersFragment :
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onGetOrderPendingSuccess(data: TradingList.TradeOrderPendingRes) {
         binding.apply {
-
-            progressBarReadMore.visibility = View.GONE
-            layLoading.visibility = View.GONE
             progressBar.visibility = View.GONE
+            listOrder.clear()
 
             if(data.data?.entrust?.isNotEmpty() == true){
                 txtNoData.visibility = View.GONE
@@ -91,51 +86,6 @@ class OrdersFragment :
             }else{
                 txtNoData.visibility = View.VISIBLE
                 rvOrders.visibility = View.GONE
-                layLoading.visibility = View.GONE
-                readMore.visibility = View.GONE
-            }
-
-            if(filter == 1){
-                if(filterPageBuy == data.data?.TOTAL_PAGE){
-                    layLoading.visibility = View.GONE
-                    readMore.visibility = View.GONE
-                }
-                else if(filterPageBuy > data.data?.TOTAL_PAGE!!){
-                    layLoading.visibility = View.GONE
-                    readMore.visibility = View.GONE
-                    txtNoData.visibility = View.VISIBLE
-                }
-                else{
-                    layLoading.visibility = View.VISIBLE
-                    readMore.visibility = View.VISIBLE
-                    filterPageBuy += 1
-                }
-            }else if(filter == 2){
-                if(filterPageSell == data.data?.TOTAL_PAGE){
-                    layLoading.visibility = View.GONE
-                    readMore.visibility = View.GONE
-                }else if(filterPageSell > data.data?.TOTAL_PAGE!!){
-                    layLoading.visibility = View.GONE
-                    readMore.visibility = View.GONE
-                    txtNoData.visibility = View.VISIBLE
-                }else{
-                    layLoading.visibility = View.VISIBLE
-                    readMore.visibility = View.VISIBLE
-                    filterPageSell += 1
-                }
-            }else{
-                if(page == data.data?.TOTAL_PAGE){
-                    layLoading.visibility = View.GONE
-                    readMore.visibility = View.GONE
-                }else if(page > data.data?.TOTAL_PAGE!!){
-                    layLoading.visibility = View.GONE
-                    readMore.visibility = View.GONE
-                    txtNoData.visibility = View.VISIBLE
-                }else{
-                    layLoading.visibility = View.VISIBLE
-                    readMore.visibility = View.VISIBLE
-                    page += 1
-                }
             }
         }
     }
@@ -154,9 +104,6 @@ class OrdersFragment :
                     1-> 2
                     else -> 0
                 }
-                page = 1
-                filterPageSell = 1
-                filterPageBuy = 1
                 listOrder.clear()
                 progressBar.visibility = View.VISIBLE
                 getFilter(filter)
@@ -167,9 +114,6 @@ class OrdersFragment :
                     0 -> 1
                     else -> 0
                 }
-                page = 1
-                filterPageSell = 1
-                filterPageBuy = 1
                 listOrder.clear()
                 progressBar.visibility = View.VISIBLE
                 getSort(sort)
@@ -177,21 +121,6 @@ class OrdersFragment :
 
             val linearLayoutManager = LinearLayoutManager(requireContext())
             rvOrders.layoutManager = linearLayoutManager
-
-            readMore.setOnClickListener {
-               when (filter) {
-                   0 -> {
-                       mPresenter.onGetOrderPending(TradingList.TradeOrderPendingObj(Constants.OrderBookTable.marketNameOrderBook,filter,page,sortString),UTSwapApp.instance)
-                   }
-                   1 -> {
-                       mPresenter.onGetOrderPending(TradingList.TradeOrderPendingObj(Constants.OrderBookTable.marketNameOrderBook,filter,filterPageBuy,sortString),UTSwapApp.instance)
-                   }
-                   else -> {
-                       mPresenter.onGetOrderPending(TradingList.TradeOrderPendingObj(Constants.OrderBookTable.marketNameOrderBook,filter,filterPageSell,sortString),UTSwapApp.instance)
-                   }
-               }
-                progressBarReadMore.visibility = View.VISIBLE
-            }
         }
     }
 
@@ -199,7 +128,7 @@ class OrdersFragment :
         Tovuti.from(UTSwapApp.instance).monitor{ _, isConnected, _ ->
             if(isConnected)
             {
-                mPresenter.onGetOrderPending(TradingList.TradeOrderPendingObj(Constants.OrderBookTable.marketNameOrderBook,filter,page,sortString),UTSwapApp.instance)
+                mPresenter.onGetOrderPending(TradingList.TradeOrderPendingObj(Constants.OrderBookTable.marketNameOrderBook,filter,sortString),UTSwapApp.instance)
             }
         }
     }
@@ -215,7 +144,7 @@ class OrdersFragment :
                         )
                     )
                     txtFilter.setTextColor(resources.getColor(R.color.gray_888888))
-                    mPresenter.onGetOrderPending(TradingList.TradeOrderPendingObj(Constants.OrderBookTable.marketNameOrderBook,filter,1,sortString),UTSwapApp.instance)
+                    mPresenter.onGetOrderPending(TradingList.TradeOrderPendingObj(Constants.OrderBookTable.marketNameOrderBook,filter,sortString),UTSwapApp.instance)
                 }
                 1 -> {
                     txtFilter.setTextColor(resources.getColor(R.color.primary))
@@ -225,7 +154,7 @@ class OrdersFragment :
                             R.color.primary
                         )
                     )
-                    mPresenter.onGetOrderPending(TradingList.TradeOrderPendingObj(Constants.OrderBookTable.marketNameOrderBook,1,1,sortString),UTSwapApp.instance)
+                    mPresenter.onGetOrderPending(TradingList.TradeOrderPendingObj(Constants.OrderBookTable.marketNameOrderBook,1,sortString),UTSwapApp.instance)
                 }
                 2 -> {
                     icFilter.imageTintList = ColorStateList.valueOf(
@@ -235,7 +164,7 @@ class OrdersFragment :
                         )
                     )
                     txtFilter.setTextColor(resources.getColor(R.color.primary))
-                    mPresenter.onGetOrderPending(TradingList.TradeOrderPendingObj(Constants.OrderBookTable.marketNameOrderBook,2,1,sortString),UTSwapApp.instance)
+                    mPresenter.onGetOrderPending(TradingList.TradeOrderPendingObj(Constants.OrderBookTable.marketNameOrderBook,2,sortString),UTSwapApp.instance)
                 }
             }
         }
@@ -247,13 +176,13 @@ class OrdersFragment :
             when(sort){
                 0 -> {
                     sortString = "desc"
-                    mPresenter.onGetOrderPending(TradingList.TradeOrderPendingObj(Constants.OrderBookTable.marketNameOrderBook,filter,1,sortString),UTSwapApp.instance)
+                    mPresenter.onGetOrderPending(TradingList.TradeOrderPendingObj(Constants.OrderBookTable.marketNameOrderBook,filter,sortString),UTSwapApp.instance)
                     icSort.setImageDrawable(UTSwapApp.instance.getDrawable(R.drawable.ic_sort))
                     icSort.rotation = 0f
                 }
                 1 -> {
                     sortString = "asc"
-                    mPresenter.onGetOrderPending(TradingList.TradeOrderPendingObj(Constants.OrderBookTable.marketNameOrderBook,filter,1,sortString),UTSwapApp.instance)
+                    mPresenter.onGetOrderPending(TradingList.TradeOrderPendingObj(Constants.OrderBookTable.marketNameOrderBook,filter,sortString),UTSwapApp.instance)
                     icSort.setImageDrawable(UTSwapApp.instance.getDrawable(R.drawable.ic_sort))
                     icSort.rotation = 180f
                 }
@@ -272,9 +201,6 @@ class OrdersFragment :
 
     private fun onSwipeRefresh(){
         binding.apply {
-            page = 1
-            filterPageBuy = 1
-            filterPageSell = 1
             listOrder.clear()
             filter = 0
             sortString = "desc"
@@ -292,16 +218,16 @@ class OrdersFragment :
         }
     }
 
-//    override fun onResume() {
-//        handler.postDelayed(Runnable {
-//            runnable?.let { handler.postDelayed(it, delay.toLong()) }
-//            mPresenter.onGetOrderPending(TradingList.TradeOrderPendingObj(Constants.OrderBookTable.marketNameOrderBook,filter,page,sortString),UTSwapApp.instance)
-//        }.also { runnable = it }, delay.toLong())
-//        super.onResume()
-//    }
-//
-//    override fun onDestroy() {
-//        super.onDestroy()
-//        runnable?.let { handler.removeCallbacks(it) }; //stop handler when activity not visible super.onPause();
-//    }
+    override fun onResume() {
+        handler.postDelayed(Runnable {
+            runnable?.let { handler.postDelayed(it, delay.toLong()) }
+            mPresenter.onGetOrderPending(TradingList.TradeOrderPendingObj(Constants.OrderBookTable.marketNameOrderBook,filter,sortString),UTSwapApp.instance)
+        }.also { runnable = it }, delay.toLong())
+        super.onResume()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        runnable?.let { handler.removeCallbacks(it) }; //stop handler when activity not visible super.onPause();
+    }
 }
