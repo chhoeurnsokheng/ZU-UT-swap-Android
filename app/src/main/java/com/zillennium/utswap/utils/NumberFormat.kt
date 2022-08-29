@@ -4,7 +4,6 @@ import android.text.InputFilter
 import android.text.Spanned
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
-import java.util.regex.Matcher
 import java.util.regex.Pattern
 
 fun groupingSeparator(number: Any): String{

@@ -36,6 +36,7 @@ import com.zillennium.utswap.databinding.BottomSheetFinanceDepositPaymentBinding
 import com.zillennium.utswap.models.deposite.DepositObj
 import com.zillennium.utswap.module.finance.depositScreen.OpenWebViewToComfirmPayment.DepositOpenLinkWebViewActivity
 import com.zillennium.utswap.utils.Constants
+import com.zillennium.utswap.utils.DecimalDigitsInputFilter
 import com.zillennium.utswap.utils.VerifyClientData
 import com.zillennium.utswap.utils.groupingSeparator
 import rx.Subscription
@@ -328,23 +329,23 @@ class BottomSheetFinanceDepositPayment : BottomSheetDialogFragment(),
     }
 }
 
-class DecimalDigitsInputFilter(digitsBeforeZero: Int, digitsAfterZero: Int) :
-    InputFilter {
-    var mPattern: Pattern
-    override fun filter(
-        source: CharSequence,
-        start: Int,
-        end: Int,
-        dest: Spanned,
-        dstart: Int,
-        dend: Int
-    ): CharSequence? {
-        val matcher: Matcher = mPattern.matcher(dest)
-        return if (!matcher.matches()) "" else null
-    }
-
-    init {
-        mPattern =
-            Pattern.compile("[0-9]{0," + (digitsBeforeZero - 1) + "}+((\\.[0-9]{0," + (digitsAfterZero - 1) + "})?)||(\\.)?")
-    }
-}
+//class DecimalDigitsInputFilter(digitsBeforeZero: Int, digitsAfterZero: Int) :
+//    InputFilter {
+//    var mPattern: Pattern
+//    override fun filter(
+//        source: CharSequence,
+//        start: Int,
+//        end: Int,
+//        dest: Spanned,
+//        dstart: Int,
+//        dend: Int
+//    ): CharSequence? {
+//        val matcher: Matcher = mPattern.matcher(dest)
+//        return if (!matcher.matches()) "" else null
+//    }
+//
+//    init {
+//        mPattern =
+//            Pattern.compile("[0-9]{0," + (digitsBeforeZero - 1) + "}+((\\.[0-9]{0," + (digitsAfterZero - 1) + "})?)||(\\.)?")
+//    }
+//}
