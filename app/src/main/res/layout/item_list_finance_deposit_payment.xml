@@ -18,10 +18,11 @@
 
             <ImageView
                 android:id="@+id/img_cardImage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="49dp"
+                android:layout_height="@dimen/dimen_30"
                 android:layout_marginStart="@dimen/dimen_20"
                 android:adjustViewBounds="true"
+                android:layout_gravity="center"
                 android:src="@drawable/aba_pay"/>
 
             <TextView

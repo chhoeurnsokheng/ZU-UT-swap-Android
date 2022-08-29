@@ -19,7 +19,6 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
-import retrofit2.create
 import java.security.SecureRandom
 import java.security.cert.CertificateException
 import java.security.cert.X509Certificate
@@ -82,7 +81,6 @@ open class ApiManager {
         mDespositeService = retrofit.create(DespositeService::class.java)
 
         mHistorical = retrofit.create(HistoricalService::class.java)
-
 
 
         mHomeService = retrofit.create(HomeService::class.java)

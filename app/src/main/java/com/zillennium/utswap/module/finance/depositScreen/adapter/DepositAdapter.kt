@@ -1,22 +1,14 @@
 package com.zillennium.utswap.module.finance.depositScreen.adapter
 
 import android.view.LayoutInflater
-import android.view.OnReceiveContentListener
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.zillennium.utswap.R
-import com.zillennium.utswap.databinding.ItemListFinanceBalanceBinding
 import com.zillennium.utswap.databinding.ItemListFinanceDepositPaymentBinding
-import com.zillennium.utswap.models.DepositModel
 import com.zillennium.utswap.models.deposite.DepositObj
-import com.zillennium.utswap.module.finance.depositScreen.depositBottomSheet.BottomSheetFinanceDepositPayment
-import com.zillennium.utswap.utils.dpToPx
 
 
 class DepositAdapter( val item: List<DepositObj.DataListRes>, val onClickListener: OnClickDeposit) : RecyclerView.Adapter<DepositAdapter.ViewHolder>(){
@@ -37,11 +29,10 @@ class DepositAdapter( val item: List<DepositObj.DataListRes>, val onClickListene
                 Glide.with(imgCardImage).load(data.img_url).fitCenter().into(imgCardImage)
                 tvCardName.text = data.title
                 linearLayout.setOnClickListener {
-
                     if (linearLayout.isSelected == true){
                         linearLayout.setBackgroundColor(ContextCompat.getColor(root.context,R.color.gray_EDEDED))
                     }
-                  onClickListener.ClickDepositCard(data.title, data.img_url,data.bic)
+                    onClickListener.ClickDepositCard(data.title, data.img_url,data.bic,data.storelink?.android)
                 }
             }
         }
@@ -52,6 +43,6 @@ class DepositAdapter( val item: List<DepositObj.DataListRes>, val onClickListene
     }
 
     interface OnClickDeposit {
-        fun ClickDepositCard(paymentMethod: String?,cardImg: String?,type:String?)
+        fun ClickDepositCard(paymentMethod: String?,cardImg: String?,type:String?,storelink:String?)
     }
 }

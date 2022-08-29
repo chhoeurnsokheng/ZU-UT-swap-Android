@@ -48,16 +48,13 @@ class HomeWatchlistAdapter(private val item:List<BannerObj.ItemWishList>): Recyc
                     txtLastValue.text =  data.Last.toString()
 
                      layItem.setOnClickListener {
-//                         data.name?.let { it1 ->
-//                             TradeExchangeActivity.launchTradeExchangeActivityFromWishList(root.context,
-//                                 it
-//                             )
-//                         }
+
                          TradeExchangeActivity.launchTradeExchangeActivityFromWishList(
                              root.context,
                              data.name,
                              data.coinname+"_"+data.buycoin,
-                             data.id
+                             data.id,
+                             data.market_id
                          )
                      }
                 }

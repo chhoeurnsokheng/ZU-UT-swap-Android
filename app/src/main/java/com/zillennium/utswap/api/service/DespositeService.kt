@@ -1,6 +1,7 @@
 package com.zillennium.utswap.api.service
 
 import com.zillennium.utswap.api.ApiSettings
+import com.zillennium.utswap.models.deposite.DataQueryOrderObj
 import com.zillennium.utswap.models.deposite.DepositObj
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -26,4 +27,12 @@ interface DespositeService {
    fun getFinanceTransferLog(
        @HeaderMap headerMap: Map<String ,String>
    ):Observable<DepositObj.DepositRes>
+
+   @POST(ApiSettings.PATH_QUERY_ORDER)
+   fun getQueryOrder(
+       @HeaderMap headerMap: Map<String ,String>,
+       @Body body: DepositObj.DataQueryOrderBody
+   ):Observable<DataQueryOrderObj.DataQueryOrderRes>
+
+
 }

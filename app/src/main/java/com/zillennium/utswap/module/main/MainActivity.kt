@@ -315,6 +315,9 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
 
     override fun onResume() {
         super.onResume()
-        binding.navView.selectedItemId = R.id.navigation_navbar_home
+        if(!isSignInSuccess){
+            binding.navView.selectedItemId = R.id.navigation_navbar_home
+        }
+
     }
 }

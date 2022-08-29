@@ -54,6 +54,9 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
 
     override fun initView() {
         super.initView()
+        SessionVariable.realTimeWatchList.value = true
+        mPresenter.getBanner(requireActivity())
+
         onSwipeRefresh()
         SessionVariable.SESSION_STATUS.observe(this){
             requestData()
@@ -68,6 +71,13 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
         }
         try {
             binding.apply {
+                //real time watchlist
+                SessionVariable.realTimeWatchList.observe(this@HomeFragment){
+                    if(it){
+                        mPresenter.getWatchListAndBalance(requireActivity())
+                        SessionVariable.realTimeWatchList.value = false
+                    }
+                }
 
                 //check share preference
                 SessionVariable.SESSION_STATUS.observe(this@HomeFragment) {
@@ -77,7 +87,7 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
                     rvHomeWatchlist.visibility = View.VISIBLE
                     linearLayoutWatchlist.visibility = View.VISIBLE
                     if (SessionVariable.SESSION_STATUS.value == true) {
-
+                        mPresenter.getWatchListAndBalance(requireActivity())
                     } else {
                         if (SessionVariable.SESSION_STATUS.value == true) {
                             imgMenu.setOnClickListener {
@@ -171,7 +181,6 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
             ) {
                 override fun onBannerItemClick(id: String, position: Int) {
                     NewsDetailActivity.launchNewsDetailsActivity(requireActivity(), id)
-
                 }
             }
 

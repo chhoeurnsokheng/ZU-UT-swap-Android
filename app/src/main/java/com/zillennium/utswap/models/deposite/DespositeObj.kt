@@ -8,13 +8,14 @@ object DepositObj {
     class DepositRes{
         var status:Int? =null
         var message:String ? = null
-        var data:List<DataListRes> ? =null
+        var data:ArrayList<DataListRes>  = arrayListOf()
     }
     class DataListRes{
         var id:String? = null
         var title:String? = null
         var img_url:String? = null
         var bic:String? =null
+        var transaction_id:String? = null
         var storelink:StoreLinkObj? = null
        /* PATH_ONLINE_DEPOSIT*/
         var payment_link:String? = null
@@ -54,6 +55,9 @@ object DepositObj {
         var num:String ? =null
         var coinname:String? =null
         var payment_method:String? = null
-        var device_type:String? = null
+        var deep_link:String? = null
     }
+    class DataQueryOrderBody(
+        var out_trade_no:String? = null
+    )
 }

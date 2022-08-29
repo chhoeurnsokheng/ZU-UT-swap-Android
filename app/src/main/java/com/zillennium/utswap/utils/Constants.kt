@@ -470,6 +470,11 @@ interface Constants {
             var MarketId = "MarketId"
             var MarketName="MarketName"
             var ProjectId = "ProjectId"
+            var availableBalance = ""
+            var utBalance = ""
+            var marketPriceSell = ""
+            var marketPriceBuy = ""
+            var errorMessagePlaceOrder = ""
         }
     }
     interface Project{
@@ -481,6 +486,8 @@ interface Constants {
     interface Deposit{
         companion object{
             const val Payment_Link ="payment_link"
+            const val  TRANSATION_ID= "transaction_id"
+            const val  TOTAL_BALANCE= "Total_balance"
         }
     }
 
@@ -529,6 +536,8 @@ interface Constants {
     interface OrderBookTable{
         companion object{
             var marketNameOrderBook = ""
+            var marketIdChart =""
+            var projectName = ""
         }
     }
 
