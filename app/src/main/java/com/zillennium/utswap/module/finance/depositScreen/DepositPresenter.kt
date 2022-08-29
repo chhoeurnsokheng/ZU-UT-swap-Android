@@ -18,6 +18,8 @@ class DepositPresenter : BaseMvpPresenterImpl<DepositView.View>(),
     var subscriptionOnGetListBank: Subscription? = null
     var subscriptionOnDepositBalance: Subscription? = null
     var subscriptionOnGetDepositTransferBalanceLog: Subscription? = null
+
+    var subscriptionGetDeposit:Subscription? = null
     override fun initViewPresenter(context: Context, bundle: Bundle?) {
         mBundle = bundle
         mContext = context
@@ -68,5 +70,19 @@ class DepositPresenter : BaseMvpPresenterImpl<DepositView.View>(),
                 }
 
             })
+    }
+
+    override fun getDepositFee(context: Context) {
+        subscriptionGetDeposit?.unsubscribe()
+        subscriptionOnDepositBalance =ApiDepositImp().getDepositFee(context).subscribe({
+            mView?.onGetDepositFeeSuccess(it)
+        },{error -> object :CallbackWrapper(error, context, arrayListOf()){
+            override fun onCallbackWrapper(status: ApiManager.NetworkErrorStatus, data: Any) {
+                mView?.onDepositBalanceFailed("Failed")
+            }
+
+        }
+
+        })
     }
 }

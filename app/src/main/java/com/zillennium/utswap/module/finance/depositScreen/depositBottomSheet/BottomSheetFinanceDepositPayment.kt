@@ -13,6 +13,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
+import android.widget.EditText
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
@@ -26,6 +27,7 @@ import com.google.firebase.dynamiclinks.DynamicLink
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks
 import com.google.gson.Gson
 import com.zillennium.utswap.BuildConfig
+import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.api.manager.ApiDepositImp
@@ -33,13 +35,13 @@ import com.zillennium.utswap.api.manager.ApiManager
 import com.zillennium.utswap.databinding.BottomSheetFinanceDepositPaymentBinding
 import com.zillennium.utswap.models.deposite.DepositObj
 import com.zillennium.utswap.module.finance.depositScreen.OpenWebViewToComfirmPayment.DepositOpenLinkWebViewActivity
-import com.zillennium.utswap.utils.DecimalDigitsInputFilter
-import com.zillennium.utswap.utils.UtilKt
+import com.zillennium.utswap.utils.Constants
+import com.zillennium.utswap.utils.VerifyClientData
 import com.zillennium.utswap.utils.groupingSeparator
 import rx.Subscription
+import java.text.DecimalFormat
 import java.util.regex.Matcher
 import java.util.regex.Pattern
-
 
 class BottomSheetFinanceDepositPayment : BottomSheetDialogFragment(),
     AdapterView.OnItemSelectedListener {
@@ -55,6 +57,13 @@ class BottomSheetFinanceDepositPayment : BottomSheetDialogFragment(),
     var payment_link = ""
     var deep_link_url = ""
     var transitionId = ""
+    var local_bank_fee = ""
+    var visa_master_fee = " "
+    private val df: DecimalFormat? = null
+    private val dfnd: DecimalFormat? = null
+    private val et: EditText? = null
+    private val hasFractionalPart = false
+    private var trailingZeroCount = 0
     override fun getTheme(): Int {
         return R.style.BottomSheetStyle
     }
@@ -87,15 +96,32 @@ class BottomSheetFinanceDepositPayment : BottomSheetDialogFragment(),
 
             nextBtnFinace.isEnabled = false
             nextBtnFinace.setOnClickListener {
-                val data = Gson().toJson("TR2208-1661140965780133")
+                var params: Map<String, String> = emptyMap()
+                params = mapOf(
+                    "sign_type" to "MD5",
+                    "type" to typeOfCard,
+                    "num" to balance,
+                    "coinname" to coinname,
+                    "payment_method" to  payment_method,
+                )
+                val result = VerifyClientData.makeSign(params, SessionPreferences().SESSION_X_TOKEN_API.toString())
+
                 var bodyObj = DepositObj.DepositRequestBody()
                 bodyObj.num = balance
                 bodyObj.type = typeOfCard
                 bodyObj.coinname = coinname
-                bodyObj.deep_link = ""     // deep_link_url
+                bodyObj.sign_type ="MD5"
                 bodyObj.payment_method = payment_method
-
+                bodyObj.sign = result
                 onDepositBalance(root.context, bodyObj)
+
+
+
+
+
+
+
+
                 binding?.progressBar?.visibility = View.VISIBLE
                 val txtAmount = etMountPayment.text.toString().replace(",", "")
                 var totalAmountValue = 0.0
@@ -129,9 +155,23 @@ class BottomSheetFinanceDepositPayment : BottomSheetDialogFragment(),
             arguments?.getString("typeOfCard").let {
                 typeOfCard = it.toString()
             }
+            arguments?.getString("visa_master_fee").let {
+                visa_master_fee = it.toString()
+            }
+            arguments?.getString("local_bank_fee").let {
+                local_bank_fee = it.toString()
+            }
 
+            if (typeOfCard =="Visa/Master Card") {
+                fee= visa_master_fee
+            }else{
+                fee = local_bank_fee
+            }
+
+            tvFee.text = fee
             etMountPayment.filters = arrayOf<InputFilter>(DecimalDigitsInputFilter(10, 2))
             etMountPayment.requestFocus()
+
 
             etMountPayment.addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(
@@ -150,6 +190,7 @@ class BottomSheetFinanceDepositPayment : BottomSheetDialogFragment(),
                     count: Int
                 ) {
 
+
                     var amount = 0.0
                     if (!char.isNullOrEmpty() && !char.toString().startsWith(".")) {
                         amount = char.toString().toDouble()
@@ -159,8 +200,7 @@ class BottomSheetFinanceDepositPayment : BottomSheetDialogFragment(),
                         binding?.etMountPayment?.setText("")
                     }
 
-                    val total = amount.toString().toDouble()
-
+                    val total = amount.toString().toDouble() + fee.toDouble()
 
                     tvAmount.text = "$${groupingSeparator(amount)}"
 
@@ -188,8 +228,6 @@ class BottomSheetFinanceDepositPayment : BottomSheetDialogFragment(),
                         }
                     }
 
-
-
                 }
 
                 override fun afterTextChanged(s: Editable?) {
@@ -206,11 +244,14 @@ class BottomSheetFinanceDepositPayment : BottomSheetDialogFragment(),
         }
     }
 
+
     companion object {
         fun newInstance(
             paymentMethod: String?,
             cardImg: String?,
-            type: String?
+            type: String?,
+            local_bank_fee:String?,
+            visa_master_fee:String
         ): BottomSheetFinanceDepositPayment {
             val depositBottomSheetDialog = BottomSheetFinanceDepositPayment()
             val args = Bundle()
@@ -220,6 +261,8 @@ class BottomSheetFinanceDepositPayment : BottomSheetDialogFragment(),
             }
             args.putString("payMentMethod", paymentMethod)
             args.putString("typeOfCard", type)
+            args.putString("local_bank_fee", local_bank_fee)
+            args.putString("visa_master_fee", visa_master_fee)
 
 
             depositBottomSheetDialog.arguments = args

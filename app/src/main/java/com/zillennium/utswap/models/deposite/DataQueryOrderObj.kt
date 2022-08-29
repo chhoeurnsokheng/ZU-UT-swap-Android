@@ -12,6 +12,8 @@ class DataQueryOrderObj {
     }
     class DataRese{
         var dataQueryOrder:DataQueryOrder ? = null
+        var local_bank_fee:String? = null
+        var visa_master_fee:String? = null
     }
     class DataQueryOrder{
         var success:Boolean = false
