@@ -24,5 +24,9 @@ interface NotificationService {
         @HeaderMap headers: Map<String, String>
     ): Observable<JsonObject>
 
-
+    @POST(ApiSettings.PATH_SAVE_FIREBASE_TOKEN)
+    fun saveFirebaseToken(
+        @HeaderMap header: Map<String, String>,
+        @Body body: NotificationModel.SubmitFirebaseToken
+    ): Observable<JsonObject>
 }

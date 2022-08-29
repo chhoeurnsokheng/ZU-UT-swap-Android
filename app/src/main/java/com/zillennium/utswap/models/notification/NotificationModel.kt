@@ -16,7 +16,7 @@ object NotificationModel {
     }
 
     class NotificationListData(
-        var notifi_type:String = "",
+        var notifi_type: String = "",
         var title: String? = "",
         var id: String? = null,
         var to_userid: String? = null,
@@ -31,14 +31,15 @@ object NotificationModel {
 
     )
 
+    class SubmitFirebaseToken {
+        var firebase_client_token: String = ""
+        var ip_device: String = ""
+        var device_info: String = ""
+    }
+
     data class NotificationSection(var title: String?)
 }
-//
-//class NotificationModel(
-//    var icNotification: Int,
-//    var txtTitle: String,
-//    var txtTitleAnnouncement: String,
-//    var txtDescription: String,
-//    var txtDuration: String
-//) :
-//    Serializable
+
+
+
+

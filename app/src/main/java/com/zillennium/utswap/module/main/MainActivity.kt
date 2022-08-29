@@ -36,6 +36,7 @@ import com.zillennium.utswap.module.main.trade.tradeScreen.TradeFragment
 import com.zillennium.utswap.module.security.securityActivity.signInScreen.SignInActivity
 import com.zillennium.utswap.utils.DialogUtil
 import com.zillennium.utswap.utils.DialogUtilKyc
+import com.zillennium.utswap.utils.MobileSetting
 
 
 class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, ActivityMainBinding>(), MainView.View {

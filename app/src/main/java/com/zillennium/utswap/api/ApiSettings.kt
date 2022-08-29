@@ -101,6 +101,7 @@ object ApiSettings {
     const val PATH_NOTIFICATION_LIST = "notification/loadNotification"
     const val PATH_NOTIFICATION_READ = "notification/mask_as_read_msg"
     const val PATH_NOTIFICATION_READ_ALL = "notification/showAllNoti"
+    const val PATH_SAVE_FIREBASE_TOKEN = "notification/saveFirebaseToken"
 
 
     /** User Balance */

@@ -15,6 +15,7 @@ import com.zillennium.utswap.databinding.ActivitySystemNotificationBinding
 
 import com.zillennium.utswap.models.notification.NotificationModel
 import com.zillennium.utswap.module.finance.balanceScreen.FinanceBalanceActivity
+import com.zillennium.utswap.module.kyc.kycActivity.KYCActivity
 import com.zillennium.utswap.module.system.notification.adapter.NotificationAdapter
 import com.zillennium.utswap.utils.Constants
 
@@ -45,6 +46,12 @@ class NotificationActivity :
         }
     }
 
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        this.intent = intent
+        eventClickFromOutSide()
+
+    }
     private fun initToolBar() {
         setSupportActionBar(binding.toolBar.tb)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -146,6 +153,22 @@ class NotificationActivity :
             notificationAdapter?.items = mList
             rvNotification.adapter = notificationAdapter
 
+        }
+    }
+
+    private fun eventClickFromOutSide() {
+        val intent = Intent()
+        if (intent.hasExtra("KYC")) {
+            val dataIntent = intent.getStringExtra("KYC")
+            when (dataIntent) {
+                "KYC" -> {
+                    startActivity(
+                        Intent(this@NotificationActivity, KYCActivity::class.java)
+                            .putExtra("fromNotification", "")
+                    )
+                }
+
+            }
         }
     }
 

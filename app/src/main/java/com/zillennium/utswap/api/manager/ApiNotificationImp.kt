@@ -40,4 +40,14 @@ class ApiNotificationImp : ApiManager() {
         )
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
+
+    fun saveFirebaseToken(context: Context, body: NotificationModel.SubmitFirebaseToken): Observable<JsonObject> =
+        mNotificationService.saveFirebaseToken(
+            Header.getHeader(
+                Header.Companion.AuthType.REQUIRED_TOKEN,
+                context
+            ), body
+        )
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
 }
