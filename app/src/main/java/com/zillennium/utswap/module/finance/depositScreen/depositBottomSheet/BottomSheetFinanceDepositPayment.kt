@@ -6,7 +6,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.InputFilter
-import android.text.Spanned
 import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
@@ -25,7 +24,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.dynamiclinks.DynamicLink
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks
-import com.google.gson.Gson
 import com.zillennium.utswap.BuildConfig
 import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
@@ -35,14 +33,11 @@ import com.zillennium.utswap.api.manager.ApiManager
 import com.zillennium.utswap.databinding.BottomSheetFinanceDepositPaymentBinding
 import com.zillennium.utswap.models.deposite.DepositObj
 import com.zillennium.utswap.module.finance.depositScreen.OpenWebViewToComfirmPayment.DepositOpenLinkWebViewActivity
-import com.zillennium.utswap.utils.Constants
 import com.zillennium.utswap.utils.DecimalDigitsInputFilter
 import com.zillennium.utswap.utils.VerifyClientData
 import com.zillennium.utswap.utils.groupingSeparator
 import rx.Subscription
 import java.text.DecimalFormat
-import java.util.regex.Matcher
-import java.util.regex.Pattern
 
 class BottomSheetFinanceDepositPayment : BottomSheetDialogFragment(),
     AdapterView.OnItemSelectedListener {
@@ -163,7 +158,7 @@ class BottomSheetFinanceDepositPayment : BottomSheetDialogFragment(),
                 local_bank_fee = it.toString()
             }
 
-            if (typeOfCard =="Visa/Master Card") {
+            if (typeOfCard =="VISA_MASTER") {
                 fee= visa_master_fee
             }else{
                 fee = local_bank_fee

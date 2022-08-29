@@ -73,6 +73,10 @@ class DepositOpenLinkWebViewActivity :
         webSettings.allowUniversalAccessFromFileURLs = true
         webSettings.javaScriptCanOpenWindowsAutomatically = true
         webSettings.loadsImagesAutomatically = true
+        webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN)
+        webPay.setScrollbarFadingEnabled(false)
+        webSettings.setUseWideViewPort(true)
+        webSettings.setJavaScriptEnabled(true)
 
         webPay.webViewClient = object : WebViewClient() {
 
