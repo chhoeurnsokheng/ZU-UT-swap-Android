@@ -74,6 +74,8 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
                 //real time watchlist
                 SessionVariable.realTimeWatchList.observe(this@HomeFragment){
                     if(it){
+                        rvHomeWatchlist.visibility = View.VISIBLE
+                        linearLayoutWatchlist.visibility = View.VISIBLE
                         mPresenter.getWatchListAndBalance(requireActivity())
                         SessionVariable.realTimeWatchList.value = false
                     }
@@ -264,6 +266,7 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
 
     override fun onGetWishListAndBalanceSuccess(data: BannerObj.whistListRes) {
 
+        Constants.WatchList.itemWatchList = arrayListOf()
 
         if (data.data?.watch_lists?.size == 0) {
             binding.apply {

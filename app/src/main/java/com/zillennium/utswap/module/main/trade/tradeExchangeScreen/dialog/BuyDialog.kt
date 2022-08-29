@@ -36,9 +36,12 @@ class BuyDialog : DialogFragment() {
     private var txtPrice: TextView? = null
     private var txtGrossValue: TextView? = null
     private var txtNetValue: TextView? = null
+    private var txtProjectName: TextView? = null
+    private var txtFee: TextView? = null
+
     private var volume: String? = ""
     private var price: String? = ""
-    private var txtProjectName: TextView? = null
+    private var fee: Double? = 0.00
 
     private var subscriptions: Subscription? = null
 
@@ -59,6 +62,7 @@ class BuyDialog : DialogFragment() {
         txtGrossValue = view?.findViewById(R.id.txt_gross_volume)
         txtNetValue = view?.findViewById(R.id.txt_net_value)
         txtProjectName = view?.findViewById(R.id.txt_project_name)
+        txtFee = view?.findViewById(R.id.txt_fee)
 
         volume = arguments?.getString("volume").toString()
         price = arguments?.getString("price").toString()
@@ -66,8 +70,13 @@ class BuyDialog : DialogFragment() {
         txtVolume?.text = groupingSeparatorInt(volume.toString().toInt())
         txtPrice?.text = price?.toDouble()?.let { groupingSeparator(it) }
         txtProjectName?.text = Constants.OrderBookTable.projectName
+
 //        txtGrossValue?.text = (volume?.toFloat()?.times(price!!.toFloat())).toString()
         val grossValue = ((volume?.toDouble()?.times(price!!.toDouble())))
+        fee = (grossValue?.times(Constants.TradeExchange.buyFee.toDouble()))?.div(100)
+
+        txtFee?.text = fee?.let { groupingSeparator(it) }
+
         txtGrossValue?.text = grossValue?.let { groupingSeparator(it) }
         txtNetValue?.text = grossValue?.let { groupingSeparator(it) }
 
@@ -110,9 +119,8 @@ class BuyDialog : DialogFragment() {
         subscriptions?.unsubscribe()
         subscriptions = ApiTradeImp().createOrder(body,context).subscribe({
             if(it.status == 1){
-                //Toast.makeText(UTSwapApp.instance,it.message.toString(), Toast.LENGTH_LONG).show()
-                //SessionVariable.createPendingOrder.value = true
                 SessionVariable.callDialogSuccessPlaceOrder.value = true
+                SessionVariable.refreshMatchingTransaction.value = true
             }else{
                 //Toast.makeText(UTSwapApp.instance,it.message.toString(),Toast.LENGTH_LONG).show()
                 SessionVariable.callDialogErrorCreateOrder.value = true

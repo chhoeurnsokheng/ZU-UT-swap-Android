@@ -104,8 +104,6 @@ class TradeExchangeActivity :
         /** for recall request available balance and order book table socket*/
         SessionVariable.requestOrderBookSocket.value = true
         SessionVariable.refreshOrderPending.value = false
-        //SessionVariable.createMatchingTransaction.value = false
-        //SessionVariable.createPendingOrder.value = false
         SessionVariable.refreshMatchingTransaction.value = false
         SessionVariable.callDialogErrorCreateOrder.value = false
         SessionVariable.callDialogSuccessPlaceOrder.value = false
@@ -928,6 +926,9 @@ class TradeExchangeActivity :
                 txtUtClick.text = "${data.data?.xnb?.let { groupingSeparatorInt(it) }}"
                 Constants.TradeExchange.utBalance = "${data.data?.xnb?.let { groupingSeparatorInt(it) }}"
             }
+
+            Constants.TradeExchange.sellFee = data.data?.sell_fee.toString()
+            Constants.TradeExchange.buyFee = data.data?.buy_fee.toString()
         }
     }
 
@@ -973,6 +974,8 @@ class TradeExchangeActivity :
         SessionVariable.callDialogErrorCreateOrder.value = false
         SessionVariable.marketPriceSell.value = ""
         SessionVariable.marketPriceBuy.value = ""
+        Constants.TradeExchange.sellFee = ""
+        Constants.TradeExchange.buyFee = ""
     }
 
     override fun onDestroy() {
@@ -983,6 +986,8 @@ class TradeExchangeActivity :
         SessionVariable.callDialogErrorCreateOrder.value = false
         SessionVariable.marketPriceSell.value = ""
         SessionVariable.marketPriceBuy.value = ""
+        Constants.TradeExchange.sellFee = ""
+        Constants.TradeExchange.buyFee = ""
 
         runnable?.let { handler.removeCallbacks(it) }
     }
