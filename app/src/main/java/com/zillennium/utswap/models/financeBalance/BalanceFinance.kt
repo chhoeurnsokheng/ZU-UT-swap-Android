@@ -10,6 +10,7 @@ object BalanceFinance {
     }
 
     class GetUserBalanceInfoData{
+        var transfer_balance: String? = null
         var withdrawal_balance: String? = null
         var available_balance: String? = null
         var pending: String? = null
@@ -40,6 +41,7 @@ object BalanceFinance {
         var name: String? = null
         var transaction_type: String? = null
         var fee_admin: String? = null
+        var fee: String? = null
     }
 
     class GetBalanceSearchDateObject(

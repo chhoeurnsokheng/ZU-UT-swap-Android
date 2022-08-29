@@ -56,6 +56,14 @@ class TradeFragment :
         onOtherActivity()
         onCallWebSocketAndAPI()
         onCheckPreference()
+        SessionVariable.requestTradingList.value = false
+
+        SessionVariable.requestTradingList.observe(this@TradeFragment){
+            if(it){
+                mPresenter.startSocketTrading()
+                SessionVariable.requestTradingList.value = false
+            }
+        }
 
         fetchTradeData.observe(this@TradeFragment) {
             if (search.isNotEmpty()) {

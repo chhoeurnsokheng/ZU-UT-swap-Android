@@ -57,5 +57,10 @@
     <color name="dark_pink">#E25757</color>
     <color name="ripple_color">#33000000</color>
     <color name="notification_unread">#0D0D72E5</color>
+    <color name="bg_gray">#F9F9F9</color>
     <color name="black_0a0b12">#0A0B12</color>
+    <color name="blue_767aa3">#767aa3</color>
+
+
+]
 </resources>

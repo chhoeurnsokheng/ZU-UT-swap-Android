@@ -1,5 +1,7 @@
 package com.zillennium.utswap.models.tradingList
 
+import com.zillennium.utswap.models.newsService.News
+
 object TradingList {
     class TradingListRes{
         var market_trend: TradingMarketTrend? = null
@@ -101,7 +103,7 @@ object TradingList {
     }
 
     class TradeCreateOrderData{
-
+        var num_after_deal: Int? = null
     }
 
     class TradeCreateOrderObj(
@@ -111,7 +113,151 @@ object TradingList {
         var price: String,
         var num: String,
         var type: String,
-        var paypassword: String,
         var tradeType: String
     )
+
+    /** Get Trade Order Pending List*/
+    class TradeOrderPendingObj(
+        var market: String,
+        var type: Int,
+        var sort: String
+    )
+
+    class TradeOrderPendingRes{
+        var status: Int? = null
+        var message: String? = null
+        var data: TradeOrderPendingData? = null
+    }
+
+    class TradeOrderPendingData{
+        var TOTAL_PAGE: Int? = null
+        var entrust: List<TradeOrderPendingEntrust>? = null
+    }
+
+    class TradeOrderPendingEntrust{
+        var market: String? = null
+        var addtime: String? =null
+        var condition: String? = null
+        var stop: String? = null
+        var type: String? = null
+        var price: String? = null
+        var num: Int? = null
+        var deal: Int? = null
+        var id: String? = null
+        var tradetype: String? = null
+        var total: String? = null
+    }
+
+    /** Matching Trade Transaction*/
+    class TradeMatchingTransactionObj(
+        var market: String,
+        var type: Int,
+        var page: Int,
+        var sort: String
+    )
+
+    class TradeMatchingTransactionRes{
+        var status: Int? = null
+        var message: String? = null
+        var data: TradeMatchingTransactionData? = null
+    }
+
+    class TradeMatchingTransactionData{
+        var TOTAL_PAGE: Int? = null
+        var entrust: List<TradeMatchingTransactionEntrust>? = null
+    }
+
+    class TradeMatchingTransactionEntrust{
+        var addtime: String? =null
+        var type: String? = null
+        var price: String? = null
+        var num: Int? = null
+        var id: String? = null
+        var gross: String? = null
+        var value: String? = null
+    }
+
+    /** Get Available Balance*/
+    class AvailableBalanceObj(
+        var market: String
+    )
+
+    class AvailableBalanceRes{
+        var status: Int? = null
+        var message: String? = null
+        var data: AvailableBalanceData? = null
+    }
+
+    class AvailableBalanceData{
+        var xnb: Double? = null
+        var xnbd: Double? = null
+        var usd: Double? = null
+        var usdd: Double? = null
+        var lock_ut: Int? = null
+        var sum_usd: Double? = null
+        var sum_ut: Int? = null
+        var lock_usd: Double? = null
+        var market_open: Boolean? = null
+    }
+
+    /** Trade Cancel Order*/
+    class TradeCancelOrderRes{
+        var status: Int? = null
+        var message: String? = null
+        var data: TradeCancelOrderData? = null
+    }
+
+    class TradeCancelOrderData{
+
+    }
+
+    class TradeCancelOrderObj(
+        var trade_id: Int
+    )
+
+    /** Trade Chart*/
+    class TradeChartRes{
+        var status: Int? = null
+        var message: String? = null
+        var data: TradeChartData? = null
+    }
+
+    class TradeChartData{
+        var trading_view: String? = null
+    }
+
+    /** Trade Transaction Detail*/
+    class TradeTransactionDetailObj(
+        var trade_log_id: Int?
+    )
+
+    class TradeTransactionDetailRes{
+        var status: Int? = null
+        var message: String? = null
+        var data: TradeTransactionDetailData? = null
+    }
+
+    class TradeTransactionDetailData{
+        var name: String? = null
+        var addtime: String? = null
+        var transaction_id: String? = null
+        var type: String? = null
+        var price: String? = null
+        var volume: Int? = null
+        var gross: String? = null
+        var fee: String? = null
+        var net: String? = null
+    }
+
+    /** Trade Market Open*/
+    class TradeMarketOpenRes{
+        var status: Int? = null
+        var message: String? = null
+        var data: TradeMarketOpenData? = null
+    }
+
+    class TradeMarketOpenData{
+        var market_open: Boolean? = null
+    }
+
 }

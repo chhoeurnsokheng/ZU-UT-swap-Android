@@ -145,7 +145,7 @@
     <string name="sender">Sender</string>
     <string name="receiver">Receiver</string>
     <string name="transfer_balance_0_00">Transfer Balance: $ 0.00</string>
-    <string name="zero">000 000 000</string>
+    <string name="zero">000 000 0000</string>
     <string name="enter_receiver_s_phone_number">Enter Receiver\'s phone number</string>
     <string name="transfer_amount">Transfer Amount:</string>
     <string name="receiver_s_phone_number">Receiver\'s Phone Number:</string>
@@ -155,6 +155,7 @@
     <string name="lock_up_period">Lock-up Period</string>
     <string name="no_data_available_in_table">No data available in table</string>
     <string name="date">Date</string>
+    <string name="date_and_time">Date &amp; Time</string>
     <string name="filter">Filter:</string>
     <string name="register">Register</string>
     <string name="enter_account_details">Enter Account Details</string>
@@ -453,6 +454,7 @@
     <string name="this_account_already_have_phone_number">This account already have phone number</string>
     <string name="please_enter_valid_phone_number">Please enter valid phone number</string>
     <string name="success">Success</string>
+    <string name="failed">Failed</string>
     <string name="phone_number_has_been_add_successfully">Phone Number has been added Successfully</string>
     <string name="phone_number_already_used">Phone Number Already Used!</string>
 
@@ -470,12 +472,28 @@
     <string name="openWebView">OpenWebView</string>
     <string name="deposit_review">Deposit Review</string>
 
+    <string name="you_have_successfully_placed_an_order">You have successfully placed an order.</string>
+    <string name="order_has_been_canceled">Order has been canceled</string>
+    <string name="ok">OK</string>
+
+    <string name="deposit_success">Deposit Successfully</string>
+
     <string name="all">All</string>
 
     <string name="date__">Date:</string>
     <string name="transaction_id_">Transaction ID:</string>
     <string name="balance__">Balance:</string>
     <string name="fee__">Fee:</string>
+
+    <string name="please_enter_your_fund_password">Please enter your fund password</string>
+    <string name="transfer_successfully">Transfer Successfully</string>
+    <string name="internal_cash_transfer">Internal Cash Transfer</string>
+    <string name="trx.id">Trx. ID:</string>
+    <string name="transaction_date">Transaction date:</string>
+    <string name="from_account">From account:</string>
+    <string name="to_account">To account:</string>
+    <string name="your_phone_number_is_required_to_transfer_funds">Your Phone Number is Required to Transfer Funds</string>
+    <string name="usd">USD</string>
 
 
 

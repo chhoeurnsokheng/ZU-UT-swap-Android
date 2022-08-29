@@ -11,18 +11,25 @@ import android.text.TextWatcher
 import android.view.*
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.MutableLiveData
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
 import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.databinding.BottomSheetExchangeBuySellBinding
+import com.zillennium.utswap.utils.Constants
+import com.zillennium.utswap.utils.groupingSeparator
 
 class BuyAndSellBottomSheetDialog(var onDismissListener: OnDismissListener) :
     BottomSheetDialogFragment() {
 
     private var binding: BottomSheetExchangeBuySellBinding? = null
-    private var txtPrice: String? = ""
-    private var txtVolume: String? = ""
+
+    private var marketPriceSell: MutableLiveData<String> = MutableLiveData()
+    private var marketPriceBuy: MutableLiveData<String> = MutableLiveData()
+
+    private var tradeType: String = "limit"
 
     override fun getTheme(): Int {
         return R.style.BottomSheetStyle
@@ -59,6 +66,32 @@ class BuyAndSellBottomSheetDialog(var onDismissListener: OnDismissListener) :
             )
             var click = true
 
+            txtAvailable.text = Constants.TradeExchange.availableBalance
+
+            txtUt.text = Constants.TradeExchange.utBalance
+
+            SessionVariable.marketPriceSell.observe(this@BuyAndSellBottomSheetDialog){
+                if(it.toString() != "" && SessionVariable.marketPriceBuy.value != ""){
+                    marketPriceSell.value = SessionVariable.marketPriceSell.value.toString()
+                    btnMarket.isClickable = true
+                    btnMarket.isEnabled = true
+                }else{
+                    btnMarket.isClickable = false
+                    btnMarket.isEnabled = false
+                }
+            }
+
+            SessionVariable.marketPriceBuy.observe(this@BuyAndSellBottomSheetDialog){
+                if(it.toString() != "" && SessionVariable.marketPriceSell.value != ""){
+                    marketPriceBuy.value = SessionVariable.marketPriceBuy.value.toString()
+                    btnMarket.isClickable = true
+                    btnMarket.isEnabled = true
+                }else{
+                    btnMarket.isClickable = false
+                    btnMarket.isEnabled = false
+                }
+            }
+
             btnBuyBottomSheet.setOnClickListener {
                 if (SessionPreferences().SESSION_KYC_SUBMIT_STATUS == true && SessionPreferences().SESSION_KYC == false) {
                     dismiss()
@@ -89,20 +122,22 @@ class BuyAndSellBottomSheetDialog(var onDismissListener: OnDismissListener) :
                         val buyDialog: BuyDialog =
                             BuyDialog.newInstance(
                                 etVolume.text.toString(),
-                                etPriceOfVolume.text.toString()
+                                etPriceOfVolume.text.toString(),
+                                tradeType
                             )
                         activity?.supportFragmentManager?.let { buyDialog.show(it, "asaf") }
 
                         dismiss()
                     } else {
                         val marketDialog: MarketDialog =
-                            MarketDialog.newInstance(etVolume.text.toString(), "BUY")
+                            MarketDialog.newInstance(etVolume.text.toString(), "BUY",tradeType)
                         activity?.supportFragmentManager?.let { marketDialog.show(it, "asaf") }
                         dismiss()
                     }
                 }
 
             }
+
 
             btnSellBottomSheet.setOnClickListener {
                 if (SessionPreferences().SESSION_KYC_SUBMIT_STATUS == true && SessionPreferences().SESSION_KYC == false) {
@@ -140,7 +175,7 @@ class BuyAndSellBottomSheetDialog(var onDismissListener: OnDismissListener) :
                         dismiss()
                     } else {
                         val marketDialog: MarketDialog =
-                            MarketDialog.newInstance(etVolume.text.toString(), "SELL")
+                            MarketDialog.newInstance(etVolume.text.toString(), "SELL",tradeType)
                         activity?.supportFragmentManager?.let { marketDialog.show(it, "asaf") }
                         dismiss()
                     }
@@ -152,17 +187,44 @@ class BuyAndSellBottomSheetDialog(var onDismissListener: OnDismissListener) :
 
                 }
 
+                @SuppressLint("SetTextI18n")
                 override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                     etVolume.background = ContextCompat.getDrawable(
                         UTSwapApp.instance,
                         R.drawable.outline_edittext_change_color_focus
                     )
 
-                    if(etVolume.text.toString().isNotEmpty() && etPriceOfVolume.text.toString().isNotEmpty())
-                    {
-                        val price = etVolume.text.toString().toInt() * etPriceOfVolume.text.toString().toDouble()
-                        txtPriceBuy.text = price.toString()
-                        txtPriceSell.text = price.toString()
+                    if(etPriceOfVolume.text.toString() == "."){
+                        etPriceOfVolume.text.clear()
+
+                    }
+
+                    if(tradeType == "limit"){
+                        if(etVolume.text.toString().isNotEmpty() && etPriceOfVolume.text.toString().isNotEmpty())
+                        {
+                            if(etPriceOfVolume.text.toString() != ".")
+                            {
+                                val price = etVolume.text.toString().toInt() * etPriceOfVolume.text.toString().toDouble()
+
+                                txtPriceBuy.text = groupingSeparator(price)
+                                txtPriceSell.text = groupingSeparator(price)
+                            }
+                        }else{
+                            txtPriceSell.text = "0.00"
+                            txtPriceBuy.text = "0.00"
+                        }
+                    }else{
+                        if(etVolume.text.toString().isNotEmpty())
+                        {
+                            val priceSell = etVolume.text.toString().toInt() * SessionVariable.marketPriceBuy.value.toString().toDouble()
+                            txtPriceSell.text = groupingSeparator(priceSell)
+
+                            val priceBuy = etVolume.text.toString().toInt() * SessionVariable.marketPriceSell.value.toString().toDouble()
+                            txtPriceBuy.text = groupingSeparator(priceBuy)
+                        }else{
+                            txtPriceSell.text = "0.00"
+                            txtPriceBuy.text = "0.00"
+                        }
                     }
                 }
 
@@ -176,17 +238,51 @@ class BuyAndSellBottomSheetDialog(var onDismissListener: OnDismissListener) :
 
                 }
 
+                @SuppressLint("SetTextI18n")
                 override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
                     etPriceOfVolume.background = ContextCompat.getDrawable(
                         UTSwapApp.instance,
                         R.drawable.outline_edittext_change_color_focus
                     )
 
-                    if(etVolume.text.toString().isNotEmpty() && etPriceOfVolume.text.toString().isNotEmpty())
-                    {
-                        val price = etVolume.text.toString().toInt() * etPriceOfVolume.text.toString().toDouble()
-                        txtPriceBuy.text = price.toString()
-                        txtPriceSell.text = price.toString()
+                    if(etPriceOfVolume.text.toString() == "."){
+                        etPriceOfVolume.text.clear()
+
+                    }
+
+                    if (p0.toString().contains(".") && p0.toString().substring(p0.toString().indexOf(".") + 1).length > 2) {
+                        etPriceOfVolume.setText(p0.toString().substring(0, p0.toString().length - 1))
+                        etPriceOfVolume.setSelection(etPriceOfVolume.text.length)
+                    }
+
+                    if(tradeType == "limit"){
+                        if(etVolume.text.toString().isNotEmpty() && etPriceOfVolume.text.toString().isNotEmpty())
+                        {
+                            if(etPriceOfVolume.text.toString() != ".")
+                            {
+                                val price = etVolume.text.toString().toInt() * etPriceOfVolume.text.toString().toDouble()
+                                txtPriceBuy.text = groupingSeparator(price)
+                                txtPriceSell.text = groupingSeparator(price)
+                            }
+                        }else{
+                            txtPriceSell.text = "0.00"
+                            txtPriceBuy.text = "0.00"
+                        }
+                    }else{
+                        if(etVolume.text.toString().isNotEmpty())
+                        {
+                            val priceSell = etVolume.text.toString().toInt() * SessionVariable.marketPriceBuy.value.toString().toDouble()
+                            txtPriceSell.text = groupingSeparator(priceSell)
+
+                            val priceBuy = etVolume.text.toString().toInt() * SessionVariable.marketPriceSell.value.toString().toDouble()
+                            txtPriceBuy.text = groupingSeparator(priceBuy)
+                        }else{
+                            etVolume.text.clear()
+                            etPriceOfVolume.text.clear()
+                            txtPriceSell.text = "0.00"
+                            txtPriceBuy.text = "0.00"
+                        }
                     }
                 }
 
@@ -196,6 +292,15 @@ class BuyAndSellBottomSheetDialog(var onDismissListener: OnDismissListener) :
             })
 
             btnMarket.setOnClickListener {
+
+                //change trade type
+                tradeType = "market"
+
+                etVolume.text.clear()
+                etPriceOfVolume.text.clear()
+                txtPriceSell.text = "0"
+                txtPriceBuy.text = "0"
+
                 linearPrice.visibility = View.GONE
                 btnMarket.background =
                     ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_circular)
@@ -217,6 +322,15 @@ class BuyAndSellBottomSheetDialog(var onDismissListener: OnDismissListener) :
             }
 
             btnLimit.setOnClickListener {
+
+                //change trade type
+                tradeType = "limit"
+
+                etVolume.text.clear()
+                etPriceOfVolume.text.clear()
+                txtPriceSell.text = "0"
+                txtPriceBuy.text = "0"
+
                 linearPrice.visibility = View.VISIBLE
                 btnLimit.background =
                     ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_circular)

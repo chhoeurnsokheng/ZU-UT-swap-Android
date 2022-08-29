@@ -36,4 +36,67 @@ class ApiTradeImp: ApiManager() {
         )
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
+
+    /** Get Trade Order Pending List*/
+    fun getTradeOrderPending(body: TradingList.TradeOrderPendingObj, context: Context): Observable<TradingList.TradeOrderPendingRes> =
+        mTradeService.getTradeOrderPending(
+            Header.getHeader(Header.Companion.AuthType.REQUIRED_TOKEN, context),
+            body
+        )
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+
+    /** Matching Trade Transaction*/
+    fun getTradeMatchingTransaction(body: TradingList.TradeMatchingTransactionObj, context: Context): Observable<TradingList.TradeMatchingTransactionRes> =
+        mTradeService.getTradeMatchingTransaction(
+            Header.getHeader(Header.Companion.AuthType.REQUIRED_TOKEN, context),
+            body
+        )
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+
+    /** Get Available Balance*/
+    fun getAvailableBalance(body:TradingList.AvailableBalanceObj, context: Context):Observable<TradingList.AvailableBalanceRes> =
+        mTradeService.getAvailableBalance(
+            Header.getHeader(Header.Companion.AuthType.REQUIRED_TOKEN, context),
+            body
+        )
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+
+    /** Trade Cancel Order*/
+    fun cancelTradeOrder(body:TradingList.TradeCancelOrderObj, context: Context):Observable<TradingList.TradeCancelOrderRes> =
+        mTradeService.cancelTradeOrder(
+            Header.getHeader(Header.Companion.AuthType.REQUIRED_TOKEN, context),
+            body
+        )
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+
+    /** Trade Chart*/
+    fun tradeChart(marketid: Int, context: Context): Observable<TradingList.TradeChartRes> =
+        mTradeService.tradeChart(
+            Header.getHeader(Header.Companion.AuthType.REQUIRED, context),
+            marketid
+        )
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+
+    /** Trade Transaction Detail*/
+    fun getTransactionDetail(body: TradingList.TradeTransactionDetailObj, context: Context): Observable<TradingList.TradeTransactionDetailRes> =
+        mTradeService.getTransactionDetail(
+            Header.getHeader(Header.Companion.AuthType.REQUIRED_TOKEN, context),
+            body
+        )
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+
+    /** Trade Market Open*/
+    fun getMarketOpen(market_id: String,context: Context): Observable<TradingList.TradeMarketOpenRes> =
+        mTradeService.getMarketOpen(
+            Header.getHeader(Header.Companion.AuthType.REQUIRED, context),
+            market_id
+        )
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
 }

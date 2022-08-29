@@ -21,6 +21,8 @@ class TradeExchangePresenter : BaseMvpPresenterImpl<TradeExchangeView.View>(),
     private var subscription: Subscription? = null
     private var subscriptionFavoriteProject: Subscription? = null
     private var subscriptionAddFavorite: Subscription? = null
+    private var subscriptionAvailableBalance: Subscription? = null
+    private var subscriptionMarketOpen: Subscription? = null
 
     override fun initViewPresenter(context: Context, bundle: Bundle?) {
         mBundle = bundle
@@ -59,7 +61,8 @@ class TradeExchangePresenter : BaseMvpPresenterImpl<TradeExchangeView.View>(),
     }
 
     override fun startTradeDetailSocket(marketName: String?) {
-        subscription = SocketManager().mTradeListSocket.subscribe(object : WSModel<TradingList.TradingListDetailRes>(){
+        subscription?.unsubscribe()
+        subscription = SocketManager().mTradeTradeExchange.subscribe(object : WSModel<TradingList.TradingListDetailRes>(){
             override fun onOpen(webSocket: WebSocket?) {
                 webSocket?.send(ApiSettings.SEND_TRADE_MARKET_NAME+marketName.toString())
             }
@@ -70,10 +73,11 @@ class TradeExchangePresenter : BaseMvpPresenterImpl<TradeExchangeView.View>(),
             }
 
             override fun onMessage(text: TradingList.TradingListDetailRes?) {
-                if(mView?.fetchTradeDetailData?.value != text?.market_summary)
-                {
-                    mView?.fetchTradeDetailData?.value =  text?.market_summary
-                }
+//                if(mView?.fetchTradeDetailData?.value != text?.market_summary)
+//                {
+//                    mView?.fetchTradeDetailData?.value =  text?.market_summary
+//                }
+                mView?.fetchTradeDetailData?.value =  text?.market_summary
             }
 
             override fun onFailure(throwable: Throwable?) {
@@ -121,6 +125,40 @@ class TradeExchangePresenter : BaseMvpPresenterImpl<TradeExchangeView.View>(),
                 mView?.addFavoriteProjectSuccess(it)
             }else{
                 mView?.addFavoriteProjectFail(it)
+            }
+        },{
+            object : CallbackWrapper(it, UTSwapApp.instance, arrayListOf()){
+                override fun onCallbackWrapper(status: ApiManager.NetworkErrorStatus, data: Any) {
+                    mView?.onFail(data.toString())
+                }
+            }
+        })
+    }
+
+    override fun getAvailableBalance(body: TradingList.AvailableBalanceObj, context: Context) {
+        subscriptionAvailableBalance?.unsubscribe()
+        subscriptionAvailableBalance = ApiTradeImp().getAvailableBalance(body,context).subscribe({
+            if(it.status == 1){
+                mView?.getAvailableBalanceSuccess(it)
+            }else{
+                mView?.getAvailableBalanceFail(it)
+            }
+        },{
+            object : CallbackWrapper(it, UTSwapApp.instance, arrayListOf()){
+                override fun onCallbackWrapper(status: ApiManager.NetworkErrorStatus, data: Any) {
+                    mView?.onFail(data.toString())
+                }
+            }
+        })
+    }
+
+    override fun getMarketOpen(market_id: String,context: Context) {
+        subscriptionMarketOpen?.unsubscribe()
+        subscriptionMarketOpen = ApiTradeImp().getMarketOpen(market_id,context).subscribe({
+            if(it.status == 1){
+                mView?.getMarketOpenSuccess(it)
+            }else{
+                mView?.getMarketOpenFail(it)
             }
         },{
             object : CallbackWrapper(it, UTSwapApp.instance, arrayListOf()){
