@@ -63,6 +63,27 @@ interface UserService {
         @Body body: User.EnterNewPasswordObject
     ): Observable<User.EnterNewPasswordRes>
 
+    /** Change Login Password*/
+    @POST(ApiSettings.PATH_CHANGE_LOGIN_PASSWORD)
+    fun changeLoginPassword(
+        @HeaderMap header: Map<String,String>,
+        @Body body: User.ChangeLoginPasswordObject
+    ): Observable<User.ChangeLoginPasswordRes>
+
+    /** Change Fund Password*/
+    @POST(ApiSettings.PATH_CHECK_OLD_FUND_PASSWORD)
+    fun checkOldFundPassword(
+        @HeaderMap header: Map<String,String>,
+        @Body body: User.CheckOldFundPasswordObject
+    ): Observable<User.CheckOldFundPasswordRes>
+
+
+    @POST(ApiSettings.PATH_CHANGE_FUND_PASSWORD)
+    fun changeFundPassword(
+        @HeaderMap header: Map<String,String>,
+        @Body body: User.ChangeFundPasswordObject
+    ): Observable<User.ChangeFundPasswordRes>
+
     /** Add Phone Number*/
     @POST(ApiSettings.PATH_ADD_PHONE_NUMBER)
     fun addPhoneNumberService(

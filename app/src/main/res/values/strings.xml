@@ -456,6 +456,8 @@
     <string name="success">Success</string>
     <string name="failed">Failed</string>
     <string name="phone_number_has_been_add_successfully">Phone Number has been added Successfully</string>
+    <string name="password_has_been_changed_successfully">Password has been changed Successfully</string>
+    <string name="password_changed">Password Changed</string>
     <string name="phone_number_already_used">Phone Number Already Used!</string>
 
     <string name="new_version_available">New version available</string>

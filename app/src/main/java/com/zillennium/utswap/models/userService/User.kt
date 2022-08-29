@@ -169,7 +169,44 @@ object User {
         var data: EnterNewPasswordData? = null
     }
 
-    class EnterNewPasswordData
+    class EnterNewPasswordData{
+
+    }
+
+    /** Change Login Password*/
+    class ChangeLoginPasswordRes{
+        var status: Int? = null
+        var message: String? = null
+        var data: Any? = null
+    }
+
+    class ChangeLoginPasswordObject(
+        var old_password: String?,
+        var new_password: String?,
+        var verify_password: String?
+    )
+
+    /** Change Fund Password*/
+    class CheckOldFundPasswordRes{
+        var status: Int? = null
+        var message: String? = null
+        var data: Any? = null
+    }
+
+    class CheckOldFundPasswordObject(
+        var old_fund: String?
+    )
+
+    class ChangeFundPasswordRes{
+        var status: Int? = null
+        var message: String? = null
+        var data: Any? = null
+    }
+
+    class ChangeFundPasswordObject(
+        var new_fund: String?,
+        var verify_fund: String?
+    )
 
     /** Add Phone Number*/
     class AddPhoneNumberRes{
