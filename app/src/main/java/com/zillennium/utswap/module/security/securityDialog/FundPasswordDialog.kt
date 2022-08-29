@@ -15,6 +15,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import com.gis.z1android.api.errorhandler.CallbackWrapper
 import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
+import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.api.manager.ApiManager
@@ -23,6 +24,7 @@ import com.zillennium.utswap.databinding.DialogSecurityFundPasswordBinding
 import com.zillennium.utswap.models.financeTransfer.Transfer
 import com.zillennium.utswap.module.project.subscriptionScreen.dialog.SubscriptionConfirmDialog
 import com.zillennium.utswap.utils.Constants
+import com.zillennium.utswap.utils.VerifyClientData
 import eightbitlab.com.blurview.RenderScriptBlur
 import rx.Subscription
 
@@ -136,7 +138,16 @@ class FundPasswordDialog : DialogFragment() {
                 val transferCheck = arguments?.getString("transferFund")
 
                 if (transferCheck == Constants.TransferFundPassword.transfer){
-                    onGetTransfer(Transfer.GetTransferObject(arguments?.getString("amountTrans"), arguments?.getString("currencyTrans"), arguments?.getString("receiverTrans"), codes), UTSwapApp.instance)
+                    var params: Map<String, String> = emptyMap()
+                    params = mapOf(
+                        "sign_type" to "MD5",
+                        "amount" to arguments?.getString("amountTrans").toString(),
+                        "currency" to arguments?.getString("currencyTrans").toString(),
+                        "receiver" to arguments?.getString("receiverTrans").toString(),
+                        "paypassword" to codes
+                    )
+                    val result = VerifyClientData.makeSign(params, SessionPreferences().SESSION_X_TOKEN_API.toString())
+                    onGetTransfer(Transfer.GetTransferObject("MD5", result, arguments?.getString("amountTrans"), arguments?.getString("currencyTrans"), arguments?.getString("receiverTrans"), codes), UTSwapApp.instance)
                 }
 
             }else{
@@ -181,7 +192,7 @@ class FundPasswordDialog : DialogFragment() {
 
             Handler().postDelayed({
                 dismiss()
-            }, 2000)
+            }, 800)
 
             SessionVariable.successTransfer.value = true
         }

@@ -46,8 +46,6 @@ class TransferActivity :
     private var receiverTransfer = ""
 
     private var countLoop = 0
-    private var count = 0
-
 
     override fun initView() {
         super.initView()
