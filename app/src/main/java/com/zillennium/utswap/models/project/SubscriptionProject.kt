@@ -30,10 +30,24 @@ object SubscriptionProject {
         var data: SubscribeConfirmBody? = null
     }
 
-    class SubscribeConfirmBody (
+    class SubscribeConfirmBody(
         var id: Int? = null,
         var ut_number: Int? = null,
         var fund_password: String = ""
     )
 
+    /**Subscription Order**/
+    class SubscriptionOrderRes {
+        var status: Int? = null
+        var message: String? = null
+        var data: SubscriptionOrderResData? = null
+    }
+
+    class SubscriptionOrderResData{}
+
+    class SubscribeOrderBody(
+        var id: Int? = null,
+        var ut_number: Int? = null,
+        var fund_password: String = ""
+    )
 }

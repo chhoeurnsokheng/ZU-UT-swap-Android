@@ -16,6 +16,6 @@ class SessionVariable {
 
 
         var SESSION_SUBSCRIPTION_BOTTOM_SHEET: MutableLiveData<Boolean> = MutableLiveData()
-
+        var SESSION_SUBSCRIPTION_ORDER: MutableLiveData<Boolean> = MutableLiveData()
     }
 }

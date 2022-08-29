@@ -36,10 +36,10 @@ interface ProjectService {
     ): Observable<SubscriptionProject.SubscriptionProjectRes>
 
 
-    /**     Check Subscription Project Order     **/
-    @POST(ApiSettings.PATH_SUBSCRIPTION_PROJECT_ORDER)
+    /**    Subscription Order     **/
+    @POST(ApiSettings.PATH_SUBSCRIPTION_ORDER )
     fun subscriptionProjectOrder(
         @HeaderMap header: Map<String, String>,
-        @Body body: SubscriptionProject.SubscribeConfirmBody
-    ): Observable<SubscriptionProject.SubscriptionConfirmRes>
+        @Body body: SubscriptionProject.SubscribeOrderBody
+    ): Observable<SubscriptionProject.SubscriptionOrderRes>
 }

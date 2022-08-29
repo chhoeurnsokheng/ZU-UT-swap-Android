@@ -55,6 +55,9 @@ object ApiSettings {
     /**    Check Subscription Project Order     **/
     const val PATH_SUBSCRIPTION_PROJECT_ORDER = "issue/check_subscription_order"
 
+    /**     Subscription Order       **/
+    const val PATH_SUBSCRIPTION_ORDER = "issue/subscription_order"
+
     /** Finance */
     const val PATH_SUBSCRIPTION = "Issue/log"
     const val PATH_LOCK_UP = "finance/lockbalance"

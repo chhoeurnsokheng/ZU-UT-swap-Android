@@ -14,6 +14,7 @@ import com.zillennium.utswap.models.userService.User
 import com.zillennium.utswap.module.project.subscriptionScreen.adapter.SubscriptionAdapter
 import com.zillennium.utswap.module.project.subscriptionScreen.bottomSheet.SubscriptionBottomSheet
 import com.zillennium.utswap.module.project.subscriptionScreen.dialog.SubscriptionConfirmDialog
+import com.zillennium.utswap.module.security.securityDialog.FundPasswordDialog
 import com.zillennium.utswap.utils.Constants
 
 
@@ -45,12 +46,10 @@ class SubscriptionActivity :
     override fun initView() {
         super.initView()
 
-
-//            Handler().postDelayed({
         binding.apply {
             mPresenter.onGetUserInfo(this@SubscriptionActivity)
             if (intent.hasExtra(Constants.Project.ProjectName)) {
-                 projectName = intent?.getStringExtra(Constants.Project.ProjectName).toString()
+                projectName = intent?.getStringExtra(Constants.Project.ProjectName).toString()
                 txtSubscriptionTitle.text = projectName
             }
 
@@ -58,9 +57,22 @@ class SubscriptionActivity :
                 onBackPressed()
             }
             SessionVariable.SESSION_SUBSCRIPTION_BOTTOM_SHEET.value = false
+            SessionVariable.SESSION_SUBSCRIPTION_ORDER.value = false
 
-            SessionVariable.SESSION_SUBSCRIPTION_BOTTOM_SHEET.observe(this@SubscriptionActivity){
+            SessionVariable.SESSION_SUBSCRIPTION_ORDER.observe(this@SubscriptionActivity){
                 if (it){
+                    val id = intent?.getStringExtra("subscription_id")
+                    mPresenter.onCheckSubscriptionStatus(
+                        SubscriptionProject.SubscriptionProjectBody(
+                            id?.toInt(),
+                            ""
+                        ), UTSwapApp.instance
+                    )
+                }
+            }
+
+            SessionVariable.SESSION_SUBSCRIPTION_BOTTOM_SHEET.observe(this@SubscriptionActivity) {
+                if (it) {
                     val subscriptionConfirmDialog: SubscriptionConfirmDialog =
                         SubscriptionConfirmDialog.newInstance(
                             Constants.SubscriptionBottomSheet.id,
@@ -71,7 +83,10 @@ class SubscriptionActivity :
                             Constants.SubscriptionBottomSheet.volume_price,
                             Constants.SubscriptionBottomSheet.subscription
                         )
-                    subscriptionConfirmDialog.show(supportFragmentManager, "balanceHistoryDetailDialog")
+                    subscriptionConfirmDialog.show(
+                        supportFragmentManager,
+                        "balanceHistoryDetailDialog"
+                    )
                 }
             }
 
@@ -84,9 +99,6 @@ class SubscriptionActivity :
             }
 
         }
-//            }, 5000)
-
-
     }
 
     override fun onCheckKYCSuccess(data: User.KycRes) {
@@ -96,7 +108,6 @@ class SubscriptionActivity :
 
     override fun onCheckKYCFail() {
     }
-
 
     private fun onCheckSessionStatusAndKYC() {
         binding.apply {

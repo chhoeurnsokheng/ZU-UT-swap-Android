@@ -15,6 +15,7 @@ import androidx.core.view.children
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import com.gis.z1android.api.errorhandler.CallbackWrapper
+import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.api.manager.ApiManager
@@ -86,7 +87,10 @@ class FundPasswordDialog : DialogFragment() {
                                     arguments?.get("volume_price").toString().toDouble(),
                                     arguments?.get("subscription_price").toString()
                                 )
-                            subscriptionConfirmDialog.show(requireActivity().supportFragmentManager, "balanceHistoryDetailDialog")
+                            subscriptionConfirmDialog.show(
+                                requireActivity().supportFragmentManager,
+                                "balanceHistoryDetailDialog"
+                            )
                             dismiss()
                         }
                     }
@@ -130,14 +134,11 @@ class FundPasswordDialog : DialogFragment() {
     private fun setPingCode() {
         binding?.apply {
             for (pingCode in layPingCode.children) {
-                pingCode.background =
-                    ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_circular_border)
+                pingCode.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_circular_border)
             }
-
             if (codes.isNotEmpty()) {
                 for (i in codes.indices) {
-                    layPingCode.getChildAt(i).background =
-                        ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_circular)
+                    layPingCode.getChildAt(i).background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_circular)
                 }
             } else {
                 for (i in subCode.indices) {
@@ -145,38 +146,19 @@ class FundPasswordDialog : DialogFragment() {
                         ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_circular)
                 }
             }
-
-
-
             if (codes.length == 4) {
                 subCode = codes
                 layProgressBar.visibility = View.VISIBLE
 
                 val volume = arguments?.getString("volume")?.replace("\\s".toRegex(), "")?.toInt()
                 val id = arguments?.getInt("id")
-                onCheckSubscriptionConfirmPassword(
-                    SubscriptionProject.SubscribeConfirmBody(
-                        id,
-                        volume,
-                        codes
-                    ), UTSwapApp.instance
-                )
+                onCheckSubscriptionConfirmPassword(SubscriptionProject.SubscribeOrderBody(id, volume, codes), UTSwapApp.instance)
             } else {
                 imgIcon.setImageResource(R.drawable.ic_fund_key_normal)
                 txtMessage.text = "Please enter your fund password"
-                txtMessage.setTextColor(
-                    ContextCompat.getColor(
-                        UTSwapApp.instance,
-                        R.color.primary
-                    )
-                )
+                txtMessage.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
                 for (pingCode in layPingCode.children) {
-                    pingCode.backgroundTintList = ColorStateList.valueOf(
-                        ContextCompat.getColor(
-                            UTSwapApp.instance,
-                            R.color.primary
-                        )
-                    )
+                    pingCode.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
                 }
             }
 
@@ -195,15 +177,13 @@ class FundPasswordDialog : DialogFragment() {
                 setPingCode()
             }
         }
-
-
     }
 
 
     /**   Subscription Project  Order **/
-    private fun onCheckSubscriptionSuccess(data: SubscriptionProject.SubscriptionConfirmRes) {
-
+    private fun onCheckSubscriptionSuccess(data: SubscriptionProject.SubscriptionOrderRes) {
         binding?.apply {
+            layProgressBar.visibility = View.GONE
             imgIcon.setImageResource(R.drawable.ic_fund_key_success)
             txtMessage.text = "Success"
             txtMessage.setTextColor(
@@ -220,15 +200,13 @@ class FundPasswordDialog : DialogFragment() {
                     )
                 )
             }
-
+            SessionVariable.SESSION_SUBSCRIPTION_ORDER.value = true
             Handler().postDelayed({
-                layProgressBar.visibility = View.GONE
                 dismiss()
-            }, 3000)
+            }, 2000)
         }
     }
-
-    private fun onCheckSubscriptionFail(data: SubscriptionProject.SubscriptionConfirmRes) {
+    private fun onCheckSubscriptionFail(data: SubscriptionProject.SubscriptionOrderRes) {
         binding?.apply {
             imgIcon.setImageResource(R.drawable.ic_fund_key_invalid)
             txtMessage.text = "Invalid"
@@ -246,13 +224,14 @@ class FundPasswordDialog : DialogFragment() {
                     )
                 )
             }
+
             layProgressBar.visibility = View.GONE
             codes = ""
+
         }
     }
-
     private fun onCheckSubscriptionConfirmPassword(
-        body: SubscriptionProject.SubscribeConfirmBody,
+        body: SubscriptionProject.SubscribeOrderBody,
         context: Context
     ) {
         subscription?.unsubscribe()
@@ -267,13 +246,12 @@ class FundPasswordDialog : DialogFragment() {
                 override fun onCallbackWrapper(status: ApiManager.NetworkErrorStatus, data: Any) {
 
                 }
-
             }
-
         })
     }
 
     companion object {
+//        var backToSubscription = false
         fun newInstance(
             id: Int,
             volume: String?,

@@ -99,9 +99,7 @@ class SubscriptionConfirmDialog : DialogFragment() {
                     requireActivity().supportFragmentManager,
                     "balanceHistoryDetailDialog"
                 )
-                Handler().postDelayed({
                     dismiss()
-                }, 2000)
             }
             btnConfirm.setOnClickListener {
 

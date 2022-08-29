@@ -28,7 +28,6 @@ class ProjectInfoPresenter : BaseMvpPresenterImpl<ProjectInfoView.View>(),
         subscription?.unsubscribe()
 
         subscription = ApiProjectImp().projectDetail(body, context).subscribe({
-            println("print presenter ${it}")
 
             if (it.status == 1){
                 mView?.projectInfoViewSuccess(it.data as ProjectInfoDetail.ProjectInfoDetailData)

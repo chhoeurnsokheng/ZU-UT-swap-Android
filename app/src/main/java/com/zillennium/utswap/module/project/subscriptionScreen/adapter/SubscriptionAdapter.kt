@@ -27,12 +27,13 @@ class SubscriptionAdapter(var onclickAdapter: OnclickAdapter, var userLevel: Str
                 tvDayLock.text = subscriptionList.jian.toString()
                 tvUtValue.text = UtValue.toString()
                 tvUtMainValue.text = UtMainValue.toString()
-
-                if (userLevel.contains(subscriptionList.user_account_type.toString())) {
+                val userLevelConvert = userLevel.replace("\\s".toRegex(), "").substring(2)
+                if (subscriptionList.user_account_type.toString().contains(userLevelConvert)) {
                     CardViewPopup.isEnabled = true
                     imgCircle.imageTintList = ContextCompat.getColorStateList(UTSwapApp.instance, R.color.simple_green)
                     determinateBar.progressBackgroundTintList = ContextCompat.getColorStateList(UTSwapApp.instance, R.color.gray_999999)
-                } else {
+                }
+                else {
                     imgCircle.imageTintList = ContextCompat.getColorStateList(UTSwapApp.instance, R.color.gray_E7E7E7)
                     CardViewPopup.isEnabled = false
                 }

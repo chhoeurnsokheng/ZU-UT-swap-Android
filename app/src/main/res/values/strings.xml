@@ -150,7 +150,7 @@
     <string name="transfer_amount">Transfer Amount:</string>
     <string name="receiver_s_phone_number">Receiver\'s Phone Number:</string>
     <string name="transfer_big_letter">Transfer</string>
-    <string name="price">Price</string>
+    <string name="price">Price:</string>
     <string name="total_locked_balance_0_00">Total Locked Balance: $ 0.00</string>
     <string name="lock_up_period">Lock-up Period</string>
     <string name="no_data_available_in_table">No data available in table</string>
@@ -284,10 +284,11 @@
     <string name="confirm">Confirm</string>
     <string name="price_subscription">Price:</string>
     <string name="money3">1 990.00</string>
-    <string name="Subscription">Subscription</string>
+    <string name="Subscription">Subscription:</string>
     <string name="enter_fund_password">Please enter your fund password</string>
+    <string name="two_attempt_remaining">attempt(s) remaining</string>
     <string name="ut_pochentong">UT Pochentong 555</string>
-    <string name="time_date">End 10:00:00, 09/05/2022</string>
+    <string name="time_date">10:00:00, 09/05/2022</string>
     <string name="money">3.90</string>
     <string name="money1">3.98</string>
     <string name="money2">4.10</string>
@@ -300,7 +301,8 @@
     <string name="subscription_label">SubscriptionFragment</string>
     <string name="Premium_Professional">Premium, Professional</string>
     <string name="ut_Pochentong">UT Pochentong 555</string>
-    <string name="subscription_lock_period">Subscription amount is subjected to a locked</string>
+    <string name="subscription_lock_period">Subscription amount is subjected to a locked period of</string>
+    <string name="subscription_lock_period_confirm">Subscription amount is subjected to a locked</string>
     <string name="volume_input">Volume:</string>
     <string name="subscription_price">Subscription Price:</string>
     <string name="price_subscript">$1 990.00</string>
