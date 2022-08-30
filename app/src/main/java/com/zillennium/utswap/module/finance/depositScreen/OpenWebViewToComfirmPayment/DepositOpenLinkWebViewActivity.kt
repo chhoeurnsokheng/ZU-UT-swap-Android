@@ -73,7 +73,11 @@ class DepositOpenLinkWebViewActivity :
         webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN)
         webPay.setScrollbarFadingEnabled(false)
         webSettings.setUseWideViewPort(true)
-        webSettings.setJavaScriptEnabled(true)
+    //    webSettings.setJavaScriptEnabled(true)
+        webPay.setVerticalScrollBarEnabled(false)
+        webPay.setHorizontalScrollBarEnabled(false)
+
+
 
         webPay.webViewClient = object : WebViewClient() {
 

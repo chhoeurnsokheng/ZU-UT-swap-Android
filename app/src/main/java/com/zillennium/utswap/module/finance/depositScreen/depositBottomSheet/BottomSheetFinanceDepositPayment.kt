@@ -115,10 +115,6 @@ class BottomSheetFinanceDepositPayment : BottomSheetDialogFragment(),
 
 
 
-
-
-
-
                 binding?.progressBar?.visibility = View.VISIBLE
                 val txtAmount = etMountPayment.text.toString().replace(",", "")
                 var totalAmountValue = 0.0
@@ -203,24 +199,50 @@ class BottomSheetFinanceDepositPayment : BottomSheetDialogFragment(),
                         tvFee.text ="$" + UtilKt().formatValue(fee.toDouble(), "###,###.##")
 
                         val total = amount.toString().toDouble() + fee.toDouble()
-
-                        tvAmount.text = "$${groupingSeparator(amount)}"
-                        tvTotal.text = "$${groupingSeparator(total)}"
+                        binding?.txtDorlla?.setTextColor(
+                            ContextCompat.getColor(
+                                UTSwapApp.instance,
+                                R.color.white
+                            )
+                        )
+                        tvAmount.text ="$"+UtilKt().formatValue(amount, "###,###.##")
+                            //"$${groupingSeparator(amount)}"
+                        tvTotal.text ="$"+UtilKt().formatValue(total, "###,###.##")
+                                // "$${groupingSeparator(total)}"
                         if (amount == 0.0){
                             binding?.apply {
                                 tvTotal.text = "$0.00"
                                 tvFee.text ="$0.00"
+                                binding?.txtDorlla?.setTextColor(
+                                    ContextCompat.getColor(
+                                        UTSwapApp.instance,
+                                        R.color.gray_D9D9D9
+                                    )
+                                )
                             }
-
                         }
                     }else{
                         tvFee.text = "$" + fee
                         val total = amount.toString().toDouble() + fee.toDouble()
-                        tvAmount.text = "$${groupingSeparator(amount)}"
-                        tvTotal.text = "$${groupingSeparator(total)}"
+                        tvAmount.text = "$"+UtilKt().formatValue(amount, "###,###.##")
+
+                        tvTotal.text ="$"+ UtilKt().formatValue(total, "###,###.##")
+                            //"$${groupingSeparator(total)}"
+                        binding?.txtDorlla?.setTextColor(
+                            ContextCompat.getColor(
+                                UTSwapApp.instance,
+                                R.color.white
+                            )
+                        )
                         if (amount == 0.0){
                             binding?.tvTotal?.text= "$0.00"
                             tvFee.text ="$0.00"
+                            binding?.txtDorlla?.setTextColor(
+                                ContextCompat.getColor(
+                                    UTSwapApp.instance,
+                                    R.color.gray_D9D9D9
+                                )
+                            )
                         }
                     }
 
@@ -251,12 +273,6 @@ class BottomSheetFinanceDepositPayment : BottomSheetDialogFragment(),
 
                 override fun afterTextChanged(s: Editable?) {
 
-                    binding?.txtDorlla?.setTextColor(
-                        ContextCompat.getColor(
-                            UTSwapApp.instance,
-                            R.color.white
-                        )
-                    )
                 }
 
             })
@@ -335,6 +351,10 @@ class BottomSheetFinanceDepositPayment : BottomSheetDialogFragment(),
                     it.data?.payment_link,
                     it.data?.transaction_id
                 )
+            }
+            if (it.status==0){
+                Toast.makeText(context, "Please Check Customer Truename.",Toast.LENGTH_SHORT).show()
+                binding?.progressBar?.visibility =View.GONE
             }
 
         }, { error ->
