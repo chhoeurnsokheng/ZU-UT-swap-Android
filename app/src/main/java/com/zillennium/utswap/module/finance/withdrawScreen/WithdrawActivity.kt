@@ -37,36 +37,6 @@ class WithdrawActivity :
                 etMountPayment.requestFocus()
                 showKeyboard(this@WithdrawActivity)
                 nextBtnFinace.isEnabled = false
-//                mBottomSheetBehavior = BottomSheetBehavior.from(rlBottomSheet)
-
-                /*(mBottomSheetBehavior as BottomSheetBehavior<*>).addBottomSheetCallback(object :
-                    BottomSheetBehavior.BottomSheetCallback() {
-                    override fun onStateChanged(bottomSheet: View, newState: Int) {
-                        if (mBottomSheetBehavior?.state == BottomSheetBehavior.STATE_EXPANDED) {
-                            etMountPayment.requestFocus()
-                            showKeyboard(this@WithdrawActivity)
-                        } else {
-                            etMountPayment.clearFocus()
-                            etMountPayment.hideKeyboard()
-                        }
-                    }
-
-                    override fun onSlide(bottomSheet: View, slideOffset: Float) {}
-                })
-
-                val screenHeight = Resources.getSystem().displayMetrics.heightPixels
-                val expandHeight = dpToPx(300) + screenHeight / 2.8
-                val params: ViewGroup.LayoutParams = rlBottomSheet.layoutParams
-                params.height = expandHeight.toInt()
-                rlBottomSheet.requestLayout()
-                mBottomSheetBehavior?.state = BottomSheetBehavior.STATE_EXPANDED*/
-
-//                root.viewTreeObserver.addOnGlobalLayoutListener {
-////                    val r = Rect()
-////                    root.getWindowVisibleDisplayFrame(r)
-////                    val screenHeight: Int = root.rootView.height
-//
-//                }
 
                 setEventListener(this@WithdrawActivity, object : KeyboardVisibilityEventListener {
                     override fun onVisibilityChanged(isOpen: Boolean) {
@@ -75,8 +45,6 @@ class WithdrawActivity :
                         }
                     }
                 })
-
-
 
                 addBankAccount.setOnClickListener {
                     etMountPayment.hideKeyboard()
