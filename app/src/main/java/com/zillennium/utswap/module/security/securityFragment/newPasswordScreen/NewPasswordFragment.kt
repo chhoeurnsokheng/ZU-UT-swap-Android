@@ -1,5 +1,6 @@
 package com.zillennium.utswap.module.security.securityFragment.newPasswordScreen
 
+import android.content.Context
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Handler
@@ -8,13 +9,17 @@ import android.text.TextWatcher
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
+import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentSecurityNewPasswordBinding
+import com.zillennium.utswap.models.userService.User
 import com.zillennium.utswap.module.security.securityActivity.signInScreen.SignInActivity
+import com.zillennium.utswap.utils.Constants
 
 class NewPasswordFragment :
     BaseMvpFragment<NewPasswordView.View, NewPasswordView.Presenter, FragmentSecurityNewPasswordBinding>(),
@@ -25,146 +30,183 @@ class NewPasswordFragment :
 
     override fun initView() {
         super.initView()
-        try {
-            binding.apply {
 
-                imgBack.setOnClickListener {
-                    findNavController().popBackStack()
-                }
+        onOtherActivity()
+        onsetTitle()
+        onSubmitNewPassword()
+    }
 
-                when (arguments?.getString("title")) {
-                    "change login password"->{
-                        title.text = "Change Login Password"
-                        title.visibility = View.VISIBLE
-                    }
-                    else -> {
-                        title.visibility = View.GONE
-                    }
-                }
+    private fun onOtherActivity(){
+        binding.apply {
 
-                btnNext.setOnClickListener {
-                    var isHaveError = false
-                    txtPasswordMessage.text = "Invalid Email or Password"
-
-                    if(inputConfirmPassword.text.toString().trim() != inputPassword.text.toString().trim()){
-                        txtPasswordMessage.text = "Password didn't match"
-                        txtPasswordMessage.visibility = View.VISIBLE
-                        inputPassword.backgroundTintList =
-                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
-                        inputConfirmPassword.backgroundTintList =
-                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
-                        isHaveError = true
-                    }
-
-                    if (inputConfirmPassword.text.toString().length < 8) {
-                        txtPasswordMessage.text = "Please Enter a Confirm Password Longer Than 8 Digits"
-                        txtPasswordMessage.visibility = View.VISIBLE
-                        inputConfirmPassword.backgroundTintList =
-                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
-                        isHaveError = true
-                    }
-
-                    if (inputPassword.text.toString().length < 8) {
-                        txtPasswordMessage.text = "Please Enter a Password Longer Than 8 Digits"
-                        txtPasswordMessage.visibility = View.VISIBLE
-                        inputPassword.backgroundTintList =
-                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
-                        isHaveError = true
-                    }
-
-                    if (!isHaveError) {
-                        pbNext.visibility = View.VISIBLE
-                        btnNext.isClickable = false
-                        btnNext.alpha = 0.6F
-
-                        Handler().postDelayed({
-                            txtPasswordMessage.visibility = View.GONE
-                            inputPassword.backgroundTintList =
-                                ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text))
-                            inputConfirmPassword.backgroundTintList =
-                                ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text))
-//                            SessionPreferences().SESSION_STATUS = true
-
-                            pbNext.visibility = View.GONE
-                            btnNext.isClickable = true
-                            btnNext.alpha = 1F
-
-
-                            when (arguments?.getString("title")) {
-                                "change login password"->{
-                                    activity?.finish()
-                                }
-                                else -> {
-                                    activity?.finish()
-                                    val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
-                                    startActivity(intent)
-                                }
-                            }
-                        }, 3000)
-                    }
-                }
-
-                inputPassword.addTextChangedListener(object : TextWatcher {
-                    override fun beforeTextChanged(
-                        charSequence: CharSequence,
-                        i: Int,
-                        i1: Int,
-                        i2: Int
-                    ) {
-                    }
-
-                    override fun onTextChanged(
-                        charSequence: CharSequence,
-                        i: Int,
-                        i1: Int,
-                        i2: Int
-                    ) {
-                    }
-
-                    override fun afterTextChanged(editable: Editable) {
-                        txtPasswordMessage.visibility = View.GONE
-                        inputPassword.backgroundTintList =
-                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text))
-
-                    }
-                })
-
-                inputConfirmPassword.addTextChangedListener(object : TextWatcher {
-                    override fun beforeTextChanged(
-                        charSequence: CharSequence,
-                        i: Int,
-                        i1: Int,
-                        i2: Int
-                    ) {
-                    }
-
-                    override fun onTextChanged(
-                        charSequence: CharSequence,
-                        i: Int,
-                        i1: Int,
-                        i2: Int
-                    ) {
-                    }
-
-                    override fun afterTextChanged(editable: Editable) {
-                        txtPasswordMessage.visibility = View.GONE
-                        inputConfirmPassword.backgroundTintList =
-                            ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text))
-                    }
-                })
-
-                showPassBtn.setOnClickListener { view ->
-                    ShowHidePassword(view)
-                }
-
-                showConfirmPassBtn.setOnClickListener { view ->
-                    ShowHideConfirmPassword(view)
-                }
-
+            imgBack.setOnClickListener {
+                findNavController().popBackStack()
+                hideKeyboard()
             }
-            // Code
-        } catch (error: Exception) {
-            // Must be safe
+
+            etPassword.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(
+                    charSequence: CharSequence,
+                    i: Int,
+                    i1: Int,
+                    i2: Int
+                ) {
+                }
+
+                override fun onTextChanged(
+                    charSequence: CharSequence,
+                    i: Int,
+                    i1: Int,
+                    i2: Int
+                ) {
+                }
+
+                override fun afterTextChanged(editable: Editable) {
+                    txtPasswordMessage.visibility = View.GONE
+                    etPassword.backgroundTintList =
+                        ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text))
+
+                }
+            })
+
+            etConfirmPassword.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(
+                    charSequence: CharSequence,
+                    i: Int,
+                    i1: Int,
+                    i2: Int
+                ) {
+                }
+
+                override fun onTextChanged(
+                    charSequence: CharSequence,
+                    i: Int,
+                    i1: Int,
+                    i2: Int
+                ) {
+                }
+
+                override fun afterTextChanged(editable: Editable) {
+                    txtPasswordMessage.visibility = View.GONE
+                    etConfirmPassword.backgroundTintList =
+                        ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text))
+                }
+            })
+
+            showPassBtn.setOnClickListener { view ->
+                ShowHidePassword(view)
+            }
+
+            showConfirmPassBtn.setOnClickListener { view ->
+                ShowHideConfirmPassword(view)
+            }
+        }
+    }
+
+    private fun onsetTitle(){
+        binding.apply {
+            when (arguments?.getString("title")) {
+                Constants.FundPassword.ChangeLoginPassword ->{
+                    title.text = resources.getString(R.string.change_login_password)
+                    title.visibility = View.VISIBLE
+                }
+                else -> {
+                    title.visibility = View.GONE
+                }
+            }
+        }
+    }
+
+    private fun onSubmitNewPassword(){
+        binding.apply {
+            btnNext.setOnClickListener {
+                var isHaveError = false
+                txtPasswordMessage.text = resources.getString(R.string.invalid_email_or_phone)
+
+                if(etConfirmPassword.text.toString().trim() != etPassword.text.toString().trim()){
+                    txtPasswordMessage.text = resources.getString(R.string.password_does_not_match)
+                    txtPasswordMessage.visibility = View.VISIBLE
+                    etPassword.backgroundTintList =
+                        ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
+                    etConfirmPassword.backgroundTintList =
+                        ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
+                    isHaveError = true
+                }
+
+                if (etConfirmPassword.text.toString().length < 8) {
+                    txtPasswordMessage.text = resources.getString(R.string.please_enter_a_password_longer_than_8_digits)
+                    txtPasswordMessage.visibility = View.VISIBLE
+                    etConfirmPassword.backgroundTintList =
+                        ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
+                    isHaveError = true
+                }
+
+                if (etPassword.text.toString().length < 8) {
+                    txtPasswordMessage.text = resources.getString(R.string.please_enter_a_password_longer_than_8_digits)
+                    txtPasswordMessage.visibility = View.VISIBLE
+                    etPassword.backgroundTintList =
+                        ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
+                    isHaveError = true
+                }
+
+                if (!isHaveError) {
+
+                    onProgressBar(true)
+                    mPresenter.onEnterNewPassword(User.EnterNewPasswordObject(SessionPreferences().SESSION_SECURE_KEY_FORGOT_PASSWORD,etPassword.text.toString(),etConfirmPassword.text.toString()),UTSwapApp.instance)
+
+                }
+            }
+        }
+    }
+
+    override fun onChangePasswordSuccess(body: User.EnterNewPasswordRes) {
+        onProgressBar(false)
+        activity?.finish()
+        val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
+        startActivity(intent)
+    }
+
+    override fun onChangePasswordFail(body: User.EnterNewPasswordRes) {
+        onProgressBar(false)
+        binding.apply {
+            txtPasswordMessage.visibility = View.VISIBLE
+            if(body.message.toString() == "SOMETHING WENT WRONG!")
+            {
+                txtPasswordMessage.text = resources.getString(R.string.new_password_cannot_be_the_same_as_old)
+            }else{
+                txtPasswordMessage.text = body.message.toString()
+            }
+
+            etConfirmPassword.backgroundTintList =
+                ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
+            etPassword.backgroundTintList =
+                ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
+        }
+    }
+
+    private fun onProgressBar(status: Boolean){
+        binding.apply {
+            if(status){
+                pbNext.visibility = View.VISIBLE
+                btnNext.isClickable = false
+                btnNext.alpha = 0.6F
+
+                etConfirmPassword.backgroundTintList =
+                    ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text))
+                etPassword.backgroundTintList =
+                    ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text))
+                txtPasswordMessage.visibility = View.INVISIBLE
+            }else{
+                pbNext.visibility = View.GONE
+                btnNext.isClickable = true
+                btnNext.alpha = 1F
+
+                etConfirmPassword.backgroundTintList =
+                    ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text))
+                etPassword.backgroundTintList =
+                    ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text))
+                txtPasswordMessage.visibility = View.INVISIBLE
+            }
         }
     }
 
@@ -172,18 +214,18 @@ class NewPasswordFragment :
     fun ShowHidePassword(view: View) {
         binding.apply {
             if (view.id == R.id.show_pass_btn) {
-                if (inputPassword.transformationMethod.equals(PasswordTransformationMethod.getInstance())) {
-                    showPassBtn.setImageResource(R.drawable.ic_baseline_visibility_off_24)
+                if (etPassword.transformationMethod.equals(PasswordTransformationMethod.getInstance())) {
+                    showPassBtn.setImageResource(R.drawable.ic_baseline_visibility_24)
                     //Show Password
-                    inputPassword.transformationMethod =
+                    etPassword.transformationMethod =
                         HideReturnsTransformationMethod.getInstance()
                 } else {
-                    showPassBtn.setImageResource(R.drawable.ic_baseline_visibility_24)
+                    showPassBtn.setImageResource(R.drawable.ic_baseline_visibility_off_24)
                     //Hide Password
-                    inputPassword.transformationMethod = PasswordTransformationMethod.getInstance()
+                    etPassword.transformationMethod = PasswordTransformationMethod.getInstance()
                 }
-                inputPassword.requestFocus()
-                inputPassword.setSelection(inputPassword.text.length)
+                etPassword.requestFocus()
+                etPassword.setSelection(etPassword.text.length)
             }
         }
     }
@@ -192,23 +234,29 @@ class NewPasswordFragment :
     fun ShowHideConfirmPassword(view: View) {
         binding.apply {
             if (view.id == R.id.show_confirm_pass_btn) {
-                if (inputConfirmPassword.transformationMethod.equals(PasswordTransformationMethod.getInstance())
+                if (etConfirmPassword.transformationMethod.equals(PasswordTransformationMethod.getInstance())
                 ) {
-                    showConfirmPassBtn.setImageResource(R.drawable.ic_baseline_visibility_off_24)
+                    showConfirmPassBtn.setImageResource(R.drawable.ic_baseline_visibility_24)
                     //Show Password
-                    inputConfirmPassword.transformationMethod =
+                    etConfirmPassword.transformationMethod =
                         HideReturnsTransformationMethod.getInstance()
                 } else {
-                    showConfirmPassBtn.setImageResource(R.drawable.ic_baseline_visibility_24)
+                    showConfirmPassBtn.setImageResource(R.drawable.ic_baseline_visibility_off_24)
                     //Hide Password
-                    inputConfirmPassword.transformationMethod =
+                    etConfirmPassword.transformationMethod =
                         PasswordTransformationMethod.getInstance()
                 }
-                inputConfirmPassword.requestFocus()
-                inputConfirmPassword.setSelection(inputConfirmPassword.text.length)
+                etConfirmPassword.requestFocus()
+                etConfirmPassword.setSelection(etConfirmPassword.text.length)
             }
 
         }
 
+    }
+
+    private fun hideKeyboard() {
+        val inputManager =
+            requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputManager.hideSoftInputFromWindow(view?.windowToken, 0)
     }
 }

@@ -61,6 +61,14 @@ object ApiSettings {
     const val PATH_FORGOT_PASSWORD = "login/forgetPassword"
     const val PATH_FORGOT_PASSWORD_VERIFY = "login/verifyForgetPassword"
     const val PATH_ENTER_NEW_PASSWORD = "login/changeNewPassword"
+
+    /** Change Login Password*/
+    const val PATH_CHANGE_LOGIN_PASSWORD = "user/changeNewPassword"
+
+    /** Change Fund Password*/
+    const val PATH_CHECK_OLD_FUND_PASSWORD = "user/checkOldFund"
+    const val PATH_CHANGE_FUND_PASSWORD = "user/changeFundPassword"
+
     /*User add KYC */
     const val PATH_KYC = "user/submitkyc"
     const val PATH_KYC_STATUS = "user/checkStatusKYC"
