@@ -34,5 +34,6 @@ class SessionVariable {
         var realTimeWatchList: MutableLiveData<Boolean> = MutableLiveData()
         var waitingPlaceOrder: MutableLiveData<Boolean> = MutableLiveData()
         var cancelPlaceOrder: MutableLiveData<Boolean> = MutableLiveData()
+        var marketOpen: MutableLiveData<Boolean> = MutableLiveData()
     }
 }

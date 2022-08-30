@@ -67,7 +67,7 @@ class OrderBookFragment :
                 orderBookAsk?.items = orderBookAskList
                 binding.rvAsk.adapter = orderBookAsk
             }else{
-                SessionVariable.marketPriceSell.value = ""
+                SessionVariable.marketPriceSell.value = "0.00"
                 orderBookAsk?.clear()
             }
 
@@ -86,7 +86,7 @@ class OrderBookFragment :
                 orderBookBid?.items = orderBookBidList
                 binding.rvBid.adapter = orderBookBid
             }else{
-                SessionVariable.marketPriceBuy.value = ""
+                SessionVariable.marketPriceBuy.value = "0.00"
                 orderBookBid?.clear()
             }
 

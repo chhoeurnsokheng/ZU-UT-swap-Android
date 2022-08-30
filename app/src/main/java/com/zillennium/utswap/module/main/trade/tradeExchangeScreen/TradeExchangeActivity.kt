@@ -94,6 +94,17 @@ class TradeExchangeActivity :
             Constants.OrderBookTable.marketIdChart = marketId.toString()
             context.startActivity(intent)
         }
+
+        fun launchTradeExchangeActivityFromProjectDetail(context: Context, projectName: String?, marketName: String?, projectId: String?,marketId: String?){
+            val intent = Intent(context, TradeExchangeActivity::class.java)
+            intent.putExtra(Constants.TradeExchange.ProjectName, projectName)
+            intent.putExtra(Constants.TradeExchange.MarketName,marketName)
+            intent.putExtra(Constants.TradeExchange.ProjectId, projectId)
+            Constants.OrderBookTable.marketNameOrderBook = marketName.toString()
+            Constants.OrderBookTable.projectName = projectName.toString()
+            Constants.OrderBookTable.marketIdChart = marketId.toString()
+            context.startActivity(intent)
+        }
     }
 
     @SuppressLint("SetTextI18n", "ClickableViewAccessibility")
@@ -110,8 +121,8 @@ class TradeExchangeActivity :
         SessionVariable.waitingPlaceOrder.value = false
         SessionVariable.callDialogSuccessPlaceOrder.value = false
         SessionVariable.cancelPlaceOrder.value = false
-        SessionVariable.marketPriceSell.value = ""
-        SessionVariable.marketPriceBuy.value = ""
+        SessionVariable.marketPriceSell.value = "0.00"
+        SessionVariable.marketPriceBuy.value = "0.00"
 
         SessionVariable.refreshOrderPending.observe(this@TradeExchangeActivity){
             if(it){
@@ -949,6 +960,8 @@ class TradeExchangeActivity :
                 )
 
                 includeLayout.btnLive.text = resources.getString(R.string.live)
+
+                SessionVariable.marketOpen.value = true
             }else{
                 includeLayout.btnLive.visibility = View.VISIBLE
                 includeLayout.btnLive.backgroundTintList = ColorStateList.valueOf(
@@ -958,6 +971,8 @@ class TradeExchangeActivity :
                     )
                 )
                 includeLayout.btnLive.text = resources.getString(R.string.close)
+
+                SessionVariable.marketOpen.value = false
             }
         }
     }
@@ -972,8 +987,8 @@ class TradeExchangeActivity :
         SessionVariable.requestOrderBookSocket.value = false
         SessionVariable.requestTradingList.value = true
         SessionVariable.callDialogErrorCreateOrder.value = false
-        SessionVariable.marketPriceSell.value = ""
-        SessionVariable.marketPriceBuy.value = ""
+        SessionVariable.marketPriceSell.value = "0.00"
+        SessionVariable.marketPriceBuy.value = "0.00"
         Constants.TradeExchange.sellFee = ""
         Constants.TradeExchange.buyFee = ""
     }
@@ -984,8 +999,8 @@ class TradeExchangeActivity :
         SessionVariable.requestOrderBookSocket.value = false
         SessionVariable.requestTradingList.value = true
         SessionVariable.callDialogErrorCreateOrder.value = false
-        SessionVariable.marketPriceSell.value = ""
-        SessionVariable.marketPriceBuy.value = ""
+        SessionVariable.marketPriceSell.value = "0.00"
+        SessionVariable.marketPriceBuy.value = "0.00"
         Constants.TradeExchange.sellFee = ""
         Constants.TradeExchange.buyFee = ""
 

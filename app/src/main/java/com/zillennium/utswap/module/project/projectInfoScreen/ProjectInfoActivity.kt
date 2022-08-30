@@ -19,6 +19,7 @@ import com.zillennium.utswap.databinding.ActivityProjectInfoBinding
 import com.zillennium.utswap.models.ProjectInfoDetailModel
 import com.zillennium.utswap.models.ViewImageModel
 import com.zillennium.utswap.models.project.ProjectInfoDetail
+import com.zillennium.utswap.module.main.trade.tradeExchangeScreen.TradeExchangeActivity
 import com.zillennium.utswap.module.project.ViewImage.ImageViewActivity
 import com.zillennium.utswap.module.project.projectInfoScreen.adapter.ProjectInfoDetailsAdapter
 import com.zillennium.utswap.module.project.projectInfoScreen.adapter.ProjectViewPagerAdapter
@@ -329,6 +330,9 @@ class ProjectInfoActivity :
                 btnTrade.visibility = View.VISIBLE
                 btnSubscript.visibility = View.GONE
                 btnUpcoming.visibility = View.GONE
+                btnTrade.setOnClickListener {
+                    TradeExchangeActivity.launchTradeExchangeActivityFromProjectDetail(this@ProjectInfoActivity, data.project_name.toString(),data.market_name.toString(),data.id.toString(),data.market_id.toString())
+                }
 //                btnTrade.setOnClickListener {
 //                    val intent = Intent(UTSwapApp.instance, TradeExchangeActivity::class.java)
 //                    startActivity(intent)
