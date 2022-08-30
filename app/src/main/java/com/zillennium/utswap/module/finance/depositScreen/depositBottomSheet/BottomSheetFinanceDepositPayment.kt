@@ -213,6 +213,7 @@ class BottomSheetFinanceDepositPayment : BottomSheetDialogFragment(),
                             binding?.apply {
                                 tvTotal.text = "$0.00"
                                 tvFee.text ="$0.00"
+                                tvAmount.text ="$0.00"
                                 binding?.txtDorlla?.setTextColor(
                                     ContextCompat.getColor(
                                         UTSwapApp.instance,
@@ -222,7 +223,7 @@ class BottomSheetFinanceDepositPayment : BottomSheetDialogFragment(),
                             }
                         }
                     }else{
-                        tvFee.text = "$" + fee
+                        tvFee.text = "$" + UtilKt().formatValue(fee.toDouble(), "###,###.##")
                         val total = amount.toString().toDouble() + fee.toDouble()
                         tvAmount.text = "$"+UtilKt().formatValue(amount, "###,###.##")
 
@@ -237,6 +238,7 @@ class BottomSheetFinanceDepositPayment : BottomSheetDialogFragment(),
                         if (amount == 0.0){
                             binding?.tvTotal?.text= "$0.00"
                             tvFee.text ="$0.00"
+                            tvAmount.text ="$0.00"
                             binding?.txtDorlla?.setTextColor(
                                 ContextCompat.getColor(
                                     UTSwapApp.instance,
