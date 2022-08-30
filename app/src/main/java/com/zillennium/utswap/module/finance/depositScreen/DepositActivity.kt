@@ -91,6 +91,7 @@ class DepositActivity :
     override fun onGetListBankFailed(message: String) {
         binding.apply {
             progressBar.visibility = View.GONE
+            swipeRefresh.isRefreshing = false
         }
     }
 
@@ -108,7 +109,9 @@ class DepositActivity :
         visa_master_fee = data.data?.visa_master_fee.toString()
     }
 
-    override fun onGetDepositFeeFailed(data: String) {}
+    override fun onGetDepositFeeFailed(data: String) {
+        binding.swipeRefresh.isRefreshing = false
+    }
 
     private fun toolBar() {
         mPresenter.getDepositFee(this)
