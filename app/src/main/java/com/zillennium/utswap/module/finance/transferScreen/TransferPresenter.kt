@@ -23,6 +23,8 @@ class TransferPresenter : BaseMvpPresenterImpl<TransferView.View>(),
     override fun onGetUserInfo(context: Context) {
         subscription?.unsubscribe()
         subscription = ApiUserImp().appSideBarUserInfo(context).subscribe({
+
+
             if(it.status == 1)
             {
                 mView?.onGetUserInfoSuccess(it.data!!)
@@ -41,8 +43,9 @@ class TransferPresenter : BaseMvpPresenterImpl<TransferView.View>(),
     override fun onGetUserBalanceInfo(context: Context) {
         subscription?.unsubscribe()
         subscription = ApiFinanceBalanceImp().getUserBalanceInfo(context).subscribe({
+
             if(it.status == 1){
-                it.data?.let { it1 -> mView?.onGetUserBalanceInfoSuccess(it1) }
+                mView?.onGetUserBalanceInfoSuccess(it)
             }else{
                 mView?.onGetUserBalanceInfoFail(it)
             }

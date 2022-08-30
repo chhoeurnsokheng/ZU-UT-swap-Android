@@ -162,6 +162,8 @@ object ApiSettings {
 
     const val PATH_QUERY_ORDER = "finance/DataQueryOrder"
 
+    const val PATH_GET_DEPOSIT_FEE ="finance/getDepositFee"
+
 
 
 }
