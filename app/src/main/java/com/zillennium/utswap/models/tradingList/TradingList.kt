@@ -175,7 +175,6 @@ object TradingList {
         var id: String? = null
         var gross: String? = null
         var value: String? = null
-        var fee_buy: String? = null
     }
 
     /** Get Available Balance*/
@@ -244,7 +243,7 @@ object TradingList {
         var transaction_id: String? = null
         var type: String? = null
         var price: String? = null
-        var volume: String? = null
+        var volume: Int? = null
         var gross: String? = null
         var fee: String? = null
         var net: String? = null

@@ -63,8 +63,8 @@ class TransactionDetailActivity :
             txtDate.text = data.addtime.toString()
             txtTransactionId.text = data.transaction_id.toString()
             txtPrice.text = groupingSeparator(data.price.toString().toDouble())
-            txtVolume.text = groupingSeparatorInt(data.volume.toString().toInt())
-            txtGross.text = groupingSeparator(data.gross.toString().toDouble())
+            txtVolume.text = data.volume?.let { groupingSeparatorInt(it.toInt()) }
+            txtGross.text = data.gross.toString()
             txtFee.text = data.fee.toString()
             txtNet.text = groupingSeparator(data.net.toString().toDouble())
             txtName.text = data.name.toString()

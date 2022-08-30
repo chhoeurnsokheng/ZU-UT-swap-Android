@@ -491,6 +491,23 @@ interface Constants {
         }
     }
 
+    interface Transfer{
+        companion object{
+            var amount = ""
+            var trxTransfer = ""
+            var trxDate = ""
+            var fromAccount = ""
+            var toAccount = ""
+        }
+    }
+
+    interface TransferFundPassword{
+        companion object{
+            const val transfer = "Transfer"
+            const val withdraw = "Withdraw"
+            const val subscription = "Subscription"
+        }
+    }
 
     /** User Balance */
     interface UserBalance {
