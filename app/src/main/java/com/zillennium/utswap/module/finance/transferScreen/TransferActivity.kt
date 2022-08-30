@@ -137,12 +137,12 @@ class TransferActivity :
         }
     }
     override fun onGetUserInfoFail(data: User.AppSideBarData) {}
-    override fun onGetUserBalanceInfoSuccess(data: BalanceFinance.GetUserBalanceInfoData) {
+    override fun onGetUserBalanceInfoSuccess(data: BalanceFinance.GetUserBalanceInfo) {
         binding.apply {
-            txtTransferBalance.text = "$ " + data.transfer_balance?.let { UtilKt().formatValue(it.toDouble(), "###,###.##") }
-            txtAvailableBalance.text = "$ " + data.available_balance?.let { UtilKt().formatValue(it.toDouble(), "###,###.##") }
-            txtPending.text = "$ " + data.pending?.let { UtilKt().formatValue(it.toDouble(), "###,###.##") }
-            txtLockUp.text = "$ " + data.lock_up?.let { UtilKt().formatValue(it.toDouble(), "###,###.##") }
+            txtTransferBalance.text = "$ " + data.data?.transfer_balance?.let { UtilKt().formatValue(it.toDouble(), "###,###.##") }
+            txtAvailableBalance.text = "$ " + data.data?.available_balance?.let { UtilKt().formatValue(it.toDouble(), "###,###.##") }
+            txtPending.text = "$ " + data.data?.pending?.let { UtilKt().formatValue(it.toDouble(), "###,###.##") }
+            txtLockUp.text = "$ " + data.data?.lock_up?.let { UtilKt().formatValue(it.toDouble(), "###,###.##") }
         }
     }
     override fun onGetUserBalanceInfoFail(data: BalanceFinance.GetUserBalanceInfo) {}
@@ -157,7 +157,6 @@ class TransferActivity :
     override fun onGetValidateTransferFail(data: Transfer.GetValidateTransfer) {
         binding.apply {
             loadingTransfer.visibility = View.GONE
-            DrawableCompat.setTint(etPhoneNumberScanQR.background, ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
             Toast.makeText(UTSwapApp.instance, data.message, Toast.LENGTH_LONG).show()
 
         }
@@ -246,7 +245,6 @@ class TransferActivity :
                     before: Int,
                     count: Int
                 ) {
-                    DrawableCompat.setTint(etPhoneNumberScanQR.background, ContextCompat.getColor(UTSwapApp.instance, R.color.light_gray))
                     if (s.toString().matches("^00".toRegex())) {
                         etPhoneNumberScanQR.removeTextChangedListener(this)
                         etPhoneNumberScanQR.setText("0")
