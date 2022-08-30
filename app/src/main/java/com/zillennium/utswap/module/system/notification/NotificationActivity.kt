@@ -46,12 +46,7 @@ class NotificationActivity :
         }
     }
 
-    override fun onNewIntent(intent: Intent?) {
-        super.onNewIntent(intent)
-        this.intent = intent
-        eventClickFromOutSide()
 
-    }
     private fun initToolBar() {
         setSupportActionBar(binding.toolBar.tb)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -156,21 +151,6 @@ class NotificationActivity :
         }
     }
 
-    private fun eventClickFromOutSide() {
-        val intent = Intent()
-        if (intent.hasExtra("KYC")) {
-            val dataIntent = intent.getStringExtra("KYC")
-            when (dataIntent) {
-                "KYC" -> {
-                    startActivity(
-                        Intent(this@NotificationActivity, KYCActivity::class.java)
-                            .putExtra("fromNotification", "")
-                    )
-                }
-
-            }
-        }
-    }
 
     private fun loadMoreData() {
         binding.rvNotification.addOnScrollListener(object : RecyclerView.OnScrollListener() {

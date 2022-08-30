@@ -26,6 +26,7 @@ import com.zillennium.utswap.databinding.ActivityMainBinding
 import com.zillennium.utswap.models.notification.NotificationModel
 import com.zillennium.utswap.models.home.ForceUpdate
 import com.zillennium.utswap.models.userService.User
+import com.zillennium.utswap.module.finance.balanceScreen.FinanceBalanceActivity
 import com.zillennium.utswap.module.kyc.kycActivity.KYCActivity
 import com.zillennium.utswap.module.main.MainPresenter
 import com.zillennium.utswap.module.main.MainView
@@ -39,7 +40,8 @@ import com.zillennium.utswap.utils.DialogUtilKyc
 import com.zillennium.utswap.utils.MobileSetting
 
 
-class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, ActivityMainBinding>(), MainView.View {
+class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, ActivityMainBinding>(),
+    MainView.View {
 
     override var mPresenter: MainView.Presenter = MainPresenter()
     override val layoutResource: Int = R.layout.activity_main
@@ -72,11 +74,32 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
         }
 
 
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        this.intent = intent
+        eventClickFromOutSide()
 
     }
 
+    private fun eventClickFromOutSide() {
+        when (intent.getStringExtra("dataIntent")) {
+            "KYC" -> {
+                startActivity(
+                    Intent(this, KYCActivity::class.java)
+                        .putExtra("fromNotification", "")
+                )
+            }
+            "Fund Transfer" -> {
+                startActivity(Intent(this, FinanceBalanceActivity::class.java))
+            }
+
+        }
+    }
+
     override fun onGetForceUpdateSuccess(data: ForceUpdate.ForceUpdateRes) {
-        if (BuildConfig.VERSION_NAME <data.data?.ANDROID?.version.toString()){
+        if (BuildConfig.VERSION_NAME < data.data?.ANDROID?.version.toString()) {
             DialogUtilKyc().customDialog(
                 com.zillennium.utswap.R.drawable.ic_force_update,
                 "New version available",
@@ -292,7 +315,8 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
                                     if (kcyComplete == false && isSignInSuccess) {
                                         val intent = Intent(
                                             UTSwapApp.instance,
-                                            KYCActivity::class.java).putExtra("KYCStatus", statusKYC)
+                                            KYCActivity::class.java
+                                        ).putExtra("KYCStatus", statusKYC)
                                         startActivity(intent)
 
                                     } else if (kcyComplete == true) {
@@ -349,7 +373,7 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
 
     override fun onResume() {
         super.onResume()
-        if(!isSignInSuccess){
+        if (!isSignInSuccess) {
             binding.navView.selectedItemId = R.id.navigation_navbar_home
         }
 

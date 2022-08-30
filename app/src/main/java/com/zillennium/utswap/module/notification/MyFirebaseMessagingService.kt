@@ -31,9 +31,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     override fun onMessageReceived(message: RemoteMessage) {
         Log.d("dataPaylaod", message.notification.toString())
         displayNotification(message.notification?.title.toString(), message.notification?.body.toString(), 1, message.notification?.icon.toString())
-
-
-
+        super.onMessageReceived(message)
     }
 
 
@@ -52,7 +50,10 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         when (title) {
             "KYC Approved", "KYC Rejected" -> {
-                intent.putExtra("KYC",  "KYC")
+                intent.putExtra("dataIntent",  "KYC")
+            }
+            "Fund Transfer" -> {
+                intent.putExtra("dataIntent","Fund Transfer")
             }
 
         }
