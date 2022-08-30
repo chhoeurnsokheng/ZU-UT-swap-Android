@@ -9,6 +9,7 @@ import android.content.Intent
 import android.media.RingtoneManager
 import android.os.Build
 import android.util.Log
+import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.text.HtmlCompat
@@ -17,6 +18,7 @@ import com.google.firebase.messaging.RemoteMessage
 import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.module.system.notification.NotificationActivity
+import com.zillennium.utswap.screens.navbar.navbar.MainActivity
 import me.leolin.shortcutbadger.ShortcutBadger
 import java.util.*
 
@@ -34,6 +36,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
     }
 
+
     override fun onNewToken(token: String) {
         Log.d("token", token)
         SessionPreferences().DEVICE_TOKEN = token
@@ -45,8 +48,8 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         badgeCount: Int,
         icon: String
     ) {
-        val intent = (Intent(this, NotificationActivity::class.java))
-        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+        val intent = (Intent(this, MainActivity::class.java))
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         when (title) {
             "KYC Approved", "KYC Rejected" -> {
                 intent.putExtra("KYC",  "KYC")
