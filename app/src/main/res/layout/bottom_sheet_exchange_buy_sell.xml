@@ -130,16 +130,45 @@
                         android:textColor="@color/dark_gray"
                         android:textAppearance="@style/regular_12"/>
 
-                    <EditText
-                        android:id="@+id/et_volume"
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/dimen_36"
-                        android:inputType="number"
-                        android:textColor="@color/black_222222"
-                        android:textAppearance="@style/medium_16"
-                        android:paddingEnd="@dimen/dimen_15"
-                        android:textAlignment="textEnd"
-                        android:background="@drawable/outline_edittext_change_color_focus"/>
+                        android:layout_height="wrap_content">
+
+                        <EditText
+                            android:id="@+id/et_volume"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dimen_36"
+                            android:background="@drawable/outline_edittext_change_color_focus"
+                            android:inputType="number"
+                            android:maxLength="10"
+                            android:paddingHorizontal="@dimen/dimen_35"
+                            android:singleLine="true"
+                            android:textAlignment="textEnd"
+                            android:textAppearance="@style/regular_14"
+                            android:textColor="@color/black_222222" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="@dimen/dimen_12"
+                            android:text="UT"
+                            android:textAppearance="@style/regular_14"
+                            android:textColor="@color/dark_gray" />
+
+                    </RelativeLayout>
+
+<!--                    <EditText-->
+<!--                        android:id="@+id/et_volume"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="@dimen/dimen_36"-->
+<!--                        android:inputType="number"-->
+<!--                        android:textColor="@color/black_222222"-->
+<!--                        android:textAppearance="@style/medium_16"-->
+<!--                        android:paddingEnd="@dimen/dimen_15"-->
+<!--                        android:textAlignment="textEnd"-->
+<!--                        android:background="@drawable/outline_edittext_change_color_focus"/>-->
 
                 </LinearLayout>
 
@@ -157,17 +186,33 @@
                         android:textColor="@color/dark_gray"
                         android:textAppearance="@style/regular_12"/>
 
-                    <EditText
-                        android:id="@+id/et_price_of_volume"
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/dimen_36"
-                        android:inputType="numberDecimal"
-                        android:textAppearance="@style/medium_16"
-                        android:paddingEnd="@dimen/dimen_15"
-                        android:textAlignment="textEnd"
-                        android:textColor="@color/black_222222"
-                        android:visibility="visible"
-                        android:background="@drawable/outline_edittext_change_color_focus"/>
+                        android:layout_height="wrap_content">
+
+                        <EditText
+                            android:id="@+id/et_price_of_volume"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dimen_36"
+                            android:background="@drawable/outline_edittext_change_color_focus"
+                            android:inputType="numberDecimal"
+                            android:paddingEnd="@dimen/dimen_24"
+                            android:textAlignment="textEnd"
+                            android:textAppearance="@style/medium_16"
+                            android:textColor="@color/black_222222"
+                            android:visibility="visible" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="@dimen/dimen_12"
+                            android:text="$"
+                            android:textAppearance="@style/regular_14"
+                            android:textColor="@color/dark_gray" />
+
+                    </RelativeLayout>
 
                 </LinearLayout>
 
@@ -189,17 +234,51 @@
                         android:paddingEnd="@dimen/dimen_3"
                         android:orientation="vertical">
 
-                        <com.google.android.material.button.MaterialButton
+                        <LinearLayout
                             android:id="@+id/btn_buy_bottom_sheet"
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/dimen_48"
-                            app:backgroundTint="@color/success"
-                            android:background="@drawable/bg_circular"
-                            android:hint="@string/buy"
-                            android:textAppearance="@style/bold_16"
-                            android:textColorHint="@color/white"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:backgroundTint="@color/success"
                             style="?android:attr/borderlessButtonStyle"
-                            android:layout_marginBottom="@dimen/dimen_6"/>
+                            android:background="@drawable/bg_circular"
+                            android:layout_marginBottom="@dimen/dimen_6"
+                            android:paddingVertical="@dimen/dimen_3"
+                            android:layout_gravity="center"
+                            android:gravity="center_horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/buy"
+                                android:textColor="@color/white"
+                                android:textAppearance="@style/bold_16"/>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="$"
+                                    android:textColor="@color/white"
+                                    android:textAppearance="@style/regular_16"
+                                    android:layout_marginBottom="@dimen/dimen_5"/>
+
+                                <TextView
+                                    android:id="@+id/txt_price_buy"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="0.00"
+                                    android:textColor="@color/white"
+                                    android:textAppearance="@style/regular_16"
+                                    android:layout_marginBottom="@dimen/dimen_5"/>
+
+                            </LinearLayout>
+
+                        </LinearLayout>
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -215,14 +294,27 @@
                                 android:textAppearance="@style/regular_12"
                                 android:textColor="@color/black" />
 
-                            <TextView
-                                android:id="@+id/txt_available"
+                            <LinearLayout
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="$0.00"
-                                android:textAppearance="@style/bold_12"
-                                android:textColor="@color/black"
-                                android:textStyle="" />
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="$"
+                                    android:textAppearance="@style/bold_12"
+                                    android:textColor="@color/black"
+                                    android:textStyle="" />
+
+                                <TextView
+                                    android:id="@+id/txt_available"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="0"
+                                    android:textAppearance="@style/bold_12"
+                                    android:textColor="@color/black"
+                                    android:textStyle="" />
+                            </LinearLayout>
                         </LinearLayout>
 
                     </LinearLayout>
@@ -235,17 +327,50 @@
                         android:paddingStart="@dimen/dimen_3"
                         android:orientation="vertical">
 
-                        <com.google.android.material.button.MaterialButton
+                        <LinearLayout
                             android:id="@+id/btn_sell_bottom_sheet"
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/dimen_48"
-                            android:background="@drawable/bg_circular"
-                            app:backgroundTint="@color/danger"
-                            android:hint="@string/sell"
-                            android:textAppearance="@style/bold_16"
-                            android:textColorHint="@color/white"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:backgroundTint="@color/danger"
                             style="?android:attr/borderlessButtonStyle"
-                            android:layout_marginBottom="@dimen/dimen_6"/>
+                            android:background="@drawable/bg_circular"
+                            android:layout_marginBottom="@dimen/dimen_6"
+                            android:paddingVertical="@dimen/dimen_3"
+                            android:gravity="center_horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/sell"
+                                android:textColor="@color/white"
+                                android:textAppearance="@style/bold_16"/>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="$"
+                                    android:textColor="@color/white"
+                                    android:textAppearance="@style/regular_16"
+                                    android:layout_marginBottom="@dimen/dimen_5"/>
+
+                                <TextView
+                                    android:id="@+id/txt_price_sell"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="0.00"
+                                    android:textColor="@color/white"
+                                    android:textAppearance="@style/regular_16"
+                                    android:layout_marginBottom="@dimen/dimen_5"/>
+
+                            </LinearLayout>
+
+                        </LinearLayout>
 
                         <LinearLayout
                             android:layout_width="match_parent"

@@ -102,5 +102,6 @@
     <dimen name="margin_top_bottom_left_right">16dp</dimen>
     <dimen name="dimen_17">17dp</dimen>
     <dimen name="dimen_29">29dp</dimen>
+    <dimen name="dimen_58">58dp</dimen>
     <!---->
 </resources>

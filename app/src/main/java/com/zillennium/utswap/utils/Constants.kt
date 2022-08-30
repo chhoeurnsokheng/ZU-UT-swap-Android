@@ -2,6 +2,7 @@ package com.zillennium.utswap.utils
 
 import android.webkit.WebViewClient
 import com.zillennium.utswap.R
+import com.zillennium.utswap.models.home.BannerObj
 
 
 interface Constants {
@@ -463,17 +464,87 @@ interface Constants {
 
     interface TradeExchange {
         companion object {
-            const val ProjectName = "ProjectName"
-            const val Status_submit = "KYC"
-            const val ProjectNameToolBar = "ProjectName_toolBar"
-            const val MarketId = "MarketId"
-            const val MarketName="MarketName"
+            var ProjectName = "ProjectName"
+            var Status_submit = "KYC"
+            var ProjectNameToolBar = "ProjectName_toolBar"
+            var MarketId = "MarketId"
+            var MarketName="MarketName"
+            var ProjectId = "ProjectId"
+            var availableBalance = ""
+            var utBalance = ""
+            var marketPriceSell = ""
+            var marketPriceBuy = ""
+            var errorMessagePlaceOrder = ""
         }
     }
     interface Project{
         companion object{
             const val ProjectName = "Project_Name"
             const val Project_Id = "id"
+        }
+    }
+    interface Deposit{
+        companion object{
+            const val Payment_Link ="payment_link"
+            const val  TRANSATION_ID= "transaction_id"
+            const val  TOTAL_BALANCE= "Total_balance"
+        }
+    }
+
+    interface Transfer{
+        companion object{
+            var amount = ""
+            var trxTransfer = ""
+            var trxDate = ""
+            var fromAccount = ""
+            var toAccount = ""
+        }
+    }
+
+    interface FundPasswordType{
+        companion object{
+            const val transfer = "Transfer"
+            const val withdraw = "Withdraw"
+            const val subscription = "Subscription"
+        }
+    }
+
+    /** User Balance */
+    interface UserBalance {
+        companion object {
+            const val All = ""
+            const val Deposit = "deposit"
+            const val Withdrawal = "withdraw"
+            const val Transfer = "transfer"
+            const val Trading = "trade"
+            const val Subscriptions = "subsciption"
+        }
+    }
+
+    interface UserBalanceIcon {
+        companion object {
+            const val BalanceDeposit = R.drawable.ic_balance_deposit
+            const val BalanceWithdrawal = R.drawable.ic_balance_withdraw
+            const val BalanceTransfer = R.drawable.ic_transfer
+            const val BalanceTrading = R.drawable.ic_trade
+            const val BalanceSubscriptions = R.drawable.ic_hourglass
+            const val BalanceTradeBuy = R.drawable.ic_money_out
+            const val BalanceTradeSell = R.drawable.ic_money_in
+        }
+    }
+
+    interface OrderBookTable{
+        companion object{
+            var marketNameOrderBook = ""
+            var marketIdChart =""
+            var projectName = ""
+        }
+    }
+
+    interface WatchList{
+        companion object{
+            var itemWatchList = ArrayList<BannerObj.ItemWishList>()
+
         }
     }
 

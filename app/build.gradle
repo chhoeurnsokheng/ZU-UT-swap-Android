@@ -3,8 +3,7 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-android'
     id 'kotlin-kapt'
-//    id 'com.android.application'
- //   id 'com.google.gms.google-services'
+    id 'com.google.gms.google-services'
 }
 apply plugin: 'kotlin-android'
 
@@ -62,17 +61,18 @@ android {
         
         debug {
             minifyEnabled false
-            applicationIdSuffix ".debug"
+          //  applicationIdSuffix ".debug"
             versionNameSuffix ".$build"
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-
+            
             buildConfigField "String", 'CORE_SUB_DOMAIN', '"demo"'
             buildConfigField "String", 'CORE_APP_ID', '"37fe30c0-ad17-11ea-b572-31a193d8c9ee"'
             buildConfigField "String", 'CORE_APP_SECRET', '"GPQ6Ccy8EJ25s1xY6bQhZfRToHhnYbHc7oY7"'
 
-            buildConfigField "String", 'BASE_URL', '"https://dev-staging.zillionunited.io/api/"'
             //buildConfigField "String", 'BASE_SOCKET_URL', '"ws://192.168.41.222/"'
+            buildConfigField "String", 'BASE_URL', '"https://dev-staging.zillionunited.io/api/"'
             buildConfigField "String", 'BASE_SOCKET_URL', '"wss://dev-staging.zillionunited.io/"'
+            buildConfigField "String", 'FIRE_BASE_URL', '"https://devzu.page.link"'
 
         }
         stage {
@@ -84,14 +84,14 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 
 
-            buildConfigField "String", 'CORE_SUB_DOMAIN', '"demo"'
-            buildConfigField "String", 'CORE_APP_ID', '"37fe30c0-ad17-11ea-b572-31a193d8c9ee"'
-            buildConfigField "String", 'CORE_APP_SECRET', '"GPQ6Ccy8EJ25s1xY6bQhZfRToHhnYbHc7oY7"'
 
-            buildConfigField "String", 'BASE_URL',  '"https://sandbox.utswap.io/api/"'
+//            buildConfigField "String", 'BASE_URL', '"http://192.168.41.222/api/"'
+            buildConfigField "String", 'BASE_URL', '"https://dev-staging.zillionunited.io/api/"'
 
             //buildConfigField "String", 'BASE_SOCKET_URL', '"ws://192.168.41.222/"'
             buildConfigField "String", 'BASE_SOCKET_URL', '"wss://dev-staging.zillionunited.io/"'
+
+            buildConfigField "String", 'FIRE_BASE_URL', '"https://devzu.page.link"'
 
         }
         release {
@@ -101,16 +101,15 @@ android {
             signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 
-            buildConfigField "String", 'CORE_SUB_DOMAIN', '"demo"'
-            buildConfigField "String", 'CORE_APP_ID', '"37fe30c0-ad17-11ea-b572-31a193d8c9ee"'
-            buildConfigField "String", 'CORE_APP_SECRET', '"GPQ6Ccy8EJ25s1xY6bQhZfRToHhnYbHc7oY7"'
-
         //    buildConfigField "String", 'BASE_URL', '"https://sandbox.utswap.io/api/"'
+            //buildConfigField "String", 'BASE_URL', '"http://192.168.41.222/api/"'
             buildConfigField "String", 'BASE_URL', '"https://dev-staging.zillionunited.io/api/"'
 
 
             //buildConfigField "String", 'BASE_SOCKET_URL', '"ws://192.168.41.222/"'
             buildConfigField "String", 'BASE_SOCKET_URL', '"wss://dev-staging.zillionunited.io/"'
+
+            buildConfigField "String", 'FIRE_BASE_URL', '"https://devzu.page.link"'
         }
     }
 
@@ -137,11 +136,6 @@ dependencies {
 
     implementation 'androidx.core:core-ktx:1.8.0'
     implementation 'androidx.appcompat:appcompat:1.4.2'
-    // no need to add live data cos not MVVm
-//    implementation 'com.google.android.material:material:1.6.1'
-//    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-//    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.0'
-//    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.0'
     implementation 'androidx.navigation:navigation-fragment-ktx:2.5.0'
     implementation 'androidx.navigation:navigation-ui-ktx:2.5.0'
     testImplementation 'junit:junit:4.13.2'
@@ -233,11 +227,7 @@ dependencies {
 
 //    implementation 'com.github.viniciusmo:keyboard-visibility-event-android:1.0.4'
 
-    //Crash Reporting with Firebase
-    implementation 'com.google.firebase:firebase-crash:9.0.0'
-    // firebase core library
-    implementation 'com.google.firebase:firebase-bom:30.2.0'
-    implementation 'com.google.firebase:firebase-analytics'
+
 
     //swipe refresh
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
@@ -247,4 +237,24 @@ dependencies {
 
     //compressor
     implementation 'id.zelory:compressor:3.0.1'
+
+
+    //Firebase
+   // implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.google.firebase:firebase-analytics'
+
+    implementation platform('com.google.firebase:firebase-bom:30.3.2')
+    implementation 'com.google.firebase:firebase-dynamic-links-ktx:19.1.1'
+    implementation 'com.google.firebase:firebase-analytics-ktx:18.0.0'
+    implementation 'com.google.firebase:firebase-auth:19.2.0'
+    //Crash Reporting with Firebase
+    implementation 'com.google.firebase:firebase-crash:9.0.0'
+    // firebase core library
+    implementation 'com.google.firebase:firebase-bom:30.2.0'
+    implementation 'com.google.firebase:firebase-analytics'
+
+    //Force Update
+    implementation 'com.google.android.play:core:1.8.0'
+    implementation 'com.github.SanojPunchihewa:InAppUpdater:1.0.5'
+
 }

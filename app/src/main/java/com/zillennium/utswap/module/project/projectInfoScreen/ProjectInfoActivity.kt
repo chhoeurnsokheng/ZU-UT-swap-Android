@@ -17,22 +17,15 @@ import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityProjectInfoBinding
 import com.zillennium.utswap.models.ProjectInfoDetailModel
-import com.zillennium.utswap.models.ProjectInfoInvestmentModel
 import com.zillennium.utswap.models.ViewImageModel
 import com.zillennium.utswap.models.project.ProjectInfoDetail
-import com.zillennium.utswap.module.main.trade.tradeExchangeScreen.TradeExchangeActivity
 import com.zillennium.utswap.module.project.ViewImage.ImageViewActivity
 import com.zillennium.utswap.module.project.projectInfoScreen.adapter.ProjectInfoDetailsAdapter
-import com.zillennium.utswap.module.project.projectInfoScreen.adapter.ProjectInfoInvestmentAdapter
 import com.zillennium.utswap.module.project.projectInfoScreen.adapter.ProjectViewPagerAdapter
 import com.zillennium.utswap.module.project.subscriptionScreen.SubscriptionActivity
 import com.zillennium.utswap.utils.Constants
 import com.zillennium.utswap.utils.UtilKt
-import com.zillennium.utswap.utils.formatter.NumberFormatter
 import com.zillennium.utswap.utils.groupingSeparatorInt
-import okhttp3.internal.format
-import java.text.DecimalFormat
-import java.text.NumberFormat
 
 
 class ProjectInfoActivity :

@@ -46,6 +46,8 @@ object SubscriptionProject {
     class SubscriptionOrderResData{}
 
     class SubscribeOrderBody(
+        var sign_type: String? = null,
+        var sign: String? = null,
         var id: Int? = null,
         var ut_number: Int? = null,
         var fund_password: String = ""

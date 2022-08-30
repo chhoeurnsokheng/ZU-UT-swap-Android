@@ -1,37 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools">
+<layout>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/linear_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="?android:attr/selectableItemBackground"
-        android:clickable="true"
-        android:focusable="true"
-        android:paddingHorizontal="@dimen/dimen_20"
-        >
+        android:background="?android:attr/selectableItemBackground">
+
         <LinearLayout
             android:id="@+id/layDepositItem"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dimen_56"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:layout_height="@dimen/dimen_58"
+            android:orientation="horizontal"
+            android:layout_marginBottom="@dimen/dimen_10"
+            android:layout_marginTop="@dimen/dimen_10">
 
             <ImageView
                 android:id="@+id/img_cardImage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:scaleType="centerCrop"
+                android:layout_width="49dp"
+                android:layout_height="@dimen/dimen_30"
+                android:layout_marginStart="@dimen/dimen_20"
                 android:adjustViewBounds="true"
+                android:layout_gravity="center"
                 android:src="@drawable/aba_pay"/>
 
             <TextView
-                android:id="@+id/tv_cardTitle"
+                android:id="@+id/tv_card_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dimen_10"
-                android:gravity="center"
+                android:layout_gravity="center"
                 android:text="@string/aba_pay"
                 android:textAppearance="@style/medium_14"
                 android:textColor="@color/black_000000" />

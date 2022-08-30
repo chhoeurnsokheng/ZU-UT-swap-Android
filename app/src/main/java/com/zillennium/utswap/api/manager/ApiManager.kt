@@ -19,7 +19,6 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
-import retrofit2.create
 import java.security.SecureRandom
 import java.security.cert.CertificateException
 import java.security.cert.X509Certificate
@@ -40,6 +39,7 @@ open class ApiManager {
     protected lateinit var mCustomerSupport: CustomerSupportService
     protected lateinit var mProjectService: ProjectService
     protected lateinit var mNotificationService: NotificationService
+    protected lateinit var mDespositeService: DespositeService
 
 
     protected lateinit var mHomeService: HomeService
@@ -54,6 +54,9 @@ open class ApiManager {
     protected lateinit var mContext: Context
 
 
+    protected lateinit var mFinanceUserBalance: BalanceUserService
+    protected lateinit var mTransfer: TransferService
+    
     companion object {
         var mRetryCounter: AtomicInteger = AtomicInteger(0)
     }
@@ -76,8 +79,10 @@ open class ApiManager {
         mCustomerSupport = retrofit.create(CustomerSupportService::class.java)
         mProjectService = retrofit.create(ProjectService::class.java)
         mNotificationService = retrofit.create(NotificationService::class.java)
-        mHistorical = retrofit.create(HistoricalService::class.java)
 
+        mDespositeService = retrofit.create(DespositeService::class.java)
+
+        mHistorical = retrofit.create(HistoricalService::class.java)
 
         mHomeService = retrofit.create(HomeService::class.java)
 
@@ -85,7 +90,11 @@ open class ApiManager {
 
         mProvince = retrofit.create(ProvincesService::class.java)
 
+
+        mFinanceUserBalance = retrofit.create(BalanceUserService::class.java)
+
         mTradeService = retrofit.create(TradeService::class.java)
+        mTransfer = retrofit.create(TransferService::class.java)
 
     }
 

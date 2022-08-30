@@ -2,13 +2,11 @@ package com.zillennium.utswap.module.security.securityDialog
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import android.view.*
 import androidx.core.content.ContextCompat
 import androidx.core.view.children
@@ -16,17 +14,21 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import com.gis.z1android.api.errorhandler.CallbackWrapper
 import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
+import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.api.manager.ApiManager
 import com.zillennium.utswap.api.manager.ApiProjectImp
 import com.zillennium.utswap.databinding.DialogSecurityFundPasswordBinding
 import com.zillennium.utswap.models.project.SubscriptionProject
-import com.zillennium.utswap.module.project.subscriptionScreen.SubscriptionActivity
+import com.zillennium.utswap.api.manager.ApiTransferImp
+import com.zillennium.utswap.models.financeTransfer.Transfer
 import com.zillennium.utswap.module.project.subscriptionScreen.dialog.SubscriptionConfirmDialog
+import com.zillennium.utswap.utils.Constants
+import com.zillennium.utswap.utils.VerifyClientData
 import eightbitlab.com.blurview.RenderScriptBlur
 import rx.Subscription
-import java.lang.Exception
+
 
 
 class FundPasswordDialog : DialogFragment() {
@@ -96,7 +98,6 @@ class FundPasswordDialog : DialogFragment() {
                     }
                 }
 
-
                 val numberList = arrayListOf(
                     number0,
                     number1,
@@ -117,6 +118,7 @@ class FundPasswordDialog : DialogFragment() {
                 }
 
                 removeNumber.setOnClickListener { removeNumber() }
+
             }
         }
     }
@@ -146,14 +148,33 @@ class FundPasswordDialog : DialogFragment() {
                         ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_circular)
                 }
             }
-            if (codes.length == 4) {
+
+            if(codes.length == 4){
                 subCode = codes
                 layProgressBar.visibility = View.VISIBLE
 
-                val volume = arguments?.getString("volume")?.replace("\\s".toRegex(), "")?.toInt()
-                val id = arguments?.getInt("id")
-                onCheckSubscriptionConfirmPassword(SubscriptionProject.SubscribeOrderBody(id, volume, codes), UTSwapApp.instance)
-            } else {
+                val transferCheck = arguments?.getString("transferFund")
+                val subscriptionCheck = arguments?.getString("subscriptionFund")
+
+                /*if (transferCheck == Constants.FundPasswordType.transfer){
+                    onGetTransfer(Transfer.GetTransferObject(arguments?.getString("amountTrans"), arguments?.getString("currencyTrans"), arguments?.getString("receiverTrans"), codes), UTSwapApp.instance)
+                }*/
+
+                if (subscriptionCheck == Constants.FundPasswordType.subscription){
+                    val volume = arguments?.getString("volume")?.replace("\\s".toRegex(), "")?.toInt()
+                    val id = arguments?.getInt("id")
+                    var params: Map<String, String> = emptyMap()
+                    params = mapOf(
+                        "sign_type" to "MD5",
+                        "id" to id.toString(),
+                        "ut_number" to volume.toString(),
+                        "fund_password" to codes
+                    )
+                    val result = VerifyClientData.makeSign(params, SessionPreferences().SESSION_X_TOKEN_API.toString())
+                    onCheckSubscriptionConfirmPassword(SubscriptionProject.SubscribeOrderBody("MD5", result , id, volume, codes), UTSwapApp.instance)
+                }
+
+            }else{
                 imgIcon.setImageResource(R.drawable.ic_fund_key_normal)
                 txtMessage.text = "Please enter your fund password"
                 txtMessage.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
@@ -161,11 +182,10 @@ class FundPasswordDialog : DialogFragment() {
                     pingCode.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
                 }
             }
-
         }
     }
 
-    private fun removeNumber() {
+    private fun removeNumber(){
         if (codes.isNotEmpty()) {
             if (codes.length in 1..4) {
                 codes = codes.substring(0, codes.length - 1)
@@ -178,7 +198,6 @@ class FundPasswordDialog : DialogFragment() {
             }
         }
     }
-
 
     /**   Subscription Project  Order **/
     private fun onCheckSubscriptionSuccess(data: SubscriptionProject.SubscriptionOrderRes) {
@@ -200,6 +219,8 @@ class FundPasswordDialog : DialogFragment() {
                     )
                 )
             }
+
+
             SessionVariable.SESSION_SUBSCRIPTION_ORDER.value = true
             Handler().postDelayed({
                 dismiss()
@@ -230,10 +251,7 @@ class FundPasswordDialog : DialogFragment() {
 
         }
     }
-    private fun onCheckSubscriptionConfirmPassword(
-        body: SubscriptionProject.SubscribeOrderBody,
-        context: Context
-    ) {
+    private fun onCheckSubscriptionConfirmPassword(body: SubscriptionProject.SubscribeOrderBody, context: Context) {
         subscription?.unsubscribe()
         subscription = ApiProjectImp().subscriptionProjectOrder(body, context).subscribe({
             if (it.status == 1) {
@@ -250,8 +268,64 @@ class FundPasswordDialog : DialogFragment() {
         })
     }
 
+    /** Finance Transfer Balance */
+    private fun onGetTransferSuccess(data: Transfer.GetTransferData) {
+        binding?.apply {
+            layProgressBar.visibility = View.GONE
+            imgIcon.setImageResource(R.drawable.ic_fund_key_success)
+            txtMessage.text = "Success"
+            txtMessage.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.success))
+            for (pingCode in layPingCode.children) {
+                pingCode.backgroundTintList = ColorStateList.valueOf(
+                    ContextCompat.getColor(
+                        UTSwapApp.instance,
+                        R.color.success
+                    )
+                )
+            }
+
+            Constants.Transfer.amount = data.amount.toString()
+            Constants.Transfer.trxTransfer = data.trx_transfer.toString()
+            Constants.Transfer.fromAccount = data.sender.toString()
+            Constants.Transfer.trxDate = data.trx_date.toString()
+            Constants.Transfer.toAccount = data.receiver.toString()
+
+            Handler().postDelayed({
+                dismiss()
+            }, 800)
+
+            SessionVariable.successTransfer.value = true
+
+        }
+    }
+    private fun onGetTransferFail(data: Transfer.GetTransfer){
+        binding?.apply {
+            imgIcon.setImageResource(R.drawable.ic_fund_key_invalid)
+            txtMessage.text = "Invalid"
+            txtMessage.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
+            for (pingCode in layPingCode.children){
+                pingCode.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
+            }
+            layProgressBar.visibility = View.GONE
+            codes = ""
+        }
+    }
+    private fun onGetTransfer(body: Transfer.GetTransferObject, context: Context) {
+        subscription?.unsubscribe()
+        subscription = ApiTransferImp().getFinanceTransfer(body, context).subscribe({
+            if (it.status == 1){
+                onGetTransferSuccess(it.data!!)
+            }else{
+                onGetTransferFail(it)
+            }
+        }, {
+            object : CallbackWrapper(it, UTSwapApp.instance, arrayListOf()){
+                override fun onCallbackWrapper(status: ApiManager.NetworkErrorStatus, data: Any) {}
+            }
+        })
+    }
+
     companion object {
-//        var backToSubscription = false
         fun newInstance(
             id: Int,
             volume: String?,
@@ -259,7 +333,8 @@ class FundPasswordDialog : DialogFragment() {
             projectName: String?,
             lockTime: String?,
             volumePrice: Double,
-            subscriptionPrice: String?
+            subscriptionPrice: String,
+            subscriptionFund: String
         ): FundPasswordDialog {
             val subscriptionConfirmDialog = FundPasswordDialog()
             val args = Bundle()
@@ -270,8 +345,25 @@ class FundPasswordDialog : DialogFragment() {
             args.putString("lock_time", lockTime)
             args.putDouble("volume_price", volumePrice)
             args.putString("subscription_price", subscriptionPrice)
+            args.putString("subscriptionFund", subscriptionFund)
             subscriptionConfirmDialog.arguments = args
             return subscriptionConfirmDialog
+        }
+
+        fun transferInstance(
+            amount: String?,
+            currency: String?,
+            receiver: String?,
+            transferFund: String?,
+        ): FundPasswordDialog {
+            val subscriptionConfirmTransferDialog = FundPasswordDialog()
+            val args = Bundle()
+            args.putString("amountTrans", amount)
+            args.putString("currencyTrans", currency)
+            args.putString("receiverTrans", receiver)
+            args.putString("transferFund", transferFund)
+            subscriptionConfirmTransferDialog.arguments = args
+            return subscriptionConfirmTransferDialog
         }
     }
 }

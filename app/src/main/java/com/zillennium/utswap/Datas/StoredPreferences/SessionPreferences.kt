@@ -3,7 +3,7 @@ package com.zillennium.utswap.Datas.StoredPreferences
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.BaseStoredPreferences
 
-class SessionPreferences: BaseStoredPreferences(UTSwapApp.instance, "SessionPreferences") {
+class SessionPreferences : BaseStoredPreferences(UTSwapApp.instance, "SessionPreferences") {
 
     var SESSION_ID by stringPref()
     var SESSION_USERNAME by stringPref()
@@ -23,7 +23,6 @@ class SessionPreferences: BaseStoredPreferences(UTSwapApp.instance, "SessionPref
     //store phone number that user add, and image profile user set
     var SESSION_PHONE_NUMBER by stringPref(defaultValue = "")
     var SESSION_USER_PROFILE by stringPref(defaultValue = "")
-
 
 
 }

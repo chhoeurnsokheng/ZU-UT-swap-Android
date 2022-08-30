@@ -22,6 +22,8 @@ open class SocketManager {
 
     protected lateinit var mContext: Context
     open lateinit var mTradeListSocket: Observable<WSInfo>
+    open lateinit var mTradeOrderBookTable: Observable<WSInfo>
+    open lateinit var mTradeTradeExchange: Observable<WSInfo>
 
 
     init {
@@ -35,6 +37,8 @@ open class SocketManager {
     //INIT ALL PROFIT OBJECT
     private fun initServices() {
         mTradeListSocket = initSocket(ApiSettings.PATH_LIST_TRADE)
+        mTradeOrderBookTable = initSocket(ApiSettings.PATH_TRADE_ORDER_BOOK)
+        mTradeTradeExchange = initSocket(ApiSettings.PATH_TRADE_EXCHANGE)
     }
 
     private fun initSocket(endpoint: String = ""): Observable<WSInfo> {

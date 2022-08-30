@@ -19,7 +19,7 @@ class WithdrawAdapter(private val arrayList: ArrayList<WithdrawAddbankModel>, on
     class ViewHolder(view: View): RecyclerView.ViewHolder(view){
         var layWithdrawAddbankItem: LinearLayout = view.findViewById(R.id.layDepositItem) as LinearLayout
         var bank_image: ImageView = view.findViewById(R.id.img_cardImage) as ImageView
-        var bank_Title: TextView = view.findViewById(R.id.tv_cardTitle) as TextView
+        var bank_Title: TextView = view.findViewById(R.id.tv_card_name) as TextView
     }
 
 

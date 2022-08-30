@@ -1,6 +1,7 @@
 package com.zillennium.utswap.module.main.trade.tradeExchangeScreen.dialog
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -9,9 +10,23 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
+import com.gis.z1android.api.errorhandler.CallbackWrapper
 import com.google.android.material.button.MaterialButton
+import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
+import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
+import com.zillennium.utswap.UTSwapApp
+import com.zillennium.utswap.api.manager.ApiManager
+import com.zillennium.utswap.api.manager.ApiTradeImp
+import com.zillennium.utswap.models.tradingList.TradingList
+import com.zillennium.utswap.utils.Constants
+import com.zillennium.utswap.utils.VerifyClientData
+import com.zillennium.utswap.utils.groupingSeparator
+import com.zillennium.utswap.utils.groupingSeparatorInt
+import rx.Subscription
+import kotlin.math.roundToInt
 
 class BuyDialog : DialogFragment() {
     internal var view: View? = null
@@ -23,6 +38,9 @@ class BuyDialog : DialogFragment() {
     private var txtNetValue: TextView? = null
     private var volume: String? = ""
     private var price: String? = ""
+    private var txtProjectName: TextView? = null
+
+    private var subscriptions: Subscription? = null
 
     @SuppressLint("SetTextI18n")
     override fun onCreateView(
@@ -40,16 +58,44 @@ class BuyDialog : DialogFragment() {
         txtPrice = view?.findViewById(R.id.txt_price)
         txtGrossValue = view?.findViewById(R.id.txt_gross_volume)
         txtNetValue = view?.findViewById(R.id.txt_net_value)
+        txtProjectName = view?.findViewById(R.id.txt_project_name)
 
-        volume = arguments?.getString("volume")
-        price = arguments?.getString("price")
+        volume = arguments?.getString("volume").toString()
+        price = arguments?.getString("price").toString()
 
-        txtVolume?.text = volume.toString()
-        txtPrice?.text = price.toString()
-        txtGrossValue?.text = (volume?.toFloat()?.times(price!!.toFloat())).toString()
-        txtNetValue?.text = (txtGrossValue?.text.toString().toFloat() + 13.81).toString()
+        txtVolume?.text = groupingSeparatorInt(volume.toString().toInt())
+        txtPrice?.text = price?.toDouble()?.let { groupingSeparator(it) }
+        txtProjectName?.text = Constants.OrderBookTable.projectName
+//        txtGrossValue?.text = (volume?.toFloat()?.times(price!!.toFloat())).toString()
+        val grossValue = ((volume?.toDouble()?.times(price!!.toDouble())))
+        txtGrossValue?.text = grossValue?.let { groupingSeparator(it) }
+        txtNetValue?.text = grossValue?.let { groupingSeparator(it) }
+
+        //convert md 5
+        var params: Map<String, String> = emptyMap()
+        params = mapOf(
+            "sign_type" to "MD5",
+            "market" to Constants.OrderBookTable.marketNameOrderBook,
+            "price" to price.toString(),
+            "num" to volume.toString(),
+            "type" to "1",
+            "tradeType" to "limit",
+            "from" to "upTrade"
+        )
+        val result = VerifyClientData.makeSign(params, SessionPreferences().SESSION_X_TOKEN_API.toString())
 
         btnBuy?.setOnClickListener {
+            SessionVariable.waitingPlaceOrder.value = true
+            createTradeOrder(
+                TradingList.TradeCreateOrderObj(
+                "MD5",
+                    result,
+                    Constants.OrderBookTable.marketNameOrderBook,
+                    price.toString(),
+                    volume.toString(),
+                    "1",
+                    "limit"
+            ),UTSwapApp.instance)
             dismiss()
         }
 
@@ -60,16 +106,38 @@ class BuyDialog : DialogFragment() {
         return view
     }
 
+    private fun createTradeOrder(body: TradingList.TradeCreateOrderObj, context: Context){
+        subscriptions?.unsubscribe()
+        subscriptions = ApiTradeImp().createOrder(body,context).subscribe({
+            if(it.status == 1){
+                //Toast.makeText(UTSwapApp.instance,it.message.toString(), Toast.LENGTH_LONG).show()
+                //SessionVariable.createPendingOrder.value = true
+                SessionVariable.callDialogSuccessPlaceOrder.value = true
+            }else{
+                //Toast.makeText(UTSwapApp.instance,it.message.toString(),Toast.LENGTH_LONG).show()
+                SessionVariable.callDialogErrorCreateOrder.value = true
+                Constants.TradeExchange.errorMessagePlaceOrder = it.message.toString()
+            }
+        },{
+            object : CallbackWrapper(it, UTSwapApp.instance, arrayListOf()){
+                override fun onCallbackWrapper(status: ApiManager.NetworkErrorStatus, data: Any) {
+                }
+            }
+        })
+    }
+
 
     companion object {
         fun newInstance(
             volume: String?,
-            price: String?
+            price: String?,
+            tradeType: String?
         ): BuyDialog {
             val buyDialog = BuyDialog()
             val args = Bundle()
             args.putString("volume", volume)
             args.putString("price", price)
+            args.putString("tradeType",tradeType)
             buyDialog.arguments = args
             return buyDialog
         }

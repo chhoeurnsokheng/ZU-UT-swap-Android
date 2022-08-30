@@ -9,11 +9,10 @@ import android.util.Base64
 import android.view.View
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import com.androidstudy.networkmanager.BuildConfig
 import com.androidstudy.networkmanager.Tovuti
 import com.bumptech.glide.Glide
 import com.github.dhaval2404.imagepicker.ImagePicker
-import com.google.firebase.crashlytics.buildtools.reloc.org.apache.commons.io.output.ByteArrayOutputStream
+import com.zillennium.utswap.BuildConfig
 import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
 import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
@@ -30,6 +29,7 @@ import com.zillennium.utswap.module.account.referralInformationScreen.ReferralIn
 import com.zillennium.utswap.screens.navbar.navbar.MainActivity
 import com.zillennium.utswap.module.kyc.kycActivity.KYCActivity
 import com.zillennium.utswap.utils.DialogUtil
+import java.io.ByteArrayOutputStream
 import java.io.File
 
 class AccountActivity :

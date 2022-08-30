@@ -23,6 +23,6 @@ class HomeView {
         override fun initViewPresenter(context: Context, bundle: Bundle?)
         fun getBanner(context: Context)
         fun getNewsHome(context: Context)
-        fun getWishListAndBalance(context: Context)
+        fun getWatchListAndBalance(context: Context)
     }
 }

@@ -119,6 +119,7 @@ class SubscriptionConfirmDialog : DialogFragment() {
                     arguments?.get("lock_time").toString(),
                     arguments?.get("volume_price").toString().toDouble(),
                     arguments?.get("subscription_price").toString(),
+                    Constants.FundPasswordType.subscription
                 )
                 fundPasswordDialog.show(
                     requireActivity().supportFragmentManager,
