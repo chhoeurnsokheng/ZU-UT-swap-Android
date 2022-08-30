@@ -53,7 +53,10 @@ class TransferActivity :
             binding.apply {
 
                 onCallApi()
+                onSwapRefresh()
                 onTextChangeListener()
+
+                swipeRefreshTransfer.setColorSchemeColors(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
 
                 SessionVariable.successTransfer.value = false
 
@@ -113,9 +116,11 @@ class TransferActivity :
                 mPresenter.onGetUserInfo(UTSwapApp.instance)
                 binding.progressBar.visibility = View.GONE
                 binding.layNoInternet.visibility = View.GONE
+                binding.swipeRefreshTransfer.isEnabled = true
             }else{
                 binding.progressBar.visibility = View.VISIBLE
                 binding.layNoInternet.visibility = View.VISIBLE
+                binding.swipeRefreshTransfer.isEnabled = false
             }
         }
     }
@@ -139,13 +144,18 @@ class TransferActivity :
     override fun onGetUserInfoFail(data: User.AppSideBarData) {}
     override fun onGetUserBalanceInfoSuccess(data: BalanceFinance.GetUserBalanceInfo) {
         binding.apply {
+            swipeRefreshTransfer.isRefreshing = false
             txtTransferBalance.text = "$ " + data.data?.transfer_balance?.let { UtilKt().formatValue(it.toDouble(), "###,###.##") }
             txtAvailableBalance.text = "$ " + data.data?.available_balance?.let { UtilKt().formatValue(it.toDouble(), "###,###.##") }
             txtPending.text = "$ " + data.data?.pending?.let { UtilKt().formatValue(it.toDouble(), "###,###.##") }
             txtLockUp.text = "$ " + data.data?.lock_up?.let { UtilKt().formatValue(it.toDouble(), "###,###.##") }
         }
     }
-    override fun onGetUserBalanceInfoFail(data: BalanceFinance.GetUserBalanceInfo) {}
+    override fun onGetUserBalanceInfoFail(data: BalanceFinance.GetUserBalanceInfo) {
+        binding.apply {
+            swipeRefreshTransfer.isRefreshing = false
+        }
+    }
     override fun onGetValidateTransferSuccess(data: Transfer.GetValidateTransferData) {
         binding.apply {
 
@@ -305,14 +315,22 @@ class TransferActivity :
                     override fun onVisibilityChanged(isOpen: Boolean) {
                         if (!isOpen) {
                             etMountTransfer.clearFocus()
+                            swipeRefreshTransfer.isEnabled = true
                         }else{
                             layTransactions.visibility = View.VISIBLE
+                            swipeRefreshTransfer.isEnabled = false
                         }
                     }
                 })
         }
     }
-
+    private fun onSwapRefresh(){
+        binding.apply {
+            swipeRefreshTransfer.setOnRefreshListener {
+                mPresenter.onGetUserBalanceInfo(UTSwapApp.instance)
+            }
+        }
+    }
     override fun onDestroy() {
         super.onDestroy()
         SessionVariable.successTransfer.value = false
