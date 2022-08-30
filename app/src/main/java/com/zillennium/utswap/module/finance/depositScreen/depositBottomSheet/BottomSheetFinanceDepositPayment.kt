@@ -34,6 +34,7 @@ import com.zillennium.utswap.databinding.BottomSheetFinanceDepositPaymentBinding
 import com.zillennium.utswap.models.deposite.DepositObj
 import com.zillennium.utswap.module.finance.depositScreen.OpenWebViewToComfirmPayment.DepositOpenLinkWebViewActivity
 import com.zillennium.utswap.utils.DecimalDigitsInputFilter
+import com.zillennium.utswap.utils.UtilKt
 import com.zillennium.utswap.utils.VerifyClientData
 import com.zillennium.utswap.utils.groupingSeparator
 import rx.Subscription
@@ -159,12 +160,12 @@ class BottomSheetFinanceDepositPayment : BottomSheetDialogFragment(),
             }
 
             if (typeOfCard =="VISA_MASTER") {
-                fee= visa_master_fee
+                fee = (visa_master_fee.toDouble() /100).toString()
             }else{
                 fee = local_bank_fee
             }
 
-            tvFee.text = fee
+
             etMountPayment.filters = arrayOf<InputFilter>(DecimalDigitsInputFilter(10, 2))
             etMountPayment.requestFocus()
 
@@ -196,12 +197,34 @@ class BottomSheetFinanceDepositPayment : BottomSheetDialogFragment(),
                         binding?.etMountPayment?.setText("")
                     }
 
-                    val total = amount.toString().toDouble() + fee.toDouble()
+                    if (typeOfCard =="VISA_MASTER") {
+                        fee = ((visa_master_fee.toDouble() /100) * amount).toString()
 
-                    tvAmount.text = "$${groupingSeparator(amount)}"
+                        tvFee.text ="$" + UtilKt().formatValue(fee.toDouble(), "###,###.##")
 
-                    tvTotal.text = "$${groupingSeparator(total)}"
-                    balance = total.toString()
+                        val total = amount.toString().toDouble() + fee.toDouble()
+
+                        tvAmount.text = "$${groupingSeparator(amount)}"
+                        tvTotal.text = "$${groupingSeparator(total)}"
+                        if (amount == 0.0){
+                            binding?.apply {
+                                tvTotal.text = "$0.00"
+                                tvFee.text ="$0.00"
+                            }
+
+                        }
+                    }else{
+                        tvFee.text = "$" + fee
+                        val total = amount.toString().toDouble() + fee.toDouble()
+                        tvAmount.text = "$${groupingSeparator(amount)}"
+                        tvTotal.text = "$${groupingSeparator(total)}"
+                        if (amount == 0.0){
+                            binding?.tvTotal?.text= "$0.00"
+                            tvFee.text ="$0.00"
+                        }
+                    }
+
+                    balance = amount.toString()
 
 
                     nextBtnFinace.apply {
