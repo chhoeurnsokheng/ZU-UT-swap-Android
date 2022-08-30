@@ -76,7 +76,7 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
     }
 
     override fun onGetForceUpdateSuccess(data: ForceUpdate.ForceUpdateRes) {
-        if (BuildConfig.VERSION_NAME <data.data?.version.toString()){
+        if (BuildConfig.VERSION_NAME <data.data?.ANDROID?.version.toString()){
             DialogUtilKyc().customDialog(
                 com.zillennium.utswap.R.drawable.ic_force_update,
                 "New version available",
@@ -84,7 +84,7 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
                 "UPDATE NOW",
                 object : DialogUtil.OnAlertDialogClick {
                     override fun onLabelCancelClick() {
-                        val uri: Uri = Uri.parse(data.data!!.app_url?.android)
+                        val uri: Uri = Uri.parse(data.data?.ANDROID?.app_url?.android)
                         startActivity(Intent(Intent.ACTION_VIEW, uri))
                     }
                 },

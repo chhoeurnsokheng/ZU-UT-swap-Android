@@ -11,9 +11,21 @@ object ForceUpdate {
         var data:DataRes? = null
     }
     class DataRes{
+        var IOS:IOSData?  =null
+        var ANDROID:ANDROIDData? = null
+
+    }
+    class IOSData{
         var version:String? = null
         var message:String? = null
-         var app_url:AppUrl? = null
+        var app_url:AppUrl? = null
+        var version_type:String? = null
+    }
+    class ANDROIDData{
+        var version:String? = null
+        var message:String? = null
+        var app_url:AppUrl? = null
+        var version_type:String? = null
     }
     class AppUrl{
         var ios:String? = null
