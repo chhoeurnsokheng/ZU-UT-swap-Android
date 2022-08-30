@@ -62,7 +62,7 @@ class DepositActivity :
     }
     override fun onGetListBankSuccess(data: DepositObj.DepositRes) {
         listBank = data.data
-
+        binding.swipeRefresh.isRefreshing = false
         var indexAliPay = 0
         var indexKessPay = 0
         listBank?.forEachIndexed { index, dataListRes ->
@@ -78,6 +78,7 @@ class DepositActivity :
 
 
         binding.rvPayment.apply {
+
             adapter = data.data.let { DepositAdapter(it, onClickDeposit) }
             layoutManager =
                 LinearLayoutManager(this@DepositActivity, LinearLayoutManager.VERTICAL, false)
@@ -90,6 +91,7 @@ class DepositActivity :
     override fun onGetListBankFailed(message: String) {
         binding.apply {
             progressBar.visibility = View.GONE
+            swipeRefresh.isRefreshing = false
         }
     }
 
@@ -102,11 +104,14 @@ class DepositActivity :
     override fun onGetDepositTransferBalanceLogFailed(message: String) {}
 
     override fun onGetDepositFeeSuccess(data: DataQueryOrderObj.DataQueryOrderRes) {
+        binding.swipeRefresh.isRefreshing = false
         local_bank_fee = data.data?.local_bank_fee.toString()
         visa_master_fee = data.data?.visa_master_fee.toString()
     }
 
-    override fun onGetDepositFeeFailed(data: String) {}
+    override fun onGetDepositFeeFailed(data: String) {
+        binding.swipeRefresh.isRefreshing = false
+    }
 
     private fun toolBar() {
         mPresenter.getDepositFee(this)

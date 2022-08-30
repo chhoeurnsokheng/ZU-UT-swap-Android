@@ -148,7 +148,7 @@
     <string name="zero">000 000 0000</string>
     <string name="enter_receiver_s_phone_number">Enter Receiver\'s phone number</string>
     <string name="transfer_amount">Transfer Amount:</string>
-    <string name="receiver_s_phone_number">Receiver\'s Phone Number:</string>
+    <string name="receiver_phone_number">Receiver Phone Number:</string>
     <string name="transfer_big_letter">Transfer</string>
     <string name="price">Price</string>
     <string name="total_locked_balance_0_00">Total Locked Balance: $ 0.00</string>
