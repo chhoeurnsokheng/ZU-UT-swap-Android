@@ -10,6 +10,7 @@ import android.view.inputmethod.InputMethodManager
 import androidx.core.content.ContextCompat
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
+import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityFinanceWithdrawBinding
@@ -36,6 +37,7 @@ class WithdrawActivity :
     override fun initView() {
         super.initView()
         try {
+            toolBar()
             binding.apply {
                 mPresenter.getUSerBalanceStatus(this@WithdrawActivity)
                 etMountPayment.requestFocus()
@@ -59,10 +61,10 @@ class WithdrawActivity :
                     startActivity(intent)
                 }
 
-                imgClose.setOnClickListener {
-                    etMountPayment.hideKeyboard()
-                    finish()
-                }
+//                imgClose.setOnClickListener {
+//                    etMountPayment.hideKeyboard()
+//                    finish()
+//                }
 
                 layFragment.setOnClickListener {
                     etMountPayment.hideKeyboard()
@@ -202,7 +204,18 @@ class WithdrawActivity :
             InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY
         )
     }
-
+    private fun toolBar() {
+        setSupportActionBar(binding.includeLayout.tb)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_arrow_left)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        binding.includeLayout.apply {
+            tbTitle.setText(R.string.withdrawal)
+            tb.setNavigationOnClickListener {
+                finish()
+            }
+        }
+    }
     override fun onBackPressed() {
         super.onBackPressed()
         binding.apply {

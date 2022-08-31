@@ -18,7 +18,7 @@ class AddBankActivity :
 
     override var mPresenter: AddBankView.Presenter = AddBankPresenter()
     override val layoutResource: Int = R.layout.activity_finance_add_bank
-
+    
     private lateinit var newRecyclerView: RecyclerView
     private lateinit var newArrayList: ArrayList<WithdrawAddbankModel>
     lateinit var imageBank: Array<Int>
@@ -36,6 +36,7 @@ class AddBankActivity :
             // Must be safe
         }
     }
+
     private fun toolBar() {
         setSupportActionBar(binding.includeLayout.tb)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
