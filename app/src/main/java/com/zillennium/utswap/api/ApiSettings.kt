@@ -153,16 +153,18 @@ object ApiSettings {
     const val PATH_ONLINE_DEPOSIT      ="finance/onlineMyczUp"
     const val PATH_FINANCE_TRANSFER_LOGS ="finance/outlog_transfer"
 
+    const val PATH_QUERY_ORDER = "finance/DataQueryOrder"
+
+    const val PATH_GET_DEPOSIT_FEE ="finance/getDepositFee"
 
     /** Finance Transfer */
     const val PATH_FINANCE_TRANSFER = "finance/direct_transfer"
     const val PATH_FINANCE_VALIDATE_TRANSFER = "finance/validate_transfer"
 
 
+    const val PATH_LIST_AVAILABLE_WITHDRAWAL_BANK = "finance/available_withdrawal_bank"
 
-    const val PATH_QUERY_ORDER = "finance/DataQueryOrder"
 
-    const val PATH_GET_DEPOSIT_FEE ="finance/getDepositFee"
 
 
 

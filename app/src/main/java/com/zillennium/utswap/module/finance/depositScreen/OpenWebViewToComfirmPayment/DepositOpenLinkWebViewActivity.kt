@@ -73,7 +73,7 @@ class DepositOpenLinkWebViewActivity :
         webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN)
         webPay.setScrollbarFadingEnabled(false)
         webSettings.setUseWideViewPort(true)
-    //    webSettings.setJavaScriptEnabled(true)
+
         webPay.setVerticalScrollBarEnabled(false)
         webPay.setHorizontalScrollBarEnabled(false)
 
@@ -237,6 +237,10 @@ class DepositOpenLinkWebViewActivity :
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        repeatTimer()
+    }
 }
 
 
