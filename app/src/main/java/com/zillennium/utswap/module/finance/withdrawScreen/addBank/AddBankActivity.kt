@@ -48,12 +48,12 @@ class AddBankActivity :
             }
         }
     }
-    override fun onGetListAvailableWithdrawBankSuccess(data: WithdrawObj.WithdrawRes) {
 
+    override fun onGetListAvailableWithdrawBankSuccess(data: WithdrawObj.WithdrawRes) {
         binding.apply {
             rvAddBank.apply {
                 layoutManager = LinearLayoutManager(this@AddBankActivity)
-              //  withdrawAdapter = data.data?.let { WithdrawAdapter(it) }
+                withdrawAdapter = data.data?.let { WithdrawAdapter(it, onClickWithdrawBank) }
                 adapter  = withdrawAdapter
             }
         }
