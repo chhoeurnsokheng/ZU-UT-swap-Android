@@ -7,6 +7,7 @@ import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.databinding.ActivityFinanceAddBankBinding
 import com.zillennium.utswap.models.WithdrawAddbankModel
+import com.zillennium.utswap.models.withdraw.WithdrawObj
 import com.zillennium.utswap.module.finance.withdrawScreen.adapter.WithdrawAdapter
 import com.zillennium.utswap.module.finance.withdrawScreen.withdrawBottomSheet.BottomSheetFinanceAddBank
 
@@ -29,53 +30,41 @@ class AddBankActivity :
     override fun initView() {
         super.initView()
         try {
-
-            binding.apply {
-
-                imgClose.setOnClickListener {
-                    finish()
-                }
-
-
-                imageBank = arrayOf(
-                    R.drawable.aba_pay,
-                    R.drawable.acleda,
-                    R.drawable.sathapana
-                )
-
-                titleBank = arrayOf(
-                    "ABA Pay",
-                    "Acleda Bank",
-                    "Sathapana"
-                )
-
-                newArrayList = arrayListOf<WithdrawAddbankModel>()
-                for (i in imageBank.indices) {
-                    val withdrawBank = WithdrawAddbankModel(
-                        imageBank[i],
-                        titleBank[i]
-
-                    )
-                    newArrayList.add(withdrawBank)
-                }
-                rvAddBank.layoutManager = LinearLayoutManager(UTSwapApp.instance)
-                withdrawAdapter = WithdrawAdapter(newArrayList, onClickWithdrawBank)
-                rvAddBank.adapter = withdrawAdapter
-            }
-
-//            binding.addBank.imgMenu.setOnClickListener {
-//                onBackPressed()
-//                val item = WithdrawAddbankModel(imageBank.size.toInt(), titleBank.toString())
-//                SessionVariable.SESSION_BANK.value?.toMutableList()?.add(item)
-//            }
+            mPresenter.getListAvailableWithdrawBank(this)
+            toolBar()
         } catch (error: Exception) {
             // Must be safe
         }
     }
+    private fun toolBar() {
+        setSupportActionBar(binding.includeLayout.tb)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_arrow_left)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        binding.includeLayout.apply {
+            tbTitle.setText(R.string.add_bank_account)
+            tb.setNavigationOnClickListener {
+                finish()
+            }
+        }
+    }
+    override fun onGetListAvailableWithdrawBankSuccess(data: WithdrawObj.WithdrawRes) {
 
+        binding.apply {
+            rvAddBank.apply {
+                layoutManager = LinearLayoutManager(this@AddBankActivity)
+              //  withdrawAdapter = data.data?.let { WithdrawAdapter(it) }
+                adapter  = withdrawAdapter
+            }
+        }
+    }
+
+    override fun onGetListAvailableWithdrawBankFailed(data: String) {}
+    
     private val onClickWithdrawBank: WithdrawAdapter.OnClickBank =
         object : WithdrawAdapter.OnClickBank {
-            override fun clickWithdrawBank(titleBank: String, imgBank: Int) {
+
+            override fun clickWithdrawBank(titleBank: String?, imgBank: String?) {
                 when (titleBank.toString()) {
                     "ABA Pay" -> {
 

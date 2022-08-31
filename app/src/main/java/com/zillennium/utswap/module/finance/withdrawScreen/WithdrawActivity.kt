@@ -13,9 +13,12 @@ import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityFinanceWithdrawBinding
+import com.zillennium.utswap.models.financeBalance.BalanceFinance
 import com.zillennium.utswap.module.finance.withdrawScreen.addBank.AddBankActivity
 import com.zillennium.utswap.module.security.securityDialog.FundPasswordDialog
 import com.zillennium.utswap.utils.DecimalDigitsInputFilter
+import com.zillennium.utswap.utils.NoInternetLayoutUtil
+import com.zillennium.utswap.utils.UtilKt
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent.setEventListener
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener
 
@@ -34,9 +37,13 @@ class WithdrawActivity :
         super.initView()
         try {
             binding.apply {
+                mPresenter.getUSerBalanceStatus(this@WithdrawActivity)
                 etMountPayment.requestFocus()
                 showKeyboard(this@WithdrawActivity)
                 nextBtnFinace.isEnabled = false
+
+                NoInternetLayoutUtil().noInternetLayoutUtil(binding.rlNoInt)
+
 
                 setEventListener(this@WithdrawActivity, object : KeyboardVisibilityEventListener {
                     override fun onVisibilityChanged(isOpen: Boolean) {
@@ -156,6 +163,32 @@ class WithdrawActivity :
             // Must be safe
         }
     }
+
+    override fun getUserBalanceStatusSuccess(data: BalanceFinance.GetUserBalanceInfo) {
+        binding.apply {
+            txtUserBalance.text = "$ " + data.data?.withdrawal_balance?.let {
+                UtilKt().formatValue(
+                    it.toDouble(),
+                    "###,###.##"
+                )
+            }
+            txtUserBalanceAvailable.text = "$ " + data.data?.available_balance?.let {
+                UtilKt().formatValue(
+                    it.toDouble(),
+                    "###,###.##"
+                )
+            }
+
+            txtUserBalancePandding.text =
+                "$ " + data.data?.pending?.let { UtilKt().formatValue(it.toDouble(), "###,###.##") }
+
+            txtUserBalanceLock.text =
+                "$ " + data.data?.lock_up?.let { UtilKt().formatValue(it.toDouble(), "###,###.##") }
+
+        }
+    }
+
+    override fun getUserBalanceStatusFail(data: String) {}
 
     private fun View.hideKeyboard() {
         val inputMethodManager =
