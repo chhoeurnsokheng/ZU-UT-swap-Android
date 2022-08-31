@@ -1,6 +1,7 @@
 package com.zillennium.utswap.module.security.securityFragment.changeFundPassword
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
@@ -16,6 +17,7 @@ import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentAccountChangeFundPasswordBinding
+import com.zillennium.utswap.models.userService.User
 
 
 class ChangeFundPasswordFragment :
@@ -29,102 +31,184 @@ class ChangeFundPasswordFragment :
 
     override fun initView() {
         super.initView()
-        try {
-            binding.apply {
+        onOtherActivity()
+        onSubmitFundPassword()
+    }
 
-                imgClose.setOnClickListener {
-                    activity?.finish()
+    private fun onOtherActivity(){
+        binding.apply {
+            imgClose.setOnClickListener {
+                activity?.finish()
+                hideKeyboard()
+            }
+
+            /* Fund Password Code */
+            numberVerification.setOnClickListener {
+                editFundPassword.requestFocus()
+                val inputManager1 = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                inputManager1.showSoftInput(editFundPassword, InputMethodManager.SHOW_IMPLICIT)
+
+                if(editFundPassword.text.isEmpty()){
+                    val textInputLast = numberVerification.getChildAt(0) as TextView
+                    textInputLast.text = "|"
+                    textInputLast.transformationMethod = HideReturnsTransformationMethod.getInstance()
                 }
+            }
 
-                /* Fund Password Code */
-                numberVerification.setOnClickListener {
-                    editFundPassword.requestFocus()
-                    val inputManager1 = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                    inputManager1.showSoftInput(editFundPassword, InputMethodManager.SHOW_IMPLICIT)
+            txtForgotPassword.setOnClickListener {
+                findNavController().navigate(R.id.action_to_forgot_fund_password_fragment)
+            }
 
-                    if(editFundPassword.text.isEmpty()){
-                        val textInputLast = numberVerification.getChildAt(0) as TextView
+            imgShowPassword.setOnClickListener{
+                clickCountPassword++
+                showPassword(clickCountPassword)
+            }
+
+            imgShowPassword.callOnClick()
+
+            editFundPassword.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(ch: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+                override fun onTextChanged(chr: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+                    for (child in numberVerification.children) {
+                        val children = child as TextView
+                        children.background = ContextCompat.getDrawable(
+                            UTSwapApp.instance,
+                            R.drawable.bg_border_bottom
+                        )
+                        children.text = ""
+                        showPassword(clickCountPassword)
+                    }
+
+                    for (child in numberVerification.children) {
+                        child.background = ContextCompat.getDrawable(
+                            UTSwapApp.instance,
+                            R.drawable.bg_border_bottom
+                        )
+                        child as TextView
+                        child.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.black))
+                    }
+
+                    if (chr?.length!! <= 3) {
+                        val textInputLast =
+                            chr.length.let { numberVerification.getChildAt(it.toInt()) } as TextView
                         textInputLast.text = "|"
-                        textInputLast.transformationMethod = HideReturnsTransformationMethod.getInstance()
+                        textInputLast.transformationMethod =
+                            HideReturnsTransformationMethod.getInstance()
                     }
-                }
 
-                txtForgotPassword.setOnClickListener {
-                    findNavController().navigate(R.id.action_to_forgot_fund_password_fragment)
-                }
+                    for (index in chr.indices) {
+                        val textInput = numberVerification.getChildAt(index) as TextView
+                        textInput.text = chr[index].toString()
+                        if (index == numberVerification.childCount - 1) {
 
-                imgShowPassword.setOnClickListener{
-                    clickCountPassword++
-                    showPassword(clickCountPassword)
-                }
-
-                imgShowPassword.callOnClick()
-
-                editFundPassword.addTextChangedListener(object : TextWatcher {
-                    override fun beforeTextChanged(ch: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-
-                    override fun onTextChanged(chr: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
-                        for (child in numberVerification.children) {
-                            val children = child as TextView
-                            children.background = ContextCompat.getDrawable(
-                                UTSwapApp.instance,
-                                R.drawable.bg_border_bottom
-                            )
-                            children.text = ""
-                            showPassword(clickCountPassword)
-                        }
-
-                        if (chr?.length!! <= 3) {
-                            val textInputLast =
-                                chr.length.let { numberVerification.getChildAt(it.toInt()) } as TextView
-                            textInputLast.text = "|"
-                            textInputLast.transformationMethod =
-                                HideReturnsTransformationMethod.getInstance()
-                        }
-
-                        for (index in chr.indices) {
-                            val textInput = numberVerification.getChildAt(index) as TextView
-                            textInput.text = chr[index].toString()
-                            if (index == numberVerification.childCount - 1) {
-
-                            }
                         }
                     }
 
-                    override fun afterTextChanged(p0: Editable?) {
+                    txtMessage.visibility = View.INVISIBLE
+                }
+
+                override fun afterTextChanged(p0: Editable?) {
+                }
+            })
+        }
+    }
+
+    private fun onSubmitFundPassword(){
+        binding.apply {
+            btnNext.setOnClickListener {
+
+                if (editFundPassword.text.isNotEmpty() && editFundPassword.length() == 4){
+
+                    onProgressBar(true)
+                    for (child in numberVerification.children) {
+                        child.background = ContextCompat.getDrawable(
+                            UTSwapApp.instance,
+                            R.drawable.bg_border_bottom
+                        )
+                        child as TextView
+                        child.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.black))
                     }
-                })
+                    mPresenter.onSubmitOldFundPassword(User.CheckOldFundPasswordObject(editFundPassword.text.toString()),UTSwapApp.instance)
+                }else{
 
-                btnNext.setOnClickListener {
-
-                    if (editFundPassword.text.isNotEmpty() && editFundPassword.length() == 4){
-                        pbNext.visibility = View.VISIBLE
-                        btnNext.isClickable = false
-                        btnNext.alpha = 0.6F
-                        Handler().postDelayed({
-                            if (editFundPassword.length() == 4 && editFundPassword.text.toString() == "1111"){
-                                findNavController().navigate(R.id.action_to_new_fund_password)
-                            }else{
-                                for(child in numberVerification.children){
-                                    child.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_border_bottom_red)
-                                }
-                            }
-                            pbNext.visibility = View.GONE
-                            btnNext.isClickable = true
-                            btnNext.alpha = 1F
-                        },3000)
-                    }else{
-                        for(child in numberVerification.children){
-                            child.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_border_bottom_red)
-                        }
+                    for (child in numberVerification.children) {
+                        child.background = ContextCompat.getDrawable(
+                            UTSwapApp.instance,
+                            R.drawable.bg_border_bottom_red
+                        )
+                        child as TextView
+                        child.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
                     }
                 }
             }
-            // Code
-        } catch (error: Exception) {
-            // Must be safe
         }
+    }
+
+    override fun checkOldFundPasswordSuccess(data: User.CheckOldFundPasswordRes) {
+        onProgressBar(false)
+        binding.apply {
+
+            for (child in numberVerification.children) {
+                child.background = ContextCompat.getDrawable(
+                    UTSwapApp.instance,
+                    R.drawable.bg_border_bottom
+                )
+                child as TextView
+                child.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.black))
+            }
+        }
+        findNavController().navigate(R.id.action_to_new_fund_password)
+    }
+
+    override fun checkOldFundPasswordFail(data: User.CheckOldFundPasswordRes) {
+        onProgressBar(false)
+        binding.apply {
+            txtMessage.visibility = View.VISIBLE
+            txtMessage.text = resources.getString(R.string.old_fund_password_wrong)
+            for(child in numberVerification.children){
+                child.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_border_bottom_red)
+            }
+
+            for (child in numberVerification.children) {
+                child.background = ContextCompat.getDrawable(
+                    UTSwapApp.instance,
+                    R.drawable.bg_border_bottom_red
+                )
+                child as TextView
+                child.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
+            }
+        }
+    }
+
+    private fun onProgressBar(status: Boolean){
+        binding.apply {
+            if(status){
+                pbNext.visibility = View.VISIBLE
+                btnNext.isClickable = false
+                btnNext.alpha = 0.6F
+            }else{
+                pbNext.visibility = View.GONE
+                btnNext.isClickable = true
+                btnNext.alpha = 1F
+            }
+            txtMessage.visibility = View.INVISIBLE
+            for(child in numberVerification.children){
+                child.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_border_bottom)
+            }
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        hideKeyboard()
+    }
+
+    private fun hideKeyboard() {
+        val inputManager =
+            requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputManager.hideSoftInputFromWindow(view?.windowToken, 0)
     }
 
     private fun showPassword(clickPassword: Int) {

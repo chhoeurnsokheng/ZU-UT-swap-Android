@@ -17,6 +17,8 @@ object Transfer {
         var receiver:String? = null
     }
     class GetTransferObject(
+        var sign_type: String? = null,
+        var sign: String? = null,
         var amount: String? = null,
         var currency: String? = null,
         var receiver: String? = null,

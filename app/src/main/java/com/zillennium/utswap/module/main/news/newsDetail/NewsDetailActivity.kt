@@ -45,7 +45,7 @@ class NewsDetailActivity :
 
         onSwipeRefresh()
 
-        //NoInternetLayoutUtil().noInternetLayoutUtil(binding.rlNoInt)
+       // NoInternetLayoutUtil().noInternetLayoutUtil(binding.rlNoInt)
     }
 
     private fun onCallApi(){
