@@ -14,7 +14,7 @@ object BalanceFinance {
         var withdrawal_balance: String? = null
         var available_balance: String? = null
         var pending: String? = null
-        var lock_up: Int? = null
+        var lock_up: Double? = null
         var total_balance: Double? = null
     }
 
