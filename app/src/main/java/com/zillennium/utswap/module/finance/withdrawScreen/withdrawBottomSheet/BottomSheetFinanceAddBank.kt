@@ -123,11 +123,11 @@ class BottomSheetFinanceAddBank : BottomSheetDialogFragment(), AdapterView.OnIte
 
     // ve image bank and title bank
     companion object {
-        fun newInstance(titleBank: String, imageBank: Int?): BottomSheetFinanceAddBank {
+        fun newInstance(titleBank: String?, imageBank: String?): BottomSheetFinanceAddBank {
             val withdrawBankBottomSheetDialog = BottomSheetFinanceAddBank()
             val args = Bundle()
             if (imageBank != null) {
-                args.putInt("imgCard", imageBank)
+                args.putString("imgCard", imageBank)
             }
             args.putString("titleCard", titleBank)
             withdrawBankBottomSheetDialog.arguments = args
