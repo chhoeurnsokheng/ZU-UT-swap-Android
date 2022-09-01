@@ -154,6 +154,7 @@ object ApiSettings {
 
     const val PATH_QUERY_ORDER = "finance/DataQueryOrder"
 
-
+    /** Portfolio */
+    const val PATH_PORTFOLIO = "portfolio/index"
 
 }

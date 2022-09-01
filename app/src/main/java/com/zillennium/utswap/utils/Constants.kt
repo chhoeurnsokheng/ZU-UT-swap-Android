@@ -548,4 +548,14 @@ interface Constants {
         }
     }
 
+    interface PortfolioFilter {
+        companion object{
+            const val Change = "Change"
+            const val Performance = "Performance"
+            const val Price = "Price"
+            const val Balance = "Balance"
+            const val Weight = "Weight"
+        }
+    }
+
 }
