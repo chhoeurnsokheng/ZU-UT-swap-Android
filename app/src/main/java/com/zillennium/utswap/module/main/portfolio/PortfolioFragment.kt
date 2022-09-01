@@ -69,7 +69,7 @@ class PortfolioFragment :
 
                 layFilter.setOnClickListener {
                     layFilter.isEnabled = false
-                    layFilter.postDelayed({ layFilter.isEnabled = true }, 1000)
+                    layFilter.postDelayed({ layFilter.isEnabled = true }, 1500)
                     val filterPortfolioDialogBottomSheet = FilterPortfolioDialogBottomSheet(
                         portfolioSelectType,
                         object: FilterPortfolioDialogBottomSheet.CallBackTypeListener{
