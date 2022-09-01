@@ -56,7 +56,10 @@ open class ApiManager {
 
     protected lateinit var mFinanceUserBalance: BalanceUserService
     protected lateinit var mTransfer: TransferService
+
     protected lateinit var mPortfolio: PortfolioService
+
+    lateinit var mWithDrawService: WithDrawService
     
     companion object {
         var mRetryCounter: AtomicInteger = AtomicInteger(0)
@@ -96,7 +99,9 @@ open class ApiManager {
 
         mTradeService = retrofit.create(TradeService::class.java)
         mTransfer = retrofit.create(TransferService::class.java)
+
         mPortfolio = retrofit.create(PortfolioService::class.java)
+        mWithDrawService = retrofit.create(WithDrawService::class.java)
 
     }
 
