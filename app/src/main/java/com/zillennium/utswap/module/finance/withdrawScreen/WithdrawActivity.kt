@@ -29,7 +29,7 @@ class WithdrawActivity :
     WithdrawView.View {
 
     override var mPresenter: WithdrawView.Presenter = WithdrawPresenter()
-    override val layoutResource: Int = com.zillennium.utswap.R.layout.activity_finance_withdraw
+    override val layoutResource: Int = R.layout.activity_finance_withdraw
     private var mBottomSheetBehavior: BottomSheetBehavior<*>? = null
     private var isShow = false
 
@@ -50,13 +50,13 @@ class WithdrawActivity :
                 setEventListener(this@WithdrawActivity, object : KeyboardVisibilityEventListener {
                     override fun onVisibilityChanged(isOpen: Boolean) {
                         if (!isOpen) {
-                            etMountPayment.clearFocus()
+                        //    etMountPayment.clearFocus()
                         }
                     }
                 })
 
                 addBankAccount.setOnClickListener {
-                    etMountPayment.hideKeyboard()
+                  //  etMountPayment.hideKeyboard()
                     val intent = Intent(this@WithdrawActivity, AddBankActivity::class.java)
                     startActivity(intent)
                 }
