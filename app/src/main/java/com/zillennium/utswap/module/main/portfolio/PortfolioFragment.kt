@@ -73,7 +73,7 @@ class PortfolioFragment :
                 onCheckUserKYC()
                 onLayoutHeader()
                 onUserBalancePortfolio()
-                onGetDiagram()
+             //   onGetDiagram()
 
                 layFilter.setOnClickListener {
                     layFilter.isEnabled = false
@@ -381,9 +381,9 @@ class PortfolioFragment :
     override fun onGetPortfolioFail(data: Portfolio.GetPortfolio) {}
     override fun getPortfolioDashboardChartSuccess(dataSuccess: Portfolio.GetPortfolioDashboardChartRes) {
 
-//        binding.apply {
-//            val yValues = ArrayList<Entry>()
-//            /*yValues.addAll(listOf(Entry(dataSuccess.data.maxOf { it.x }, dataSuccess.data.maxOf { it.y })))*/
+        binding.apply {
+            val yValues = ArrayList<Entry>()
+            yValues.addAll(listOf(Entry(dataSuccess.data.maxOf { it.x }, dataSuccess.data.maxOf { it.y })))
 //            yValues.add(Entry(0f, 60f))
 //            yValues.add(Entry(1f, 50f))
 //            yValues.add(Entry(2f, 70f))
@@ -391,36 +391,36 @@ class PortfolioFragment :
 //            yValues.add(Entry(4f, 50f))
 //            yValues.add(Entry(5f, 60f))
 //            yValues.add(Entry(6f, 65f))
-//            val set1 = LineDataSet(yValues, "")
-//
-//            set1.fillAlpha = 110
-//            set1.color = R.color.primary
-//
-//            dataSets.add(set1)
-//
-//            data = LineData(dataSets)
-//
-//            lineChart.data = data
-//
-//            //pass value to pie chart of another class
-//            val listData = ArrayList<Double>()
-//
-//            listData.add(83.20)
-//            listData.add(16.80)
-//            listData.add(12.0)
-//
-//            chartPie.setDataOfChart(listData)
-//
-//            //set attribute of line chart
-//            lineChart.description.isEnabled = false
-//            lineChart.axisLeft.isEnabled = false
-//            lineChart.xAxis.isEnabled = false
-//            data!!.setDrawValues(false)
-//            lineChart.legend.isEnabled = false
-//            set1.color = ContextCompat.getColor(UTSwapApp.instance, R.color.simple_green)
-//            lineChart.isDragEnabled = true
-//            lineChart.setScaleEnabled(true)
-//        }
+            val set1 = LineDataSet(yValues, "")
+
+            set1.fillAlpha = 110
+            set1.color = R.color.primary
+
+            dataSets.add(set1)
+
+            data = LineData(dataSets)
+
+            lineChart.data = data
+
+            //pass value to pie chart of another class
+            val listData = ArrayList<Double>()
+
+            listData.add(83.20)
+            listData.add(16.80)
+            listData.add(12.0)
+
+            chartPie.setDataOfChart(listData)
+
+            //set attribute of line chart
+            lineChart.description.isEnabled = false
+            lineChart.axisLeft.isEnabled = false
+            lineChart.xAxis.isEnabled = false
+            data!!.setDrawValues(false)
+            lineChart.legend.isEnabled = false
+            set1.color = ContextCompat.getColor(UTSwapApp.instance, R.color.simple_green)
+            lineChart.isDragEnabled = true
+            lineChart.setScaleEnabled(true)
+        }
 
 
     }
