@@ -386,7 +386,6 @@ class PortfolioFragment :
 
     override fun onGetPortfolioFail(data: Portfolio.GetPortfolio) {}
     override fun getPortfolioDashboardChartSuccess(dataSuccess: Portfolio.GetPortfolioDashboardChartRes) {
-        dataSuccess
 
 //        binding.apply {
 //            val yValues :ArrayList<Entry> = arrayListOf()

@@ -103,9 +103,9 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
                             linearLayoutBalance.visibility = View.GONE
                             rvHomeWatchlist.visibility = View.GONE
                             linearLayoutWatchlist.visibility = View.GONE
-
                         }
                     }
+
                     imgMenu.setOnClickListener {
                         if (SessionPreferences().SESSION_TOKEN != null) {
                             val intent = Intent(UTSwapApp.instance, AccountActivity::class.java)
@@ -120,12 +120,7 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
 
                         }
                     }
-                    /*imgMenu.setOnClickListener {
-                    val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
-                    startActivity(intent)
-                }*/
 
-                    /* Show or Hide Trading Balance */
                     tradingBalance.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
                     tradingBalance.paint.maskFilter = blurMask
 
@@ -162,7 +157,7 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
 
             }
         } catch (error: Exception) {
-            // Must be safe
+
         }
     }
     private fun requestData() {
