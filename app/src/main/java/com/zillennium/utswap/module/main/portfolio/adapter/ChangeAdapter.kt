@@ -34,7 +34,7 @@ class ChangeAdapter: BaseRecyclerViewAdapterGeneric<Portfolio.GetPortfolioDashBo
                 txtTitleProject.text = change.mkt_project_name
                 txtPercent.text = change.mkt_project_change.toString()
 
-                /*if (change.mkt_project_change?.toDouble()!! > 0) {
+                if (change.mkt_project_change?.toDouble()!! > 0) {
                     txtPercent.text = "+" + change.mkt_project_change.toString()
                     txtPercent.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.simple_green))
                     percent.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.simple_green))
@@ -44,7 +44,7 @@ class ChangeAdapter: BaseRecyclerViewAdapterGeneric<Portfolio.GetPortfolioDashBo
                 }else {
                     txtPercent.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.black_333333))
                     percent.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.black_333333))
-                }*/
+                }
 
             }
         }

@@ -61,6 +61,10 @@ class PortfolioFragment :
         try {
             binding.apply {
 
+                SessionVariable.SESSION_STATUS.observe(this@PortfolioFragment){
+                    requestData()
+                }
+
                 onCallApi()
                 onCheckUserKYC()
                 onLayoutHeader()
@@ -69,7 +73,7 @@ class PortfolioFragment :
 
                 layFilter.setOnClickListener {
                     layFilter.isEnabled = false
-                    layFilter.postDelayed({ layFilter.isEnabled = true }, 1500)
+                    layFilter.postDelayed({ layFilter.isEnabled = true }, 1000)
                     val filterPortfolioDialogBottomSheet = FilterPortfolioDialogBottomSheet(
                         portfolioSelectType,
                         object: FilterPortfolioDialogBottomSheet.CallBackTypeListener{
@@ -77,9 +81,9 @@ class PortfolioFragment :
                                 portfolioSelectType = portfolioSelectedType
 
                                 btnFilter.text = portfolioSelectType
-
-                                onStoreTypeStringToInt()
                                 onClearList()
+                                invisibleLayout()
+                                onStoreTypeStringToInt()
                                 loadingProgressBar.visibility = View.VISIBLE
                                 layTradingBalance.visibility = View.GONE
 
@@ -96,6 +100,10 @@ class PortfolioFragment :
         }
     }
 
+    private fun requestData(){
+        binding.btnFilter.text = portfolioSelectType
+        mPresenter.onGetPortfolio(Portfolio.GetPortfolioObject(typePortfolio), requireActivity())
+    }
     private fun onCallApi(){
         binding.apply {
             Tovuti.from(UTSwapApp.instance).monitor { _, isConnected, _ ->
@@ -119,6 +127,8 @@ class PortfolioFragment :
             filter = 0
 
             invisibleLayout()
+            lineChart.visibility = View.GONE
+            chartPie.visibility = View.GONE
             onClearList()
 
             if (data.profolio_dashboard.isNotEmpty()) {
@@ -454,9 +464,6 @@ class PortfolioFragment :
             linearLayoutPerformance.visibility = View.GONE
             linearLayoutBalance.visibility = View.GONE
             linearLayoutWeight.visibility = View.GONE
-
-            lineChart.visibility = View.GONE
-            chartPie.visibility = View.GONE
         }
     }
 
