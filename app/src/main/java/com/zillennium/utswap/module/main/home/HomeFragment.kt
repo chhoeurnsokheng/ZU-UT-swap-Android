@@ -51,7 +51,6 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
     var isUserSwipe = false
     var currentPosition = 0
 
-
     override fun initView() {
         super.initView()
         SessionVariable.realTimeWatchList.value = true
@@ -173,7 +172,7 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
     }
 
     override fun onGetBannerSuccess(data: BannerObj.Banner) {
-
+        mPresenter.getNewsHome(requireActivity())
         binding.apply {
             swipeRefresh.isRefreshing = false
             bannerLoopingPagerAdapter = object : BannerLoopingPagerAdapter(
@@ -233,6 +232,9 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
     }
 
     override fun onGetNewsHomeSuccess(data: News.NewsRes) {
+        if (data.message== "Please sign in"){
+            onHomeMenuGrid(false)
+        }
         newsList.clear()
         data.data?.NEW?.forEachIndexed { index, itemWishList ->
 
@@ -263,7 +265,9 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
     }
 
     override fun onGetWishListAndBalanceSuccess(data: BannerObj.whistListRes) {
-
+            if (data.message== "Please sign in"){
+                onHomeMenuGrid(false)
+            }
 
         if (data.data?.watch_lists?.size == 0) {
             binding.apply {
