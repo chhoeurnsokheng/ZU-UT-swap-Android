@@ -30,7 +30,7 @@
                 android:layout_marginStart="@dimen/dimen_40"
                 android:text="@string/project"
                 android:textAppearance="@style/medium_20"
-                android:textColor="@color/black" />
+                android:textColor="@color/purple_700" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_subscript"

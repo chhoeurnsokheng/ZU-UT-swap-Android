@@ -558,6 +558,9 @@ interface Constants {
             var lock_time = ""
             var volume_price = 0.0
             var subscription = ""
+            var total_ut = 0
+            var min = 0
+            var max = 0
         }
     }
 

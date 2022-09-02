@@ -16,6 +16,11 @@ object SubscriptionProject {
         var addtime: String? = null
         var endtime: String? = null
         var user_account_type: String? = null
+        var min: Int? = null
+        var max: Int? = null
+        var launch: Int? = null
+        var type: Int? = null
+        var name: String? = null
     }
 
     class SubscriptionProjectBody(

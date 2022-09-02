@@ -87,7 +87,10 @@ class FundPasswordDialog : DialogFragment() {
                                     arguments?.get("project_name").toString(),
                                     arguments?.get("lock_time").toString(),
                                     arguments?.get("volume_price").toString().toDouble(),
-                                    arguments?.get("subscription_price").toString()
+                                    arguments?.get("subscription_price").toString(),
+                                    Constants.SubscriptionBottomSheet.total_ut,
+                                    Constants.SubscriptionBottomSheet.min,
+                                    Constants.SubscriptionBottomSheet.max,
                                 )
                             subscriptionConfirmDialog.show(
                                 requireActivity().supportFragmentManager,

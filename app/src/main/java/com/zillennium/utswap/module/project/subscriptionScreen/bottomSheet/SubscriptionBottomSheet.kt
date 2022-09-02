@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -42,7 +43,10 @@ class SubscriptionBottomSheet : BottomSheetDialogFragment(), AdapterView.OnItemS
             projectName: String?,
             lockTime: String?,
             volumePrice: Double,
-            subscriptionPrice: String
+            subscriptionPrice: String,
+            totalUt: Int,
+            min: Int,
+            max: Int
         ): SubscriptionBottomSheet {
             val subscriptionBottomSheetDialog = SubscriptionBottomSheet()
             val args = Bundle()
@@ -53,6 +57,9 @@ class SubscriptionBottomSheet : BottomSheetDialogFragment(), AdapterView.OnItemS
             args.putString("lock_time", lockTime)
             args.putDouble("volume_price", volumePrice)
             args.putString("subscription_price", subscriptionPrice)
+            args.putInt("totalUT", totalUt)
+            args.putInt("min", min)
+            args.putInt("max", max)
             subscriptionBottomSheetDialog.arguments = args
             return subscriptionBottomSheetDialog
         }
@@ -144,6 +151,9 @@ class SubscriptionBottomSheet : BottomSheetDialogFragment(), AdapterView.OnItemS
                         Constants.SubscriptionBottomSheet.volume_price = arguments?.get("volume_price").toString().toDouble()
                         Constants.SubscriptionBottomSheet.volume = etInputVolume.text.toString()
                         Constants.SubscriptionBottomSheet.subscription = utSubscriptionPrice.toString()
+                        Constants.SubscriptionBottomSheet.total_ut = arguments?.get("totalUT").toString().toInt()
+                        Constants.SubscriptionBottomSheet.min = arguments?.get("min").toString().toInt()
+                        Constants.SubscriptionBottomSheet.max = arguments?.get("max").toString().toInt()
                         Handler().postDelayed({
                             dismiss()
                         }, 1000)
@@ -222,10 +232,16 @@ class SubscriptionBottomSheet : BottomSheetDialogFragment(), AdapterView.OnItemS
                     count = etInputVolume.text.toString().length
 
 
-//                    if (s.toString().isNotEmpty()) {
-//                        SubscriptionActivity.volume = s.toString().toInt()
-//                    }
-
+                    val min = arguments?.get("min").toString().toInt()
+                    val max = arguments?.get("max").toString().toInt()
+                    val etUtVolume = etInputVolume.text.toString().replace("\\s".toRegex(), "")
+                    if(etUtVolume.isNotEmpty()){
+                        if (etUtVolume.toLong() >= max) {
+                            btnSubscript.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.gray_999999))
+                            btnSubscript.isClickable = false
+                            Toast.makeText(UTSwapApp.instance, "The maximum subscription amount per user is ${max} UT", Toast.LENGTH_SHORT).show()
+                        }
+                    }
                 }
             })
         }

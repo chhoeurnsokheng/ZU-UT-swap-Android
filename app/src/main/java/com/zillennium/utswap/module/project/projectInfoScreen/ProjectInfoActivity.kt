@@ -343,6 +343,7 @@ class ProjectInfoActivity :
                 btnUpcoming.visibility = View.VISIBLE
 
             }
+
         }
     }
 

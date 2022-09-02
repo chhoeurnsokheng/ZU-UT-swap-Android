@@ -30,8 +30,12 @@ class SubscriptionConfirmDialog : DialogFragment() {
             projectName: String?,
             lockTime: String?,
             volumePrice: Double,
-            subscriptionPrice: String?
-        ): SubscriptionConfirmDialog {
+            subscriptionPrice: String?,
+            totalUt: Int,
+            min: Int,
+            max: Int,
+
+            ): SubscriptionConfirmDialog {
             val subscriptionConfirmDialog = SubscriptionConfirmDialog()
             val args = Bundle()
             args.putInt("id", id)
@@ -41,6 +45,9 @@ class SubscriptionConfirmDialog : DialogFragment() {
             args.putString("lock_time", lockTime)
             args.putDouble("volume_price", volumePrice)
             args.putString("subscription_price", subscriptionPrice)
+            args.putInt("totalUT", totalUt)
+            args.putInt("min", min)
+            args.putInt("max", max)
             subscriptionConfirmDialog.arguments = args
             return subscriptionConfirmDialog
         }
@@ -94,6 +101,9 @@ class SubscriptionConfirmDialog : DialogFragment() {
                         arguments?.get("lock_time").toString(),
                         arguments?.get("volume_price").toString().toDouble(),
                         arguments?.get("subscription_price").toString(),
+                        arguments?.get("totalUT").toString().toInt(),
+                        arguments?.get("min").toString().toInt(),
+                        arguments?.get("max").toString().toInt()
                     )
                 subscriptionBottomSheetDialog.show(
                     requireActivity().supportFragmentManager,
