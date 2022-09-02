@@ -44,7 +44,7 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
     private var isSelected = false
     private var isSignInSuccess = true
     private val homeFragment = HomeFragment()
-
+    private var checkStatusToken = false
     private var doubleBackToExitPressedOnce = false
     private var statusKYC = ""
 
@@ -89,7 +89,9 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
         kcyComplete = data.data?.status_kyc
         homeFragment.onHomeMenuGrid(data.data?.status_kyc ?: false)
         onCheckSession()
-
+        if (data.message =="Please sign in"){
+            checkStatusToken = true
+        }
     }
 
     override fun onCheckKYCFail() {
@@ -270,12 +272,17 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
                                         activeFragment = portfolioFragment
                                     }
                                 } else {
-                                    val intent =
-                                        Intent(UTSwapApp.instance, SignInActivity::class.java)
+                                    if (checkStatusToken ==true){
+                                        val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
+                                        startActivityForResult(intent, 555)
+                                    }
+                                    val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
                                     startActivityForResult(intent, 555)
                                 }
                             }
-
+//                        if (checkStatusToken==true){
+//                            startActivity(Intent(this@MainActivity, SignInActivity::class.java))
+//                        }
 
                         }
                         R.id.navigation_navbar_trade -> {

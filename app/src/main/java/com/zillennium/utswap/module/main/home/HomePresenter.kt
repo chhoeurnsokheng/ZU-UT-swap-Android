@@ -15,6 +15,7 @@ class HomePresenter : BaseMvpPresenterImpl<HomeView.View>(),
 
     var subscription: Subscription? = null
     var subscriptionGetBanner: Subscription? = null
+    var subscriptionGetNewNoToken: Subscription? = null
     var subscriptionGetWishListBalance: Subscription? = null
     override fun initViewPresenter(context: Context, bundle: Bundle?) {
         mBundle = bundle
@@ -36,11 +37,11 @@ class HomePresenter : BaseMvpPresenterImpl<HomeView.View>(),
     }
 
     override fun getNewsHome(context: Context) {
-       subscription?.unsubscribe()
+        subscription?.unsubscribe()
         subscription = ApiNewsImp().getNewsHome(context).subscribe({
             mView?.onGetNewsHomeSuccess(it)
-        },{ error ->
-            object :CallbackWrapper(error,UTSwapApp.instance, arrayListOf()){
+        }, { error ->
+            object : CallbackWrapper(error, UTSwapApp.instance, arrayListOf()) {
                 override fun onCallbackWrapper(status: ApiManager.NetworkErrorStatus, data: Any) {
                     mView?.onGetNewsHomeFail("Failed")
                 }
@@ -49,15 +50,31 @@ class HomePresenter : BaseMvpPresenterImpl<HomeView.View>(),
         })
     }
 
+    override fun getNewsHomeToken(context: Context) {
+        subscriptionGetNewNoToken?.unsubscribe()
+        subscriptionGetNewNoToken = ApiNewsImp().getNewsHomeNoToken(context).subscribe({
+            mView?.onGetNewsHomeNoTokenSuccess(it)
+        }, { error ->
+            object : CallbackWrapper(error, context, arrayListOf()) {
+                override fun onCallbackWrapper(status: ApiManager.NetworkErrorStatus, data: Any) {
+                    mView?.onGetNewsHomeNoTokenFail("Failed")
+                }
+
+            }
+
+        })
+    }
+
     override fun getWatchListAndBalance(context: Context) {
         subscriptionGetWishListBalance?.unsubscribe()
         subscriptionGetWishListBalance = ApiHomeImp().getWishListAndBalance(context).subscribe({
             mView?.onGetWishListAndBalanceSuccess(it)
-        },{error -> object :CallbackWrapper(error,UTSwapApp.instance, arrayListOf()){
-            override fun onCallbackWrapper(status: ApiManager.NetworkErrorStatus, data: Any) {
-                mView?.onGetWishListAndBalanceFail("Failed")
+        }, { error ->
+            object : CallbackWrapper(error, UTSwapApp.instance, arrayListOf()) {
+                override fun onCallbackWrapper(status: ApiManager.NetworkErrorStatus, data: Any) {
+                    mView?.onGetWishListAndBalanceFail("Failed")
+                }
             }
-        }
         })
     }
 }
