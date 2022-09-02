@@ -258,7 +258,9 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
 
                         }
                         R.id.navigation_navbar_portfolio -> {
+
                             SessionVariable.SESSION_KYC_STATUS.observe(this@MainActivity) {
+
                                 if (SessionPreferences().SESSION_TOKEN != null) {
                                     if (kcyComplete == false && isSignInSuccess) {
                                         val intent = Intent(
@@ -271,11 +273,11 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
                                             .show(portfolioFragment).commit()
                                         activeFragment = portfolioFragment
                                     }
-                                } else {
-                                    if (checkStatusToken ==true){
+                                    if (SessionPreferences().SESSION_TOKEN ==null){
                                         val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
                                         startActivityForResult(intent, 555)
                                     }
+                                } else {
                                     val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
                                     startActivityForResult(intent, 555)
                                 }
