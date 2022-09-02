@@ -259,6 +259,12 @@ object User {
         var mobile: String? = null
         var image_lavel: String? = null
         var name_user_lavel: String? = null
+        var doc_user_lavel: List<AppSideBarDocUserLevel>? = null
+    }
+
+    class AppSideBarDocUserLevel{
+        var criteria: String? = null
+        var priority_and_privileges: String? = null
     }
 
     /** Check User Login Status*/

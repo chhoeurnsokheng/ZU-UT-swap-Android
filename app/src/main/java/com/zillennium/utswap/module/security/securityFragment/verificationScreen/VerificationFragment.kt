@@ -161,8 +161,8 @@ class VerificationFragment :
                 override fun afterTextChanged(p0: Editable?) {
                     if (editBox.text.toString().length == 6 && editBox.text.toString().isNotEmpty()){
                         imgWrong.visibility = View.GONE
-                        linearCountdown.visibility = View.GONE
-                        stopTimer()
+//                        linearCountdown.visibility = View.GONE
+//                        stopTimer()
 //                        lifecycleScope.launch {
 //                            delay(1000)
 //                            if (arguments?.getString("title") == "register") {
@@ -173,7 +173,7 @@ class VerificationFragment :
 //                        }
                     } else if (editBox.text.toString().length == 6 && editBox.text.toString().isNotEmpty() ){
                         onBoxesBackgroundColor(1)
-                        stopTimer()
+//                        stopTimer()
                     }
                 }
 
@@ -220,6 +220,7 @@ class VerificationFragment :
 
             onBoxesBackgroundColor(2)
             onProgressBar(false)
+            linearCountdown.visibility = View.GONE
 
             when (arguments?.getString("title")) {
                 Constants.FundPassword.Register -> {
@@ -307,6 +308,7 @@ class VerificationFragment :
         binding.apply {
             onBoxesBackgroundColor(2)
             onProgressBar(false)
+            linearCountdown.visibility = View.GONE
             when (arguments?.getString("title")) {
                 Constants.FundPassword.ResetPassword -> {
 
@@ -367,6 +369,7 @@ class VerificationFragment :
 
             onBoxesBackgroundColor(2)
             onProgressBar(false)
+            linearCountdown.visibility = View.GONE
 
             when (arguments?.getString("title")) {
                 Constants.FundPassword.AddNumber -> {

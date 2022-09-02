@@ -396,6 +396,7 @@
     <string name="log_s">Logs</string>
     <string name="time">Time</string>
     <string name="action_remarks">Action Remarks</string>
+    <string name="action_ip">Action IP</string>
     <string name="forgot_login_password">Forgot Login Password</string>
     <string name="news">News</string>
     <string name="share">Share</string>
@@ -436,6 +437,7 @@
     <string name="live">Live</string>
     <string name="please_enter_email_or_phone_number">Please Enter Email or Phone Number</string>
     <string name="please_enter_a_password_longer_than_8_digits">Please Enter a Password Longer Than 8 Digits</string>
+    <string name="please_enter_4_digits_fund_password">Please Enter 4 Digits Fund Password</string>
     <string name="invalid_try_again">Invalid. Please Try Again</string>
     <string name="password_did_not_match">Password didn\'t match</string>
     <string name="email_phone_number_unavaible">Email/Phone Number Unavailable</string>
@@ -445,6 +447,8 @@
     <string name="phone_email_or_password_is_incorrect">Phone/Email or password is incorrect</string>
     <string name="password_does_not_match">Password does not match</string>
     <string name="please_enter_valid_email_or_phone">Please Enter valid Email/Phone number</string>
+    <string name="please_enter_valid_phone">Please Enter valid Phone number</string>
+    <string name="please_enter_phone">Please Enter Phone number</string>
     <string name="new_password_cannot_be_the_same_as_old">New Password cannot be the same as old Password</string>
     <string name="your_old_password_must_longer_than_8_digits">Your Old Password Must Longer Than 8 Digits</string>
     <string name="old_fund_password_wrong">Old fund password wrong!</string>
@@ -454,7 +458,7 @@
     <string name="__end__">======== End ========</string>
 
     <string name="this_account_already_have_phone_number">This account already have phone number</string>
-    <string name="please_enter_valid_phone_number">Please enter valid phone number</string>
+    <string name="please_enter_valid_phone_number">Please Enter valid phone number</string>
     <string name="success">Success</string>
     <string name="failed">Failed</string>
     <string name="phone_number_has_been_add_successfully">Phone Number has been added Successfully</string>
@@ -499,6 +503,7 @@
     <string name="to_account">To account:</string>
     <string name="your_phone_number_is_required_to_transfer_funds">Your Phone Number is Required to Transfer Funds</string>
     <string name="usd">USD</string>
+    <string name="normal">Normal</string>
 
 
 

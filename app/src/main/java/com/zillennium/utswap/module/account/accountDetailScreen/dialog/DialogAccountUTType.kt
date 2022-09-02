@@ -3,6 +3,7 @@ package com.zillennium.utswap.module.account.accountDetailScreen.dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.text.Html
 import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
@@ -31,7 +32,9 @@ class DialogAccountUTType : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         try {
             binding?.apply {
-
+                txtCriteria.text = Html.fromHtml(arguments?.getString("criteria").toString())
+                txtPriority.text = Html.fromHtml(arguments?.getString("priority").toString())
+                textAccountUtType.text = arguments?.getString("title").toString()
             }
         }catch (error: Exception) {
             // Must be safe
@@ -40,9 +43,16 @@ class DialogAccountUTType : DialogFragment() {
     }
 
     companion object {
-        fun newInstance(): DialogAccountUTType {
+        fun newInstance(
+            title: String?,
+            criteria: String?,
+            priority: String?,
+        ): DialogAccountUTType {
             val dialogAccountUTType = DialogAccountUTType()
             val args = Bundle()
+            args.putString("title",title)
+            args.putString("criteria",criteria)
+            args.putString("priority",priority)
             dialogAccountUTType.arguments = args
             return dialogAccountUTType
         }

@@ -18,7 +18,12 @@ class LogsAdapter(val item: List<Logs.AccountLogsData>)  : RecyclerView.Adapter<
             binding.apply {
                 txtTime.text = listData.addtime
                 txtActionRemarks.text = listData.type
-                txtStatus.text = listData.status
+                txtActionIp.text = listData.addip
+                if(listData.status.toString() == "1"){
+                    txtStatus.text = "Normal"
+                }else{
+                    txtStatus.text = listData.status
+                }
             }
         }
 

@@ -11,7 +11,7 @@
             layout="@layout/appbar_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/dimen_20"/>
+            android:layout_marginBottom="@dimen/dimen_20" />
 
         <LinearLayout
             android:id="@+id/linear_layout_ut_type"

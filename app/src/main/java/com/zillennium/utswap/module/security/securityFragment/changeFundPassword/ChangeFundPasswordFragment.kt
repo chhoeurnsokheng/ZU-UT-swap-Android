@@ -132,6 +132,8 @@ class ChangeFundPasswordFragment :
                     }
                     mPresenter.onSubmitOldFundPassword(User.CheckOldFundPasswordObject(editFundPassword.text.toString()),UTSwapApp.instance)
                 }else{
+                    txtMessage.visibility = View.VISIBLE
+                    txtMessage.text = resources.getString(R.string.please_enter_4_digits_fund_password)
 
                     for (child in numberVerification.children) {
                         child.background = ContextCompat.getDrawable(

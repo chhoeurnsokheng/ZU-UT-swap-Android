@@ -1,10 +1,9 @@
 package com.zillennium.utswap.module.account.logsScreen
 
-import android.content.Context
 import android.view.View
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.androidstudy.networkmanager.Tovuti
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
@@ -22,19 +21,21 @@ class LogsActivity :
 
     private var logsList = ArrayList<Logs.AccountLogsData>()
     private var logsAdapter: LogsAdapter? = null
-    private var page: Int? = 1
+    private var page: Int = 1
+    private var lastPosition = 0
+    private var isLastPage = false
+
     override fun initView() {
         super.initView()
         try {
+            onCallApi()
             binding.apply {
-                mPresenter.accountLogs(Logs.AccountLogsObject(page), UTSwapApp.instance)
                 imgClose.setOnClickListener {
                     finish()
                 }
-
-                onCallApi()
                 accountLoadingRefresh()
                 clickReadMore()
+                loadMoreData()
             }
             // Code
         } catch (error: Exception) {
@@ -47,11 +48,10 @@ class LogsActivity :
         binding.apply {
             mainProgressBar.visibility = View.GONE
             progressBarReadMore.visibility = View.GONE
-            layAccountLogsLoading.visibility = View.VISIBLE
             accountLogsSwipeRefresh.isRefreshing = false
 
 
-            if (data!!.isNotEmpty()) {
+            if (data?.isNotEmpty() == true) {
                 logsList.addAll(data)
                 val linearLayoutManager = LinearLayoutManager(this@LogsActivity)
                 rvLogs.layoutManager = linearLayoutManager
@@ -59,19 +59,18 @@ class LogsActivity :
                 rvLogs.adapter = logsAdapter
 
                 //Add more data page
-                page = page!! + 1
+                page++
+                layAccountLogsLoading.visibility = View.VISIBLE
                 txtReadMore.visibility = View.VISIBLE
-                txtLoading.visibility = View.GONE
+//                txtLoading.visibility = View.GONE
 
             } else {
 
-                layAccountLogsLoading.visibility = View.GONE
-                txtEndData.visibility = View.VISIBLE
             }
         }
     }
 
-    override fun accountLogsFail(body: Logs.AccountLogsRes) {
+    override fun accountLogsFail(data: Logs.AccountLogsRes) {
         binding.apply {
             mainProgressBar.visibility = View.VISIBLE
             accountLogsSwipeRefresh.isRefreshing = false
@@ -100,6 +99,7 @@ class LogsActivity :
                 txtEndData.visibility = View.GONE
                 page = 1
                 logsList.clear()
+                progressBarAutoScroll.visibility = View.GONE
                 mPresenter.accountLogs(Logs.AccountLogsObject(page), UTSwapApp.instance)
             }
         }
@@ -109,10 +109,29 @@ class LogsActivity :
         binding.apply {
             readMore.setOnClickListener {
                 txtReadMore.visibility = View.GONE
-                txtLoading.visibility = View.VISIBLE
                 progressBarReadMore.visibility = View.VISIBLE
                 mPresenter.accountLogs(Logs.AccountLogsObject(page), UTSwapApp.instance)
             }
         }
+    }
+
+    private fun loadMoreData() {
+        binding.rvLogs.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if (dy > 0) {
+                    lastPosition =
+                        (binding.rvLogs.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
+                    if (lastPosition == logsList.size - 1 && logsList.size < 4) {
+                        binding.progressBarAutoScroll.visibility = View.VISIBLE
+                        page++
+                        mPresenter.accountLogs(Logs.AccountLogsObject(page), UTSwapApp.instance)
+                    }
+
+
+                }
+            }
+        })
+
     }
 }

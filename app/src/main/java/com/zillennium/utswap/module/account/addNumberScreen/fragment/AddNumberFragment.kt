@@ -1,6 +1,7 @@
 package com.zillennium.utswap.module.account.addNumberScreen.fragment
 
 import android.content.Context
+import android.icu.lang.UProperty.WHITE_SPACE
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
@@ -23,6 +24,8 @@ class AddNumberFragment :
     override var mPresenter: AddNumberView.Presenter = AddNumberPresenter()
     override val layoutResource: Int = R.layout.fragment_account_add_number
 
+    private var countLoop = 0
+
     override fun initView() {
         super.initView()
 
@@ -38,6 +41,11 @@ class AddNumberFragment :
             }
 
             etInputPhoneNumber.addTextChangedListener(object : TextWatcher {
+
+                private val EMPTY_STRING = ""
+                private val WHITE_SPACE = " "
+                private var lastSource = EMPTY_STRING
+
                 override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
 
                 }
@@ -47,8 +55,21 @@ class AddNumberFragment :
                     etInputPhoneNumber.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.outline_edittext_add_phone_number)
                 }
 
-                override fun afterTextChanged(p0: Editable?) {
-
+                override fun afterTextChanged(s: Editable?) {
+                    var source = s.toString()
+                    if (lastSource != source) {
+                        source = source.replace(WHITE_SPACE, EMPTY_STRING)
+                        val stringBuilder = StringBuilder()
+                        countLoop++
+                        for (i in source.indices) {
+                            if (i > 0 && i % 3 == 0 && i != 9) {
+                                stringBuilder.append(WHITE_SPACE)
+                            }
+                            stringBuilder.append(source[i])
+                        }
+                        lastSource = stringBuilder.toString()
+                        s?.replace(0, s.length, lastSource)
+                    }
                 }
 
             })
@@ -62,10 +83,20 @@ class AddNumberFragment :
 
                 if (etInputPhoneNumber.text.toString().isEmpty() ) {
                     etInputPhoneNumber.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.outline_edittext_error_corner_16dp)
+                    txtMessage.visibility = View.VISIBLE
+                    txtMessage.text = resources.getString(R.string.please_enter_phone)
+                    isHaveError = true
+                }
+
+                if(etInputPhoneNumber.text.toString()[0] != '0'){
+                    etInputPhoneNumber.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.outline_edittext_error_corner_16dp)
+                    txtMessage.visibility = View.VISIBLE
+                    txtMessage.text = resources.getString(R.string.please_enter_valid_phone_number)
                     isHaveError = true
                 }
 
                 if(!validate().isValidPhoneNumber(etInputPhoneNumber.text.toString())){
+                    txtMessage.visibility = View.VISIBLE
                     txtMessage.text = resources.getString(R.string.please_enter_valid_phone_number)
                     etInputPhoneNumber.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.outline_edittext_error_corner_16dp)
                     isHaveError = true
@@ -74,23 +105,10 @@ class AddNumberFragment :
                 if (isHaveError) {
                     return@setOnClickListener
                 } else {
-//                    pbNext.visibility = View.VISIBLE
-//                    btnNext.isClickable = false
-//                    btnNext.alpha = 0.6F
-//
-//                    SettingVariable.phoneNumber.value = etInputPhoneNumber.text.toString()
-//                    SessionPreferences().SESSION_PHONE_NUMBER = etInputPhoneNumber.text.toString()
-//
-//                    Handler().postDelayed({
-//                        pbNext.visibility = View.GONE
-//                        btnNext.isClickable = true
-//                        btnNext.alpha = 1F
-//
-//                        findNavController().navigate(R.id.action_to_verification_security_fragment)
-//                    },3000)
                     onProgressBar(true)
+                    val phoneString = etInputPhoneNumber.text.toString().trim().replace(" ","")
 
-                    mPresenter.onAddPhoneNumber(User.AddPhoneNumberObject(etInputPhoneNumber.text.toString()),UTSwapApp.instance)
+                    mPresenter.onAddPhoneNumber(User.AddPhoneNumberObject(phoneString),UTSwapApp.instance)
                 }
             }
         }
@@ -100,7 +118,7 @@ class AddNumberFragment :
         onProgressBar(false)
         binding.apply {
             SessionPreferences().SESSION_SECURE_KEY_ADD_PHONE =  body.data?.secure_key.toString()
-            Constants.AddPhoneNumber.cellPhone = etInputPhoneNumber.text.toString()
+            Constants.AddPhoneNumber.cellPhone = etInputPhoneNumber.text.toString().trim().replace(" ","")
 
             findNavController().navigate(R.id.action_to_verification_security_fragment)
         }

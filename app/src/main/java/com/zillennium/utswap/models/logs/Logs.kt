@@ -20,6 +20,6 @@ object Logs{
     }
 
     class AccountLogsObject(
-        var page : Int? = 1
+        var page : Int? = null
     )
 }

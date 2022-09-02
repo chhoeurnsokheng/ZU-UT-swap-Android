@@ -29,6 +29,10 @@ class AccountDetailActivity :
     override var mPresenter: AccountDetailView.Presenter = AccountDetailPresenter()
     override val layoutResource: Int = R.layout.activity_account_detail
 
+    private var strCriteria: String? = ""
+    private var strPriority: String? = ""
+    private var strTitle: String? = ""
+
     override fun initView() {
         super.initView()
 
@@ -71,7 +75,7 @@ class AccountDetailActivity :
             }
 
             imgUtType.setOnClickListener {
-                val dialogAccountUTType: DialogAccountUTType = DialogAccountUTType.newInstance()
+                val dialogAccountUTType: DialogAccountUTType = DialogAccountUTType.newInstance(strTitle,strCriteria, strPriority)
                 dialogAccountUTType.show(supportFragmentManager, "dialogAccountUTType")
             }
 
@@ -96,6 +100,13 @@ class AccountDetailActivity :
         binding.apply {
 
             progressBar.visibility = View.GONE
+
+            strTitle = data.name_user_lavel.toString()
+
+            if(data.doc_user_lavel?.isNotEmpty() == true){
+                strCriteria = data.doc_user_lavel?.get(0)?.criteria.toString()
+                strPriority = data.doc_user_lavel?.get(0)?.priority_and_privileges.toString()
+            }
 
             if(!data.phonenumber.isNullOrEmpty())
             {
@@ -167,6 +178,8 @@ class AccountDetailActivity :
 
             if(data.kyc.toString() == "0")
             {
+                btnCertified.visibility = View.INVISIBLE
+            }else if(data.kyc.toString() == "2"){
                 btnCertified.visibility = View.INVISIBLE
             }else{
                 btnCertified.visibility = View.VISIBLE
