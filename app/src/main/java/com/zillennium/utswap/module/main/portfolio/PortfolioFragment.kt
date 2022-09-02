@@ -1,17 +1,23 @@
 package com.zillennium.utswap.module.main.portfolio
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.graphics.BlurMaskFilter
 import android.graphics.MaskFilter
+import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.androidstudy.networkmanager.Tovuti
+import com.github.mikephil.charting.animation.Easing
+import com.github.mikephil.charting.components.MarkerView
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
+import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
+import com.github.mikephil.charting.utils.MPPointF
 import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
 import com.zillennium.utswap.Datas.GlobalVariable.SettingVariable
 import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
@@ -380,17 +386,22 @@ class PortfolioFragment :
 
     override fun onGetPortfolioFail(data: Portfolio.GetPortfolio) {}
     override fun getPortfolioDashboardChartSuccess(dataSuccess: Portfolio.GetPortfolioDashboardChartRes) {
-
+        dataSuccess
         binding.apply {
-            val yValues = ArrayList<Entry>()
-            yValues.addAll(listOf(Entry(dataSuccess.data.maxOf { it.x }, dataSuccess.data.maxOf { it.y })))
-//            yValues.add(Entry(0f, 60f))
-//            yValues.add(Entry(1f, 50f))
-//            yValues.add(Entry(2f, 70f))
-//            yValues.add(Entry(3f, 30f))
-//            yValues.add(Entry(4f, 50f))
-//            yValues.add(Entry(5f, 60f))
-//            yValues.add(Entry(6f, 65f))
+            var yValues :ArrayList<Entry> = arrayListOf()
+//            /// yValues.addAll(listOf(Entry(dataSuccess.data.map { it.x }, dataSuccess.data.maxOf { it.y })))
+                
+//            Log.d("Portfolio","${dataSuccess.data.map { it.y}} HU hu  ${dataSuccess.data.map { it.y }} ")
+//              
+//           //  print("Hello" +listOf(Entry(dataSuccess.data.maxOf { it.x }, dataSuccess.data.maxOf { it.y })) )
+           //  yValues = dataSuccess.data  as ArrayList<Entry>
+            yValues.add(Entry(0f, 10f))
+            yValues.add(Entry(1f, 50f))
+            yValues.add(Entry(2f, 70f))
+            yValues.add(Entry(3f, 30f))
+            yValues.add(Entry(4f, 50f))
+            yValues.add(Entry(5f, 60f))
+            yValues.add(Entry(6f, 65f))
             val set1 = LineDataSet(yValues, "")
 
             set1.fillAlpha = 110
@@ -408,8 +419,15 @@ class PortfolioFragment :
             listData.add(83.20)
             listData.add(16.80)
             listData.add(12.0)
+            listData.add(1.0)
+            listData.add(14.0)
+            listData.add(19.0)
+            listData.add(2.0)
+            listData.add(21.0)
+
 
             chartPie.setDataOfChart(listData)
+            lineChart.setNoDataText("No forex yet!")
 
             //set attribute of line chart
             lineChart.description.isEnabled = false
@@ -420,6 +438,10 @@ class PortfolioFragment :
             set1.color = ContextCompat.getColor(UTSwapApp.instance, R.color.simple_green)
             lineChart.isDragEnabled = true
             lineChart.setScaleEnabled(true)
+            val markerView = CustomMarker(requireActivity(), R.layout.marker_view)
+            lineChart.marker = markerView
+            lineChart.animateX(1800, Easing.EaseInExpo)
+            
         }
 
 
@@ -592,5 +614,24 @@ class PortfolioFragment :
                 lineChart.axisRight.isEnabled = true
             }
         }
+    }
+}
+
+class CustomMarker(context: Context, layoutResource: Int):  MarkerView(context, layoutResource) {
+    override fun refreshContent(entry: Entry?, highlight: Highlight?) {
+        val value = entry?.y?.toDouble() ?: 0.0
+        var resText = ""
+        if(value.toString().length > 8){
+            resText = "Val: " + value.toString().substring(0,7)
+        }
+        else{
+            resText = "Val: " + value.toString()
+        }
+       // tvPrice.text = resText
+        super.refreshContent(entry, highlight)
+    }
+
+    override fun getOffsetForDrawingAtPoint(xpos: Float, ypos: Float): MPPointF {
+        return MPPointF(-width / 2f, -height - 10f)
     }
 }
