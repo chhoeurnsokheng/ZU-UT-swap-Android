@@ -388,13 +388,16 @@ class PortfolioFragment :
     override fun getPortfolioDashboardChartSuccess(dataSuccess: Portfolio.GetPortfolioDashboardChartRes) {
         dataSuccess
         binding.apply {
-            var yValues :ArrayList<Entry> = arrayListOf()
+            val yValues :ArrayList<Entry> = arrayListOf()
 //            /// yValues.addAll(listOf(Entry(dataSuccess.data.map { it.x }, dataSuccess.data.maxOf { it.y })))
                 
 //            Log.d("Portfolio","${dataSuccess.data.map { it.y}} HU hu  ${dataSuccess.data.map { it.y }} ")
 //              
 //           //  print("Hello" +listOf(Entry(dataSuccess.data.maxOf { it.x }, dataSuccess.data.maxOf { it.y })) )
            //  yValues = dataSuccess.data  as ArrayList<Entry>
+
+
+
             yValues.add(Entry(0f, 10f))
             yValues.add(Entry(1f, 50f))
             yValues.add(Entry(2f, 70f))
