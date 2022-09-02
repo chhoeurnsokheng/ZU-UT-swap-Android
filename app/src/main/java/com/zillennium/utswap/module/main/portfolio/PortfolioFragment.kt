@@ -79,7 +79,7 @@ class PortfolioFragment :
                 onCheckUserKYC()
                 onLayoutHeader()
                 onUserBalancePortfolio()
-             //   onGetDiagram()
+                onGetDiagram()
 
                 layFilter.setOnClickListener {
                     layFilter.isEnabled = false
@@ -387,65 +387,68 @@ class PortfolioFragment :
     override fun onGetPortfolioFail(data: Portfolio.GetPortfolio) {}
     override fun getPortfolioDashboardChartSuccess(dataSuccess: Portfolio.GetPortfolioDashboardChartRes) {
         dataSuccess
-        binding.apply {
-            val yValues :ArrayList<Entry> = arrayListOf()
-//            /// yValues.addAll(listOf(Entry(dataSuccess.data.map { it.x }, dataSuccess.data.maxOf { it.y })))
-                
-//            Log.d("Portfolio","${dataSuccess.data.map { it.y}} HU hu  ${dataSuccess.data.map { it.y }} ")
-//              
-//           //  print("Hello" +listOf(Entry(dataSuccess.data.maxOf { it.x }, dataSuccess.data.maxOf { it.y })) )
-           //  yValues = dataSuccess.data  as ArrayList<Entry>
 
-
-
-            yValues.add(Entry(0f, 10f))
-            yValues.add(Entry(1f, 50f))
-            yValues.add(Entry(2f, 70f))
-            yValues.add(Entry(3f, 30f))
-            yValues.add(Entry(4f, 50f))
-            yValues.add(Entry(5f, 60f))
-            yValues.add(Entry(6f, 65f))
-            val set1 = LineDataSet(yValues, "")
-
-            set1.fillAlpha = 110
-            set1.color = R.color.primary
-
-            dataSets.add(set1)
-
-            data = LineData(dataSets)
-
-            lineChart.data = data
-
-            //pass value to pie chart of another class
-            val listData = ArrayList<Double>()
-
-            listData.add(83.20)
-            listData.add(16.80)
-            listData.add(12.0)
-            listData.add(1.0)
-            listData.add(14.0)
-            listData.add(19.0)
-            listData.add(2.0)
-            listData.add(21.0)
-
-
-            chartPie.setDataOfChart(listData)
-            lineChart.setNoDataText("No forex yet!")
-
-            //set attribute of line chart
-            lineChart.description.isEnabled = false
-            lineChart.axisLeft.isEnabled = false
-            lineChart.xAxis.isEnabled = false
-            data!!.setDrawValues(false)
-            lineChart.legend.isEnabled = false
-            set1.color = ContextCompat.getColor(UTSwapApp.instance, R.color.simple_green)
-            lineChart.isDragEnabled = true
-            lineChart.setScaleEnabled(true)
-            val markerView = CustomMarker(requireActivity(), R.layout.marker_view)
-            lineChart.marker = markerView
-            lineChart.animateX(1800, Easing.EaseInExpo)
-            
-        }
+//        binding.apply {
+//            val yValues :ArrayList<Entry> = arrayListOf()
+//
+//
+////            /// yValues.addAll(listOf(Entry(dataSuccess.data.map { it.x }, dataSuccess.data.maxOf { it.y })))
+//
+////            Log.d("Portfolio","${dataSuccess.data.map { it.y}} HU hu  ${dataSuccess.data.map { it.y }} ")
+////
+////           //  print("Hello" +listOf(Entry(dataSuccess.data.maxOf { it.x }, dataSuccess.data.maxOf { it.y })) )
+//           //  yValues = dataSuccess.data  as ArrayList<Entry>
+//
+//
+//
+//            yValues.add(Entry(0f, 10f))
+//            yValues.add(Entry(1f, 50f))
+//            yValues.add(Entry(2f, 70f))
+//            yValues.add(Entry(3f, 30f))
+//            yValues.add(Entry(4f, 50f))
+//            yValues.add(Entry(5f, 60f))
+//            yValues.add(Entry(6f, 65f))
+//            val set1 = LineDataSet(yValues, "")
+//
+//            set1.fillAlpha = 110
+//            set1.color = R.color.primary
+//
+//            dataSets.add(set1)
+//
+//            data = LineData(dataSets)
+//
+//            lineChart.data = data
+//
+//            //pass value to pie chart of another class
+//            val listData = ArrayList<Double>()
+//
+//            listData.add(83.20)
+//            listData.add(16.80)
+//            listData.add(12.0)
+//            listData.add(1.0)
+//            listData.add(14.0)
+//            listData.add(19.0)
+//            listData.add(2.0)
+//            listData.add(21.0)
+//
+//
+//            chartPie.setDataOfChart(listData)
+//            lineChart.setNoDataText("No forex yet!")
+//
+//            //set attribute of line chart
+//            lineChart.description.isEnabled = false
+//            lineChart.axisLeft.isEnabled = false
+//            lineChart.xAxis.isEnabled = false
+//            data!!.setDrawValues(false)
+//            lineChart.legend.isEnabled = false
+//            set1.color = ContextCompat.getColor(UTSwapApp.instance, R.color.simple_green)
+//            lineChart.isDragEnabled = true
+//            lineChart.setScaleEnabled(true)
+//            val markerView = CustomMarker(requireActivity(), R.layout.marker_view)
+//            lineChart.marker = markerView
+//            lineChart.animateX(1800, Easing.EaseInExpo)
+//
+//        }
 
 
     }
