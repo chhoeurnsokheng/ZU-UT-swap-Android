@@ -12,10 +12,14 @@ class PortfolioView {
         override fun initView()
         fun onGetPortfolioSuccess(data: Portfolio.GetPortfolioData)
         fun onGetPortfolioFail(data: Portfolio.GetPortfolio)
+
+        fun getPortfolioDashboardChartSuccess(dataSuccess: Portfolio.GetPortfolioDashboardChartRes)
+        fun getPortfolioDashboardChartFailed(data: String)
     }
 
     interface Presenter : BaseMvpPresenter<View> {
         override fun initViewPresenter(context: Context, bundle: Bundle?)
         fun onGetPortfolio(body: Portfolio.GetPortfolioObject, context: Context)
+        fun getPortfolioDashboardChart(context: Context)
     }
 }

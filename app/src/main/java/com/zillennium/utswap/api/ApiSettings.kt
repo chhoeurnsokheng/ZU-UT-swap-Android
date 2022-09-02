@@ -168,5 +168,6 @@ object ApiSettings {
 
     /** Portfolio */
     const val PATH_PORTFOLIO = "portfolio/index"
+    const val PATH_DASHBOARD_CHART = "portfolio/dashboardchart"
 
 }

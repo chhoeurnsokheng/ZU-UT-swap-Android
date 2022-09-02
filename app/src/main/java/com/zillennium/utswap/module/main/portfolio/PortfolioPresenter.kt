@@ -14,6 +14,7 @@ class PortfolioPresenter : BaseMvpPresenterImpl<PortfolioView.View>(),
     PortfolioView.Presenter {
 
     var subscription: Subscription? = null
+    var getPortfolioDashboardChartSubscription: Subscription? = null
 
     override fun initViewPresenter(context: Context, bundle: Bundle?) {
         mBundle = bundle
@@ -24,18 +25,36 @@ class PortfolioPresenter : BaseMvpPresenterImpl<PortfolioView.View>(),
     override fun onGetPortfolio(body: Portfolio.GetPortfolioObject, context: Context) {
         subscription?.unsubscribe()
         subscription = ApiPortfolioImp().getPortfolio(body, context).subscribe({
-            if (it.status == 1){
+            if (it.status == 1) {
                 println(" ==Result== ${it.status}")
                 mView?.onGetPortfolioSuccess(it.data!!)
-            }else{
+            } else {
                 mView?.onGetPortfolioFail(it)
             }
-        },{
-            object : CallbackWrapper(it, UTSwapApp.instance, arrayListOf()){
+        }, {
+            object : CallbackWrapper(it, UTSwapApp.instance, arrayListOf()) {
                 override fun onCallbackWrapper(status: ApiManager.NetworkErrorStatus, data: Any) {
                     mView?.onFail(data.toString())
                 }
             }
         })
+    }
+
+    override fun getPortfolioDashboardChart(context: Context) {
+        getPortfolioDashboardChartSubscription?.unsubscribe()
+        getPortfolioDashboardChartSubscription =
+            ApiPortfolioImp().getPortfolioDashboardChart(context).subscribe({
+                mView?.getPortfolioDashboardChartSuccess(it)
+            }, { error ->
+                object : CallbackWrapper(error, context, arrayListOf()) {
+                    override fun onCallbackWrapper(
+                        status: ApiManager.NetworkErrorStatus,
+                        data: Any
+                    ) {
+                        mView?.getPortfolioDashboardChartFailed("Failed")
+                    }
+
+                }
+            })
     }
 }

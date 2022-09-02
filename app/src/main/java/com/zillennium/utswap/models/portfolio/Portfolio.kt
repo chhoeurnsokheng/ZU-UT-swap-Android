@@ -8,7 +8,15 @@ object Portfolio {
         var message: String? = null
         var data: GetPortfolioData? = null
     }
-
+    class GetPortfolioDashboardChartRes{
+        var status: Int? = null
+        var message: String? = null
+        var data:ArrayList<DataGetPortfolioDashboardChartRes> = arrayListOf()
+    }
+    class DataGetPortfolioDashboardChartRes{
+        var x:Float  = 0f
+        var y:Float  = 0f
+    }
     class GetPortfolioData{
         var id: String? = null
         var coinname: String? = null

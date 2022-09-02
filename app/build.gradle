@@ -256,4 +256,7 @@ dependencies {
     implementation 'com.google.android.play:core:1.8.0'
     implementation 'com.github.SanojPunchihewa:InAppUpdater:1.0.5'
 
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
+
+
 }

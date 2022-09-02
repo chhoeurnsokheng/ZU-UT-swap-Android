@@ -17,4 +17,11 @@ class ApiPortfolioImp: ApiManager() {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
 
+    fun getPortfolioDashboardChart(context: Context):Observable<Portfolio.GetPortfolioDashboardChartRes> =
+        mPortfolio.getPortfolioDashboardChart(
+            Header.getHeader(Header.Companion.AuthType.REQUIRED_TOKEN, context),
+        )
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+
 }
