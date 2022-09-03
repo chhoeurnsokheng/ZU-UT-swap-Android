@@ -4,9 +4,14 @@ object Logs{
     class AccountLogsRes{
         var status : Int? =null
         var message : String? = null
-        var data : List<AccountLogsData>? = emptyList()
+        var data : AccountLogsData? = null
     }
     class AccountLogsData{
+        var totalPage: Int? = null
+        var lists: List<AccountLogsLists>? = emptyList()
+    }
+
+    class AccountLogsLists{
         var id : String? = null
         var userid : String? = null
         var type : String? = null

@@ -1,5 +1,6 @@
 package com.zillennium.utswap.module.account.logsScreen
 
+import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,10 +20,11 @@ class LogsActivity :
     override var mPresenter: LogsView.Presenter = LogsPresenter()
     override val layoutResource: Int = R.layout.activity_account_logs
 
-    private var logsList = ArrayList<Logs.AccountLogsData>()
+    private var logsList = ArrayList<Logs.AccountLogsLists>()
     private var logsAdapter: LogsAdapter? = null
     private var page: Int = 1
     private var lastPosition = 0
+    private var totalPage = 1
     private var isLastPage = false
 
     override fun initView() {
@@ -44,15 +46,16 @@ class LogsActivity :
     }
 
 
-    override fun accountLogsSuccess(data: ArrayList<Logs.AccountLogsData>?) {
+    override fun accountLogsSuccess(data: Logs.AccountLogsRes) {
         binding.apply {
             mainProgressBar.visibility = View.GONE
             progressBarReadMore.visibility = View.GONE
             accountLogsSwipeRefresh.isRefreshing = false
 
+            totalPage = data.data?.totalPage!!
 
-            if (data?.isNotEmpty() == true) {
-                logsList.addAll(data)
+            if (data.data?.lists?.isNotEmpty() == true) {
+                logsList.addAll(data.data?.lists!!)
                 val linearLayoutManager = LinearLayoutManager(this@LogsActivity)
                 rvLogs.layoutManager = linearLayoutManager
                 logsAdapter = LogsAdapter(logsList)
@@ -96,7 +99,6 @@ class LogsActivity :
             )
 
             accountLogsSwipeRefresh.setOnRefreshListener {
-                txtEndData.visibility = View.GONE
                 page = 1
                 logsList.clear()
                 progressBarAutoScroll.visibility = View.GONE
@@ -122,7 +124,7 @@ class LogsActivity :
                 if (dy > 0) {
                     lastPosition =
                         (binding.rvLogs.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
-                    if (lastPosition == logsList.size - 1 && logsList.size < 4) {
+                    if (lastPosition == logsList.size - 1  && page < totalPage) {
                         binding.progressBarAutoScroll.visibility = View.VISIBLE
                         page++
                         mPresenter.accountLogs(Logs.AccountLogsObject(page), UTSwapApp.instance)

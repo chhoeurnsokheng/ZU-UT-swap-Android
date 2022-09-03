@@ -10,7 +10,7 @@ import retrofit2.http.Body
 class LogsView {
     interface View : BaseMvpView {
         override fun initView()
-        fun accountLogsSuccess(data: ArrayList<Logs.AccountLogsData>?)
+        fun accountLogsSuccess(data: Logs.AccountLogsRes)
         fun accountLogsFail(data: Logs.AccountLogsRes)
 //        override fun onFail(any: Any)
     }

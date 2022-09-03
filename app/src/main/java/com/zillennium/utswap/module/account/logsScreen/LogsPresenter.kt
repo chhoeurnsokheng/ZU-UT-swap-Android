@@ -26,7 +26,7 @@ class LogsPresenter : BaseMvpPresenterImpl<LogsView.View>(),
         subscription?.unsubscribe()
         subscription = ApiAccountLogsImp().accountLogs(body, context).subscribe({
             if (it.status == 1){
-                mView?.accountLogsSuccess(it.data as ArrayList<Logs.AccountLogsData>)
+                mView?.accountLogsSuccess(it)
             }else{
                 mView?.accountLogsFail(it)
             }
