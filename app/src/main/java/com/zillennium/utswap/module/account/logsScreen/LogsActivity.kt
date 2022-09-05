@@ -35,6 +35,12 @@ class LogsActivity :
                 imgClose.setOnClickListener {
                     finish()
                 }
+
+                val linearLayoutManager = LinearLayoutManager(this@LogsActivity)
+                rvLogs.layoutManager = linearLayoutManager
+                logsAdapter = LogsAdapter(logsList)
+                rvLogs.adapter = logsAdapter
+
                 accountLoadingRefresh()
                 clickReadMore()
                 loadMoreData()
@@ -52,22 +58,22 @@ class LogsActivity :
             progressBarReadMore.visibility = View.GONE
             accountLogsSwipeRefresh.isRefreshing = false
 
+            if(page == 1){
+                logsList.clear()
+            }
+
             totalPage = data.data?.totalPage!!
 
             if (data.data?.lists?.isNotEmpty() == true) {
                 logsList.addAll(data.data?.lists!!)
-                val linearLayoutManager = LinearLayoutManager(this@LogsActivity)
-                rvLogs.layoutManager = linearLayoutManager
-                logsAdapter = LogsAdapter(logsList)
-                rvLogs.adapter = logsAdapter
 
                 layAccountLogsLoading.visibility = View.VISIBLE
                 txtReadMore.visibility = View.VISIBLE
 //                txtLoading.visibility = View.GONE
 
-            } else {
-
             }
+
+            logsAdapter?.notifyDataSetChanged()
         }
     }
 
