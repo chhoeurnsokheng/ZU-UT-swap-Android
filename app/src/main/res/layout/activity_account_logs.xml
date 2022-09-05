@@ -39,155 +39,164 @@
             android:layout_below="@+id/lay_header"
             android:background="@color/gray_light"/>
 
-        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/account_logs_swipe_refresh"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_below="@+id/line">
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:nestedScrollingEnabled="false">
 
-                <RelativeLayout
+                <LinearLayout
+                    android:id="@+id/recycleView_header"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:nestedScrollingEnabled="false">
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dimen_8"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/dimen_20"
+                    android:paddingHorizontal="@dimen/dimen_20">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="start"
+                        android:text="@string/time"
+                        android:textAppearance="@style/regular_10"
+                        android:textColor="@color/dark_gray" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@string/action_remarks"
+                        android:textAppearance="@style/regular_10"
+                        android:textColor="@color/dark_gray" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:text="@string/action_ip"
+                        android:textAppearance="@style/regular_10"
+                        android:textColor="@color/dark_gray" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:text="@string/status"
+                        android:textAppearance="@style/regular_10"
+                        android:textColor="@color/dark_gray" />
+
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/line_header"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@+id/recycleView_header"
+                    android:layout_marginHorizontal="@dimen/dimen_20"
+                    android:background="@color/light_gray" />
+
+                <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                    android:id="@+id/account_logs_swipe_refresh"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/line_header"
+                    android:layout_marginHorizontal="@dimen/dimen_20">
 
                     <LinearLayout
-                        android:id="@+id/recycleView_header"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/dimen_8"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="@dimen/dimen_20"
-                        android:paddingHorizontal="@dimen/dimen_20">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="start"
-                            android:text="@string/time"
-                            android:textAppearance="@style/regular_10"
-                            android:textColor="@color/dark_gray" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="@string/action_remarks"
-                            android:textAppearance="@style/regular_10"
-                            android:textColor="@color/dark_gray" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="end"
-                            android:text="@string/action_ip"
-                            android:textAppearance="@style/regular_10"
-                            android:textColor="@color/dark_gray" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="end"
-                            android:text="@string/status"
-                            android:textAppearance="@style/regular_10"
-                            android:textColor="@color/dark_gray" />
-
-                    </LinearLayout>
-
-                    <View
-                        android:id="@+id/line_header"
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_below="@+id/recycleView_header"
-                        android:layout_marginHorizontal="@dimen/dimen_20"
-                        android:background="@color/light_gray" />
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rv_logs"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:overScrollMode="never"
-                        android:nestedScrollingEnabled="false"
-                        android:layout_below="@id/line_header"
-                        android:layout_marginHorizontal="@dimen/dimen_20"
-                        android:scrollbars="none" />
-
-                    <LinearLayout
-                        android:id="@+id/layout_recycle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="@dimen/dimen_20"
-                        android:layout_below="@id/rv_logs"
                         android:orientation="vertical">
 
-                        <ProgressBar
-                            android:id="@+id/progress_bar_auto_scroll"
-                            android:layout_gravity="center"
-                            android:layout_width="@dimen/dimen_20"
-                            android:layout_marginStart="@dimen/dimen_10"
-                            android:layout_marginTop="@dimen/dimen_10"
-                            android:visibility="gone"
-                            android:layout_height="@dimen/dimen_20" />
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rv_logs"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:overScrollMode="never"
+                            android:nestedScrollingEnabled="false"
+                            android:scrollbars="none" />
 
                         <LinearLayout
-                            android:id="@+id/lay_account_logs_loading"
+                            android:id="@+id/layout_recycle"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:gravity="center"
-                            android:paddingBottom="@dimen/dimen_20"
-                            android:visibility="invisible">
+                            android:layout_marginHorizontal="@dimen/dimen_20"
+                            android:layout_below="@id/account_logs_swipe_refresh"
+                            android:orientation="vertical">
+
+                            <ProgressBar
+                                android:id="@+id/progress_bar_auto_scroll"
+                                android:layout_gravity="center"
+                                android:layout_width="@dimen/dimen_20"
+                                android:layout_marginStart="@dimen/dimen_10"
+                                android:layout_marginTop="@dimen/dimen_10"
+                                android:visibility="gone"
+                                android:layout_height="@dimen/dimen_20" />
 
                             <LinearLayout
-                                android:id="@+id/read_more"
-                                android:layout_width="wrap_content"
+                                android:id="@+id/lay_account_logs_loading"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:gravity="center_vertical"
-                                android:orientation="horizontal">
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:paddingBottom="@dimen/dimen_20"
+                                android:visibility="invisible">
 
-                                <TextView
-                                    android:id="@+id/txt_read_more"
+                                <LinearLayout
+                                    android:id="@+id/read_more"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/read_more"
-                                    android:textAppearance="@style/regular_10" />
+                                    android:gravity="center_vertical"
+                                    android:orientation="horizontal">
 
-                                <ProgressBar
-                                    android:id="@+id/progress_bar_read_more"
-                                    android:layout_width="@dimen/dimen_20"
-                                    android:layout_marginStart="@dimen/dimen_10"
-                                    android:layout_height="@dimen/dimen_20" />
+                                    <TextView
+                                        android:id="@+id/txt_read_more"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="@string/read_more"
+                                        android:textAppearance="@style/regular_10" />
+
+                                    <ProgressBar
+                                        android:id="@+id/progress_bar_read_more"
+                                        android:layout_width="@dimen/dimen_20"
+                                        android:layout_marginStart="@dimen/dimen_10"
+                                        android:layout_height="@dimen/dimen_20" />
+                                </LinearLayout>
                             </LinearLayout>
+
+                            <TextView
+                                android:id="@+id/txt_end_data"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/dimen_15"
+                                android:gravity="center"
+                                android:text="======== End ======== "
+                                android:textColor="@color/primary"
+                                android:visibility="gone" />
                         </LinearLayout>
 
-                        <TextView
-                            android:id="@+id/txt_end_data"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="@dimen/dimen_15"
-                            android:gravity="center"
-                            android:text="======== End ======== "
-                            android:textColor="@color/primary"
-                            android:visibility="gone" />
                     </LinearLayout>
 
-                    <ProgressBar
-                        android:id="@+id/main_progress_bar"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true" />
+                </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-                </RelativeLayout>
 
-            </LinearLayout>
+                <ProgressBar
+                    android:id="@+id/main_progress_bar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true" />
 
-        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+            </RelativeLayout>
+
+        </LinearLayout>
+
     </RelativeLayout>
 </layout>

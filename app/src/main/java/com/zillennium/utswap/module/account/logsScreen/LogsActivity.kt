@@ -61,8 +61,6 @@ class LogsActivity :
                 logsAdapter = LogsAdapter(logsList)
                 rvLogs.adapter = logsAdapter
 
-                //Add more data page
-                page++
                 layAccountLogsLoading.visibility = View.VISIBLE
                 txtReadMore.visibility = View.VISIBLE
 //                txtLoading.visibility = View.GONE
@@ -110,6 +108,7 @@ class LogsActivity :
     private fun clickReadMore() {
         binding.apply {
             readMore.setOnClickListener {
+                page += 1
                 txtReadMore.visibility = View.GONE
                 progressBarReadMore.visibility = View.VISIBLE
                 mPresenter.accountLogs(Logs.AccountLogsObject(page), UTSwapApp.instance)
@@ -126,7 +125,7 @@ class LogsActivity :
                         (binding.rvLogs.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
                     if (lastPosition == logsList.size - 1  && page < totalPage) {
                         binding.progressBarAutoScroll.visibility = View.VISIBLE
-                        page++
+                        page += 1
                         mPresenter.accountLogs(Logs.AccountLogsObject(page), UTSwapApp.instance)
                     }
 
