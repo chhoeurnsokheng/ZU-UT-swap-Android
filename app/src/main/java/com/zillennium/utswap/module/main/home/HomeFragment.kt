@@ -418,16 +418,18 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
     private fun showBalanceClick() {
         binding.apply {
 
-            blurCondition = !blurCondition
-
             if (blurCondition) {
                 tradingBalance.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
                 tradingBalance.paint.maskFilter = null
                 eyeImage.setImageResource(R.drawable.ic_baseline_remove_red_eye_24)
+                blurCondition = false
+
             } else {
                 tradingBalance.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
                 tradingBalance.paint.maskFilter = blurMask
                 eyeImage.setImageResource(R.drawable.ic_baseline_visibility_off_24)
+                blurCondition = true
+
             }
         }
     }
