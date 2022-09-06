@@ -144,16 +144,8 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
                             statusKYC = "New"
                             btnVerify.text = "Verify Your Identity"
                             tvVerify.text = "Please verify your identity to start trading."
-                            btnVerify.backgroundTintList = ContextCompat.getColorStateList(
-                                this@MainActivity,
-                                R.color.primary
-                            )
-                            btnVerify.setTextColor(
-                                ContextCompat.getColor(
-                                    this@MainActivity,
-                                    R.color.white
-                                )
-                            )
+                            btnVerify.backgroundTintList = ContextCompat.getColorStateList(this@MainActivity, R.color.primary)
+                            btnVerify.setTextColor(ContextCompat.getColor(this@MainActivity, R.color.white))
 
                         }
                         layAuth.visibility = GONE
