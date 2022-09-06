@@ -5,12 +5,10 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.BlurMaskFilter
 import android.graphics.MaskFilter
-import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.androidstudy.networkmanager.Tovuti
-import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.components.MarkerView
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
@@ -19,15 +17,12 @@ import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import com.github.mikephil.charting.utils.MPPointF
 import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
-import com.zillennium.utswap.Datas.GlobalVariable.SettingVariable
 import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentNavbarPortfolioBinding
-import com.zillennium.utswap.models.financeHistorical.Historical
-import com.zillennium.utswap.models.home.BannerObj
-import com.zillennium.utswap.models.portfolio.*
+import com.zillennium.utswap.models.portfolio.Portfolio
 import com.zillennium.utswap.module.account.accountScreen.AccountActivity
 import com.zillennium.utswap.module.main.portfolio.adapter.*
 import com.zillennium.utswap.module.main.portfolio.dialog.FilterPortfolioDialogBottomSheet
@@ -35,12 +30,11 @@ import com.zillennium.utswap.module.security.securityActivity.signInScreen.SignI
 import com.zillennium.utswap.module.system.notification.NotificationActivity
 import com.zillennium.utswap.utils.Constants
 import com.zillennium.utswap.utils.UtilKt
-import okhttp3.internal.notify
 
 class PortfolioFragment :
     BaseMvpFragment<PortfolioView.View, PortfolioView.Presenter, FragmentNavbarPortfolioBinding>(),
     PortfolioView.View {
-
+    
     override var mPresenter: PortfolioView.Presenter = PortfolioPresenter()
     override val layoutResource: Int = R.layout.fragment_navbar_portfolio
 
