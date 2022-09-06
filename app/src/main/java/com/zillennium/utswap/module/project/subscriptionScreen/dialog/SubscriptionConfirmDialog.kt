@@ -137,7 +137,7 @@ class SubscriptionConfirmDialog : DialogFragment() {
                 )
                 Handler().postDelayed({
                     dismiss()
-                }, 2000)
+                }, 1000)
             }
             activity?.apply {
                 blurView.setupWith(findViewById<ViewGroup>(android.R.id.content))

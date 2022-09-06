@@ -24,7 +24,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginBottom="@dimen/dimen_15"
                     android:orientation="horizontal">
 
                     <LinearLayout
@@ -52,41 +51,6 @@
                             android:text="UT Test"
                             android:textAppearance="@style/medium_14"
                             android:textColor="@color/gray_999999" />
-
-                        <LinearLayout
-                            android:layout_width="@dimen/dimen_260"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="("
-                                android:textAppearance="@style/medium_14"
-                                android:textColor="@color/gray_999999" />
-
-                            <TextView
-                                android:id="@+id/tv_title"
-                                android:layout_width="@dimen/dimen_95"
-                                android:layout_height="wrap_content"
-                                android:ellipsize="marquee"
-                                android:fadingEdge="horizontal"
-                                android:marqueeRepeatLimit="marquee_forever"
-                                android:padding="@dimen/dimen_3"
-                                android:scrollHorizontally="true"
-                                android:singleLine="true"
-                                android:text="Professional"
-                                android:textAlignment="center"
-                                android:textAppearance="@style/medium_14"
-                                android:textColor="@color/dark_yellow" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text=")"
-                                android:textAppearance="@style/medium_14"
-                                android:textColor="@color/gray_999999" />
-                        </LinearLayout>
                     </LinearLayout>
 
                     <LinearLayout
@@ -114,6 +78,38 @@
                                 android:textColor="@color/white" />
                         </LinearLayout>
                     </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="@dimen/dimen_10">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="("
+                        android:textAppearance="@style/medium_14"
+                        android:textColor="@color/gray_999999" />
+
+                    <TextView
+                        android:id="@+id/tv_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/dimen_3"
+                        android:text="Professional"
+                        android:freezesText="true"
+                        android:textAlignment="textStart"
+                        android:textAppearance="@style/medium_14"
+                        android:textColor="@color/dark_yellow" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=")"
+                        android:textAppearance="@style/medium_14"
+                        android:textColor="@color/gray_999999" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -282,6 +278,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dimen_1"
+                android:layout_marginTop="@dimen/dimen_10"
                 android:background="@color/light_gray" />
         </LinearLayout>
     </LinearLayout>

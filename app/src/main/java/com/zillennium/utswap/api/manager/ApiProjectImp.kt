@@ -57,4 +57,12 @@ class ApiProjectImp : ApiManager() {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
 
+    /** Check Subscription Project Balance*/
+    fun subscriptionProjectCheck(body: SubscriptionProject.SubscriptionCheckObj,context: Context): Observable<SubscriptionProject.SubscriptionCheckRes> =
+        mProjectService.subscriptionProjectCheck(
+            Header.getHeader(Header.Companion.AuthType.REQUIRED_TOKEN, context),
+            body
+        )
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
 }

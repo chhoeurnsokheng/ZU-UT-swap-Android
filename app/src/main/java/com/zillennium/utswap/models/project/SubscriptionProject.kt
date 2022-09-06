@@ -57,4 +57,21 @@ object SubscriptionProject {
         var ut_number: Int? = null,
         var fund_password: String = ""
     )
+
+    /** Check Subscription Project Balance*/
+    class SubscriptionCheckRes{
+        var status: Int? = null
+        var message: String? = null
+        var data: SubscriptionCheckData? = null
+    }
+
+    class SubscriptionCheckData{
+
+    }
+
+    class SubscriptionCheckObj(
+        var id: Int?,
+        var ut_number: Int?,
+        var fund_password: String?
+    )
 }

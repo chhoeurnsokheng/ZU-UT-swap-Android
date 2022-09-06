@@ -1,5 +1,6 @@
 package com.zillennium.utswap.module.project.subscriptionScreen.bottomSheet
 
+import android.content.Context
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.os.Handler
@@ -12,16 +13,21 @@ import android.widget.AdapterView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
+import com.gis.z1android.api.errorhandler.CallbackWrapper
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
+import com.zillennium.utswap.api.manager.ApiManager
+import com.zillennium.utswap.api.manager.ApiProjectImp
 import com.zillennium.utswap.databinding.BottomSheetProjectSubscriptionBinding
+import com.zillennium.utswap.models.project.SubscriptionProject
 import com.zillennium.utswap.module.project.subscriptionScreen.dialog.SubscriptionConfirmDialog
 import com.zillennium.utswap.utils.Constants
 import com.zillennium.utswap.utils.formatThreeDigitValue
+import rx.Subscription
 
 
 class SubscriptionBottomSheet : BottomSheetDialogFragment(), AdapterView.OnItemSelectedListener {
@@ -33,6 +39,8 @@ class SubscriptionBottomSheet : BottomSheetDialogFragment(), AdapterView.OnItemS
     private var lastSource = EMPTY_STRING
     var count = 0
     private var isDelete = false
+
+    private var subscriptions: Subscription? = null
 
     //companion object == static
     companion object {
@@ -120,7 +128,10 @@ class SubscriptionBottomSheet : BottomSheetDialogFragment(), AdapterView.OnItemS
                 btnSubscript.isClickable = true
             }
 
+            println("======"+ arguments?.getInt("id") )
+
             btnSubscript.setOnClickListener {
+                onSubscriptionProjectCheck(SubscriptionProject.SubscriptionCheckObj(arguments?.getInt("id"),etInputVolume.text.toString().toInt(),"1234"),UTSwapApp.instance)
 //                val utSubscriptionPrice =
 //                    volumeDollarPrice?.let { formatThreeDigitValue(it, "###,###.##") }
 //                if (!etInputVolume.text.isNullOrEmpty()) {
@@ -140,27 +151,7 @@ class SubscriptionBottomSheet : BottomSheetDialogFragment(), AdapterView.OnItemS
 //                            "balanceHistoryDetailDialog"
 //                        )
 
-                val utSubscriptionPrice =
-                    volumeDollarPrice?.let { formatThreeDigitValue(it, "###,###.##") }
-                if (!etInputVolume.text.isNullOrEmpty()) {
-                    if (etInputVolume.text.toString().replace("\\s".toRegex(), "").toLong() > 0) {
-                        Constants.SubscriptionBottomSheet.id = arguments?.get("id").toString().toInt()
-                        Constants.SubscriptionBottomSheet.title = arguments?.get("title").toString()
-                        Constants.SubscriptionBottomSheet.project_name = arguments?.get("project_name").toString()
-                        Constants.SubscriptionBottomSheet.lock_time = arguments?.get("lock_time").toString()
-                        Constants.SubscriptionBottomSheet.volume_price = arguments?.get("volume_price").toString().toDouble()
-                        Constants.SubscriptionBottomSheet.volume = etInputVolume.text.toString()
-                        Constants.SubscriptionBottomSheet.subscription = utSubscriptionPrice.toString()
-                        Constants.SubscriptionBottomSheet.total_ut = arguments?.get("totalUT").toString().toInt()
-                        Constants.SubscriptionBottomSheet.min = arguments?.get("min").toString().toInt()
-                        Constants.SubscriptionBottomSheet.max = arguments?.get("max").toString().toInt()
-                        Handler().postDelayed({
-                            dismiss()
-                        }, 1000)
 
-                        SessionVariable.SESSION_SUBSCRIPTION_BOTTOM_SHEET.value = true
-                    }
-                }
             }
 
             txtStandard.text = arguments?.getString("title")
@@ -244,6 +235,49 @@ class SubscriptionBottomSheet : BottomSheetDialogFragment(), AdapterView.OnItemS
                     }
                 }
             })
+        }
+    }
+
+    private fun onSubscriptionProjectCheck(body: SubscriptionProject.SubscriptionCheckObj, context: Context){
+        subscriptions?.unsubscribe()
+        subscriptions = ApiProjectImp().subscriptionProjectCheck(body,context).subscribe({
+            if(it.status == 1){
+                onConfirmDialog()
+            }else{
+                Toast.makeText(UTSwapApp.instance, it.message.toString(),Toast.LENGTH_LONG).show()
+            }
+        },{
+            object : CallbackWrapper(it, UTSwapApp.instance, arrayListOf()){
+                override fun onCallbackWrapper(status: ApiManager.NetworkErrorStatus, data: Any) {
+                }
+            }
+        })
+
+    }
+
+    private fun onConfirmDialog(){
+        binding?.apply {
+            val utSubscriptionPrice =
+                volumeDollarPrice?.let { formatThreeDigitValue(it, "###,###.##") }
+            if (!etInputVolume.text.isNullOrEmpty()) {
+                if (etInputVolume.text.toString().replace("\\s".toRegex(), "").toLong() > 0) {
+                    Constants.SubscriptionBottomSheet.id = arguments?.get("id").toString().toInt()
+                    Constants.SubscriptionBottomSheet.title = arguments?.get("title").toString()
+                    Constants.SubscriptionBottomSheet.project_name = arguments?.get("project_name").toString()
+                    Constants.SubscriptionBottomSheet.lock_time = arguments?.get("lock_time").toString()
+                    Constants.SubscriptionBottomSheet.volume_price = arguments?.get("volume_price").toString().toDouble()
+                    Constants.SubscriptionBottomSheet.volume = etInputVolume.text.toString()
+                    Constants.SubscriptionBottomSheet.subscription = utSubscriptionPrice.toString()
+                    Constants.SubscriptionBottomSheet.total_ut = arguments?.get("totalUT").toString().toInt()
+                    Constants.SubscriptionBottomSheet.min = arguments?.get("min").toString().toInt()
+                    Constants.SubscriptionBottomSheet.max = arguments?.get("max").toString().toInt()
+                    Handler().postDelayed({
+                        dismiss()
+                    }, 1000)
+
+                    SessionVariable.SESSION_SUBSCRIPTION_BOTTOM_SHEET.value = true
+                }
+            }
         }
     }
 

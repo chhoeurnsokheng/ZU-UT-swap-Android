@@ -139,6 +139,11 @@ class SubscriptionActivity :
         binding.apply {
 
             subscriptionProjectSwipeRefresh.isRefreshing = false
+            subscriptionList.clear()
+            if(data.data?.isNotEmpty() == true)
+            {
+                data.data?.let { subscriptionList.addAll(it) }
+            }
 //            data.data?.forEach {
 //                txtEndTime.text = it.endtime
 //            }
@@ -146,8 +151,7 @@ class SubscriptionActivity :
 
             recycleViewSubscriptionProject.layoutManager = LinearLayoutManager(UTSwapApp.instance)
             val subscriptionAdapter = SubscriptionAdapter(onclickAdapter, userLevel)
-            subscriptionAdapter.items =
-                data.data as ArrayList<SubscriptionProject.SubscriptionProjectData>
+            subscriptionAdapter.items = subscriptionList
             recycleViewSubscriptionProject.adapter = subscriptionAdapter
             subscriptionAdapter.notifyDataSetChanged()
 
@@ -218,9 +222,7 @@ class SubscriptionActivity :
                             min,
                             max
                         )
-                    Handler().postDelayed({
-                        subscriptionBottomSheetDialog.show(supportFragmentManager, "balanceHistoryDetailDialog")
-                    }, 800)
+                    subscriptionBottomSheetDialog.show(supportFragmentManager, "balanceHistoryDetailDialog")
                 }
             }
 
@@ -235,6 +237,7 @@ class SubscriptionActivity :
     override fun onBackPressed() {
         super.onBackPressed()
         SessionVariable.SESSION_SUBSCRIPTION_BOTTOM_SHEET.value = false
+        runnable?.let { handler.removeCallbacks(it) }
     }
 
     override fun onResume() {

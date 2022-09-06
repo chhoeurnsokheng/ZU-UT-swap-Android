@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.compose.ui.unit.TextUnit
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.zillennium.utswap.R
@@ -24,6 +23,10 @@ class SubscriptionAdapter(var onclickAdapter: OnclickAdapter, var userLevel: Str
         BaseViewHolder<ItemListProjectSubscriptionBinding>(root) {
         fun bindData(subscriptionList: SubscriptionProject.SubscriptionProjectData) {
             binding.apply {
+
+                //Marquee TextView
+                tvTitle.isSelected = true
+
                 val Dollar =
                     subscriptionList.price.let { formatThreeDigitValue(it ?: 0, "###,###.##") }
                 val UtValue = subscriptionList.deal?.let { groupingSeparatorInt(it.toInt()) }
@@ -35,14 +38,6 @@ class SubscriptionAdapter(var onclickAdapter: OnclickAdapter, var userLevel: Str
                 tvUtValue.text = UtValue.toString()
                 tvUtMainValue.text = UtMainValue.toString()
                 txtEndTime.text = subscriptionList.endtime
-
-                //Marquee TextView
-                tvTitle.isSingleLine = true
-                tvTitle.isSelected = true
-                tvTitle.setHorizontallyScrolling(true)
-                tvTitle.marqueeRepeatLimit = -1
-
-
 
                 val userLevelConvert = userLevel.replace("\\s".toRegex(), "").substring(2)
                 if (subscriptionList.user_account_type.toString().contains(userLevelConvert)) {
@@ -59,6 +54,7 @@ class SubscriptionAdapter(var onclickAdapter: OnclickAdapter, var userLevel: Str
                     imgCircle.imageTintList = ContextCompat.getColorStateList(UTSwapApp.instance, R.color.dark_pink)
                 }
                 itemView.setOnClickListener {
+                    itemView.isEnabled = false
                     if (!subscriptionList.user_account_type.toString().contains(userLevelConvert)) {
                         Toast.makeText(UTSwapApp.instance, "please upgrade your account", Toast.LENGTH_SHORT).show()
                     } else {
@@ -81,6 +77,10 @@ class SubscriptionAdapter(var onclickAdapter: OnclickAdapter, var userLevel: Str
                             }
                         }
                     }
+
+                    Handler().postDelayed({
+                        itemView.isEnabled = true
+                    }, 2000)
                 }
                 determinateBar.progress =
                     ((subscriptionList.deal?.toInt() ?: 0) * 100) / (subscriptionList.num?.toInt()
