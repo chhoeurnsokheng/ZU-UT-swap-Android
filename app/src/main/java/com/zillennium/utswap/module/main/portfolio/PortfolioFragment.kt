@@ -616,6 +616,7 @@ class PortfolioFragment :
     }
 }
 
+
 class CustomMarker(context: Context, layoutResource: Int):  MarkerView(context, layoutResource) {
     override fun refreshContent(entry: Entry?, highlight: Highlight?) {
         val value = entry?.y?.toDouble() ?: 0.0
@@ -634,3 +635,4 @@ class CustomMarker(context: Context, layoutResource: Int):  MarkerView(context, 
         return MPPointF(-width / 2f, -height - 10f)
     }
 }
+
