@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI.setupWithNavController
+import com.zillennium.CheckUserLoginClearToken
 import com.zillennium.utswap.BuildConfig
 import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
 import com.zillennium.utswap.Datas.StoredPreferences.KYCPreferences
@@ -90,7 +91,7 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
         homeFragment.onHomeMenuGrid(data.data?.status_kyc ?: false)
         onCheckSession()
         if (data.message =="Please sign in"){
-            checkStatusToken = true
+            CheckUserLoginClearToken.clearTokenExpired()
         }
     }
 
