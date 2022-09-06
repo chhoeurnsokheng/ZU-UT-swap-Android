@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager.widget.ViewPager
+import com.zillennium.CheckUserLoginClearToken
 import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
 import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
@@ -242,7 +243,8 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
 
     override fun onGetNewsHomeSuccess(data: News.NewsRes) {
         if (data.message== "Please sign in"){
-           checkUserLogin()
+            checkUserLogin()
+            CheckUserLoginClearToken.clearTokenExpired()
             mPresenter.getNewsHomeToken(requireContext())
         }
         newsList.clear()
