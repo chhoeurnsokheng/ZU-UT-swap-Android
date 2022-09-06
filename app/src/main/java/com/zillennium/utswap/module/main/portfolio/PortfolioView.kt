@@ -4,13 +4,12 @@ import android.content.Context
 import android.os.Bundle
 import com.zillennium.utswap.bases.mvp.BaseMvpPresenter
 import com.zillennium.utswap.bases.mvp.BaseMvpView
-import com.zillennium.utswap.models.home.BannerObj
 import com.zillennium.utswap.models.portfolio.Portfolio
 
 class PortfolioView {
     interface View : BaseMvpView {
         override fun initView()
-        fun onGetPortfolioSuccess(data: Portfolio.GetPortfolioData)
+        fun onGetPortfolioSuccess(data: Portfolio.GetPortfolio)
         fun onGetPortfolioFail(data: Portfolio.GetPortfolio)
 
         fun getPortfolioDashboardChartSuccess(dataSuccess: Portfolio.GetPortfolioDashboardChartRes)

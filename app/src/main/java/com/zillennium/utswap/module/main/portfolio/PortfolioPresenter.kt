@@ -26,8 +26,7 @@ class PortfolioPresenter : BaseMvpPresenterImpl<PortfolioView.View>(),
         subscription?.unsubscribe()
         subscription = ApiPortfolioImp().getPortfolio(body, context).subscribe({
             if (it.status == 1) {
-                println(" ==Result== ${it.status}")
-                mView?.onGetPortfolioSuccess(it.data!!)
+                mView?.onGetPortfolioSuccess(it)
             } else {
                 mView?.onGetPortfolioFail(it)
             }

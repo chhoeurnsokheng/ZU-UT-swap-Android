@@ -7,6 +7,7 @@ import android.graphics.BlurMaskFilter
 import android.graphics.MaskFilter
 import android.view.View
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.androidstudy.networkmanager.Tovuti
 import com.github.mikephil.charting.components.MarkerView
@@ -34,7 +35,7 @@ import com.zillennium.utswap.utils.UtilKt
 class PortfolioFragment :
     BaseMvpFragment<PortfolioView.View, PortfolioView.Presenter, FragmentNavbarPortfolioBinding>(),
     PortfolioView.View {
-    
+
     override var mPresenter: PortfolioView.Presenter = PortfolioPresenter()
     override val layoutResource: Int = R.layout.fragment_navbar_portfolio
 
@@ -132,13 +133,16 @@ class PortfolioFragment :
         }
     }
 
-    override fun onGetPortfolioSuccess(data: Portfolio.GetPortfolioData) {
+    override fun onGetPortfolioSuccess(data: Portfolio.GetPortfolio) {
+            if (data.message =="Please sign in"){
+                checkUserLogin()
+            }
         mPresenter.getPortfolioDashboardChart(requireActivity())
         binding.apply {
             loadingProgressBar.visibility = View.GONE
             layTradingBalance.visibility = View.VISIBLE
             txtBalance.text =
-                "$ " + data.total_user_balance?.let { UtilKt().formatValue(it, "###,###.##") }
+                "$ " + data.data?.total_user_balance?.let { UtilKt().formatValue(it, "###,###.##") }
 
             filter = 0
 
@@ -147,12 +151,12 @@ class PortfolioFragment :
             chartPie.visibility = View.GONE
             onClearList()
 
-            if (data.profolio_dashboard.isNotEmpty()) {
+            if (data.data?.profolio_dashboard?.isNotEmpty() == true) {
                 when (portfolioSelectType) {
                     Constants.PortfolioFilter.Change -> {
                         linearLayoutChange.visibility = View.VISIBLE
 
-                        changeList.addAll(data.profolio_dashboard)
+                        data.data?.let { changeList.addAll(it.profolio_dashboard) }
                         rvFilter.layoutManager = LinearLayoutManager(UTSwapApp.instance)
                         val changePortfolioAdapter = ChangeAdapter()
                         changePortfolioAdapter.items = changeList
@@ -193,7 +197,7 @@ class PortfolioFragment :
                         }
 
                         lineChart.visibility = View.VISIBLE
-                        txtTradingBalance.text = "$ " + data.total_market_value?.let {
+                        txtTradingBalance.text = "$ " + data.data?.total_market_value?.let {
                             UtilKt().formatValue(
                                 it,
                                 "###,###.##"
@@ -204,7 +208,7 @@ class PortfolioFragment :
                     Constants.PortfolioFilter.Performance -> {
                         linearLayoutPerformance.visibility = View.VISIBLE
 
-                        performanceList.addAll(data.profolio_dashboard)
+                        data.data?.profolio_dashboard?.let { performanceList.addAll(it) }
                         rvFilter.layoutManager = LinearLayoutManager(UTSwapApp.instance)
                         val performancePortfolioAdapter = PerformanceAdapter()
                         performancePortfolioAdapter.items = performanceList
@@ -246,7 +250,7 @@ class PortfolioFragment :
                         }
 
                         lineChart.visibility = View.VISIBLE
-                        txtTradingBalance.text = "$ " + data.total_market_value?.let {
+                        txtTradingBalance.text = "$ " + data.data?.total_market_value?.let {
                             UtilKt().formatValue(
                                 it,
                                 "###,###.##"
@@ -256,14 +260,14 @@ class PortfolioFragment :
                     Constants.PortfolioFilter.Price -> {
                         linearLayoutPrice.visibility = View.VISIBLE
 
-                        priceList.addAll(data.profolio_dashboard)
+                        data.data?.profolio_dashboard?.let { priceList.addAll(it) }
                         rvFilter.layoutManager = LinearLayoutManager(UTSwapApp.instance)
                         val pricePortfolioAdapter = PriceAdapter()
                         pricePortfolioAdapter.items = priceList
                         rvFilter.adapter = pricePortfolioAdapter
 
                         lineChart.visibility = View.VISIBLE
-                        txtTradingBalance.text = "$ " + data.total_market_value?.let {
+                        txtTradingBalance.text = "$ " + data.data?.total_market_value?.let {
                             UtilKt().formatValue(
                                 it,
                                 "###,###.##"
@@ -273,7 +277,7 @@ class PortfolioFragment :
                     Constants.PortfolioFilter.Balance -> {
                         linearLayoutBalance.visibility = View.VISIBLE
 
-                        balanceList.addAll(data.profolio_dashboard)
+                        data.data?.profolio_dashboard?.let { balanceList.addAll(it) }
                         rvFilter.layoutManager = LinearLayoutManager(UTSwapApp.instance)
                         val balancePortfolioAdapter = BalanceAdapter()
                         balancePortfolioAdapter.items = balanceList
@@ -315,7 +319,7 @@ class PortfolioFragment :
                         }
 
                         lineChart.visibility = View.VISIBLE
-                        txtTradingBalance.text = "$ " + data.total_market_value?.let {
+                        txtTradingBalance.text = "$ " + data.data?.total_market_value?.let {
                             UtilKt().formatValue(
                                 it,
                                 "###,###.##"
@@ -325,7 +329,7 @@ class PortfolioFragment :
                     Constants.PortfolioFilter.Weight -> {
                         linearLayoutWeight.visibility = View.VISIBLE
 
-                        weightList.addAll(data.profolio_dashboard)
+                        data.data?.profolio_dashboard?.let { weightList.addAll(it) }
                         rvFilter.layoutManager = LinearLayoutManager(UTSwapApp.instance)
                         val weightPortfolioAdapter = WeightAdapter()
                         weightPortfolioAdapter.items = weightList
@@ -366,7 +370,7 @@ class PortfolioFragment :
                         }
 
                         chartPie.visibility = View.VISIBLE
-                        txtTradingBalance.text = "$ " + data.total_market_value?.let {
+                        txtTradingBalance.text = "$ " + data.data?.total_market_value?.let {
                             UtilKt().formatValue(
                                 it,
                                 "###,###.##"
@@ -614,7 +618,15 @@ class PortfolioFragment :
             }
         }
     }
+
+    private fun checkUserLogin(){
+        val intent = Intent(requireActivity(), SignInActivity::class.java)
+        startActivity(intent)
+    }
 }
+
+
+
 
 
 class CustomMarker(context: Context, layoutResource: Int):  MarkerView(context, layoutResource) {
