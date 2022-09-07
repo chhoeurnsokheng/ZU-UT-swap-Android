@@ -133,14 +133,25 @@ class AccountDetailActivity :
                 txtAddPhoneNumber.isEnabled = true
             }
 
-            if (!data.username.isNullOrEmpty())
+            if(data.kyc.toString() == "0")
             {
-                txtName.text = data.truename.toString()
-                txtName.isEnabled = false
-            }else{
                 txtName.text = resources.getString(R.string.verify_your_identity)
                 txtName.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
                 txtName.isEnabled = true
+            }else if(data.kyc.toString() == "2"){
+                txtName.text = resources.getString(R.string.kyc_approval_is_pending)
+                txtName.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
+                txtName.isEnabled = true
+            }else{
+                if (!data.username.isNullOrEmpty())
+                {
+                    txtName.text = data.truename.toString()
+                    txtName.isEnabled = false
+                }else{
+                    txtName.text = resources.getString(R.string.verify_your_identity)
+                    txtName.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
+                    txtName.isEnabled = true
+                }
             }
 
             Glide

@@ -75,7 +75,7 @@ class LogsActivity :
             }
 
             if(page == 2){
-                mPresenter.accountLogs(Logs.AccountLogsObject(1), UTSwapApp.instance)
+                mPresenter.accountLogs(Logs.AccountLogsObject(2), UTSwapApp.instance)
             }
 
             logsAdapter?.notifyDataSetChanged()

@@ -208,9 +208,11 @@ class ChangeLoginPasswordFragment :
             {
                 etOldPassword.backgroundTintList =
                     ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
+                txtPasswordMessage.text = resources.getString(R.string.old_password_is_wrong)
             }else if(data.message.toString() == "VERIFY PASSWORD DID NOT MATCH!"){
                 etConfirmPassword.backgroundTintList =
                     ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
+                txtPasswordMessage.text = resources.getString(R.string.verify_password_did_not_match)
             }else{
                 etOldPassword.backgroundTintList =
                     ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))

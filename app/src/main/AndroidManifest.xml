@@ -345,6 +345,12 @@
             android:resizeableActivity="true"
             android:screenOrientation="portrait"
             />
+        <activity
+            android:name=".module.account.accountKycPending.AccountKycPendingActivity"
+            android:configChanges="uiMode|keyboardHidden|screenSize|orientation|screenLayout"
+            android:resizeableActivity="true"
+            android:screenOrientation="portrait"
+            />
         <service
             android:name=".utils.MyFirebase"
             android:exported="false">
