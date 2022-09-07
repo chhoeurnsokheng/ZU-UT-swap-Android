@@ -15,6 +15,8 @@ class HomeView {
         fun onGetBannerFail(message: String)
         fun onGetNewsHomeSuccess(data: News.NewsRes)
         fun onGetNewsHomeFail(message: String)
+        fun onGetNewsHomeNoTokenSuccess(data: News.NewsRes)
+        fun onGetNewsHomeNoTokenFail(message: String)
         fun onGetWishListAndBalanceSuccess(data: BannerObj.whistListRes)
         fun onGetWishListAndBalanceFail(message: String)
     }
@@ -23,6 +25,7 @@ class HomeView {
         override fun initViewPresenter(context: Context, bundle: Bundle?)
         fun getBanner(context: Context)
         fun getNewsHome(context: Context)
+        fun getNewsHomeToken(context: Context)
         fun getWatchListAndBalance(context: Context)
     }
 }

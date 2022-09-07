@@ -44,7 +44,7 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
     private var isSelected = false
     private var isSignInSuccess = true
     private val homeFragment = HomeFragment()
-
+    private var checkStatusToken = false
     private var doubleBackToExitPressedOnce = false
     private var statusKYC = ""
 
@@ -59,7 +59,7 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
     }
 
     override fun onGetForceUpdateSuccess(data: ForceUpdate.ForceUpdateRes) {
-        if (BuildConfig.VERSION_NAME <data.data?.version.toString()){
+        if (BuildConfig.VERSION_NAME <data.data?.ANDROID?.version.toString()){
             DialogUtilKyc().customDialog(
                 com.zillennium.utswap.R.drawable.ic_force_update,
                 "New version available",
@@ -67,7 +67,7 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
                 "UPDATE NOW",
                 object : DialogUtil.OnAlertDialogClick {
                     override fun onLabelCancelClick() {
-                        val uri: Uri = Uri.parse(data.data!!.app_url?.android)
+                        val uri: Uri = Uri.parse(data.data?.ANDROID?.app_url?.android)
                         startActivity(Intent(Intent.ACTION_VIEW, uri))
                     }
                 },
@@ -89,7 +89,9 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
         kcyComplete = data.data?.status_kyc
         homeFragment.onHomeMenuGrid(data.data?.status_kyc ?: false)
         onCheckSession()
-
+        if (data.message =="Please sign in"){
+            checkStatusToken = true
+        }
     }
 
     override fun onCheckKYCFail() {
@@ -142,16 +144,8 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
                             statusKYC = "New"
                             btnVerify.text = "Verify Your Identity"
                             tvVerify.text = "Please verify your identity to start trading."
-                            btnVerify.backgroundTintList = ContextCompat.getColorStateList(
-                                this@MainActivity,
-                                R.color.primary
-                            )
-                            btnVerify.setTextColor(
-                                ContextCompat.getColor(
-                                    this@MainActivity,
-                                    R.color.white
-                                )
-                            )
+                            btnVerify.backgroundTintList = ContextCompat.getColorStateList(this@MainActivity, R.color.primary)
+                            btnVerify.setTextColor(ContextCompat.getColor(this@MainActivity, R.color.white))
 
                         }
                         layAuth.visibility = GONE
@@ -256,7 +250,9 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
 
                         }
                         R.id.navigation_navbar_portfolio -> {
+
                             SessionVariable.SESSION_KYC_STATUS.observe(this@MainActivity) {
+
                                 if (SessionPreferences().SESSION_TOKEN != null) {
                                     if (kcyComplete == false && isSignInSuccess) {
                                         val intent = Intent(
@@ -269,13 +265,18 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
                                             .show(portfolioFragment).commit()
                                         activeFragment = portfolioFragment
                                     }
+                                    if (SessionPreferences().SESSION_TOKEN ==null){
+                                        val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
+                                        startActivityForResult(intent, 555)
+                                    }
                                 } else {
-                                    val intent =
-                                        Intent(UTSwapApp.instance, SignInActivity::class.java)
+                                    val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
                                     startActivityForResult(intent, 555)
                                 }
                             }
-
+//                        if (checkStatusToken==true){
+//                            startActivity(Intent(this@MainActivity, SignInActivity::class.java))
+//                        }
 
                         }
                         R.id.navigation_navbar_trade -> {

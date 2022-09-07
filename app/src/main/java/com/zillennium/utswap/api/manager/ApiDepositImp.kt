@@ -57,4 +57,11 @@ class ApiDepositImp : ApiManager() {
         )
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
+    fun getDepositFee(context: Context):Observable<DataQueryOrderObj.DataQueryOrderRes> =
+        mDespositeService.getDepositFee(
+            Header.getHeader(
+                Header.Companion.AuthType.REQUIRED_TOKEN,
+                context
+            )
+        ).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
 }

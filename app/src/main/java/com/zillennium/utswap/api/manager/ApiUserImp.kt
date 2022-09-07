@@ -71,6 +71,33 @@ class ApiUserImp : ApiManager() {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
 
+    /** Change Login Password*/
+    fun changeLoginPassword(body: User.ChangeLoginPasswordObject, context: Context): Observable<User.ChangeLoginPasswordRes> =
+        mUserService.changeLoginPassword(
+            Header.getHeader(Header.Companion.AuthType.REQUIRED_TOKEN, context),
+            body
+        )
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+
+    /** Change Fund Password*/
+    fun checkOldFundPassword(body: User.CheckOldFundPasswordObject,context: Context): Observable<User.CheckOldFundPasswordRes> =
+        mUserService.checkOldFundPassword(
+            Header.getHeader(Header.Companion.AuthType.REQUIRED_TOKEN, context),
+            body
+        )
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+
+
+    fun changeFundPassword(body: User.ChangeFundPasswordObject, context: Context): Observable<User.ChangeFundPasswordRes> =
+        mUserService.changeFundPassword(
+            Header.getHeader(Header.Companion.AuthType.REQUIRED_TOKEN, context),
+            body
+        )
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+
     /** Add Phone Number*/
     fun addPhoneNumber(body: User.AddPhoneNumberObject,context: Context): Observable<User.AddPhoneNumberRes> =
         mUserService.addPhoneNumberService(

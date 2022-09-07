@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.os.Message
 import com.zillennium.utswap.bases.mvp.BaseMvpPresenter
 import com.zillennium.utswap.bases.mvp.BaseMvpView
+import com.zillennium.utswap.models.deposite.DataQueryOrderObj
 import com.zillennium.utswap.models.deposite.DepositObj
 
 class DepositView {
@@ -18,6 +19,9 @@ class DepositView {
 
         fun onGetDepositTransferBalanceLogSuccess(data: DepositObj.DepositRes)
         fun onGetDepositTransferBalanceLogFailed(message: String)
+
+        fun onGetDepositFeeSuccess(data: DataQueryOrderObj.DataQueryOrderRes)
+        fun onGetDepositFeeFailed(data: String)
     }
 
     interface Presenter : BaseMvpPresenter<View> {
@@ -27,5 +31,7 @@ class DepositView {
         fun onDepositBalance(context: Context, body: DepositObj.DepositRequestBody)
 
         fun onGetDepositTransferBalanceLog(context: Context)
+
+        fun getDepositFee(context: Context)
     }
 }

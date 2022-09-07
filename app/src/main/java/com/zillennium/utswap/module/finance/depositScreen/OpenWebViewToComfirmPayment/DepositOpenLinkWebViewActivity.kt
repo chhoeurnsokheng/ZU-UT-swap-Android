@@ -3,7 +3,6 @@ package com.zillennium.utswap.module.finance.depositScreen.OpenWebViewToComfirmP
 
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
@@ -18,8 +17,6 @@ import com.zillennium.utswap.models.deposite.DataQueryOrderObj
 import com.zillennium.utswap.models.deposite.DepositObj
 import com.zillennium.utswap.module.finance.depositScreen.depositSuccessfully.DepositSuccessfullyActivity
 import com.zillennium.utswap.utils.Constants
-import com.zillennium.utswap.utils.Constants.KeyViewPdf.Companion.content
-import com.zillennium.utswap.utils.intentOtherApp
 import java.util.*
 
 
@@ -73,6 +70,14 @@ class DepositOpenLinkWebViewActivity :
         webSettings.allowUniversalAccessFromFileURLs = true
         webSettings.javaScriptCanOpenWindowsAutomatically = true
         webSettings.loadsImagesAutomatically = true
+        webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN)
+        webPay.setScrollbarFadingEnabled(false)
+        webSettings.setUseWideViewPort(true)
+
+        webPay.setVerticalScrollBarEnabled(false)
+        webPay.setHorizontalScrollBarEnabled(false)
+
+
 
         webPay.webViewClient = object : WebViewClient() {
 
@@ -187,13 +192,13 @@ class DepositOpenLinkWebViewActivity :
 
     override fun getQueryOrderSuccess(data: DataQueryOrderObj.DataQueryOrderRes) {
         if (data.data?.dataQueryOrder?.data?.status == "SUCCESS") {
-            timer.cancel()
+
             DepositSuccessfullyActivity.lunchDepositSuccessfullyActivity(
                 this, transaction_id,
                 data.data?.dataQueryOrder?.data?.total_amount
             )
+            timer.cancel()
         }
-
     }
 
     override fun getQueryOrderFail(data: String) {}
@@ -232,6 +237,10 @@ class DepositOpenLinkWebViewActivity :
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        repeatTimer()
+    }
 }
 
 

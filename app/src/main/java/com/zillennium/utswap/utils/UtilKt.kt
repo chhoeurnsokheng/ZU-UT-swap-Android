@@ -42,6 +42,14 @@ class UtilKt {
         val formatter = DecimalFormat(formatString, formatSymbols)
         return formatter.format(value)
     }
+
+    fun formatValueTest(value: Number, formatString: String): String? {
+        val formatSymbols = DecimalFormatSymbols(Locale.ENGLISH)
+        formatSymbols.decimalSeparator = '.'
+        formatSymbols.groupingSeparator = ' '
+        val formatter = DecimalFormat(formatString, formatSymbols)
+        return formatter.format(value)
+    }
 }
 class SpaceDecoration(
     private val leftSpace: Int = 0,
