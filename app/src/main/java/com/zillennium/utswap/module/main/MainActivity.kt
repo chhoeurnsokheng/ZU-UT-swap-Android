@@ -31,6 +31,7 @@ import com.zillennium.utswap.module.main.news.NewsFragment
 import com.zillennium.utswap.module.main.portfolio.PortfolioFragment
 import com.zillennium.utswap.module.main.trade.tradeScreen.TradeFragment
 import com.zillennium.utswap.module.security.securityActivity.signInScreen.SignInActivity
+import com.zillennium.utswap.utils.ClientClearData
 import com.zillennium.utswap.utils.DialogUtil
 import com.zillennium.utswap.utils.DialogUtilKyc
 
@@ -95,6 +96,15 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
     override fun onCheckKYCFail() {
         binding.layAuth.visibility = VISIBLE
         binding.layVerify.visibility = GONE
+    }
+
+    override fun onCheckUserLoginStatusSuccess() {
+        ClientClearData.clearDataUser()
+        SessionVariable.USER_EXPIRE_TOKEN.value = true
+    }
+
+    override fun onCheckUserLoginStatusFail() {
+
     }
 
 
@@ -247,6 +257,7 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
 
                 navView.setOnItemSelectedListener { item ->
                     mPresenter.onCheckKYCStatus()
+                    mPresenter.onCheckUserLoginStatus(this@MainActivity)
                     when (item.itemId) {
                         R.id.navigation_navbar_home -> {
                             fragmentManager.beginTransaction().hide(activeFragment)

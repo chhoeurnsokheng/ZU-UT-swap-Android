@@ -3,14 +3,19 @@ package com.zillennium.utswap.module.main
 import android.content.Context
 import android.os.Bundle
 import com.gis.z1android.api.errorhandler.CallbackWrapper
+import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.api.manager.ApiHomeImp
 import com.zillennium.utswap.api.manager.ApiManager
+import com.zillennium.utswap.api.manager.ApiUserImp
 import com.zillennium.utswap.bases.mvp.BaseMvpPresenterImpl
 import rx.Subscription
 
 class MainPresenter : BaseMvpPresenterImpl<MainView.View>(),
     MainView.Presenter {
     var forceUpdateSubscription: Subscription? = null
+
+    private var subscriptionCheckUserLogin: Subscription? = null
+
     override fun initViewPresenter(context: Context, bundle: Bundle?) {
         mBundle = bundle
         mContext = context
@@ -59,5 +64,22 @@ class MainPresenter : BaseMvpPresenterImpl<MainView.View>(),
     var onCheckKYCStatusSubscription: Subscription? = null
     override fun onUnSubscript() {
         onCheckKYCStatusSubscription?.unsubscribe()
+    }
+
+    override fun onCheckUserLoginStatus(context: Context) {
+        subscriptionCheckUserLogin?.unsubscribe()
+        subscriptionCheckUserLogin = ApiUserImp().checkUserLoginStatus(context).subscribe({
+            if(it.status == 0){
+                mView?.onCheckUserLoginStatusSuccess()
+            }else{
+                mView?.onCheckUserLoginStatusFail()
+            }
+        },{
+            object : CallbackWrapper(it, UTSwapApp.instance, arrayListOf()){
+                override fun onCallbackWrapper(status: ApiManager.NetworkErrorStatus, data: Any) {
+                    mView?.onFail(data.toString())
+                }
+            }
+        })
     }
 }

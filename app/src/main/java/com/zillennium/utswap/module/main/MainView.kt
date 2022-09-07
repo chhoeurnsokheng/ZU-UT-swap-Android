@@ -16,12 +16,14 @@ class MainView {
         fun onCheckKYCSuccess(data: User.KycRes)
         fun onCheckKYCFail()
 
+        fun onCheckUserLoginStatusSuccess()
+        fun onCheckUserLoginStatusFail()
     }
 
     interface Presenter : BaseMvpPresenter<View> {
         override fun initViewPresenter(context: Context, bundle: Bundle?)
         fun checkForceUpdate(context: Context)
         fun onCheckKYCStatus()
-
+        fun onCheckUserLoginStatus(context: Context)
     }
 }

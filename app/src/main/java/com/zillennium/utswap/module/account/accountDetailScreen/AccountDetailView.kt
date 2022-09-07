@@ -11,6 +11,7 @@ class AccountDetailView {
         override fun initView()
         fun onGetUserInfoDetailSuccess(data: User.AppSideBarData)
         fun onGetUserInfoDetailFail(data: User.AppSideBarData)
+        fun userExpiredToken()
     }
 
     interface Presenter : BaseMvpPresenter<View> {

@@ -104,18 +104,16 @@
                     android:layout_marginHorizontal="@dimen/dimen_20"
                     android:background="@color/light_gray" />
 
-                <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-                    android:id="@+id/account_logs_swipe_refresh"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/line_header"
-                    android:layout_marginHorizontal="@dimen/dimen_20">
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/line_header">
 
-                    <LinearLayout
+                    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                        android:id="@+id/account_logs_swipe_refresh"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:nestedScrollingEnabled="false"
-                        android:orientation="vertical">
+                        android:layout_marginHorizontal="@dimen/dimen_20">
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/rv_logs"
@@ -183,9 +181,9 @@
                                 android:visibility="gone" />
                         </LinearLayout>
 
-                    </LinearLayout>
+                    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-                </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+                </LinearLayout>
 
 
                 <ProgressBar

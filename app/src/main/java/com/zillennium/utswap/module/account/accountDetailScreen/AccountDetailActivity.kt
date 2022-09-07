@@ -21,6 +21,8 @@ import com.zillennium.utswap.module.account.logsScreen.LogsActivity
 import com.zillennium.utswap.module.kyc.kycActivity.KYCActivity
 import com.zillennium.utswap.module.security.securityActivity.changeFundPassword.ChangeFundPasswordActivity
 import com.zillennium.utswap.module.security.securityActivity.changeLoginPassword.ChangeLoginPasswordActivity
+import com.zillennium.utswap.screens.navbar.navbar.MainActivity
+import com.zillennium.utswap.utils.ClientClearData
 
 class AccountDetailActivity :
         BaseMvpActivity<AccountDetailView.View, AccountDetailView.Presenter, ActivityAccountDetailBinding>(),
@@ -193,6 +195,13 @@ class AccountDetailActivity :
         binding.apply {
             progressBar.visibility = View.GONE
         }
+    }
+
+    override fun userExpiredToken() {
+        ClientClearData.clearDataUser()
+        startActivity(Intent(this@AccountDetailActivity, MainActivity::class.java))
+        finish()
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
     }
 
     private fun toolBar() {

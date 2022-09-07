@@ -17,6 +17,7 @@ import com.zillennium.utswap.module.main.news.adapter.NewsAdapter
 import com.zillennium.utswap.module.main.news.newsDetail.NewsDetailActivity
 import com.zillennium.utswap.module.security.securityActivity.signInScreen.SignInActivity
 import com.zillennium.utswap.module.system.notification.NotificationActivity
+import com.zillennium.utswap.screens.navbar.navbar.MainActivity
 
 
 class NewsFragment :
@@ -37,12 +38,24 @@ class NewsFragment :
         onCallApi()
         onOrderActivity()
         onSwipeRefresh()
+
+        SessionVariable.USER_EXPIRE_TOKEN.observe(this@NewsFragment){
+            if(it == true){
+                (activity as MainActivity).onRefreshData()
+                page = 1
+                listNews.clear()
+                binding.txtEnd.visibility = View.GONE
+                binding.layNewsLoading.visibility = View.GONE
+                mPresenter.onGetNews(UTSwapApp.instance, News.NewsObj(page))
+            }
+        }
     }
 
     private fun onCallApi(){
         Tovuti.from(UTSwapApp.instance).monitor{ _, isConnected, _ ->
             if(isConnected)
             {
+                binding.progressBar.visibility = View.VISIBLE
                 mPresenter.onGetNews(UTSwapApp.instance, News.NewsObj(page))
             }
         }
@@ -106,6 +119,13 @@ class NewsFragment :
                         startActivity(intent)
                     }
                     txtCountNotification.visibility =View.VISIBLE
+
+                    page = 1
+                    listNews.clear()
+                    txtEnd.visibility = View.GONE
+                    mPresenter.onGetNews(UTSwapApp.instance, News.NewsObj(page))
+                    layNewsLoading.visibility = View.GONE
+                    binding.progressBar.visibility = View.VISIBLE
                 }else{
                     imgMenu.setOnClickListener {
                         val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
@@ -116,19 +136,27 @@ class NewsFragment :
                         startActivity(intent)
                     }
                     txtCountNotification.visibility = View.GONE
+
+                    page = 1
+                    listNews.clear()
+                    txtEnd.visibility = View.GONE
+                    mPresenter.onGetNews(UTSwapApp.instance, News.NewsObj(page))
+                    layNewsLoading.visibility = View.GONE
+                    binding.progressBar.visibility = View.VISIBLE
                 }
-                page = 1
-                listNews.clear()
-                binding.txtEnd.visibility = View.GONE
-                mPresenter.onGetNews(UTSwapApp.instance,News.NewsObj(1))
             }
 
         }
+
         SessionVariable.SESSION_KYC.observe(this@NewsFragment) {
-            page = 1
-            listNews.clear()
-            binding.txtEnd.visibility = View.GONE
-            mPresenter.onGetNews(UTSwapApp.instance, News.NewsObj(1))
+            if(it == false){
+                page = 1
+                listNews.clear()
+                binding.txtEnd.visibility = View.GONE
+                mPresenter.onGetNews(UTSwapApp.instance, News.NewsObj(page))
+                binding.layNewsLoading.visibility = View.GONE
+                binding.progressBar.visibility = View.VISIBLE
+            }
         }
     }
 
@@ -165,6 +193,7 @@ class NewsFragment :
                 page = 1
                 listNews.clear()
                 txtEnd.visibility = View.GONE
+                layNewsLoading.visibility = View.GONE
                 mPresenter.onGetNews(UTSwapApp.instance, News.NewsObj(page))
             }
         }

@@ -28,7 +28,10 @@ import com.zillennium.utswap.module.account.lockTimeOutScreen.LockTimeOutActivit
 import com.zillennium.utswap.module.account.referralInformationScreen.ReferralInformationActivity
 import com.zillennium.utswap.screens.navbar.navbar.MainActivity
 import com.zillennium.utswap.module.kyc.kycActivity.KYCActivity
+import com.zillennium.utswap.module.security.securityActivity.signInScreen.SignInActivity
+import com.zillennium.utswap.utils.ClientClearData
 import com.zillennium.utswap.utils.DialogUtil
+import com.zillennium.utswap.utils.VerifyClientData
 import java.io.ByteArrayOutputStream
 import java.io.File
 
@@ -164,18 +167,19 @@ class AccountActivity :
                     "Sign Out",
                     object : DialogUtil.OnAlertDialogClick {
                         override fun onLabelCancelClick() {
-                            SessionVariable.SESSION_STATUS.value = false
-                            SessionVariable.SESSION_KYC.value = false
-                            SessionVariable.SESSION_KYC_STATUS.value = 0
-
-                            SessionPreferences().removeValue("SESSION_TOKEN")
-                            SessionPreferences().removeValue("SESSION_ID")
-                            SessionPreferences().removeValue("SESSION_USERNAME")
-                            SessionPreferences().removeValue("SESSION_KYC")
-                            SessionPreferences().removeValue("SESSION_X_TOKEN_API")
-                            SessionPreferences().removeValue("SESSION_STATUS")
-                            SessionPreferences().removeValue("SESSION_KYC_SUBMIT_STATUS")
-                            SessionPreferences().removeValue("SESSION_KYC_STATUS")
+//                            SessionVariable.SESSION_STATUS.value = false
+//                            SessionVariable.SESSION_KYC.value = false
+//                            SessionVariable.SESSION_KYC_STATUS.value = 0
+//
+//                            SessionPreferences().removeValue("SESSION_TOKEN")
+//                            SessionPreferences().removeValue("SESSION_ID")
+//                            SessionPreferences().removeValue("SESSION_USERNAME")
+//                            SessionPreferences().removeValue("SESSION_KYC")
+//                            SessionPreferences().removeValue("SESSION_X_TOKEN_API")
+//                            SessionPreferences().removeValue("SESSION_STATUS")
+//                            SessionPreferences().removeValue("SESSION_KYC_SUBMIT_STATUS")
+//                            SessionPreferences().removeValue("SESSION_KYC_STATUS")
+                            ClientClearData.clearDataUser()
 
                             startActivity(Intent(this@AccountActivity, MainActivity::class.java))
                             finish()
@@ -270,6 +274,13 @@ class AccountActivity :
 
     override fun uploadProfileFail(data: User.AccountUploadProfileRes) {
         Toast.makeText(UTSwapApp.instance,"Fail To Change Profile", Toast.LENGTH_LONG).show()
+    }
+
+    override fun userExpiredToken() {
+        ClientClearData.clearDataUser()
+        SessionVariable.USER_EXPIRE_TOKEN.value = true
+        startActivity(Intent(this@AccountActivity, MainActivity::class.java))
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
     }
 
     override fun onGetUserInfoFail(data: User.AppSideBarData) {

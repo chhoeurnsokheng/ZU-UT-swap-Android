@@ -22,7 +22,7 @@ class LogsActivity :
 
     private var logsList = ArrayList<Logs.AccountLogsLists>()
     private var logsAdapter: LogsAdapter? = null
-    private var page: Int = 1
+    private var page: Int = 2
     private var lastPosition = 0
     private var totalPage = 1
     private var isLastPage = false
@@ -70,7 +70,10 @@ class LogsActivity :
                 layAccountLogsLoading.visibility = View.VISIBLE
                 txtReadMore.visibility = View.VISIBLE
 //                txtLoading.visibility = View.GONE
+            }
 
+            if(page == 2){
+                mPresenter.accountLogs(Logs.AccountLogsObject(1), UTSwapApp.instance)
             }
 
             logsAdapter?.notifyDataSetChanged()
@@ -87,7 +90,7 @@ class LogsActivity :
     private fun onCallApi() {
         Tovuti.from(UTSwapApp.instance).monitor { _, isConnected, _ ->
             if (isConnected) {
-                mPresenter.accountLogs(Logs.AccountLogsObject(page), UTSwapApp.instance)
+                mPresenter.accountLogs(Logs.AccountLogsObject(1), UTSwapApp.instance)
             }
         }
     }
@@ -103,10 +106,10 @@ class LogsActivity :
             )
 
             accountLogsSwipeRefresh.setOnRefreshListener {
-                page = 1
+                page = 2
                 logsList.clear()
                 progressBarAutoScroll.visibility = View.GONE
-                mPresenter.accountLogs(Logs.AccountLogsObject(page), UTSwapApp.instance)
+                mPresenter.accountLogs(Logs.AccountLogsObject(1), UTSwapApp.instance)
             }
         }
     }
