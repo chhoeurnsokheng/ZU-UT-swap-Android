@@ -24,7 +24,6 @@ import com.zillennium.utswap.api.manager.ApiManager
 import com.zillennium.utswap.api.manager.ApiProjectImp
 import com.zillennium.utswap.databinding.BottomSheetProjectSubscriptionBinding
 import com.zillennium.utswap.models.project.SubscriptionProject
-import com.zillennium.utswap.module.project.subscriptionScreen.dialog.SubscriptionConfirmDialog
 import com.zillennium.utswap.utils.Constants
 import com.zillennium.utswap.utils.formatThreeDigitValue
 import rx.Subscription
@@ -131,7 +130,7 @@ class SubscriptionBottomSheet : BottomSheetDialogFragment(), AdapterView.OnItemS
             println("======"+ arguments?.getInt("id") )
 
             btnSubscript.setOnClickListener {
-                onSubscriptionProjectCheck(SubscriptionProject.SubscriptionCheckObj(arguments?.getInt("id"),etInputVolume.text.toString().toInt(),"1234"),UTSwapApp.instance)
+                onSubscriptionProjectCheck(SubscriptionProject.SubscriptionCheckObj(arguments?.getInt("id"),etInputVolume.text.toString().toInt()),UTSwapApp.instance)
 //                val utSubscriptionPrice =
 //                    volumeDollarPrice?.let { formatThreeDigitValue(it, "###,###.##") }
 //                if (!etInputVolume.text.isNullOrEmpty()) {
@@ -244,7 +243,12 @@ class SubscriptionBottomSheet : BottomSheetDialogFragment(), AdapterView.OnItemS
             if(it.status == 1){
                 onConfirmDialog()
             }else{
-                Toast.makeText(UTSwapApp.instance, it.message.toString(),Toast.LENGTH_LONG).show()
+                if(it.message.toString() == "Insufficient UT BalanceUSD")
+                {
+                    Toast.makeText(UTSwapApp.instance, "Insufficient UT Balance USD",Toast.LENGTH_LONG).show()
+                }else{
+                    Toast.makeText(UTSwapApp.instance, it.message.toString(),Toast.LENGTH_LONG).show()
+                }
             }
         },{
             object : CallbackWrapper(it, UTSwapApp.instance, arrayListOf()){

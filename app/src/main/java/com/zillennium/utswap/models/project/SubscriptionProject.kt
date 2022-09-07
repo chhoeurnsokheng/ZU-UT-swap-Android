@@ -71,7 +71,6 @@ object SubscriptionProject {
 
     class SubscriptionCheckObj(
         var id: Int?,
-        var ut_number: Int?,
-        var fund_password: String?
+        var ut_number: Int?
     )
 }
