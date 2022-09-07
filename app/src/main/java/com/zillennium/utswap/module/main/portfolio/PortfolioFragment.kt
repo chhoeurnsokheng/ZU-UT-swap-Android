@@ -10,10 +10,15 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.androidstudy.networkmanager.Tovuti
+import com.github.mikephil.charting.animation.Easing
+import com.github.mikephil.charting.components.AxisBase
+import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.MarkerView
+import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import com.github.mikephil.charting.utils.MPPointF
@@ -54,8 +59,8 @@ class PortfolioFragment :
 
     private var dataSets = ArrayList<ILineDataSet>()
     private var data: LineData? = null
-
-
+    val yxValues :ArrayList<Entry> = arrayListOf()
+    var month :ArrayList<String> = arrayListOf()
     @SuppressLint("UseCompatLoadingForDrawables", "NotifyDataSetChanged", "SetTextI18n")
     override fun initView() {
         super.initView()
@@ -70,11 +75,13 @@ class PortfolioFragment :
                 }
 
 
+                setDataToLineChart()
+                setUpLineChart()
                 onCallApi()
                 onCheckUserKYC()
                 onLayoutHeader()
                 onUserBalancePortfolio()
-                onGetDiagram()
+              //  onGetDiagram()
 
                 layFilter.setOnClickListener {
                     layFilter.isEnabled = false
@@ -385,26 +392,11 @@ class PortfolioFragment :
     override fun onGetPortfolioFail(data: Portfolio.GetPortfolio) {}
     override fun getPortfolioDashboardChartSuccess(dataSuccess: Portfolio.GetPortfolioDashboardChartRes) {
 
-//        binding.apply {
-//            val yValues :ArrayList<Entry> = arrayListOf()
-//
-//
-////            /// yValues.addAll(listOf(Entry(dataSuccess.data.map { it.x }, dataSuccess.data.maxOf { it.y })))
-//
-////            Log.d("Portfolio","${dataSuccess.data.map { it.y}} HU hu  ${dataSuccess.data.map { it.y }} ")
-////
-////           //  print("Hello" +listOf(Entry(dataSuccess.data.maxOf { it.x }, dataSuccess.data.maxOf { it.y })) )
-//           //  yValues = dataSuccess.data  as ArrayList<Entry>
-//
-//
-//
-//            yValues.add(Entry(0f, 10f))
-//            yValues.add(Entry(1f, 50f))
-//            yValues.add(Entry(2f, 70f))
-//            yValues.add(Entry(3f, 30f))
-//            yValues.add(Entry(4f, 50f))
-//            yValues.add(Entry(5f, 60f))
-//            yValues.add(Entry(6f, 65f))
+        binding.apply {
+            val yValues :ArrayList<Entry> = arrayListOf()
+            yxValues.addAll(listOf(Entry(dataSuccess.data.maxOf { it.x }, dataSuccess.data.maxOf { it.y })))
+             month = dataSuccess.data.map { it.date }.toList() as ArrayList<String>
+
 //            val set1 = LineDataSet(yValues, "")
 //
 //            set1.fillAlpha = 110
@@ -415,37 +407,24 @@ class PortfolioFragment :
 //            data = LineData(dataSets)
 //
 //            lineChart.data = data
-//
-//            //pass value to pie chart of another class
-//            val listData = ArrayList<Double>()
-//
-//            listData.add(83.20)
-//            listData.add(16.80)
-//            listData.add(12.0)
-//            listData.add(1.0)
-//            listData.add(14.0)
-//            listData.add(19.0)
-//            listData.add(2.0)
-//            listData.add(21.0)
-//
-//
-//            chartPie.setDataOfChart(listData)
-//            lineChart.setNoDataText("No forex yet!")
-//
-//            //set attribute of line chart
-//            lineChart.description.isEnabled = false
-//            lineChart.axisLeft.isEnabled = false
-//            lineChart.xAxis.isEnabled = false
-//            data!!.setDrawValues(false)
-//            lineChart.legend.isEnabled = false
-//            set1.color = ContextCompat.getColor(UTSwapApp.instance, R.color.simple_green)
-//            lineChart.isDragEnabled = true
-//            lineChart.setScaleEnabled(true)
-//            val markerView = CustomMarker(requireActivity(), R.layout.marker_view)
-//            lineChart.marker = markerView
-//            lineChart.animateX(1800, Easing.EaseInExpo)
-//
-//        }
+
+            //pass value to pie chart of another class
+            val listData = ArrayList<Double>()
+
+            listData.add(83.20)
+            listData.add(16.80)
+            listData.add(12.0)
+            listData.add(1.0)
+            listData.add(14.0)
+            listData.add(19.0)
+            listData.add(2.0)
+            listData.add(21.0)
+
+            chartPie.setDataOfChart(listData)
+
+
+
+        }
 
 
     }
@@ -518,6 +497,70 @@ class PortfolioFragment :
             if (SessionPreferences().SESSION_STATUS == true && SessionPreferences().SESSION_KYC == true) {
                 txtMessage.visibility = View.GONE
                 linearLayoutPortfolio.visibility = View.VISIBLE
+            }
+        }
+    }
+
+
+    private fun setUpLineChart() {
+        with(binding.lineChart) {
+            animateX(1200, Easing.EaseInSine)
+            description.isEnabled = false
+
+            xAxis.setDrawGridLines(false)
+            xAxis.position = XAxis.XAxisPosition.BOTTOM
+            xAxis.granularity = 1F
+            xAxis.valueFormatter = MyAxisFormatter
+            axisLeft.isEnabled = false
+            axisRight.isEnabled = true
+            extraRightOffset = 30f
+
+            legend.orientation = Legend.LegendOrientation.VERTICAL
+            legend.verticalAlignment = Legend.LegendVerticalAlignment.TOP
+            legend.horizontalAlignment = Legend.LegendHorizontalAlignment.CENTER
+            legend.textSize = 15F
+            legend.form = Legend.LegendForm.LINE
+        }
+    }
+
+    private fun setDataToLineChart() {
+
+        val weekTwoSales = LineDataSet(week2(), "")
+        weekTwoSales.lineWidth = 3f
+        weekTwoSales.valueTextSize = 15f
+        weekTwoSales.mode = LineDataSet.Mode.CUBIC_BEZIER
+        weekTwoSales.color = ContextCompat.getColor(requireActivity(), R.color.simple_green)
+        weekTwoSales.valueTextColor = ContextCompat.getColor(requireActivity(), R.color.simple_green)
+        val dataSet = ArrayList<ILineDataSet>()
+        dataSet.add(weekTwoSales)
+        weekTwoSales.setDrawValues(false)
+        weekTwoSales.valueTextColor = R.color.white
+        weekTwoSales.circleRadius = 6f
+        val lineData = LineData(dataSet)
+        binding.lineChart.data = lineData
+        binding.lineChart.invalidate()
+    }
+
+    private fun week2(): ArrayList<Entry> {
+        val sales = ArrayList<Entry>()
+        sales.add(Entry(0f, 11f))
+        sales.add(Entry(1f, 13f))
+        sales.add(Entry(2f, 18f))
+        sales.add(Entry(3f, 16f))
+        sales.add(Entry(4f, 22f))
+        return sales
+    }
+
+    object MyAxisFormatter : IndexAxisValueFormatter() {
+
+        private var items = arrayListOf("January",  "February", "March", "April","May", "June")
+
+        override fun getAxisLabel(value: Float, axis: AxisBase?): String? {
+            val index = value.toInt()
+            return if (index < items.size) {
+                items[index]
+            } else {
+                null
             }
         }
     }

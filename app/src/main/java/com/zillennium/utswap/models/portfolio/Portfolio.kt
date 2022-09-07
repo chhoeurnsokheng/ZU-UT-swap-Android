@@ -16,6 +16,7 @@ object Portfolio {
     class DataGetPortfolioDashboardChartRes{
         var x:Float  = 0f
         var y:Float  = 0f
+        var date:String?  =null
     }
     class GetPortfolioData{
         var id: String? = null
