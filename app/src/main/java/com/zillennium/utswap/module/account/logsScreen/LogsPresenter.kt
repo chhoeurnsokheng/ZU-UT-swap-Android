@@ -2,7 +2,6 @@ package com.zillennium.utswap.module.account.logsScreen
 
 import android.content.Context
 import android.os.Bundle
-
 import com.gis.z1android.api.errorhandler.CallbackWrapper
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.api.manager.ApiAccountLogsImp
@@ -28,7 +27,11 @@ class LogsPresenter : BaseMvpPresenterImpl<LogsView.View>(),
             if (it.status == 1){
                 mView?.accountLogsSuccess(it)
             }else{
-                mView?.accountLogsFail(it)
+                if(it.message.toString() == "Please sign in"){
+                    mView?.onUserExpiredToken()
+                }else{
+                    mView?.accountLogsFail(it)
+                }
             }
         },{
             object : CallbackWrapper(it, UTSwapApp.instance, arrayListOf()){

@@ -1,7 +1,7 @@
 package com.zillennium.utswap.module.account.addNumberScreen.fragment
 
 import android.content.Context
-import android.icu.lang.UProperty.WHITE_SPACE
+import android.content.Intent
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
@@ -14,6 +14,8 @@ import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentAccountAddNumberBinding
 import com.zillennium.utswap.models.userService.User
+import com.zillennium.utswap.screens.navbar.navbar.MainActivity
+import com.zillennium.utswap.utils.ClientClearData
 import com.zillennium.utswap.utils.Constants
 import com.zillennium.utswap.utils.validate
 
@@ -88,11 +90,13 @@ class AddNumberFragment :
                     isHaveError = true
                 }
 
-                if(etInputPhoneNumber.text.toString()[0] != '0'){
-                    etInputPhoneNumber.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.outline_edittext_error_corner_16dp)
-                    txtMessage.visibility = View.VISIBLE
-                    txtMessage.text = resources.getString(R.string.please_enter_valid_phone_number)
-                    isHaveError = true
+                if(etInputPhoneNumber.text.toString().isNotEmpty()){
+                    if(etInputPhoneNumber.text.toString()[0] != '0'){
+                        etInputPhoneNumber.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.outline_edittext_error_corner_16dp)
+                        txtMessage.visibility = View.VISIBLE
+                        txtMessage.text = resources.getString(R.string.please_enter_valid_phone_number)
+                        isHaveError = true
+                    }
                 }
 
                 if(!validate().isValidPhoneNumber(etInputPhoneNumber.text.toString())){
@@ -131,6 +135,13 @@ class AddNumberFragment :
             txtMessage.text = resources.getString(R.string.phone_number_already_used)
             etInputPhoneNumber.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.outline_edittext_error_corner_16dp)
         }
+    }
+
+    override fun onUserExpiredToken() {
+        ClientClearData.clearDataUser()
+        startActivity(Intent(requireActivity(), MainActivity::class.java))
+        activity?.finish()
+        requireActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
     }
 
     private fun onProgressBar(status: Boolean){

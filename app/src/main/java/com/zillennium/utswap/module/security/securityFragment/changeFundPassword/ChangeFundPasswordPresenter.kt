@@ -28,7 +28,11 @@ class ChangeFundPasswordPresenter : BaseMvpPresenterImpl<ChangeFundPasswordView.
             {
                 mView?.checkOldFundPasswordSuccess(it)
             }else{
-                mView?.checkOldFundPasswordFail(it)
+                if(it.message.toString() == "Please sign in"){
+                    mView?.onUserExpiredToken()
+                }else{
+                    mView?.checkOldFundPasswordFail(it)
+                }
             }
         },{
             object : CallbackWrapper(it, UTSwapApp.instance, arrayListOf()){

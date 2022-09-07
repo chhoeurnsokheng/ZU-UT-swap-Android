@@ -259,12 +259,24 @@ object User {
         var mobile: String? = null
         var image_lavel: String? = null
         var name_user_lavel: String? = null
-        var doc_user_lavel: List<AppSideBarDocUserLevel>? = null
+        var doc_user_lavel: AppSideBarDocUserLevel? = null
     }
 
     class AppSideBarDocUserLevel{
-        var criteria: String? = null
-        var priority_and_privileges: String? = null
+        var criteria: List<CriteriaList>? = null
+        var priority_and_privileges: List<PriorityAndPrivilegesList>? = null
+    }
+
+    class CriteriaList{
+        var id: Int? = null
+        var title: String? = null
+        var content: String? = null
+    }
+
+    class PriorityAndPrivilegesList{
+        var id: Int? = null
+        var title: String? = null
+        var content: String? = null
     }
 
     /** Check User Login Status*/

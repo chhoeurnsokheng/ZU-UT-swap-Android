@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="@dimen/dimen_350"
     android:orientation="vertical"
     android:layout_gravity="center_horizontal"
@@ -8,24 +8,26 @@
     android:background="@drawable/bg_balance_dialog"
     android:layout_height="500dp">
 
-
     <TextView
+        android:id="@+id/text_account_ut_type"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/dimen_20"
+        android:text="UT Premium"
+        android:textAlignment="center"
+        android:visibility="invisible"
         android:textAppearance="@style/medium_21"
         android:textColor="@color/black"
-        android:textStyle="bold"
-        android:layout_marginVertical="@dimen/dimen_20"
-        android:id="@+id/text_account_ut_type"
-        android:textAlignment="center"
-        android:text="UT Premium"/>
+        android:textStyle="bold" />
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_marginHorizontal="@dimen/dimen_20"
         android:scrollbars="none"
         android:overScrollMode="never"
+        android:layout_below="@+id/text_account_ut_type"
         android:layout_height="wrap_content">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:orientation="vertical"
@@ -37,449 +39,76 @@
                 android:orientation="vertical"
                 android:visibility="visible"
                 android:id="@+id/list_account_ut_standard"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/dimen_15">
+                android:layout_height="wrap_content">
 
                 <TextView
+                    android:id="@+id/tv_title_criteria"
                     android:layout_width="match_parent"
                     android:textAppearance="@style/medium_14"
                     android:text="Criteria"
                     android:padding="@dimen/dimen_4"
+                    android:visibility="invisible"
                     android:textColor="@color/black"
                     android:layout_height="wrap_content"
                     />
 
                 <View
+                    android:id="@+id/line_criteria"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dimen_2"
+                    android:visibility="invisible"
                     android:background="@color/gray_E7E7E7"
+                    android:layout_marginBottom="@dimen/dimen_7"
                     />
 
-                <TextView
-                    android:id="@+id/txt_criteria"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_criteria"
                     android:layout_width="match_parent"
-                    android:textAppearance="@style/medium_12"
-                    android:text=""
-                    android:layout_marginTop="@dimen/dimen_2"
-                    android:padding="@dimen/dimen_4"
-                    android:textColor="@color/black"
                     android:layout_height="wrap_content"
-                    />
+                    android:nestedScrollingEnabled="false"
+                    android:overScrollMode="never"
+                    android:scrollbars="none"/>
 
                 <TextView
+                    android:id="@+id/tv_tile_priority"
                     android:layout_width="match_parent"
                     android:textAppearance="@style/medium_14"
                     android:text="Priority and Privileges"
                     android:padding="@dimen/dimen_4"
-                    android:layout_marginTop="@dimen/dimen_30"
+                    android:visibility="invisible"
                     android:textColor="@color/black"
                     android:layout_height="wrap_content"
                     />
 
                 <View
+                    android:id="@+id/line_priority"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dimen_2"
+                    android:visibility="invisible"
                     android:background="@color/gray_E7E7E7"
+                    android:layout_marginBottom="@dimen/dimen_7"
                     />
 
-                <TextView
-                    android:id="@+id/txt_priority"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_priority"
                     android:layout_width="match_parent"
-                    android:textAppearance="@style/medium_12"
-                    android:text=""
-                    android:layout_marginTop="@dimen/dimen_2"
-                    android:padding="@dimen/dimen_4"
-                    android:textColor="@color/black"
                     android:layout_height="wrap_content"
-                    />
+                    android:nestedScrollingEnabled="false"
+                    android:overScrollMode="never"
+                    android:scrollbars="none"/>
+
             </LinearLayout>
 
-<!--            &lt;!&ndash;UT Premium&ndash;&gt;-->
-<!--            <LinearLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:orientation="vertical"-->
-<!--                android:id="@+id/list_account_ut_premium"-->
-<!--                android:visibility="gone"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginBottom="@dimen/dimen_15">-->
-
-<!--                <TextView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:textAppearance="@style/medium_14"-->
-<!--                    android:text="Criteria"-->
-<!--                    android:padding="@dimen/dimen_4"-->
-<!--                    android:textColor="@color/black"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    />-->
-
-<!--                <View-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="@dimen/dimen_2"-->
-<!--                    android:background="@color/gray_E7E7E7"-->
-<!--                    />-->
-
-<!--                <TextView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:textAppearance="@style/medium_12"-->
-<!--                    android:text="1. Registration and setup"-->
-<!--                    android:layout_marginTop="@dimen/dimen_2"-->
-<!--                    android:padding="@dimen/dimen_4"-->
-<!--                    android:textColor="@color/black"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    />-->
-
-<!--                <TextView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:textAppearance="@style/regular_12"-->
-<!--                    android:text=" Account registered, KYC submitted and approved."-->
-<!--                    android:layout_marginTop="@dimen/dimen_2"-->
-<!--                    android:textColor="@color/black_333333"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    />-->
-
-<!--                <TextView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:textAppearance="@style/medium_12"-->
-<!--                    android:text="2. Balance requirement"-->
-<!--                    android:layout_marginTop="@dimen/dimen_6"-->
-<!--                    android:padding="@dimen/dimen_4"-->
-<!--                    android:textColor="@color/black"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    />-->
-
-<!--                <TextView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:textAppearance="@style/regular_12"-->
-<!--                    android:text=">USD30K net balance in the past 3 months/for 3 months."-->
-<!--                    android:layout_marginTop="@dimen/dimen_2"-->
-<!--                    android:textColor="@color/black_333333"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    />-->
-
-<!--                <TextView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:textAppearance="@style/medium_12"-->
-<!--                    android:text="3. Trading activities"-->
-<!--                    android:layout_marginTop="@dimen/dimen_6"-->
-<!--                    android:padding="@dimen/dimen_4"-->
-<!--                    android:textColor="@color/black"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    />-->
-
-<!--                <TextView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:textAppearance="@style/regular_12"-->
-<!--                    android:text="Optional"-->
-<!--                    android:layout_marginTop="@dimen/dimen_2"-->
-<!--                    android:textColor="@color/black_333333"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    />-->
-
-<!--                <TextView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:textAppearance="@style/medium_12"-->
-<!--                    android:text="4. Training by Zillion United"-->
-<!--                    android:layout_marginTop="@dimen/dimen_6"-->
-<!--                    android:padding="@dimen/dimen_4"-->
-<!--                    android:textColor="@color/black"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    />-->
-
-<!--                <TextView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:textAppearance="@style/regular_12"-->
-<!--                    android:text="Training session completion "-->
-<!--                    android:layout_marginTop="@dimen/dimen_2"-->
-<!--                    android:textColor="@color/black_333333"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    />-->
-
-<!--                <TextView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:textAppearance="@style/medium_12"-->
-<!--                    android:text="5. Other requirements"-->
-<!--                    android:layout_marginTop="@dimen/dimen_6"-->
-<!--                    android:padding="@dimen/dimen_4"-->
-<!--                    android:textColor="@color/black"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    />-->
-
-<!--                <TextView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:textAppearance="@style/regular_12"-->
-<!--                    android:text="*Asset certificate deposit at Zillion Trust for balance margin accessibility "-->
-<!--                    android:layout_marginTop="@dimen/dimen_2"-->
-<!--                    android:textColor="@color/black_333333"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    />-->
-
-<!--                <TextView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:textAppearance="@style/medium_14"-->
-<!--                    android:text="Priority and Privileges"-->
-<!--                    android:padding="@dimen/dimen_4"-->
-<!--                    android:layout_marginTop="@dimen/dimen_30"-->
-<!--                    android:textColor="@color/black"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    />-->
-
-<!--                <View-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="@dimen/dimen_2"-->
-<!--                    android:background="@color/gray_E7E7E7"-->
-<!--                    />-->
-
-<!--                <TextView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:textAppearance="@style/medium_12"-->
-<!--                    android:text="1. Information"-->
-<!--                    android:layout_marginTop="@dimen/dimen_2"-->
-<!--                    android:padding="@dimen/dimen_4"-->
-<!--                    android:textColor="@color/black"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    />-->
-
-<!--                <TextView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:textAppearance="@style/regular_12"-->
-<!--                    android:text="View general information"-->
-<!--                    android:layout_marginTop="@dimen/dimen_2"-->
-<!--                    android:textColor="@color/black_333333"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    />-->
-
-<!--                <TextView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:textAppearance="@style/medium_12"-->
-<!--                    android:text="2. Market access"-->
-<!--                    android:layout_marginTop="@dimen/dimen_2"-->
-<!--                    android:padding="@dimen/dimen_6"-->
-<!--                    android:textColor="@color/black"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    />-->
-
-<!--                <TextView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:textAppearance="@style/regular_12"-->
-<!--                    android:text="Primary market subscription (presale discount)\nSecondary market\nProperty swap\nOffline project advanced notice"-->
-<!--                    android:layout_marginTop="@dimen/dimen_2"-->
-<!--                    android:textColor="@color/black_333333"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    />-->
-
-<!--                <TextView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:textAppearance="@style/medium_12"-->
-<!--                    android:text="3. Other benefits"-->
-<!--                    android:layout_marginTop="@dimen/dimen_2"-->
-<!--                    android:padding="@dimen/dimen_6"-->
-<!--                    android:textColor="@color/black"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    />-->
-
-<!--                <TextView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:textAppearance="@style/regular_12"-->
-<!--                    android:text="Credit margin (able to trade over existing trading balance)\nZ1 membership program"-->
-<!--                    android:layout_marginTop="@dimen/dimen_2"-->
-<!--                    android:textColor="@color/black_333333"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    />-->
-<!--            </LinearLayout>-->
-
-<!--            &lt;!&ndash; UT Professional&ndash;&gt;-->
-<!--            <LinearLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:orientation="vertical"-->
-<!--                android:visibility="gone"-->
-<!--                android:id="@+id/list_account_ut_professional"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginBottom="@dimen/dimen_15">-->
-
-<!--                <TextView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:textAppearance="@style/medium_14"-->
-<!--                    android:text="Criteria"-->
-<!--                    android:padding="@dimen/dimen_4"-->
-<!--                    android:textColor="@color/black"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    />-->
-
-<!--                <View-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="@dimen/dimen_2"-->
-<!--                    android:background="@color/gray_E7E7E7"-->
-<!--                    />-->
-
-<!--                <TextView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:textAppearance="@style/medium_12"-->
-<!--                    android:text="1. Registration and setup"-->
-<!--                    android:layout_marginTop="@dimen/dimen_2"-->
-<!--                    android:padding="@dimen/dimen_4"-->
-<!--                    android:textColor="@color/black"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    />-->
-
-<!--                <TextView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:textAppearance="@style/regular_12"-->
-<!--                    android:text=" Account registered, KYC submitted and approved."-->
-<!--                    android:layout_marginTop="@dimen/dimen_2"-->
-<!--                    android:textColor="@color/black_333333"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    />-->
-
-<!--                <TextView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:textAppearance="@style/medium_12"-->
-<!--                    android:text="2. Balance requirement"-->
-<!--                    android:layout_marginTop="@dimen/dimen_6"-->
-<!--                    android:padding="@dimen/dimen_4"-->
-<!--                    android:textColor="@color/black"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    />-->
-
-<!--                <TextView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:textAppearance="@style/regular_12"-->
-<!--                    android:text=">USD50K net balance in the past 3 months/for 3 months."-->
-<!--                    android:layout_marginTop="@dimen/dimen_2"-->
-<!--                    android:textColor="@color/black_333333"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    />-->
-
-<!--                <TextView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:textAppearance="@style/medium_12"-->
-<!--                    android:text="3. Trading activities"-->
-<!--                    android:layout_marginTop="@dimen/dimen_6"-->
-<!--                    android:padding="@dimen/dimen_4"-->
-<!--                    android:textColor="@color/black"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    />-->
-
-<!--                <TextView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:textAppearance="@style/regular_12"-->
-<!--                    android:text=">USD200K average trade value the past 3 months."-->
-<!--                    android:layout_marginTop="@dimen/dimen_2"-->
-<!--                    android:textColor="@color/black_333333"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    />-->
-
-<!--                <TextView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:textAppearance="@style/medium_12"-->
-<!--                    android:text="4. Training by Zillion United"-->
-<!--                    android:layout_marginTop="@dimen/dimen_6"-->
-<!--                    android:padding="@dimen/dimen_4"-->
-<!--                    android:textColor="@color/black"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    />-->
-
-<!--                <TextView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:textAppearance="@style/regular_12"-->
-<!--                    android:text="Training session completion "-->
-<!--                    android:layout_marginTop="@dimen/dimen_2"-->
-<!--                    android:textColor="@color/black_333333"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    />-->
-
-<!--                <TextView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:textAppearance="@style/medium_12"-->
-<!--                    android:text="5. Other requirements"-->
-<!--                    android:layout_marginTop="@dimen/dimen_6"-->
-<!--                    android:padding="@dimen/dimen_4"-->
-<!--                    android:textColor="@color/black"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    />-->
-
-<!--                <TextView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:textAppearance="@style/regular_12"-->
-<!--                    android:text="*Asset certificate deposit at Zillion Trust for balance margin accessibility."-->
-<!--                    android:layout_marginTop="@dimen/dimen_2"-->
-<!--                    android:textColor="@color/black_333333"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    />-->
-
-<!--                <TextView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:textAppearance="@style/medium_14"-->
-<!--                    android:text="Priority and Privileges"-->
-<!--                    android:padding="@dimen/dimen_4"-->
-<!--                    android:layout_marginTop="@dimen/dimen_30"-->
-<!--                    android:textColor="@color/black"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    />-->
-
-<!--                <View-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="@dimen/dimen_2"-->
-<!--                    android:background="@color/gray_E7E7E7"-->
-<!--                    />-->
-
-<!--                <TextView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:textAppearance="@style/medium_12"-->
-<!--                    android:text="1. Information"-->
-<!--                    android:layout_marginTop="@dimen/dimen_2"-->
-<!--                    android:padding="@dimen/dimen_4"-->
-<!--                    android:textColor="@color/black"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    />-->
-
-<!--                <TextView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:textAppearance="@style/regular_12"-->
-<!--                    android:text="View general information"-->
-<!--                    android:layout_marginTop="@dimen/dimen_2"-->
-<!--                    android:textColor="@color/black_333333"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    />-->
-
-<!--                <TextView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:textAppearance="@style/medium_12"-->
-<!--                    android:text="2. Market access"-->
-<!--                    android:layout_marginTop="@dimen/dimen_2"-->
-<!--                    android:padding="@dimen/dimen_6"-->
-<!--                    android:textColor="@color/black"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    />-->
-
-<!--                <TextView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:textAppearance="@style/regular_12"-->
-<!--                    android:text="Primary market subscription (presale discount)\nSecondary market\nProperty swap\nOffline project advanced notice"-->
-<!--                    android:layout_marginTop="@dimen/dimen_2"-->
-<!--                    android:textColor="@color/black_333333"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    />-->
-
-<!--                <TextView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:textAppearance="@style/medium_12"-->
-<!--                    android:text="3. Other benefits"-->
-<!--                    android:layout_marginTop="@dimen/dimen_2"-->
-<!--                    android:padding="@dimen/dimen_6"-->
-<!--                    android:textColor="@color/black"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    />-->
-
-<!--                <TextView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:textAppearance="@style/regular_12"-->
-<!--                    android:text="Credit margin (able to trade over existing trading balance)\nZ1 membership program"-->
-<!--                    android:layout_marginTop="@dimen/dimen_2"-->
-<!--                    android:textColor="@color/black_333333"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    />-->
-<!--            </LinearLayout>-->
         </LinearLayout>
-    </ScrollView>
-</LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"/>
+
+</RelativeLayout>
+
 </layout>

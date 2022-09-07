@@ -12,6 +12,7 @@ class LogsView {
         override fun initView()
         fun accountLogsSuccess(data: Logs.AccountLogsRes)
         fun accountLogsFail(data: Logs.AccountLogsRes)
+        fun onUserExpiredToken()
 //        override fun onFail(any: Any)
     }
 

@@ -50,7 +50,11 @@ class AccountPresenter : BaseMvpPresenterImpl<AccountView.View>(),
             if(it.status == 1){
                 mView?.uploadProfileSuccess(it)
             }else{
-                mView?.uploadProfileFail(it)
+                if(it.message.toString() == "Please sign in"){
+                    mView?.userExpiredToken()
+                }else{
+                    mView?.uploadProfileFail(it)
+                }
             }
         },{
             object : CallbackWrapper(it, UTSwapApp.instance, arrayListOf()){

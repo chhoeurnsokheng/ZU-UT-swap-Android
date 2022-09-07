@@ -3,6 +3,7 @@ package com.zillennium.utswap.module.security.securityFragment.newFundPassword
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
@@ -19,6 +20,8 @@ import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentAccountNewFundPasswordBinding
 import com.zillennium.utswap.models.userService.User
+import com.zillennium.utswap.screens.navbar.navbar.MainActivity
+import com.zillennium.utswap.utils.ClientClearData
 
 class NewFundPasswordFragment:
     BaseMvpFragment<NewFundPasswordView.View, NewFundPasswordView.Presenter, FragmentAccountNewFundPasswordBinding>(),
@@ -335,6 +338,13 @@ class NewFundPasswordFragment:
                 child.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
             }
         }
+    }
+
+    override fun onUserExpiredToken() {
+        ClientClearData.clearDataUser()
+        startActivity(Intent(requireActivity(), MainActivity::class.java))
+        activity?.finish()
+        requireActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
     }
 
     private fun onProgressBar(status: Boolean){

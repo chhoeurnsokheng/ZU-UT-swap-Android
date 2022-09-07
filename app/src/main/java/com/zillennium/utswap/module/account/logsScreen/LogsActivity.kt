@@ -1,6 +1,6 @@
 package com.zillennium.utswap.module.account.logsScreen
 
-import android.util.Log
+import android.content.Intent
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,6 +12,8 @@ import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityAccountLogsBinding
 import com.zillennium.utswap.models.logs.Logs
 import com.zillennium.utswap.module.account.logsScreen.adapter.LogsAdapter
+import com.zillennium.utswap.screens.navbar.navbar.MainActivity
+import com.zillennium.utswap.utils.ClientClearData
 
 class LogsActivity :
     BaseMvpActivity<LogsView.View, LogsView.Presenter, ActivityAccountLogsBinding>(),
@@ -85,6 +87,13 @@ class LogsActivity :
             mainProgressBar.visibility = View.VISIBLE
             accountLogsSwipeRefresh.isRefreshing = false
         }
+    }
+
+    override fun onUserExpiredToken() {
+        ClientClearData.clearDataUser()
+        startActivity(Intent(this@LogsActivity, MainActivity::class.java))
+        finish()
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
     }
 
     private fun onCallApi() {

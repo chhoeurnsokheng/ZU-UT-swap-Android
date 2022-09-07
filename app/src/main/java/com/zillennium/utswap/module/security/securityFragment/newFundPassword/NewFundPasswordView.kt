@@ -11,6 +11,7 @@ class NewFundPasswordView {
         override fun initView()
         fun onChangePasswordSuccess(body: User.ChangeFundPasswordRes)
         fun onChangePasswordFail(body: User.ChangeFundPasswordRes)
+        fun onUserExpiredToken()
     }
 
     interface Presenter : BaseMvpPresenter<View> {
