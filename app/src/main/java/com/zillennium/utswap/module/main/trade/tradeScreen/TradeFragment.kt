@@ -65,6 +65,7 @@ class TradeFragment :
         }
 
         fetchTradeData.observe(this@TradeFragment){
+            println("=== start socket trade list")
             if(search.isNotEmpty())
             {
                 search()

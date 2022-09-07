@@ -19,9 +19,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:textColor="@color/secondary_text"
-                android:textAppearance="@style/regular_14"
-                android:text="Please confirm your oder"
+                android:textColor="@color/black_0a0b12"
+                android:textAppearance="@style/bold_14"
+                android:text="@string/Please_confirm_your_order"
                 android:layout_marginBottom="@dimen/dimen_28"/>
 
             <LinearLayout
@@ -35,7 +35,7 @@
                     android:layout_height="wrap_content"
                     android:text="Project: "
                     android:textColor="@color/gray_888888"
-                    android:textAppearance="@style/regular_12"/>
+                    android:textAppearance="@style/medium_12"/>
 
                 <TextView
                     android:id="@+id/txt_project_name"
@@ -43,8 +43,8 @@
                     android:layout_height="wrap_content"
                     android:text=""
                     android:gravity="end"
-                    android:textColor="@color/black"
-                    android:textAppearance="@style/regular_12"/>
+                    android:textColor="@color/black_0a0b12"
+                    android:textAppearance="@style/medium_12"/>
 
             </LinearLayout>
 
@@ -64,7 +64,7 @@
                     android:layout_height="wrap_content"
                     android:text="Volume: "
                     android:textColor="@color/gray_888888"
-                    android:textAppearance="@style/regular_12"/>
+                    android:textAppearance="@style/medium_12"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -78,16 +78,16 @@
                         android:text="500"
                         android:gravity="end"
                         android:layout_marginStart="@dimen/dimen_10"
-                        android:textColor="@color/black"
-                        android:textAppearance="@style/regular_12"/>
+                        android:textColor="@color/black_0a0b12"
+                        android:textAppearance="@style/medium_12"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="end"
                         android:text=" UT"
-                        android:textColor="@color/black"
-                        android:textAppearance="@style/regular_12"/>
+                        android:textColor="@color/black_0a0b12"
+                        android:textAppearance="@style/medium_12"/>
 
                 </LinearLayout>
 
@@ -109,7 +109,7 @@
                     android:layout_height="wrap_content"
                     android:text="Price: "
                     android:textColor="@color/gray_888888"
-                    android:textAppearance="@style/regular_12"/>
+                    android:textAppearance="@style/medium_12"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -121,21 +121,39 @@
                         android:layout_height="wrap_content"
                         android:gravity="end"
                         android:text="Market"
-                        android:textColor="@color/black"
-                        android:textAppearance="@style/regular_12"/>
+                        android:textColor="@color/black_0a0b12"
+                        android:textAppearance="@style/medium_12"/>
 
                 </LinearLayout>
 
             </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_6"
-                android:textAppearance="@style/regular_10"
-                android:textColor="@color/dark_gray"
-                android:text="DISCLAIMER:  Market prices may change during order confirmation"
-                android:layout_marginBottom="@dimen/dimen_28"/>
+                android:layout_marginBottom="@dimen/dimen_28"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="*"
+                    android:textColor="@color/danger"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="@dimen/dimen_2"
+                    android:layout_marginBottom="@dimen/dimen_2"
+                    android:textAppearance="@style/regular_16"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/medium_12"
+                    android:textColor="@color/primary"
+                    android:layout_marginTop="@dimen/dimen_6"
+                    android:text="DISCLAIMER:  Market prices may change during order confirmation"
+                    />
+
+            </LinearLayout>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_buy_confirm"

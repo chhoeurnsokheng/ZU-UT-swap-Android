@@ -472,9 +472,9 @@ interface Constants {
             var ProjectId = "ProjectId"
             var availableBalance = ""
             var utBalance = ""
-            var marketPriceSell = ""
-            var marketPriceBuy = ""
             var errorMessagePlaceOrder = ""
+            var sellFee = ""
+            var buyFee = ""
         }
     }
     interface Project{

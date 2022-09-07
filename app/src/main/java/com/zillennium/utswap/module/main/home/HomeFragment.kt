@@ -75,6 +75,8 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
                 //real time watchlist
                 SessionVariable.realTimeWatchList.observe(this@HomeFragment){
                     if(it){
+                        rvHomeWatchlist.visibility = View.VISIBLE
+                        linearLayoutWatchlist.visibility = View.VISIBLE
                         mPresenter.getWatchListAndBalance(requireActivity())
                         SessionVariable.realTimeWatchList.value = false
                     }
