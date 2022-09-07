@@ -90,6 +90,14 @@ class AddNumberFragment :
                     isHaveError = true
                 }
 
+                if(etInputPhoneNumber.text.toString().length < 11)
+                {
+                    etInputPhoneNumber.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.outline_edittext_error_corner_16dp)
+                    txtMessage.visibility = View.VISIBLE
+                    txtMessage.text = resources.getString(R.string.please_enter_valid_phone_number)
+                    isHaveError = true
+                }
+
                 if(etInputPhoneNumber.text.toString().isNotEmpty()){
                     if(etInputPhoneNumber.text.toString()[0] != '0'){
                         etInputPhoneNumber.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.outline_edittext_error_corner_16dp)

@@ -102,13 +102,17 @@ class DialogAccountUTType : DialogFragment() {
             textAccountUtType.visibility = View.VISIBLE
             progressBar.visibility = View.GONE
 
-            if(data.criteria?.isNotEmpty() == true){
+            if(data.criteria.isNullOrEmpty()){
+                linearNotAvailableCriteria.visibility = View.VISIBLE
+            }else{
                 accountUTTypeCriteriaAdapter = AccountUTTypeCriteriaAdapter()
                 accountUTTypeCriteriaAdapter?.items = data.criteria as ArrayList<User.CriteriaList>
                 rvCriteria.adapter = accountUTTypeCriteriaAdapter
             }
 
-            if(data.priority_and_privileges?.isNotEmpty() == true){
+            if(data.priority_and_privileges.isNullOrEmpty()){
+                linearNotAvailablePriority.visibility = View.VISIBLE
+            }else{
                 accountUtTypePriorityAdapter = AccountUTTypePriorityAdapter()
                 accountUtTypePriorityAdapter?.items = data.priority_and_privileges as ArrayList<User.PriorityAndPrivilegesList>
                 rvPriority.adapter = accountUtTypePriorityAdapter

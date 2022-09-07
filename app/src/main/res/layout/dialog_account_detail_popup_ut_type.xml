@@ -69,6 +69,30 @@
                     android:overScrollMode="never"
                     android:scrollbars="none"/>
 
+                <LinearLayout
+                    android:id="@+id/linear_not_available_criteria"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dimen_20"
+                    android:visibility="gone"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:layout_width="@dimen/dimen_2"
+                        android:layout_height="match_parent"
+                        android:background="@color/yellow"
+                        android:layout_marginEnd="@dimen/dimen_2"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/not_available"
+                        android:textColor="@color/black_0a0b12"
+                        android:textAppearance="@style/regular_12"
+                        />
+
+                </LinearLayout>
+
                 <TextView
                     android:id="@+id/tv_tile_priority"
                     android:layout_width="match_parent"
@@ -96,6 +120,30 @@
                     android:nestedScrollingEnabled="false"
                     android:overScrollMode="never"
                     android:scrollbars="none"/>
+
+                <LinearLayout
+                    android:id="@+id/linear_not_available_priority"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dimen_20"
+                    android:visibility="gone"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:layout_width="@dimen/dimen_2"
+                        android:layout_height="match_parent"
+                        android:background="@color/yellow"
+                        android:layout_marginEnd="@dimen/dimen_2"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/not_available"
+                        android:textColor="@color/black_0a0b12"
+                        android:textAppearance="@style/regular_12"
+                        />
+
+                </LinearLayout>
 
             </LinearLayout>
 
