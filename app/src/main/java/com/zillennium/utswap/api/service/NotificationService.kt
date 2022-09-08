@@ -7,10 +7,10 @@ import retrofit2.http.*
 import rx.Observable
 
 interface NotificationService {
-    @GET(ApiSettings.PATH_NOTIFICATION_LIST)
+    @POST(ApiSettings.PATH_NOTIFICATION_LIST)
     fun notificationList(
         @HeaderMap headers: Map<String, String>,
-        @Query ("page") page: Int
+        @Body body: JsonObject
     ): Observable<NotificationModel.NotificationRes>
 
     @POST(ApiSettings.PATH_NOTIFICATION_READ)

@@ -12,7 +12,7 @@ import rx.schedulers.Schedulers
 
 
 class ApiNotificationImp : ApiManager() {
-    fun notification(context: Context, page: Int): Observable<NotificationModel.NotificationRes> =
+    fun notification(context: Context, page: JsonObject): Observable<NotificationModel.NotificationRes> =
         mNotificationService.notificationList(
             Header.getHeader(Header.Companion.AuthType.REQUIRED_TOKEN, context), page
 

@@ -23,8 +23,8 @@ import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityMainBinding
-import com.zillennium.utswap.models.notification.NotificationModel
 import com.zillennium.utswap.models.home.ForceUpdate
+import com.zillennium.utswap.models.notification.NotificationModel
 import com.zillennium.utswap.models.userService.User
 import com.zillennium.utswap.module.finance.balanceScreen.FinanceBalanceActivity
 import com.zillennium.utswap.module.kyc.kycActivity.KYCActivity
@@ -37,7 +37,6 @@ import com.zillennium.utswap.module.main.trade.tradeScreen.TradeFragment
 import com.zillennium.utswap.module.security.securityActivity.signInScreen.SignInActivity
 import com.zillennium.utswap.utils.DialogUtil
 import com.zillennium.utswap.utils.DialogUtilKyc
-import com.zillennium.utswap.utils.MobileSetting
 
 
 class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, ActivityMainBinding>(),
@@ -73,22 +72,25 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
             }
         }
 
+        eventClickFromOutSide(intent)
+
 
     }
+
+
 
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
-        this.intent = intent
-        eventClickFromOutSide()
-
+        eventClickFromOutSide(intent)
     }
 
-    private fun eventClickFromOutSide() {
-        when (intent.getStringExtra("dataIntent")) {
+    private fun eventClickFromOutSide(intent: Intent?) {
+        val dataIntent =intent?.getStringExtra("dataIntent")
+        when (dataIntent) {
             "KYC" -> {
                 startActivity(
                     Intent(this, KYCActivity::class.java)
-                        .putExtra("fromNotification", "")
+                        .putExtra("fromNotification", "KYC")
                 )
             }
             "Fund Transfer" -> {

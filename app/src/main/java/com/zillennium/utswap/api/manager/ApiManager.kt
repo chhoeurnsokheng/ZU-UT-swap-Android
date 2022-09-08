@@ -156,7 +156,7 @@ open class ApiManager {
 
         return Retrofit.Builder().baseUrl(mServerUrl)
             .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-            //.addConverterFactory(createMoshiConverter())
+//            .addConverterFactory(createMoshiConverter())
             .addConverterFactory(GsonConverterFactory.create())
             .client(client.build())
             .build()

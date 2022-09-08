@@ -24,6 +24,7 @@ class KycApplicationFragment :
 
     var status_kyc_submit:Boolean? = null
     var status_kyc_approved:Boolean? = null
+    private var dataNotification = ""
 
     override fun initView() {
         super.initView()
@@ -33,8 +34,11 @@ class KycApplicationFragment :
 //                tvFullName.text = "${IDVerificationFragment.sureName} ${IDVerificationFragment.name}"
                 status_kyc_submit = KYCPreferences().status_kyc_submit
                 status_kyc_approved = KYCPreferences().status_kyc_approved
+                if (activity?.intent?.hasExtra("fromNotification") == true) {
+                    dataNotification = activity?.intent?.getStringExtra("fromNotification").toString()
+                }
                 imgBack.setOnClickListener {
-                    if ((activity as KYCActivity).kycStatus == "Pending") {
+                    if ((activity as KYCActivity).kycStatus == "Pending" || dataNotification == "KYC") {
                         activity?.finish()
                     } else {
                         findNavController().popBackStack()

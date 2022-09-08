@@ -1,6 +1,5 @@
 package com.zillennium.utswap.module.notification
 
-import android.R.id
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -9,7 +8,6 @@ import android.content.Intent
 import android.media.RingtoneManager
 import android.os.Build
 import android.util.Log
-import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.text.HtmlCompat
@@ -17,7 +15,6 @@ import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
-import com.zillennium.utswap.module.system.notification.NotificationActivity
 import com.zillennium.utswap.screens.navbar.navbar.MainActivity
 import me.leolin.shortcutbadger.ShortcutBadger
 import java.util.*
@@ -28,10 +25,37 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
     private val channelId = "com.zillennium.utswap"
 
+
     override fun onMessageReceived(message: RemoteMessage) {
+        val data: Map<String, String> = message.data
+
         Log.d("dataPaylaod", message.notification.toString())
-        displayNotification(message.notification?.title.toString(), message.notification?.body.toString(), 1, message.notification?.icon.toString())
-        super.onMessageReceived(message)
+        displayNotification(message.notification?.title.toString(), message.notification?.body.toString(), 1)
+
+//        val title = data["title"]
+//        val body = data["body"]
+//        if (data.containsKey("title") && data.containsKey("body")) {
+//            displayNotification(data["title"].toString(), data["body"].toString(), 1)
+//
+//        }
+    }
+
+    override fun handleIntent(intent: Intent?) {
+//        super.handleIntent(intent)
+        try {
+            if (intent?.extras != null) {
+                val builder = RemoteMessage.Builder("MyFirebaseMessagingService")
+                for (key in intent.extras?.keySet() ?: arrayListOf()) {
+                    builder.addData(key!!, intent.extras!![key].toString())
+                }
+                onMessageReceived(builder.build())
+            } else {
+                super.handleIntent(intent)
+            }
+        } catch (e: Exception) {
+            super.handleIntent(intent)
+        }
+//        Log.d("intent", intent?.extras?.keySet().toString())
     }
 
 
@@ -44,9 +68,10 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         title: String,
         message: String,
         badgeCount: Int,
-        icon: String
     ) {
         val intent = (Intent(this, MainActivity::class.java))
+        intent.action = Intent.ACTION_MAIN
+        intent.addCategory(Intent.CATEGORY_LAUNCHER)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         when (title) {
             "KYC Approved", "KYC Rejected" -> {
