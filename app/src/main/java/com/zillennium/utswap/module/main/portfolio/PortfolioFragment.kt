@@ -4,31 +4,38 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.BlurMaskFilter
 import android.graphics.MaskFilter
-import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.androidstudy.networkmanager.Tovuti
+import com.github.mikephil.charting.animation.Easing
+import com.github.mikephil.charting.components.AxisBase
+import com.github.mikephil.charting.components.Legend
+import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
+import com.github.mikephil.charting.formatter.ValueFormatter
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
-import com.zillennium.utswap.Datas.GlobalVariable.SettingVariable
 import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentNavbarPortfolioBinding
-import com.zillennium.utswap.models.portfolio.*
+import com.zillennium.utswap.models.portfolio.Portfolio
 import com.zillennium.utswap.module.account.accountScreen.AccountActivity
 import com.zillennium.utswap.module.main.portfolio.adapter.*
 import com.zillennium.utswap.module.main.portfolio.dialog.FilterPortfolioDialogBottomSheet
 import com.zillennium.utswap.module.security.securityActivity.signInScreen.SignInActivity
 import com.zillennium.utswap.module.system.notification.NotificationActivity
-import com.zillennium.utswap.screens.navbar.navbar.MainActivity
+import com.zillennium.utswap.utils.Constants
+import com.zillennium.utswap.utils.UtilKt
+import com.zillennium.utswap.utils.Utils
+import java.text.ParseException
+import java.text.SimpleDateFormat
+import java.util.*
+
 
 class PortfolioFragment :
     BaseMvpFragment<PortfolioView.View, PortfolioView.Presenter, FragmentNavbarPortfolioBinding>(),
@@ -37,408 +44,75 @@ class PortfolioFragment :
     override var mPresenter: PortfolioView.Presenter = PortfolioPresenter()
     override val layoutResource: Int = R.layout.fragment_navbar_portfolio
 
-    private var performanceList = ArrayList<Performance>()
-    private var weightList = ArrayList<Weight>()
-    private var balanceList = ArrayList<Balance>()
-    private var priceList = ArrayList<Price>()
-    private var changeList = ArrayList<Change>()
-    private var changeAdapter: ChangeAdapter? = null
-    private var balanceAdapter: BalanceAdapter? = null
-    private var performanceAdapter: PerformanceAdapter? = null
-    private var weightAdapter: WeightAdapter? = null
+    private var performanceList: ArrayList<Portfolio.GetPortfolioDashBoard> = arrayListOf()
+    private var weightList: ArrayList<Portfolio.GetPortfolioDashBoard> = arrayListOf()
+    private var balanceList: ArrayList<Portfolio.GetPortfolioDashBoard> = arrayListOf()
+    private var priceList: ArrayList<Portfolio.GetPortfolioDashBoard> = arrayListOf()
+    private var changeList: ArrayList<Portfolio.GetPortfolioDashBoard> = arrayListOf()
+
+    private var portfolioSelectType = Constants.PortfolioFilter.Change
+    private var typePortfolio = 2
 
     var blurCondition = true
-    val blurMask: MaskFilter = BlurMaskFilter(50f, BlurMaskFilter.Blur.NORMAL)
+    private val blurMask: MaskFilter = BlurMaskFilter(50f, BlurMaskFilter.Blur.NORMAL)
     private var filter: Int = 0 // 0 = no sort, 1 = asc sort, 2 = desc sort
 
     private var dataSets = ArrayList<ILineDataSet>()
     private var data: LineData? = null
+    val yxValues :ArrayList<Entry> = arrayListOf()
 
-
+    companion object{
+        var month :ArrayList<String> = arrayListOf()
+    }
     @SuppressLint("UseCompatLoadingForDrawables", "NotifyDataSetChanged", "SetTextI18n")
     override fun initView() {
         super.initView()
         try {
             binding.apply {
 
-                //check share preference
-                SessionVariable.SESSION_STATUS.observe(this@PortfolioFragment) {
-                    if (SessionVariable.SESSION_STATUS.value == true) {
-                        imgMenu.setOnClickListener {
-                            val intent = Intent(UTSwapApp.instance, AccountActivity::class.java)
-                            startActivity(intent)
-                            requireActivity().overridePendingTransition(
-                                R.anim.slide_in_left,
-                                R.anim.slide_out_right
-                            )
-                        }
-                    } else {
-                        imgMenu.setOnClickListener {
-                            val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
-                            startActivity(intent)
-                        }
-                    }
+                mPresenter.getPortfolioDashboardChart(requireActivity())
+
+
+                SessionVariable.SESSION_STATUS.observe(this@PortfolioFragment){
+                    requestData()
                 }
 
-                val yValues = ArrayList<Entry>()
 
-                yValues.add(Entry(0f, 60f))
-                yValues.add(Entry(1f, 50f))
-                yValues.add(Entry(2f, 70f))
-                yValues.add(Entry(3f, 30f))
-                yValues.add(Entry(4f, 50f))
-                yValues.add(Entry(5f, 60f))
-                yValues.add(Entry(6f, 65f))
-
-                val set1 = LineDataSet(yValues, "")
-
-                set1.fillAlpha = 110
-                set1.color = R.color.primary
-
-                dataSets.add(set1)
-
-                data = LineData(dataSets)
-
-                lineChart.data = data
-
-                if (SessionPreferences().SESSION_STATUS == true && SessionPreferences().SESSION_KYC == true) {
-                    txtMessage.visibility = View.GONE
-                    linearLayoutPortfolio.visibility = View.VISIBLE
-                }
-
-                SessionVariable.SESSION_STATUS.observe(this@PortfolioFragment) {
-                    if (SessionVariable.SESSION_STATUS.value == true) {
-
-                        imgNotification.setOnClickListener {
-                            SessionVariable.SESSION_STATUS.observe(this@PortfolioFragment) {
-                                if (SessionVariable.SESSION_STATUS.value == true) {
-                                    val intent =
-                                        Intent(UTSwapApp.instance, NotificationActivity::class.java)
-                                    startActivity(intent)
-
-                                } else {
-                                    tvBadgeNumber.visibility = View.INVISIBLE
-                                    val intent =
-                                        Intent(UTSwapApp.instance, SignInActivity::class.java)
-                                    startActivity(intent)
-                                }
-                            }
-
-                        }
-
-                    } else {
-                        imgNotification.setOnClickListener {
-                            val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
-                            startActivity(intent)
-                        }
-                    }
-                }
-                //pass value to pie chart of another class
-                var listData = ArrayList<Double>()
-
-                listData.add(83.20)
-                listData.add(16.80)
-                listData.add(12.0)
-
-                chartPie.setDataOfChart(listData)
-
-                //set attribute of line chart
-                lineChart.description.isEnabled = false
-                lineChart.axisLeft.isEnabled = false
-                lineChart.xAxis.isEnabled = false
-                data!!.setDrawValues(false)
-                lineChart.legend.isEnabled = false
-                set1.color = ContextCompat.getColor(UTSwapApp.instance, R.color.simple_green)
-                lineChart.isDragEnabled = true
-                lineChart.setScaleEnabled(true)
-
-                /* Show or Hide Trading Balance */
-                txtBalance.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
-                txtBalance.paint.maskFilter = blurMask
-
-                imgVisibility.setOnClickListener {
-                    showBalanceClick()
-                }
-                txtBalance.setOnClickListener {
-                    showBalanceClick()
-                }
-
-                val linearLayoutManager = LinearLayoutManager(requireContext())
-                rvFilter.layoutManager = linearLayoutManager
-
-                SettingVariable.portfolio_selected.observe(this@PortfolioFragment) {
-
-                    btnFilter.text = SettingVariable.portfolio_selected.value.toString()
-
-                    filter = 0
-
-                    linearLayoutChange.visibility = View.GONE
-                    linearLayoutPrice.visibility = View.GONE
-                    linearLayoutPerformance.visibility = View.GONE
-                    linearLayoutBalance.visibility = View.GONE
-                    linearLayoutWeight.visibility = View.GONE
-
-                    lineChart.visibility = View.GONE
-                    chartPie.visibility = View.GONE
-
-                    linearLayoutChange.visibility = View.GONE
-                    linearLayoutPrice.visibility = View.GONE
-                    linearLayoutPerformance.visibility = View.GONE
-                    linearLayoutBalance.visibility = View.GONE
-                    linearLayoutWeight.visibility = View.GONE
-
-                    when (SettingVariable.portfolio_selected.value.toString()) {
-                        "Change" -> {
-                            //list data of performance
-                            changeList.clear()
-                            changeList.add(Change("Pochentong 555", 1.68))
-                            changeList.add(Change("Siem Reap 17140", -0.48))
-                            changeList.add(Change("Muk Kampul 16644", -1.56))
-                            changeList.add(Change("KT 1665", 0.16))
-                            changeList.add(Change("Veng Sreng 2719", 1.05))
-
-                            linearLayoutChange.visibility = View.VISIBLE
-
-                            changeAdapter = ChangeAdapter(changeList)
-
-                            rvFilter.adapter = changeAdapter
-
-                            txtTradingBalance.text = "$6 420.99"
-
-                            imgSortChange.setImageResource(R.drawable.ic_sort_arrow_up_down)
-                            laySortChange.setOnClickListener {
-
-                                val list = arrayListOf<Change>()
-                                list.addAll(changeList)
-                                filter++
-
-                                when (filter) {
-                                    2 -> {
-                                        filter = 2
-                                        imgSortChange.setImageResource(R.drawable.ic_sort_arrow_up_down_selected)
-                                        imgSortChange.rotation = 180f
-                                        list.sortByDescending {
-                                            it.txtPercent
-                                        }
-                                    }
-                                    1 -> {
-                                        filter = 1
-                                        imgSortChange.setImageResource(R.drawable.ic_sort_arrow_up_down_selected)
-                                        imgSortChange.rotation = 0f
-                                        list.sortBy {
-                                            it.txtPercent
-                                        }
-                                    }
-                                    else -> {
-                                        filter = 0
-                                        imgSortChange.setImageResource(R.drawable.ic_sort_arrow_up_down)
-                                    }
-                                }
-
-                                changeAdapter = ChangeAdapter(list)
-                                rvFilter.adapter = changeAdapter
-
-                            }
-
-                            lineChart.visibility = View.VISIBLE
-                        }
-                        "Weight" -> {
-                            //list data of performance
-                            weightList.clear()
-                            weightList.add(Weight("Pochentong 555", 12.00))
-                            weightList.add(Weight("Siem Reap 17140", 25.00))
-                            weightList.add(Weight("Muk Kampul 16644", 5.00))
-                            weightList.add(Weight("KT 1665", 15.00))
-                            weightList.add(Weight("Veng Sreng 2719", 13.00))
-
-                            weightAdapter = WeightAdapter(weightList)
-
-                            rvFilter.adapter = weightAdapter
-
-                            linearLayoutWeight.visibility = View.VISIBLE
-
-                            txtTradingBalance.text = "16.8%"
-
-                            imgSortWeight.setImageResource(R.drawable.ic_sort_arrow_up_down)
-                            layWeight.setOnClickListener {
-
-                                val list = arrayListOf<Weight>()
-                                list.addAll(weightList)
-                                filter++
-
-                                when (filter) {
-                                    2 -> {
-                                        filter = 2
-                                        imgSortWeight.setImageResource(R.drawable.ic_sort_arrow_up_down_selected)
-                                        imgSortWeight.rotation = 180f
-                                        list.sortByDescending {
-                                            it.txtPercent
-                                        }
-                                    }
-                                    1 -> {
-                                        filter = 1
-                                        imgSortWeight.setImageResource(R.drawable.ic_sort_arrow_up_down_selected)
-                                        imgSortWeight.rotation = 0f
-                                        list.sortBy {
-                                            it.txtPercent
-                                        }
-                                    }
-                                    else -> {
-                                        filter = 0
-                                        imgSortWeight.setImageResource(R.drawable.ic_sort_arrow_up_down)
-                                    }
-                                }
-
-                                weightAdapter = WeightAdapter(list)
-                                rvFilter.adapter = weightAdapter
-
-                            }
-
-                            chartPie.visibility = View.VISIBLE
-                        }
-                        "Balance" -> {
-                            //list data of balance
-                            balanceList.clear()
-                            balanceList.add(Balance("Pochentong 555", 18, 74.34))
-                            balanceList.add(Balance("Siem Reap 17140", 98, 65.66))
-                            balanceList.add(Balance("Muk Kampul 16644", 10000, 112600.00))
-                            balanceList.add(Balance("KT 1665", 2000, 4940.00))
-                            balanceList.add(Balance("Veng Sreng 2719", 18, 159.30))
-
-                            balanceAdapter = BalanceAdapter(balanceList)
-
-                            rvFilter.adapter = balanceAdapter
-
-                            linearLayoutBalance.visibility = View.VISIBLE
-
-                            txtTradingBalance.text = "$6 420.99"
-
-                            imgSortBalance.setImageResource(R.drawable.ic_sort_arrow_up_down)
-                            layBalance.setOnClickListener {
-
-                                val list = arrayListOf<Balance>()
-                                list.addAll(balanceList)
-                                filter++
-
-                                when (filter) {
-                                    2 -> {
-                                        filter = 2
-                                        imgSortBalance.setImageResource(R.drawable.ic_sort_arrow_up_down_selected)
-                                        imgSortBalance.rotation = 180f
-                                        list.sortByDescending {
-                                            it.value
-                                        }
-                                    }
-                                    1 -> {
-                                        filter = 1
-                                        imgSortBalance.setImageResource(R.drawable.ic_sort_arrow_up_down_selected)
-                                        imgSortBalance.rotation = 0f
-                                        list.sortBy {
-                                            it.value
-                                        }
-                                    }
-                                    else -> {
-                                        filter = 0
-                                        imgSortBalance.setImageResource(R.drawable.ic_sort_arrow_up_down)
-                                    }
-                                }
-
-                                balanceAdapter = BalanceAdapter(list)
-                                rvFilter.adapter = balanceAdapter
-
-                            }
-
-                            lineChart.visibility = View.VISIBLE
-                        }
-                        "Price" -> {
-                            //list data of price
-                            priceList.clear()
-                            priceList.add(Price("Pochentong 555", 0.67, 0.68))
-                            priceList.add(Price("Siem Reap 17140", 1.30, 1.31))
-                            priceList.add(Price("Muk Kampul 16644", 9.08, 9.06))
-                            priceList.add(Price("KT 1665", 18.88, 18.83))
-                            priceList.add(Price("Veng Sreng 2719", 0.67, 0.68))
-
-                            linearLayoutPrice.visibility = View.VISIBLE
-
-                            rvFilter.adapter = PriceAdapter(priceList)
-
-                            txtTradingBalance.text = "$6 420.99"
-
-                            lineChart.visibility = View.VISIBLE
-                        }
-                        "Performance" -> {
-                            //list data of performance
-                            performanceList.clear()
-                            performanceList.add(Performance("Pochentong 555", 1.68))
-                            performanceList.add(Performance("Siem Reap 17140", -0.48))
-                            performanceList.add(Performance("Muk Kampul 16644", -1.56))
-                            performanceList.add(Performance("KT 1665", 0.16))
-                            performanceList.add(Performance("Veng Sreng 2719", 1.05))
-
-                            linearLayoutPerformance.visibility = View.VISIBLE
-
-                            performanceAdapter = PerformanceAdapter(performanceList)
-
-                            rvFilter.adapter = performanceAdapter
-
-                            txtTradingBalance.text = "$6 420.99"
-
-                            txtPerformance.text = "Performance"
-
-                            imgSortPerformance.setImageResource(R.drawable.ic_sort_arrow_up_down)
-                            laySortPerformance.setOnClickListener {
-                                val list = arrayListOf<Performance>()
-                                list.addAll(performanceList)
-                                filter++
-
-                                when (filter) {
-                                    2 -> {
-                                        filter = 2
-                                        imgSortPerformance.setImageResource(R.drawable.ic_sort_arrow_up_down_selected)
-                                        imgSortPerformance.rotation = 180f
-                                        list.sortByDescending {
-                                            it.txtPercent
-                                        }
-                                    }
-                                    1 -> {
-                                        filter = 1
-                                        imgSortPerformance.setImageResource(R.drawable.ic_sort_arrow_up_down_selected)
-                                        imgSortPerformance.rotation = 0f
-                                        list.sortBy {
-                                            it.txtPercent
-                                        }
-                                    }
-                                    else -> {
-                                        filter = 0
-                                        imgSortPerformance.setImageResource(R.drawable.ic_sort_arrow_up_down)
-                                    }
-                                }
-
-                                performanceAdapter = PerformanceAdapter(list)
-                                rvFilter.adapter = performanceAdapter
-                            }
-
-                            lineChart.visibility = View.VISIBLE
-                        }
-                    }
-
-                }
+                setDataToLineChart()
+                setUpLineChart()
+                onCallApi()
+                onCheckUserKYC()
+                onLayoutHeader()
+                onUserBalancePortfolio()
+                //  onGetDiagram()
 
                 layFilter.setOnClickListener {
                     layFilter.isEnabled = false
-                    layFilter.postDelayed(Runnable { layFilter.isEnabled = true }, 300)
-                    val filterPortfolioDialogBottomSheet: FilterPortfolioDialogBottomSheet =
-                        FilterPortfolioDialogBottomSheet.newInstance(btnFilter.text.toString())
+                    layFilter.postDelayed({ layFilter.isEnabled = true }, 1000)
+                    val filterPortfolioDialogBottomSheet = FilterPortfolioDialogBottomSheet(
+                        portfolioSelectType,
+                        object : FilterPortfolioDialogBottomSheet.CallBackTypeListener {
+                            override fun onChangeTypeSelected(portfolioSelectedType: String) {
+                                portfolioSelectType = portfolioSelectedType
+
+                                btnFilter.text = portfolioSelectType
+                                onClearList()
+                                invisibleLayout()
+                                onStoreTypeStringToInt()
+                                loadingProgressBar.visibility = View.VISIBLE
+                                layTradingBalance.visibility = View.GONE
+
+                                mPresenter.onGetPortfolio(
+                                    Portfolio.GetPortfolioObject(typePortfolio),
+                                    requireActivity()
+                                )
+                            }
+                        }
+                    )
                     filterPortfolioDialogBottomSheet.show(
                         requireActivity().supportFragmentManager,
                         "filter_portfolio"
                     )
-                }
-
-                imgMenu.setOnClickListener {
-                    val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
-                    startActivity(intent)
                 }
             }
 
@@ -447,20 +121,530 @@ class PortfolioFragment :
         }
     }
 
-    fun setBadgeNumberPortfolio() {
+    private fun requestData(){
+        binding.btnFilter.text = portfolioSelectType
+        mPresenter.onGetPortfolio(Portfolio.GetPortfolioObject(typePortfolio), requireActivity())
+    }
+    private fun onCallApi(){
+
         binding.apply {
-            SessionVariable.BADGE_NUMBER.observe(this@PortfolioFragment) {
-                if (SessionVariable.BADGE_NUMBER.value?.isNotEmpty() == true && SessionVariable.BADGE_NUMBER.value != "0") {
-                    tvBadgeNumber.visibility = View.VISIBLE
-                    if (it.toInt() > 9) {
-                        tvBadgeNumber.text = "9+"
-                    } else {
-                        tvBadgeNumber.text = it
+            Tovuti.from(UTSwapApp.instance).monitor { _, isConnected, _ ->
+                if (isConnected) {
+                    onStoreTypeStringToInt()
+                    loadingProgressBar.visibility = View.VISIBLE
+                    layTradingBalance.visibility = View.GONE
+                    btnFilter.text = portfolioSelectType
+                    mPresenter.onGetPortfolio(
+                        Portfolio.GetPortfolioObject(typePortfolio),
+                        requireActivity()
+                    )
+                }
+            }
+        }
+    }
+
+    override fun onGetPortfolioSuccess(data: Portfolio.GetPortfolio) {
+        if (data.message =="Please sign in"){
+            checkUserLogin()
+        }
+        mPresenter.getPortfolioDashboardChart(requireActivity())
+        binding.apply {
+            loadingProgressBar.visibility = View.GONE
+            layTradingBalance.visibility = View.VISIBLE
+            txtBalance.text =
+                "$ " + data.data?.total_user_balance?.let { UtilKt().formatValue(it, "###,###.##") }
+
+            filter = 0
+
+            invisibleLayout()
+            lineChart.visibility = View.GONE
+            chartPie.visibility = View.GONE
+            onClearList()
+
+            if (data.data?.profolio_dashboard?.isNotEmpty() == true) {
+                when (portfolioSelectType) {
+                    Constants.PortfolioFilter.Change -> {
+                        linearLayoutChange.visibility = View.VISIBLE
+
+                        data.data?.let { changeList.addAll(it.profolio_dashboard) }
+                        rvFilter.layoutManager = LinearLayoutManager(UTSwapApp.instance)
+                        val changePortfolioAdapter = ChangeAdapter()
+                        changePortfolioAdapter.items = changeList
+                        rvFilter.adapter = changePortfolioAdapter
+
+                        imgSortChange.setImageResource(R.drawable.ic_sort_arrow_up_down)
+                        laySortChange.setOnClickListener {
+
+                            val list = arrayListOf<Portfolio.GetPortfolioDashBoard>()
+                            list.addAll(changeList)
+                            filter++
+
+                            when (filter) {
+                                2 -> {
+                                    filter = 2
+                                    imgSortChange.setImageResource(R.drawable.ic_sort_arrow_up_down_selected)
+                                    imgSortChange.rotation = 180f
+                                    list.sortByDescending {
+                                        it.mkt_project_change
+                                    }
+                                }
+                                1 -> {
+                                    filter = 1
+                                    imgSortChange.setImageResource(R.drawable.ic_sort_arrow_up_down_selected)
+                                    imgSortChange.rotation = 0f
+                                    list.sortBy {
+                                        it.mkt_project_change
+                                    }
+                                }
+                                else -> {
+                                    filter = 0
+                                    imgSortChange.setImageResource(R.drawable.ic_sort_arrow_up_down)
+                                }
+                            }
+
+                            changePortfolioAdapter.items = list
+                            rvFilter.adapter = changePortfolioAdapter
+                        }
+
+                        lineChart.visibility = View.VISIBLE
+                        txtTradingBalance.text = "$ " + data.data?.total_market_value?.let {
+                            UtilKt().formatValue(
+                                it,
+                                "###,###.##"
+                            )
+                        }
+
+                    }
+                    Constants.PortfolioFilter.Performance -> {
+                        linearLayoutPerformance.visibility = View.VISIBLE
+
+                        data.data?.profolio_dashboard?.let { performanceList.addAll(it) }
+                        rvFilter.layoutManager = LinearLayoutManager(UTSwapApp.instance)
+                        val performancePortfolioAdapter = PerformanceAdapter()
+                        performancePortfolioAdapter.items = performanceList
+                        rvFilter.adapter = performancePortfolioAdapter
+
+                        txtPerformance.text = Constants.PortfolioFilter.Performance
+
+                        imgSortPerformance.setImageResource(R.drawable.ic_sort_arrow_up_down)
+                        laySortPerformance.setOnClickListener {
+                            val list = arrayListOf<Portfolio.GetPortfolioDashBoard>()
+                            list.addAll(performanceList)
+                            filter++
+
+                            when (filter) {
+                                2 -> {
+                                    filter = 2
+                                    imgSortPerformance.setImageResource(R.drawable.ic_sort_arrow_up_down_selected)
+                                    imgSortPerformance.rotation = 180f
+                                    list.sortByDescending {
+                                        it.mkt_project_perf
+                                    }
+                                }
+                                1 -> {
+                                    filter = 1
+                                    imgSortPerformance.setImageResource(R.drawable.ic_sort_arrow_up_down_selected)
+                                    imgSortPerformance.rotation = 0f
+                                    list.sortBy {
+                                        it.mkt_project_perf
+                                    }
+                                }
+                                else -> {
+                                    filter = 0
+                                    imgSortPerformance.setImageResource(R.drawable.ic_sort_arrow_up_down)
+                                }
+                            }
+
+                            performancePortfolioAdapter.items = list
+                            rvFilter.adapter = performancePortfolioAdapter
+                        }
+
+                        lineChart.visibility = View.VISIBLE
+                        txtTradingBalance.text = "$ " + data.data?.total_market_value?.let {
+                            UtilKt().formatValue(
+                                it,
+                                "###,###.##"
+                            )
+                        }
+                    }
+                    Constants.PortfolioFilter.Price -> {
+                        linearLayoutPrice.visibility = View.VISIBLE
+
+                        data.data?.profolio_dashboard?.let { priceList.addAll(it) }
+                        rvFilter.layoutManager = LinearLayoutManager(UTSwapApp.instance)
+                        val pricePortfolioAdapter = PriceAdapter()
+                        pricePortfolioAdapter.items = priceList
+                        rvFilter.adapter = pricePortfolioAdapter
+
+                        lineChart.visibility = View.VISIBLE
+                        txtTradingBalance.text = "$ " + data.data?.total_market_value?.let {
+                            UtilKt().formatValue(
+                                it,
+                                "###,###.##"
+                            )
+                        }
+                    }
+                    Constants.PortfolioFilter.Balance -> {
+                        linearLayoutBalance.visibility = View.VISIBLE
+
+                        data.data?.profolio_dashboard?.let { balanceList.addAll(it) }
+                        rvFilter.layoutManager = LinearLayoutManager(UTSwapApp.instance)
+                        val balancePortfolioAdapter = BalanceAdapter()
+                        balancePortfolioAdapter.items = balanceList
+                        rvFilter.adapter = balancePortfolioAdapter
+
+                        imgSortBalance.setImageResource(R.drawable.ic_sort_arrow_up_down)
+                        layBalance.setOnClickListener {
+
+                            val list = arrayListOf<Portfolio.GetPortfolioDashBoard>()
+                            list.addAll(balanceList)
+                            filter++
+
+                            when (filter) {
+                                2 -> {
+                                    filter = 2
+                                    imgSortBalance.setImageResource(R.drawable.ic_sort_arrow_up_down_selected)
+                                    imgSortBalance.rotation = 180f
+                                    list.sortByDescending {
+                                        it.value
+                                    }
+                                }
+                                1 -> {
+                                    filter = 1
+                                    imgSortBalance.setImageResource(R.drawable.ic_sort_arrow_up_down_selected)
+                                    imgSortBalance.rotation = 0f
+                                    list.sortBy {
+                                        it.value
+                                    }
+                                }
+                                else -> {
+                                    filter = 0
+                                    imgSortBalance.setImageResource(R.drawable.ic_sort_arrow_up_down)
+                                }
+                            }
+
+                            balancePortfolioAdapter.items = list
+                            rvFilter.adapter = balancePortfolioAdapter
+
+                        }
+
+                        lineChart.visibility = View.VISIBLE
+                        txtTradingBalance.text = "$ " + data.data?.total_market_value?.let {
+                            UtilKt().formatValue(
+                                it,
+                                "###,###.##"
+                            )
+                        }
+                    }
+                    Constants.PortfolioFilter.Weight -> {
+                        linearLayoutWeight.visibility = View.VISIBLE
+
+                        data.data?.profolio_dashboard?.let { weightList.addAll(it) }
+                        rvFilter.layoutManager = LinearLayoutManager(UTSwapApp.instance)
+                        val weightPortfolioAdapter = WeightAdapter()
+                        weightPortfolioAdapter.items = weightList
+                        rvFilter.adapter = weightPortfolioAdapter
+
+                        imgSortWeight.setImageResource(R.drawable.ic_sort_arrow_up_down)
+                        layWeight.setOnClickListener {
+
+                            val list = arrayListOf<Portfolio.GetPortfolioDashBoard>()
+                            list.addAll(weightList)
+                            filter++
+
+                            when (filter) {
+                                2 -> {
+                                    filter = 2
+                                    imgSortWeight.setImageResource(R.drawable.ic_sort_arrow_up_down_selected)
+                                    imgSortWeight.rotation = 180f
+                                    list.sortByDescending {
+                                        it.weight
+                                    }
+                                }
+                                1 -> {
+                                    filter = 1
+                                    imgSortWeight.setImageResource(R.drawable.ic_sort_arrow_up_down_selected)
+                                    imgSortWeight.rotation = 0f
+                                    list.sortBy {
+                                        it.weight
+                                    }
+                                }
+                                else -> {
+                                    filter = 0
+                                    imgSortWeight.setImageResource(R.drawable.ic_sort_arrow_up_down)
+                                }
+                            }
+
+                            weightPortfolioAdapter.items = list
+                            rvFilter.adapter = weightPortfolioAdapter
+                        }
+
+                        chartPie.visibility = View.VISIBLE
+                        txtTradingBalance.text = "$ " + data.data?.total_market_value?.let {
+                            UtilKt().formatValue(
+                                it,
+                                "###,###.##"
+                            )
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    override fun onGetPortfolioFail(data: Portfolio.GetPortfolio) {}
+    override fun getPortfolioDashboardChartSuccess(dataSuccess: Portfolio.GetPortfolioDashboardChartRes) {
+
+        binding.apply {
+            val yValues :ArrayList<Entry> = arrayListOf()
+            //  yxValues.addAll(listOf(Entry(dataSuccess.data.maxOf { it.x }, dataSuccess.data.maxOf { it.y })))
+            month = dataSuccess.data?.map { it.x }  as ArrayList<String>
+
+            val listData = ArrayList<Double>()
+            listData.add(83.20)
+            listData.add(16.80)
+            listData.add(12.0)
+            listData.add(1.0)
+            listData.add(14.0)
+            listData.add(19.0)
+            listData.add(2.0)
+            listData.add(21.0)
+
+            chartPie.setDataOfChart(listData)
+
+
+
+        }
+
+
+    }
+
+//    object MyAxisFormatter : IndexAxisValueFormatter() {
+//
+//        var items = arrayListOf("January",  "February", "March", "April","May", "June")
+//
+//        override fun getAxisLabel(value: Float, axis: AxisBase?): String? {
+//            val index = value.toInt()
+//            return if (index < month.size) {
+//                items[index]
+//            } else {
+//                null
+//            }
+//        }
+//    }
+
+    override fun getPortfolioDashboardChartFailed(data: String) {}
+
+    private fun onUserBalancePortfolio() {
+        binding.apply {
+            /* Show or Hide Trading Balance */
+            txtBalance.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
+            txtBalance.paint.maskFilter = blurMask
+
+            imgVisibility.setOnClickListener {
+                showBalanceClick()
+            }
+            txtBalance.setOnClickListener {
+                showBalanceClick()
+            }
+        }
+    }
+
+    private fun onLayoutHeader() {
+        binding.apply {
+            //check share preference
+            SessionVariable.SESSION_STATUS.observe(this@PortfolioFragment) {
+                if (SessionVariable.SESSION_STATUS.value == true) {
+                    imgMenu.setOnClickListener {
+                        val intent = Intent(UTSwapApp.instance, AccountActivity::class.java)
+                        startActivity(intent)
+                        requireActivity().overridePendingTransition(
+                            R.anim.slide_in_left,
+                            R.anim.slide_out_right
+                        )
                     }
                 } else {
-                    tvBadgeNumber.visibility = View.INVISIBLE
-
+                    imgMenu.setOnClickListener {
+                        val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
+                        startActivity(intent)
+                    }
                 }
+            }
+
+            SessionVariable.SESSION_STATUS.observe(this@PortfolioFragment) {
+                if (SessionVariable.SESSION_STATUS.value == true) {
+                    imgNotification.setOnClickListener {
+                        val intent =
+                            Intent(UTSwapApp.instance, NotificationActivity::class.java)
+                        startActivity(intent)
+                    }
+                    txtCountNotification.visibility = View.VISIBLE
+
+                } else {
+                    imgNotification.setOnClickListener {
+                        val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
+                        startActivity(intent)
+                    }
+                    txtCountNotification.visibility = View.GONE
+                }
+            }
+
+            imgMenu.setOnClickListener {
+                val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
+                startActivity(intent)
+            }
+        }
+    }
+
+    private fun onCheckUserKYC() {
+        binding.apply {
+            if (SessionPreferences().SESSION_STATUS == true && SessionPreferences().SESSION_KYC == true) {
+                txtMessage.visibility = View.GONE
+                linearLayoutPortfolio.visibility = View.VISIBLE
+            }
+        }
+    }
+
+
+    private fun setUpLineChart() {
+        with(binding.lineChart) {
+            animateX(1200, Easing.EaseInSine)
+            description.isEnabled = false
+
+            xAxis.setDrawGridLines(false)
+            xAxis.position = XAxis.XAxisPosition.BOTTOM
+            xAxis.granularity = 1F
+            xAxis.valueFormatter = ClaimsXAxisValueFormatter(month)
+            axisLeft.isEnabled = false
+            axisRight.isEnabled = true
+            extraRightOffset = 30f
+            legend.orientation = Legend.LegendOrientation.VERTICAL
+            legend.verticalAlignment = Legend.LegendVerticalAlignment.TOP
+            legend.horizontalAlignment = Legend.LegendHorizontalAlignment.CENTER
+            legend.textSize = 15F
+            legend.form = Legend.LegendForm.LINE
+        }
+    }
+
+    private fun setDataToLineChart() {
+
+        val weekTwoSales = LineDataSet(week2(), "")
+        weekTwoSales.lineWidth = 3f
+        weekTwoSales.valueTextSize = 15f
+        weekTwoSales.mode = LineDataSet.Mode.CUBIC_BEZIER
+        weekTwoSales.color = ContextCompat.getColor(requireActivity(), R.color.simple_green)
+        weekTwoSales.valueTextColor = ContextCompat.getColor(requireActivity(), R.color.simple_green)
+        val dataSet = ArrayList<ILineDataSet>()
+        dataSet.add(weekTwoSales)
+        weekTwoSales.setDrawValues(false)
+        weekTwoSales.valueTextColor = R.color.white
+        weekTwoSales.circleRadius = 6f
+        val lineData = LineData(dataSet)
+        binding.lineChart.data = lineData
+        binding.lineChart.invalidate()
+    }
+
+    private fun week2(): ArrayList<Entry> {
+        val sales = ArrayList<Entry>()
+        sales.add(Entry(0f, 11f))
+        sales.add(Entry(1f, 13f))
+        sales.add(Entry(2f, 18f))
+        sales.add(Entry(3f, 16f))
+        sales.add(Entry(4f, 22f))
+        return sales
+    }
+
+
+    private fun onGetDiagram() {
+
+        binding.apply {
+            val yValues = ArrayList<Entry>()
+
+            yValues.add(Entry(0f, 60f))
+            yValues.add(Entry(1f, 50f))
+            yValues.add(Entry(2f, 70f))
+            yValues.add(Entry(3f, 30f))
+            yValues.add(Entry(4f, 50f))
+            yValues.add(Entry(5f, 60f))
+            yValues.add(Entry(6f, 65f))
+
+            val set1 = LineDataSet(yValues, "")
+
+            set1.fillAlpha = 110
+            set1.color = R.color.primary
+
+            dataSets.add(set1)
+
+            data = LineData(dataSets)
+
+            lineChart.data = data
+
+            //pass value to pie chart of another class
+            val listData = ArrayList<Double>()
+
+            listData.add(83.20)
+            listData.add(16.80)
+            listData.add(12.0)
+
+            chartPie.setDataOfChart(listData)
+
+            //set attribute of line chart
+            lineChart.description.isEnabled = false
+            lineChart.axisLeft.isEnabled = false
+            lineChart.xAxis.isEnabled = false
+            data!!.setDrawValues(false)
+            lineChart.legend.isEnabled = false
+            set1.color = ContextCompat.getColor(UTSwapApp.instance, R.color.simple_green)
+            lineChart.isDragEnabled = true
+            lineChart.setScaleEnabled(true)
+        }
+    }
+
+//    fun setBadgeNumber() {
+//        binding.apply {
+//            SessionVariable.BADGE_NUMBER.observe(this@PortfolioFragment) {
+//                if (SessionVariable.BADGE_NUMBER.value?.isNotEmpty() == true && SessionVariable.BADGE_NUMBER.value != "0") {
+//                    tvBadgeNumber.visibility = View.VISIBLE
+//                    if (it.toInt() > 9) {
+//                        tvBadgeNumber.text = "9+"
+//                    } else {
+//                        tvBadgeNumber.text = it
+//                    }
+//                } else {
+//                    tvBadgeNumber.visibility = View.INVISIBLE
+//
+//                }
+//            }
+//        }
+//    }
+
+    private fun onClearList() {
+        changeList.clear()
+        performanceList.clear()
+        priceList.clear()
+        balanceList.clear()
+        weightList.clear()
+        binding.rvFilter.adapter?.notifyDataSetChanged()
+    }
+
+    private fun invisibleLayout() {
+        binding.apply {
+            linearLayoutChange.visibility = View.GONE
+            linearLayoutPrice.visibility = View.GONE
+            linearLayoutPerformance.visibility = View.GONE
+            linearLayoutBalance.visibility = View.GONE
+            linearLayoutWeight.visibility = View.GONE
+        }
+    }
+
+    private fun onStoreTypeStringToInt() {
+        binding.apply {
+            when (portfolioSelectType) {
+                Constants.PortfolioFilter.Change -> typePortfolio = 2
+                Constants.PortfolioFilter.Performance -> typePortfolio = 3
+                Constants.PortfolioFilter.Price -> typePortfolio = 1
+                Constants.PortfolioFilter.Balance -> typePortfolio = 5
+                Constants.PortfolioFilter.Weight -> typePortfolio = 4
             }
         }
     }
@@ -484,5 +668,53 @@ class PortfolioFragment :
                 lineChart.axisRight.isEnabled = true
             }
         }
+    }
+
+    private fun checkUserLogin(){
+        val intent = Intent(requireActivity(), SignInActivity::class.java)
+        startActivity(intent)
+    }
+}
+
+
+
+
+
+
+fun getDateInMilliSeconds(givenDateString: String?, format: String): Long {
+    val sdf = SimpleDateFormat(format, Locale.US)
+    var timeInMilliseconds: Long = 1
+    try {
+        val mDate: Date = sdf.parse(givenDateString)
+        timeInMilliseconds = mDate.getTime()
+    } catch (e: ParseException) {
+        e.printStackTrace()
+    }
+    return timeInMilliseconds
+}
+
+
+class ClaimsXAxisValueFormatter(var datesList: List<String>) :
+    ValueFormatter() {
+    override fun getAxisLabel(value: Float, axis: AxisBase): String {
+
+        var position = Math.round(value)
+        val sdf = SimpleDateFormat("MMM dd")
+        if (value > 1 && value < 2) {
+            position = 0
+        } else if (value > 2 && value < 3) {
+            position = 1
+        } else if (value > 3 && value < 4) {
+            position = 2
+        } else if (value > 4 && value <= 5) {
+            position = 3
+        }
+        return if (position < datesList.size) sdf.format(
+            Date(
+                Utils.getDateInMilliSeconds(
+                    datesList[position], "yyyy-MM-dd"
+                )
+            )
+        ) else ""
     }
 }

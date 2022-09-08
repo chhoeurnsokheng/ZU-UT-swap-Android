@@ -53,7 +53,7 @@ class AccountActivity :
         binding.apply {
             txtSignOut.text = Html.fromHtml("<u>Sign Out</u>")
 
-            txtVersion.text = "Version" + " APT" + "  ${BuildConfig.VERSION_NAME} "
+            txtVersion.text = "Version" + "  ${BuildConfig.VERSION_NAME} "
 
 //            if (SessionPreferences().SESSION_USER_PROFILE != "") {
 //                // Glide.with(UTSwapApp.instance).load("https://image.kpopmap.com/2019/02/IU-LILAC.jpg").into(profileImageView)

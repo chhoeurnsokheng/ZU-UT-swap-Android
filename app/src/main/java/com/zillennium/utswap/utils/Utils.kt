@@ -2,6 +2,7 @@ package com.zillennium.utswap.utils
 
 import android.annotation.SuppressLint
 import java.text.DateFormat
+import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -87,4 +88,17 @@ object Utils {
             c[Calendar.DATE] = c.getActualMaximum(Calendar.DAY_OF_MONTH)
             return df.format(c.time)
         }
+
+
+    fun getDateInMilliSeconds(givenDateString: String?, format: String): Long {
+        val sdf = SimpleDateFormat(format, Locale.US)
+        var timeInMilliseconds: Long = 1
+        try {
+            val mDate = sdf.parse(givenDateString)
+            timeInMilliseconds = mDate.time
+        } catch (e: ParseException) {
+            e.printStackTrace()
+        }
+        return timeInMilliseconds
+    }
 }

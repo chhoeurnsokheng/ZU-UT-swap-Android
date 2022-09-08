@@ -1,75 +1,51 @@
 package com.zillennium.utswap.module.main.portfolio.adapter
 
-import android.annotation.SuppressLint
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.RecyclerView
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
-import com.zillennium.utswap.models.portfolio.Price
+import com.zillennium.utswap.bases.mvp.BaseRecyclerViewAdapterGeneric
+import com.zillennium.utswap.bases.mvp.BaseViewHolder
+import com.zillennium.utswap.databinding.ItemListPortfolioPriceBinding
+import com.zillennium.utswap.models.portfolio.Portfolio
+import com.zillennium.utswap.utils.UtilKt
+import kotlin.math.roundToInt
 
-class PriceAdapter (
-    arrayList: ArrayList<Price>,
-) :
-    RecyclerView.Adapter<PriceAdapter.ViewHolder>() {
-    private var arrayList: ArrayList<Price> = ArrayList()
-    override fun onCreateViewHolder(
+class PriceAdapter : BaseRecyclerViewAdapterGeneric<Portfolio.GetPortfolioDashBoard, PriceAdapter.ItemViewHolder>(){
+
+    override fun onCreateItemHolder(
+        inflater: LayoutInflater,
         parent: ViewGroup,
         viewType: Int
-    ): ViewHolder {
-        val view: View = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_list_portfolio_price, parent, false)
-        return ViewHolder(
-            view
-        )
+    ) = ItemViewHolder(ItemListPortfolioPriceBinding.inflate(inflater, parent, false))
+
+    override fun onBindItemHolder(
+        holder: PriceAdapter.ItemViewHolder,
+        position: Int,
+        context: Context
+    ) {
+        holder.bidData(items[position])
     }
 
-    override fun getItemCount(): Int {
-        return arrayList.size
-    }
+    inner class ItemViewHolder(root: ItemListPortfolioPriceBinding) : BaseViewHolder<ItemListPortfolioPriceBinding>(root){
+        fun bidData(price: Portfolio.GetPortfolioDashBoard){
+            binding.apply {
+                txtTitleProject.text = price.mkt_project_name
+                txtBuy.text = price.mkt_project_buy_price?.let { UtilKt().formatValue(it.toDouble(), "###,###.##") }
+                txtMkt.text = price.mkt_project_mkt_price?.let { UtilKt().formatValue(it.toDouble(), "###,###.##") }
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        internal val txtTitleProject: TextView = itemView.findViewById(R.id.txt_title_project)
-        internal val line: View = itemView.findViewById(R.id.line)
-        internal val txtBuy : TextView = itemView.findViewById(R.id.txt_buy)
-        internal val txtMkt: TextView = itemView.findViewById(R.id.txt_mkt)
-    }
+                val mktPrice = (price.mkt_project_mkt_price?.toDouble()!! * 100.0).roundToInt() / 100.0
+                val buyPrice = (price.mkt_project_buy_price?.toDouble()!! * 100.0).roundToInt() / 100.0
 
-    @SuppressLint("SetTextI18n")
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val price: Price = arrayList[position]
-
-        holder.txtTitleProject.text = price.projectName
-        holder.txtBuy.text = price.txtBuy.toString()
-        holder.txtMkt.text = price.txtMkt.toString()
-
-        if (arrayList.size == 1) {
-            holder.line.visibility = View.GONE
-        } else {
-            when (position) {
-                arrayList.size - 1 -> {
-                    holder.line.visibility = View.GONE
-                }
-                0 -> {
-                    holder.line.visibility = View.VISIBLE
-                }
-                else -> {
-                    holder.line.visibility = View.VISIBLE
+                if (mktPrice < buyPrice){
+                    txtMkt.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
+                }else if (mktPrice == buyPrice){
+                    txtMkt.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
                 }
             }
         }
-
-        if(position == 2)
-        {
-            holder.txtMkt.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
-        }
-
-    }
-
-    init {
-        this.arrayList = arrayList
     }
 }

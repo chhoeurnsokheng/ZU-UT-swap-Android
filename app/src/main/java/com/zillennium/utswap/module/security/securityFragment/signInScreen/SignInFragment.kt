@@ -32,7 +32,7 @@ import com.zillennium.utswap.utils.validate
 class SignInFragment :
     BaseMvpFragment<SignInView.View, SignInView.Presenter, FragmentSecuritySignInBinding>(),
     SignInView.View {
-
+    
     private lateinit var imageWifi: ImageView
     private lateinit var textView: TextView
     private lateinit var mainWifi: LinearLayout

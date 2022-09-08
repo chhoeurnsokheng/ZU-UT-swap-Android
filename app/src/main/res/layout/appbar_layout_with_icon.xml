@@ -51,8 +51,8 @@
 
                 <ImageView
                     android:id="@+id/img_remember"
-                    android:layout_width="@dimen/dimen_15"
-                    android:layout_height="@dimen/dimen_15"
+                    android:layout_width="@dimen/dimen_22"
+                    android:layout_height="@dimen/dimen_22"
                     android:src="@drawable/ic_baseline_star_24"
                     android:layout_gravity="center"
                     android:layout_marginEnd="@dimen/dimen_10"
@@ -61,8 +61,8 @@
 
                 <ImageView
                     android:id="@+id/tb_left"
-                    android:layout_width="@dimen/dimen_18"
-                    android:layout_height="@dimen/dimen_18"
+                    android:layout_width="@dimen/dimen_22"
+                    android:layout_height="@dimen/dimen_22"
                     android:src="@drawable/ic_project"
                     android:layout_gravity="center"
                     android:layout_marginEnd="@dimen/dimen_18"

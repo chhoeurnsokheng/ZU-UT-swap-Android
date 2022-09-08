@@ -58,6 +58,13 @@ object ApiSettings {
     const val PATH_FORGOT_PASSWORD_VERIFY = "login/verifyForgetPassword"
     const val PATH_ENTER_NEW_PASSWORD = "login/changeNewPassword"
 
+    /** Change Login Password*/
+    const val PATH_CHANGE_LOGIN_PASSWORD = "user/changeNewPassword"
+
+    /** Change Fund Password*/
+    const val PATH_CHECK_OLD_FUND_PASSWORD = "user/checkOldFund"
+    const val PATH_CHANGE_FUND_PASSWORD = "user/changeFundPassword"
+
     /*User add KYC */
     const val PATH_KYC = "user/submitkyc"
     const val PATH_KYC_STATUS = "user/checkStatusKYC"
@@ -147,17 +154,21 @@ object ApiSettings {
     const val PATH_ONLINE_DEPOSIT      ="finance/onlineMyczUp"
     const val PATH_FINANCE_TRANSFER_LOGS ="finance/outlog_transfer"
 
+    const val PATH_QUERY_ORDER = "finance/DataQueryOrder"
+
+    const val PATH_GET_DEPOSIT_FEE ="finance/getDepositFee"
 
     /** Finance Transfer */
     const val PATH_FINANCE_TRANSFER = "finance/direct_transfer"
     const val PATH_FINANCE_VALIDATE_TRANSFER = "finance/validate_transfer"
 
 
-
-    const val PATH_QUERY_ORDER = "finance/DataQueryOrder"
-
-    const val PATH_GET_DEPOSIT_FEE ="finance/getDepositFee"
+    const val PATH_LIST_AVAILABLE_WITHDRAWAL_BANK = "finance/available_withdrawal_bank"
 
 
+
+    /** Portfolio */
+    const val PATH_PORTFOLIO = "portfolio/index"
+    const val PATH_DASHBOARD_CHART = "portfolio/dashboardchart"
 
 }

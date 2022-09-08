@@ -26,9 +26,6 @@ class SessionVariable {
         var refreshOrderPending: MutableLiveData<Boolean> = MutableLiveData()
         var refreshMatchingTransaction: MutableLiveData<Boolean> = MutableLiveData()
 
-        var createPendingOrder: MutableLiveData<Boolean> = MutableLiveData()
-        var createMatchingTransaction: MutableLiveData<Boolean> = MutableLiveData()
-
         var marketPriceSell: MutableLiveData<String> = MutableLiveData()
         var marketPriceBuy: MutableLiveData<String> = MutableLiveData()
 
@@ -38,5 +35,6 @@ class SessionVariable {
         var realTimeWatchList: MutableLiveData<Boolean> = MutableLiveData()
         var waitingPlaceOrder: MutableLiveData<Boolean> = MutableLiveData()
         var cancelPlaceOrder: MutableLiveData<Boolean> = MutableLiveData()
+        var marketOpen: MutableLiveData<Boolean> = MutableLiveData()
     }
 }

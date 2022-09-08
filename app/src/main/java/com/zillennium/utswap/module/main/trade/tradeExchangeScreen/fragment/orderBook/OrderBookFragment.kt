@@ -1,5 +1,6 @@
 package com.zillennium.utswap.module.main.trade.tradeExchangeScreen.fragment.orderBook
 
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.androidstudy.networkmanager.Tovuti
@@ -36,13 +37,23 @@ class OrderBookFragment :
         onOtherActivity()
         SessionVariable.requestOrderBookSocket.observe(this@OrderBookFragment){
             if(it){
-                Tovuti.from(UTSwapApp.instance).monitor { _, isConnected, _ ->
-                    if (isConnected) {
-                        mPresenter.startTradeOrderBookTable(Constants.OrderBookTable.marketNameOrderBook)
-                    }
-                }
+                mPresenter.startTradeOrderBookTable(Constants.OrderBookTable.marketNameOrderBook)
+//                Tovuti.from(UTSwapApp.instance).monitor { _, isConnected, _ ->
+//                    if (isConnected) {
+//                        orderBookBidList.clear()
+//                        orderBookAskList.clear()
+//                        orderBookBid?.clear()
+//                        orderBookAsk?.clear()
+//                        mPresenter.startTradeOrderBookTable(Constants.OrderBookTable.marketNameOrderBook)
+//                    }else{
+//                        orderBookBidList.clear()
+//                        orderBookAskList.clear()
+//                        orderBookBid?.clear()
+//                        orderBookAsk?.clear()
+//                    }
+//                }
             }else{
-                mPresenter.closeTradeOrderBookTable()
+                clearData()
             }
         }
 
@@ -67,7 +78,7 @@ class OrderBookFragment :
                 orderBookAsk?.items = orderBookAskList
                 binding.rvAsk.adapter = orderBookAsk
             }else{
-                SessionVariable.marketPriceSell.value = ""
+                SessionVariable.marketPriceSell.value = "0.00"
                 orderBookAsk?.clear()
             }
 
@@ -86,7 +97,7 @@ class OrderBookFragment :
                 orderBookBid?.items = orderBookBidList
                 binding.rvBid.adapter = orderBookBid
             }else{
-                SessionVariable.marketPriceBuy.value = ""
+                SessionVariable.marketPriceBuy.value = "0.00"
                 orderBookBid?.clear()
             }
 
@@ -95,6 +106,11 @@ class OrderBookFragment :
 
     private fun onOtherActivity(){
         binding.apply {
+            orderBookBidList.clear()
+            orderBookAskList.clear()
+            orderBookBid?.clear()
+            orderBookAsk?.clear()
+
             val linearLayoutManager = LinearLayoutManager(requireContext())
             rvBid.layoutManager = linearLayoutManager
             orderBookBid = OrderBookBidAdapter()
@@ -105,5 +121,11 @@ class OrderBookFragment :
             orderBookAsk = OrderBookAskAdapter()
             rvAsk.adapter = orderBookAsk
         }
+    }
+
+    fun clearData(){
+        orderBookBidList.clear()
+        orderBookAskList.clear()
+        mPresenter.closeTradeOrderBookTable()
     }
 }

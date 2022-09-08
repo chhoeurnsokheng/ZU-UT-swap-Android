@@ -37,6 +37,7 @@ class OrderBookPresenter : BaseMvpPresenterImpl<OrderBookView.View>(),
             }
 
             override fun onMessage(text: TradingList.TradeOrderBookTableRes?) {
+                println("===start order book socket")
                 mView?.fetchTradeOrderBookTable?.value = text
             }
 
@@ -55,6 +56,7 @@ class OrderBookPresenter : BaseMvpPresenterImpl<OrderBookView.View>(),
     override fun closeTradeOrderBookTable() {
         if(subscriptionOrderBookTable!=null && !subscriptionOrderBookTable?.isUnsubscribed!!){
             subscriptionOrderBookTable?.unsubscribe()
+            println("===close order book socket")
         }
     }
 }

@@ -195,8 +195,14 @@ class VerificationFragment :
                         Constants.FundPassword.ResetPassword -> {
                             mPresenter.onResetPassword(User.ForgotPasswordVerifyObject(editBox.text.toString(),SessionPreferences().SESSION_SECURE_KEY_FORGOT_PASSWORD.toString()),UTSwapApp.instance)
                         }
+                        Constants.FundPassword.ForgotLoginPassword ->{
+                            mPresenter.onResetPassword(User.ForgotPasswordVerifyObject(editBox.text.toString(),SessionPreferences().SESSION_SECURE_KEY_FORGOT_PASSWORD.toString()),UTSwapApp.instance)
+                        }
                         Constants.FundPassword.AddNumber -> {
                             mPresenter.onVerifyAddPhoneNumber(User.VerifyAddPhoneNumberObject(SessionPreferences().SESSION_SECURE_KEY_ADD_PHONE.toString(),editBox.text.toString()),UTSwapApp.instance)
+                        }
+                        Constants.FundPassword.ForgotFundPassword ->{
+                            mPresenter.onResetPassword(User.ForgotPasswordVerifyObject(editBox.text.toString(),SessionPreferences().SESSION_SECURE_KEY_FORGOT_PASSWORD.toString()),UTSwapApp.instance)
                         }
                     }
 
@@ -268,6 +274,12 @@ class VerificationFragment :
                     Constants.FundPassword.AddNumber -> {
                         mPresenter.onResendCodeAddPhoneNumber(User.AddPhoneNumberObject(Constants.AddPhoneNumber.cellPhone),UTSwapApp.instance)
                     }
+                    Constants.FundPassword.ForgotLoginPassword ->{
+                        mPresenter.onResendCodeResetPassword(User.ForgotPasswordObject(Constants.RegisterData.username),UTSwapApp.instance)
+                    }
+                    Constants.FundPassword.ForgotFundPassword ->{
+                        mPresenter.onResendCodeResetPassword(User.ForgotPasswordObject(Constants.RegisterData.username),UTSwapApp.instance)
+                    }
                 }
             }
         }
@@ -314,6 +326,7 @@ class VerificationFragment :
                     findNavController().navigate(R.id.action_from_verify_to_new_fund_password,bundle)
                 }
                 Constants.FundPassword.ForgotLoginPassword-> {
+                    SessionPreferences().SESSION_SECURE_KEY_FORGOT_PASSWORD = data.data?.secure_key.toString()
                     findNavController().navigate(R.id.action_to_new_account_login_password)
                 }
                 Constants.FundPassword.AddNumber -> {

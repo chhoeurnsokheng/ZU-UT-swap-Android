@@ -28,4 +28,8 @@ class ApiNewsImp: ApiManager() {
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
 
+    fun getNewsHomeNoToken(context: Context):Observable<News.NewsRes> = mNewsService.newsHomeNoToken()
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+
 }
