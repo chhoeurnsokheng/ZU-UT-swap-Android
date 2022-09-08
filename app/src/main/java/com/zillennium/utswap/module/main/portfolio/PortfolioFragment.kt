@@ -60,7 +60,10 @@ class PortfolioFragment :
     private var dataSets = ArrayList<ILineDataSet>()
     private var data: LineData? = null
     val yxValues :ArrayList<Entry> = arrayListOf()
-    var month :ArrayList<String> = arrayListOf()
+
+    companion object{
+        var month :ArrayList<String> = arrayListOf()
+    }
     @SuppressLint("UseCompatLoadingForDrawables", "NotifyDataSetChanged", "SetTextI18n")
     override fun initView() {
         super.initView()
@@ -394,8 +397,11 @@ class PortfolioFragment :
 
         binding.apply {
             val yValues :ArrayList<Entry> = arrayListOf()
-            yxValues.addAll(listOf(Entry(dataSuccess.data.maxOf { it.x }, dataSuccess.data.maxOf { it.y })))
-             month = dataSuccess.data.map { it.date }.toList() as ArrayList<String>
+             yxValues.addAll(listOf(Entry(dataSuccess.data.maxOf { it.x }, dataSuccess.data.maxOf { it.y })))
+             month = dataSuccess.data.map { it.date }  as ArrayList<String>
+
+
+
 
 //            val set1 = LineDataSet(yValues, "")
 //
@@ -428,7 +434,19 @@ class PortfolioFragment :
 
 
     }
+    object MyAxisFormatter : IndexAxisValueFormatter() {
 
+        var items = arrayListOf("January",  "February", "March", "April","May", "June")
+
+        override fun getAxisLabel(value: Float, axis: AxisBase?): String? {
+            val index = value.toInt()
+            return if (index < month.size) {
+                items[index]
+            } else {
+                null
+            }
+        }
+    }
     override fun getPortfolioDashboardChartFailed(data: String) {}
 
     private fun onUserBalancePortfolio() {
@@ -551,19 +569,6 @@ class PortfolioFragment :
         return sales
     }
 
-    object MyAxisFormatter : IndexAxisValueFormatter() {
-
-        private var items = arrayListOf("January",  "February", "March", "April","May", "June")
-
-        override fun getAxisLabel(value: Float, axis: AxisBase?): String? {
-            val index = value.toInt()
-            return if (index < items.size) {
-                items[index]
-            } else {
-                null
-            }
-        }
-    }
 
     private fun onGetDiagram() {
 
