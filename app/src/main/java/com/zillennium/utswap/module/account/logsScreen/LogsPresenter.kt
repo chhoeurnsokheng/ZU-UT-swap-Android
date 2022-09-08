@@ -14,6 +14,7 @@ class LogsPresenter : BaseMvpPresenterImpl<LogsView.View>(),
     LogsView.Presenter {
 
     private var subscription: Subscription? = null
+    private var subscriptionNextPage: Subscription? = null
 
     override fun initViewPresenter(context: Context, bundle: Bundle?) {
         mBundle = bundle
@@ -31,6 +32,27 @@ class LogsPresenter : BaseMvpPresenterImpl<LogsView.View>(),
                     mView?.onUserExpiredToken()
                 }else{
                     mView?.accountLogsFail(it)
+                }
+            }
+        },{
+            object : CallbackWrapper(it, UTSwapApp.instance, arrayListOf()){
+                override fun onCallbackWrapper(status: ApiManager.NetworkErrorStatus, data: Any) {
+                    mView?.onFail(data.toString())
+                }
+            }
+        })
+    }
+
+    override fun accountLogsNextPage(body: Logs.AccountLogsObject, context: Context) {
+        subscriptionNextPage?.unsubscribe()
+        subscriptionNextPage = ApiAccountLogsImp().accountLogs(body, context).subscribe({
+            if (it.status == 1){
+                mView?.accountLogsNextPageSuccess(it)
+            }else{
+                if(it.message.toString() == "Please sign in"){
+                    mView?.onUserExpiredToken()
+                }else{
+                    mView?.accountLogsNextPageFail(it)
                 }
             }
         },{

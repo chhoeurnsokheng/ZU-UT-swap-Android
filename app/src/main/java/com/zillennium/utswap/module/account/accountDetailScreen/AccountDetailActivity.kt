@@ -13,6 +13,7 @@ import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityAccountDetailBinding
 import com.zillennium.utswap.models.userService.User
 import com.zillennium.utswap.module.account.accountDetailScreen.dialog.DialogAccountUTType
+import com.zillennium.utswap.module.account.accountKycPending.AccountKycPendingActivity
 import com.zillennium.utswap.module.account.addNumberScreen.AddNumberActivity
 import com.zillennium.utswap.module.account.logsScreen.LogsActivity
 import com.zillennium.utswap.module.kyc.kycActivity.KYCActivity
@@ -29,6 +30,7 @@ class AccountDetailActivity :
     override val layoutResource: Int = R.layout.activity_account_detail
 
     private var strTitle: String? = ""
+    private var strKyc: String? = ""
 
     override fun initView() {
         super.initView()
@@ -77,8 +79,13 @@ class AccountDetailActivity :
             }
 
             txtName.setOnClickListener {
-                val intent = Intent(UTSwapApp.instance, KYCActivity::class.java)
-                startActivity(intent)
+                if(strKyc == "0"){
+                    val intent = Intent(UTSwapApp.instance, KYCActivity::class.java)
+                    startActivity(intent)
+                }else if(strKyc == "2"){
+                    val intent = Intent(UTSwapApp.instance, AccountKycPendingActivity::class.java)
+                    startActivity(intent)
+                }
             }
         }
     }
@@ -137,10 +144,12 @@ class AccountDetailActivity :
             {
                 txtName.text = resources.getString(R.string.verify_your_identity)
                 txtName.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
+                strKyc = "0"
                 txtName.isEnabled = true
             }else if(data.kyc.toString() == "2"){
                 txtName.text = resources.getString(R.string.kyc_approval_is_pending)
                 txtName.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
+                strKyc = "2"
                 txtName.isEnabled = true
             }else{
                 if (!data.username.isNullOrEmpty())
@@ -149,6 +158,7 @@ class AccountDetailActivity :
                     txtName.isEnabled = false
                 }else{
                     txtName.text = resources.getString(R.string.verify_your_identity)
+                    strKyc = "0"
                     txtName.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
                     txtName.isEnabled = true
                 }
@@ -182,8 +192,16 @@ class AccountDetailActivity :
             if(data.kyc.toString() == "0")
             {
                 btnCertified.visibility = View.INVISIBLE
+                txtCompany.visibility = View.GONE
+                txtOccupation.visibility = View.GONE
+                linearLayoutCompany.visibility = View.GONE
+                linearLayoutOccupation.visibility = View.GONE
             }else if(data.kyc.toString() == "2"){
                 btnCertified.visibility = View.INVISIBLE
+                txtCompany.visibility = View.GONE
+                txtOccupation.visibility = View.GONE
+                linearLayoutCompany.visibility = View.GONE
+                linearLayoutOccupation.visibility = View.GONE
             }else{
                 btnCertified.visibility = View.VISIBLE
             }

@@ -12,6 +12,8 @@ class LogsView {
         override fun initView()
         fun accountLogsSuccess(data: Logs.AccountLogsRes)
         fun accountLogsFail(data: Logs.AccountLogsRes)
+        fun accountLogsNextPageSuccess(data: Logs.AccountLogsRes)
+        fun accountLogsNextPageFail(data: Logs.AccountLogsRes)
         fun onUserExpiredToken()
 //        override fun onFail(any: Any)
     }
@@ -19,5 +21,6 @@ class LogsView {
     interface Presenter : BaseMvpPresenter<View> {
         override fun initViewPresenter(context: Context, bundle: Bundle?)
         fun accountLogs(body: Logs.AccountLogsObject, context: Context)
+        fun accountLogsNextPage(body: Logs.AccountLogsObject,context: Context)
     }
 }

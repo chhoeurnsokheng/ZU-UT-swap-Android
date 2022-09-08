@@ -14,13 +14,13 @@ import com.bumptech.glide.Glide
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.zillennium.utswap.BuildConfig
 import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
-import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityAccountBinding
 import com.zillennium.utswap.models.userService.User
 import com.zillennium.utswap.module.account.accountDetailScreen.AccountDetailActivity
+import com.zillennium.utswap.module.account.accountKycPending.AccountKycPendingActivity
 import com.zillennium.utswap.module.account.addNumberScreen.AddNumberActivity
 import com.zillennium.utswap.module.account.customerSupportScreen.CustomerSupportActivity
 import com.zillennium.utswap.module.account.documentsScreen.DocumentsActivity
@@ -28,10 +28,8 @@ import com.zillennium.utswap.module.account.lockTimeOutScreen.LockTimeOutActivit
 import com.zillennium.utswap.module.account.referralInformationScreen.ReferralInformationActivity
 import com.zillennium.utswap.screens.navbar.navbar.MainActivity
 import com.zillennium.utswap.module.kyc.kycActivity.KYCActivity
-import com.zillennium.utswap.module.security.securityActivity.signInScreen.SignInActivity
 import com.zillennium.utswap.utils.ClientClearData
 import com.zillennium.utswap.utils.DialogUtil
-import com.zillennium.utswap.utils.VerifyClientData
 import java.io.ByteArrayOutputStream
 import java.io.File
 
@@ -45,6 +43,7 @@ class AccountActivity :
     private val PICK_IMAGE_FROM_GALLERY = 1
     private var newImageFile: File? = null
     var preferencesCondition = true
+    private var strKyc: String? = ""
 
     override fun initView() {
         super.initView()
@@ -124,8 +123,13 @@ class AccountActivity :
             }
 
             txtVerifyIdentity.setOnClickListener {
-                val intent = Intent(UTSwapApp.instance, KYCActivity::class.java)
-                startActivity(intent)
+                if(strKyc == "0"){
+                    val intent = Intent(UTSwapApp.instance, KYCActivity::class.java)
+                    startActivity(intent)
+                }else if(strKyc == "2"){
+                    val intent = Intent(UTSwapApp.instance, AccountKycPendingActivity::class.java)
+                    startActivity(intent)
+                }
             }
 
             profileImageView.setOnClickListener {
@@ -240,17 +244,35 @@ class AccountActivity :
                 txtPhoneNumber.isEnabled = true
             }
 
-            if (!data.username.isNullOrEmpty())
+            if(data.kyc.toString() == "0")
             {
-                txtName.text = data.truename.toString()
-                txtVerifyIdentity.isEnabled = false
-                txtArrow.visibility = View.GONE
-            }else{
                 txtArrow.visibility = View.VISIBLE
                 txtName.text = Html.fromHtml("<u>Verify Your Identity</u>")
                 txtName.setTextAppearance(UTSwapApp.instance, R.style.medium_18)
                 txtName.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.white))
                 txtVerifyIdentity.isEnabled = true
+                strKyc = "0"
+            }else if(data.kyc.toString() == "2"){
+                txtArrow.visibility = View.VISIBLE
+                txtName.text = Html.fromHtml("<u>KYC Approval is Pending</u>")
+                txtName.setTextAppearance(UTSwapApp.instance, R.style.medium_18)
+                txtName.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.white))
+                txtVerifyIdentity.isEnabled = true
+                strKyc = "2"
+            }else{
+                if (!data.username.isNullOrEmpty())
+                {
+                    txtName.text = data.truename.toString()
+                    txtVerifyIdentity.isEnabled = false
+                    txtArrow.visibility = View.GONE
+                }else{
+                    txtArrow.visibility = View.VISIBLE
+                    txtName.text = Html.fromHtml("<u>Verify Your Identity</u>")
+                    strKyc = "0"
+                    txtName.setTextAppearance(UTSwapApp.instance, R.style.medium_18)
+                    txtName.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.white))
+                    txtVerifyIdentity.isEnabled = true
+                }
             }
 
             Glide

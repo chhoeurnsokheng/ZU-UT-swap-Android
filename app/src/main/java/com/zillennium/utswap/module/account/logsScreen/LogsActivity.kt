@@ -72,10 +72,8 @@ class LogsActivity :
                 layAccountLogsLoading.visibility = View.VISIBLE
                 txtReadMore.visibility = View.VISIBLE
 //                txtLoading.visibility = View.GONE
-            }
 
-            if(page == 2){
-                mPresenter.accountLogs(Logs.AccountLogsObject(2), UTSwapApp.instance)
+                mPresenter.accountLogsNextPage(Logs.AccountLogsObject(2), UTSwapApp.instance)
             }
 
             logsAdapter?.notifyDataSetChanged()
@@ -87,6 +85,34 @@ class LogsActivity :
             mainProgressBar.visibility = View.VISIBLE
             accountLogsSwipeRefresh.isRefreshing = false
         }
+    }
+
+    override fun accountLogsNextPageSuccess(data: Logs.AccountLogsRes) {
+        binding.apply {
+            mainProgressBar.visibility = View.GONE
+            progressBarReadMore.visibility = View.GONE
+            accountLogsSwipeRefresh.isRefreshing = false
+
+            if(page == 1){
+                logsList.clear()
+            }
+
+            totalPage = data.data?.totalPage!!
+
+            if (data.data?.lists?.isNotEmpty() == true) {
+                logsList.addAll(data.data?.lists!!)
+
+                layAccountLogsLoading.visibility = View.VISIBLE
+                txtReadMore.visibility = View.VISIBLE
+//                txtLoading.visibility = View.GONE
+            }
+
+            logsAdapter?.notifyDataSetChanged()
+        }
+    }
+
+    override fun accountLogsNextPageFail(data: Logs.AccountLogsRes) {
+
     }
 
     override fun onUserExpiredToken() {
@@ -119,6 +145,7 @@ class LogsActivity :
                 logsList.clear()
                 progressBarAutoScroll.visibility = View.GONE
                 mPresenter.accountLogs(Logs.AccountLogsObject(1), UTSwapApp.instance)
+                mPresenter.accountLogsNextPage(Logs.AccountLogsObject(2),UTSwapApp.instance)
             }
         }
     }
@@ -129,7 +156,7 @@ class LogsActivity :
                 page += 1
                 txtReadMore.visibility = View.GONE
                 progressBarReadMore.visibility = View.VISIBLE
-                mPresenter.accountLogs(Logs.AccountLogsObject(page), UTSwapApp.instance)
+                mPresenter.accountLogsNextPage(Logs.AccountLogsObject(page), UTSwapApp.instance)
             }
         }
     }
@@ -144,7 +171,7 @@ class LogsActivity :
                     if (lastPosition == logsList.size - 1  && page < totalPage) {
                         binding.progressBarAutoScroll.visibility = View.VISIBLE
                         page += 1
-                        mPresenter.accountLogs(Logs.AccountLogsObject(page), UTSwapApp.instance)
+                        mPresenter.accountLogsNextPage(Logs.AccountLogsObject(page), UTSwapApp.instance)
                     }
 
 
