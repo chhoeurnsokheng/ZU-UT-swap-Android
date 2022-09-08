@@ -145,7 +145,6 @@ class LogsActivity :
                 logsList.clear()
                 progressBarAutoScroll.visibility = View.GONE
                 mPresenter.accountLogs(Logs.AccountLogsObject(1), UTSwapApp.instance)
-                mPresenter.accountLogsNextPage(Logs.AccountLogsObject(2),UTSwapApp.instance)
             }
         }
     }
