@@ -11,7 +11,7 @@ object Portfolio {
     class GetPortfolioDashboardChartRes{
         var status: Int? = null
         var message: String? = null
-        var data: List<DataGetPortfolioDashboardChartRes> ?  = null
+        var data:ArrayList<DataGetPortfolioDashboardChartRes> = arrayListOf()
     }
     class DataGetPortfolioDashboardChartRes{
         var x:Float  = 0f

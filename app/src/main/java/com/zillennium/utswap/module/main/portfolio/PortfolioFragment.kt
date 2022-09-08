@@ -15,8 +15,10 @@ import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.github.mikephil.charting.formatter.ValueFormatter
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
+import com.google.android.play.core.appupdate.i
 import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
 import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
@@ -35,7 +37,6 @@ import com.zillennium.utswap.utils.Utils
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
-
 
 class PortfolioFragment :
     BaseMvpFragment<PortfolioView.View, PortfolioView.Presenter, FragmentNavbarPortfolioBinding>(),
@@ -59,11 +60,13 @@ class PortfolioFragment :
 
     private var dataSets = ArrayList<ILineDataSet>()
     private var data: LineData? = null
-    val yxValues :ArrayList<Entry> = arrayListOf()
+    var month: List<String>? = arrayListOf()
+    val yValues: ArrayList<Entry> = arrayListOf()
 
-    companion object{
-        var month :ArrayList<String> = arrayListOf()
+    companion object {
+        var month1: List<String> = arrayListOf()
     }
+
     @SuppressLint("UseCompatLoadingForDrawables", "NotifyDataSetChanged", "SetTextI18n")
     override fun initView() {
         super.initView()
@@ -73,18 +76,18 @@ class PortfolioFragment :
                 mPresenter.getPortfolioDashboardChart(requireActivity())
 
 
-                SessionVariable.SESSION_STATUS.observe(this@PortfolioFragment){
+                SessionVariable.SESSION_STATUS.observe(this@PortfolioFragment) {
                     requestData()
                 }
 
 
-                setDataToLineChart()
-                setUpLineChart()
+                //  setDataToLineChart()
+                //  setUpLineChart()
                 onCallApi()
                 onCheckUserKYC()
                 onLayoutHeader()
                 onUserBalancePortfolio()
-              //  onGetDiagram()
+                //  onGetDiagram()
 
                 layFilter.setOnClickListener {
                     layFilter.isEnabled = false
@@ -121,11 +124,12 @@ class PortfolioFragment :
         }
     }
 
-    private fun requestData(){
+    private fun requestData() {
         binding.btnFilter.text = portfolioSelectType
         mPresenter.onGetPortfolio(Portfolio.GetPortfolioObject(typePortfolio), requireActivity())
     }
-    private fun onCallApi(){
+
+    private fun onCallApi() {
 
         binding.apply {
             Tovuti.from(UTSwapApp.instance).monitor { _, isConnected, _ ->
@@ -144,9 +148,9 @@ class PortfolioFragment :
     }
 
     override fun onGetPortfolioSuccess(data: Portfolio.GetPortfolio) {
-            if (data.message =="Please sign in"){
-                checkUserLogin()
-            }
+        if (data.message == "Please sign in") {
+            checkUserLogin()
+        }
         mPresenter.getPortfolioDashboardChart(requireActivity())
         binding.apply {
             loadingProgressBar.visibility = View.GONE
@@ -396,10 +400,53 @@ class PortfolioFragment :
     override fun getPortfolioDashboardChartSuccess(dataSuccess: Portfolio.GetPortfolioDashboardChartRes) {
 
         binding.apply {
-            val yValues :ArrayList<Entry> = arrayListOf()
-           //  yxValues.addAll(listOf(Entry(dataSuccess.data.maxOf { it.x }, dataSuccess.data.maxOf { it.y })))
-             month = dataSuccess.data?.map { it.date }  as ArrayList<String>
 
+            val sales = dataSuccess.data.indices.map { Entry(it.toFloat(), dataSuccess.data[it].y) }
+            val myDateFormatter = SimpleDateFormat("dd MMM", Locale.getDefault())
+
+            month1 = dataSuccess.data.map { it.date ?: "N/A" }
+            month  = dataSuccess.data.map { myDateFormatter.format(it.date) }
+
+            val weekTwoSales = LineDataSet(sales, "")
+            weekTwoSales.lineWidth = 3f
+            weekTwoSales.valueTextSize = 15f
+            weekTwoSales.mode = LineDataSet.Mode.CUBIC_BEZIER
+            weekTwoSales.color = ContextCompat.getColor(requireActivity(), R.color.simple_green)
+            weekTwoSales.valueTextColor = ContextCompat.getColor(requireActivity(), R.color.simple_green)
+
+            val dataSet = ArrayList<ILineDataSet>()
+            dataSet.add(weekTwoSales)
+            weekTwoSales.setDrawValues(false)
+            weekTwoSales.valueTextColor = R.color.white
+            weekTwoSales.circleRadius = 6f
+            val lineData = LineData(dataSet)
+            binding.lineChart.data = lineData
+            binding.lineChart.invalidate()
+
+
+            with(binding.lineChart) {
+                animateX(1200, Easing.EaseInSine)
+                description.isEnabled = false
+                xAxis.setDrawGridLines(false)
+                xAxis.position = XAxis.XAxisPosition.BOTTOM
+                xAxis.granularity = 1F
+                xAxis.yOffset  = 4.0F
+
+              //  xAxis.valueFormatter = month1.let { ClaimsXAxisValueFormatter(it) }
+               xAxis.valueFormatter = MyAxisFormatter//  month?.let { ClaimsXAxisValueFormatter(it) }
+                axisLeft.isEnabled = false
+                axisRight.isEnabled = true
+                axisRight.valueFormatter = ClaimsYAxisValueFormatter()
+                extraRightOffset = 30f
+                legend.orientation = Legend.LegendOrientation.VERTICAL
+                legend.verticalAlignment = Legend.LegendVerticalAlignment.TOP
+                legend.horizontalAlignment = Legend.LegendHorizontalAlignment.CENTER
+                legend.textSize = 15F
+                legend.form = Legend.LegendForm.LINE
+            }
+
+
+            //pass value to pie chart of another class
             val listData = ArrayList<Double>()
             listData.add(83.20)
             listData.add(16.80)
@@ -409,9 +456,8 @@ class PortfolioFragment :
             listData.add(19.0)
             listData.add(2.0)
             listData.add(21.0)
-
             chartPie.setDataOfChart(listData)
-
+            lineChart.setNoDataText("No forex yet!")
 
 
         }
@@ -419,19 +465,19 @@ class PortfolioFragment :
 
     }
 
-//    object MyAxisFormatter : IndexAxisValueFormatter() {
-//
-//        var items = arrayListOf("January",  "February", "March", "April","May", "June")
-//
-//        override fun getAxisLabel(value: Float, axis: AxisBase?): String? {
-//            val index = value.toInt()
-//            return if (index < month.size) {
-//                items[index]
-//            } else {
-//                null
-//            }
-//        }
-//    }
+    object MyAxisFormatter : IndexAxisValueFormatter() {
+
+        var items = month1    //arrayListOf("January",  "February", "March", "April","May", "June")
+
+        override fun getAxisLabel(value: Float, axis: AxisBase?): String? {
+            val index = value.toInt()
+            return if (index < items.size) {
+                items[index]
+            } else {
+                null
+            }
+        }
+    }
 
     override fun getPortfolioDashboardChartFailed(data: String) {}
 
@@ -514,9 +560,10 @@ class PortfolioFragment :
             xAxis.setDrawGridLines(false)
             xAxis.position = XAxis.XAxisPosition.BOTTOM
             xAxis.granularity = 1F
-            xAxis.valueFormatter = ClaimsXAxisValueFormatter(month)
+            xAxis.valueFormatter = month?.let { ClaimsXAxisValueFormatter(it) }
             axisLeft.isEnabled = false
             axisRight.isEnabled = true
+            axisRight.valueFormatter = ClaimsYAxisValueFormatter()
             extraRightOffset = 30f
             legend.orientation = Legend.LegendOrientation.VERTICAL
             legend.verticalAlignment = Legend.LegendVerticalAlignment.TOP
@@ -527,13 +574,13 @@ class PortfolioFragment :
     }
 
     private fun setDataToLineChart() {
-
-        val weekTwoSales = LineDataSet(week2(), "")
+        val weekTwoSales = LineDataSet(yValues, "")
         weekTwoSales.lineWidth = 3f
         weekTwoSales.valueTextSize = 15f
         weekTwoSales.mode = LineDataSet.Mode.CUBIC_BEZIER
         weekTwoSales.color = ContextCompat.getColor(requireActivity(), R.color.simple_green)
-        weekTwoSales.valueTextColor = ContextCompat.getColor(requireActivity(), R.color.simple_green)
+        weekTwoSales.valueTextColor =
+            ContextCompat.getColor(requireActivity(), R.color.simple_green)
         val dataSet = ArrayList<ILineDataSet>()
         dataSet.add(weekTwoSales)
         weekTwoSales.setDrawValues(false)
@@ -557,47 +604,47 @@ class PortfolioFragment :
 
     private fun onGetDiagram() {
 
-             binding.apply {
-                 val yValues = ArrayList<Entry>()
+        binding.apply {
+            val yValues = ArrayList<Entry>()
 
-                 yValues.add(Entry(0f, 60f))
-                 yValues.add(Entry(1f, 50f))
-                 yValues.add(Entry(2f, 70f))
-                 yValues.add(Entry(3f, 30f))
-                 yValues.add(Entry(4f, 50f))
-                 yValues.add(Entry(5f, 60f))
-                 yValues.add(Entry(6f, 65f))
+            yValues.add(Entry(0f, 60f))
+            yValues.add(Entry(1f, 50f))
+            yValues.add(Entry(2f, 70f))
+            yValues.add(Entry(3f, 30f))
+            yValues.add(Entry(4f, 50f))
+            yValues.add(Entry(5f, 60f))
+            yValues.add(Entry(6f, 65f))
 
-                 val set1 = LineDataSet(yValues, "")
+            val set1 = LineDataSet(yValues, "")
 
-                 set1.fillAlpha = 110
-                 set1.color = R.color.primary
+            set1.fillAlpha = 110
+            set1.color = R.color.primary
 
-                 dataSets.add(set1)
+            dataSets.add(set1)
 
-                 data = LineData(dataSets)
+            data = LineData(dataSets)
 
-                 lineChart.data = data
+            lineChart.data = data
 
-                 //pass value to pie chart of another class
-                 val listData = ArrayList<Double>()
+            //pass value to pie chart of another class
+            val listData = ArrayList<Double>()
 
-                 listData.add(83.20)
-                 listData.add(16.80)
-                 listData.add(12.0)
+            listData.add(83.20)
+            listData.add(16.80)
+            listData.add(12.0)
 
-                 chartPie.setDataOfChart(listData)
+            chartPie.setDataOfChart(listData)
 
-                 //set attribute of line chart
-                 lineChart.description.isEnabled = false
-                 lineChart.axisLeft.isEnabled = false
-                 lineChart.xAxis.isEnabled = false
-                 data!!.setDrawValues(false)
-                 lineChart.legend.isEnabled = false
-                 set1.color = ContextCompat.getColor(UTSwapApp.instance, R.color.simple_green)
-                 lineChart.isDragEnabled = true
-                 lineChart.setScaleEnabled(true)
-             }
+            //set attribute of line chart
+            lineChart.description.isEnabled = false
+            lineChart.axisLeft.isEnabled = false
+            lineChart.xAxis.isEnabled = false
+            data!!.setDrawValues(false)
+            lineChart.legend.isEnabled = false
+            set1.color = ContextCompat.getColor(UTSwapApp.instance, R.color.simple_green)
+            lineChart.isDragEnabled = true
+            lineChart.setScaleEnabled(true)
+        }
     }
 
     private fun onClearList() {
@@ -652,14 +699,11 @@ class PortfolioFragment :
         }
     }
 
-    private fun checkUserLogin(){
+    private fun checkUserLogin() {
         val intent = Intent(requireActivity(), SignInActivity::class.java)
         startActivity(intent)
     }
 }
-
-
-
 
 
 fun getDateInMilliSeconds(givenDateString: String?, format: String): Long {
@@ -680,7 +724,7 @@ class ClaimsXAxisValueFormatter(var datesList: List<String>) :
     override fun getAxisLabel(value: Float, axis: AxisBase): String {
 
         var position = Math.round(value)
-        val sdf = SimpleDateFormat("MMM dd")
+        val sdf = SimpleDateFormat("MM-dd")
         if (value > 1 && value < 2) {
             position = 0
         } else if (value > 2 && value < 3) {
@@ -690,12 +734,19 @@ class ClaimsXAxisValueFormatter(var datesList: List<String>) :
         } else if (value > 4 && value <= 5) {
             position = 3
         }
-        return if (position < datesList.size) sdf.format(
+        return if (position < datesList.size)
+            sdf.format(
             Date(
                 Utils.getDateInMilliSeconds(
                     datesList[position], "yyyy-MM-dd"
                 )
             )
         ) else ""
+    }
+}
+
+class ClaimsYAxisValueFormatter : ValueFormatter() {
+    override fun getAxisLabel(value: Float, axis: AxisBase): String {
+        return value.toString() + "k"
     }
 }
