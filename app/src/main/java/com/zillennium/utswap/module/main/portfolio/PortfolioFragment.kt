@@ -1,27 +1,22 @@
 package com.zillennium.utswap.module.main.portfolio
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
 import android.graphics.BlurMaskFilter
 import android.graphics.MaskFilter
 import android.view.View
 import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.androidstudy.networkmanager.Tovuti
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.components.AxisBase
 import com.github.mikephil.charting.components.Legend
-import com.github.mikephil.charting.components.MarkerView
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
-import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
-import com.github.mikephil.charting.highlight.Highlight
+import com.github.mikephil.charting.formatter.ValueFormatter
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
-import com.github.mikephil.charting.utils.MPPointF
 import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
 import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
@@ -36,6 +31,11 @@ import com.zillennium.utswap.module.security.securityActivity.signInScreen.SignI
 import com.zillennium.utswap.module.system.notification.NotificationActivity
 import com.zillennium.utswap.utils.Constants
 import com.zillennium.utswap.utils.UtilKt
+import com.zillennium.utswap.utils.Utils
+import java.text.ParseException
+import java.text.SimpleDateFormat
+import java.util.*
+
 
 class PortfolioFragment :
     BaseMvpFragment<PortfolioView.View, PortfolioView.Presenter, FragmentNavbarPortfolioBinding>(),
@@ -397,26 +397,10 @@ class PortfolioFragment :
 
         binding.apply {
             val yValues :ArrayList<Entry> = arrayListOf()
-             yxValues.addAll(listOf(Entry(dataSuccess.data.maxOf { it.x }, dataSuccess.data.maxOf { it.y })))
-             month = dataSuccess.data.map { it.date }  as ArrayList<String>
+           //  yxValues.addAll(listOf(Entry(dataSuccess.data.maxOf { it.x }, dataSuccess.data.maxOf { it.y })))
+             month = dataSuccess.data?.map { it.date }  as ArrayList<String>
 
-
-
-
-//            val set1 = LineDataSet(yValues, "")
-//
-//            set1.fillAlpha = 110
-//            set1.color = R.color.primary
-//
-//            dataSets.add(set1)
-//
-//            data = LineData(dataSets)
-//
-//            lineChart.data = data
-
-            //pass value to pie chart of another class
             val listData = ArrayList<Double>()
-
             listData.add(83.20)
             listData.add(16.80)
             listData.add(12.0)
@@ -434,19 +418,21 @@ class PortfolioFragment :
 
 
     }
-    object MyAxisFormatter : IndexAxisValueFormatter() {
 
-        var items = arrayListOf("January",  "February", "March", "April","May", "June")
+//    object MyAxisFormatter : IndexAxisValueFormatter() {
+//
+//        var items = arrayListOf("January",  "February", "March", "April","May", "June")
+//
+//        override fun getAxisLabel(value: Float, axis: AxisBase?): String? {
+//            val index = value.toInt()
+//            return if (index < month.size) {
+//                items[index]
+//            } else {
+//                null
+//            }
+//        }
+//    }
 
-        override fun getAxisLabel(value: Float, axis: AxisBase?): String? {
-            val index = value.toInt()
-            return if (index < month.size) {
-                items[index]
-            } else {
-                null
-            }
-        }
-    }
     override fun getPortfolioDashboardChartFailed(data: String) {}
 
     private fun onUserBalancePortfolio() {
@@ -528,11 +514,10 @@ class PortfolioFragment :
             xAxis.setDrawGridLines(false)
             xAxis.position = XAxis.XAxisPosition.BOTTOM
             xAxis.granularity = 1F
-            xAxis.valueFormatter = MyAxisFormatter
+            xAxis.valueFormatter = ClaimsXAxisValueFormatter(month)
             axisLeft.isEnabled = false
             axisRight.isEnabled = true
             extraRightOffset = 30f
-
             legend.orientation = Legend.LegendOrientation.VERTICAL
             legend.verticalAlignment = Legend.LegendVerticalAlignment.TOP
             legend.horizontalAlignment = Legend.LegendHorizontalAlignment.CENTER
@@ -677,22 +662,40 @@ class PortfolioFragment :
 
 
 
-class CustomMarker(context: Context, layoutResource: Int):  MarkerView(context, layoutResource) {
-    override fun refreshContent(entry: Entry?, highlight: Highlight?) {
-        val value = entry?.y?.toDouble() ?: 0.0
-        var resText = ""
-        if(value.toString().length > 8){
-            resText = "Val: " + value.toString().substring(0,7)
-        }
-        else{
-            resText = "Val: " + value.toString()
-        }
-       // tvPrice.text = resText
-        super.refreshContent(entry, highlight)
+fun getDateInMilliSeconds(givenDateString: String?, format: String): Long {
+    val sdf = SimpleDateFormat(format, Locale.US)
+    var timeInMilliseconds: Long = 1
+    try {
+        val mDate: Date = sdf.parse(givenDateString)
+        timeInMilliseconds = mDate.getTime()
+    } catch (e: ParseException) {
+        e.printStackTrace()
     }
-
-    override fun getOffsetForDrawingAtPoint(xpos: Float, ypos: Float): MPPointF {
-        return MPPointF(-width / 2f, -height - 10f)
-    }
+    return timeInMilliseconds
 }
 
+
+class ClaimsXAxisValueFormatter(var datesList: List<String>) :
+    ValueFormatter() {
+    override fun getAxisLabel(value: Float, axis: AxisBase): String {
+
+        var position = Math.round(value)
+        val sdf = SimpleDateFormat("MMM dd")
+        if (value > 1 && value < 2) {
+            position = 0
+        } else if (value > 2 && value < 3) {
+            position = 1
+        } else if (value > 3 && value < 4) {
+            position = 2
+        } else if (value > 4 && value <= 5) {
+            position = 3
+        }
+        return if (position < datesList.size) sdf.format(
+            Date(
+                Utils.getDateInMilliSeconds(
+                    datesList[position], "yyyy-MM-dd"
+                )
+            )
+        ) else ""
+    }
+}

@@ -55,14 +55,6 @@ class AccountActivity :
 
             txtVersion.text = "Version" + "  ${BuildConfig.VERSION_NAME} "
 
-//            if (SessionPreferences().SESSION_USER_PROFILE != "") {
-//                // Glide.with(UTSwapApp.instance).load("https://image.kpopmap.com/2019/02/IU-LILAC.jpg").into(profileImageView)
-//            }
-//
-//            if (SessionPreferences().SESSION_PHONE_NUMBER.toString() != "") {
-//                //  txtPhoneNumber.visibility = View.VISIBLE
-//                txtPhoneNumber.text = SessionPreferences().SESSION_PHONE_NUMBER.toString()
-//            }
 
             SessionVariable.SESSION_PHONE_NUMBER.observe(this@AccountActivity) {
                onCallApi()
