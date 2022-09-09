@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.BlurMaskFilter
 import android.graphics.MaskFilter
+import android.graphics.Typeface
+import android.text.format.DateUtils.formatDateTime
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,6 +14,7 @@ import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.components.AxisBase
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.XAxis
+import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
@@ -32,8 +35,11 @@ import com.zillennium.utswap.module.main.portfolio.dialog.FilterPortfolioDialogB
 import com.zillennium.utswap.module.security.securityActivity.signInScreen.SignInActivity
 import com.zillennium.utswap.module.system.notification.NotificationActivity
 import com.zillennium.utswap.utils.Constants
+import com.zillennium.utswap.utils.Util
 import com.zillennium.utswap.utils.UtilKt
 import com.zillennium.utswap.utils.Utils
+import java.math.BigDecimal
+import java.math.RoundingMode
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -65,6 +71,7 @@ class PortfolioFragment :
 
     companion object {
         var month1: List<String> = arrayListOf()
+        var month: List<String> = arrayListOf()
     }
 
     @SuppressLint("UseCompatLoadingForDrawables", "NotifyDataSetChanged", "SetTextI18n")
@@ -404,16 +411,16 @@ class PortfolioFragment :
             val sales = dataSuccess.data.indices.map { Entry(it.toFloat(), dataSuccess.data[it].y) }
             val myDateFormatter = SimpleDateFormat("dd MMM", Locale.getDefault())
 
-            month1 = dataSuccess.data.map { it.date ?: "N/A" }
-            month  = dataSuccess.data.map { myDateFormatter.format(it.date) }
-
+            month1 = dataSuccess.data.map {
+                it.date
+            }
+            
             val weekTwoSales = LineDataSet(sales, "")
             weekTwoSales.lineWidth = 3f
             weekTwoSales.valueTextSize = 15f
             weekTwoSales.mode = LineDataSet.Mode.CUBIC_BEZIER
             weekTwoSales.color = ContextCompat.getColor(requireActivity(), R.color.simple_green)
             weekTwoSales.valueTextColor = ContextCompat.getColor(requireActivity(), R.color.simple_green)
-
             val dataSet = ArrayList<ILineDataSet>()
             dataSet.add(weekTwoSales)
             weekTwoSales.setDrawValues(false)
@@ -422,21 +429,31 @@ class PortfolioFragment :
             val lineData = LineData(dataSet)
             binding.lineChart.data = lineData
             binding.lineChart.invalidate()
-
+           binding.lineChart.axisRight.valueFormatter = object : ValueFormatter() {
+                override fun getFormattedValue(value: Float): String {
+                    val v: String = getPriceFormat(Math.round(value).toFloat())
+                    var result = v
+                    if (result.contains(".")) {
+                        try {
+                            result = v.substring(0, v.indexOf(".") + 3)
+                        } catch (e: java.lang.Exception) {
+                            e.printStackTrace()
+                        }
+                    }
+                    return  result + getPricePrefixFormat(value)
+                }
+            }
 
             with(binding.lineChart) {
-                animateX(1200, Easing.EaseInSine)
+
                 description.isEnabled = false
                 xAxis.setDrawGridLines(false)
                 xAxis.position = XAxis.XAxisPosition.BOTTOM
                 xAxis.granularity = 1F
                 xAxis.yOffset  = 4.0F
-
-              //  xAxis.valueFormatter = month1.let { ClaimsXAxisValueFormatter(it) }
-               xAxis.valueFormatter = MyAxisFormatter//  month?.let { ClaimsXAxisValueFormatter(it) }
+                xAxis.valueFormatter = MyAxisFormatter
                 axisLeft.isEnabled = false
                 axisRight.isEnabled = true
-                axisRight.valueFormatter = ClaimsYAxisValueFormatter()
                 extraRightOffset = 30f
                 legend.orientation = Legend.LegendOrientation.VERTICAL
                 legend.verticalAlignment = Legend.LegendVerticalAlignment.TOP
@@ -445,6 +462,53 @@ class PortfolioFragment :
                 legend.form = Legend.LegendForm.LINE
             }
 
+//            binding.lineChart.xAxis.valueFormatter = object : ValueFormatter() {
+//                override fun getFormattedValue(value: Float): String {
+//                    return if (value % 1 == 0f && value >= 0 && value < mo.size) {
+////                            formatDateTime(Z1App.instance, list[value.toInt()].date!!, "yyyy-MM-dd", "MMM yyyy")
+//                        Util.formatDateChartUptoCurrentRegion(month1[value.toInt()], null)
+//                    } else {
+//                        ""
+//                    }
+//                }
+//            }
+
+            var yMin = 0f
+//            val yMax: Float = when {
+//                binding.lineChart.yMax >= 10000000 -> {
+//                    binding.lineChart.yMax + 4000000
+//                }
+//                binding.lineChart.yMax >= 1000000 -> {
+//                    binding.lineChart.yMax + 1000000
+//                }
+//                binding.lineChart.yMax >= 100000 -> {
+//                    binding.lineChart.yMax + 100000
+//                }
+//                binding.lineChart.yMax >= 10000 -> {
+//                    binding.lineChart.yMax + 10000
+//                }
+//                else -> {
+//                    binding.lineChart.yMax + 1000
+//                }
+//            }
+
+            //right axis
+            val rightAxis = binding.lineChart.axisRight
+            rightAxis.setDrawAxisLine(false)
+            rightAxis.mDecimals = 1
+            rightAxis.granularity = 1f
+            rightAxis.isGranularityEnabled = true
+            rightAxis.textSize = 14f
+            rightAxis.xOffset = 10f
+
+            rightAxis.axisMinimum = yMin
+          //  rightAxis.axisMaximum = yMax
+            val labelCount = rightAxis.labelCount
+            val density = resources.displayMetrics.density
+            val lp = binding.lineChart.layoutParams
+            lp.height = (250 * density * labelCount / 5).toInt()
+            binding.lineChart.layoutParams = lp
+            binding.lineChart.setVisibleXRangeMaximum(4f)
 
             //pass value to pie chart of another class
             val listData = ArrayList<Double>()
@@ -705,6 +769,31 @@ class PortfolioFragment :
     }
 }
 
+private fun getPricePrefixFormat(price: Float): String {
+    return if (price > 0.0) {
+        if (price < 1000000) {
+            "K"
+        } else {
+            "M"
+        }
+    } else {
+        ""
+    }
+}
+
+private fun getPriceFormat(price: Float): String {
+    var bd = BigDecimal(price.toDouble().toString())
+    bd = bd.setScale(-1, RoundingMode.HALF_UP)
+    val preRe: Double = if (bd.toDouble() < 1000000) {
+        bd.toDouble() / 1000
+    } else {
+        bd.toDouble() / 1000000
+    }
+    if (preRe % 1 == 0.0) {
+        return (preRe.toInt()).toString()
+    }
+    return preRe.toString() + ""
+}
 
 fun getDateInMilliSeconds(givenDateString: String?, format: String): Long {
     val sdf = SimpleDateFormat(format, Locale.US)
@@ -736,12 +825,12 @@ class ClaimsXAxisValueFormatter(var datesList: List<String>) :
         }
         return if (position < datesList.size)
             sdf.format(
-            Date(
-                Utils.getDateInMilliSeconds(
-                    datesList[position], "yyyy-MM-dd"
+                Date(
+                    Utils.getDateInMilliSeconds(
+                        datesList[position], "yyyy-MM-dd"
+                    )
                 )
-            )
-        ) else ""
+            ) else ""
     }
 }
 
