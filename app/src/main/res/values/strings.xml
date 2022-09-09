@@ -282,7 +282,8 @@
     <string name="analysis">Analysis</string>
     <string name="SubscriptionExpandedFragment">SubscriptionExpandedFragment</string>
     <string name="SubscriptionConfirmPopupFragment">SubscriptionConfirmPopupFragment</string>
-    <string name="Please_confirm_your_order">Please confirm your order.</string>
+    <string name="Please_confirm_your_order">Please Confirm Your Order.</string>
+    <string name="disclaimer_market_prices_may_change_during_order_confirmation">DISCLAIMER:  Market prices may change during order confirmation</string>
     <string name="confirm">Confirm</string>
     <string name="price_subscription">Price:</string>
     <string name="money3">$1 990.00</string>

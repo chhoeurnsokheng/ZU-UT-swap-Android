@@ -18,7 +18,7 @@
                 android:layout_height="wrap_content"
                 android:text="Pochentong 555"
                 android:textColor="@color/black_222222"
-                android:textAppearance="@style/medium_14"/>
+                android:textAppearance="@style/regular_14"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -32,7 +32,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/buy_dollar"
                     android:textColor="@color/black_222222"
-                    android:textAppearance="@style/medium_14"/>
+                    android:textAppearance="@style/regular_14"/>
 
                 <TextView
                     android:id="@+id/txt_mkt"
@@ -41,7 +41,7 @@
                     android:text="@string/mkt_dollar"
                     android:gravity="end"
                     android:textColor="@color/success"
-                    android:textAppearance="@style/medium_14"/>
+                    android:textAppearance="@style/regular_14"/>
 
             </LinearLayout>
 

@@ -73,7 +73,7 @@ class DepositOpenLinkWebViewActivity :
         webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN)
         webPay.setScrollbarFadingEnabled(false)
         webSettings.setUseWideViewPort(true)
-    //    webSettings.setJavaScriptEnabled(true)
+
         webPay.setVerticalScrollBarEnabled(false)
         webPay.setHorizontalScrollBarEnabled(false)
 
@@ -192,13 +192,13 @@ class DepositOpenLinkWebViewActivity :
 
     override fun getQueryOrderSuccess(data: DataQueryOrderObj.DataQueryOrderRes) {
         if (data.data?.dataQueryOrder?.data?.status == "SUCCESS") {
-            timer.cancel()
+
             DepositSuccessfullyActivity.lunchDepositSuccessfullyActivity(
                 this, transaction_id,
                 data.data?.dataQueryOrder?.data?.total_amount
             )
+            timer.cancel()
         }
-
     }
 
     override fun getQueryOrderFail(data: String) {}
@@ -237,6 +237,10 @@ class DepositOpenLinkWebViewActivity :
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        repeatTimer()
+    }
 }
 
 

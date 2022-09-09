@@ -26,9 +26,6 @@ class BuyAndSellBottomSheetDialog(var onDismissListener: OnDismissListener) :
 
     private var binding: BottomSheetExchangeBuySellBinding? = null
 
-    private var marketPriceSell: MutableLiveData<String> = MutableLiveData()
-    private var marketPriceBuy: MutableLiveData<String> = MutableLiveData()
-
     private var tradeType: String = "limit"
 
     override fun getTheme(): Int {
@@ -70,20 +67,30 @@ class BuyAndSellBottomSheetDialog(var onDismissListener: OnDismissListener) :
 
             txtUt.text = Constants.TradeExchange.utBalance
 
-            SessionVariable.marketPriceSell.observe(this@BuyAndSellBottomSheetDialog){
-                if(it.toString() != "" && SessionVariable.marketPriceBuy.value != ""){
-                    marketPriceSell.value = SessionVariable.marketPriceSell.value.toString()
-                    btnMarket.isClickable = true
-                    btnMarket.isEnabled = true
-                }else{
-                    btnMarket.isClickable = false
-                    btnMarket.isEnabled = false
-                }
-            }
+//            SessionVariable.marketPriceSell.observe(this@BuyAndSellBottomSheetDialog){
+//                if(it.toString() != "" && SessionVariable.marketPriceBuy.value != "" && SessionVariable.marketOpen.value == true){
+//                    marketPriceSell.value = SessionVariable.marketPriceSell.value.toString()
+//                    btnMarket.isClickable = true
+//                    btnMarket.isEnabled = true
+//                }else{
+//                    btnMarket.isClickable = false
+//                    btnMarket.isEnabled = false
+//                }
+//            }
+//
+//            SessionVariable.marketPriceBuy.observe(this@BuyAndSellBottomSheetDialog){
+//                if(it.toString() != "" && SessionVariable.marketPriceSell.value != "" && SessionVariable.marketOpen.value == true){
+//                    marketPriceBuy.value = SessionVariable.marketPriceBuy.value.toString()
+//                    btnMarket.isClickable = true
+//                    btnMarket.isEnabled = true
+//                }else{
+//                    btnMarket.isClickable = false
+//                    btnMarket.isEnabled = false
+//                }
+//            }
 
-            SessionVariable.marketPriceBuy.observe(this@BuyAndSellBottomSheetDialog){
-                if(it.toString() != "" && SessionVariable.marketPriceSell.value != ""){
-                    marketPriceBuy.value = SessionVariable.marketPriceBuy.value.toString()
+            SessionVariable.marketOpen.observe(this@BuyAndSellBottomSheetDialog){
+                if(it == true){
                     btnMarket.isClickable = true
                     btnMarket.isEnabled = true
                 }else{
@@ -298,8 +305,8 @@ class BuyAndSellBottomSheetDialog(var onDismissListener: OnDismissListener) :
 
                 etVolume.text.clear()
                 etPriceOfVolume.text.clear()
-                txtPriceSell.text = "0"
-                txtPriceBuy.text = "0"
+                txtPriceSell.text = "0.00"
+                txtPriceBuy.text = "0.00"
 
                 linearPrice.visibility = View.GONE
                 btnMarket.background =
@@ -328,8 +335,8 @@ class BuyAndSellBottomSheetDialog(var onDismissListener: OnDismissListener) :
 
                 etVolume.text.clear()
                 etPriceOfVolume.text.clear()
-                txtPriceSell.text = "0"
-                txtPriceBuy.text = "0"
+                txtPriceSell.text = "0.00"
+                txtPriceBuy.text = "0.00"
 
                 linearPrice.visibility = View.VISIBLE
                 btnLimit.background =

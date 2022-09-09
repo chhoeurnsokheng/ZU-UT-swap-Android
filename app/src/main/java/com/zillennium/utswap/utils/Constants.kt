@@ -472,9 +472,9 @@ interface Constants {
             var ProjectId = "ProjectId"
             var availableBalance = ""
             var utBalance = ""
-            var marketPriceSell = ""
-            var marketPriceBuy = ""
             var errorMessagePlaceOrder = ""
+            var sellFee = ""
+            var buyFee = ""
         }
     }
     interface Project{
@@ -545,6 +545,16 @@ interface Constants {
         companion object{
             var itemWatchList = ArrayList<BannerObj.ItemWishList>()
 
+        }
+    }
+
+    interface PortfolioFilter {
+        companion object{
+            const val Change = "Change"
+            const val Performance = "Performance"
+            const val Price = "Price"
+            const val Balance = "Balance"
+            const val Weight = "Weight"
         }
     }
 

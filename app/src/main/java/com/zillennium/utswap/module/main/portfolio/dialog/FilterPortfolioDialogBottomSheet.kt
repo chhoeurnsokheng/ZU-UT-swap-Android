@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.*
+import androidx.compose.ui.unit.Constraints
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -11,14 +12,22 @@ import com.zillennium.utswap.Datas.GlobalVariable.SettingVariable
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.databinding.BottomSheetPortfolioFilterBinding
+import com.zillennium.utswap.utils.Constants
 
 
-class FilterPortfolioDialogBottomSheet : BottomSheetDialogFragment(){
+class FilterPortfolioDialogBottomSheet(
+    var portfolioSelectedType: String,
+    var listenerPortfolioType: CallBackTypeListener
+) : BottomSheetDialogFragment(){
 
     private var binding: BottomSheetPortfolioFilterBinding? = null
 
     override fun getTheme(): Int {
         return R.style.BottomSheetStyle
+    }
+
+    interface CallBackTypeListener {
+        fun onChangeTypeSelected(portfolioSelectedType: String)
     }
 
     override fun onCreateView(
@@ -40,51 +49,34 @@ class FilterPortfolioDialogBottomSheet : BottomSheetDialogFragment(){
 
             (view.parent as View).setBackgroundColor(ContextCompat.getColor(UTSwapApp.instance, android.R.color.transparent))
 
-            when(arguments?.get("title")){
-                "Performance" -> imgCheckPerformance.visibility = View.VISIBLE
-                "Change" -> imgCheckChange.visibility = View.VISIBLE
-                "Price" -> imgCheckPrice.visibility = View.VISIBLE
-                "Balance" -> imgCheckBalance.visibility = View.VISIBLE
-                "Weight" -> imgCheckWeight.visibility = View.VISIBLE
+            btnChange.setOnClickListener {
+                listenerPortfolioType.onChangeTypeSelected(Constants.PortfolioFilter.Change)
+                dismiss()
+            }
+            btnPerformance.setOnClickListener {
+                listenerPortfolioType.onChangeTypeSelected(Constants.PortfolioFilter.Performance)
+                dismiss()
+            }
+            btnPrice.setOnClickListener {
+                listenerPortfolioType.onChangeTypeSelected(Constants.PortfolioFilter.Price)
+                dismiss()
+            }
+            btnBalance.setOnClickListener {
+                listenerPortfolioType.onChangeTypeSelected(Constants.PortfolioFilter.Balance)
+                dismiss()
+            }
+            btnWeight.setOnClickListener {
+                listenerPortfolioType.onChangeTypeSelected(Constants.PortfolioFilter.Weight)
+                dismiss()
             }
 
-            val item = arrayOf(
-                btnChange,
-                btnPerformance,
-                btnPrice,
-                btnBalance,
-                btnWeight
-            )
-
-            val title = arrayOf(
-                "Change",
-                "Performance",
-                "Price",
-                "Balance",
-                "Weight"
-            )
-
-            item.mapIndexed { index, it ->
-                it.setOnClickListener {
-                    SettingVariable.portfolio_selected.value = title[index].toString()
-                    dismiss()
-                }
+            when(portfolioSelectedType){
+                Constants.PortfolioFilter.Change -> imgCheckChange.visibility = View.VISIBLE
+                Constants.PortfolioFilter.Performance -> imgCheckPerformance.visibility = View.VISIBLE
+                Constants.PortfolioFilter.Price -> imgCheckPrice.visibility = View.VISIBLE
+                Constants.PortfolioFilter.Balance -> imgCheckBalance.visibility = View.VISIBLE
+                Constants.PortfolioFilter.Weight -> imgCheckWeight.visibility = View.VISIBLE
             }
-
         }
     }
-
-    companion object {
-        fun newInstance(
-            title: String?,
-        ): FilterPortfolioDialogBottomSheet {
-            val filterPortfolioDialogBottomSheet = FilterPortfolioDialogBottomSheet()
-            val args = Bundle()
-            args.putString("title",title)
-
-            filterPortfolioDialogBottomSheet.arguments = args
-            return filterPortfolioDialogBottomSheet
-        }
-    }
-
 }

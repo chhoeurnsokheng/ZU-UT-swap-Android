@@ -82,8 +82,6 @@ android {
             signingConfig signingConfigs.stage
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 
-
-
 //            buildConfigField "String", 'BASE_URL', '"http://192.168.41.222/api/"'
             buildConfigField "String", 'BASE_URL', '"https://dev-staging.zillionunited.io/api/"'
 
@@ -100,9 +98,10 @@ android {
             signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 
-        //    buildConfigField "String", 'BASE_URL', '"https://sandbox.utswap.io/api/"'
-            //buildConfigField "String", 'BASE_URL', '"http://192.168.41.222/api/"'
-            buildConfigField "String", 'BASE_URL', '"https://dev-staging.zillionunited.io/api/"'
+            buildConfigField "String", 'BASE_URL', '"https://sandbox.utswap.io/api/"'
+
+
+            /*buildConfigField "String", 'BASE_URL', '"https://dev-staging.zillionunited.io/api/"'*/
 
 
             //buildConfigField "String", 'BASE_SOCKET_URL', '"ws://192.168.41.222/"'
@@ -255,5 +254,8 @@ dependencies {
     //Force Update
     implementation 'com.google.android.play:core:1.8.0'
     implementation 'com.github.SanojPunchihewa:InAppUpdater:1.0.5'
+
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
+
 
 }

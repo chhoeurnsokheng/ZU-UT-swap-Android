@@ -10,6 +10,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager.widget.ViewPager
+import com.zillennium.CheckUserLoginClearToken
 import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
 import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
@@ -52,12 +53,12 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
     var isUserSwipe = false
     var currentPosition = 0
 
-
     override fun initView() {
         super.initView()
+
         SessionVariable.realTimeWatchList.value = true
         mPresenter.getBanner(requireActivity())
-
+        mPresenter.getNewsHome(requireActivity())
         onSwipeRefresh()
         SessionVariable.SESSION_STATUS.observe(this){
             requestData()
@@ -83,6 +84,8 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
                 //real time watchlist
                 SessionVariable.realTimeWatchList.observe(this@HomeFragment){
                     if(it){
+                        rvHomeWatchlist.visibility = View.VISIBLE
+                        linearLayoutWatchlist.visibility = View.VISIBLE
                         mPresenter.getWatchListAndBalance(requireActivity())
                         SessionVariable.realTimeWatchList.value = false
                     }
@@ -112,9 +115,9 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
                             linearLayoutBalance.visibility = View.GONE
                             rvHomeWatchlist.visibility = View.GONE
                             linearLayoutWatchlist.visibility = View.GONE
-
                         }
                     }
+
                     imgMenu.setOnClickListener {
                         if (SessionPreferences().SESSION_TOKEN != null) {
                             val intent = Intent(UTSwapApp.instance, AccountActivity::class.java)
@@ -129,12 +132,7 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
 
                         }
                     }
-                    /*imgMenu.setOnClickListener {
-                    val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
-                    startActivity(intent)
-                }*/
 
-                    /* Show or Hide Trading Balance */
                     tradingBalance.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
                     tradingBalance.paint.maskFilter = blurMask
 
@@ -171,7 +169,7 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
 
             }
         } catch (error: Exception) {
-            // Must be safe
+
         }
     }
     private fun requestData() {
@@ -181,8 +179,21 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
 
     }
 
-    override fun onGetBannerSuccess(data: BannerObj.Banner) {
+    private fun checkUserLogin(){
+        onHomeMenuGrid(false)
+        binding.apply {
+            linearLayoutWatchlist.visibility =View.GONE
+            linearLayoutBalance.visibility =View.GONE
+            txtTotalBalance .visibility =View.GONE
+            imgMenu.setOnClickListener {
+                val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
+                startActivity(intent)
+            }
+        }
+    }
 
+    override fun onGetBannerSuccess(data: BannerObj.Banner) {
+        mPresenter.getNewsHome(requireActivity())
         binding.apply {
             swipeRefresh.isRefreshing = false
             bannerLoopingPagerAdapter = object : BannerLoopingPagerAdapter(
@@ -242,6 +253,11 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
     }
 
     override fun onGetNewsHomeSuccess(data: News.NewsRes) {
+        if (data.message== "Please sign in"){
+            checkUserLogin()
+            CheckUserLoginClearToken.clearTokenExpired()
+            mPresenter.getNewsHomeToken(requireContext())
+        }
         newsList.clear()
         data.data?.NEW?.forEachIndexed { index, itemWishList ->
 
@@ -271,8 +287,36 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
         }
     }
 
-    override fun onGetWishListAndBalanceSuccess(data: BannerObj.whistListRes) {
+    override fun onGetNewsHomeNoTokenSuccess(data: News.NewsRes) {
+        newsList.clear()
+        data.data?.NEW?.forEachIndexed { index, itemWishList ->
 
+            if (index <= 2) {
+                newsList.add(itemWishList)
+            }
+        }
+        binding.apply {
+            swipeRefresh.isRefreshing = false
+
+            rvHomeNews.layoutManager = LinearLayoutManager(UTSwapApp.instance)
+            homeRecentNewsAdapter = HomeRecentNewsAdapter(newsList)
+            //data.data?.NEW?.let { HomeRecentNewsAdapter(it) }
+            rvHomeNews.adapter = homeRecentNewsAdapter
+            layNewsLoading.setOnClickListener {
+                activity?.findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(
+                    R.id.nav_view
+                )?.selectedItemId = R.id.navigation_navbar_news
+            }
+        }
+
+    }
+
+    override fun onGetNewsHomeNoTokenFail(message: String) {}
+
+    override fun onGetWishListAndBalanceSuccess(data: BannerObj.whistListRes) {
+            if (data.message== "Please sign in"){
+                checkUserLogin()
+            }
 
         if (data.data?.watch_lists?.size == 0) {
             binding.apply {
@@ -385,16 +429,18 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
     private fun showBalanceClick() {
         binding.apply {
 
-            blurCondition = !blurCondition
-
             if (blurCondition) {
                 tradingBalance.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
                 tradingBalance.paint.maskFilter = null
                 eyeImage.setImageResource(R.drawable.ic_baseline_remove_red_eye_24)
+                blurCondition = false
+
             } else {
                 tradingBalance.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
                 tradingBalance.paint.maskFilter = blurMask
                 eyeImage.setImageResource(R.drawable.ic_baseline_visibility_off_24)
+                blurCondition = true
+
             }
         }
     }

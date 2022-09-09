@@ -39,7 +39,7 @@ class TradePresenter : BaseMvpPresenterImpl<TradeView.View>(),
             }
 
             override fun onMessage(text: TradingList.TradingListRes?) {
-               mView?.fetchTradeData?.value = text
+                mView?.fetchTradeData?.value = text
             }
 
             override fun onFailure(throwable: Throwable?) {
@@ -58,6 +58,7 @@ class TradePresenter : BaseMvpPresenterImpl<TradeView.View>(),
     override fun closeSocketTrading() {
         if(subscription!=null&&!subscription?.isUnsubscribed!!) {
             subscription?.unsubscribe()
+            println("====close socket trade list")
         }
     }
 
