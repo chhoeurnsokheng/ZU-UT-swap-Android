@@ -66,6 +66,9 @@ class AccountActivity :
 //                txtPhoneNumber.text = SessionPreferences().SESSION_PHONE_NUMBER.toString()
 //            }
 
+            txtVerifyIdentity.text = Html.fromHtml("<u>Verify Your Identity</u>")
+            txtVerifyPending.text  = Html.fromHtml("<u>KYC Approval is Pending</u>")
+
             SessionVariable.SESSION_PHONE_NUMBER.observe(this@AccountActivity) {
                onCallApi()
             }
@@ -122,14 +125,14 @@ class AccountActivity :
                 startActivity(intent)
             }
 
-            txtVerifyIdentity.setOnClickListener {
-                if(strKyc == "0"){
-                    val intent = Intent(UTSwapApp.instance, KYCActivity::class.java)
-                    startActivity(intent)
-                }else if(strKyc == "2"){
-                    val intent = Intent(UTSwapApp.instance, AccountKycPendingActivity::class.java)
-                    startActivity(intent)
-                }
+            linearVerifyPending.setOnClickListener {
+                val intent = Intent(UTSwapApp.instance, AccountKycPendingActivity::class.java)
+                startActivity(intent)
+            }
+
+            linearVerifyIdentity.setOnClickListener {
+                val intent = Intent(UTSwapApp.instance, KYCActivity::class.java)
+                startActivity(intent)
             }
 
             profileImageView.setOnClickListener {
@@ -246,32 +249,23 @@ class AccountActivity :
 
             if(data.kyc.toString() == "0")
             {
-                txtArrow.visibility = View.VISIBLE
-                txtName.text = Html.fromHtml("<u>Verify Your Identity</u>")
-                txtName.setTextAppearance(UTSwapApp.instance, R.style.medium_18)
-                txtName.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.white))
-                txtVerifyIdentity.isEnabled = true
-                strKyc = "0"
+                linearVerifyIdentity.visibility = View.VISIBLE
+                linearVerifyPending.visibility = View.GONE
+                txtName.visibility = View.GONE
             }else if(data.kyc.toString() == "2"){
-                txtArrow.visibility = View.VISIBLE
-                txtName.text = Html.fromHtml("<u>KYC Approval is Pending</u>")
-                txtName.setTextAppearance(UTSwapApp.instance, R.style.medium_18)
-                txtName.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.white))
-                txtVerifyIdentity.isEnabled = true
-                strKyc = "2"
+                linearVerifyIdentity.visibility = View.GONE
+                linearVerifyPending.visibility = View.VISIBLE
+                txtName.visibility = View.GONE
             }else{
                 if (!data.username.isNullOrEmpty())
                 {
                     txtName.text = data.truename.toString()
                     txtVerifyIdentity.isEnabled = false
-                    txtArrow.visibility = View.GONE
+                    txtName.visibility = View.VISIBLE
                 }else{
-                    txtArrow.visibility = View.VISIBLE
-                    txtName.text = Html.fromHtml("<u>Verify Your Identity</u>")
-                    strKyc = "0"
-                    txtName.setTextAppearance(UTSwapApp.instance, R.style.medium_18)
-                    txtName.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.white))
-                    txtVerifyIdentity.isEnabled = true
+                    linearVerifyIdentity.visibility = View.VISIBLE
+                    linearVerifyPending.visibility = View.GONE
+                    txtName.visibility = View.GONE
                 }
             }
 

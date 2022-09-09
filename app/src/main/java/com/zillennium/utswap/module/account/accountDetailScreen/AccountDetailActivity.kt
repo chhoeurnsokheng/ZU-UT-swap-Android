@@ -30,7 +30,6 @@ class AccountDetailActivity :
     override val layoutResource: Int = R.layout.activity_account_detail
 
     private var strTitle: String? = ""
-    private var strKyc: String? = ""
 
     override fun initView() {
         super.initView()
@@ -78,14 +77,14 @@ class AccountDetailActivity :
                 dialogAccountUTType.show(supportFragmentManager, "dialogAccountUTType")
             }
 
-            txtName.setOnClickListener {
-                if(strKyc == "0"){
-                    val intent = Intent(UTSwapApp.instance, KYCActivity::class.java)
-                    startActivity(intent)
-                }else if(strKyc == "2"){
-                    val intent = Intent(UTSwapApp.instance, AccountKycPendingActivity::class.java)
-                    startActivity(intent)
-                }
+            linearVerifyIdentity.setOnClickListener {
+                val intent = Intent(UTSwapApp.instance, KYCActivity::class.java)
+                startActivity(intent)
+            }
+
+            linearVerifyPending.setOnClickListener {
+                val intent = Intent(UTSwapApp.instance, AccountKycPendingActivity::class.java)
+                startActivity(intent)
             }
         }
     }
@@ -142,25 +141,25 @@ class AccountDetailActivity :
 
             if(data.kyc.toString() == "0")
             {
-                txtName.text = resources.getString(R.string.verify_your_identity)
-                txtName.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
-                strKyc = "0"
-                txtName.isEnabled = true
+                txtName.visibility = View.GONE
+                linearVerifyIdentity.visibility = View.VISIBLE
+                linearVerifyPending.visibility = View.GONE
             }else if(data.kyc.toString() == "2"){
-                txtName.text = resources.getString(R.string.kyc_approval_is_pending)
-                txtName.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
-                strKyc = "2"
-                txtName.isEnabled = true
+                txtName.visibility = View.GONE
+                linearVerifyIdentity.visibility = View.GONE
+                linearVerifyPending.visibility = View.VISIBLE
             }else{
                 if (!data.username.isNullOrEmpty())
                 {
+                    txtName.visibility = View.VISIBLE
+                    linearVerifyIdentity.visibility = View.GONE
+                    linearVerifyPending.visibility = View.GONE
                     txtName.text = data.truename.toString()
                     txtName.isEnabled = false
                 }else{
-                    txtName.text = resources.getString(R.string.verify_your_identity)
-                    strKyc = "0"
-                    txtName.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
-                    txtName.isEnabled = true
+                    txtName.visibility = View.GONE
+                    linearVerifyIdentity.visibility = View.VISIBLE
+                    linearVerifyPending.visibility = View.GONE
                 }
             }
 
@@ -196,12 +195,18 @@ class AccountDetailActivity :
                 txtOccupation.visibility = View.GONE
                 linearLayoutCompany.visibility = View.GONE
                 linearLayoutOccupation.visibility = View.GONE
+                txtName.visibility = View.GONE
+                linearVerifyIdentity.visibility = View.VISIBLE
+                linearVerifyPending.visibility = View.GONE
             }else if(data.kyc.toString() == "2"){
                 btnCertified.visibility = View.INVISIBLE
                 txtCompany.visibility = View.GONE
                 txtOccupation.visibility = View.GONE
                 linearLayoutCompany.visibility = View.GONE
                 linearLayoutOccupation.visibility = View.GONE
+                txtName.visibility = View.GONE
+                linearVerifyIdentity.visibility = View.GONE
+                linearVerifyPending.visibility = View.VISIBLE
             }else{
                 btnCertified.visibility = View.VISIBLE
             }

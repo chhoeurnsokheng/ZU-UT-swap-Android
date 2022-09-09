@@ -2,6 +2,7 @@ package com.zillennium.utswap.module.account.accountDetailScreen.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.zillennium.utswap.bases.mvp.BaseRecyclerViewAdapterGeneric
@@ -16,7 +17,7 @@ class AccountUTTypePriorityAdapter : BaseRecyclerViewAdapterGeneric<User.Priorit
         fun bindData(priorityAndPrivilegesList: User.PriorityAndPrivilegesList, position: Int) {
             binding.apply {
                 tvId.text = priorityAndPrivilegesList.id.toString() + "."
-                tvContent.text = priorityAndPrivilegesList.content.toString()
+                tvContent.text = Html.fromHtml(priorityAndPrivilegesList.content.toString())
                 tvTitle.text = priorityAndPrivilegesList.title.toString()
             }
         }

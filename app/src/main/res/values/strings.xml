@@ -439,7 +439,8 @@
     <string name="please_enter_a_password_longer_than_8_digits">Please Enter a Password Longer Than 8 Digits</string>
     <string name="please_enter_4_digits_fund_password">Please Enter 4 Digits Fund Password</string>
     <string name="invalid_try_again">Invalid. Please Try Again</string>
-    <string name="password_did_not_match">Password Didn\'t Match</string>
+    <string name="password_did_not_match">Password Does Not Match</string>
+    <string name="fund_password_did_not_match">Fund Password Does Not Match</string>
     <string name="email_phone_number_unavaible">Email/Phone Number Unavailable</string>
     <string name="text_required">This Field Is Required</string>
     <string name="invalid_email_or_phone">Invalid email or phone number</string>
@@ -471,8 +472,8 @@
     <string name="look_like_you_have_an_older_version_of_the_app_please_update_to_get_latest_features_and_best_experience">Looks like you have an older version of the app. Please update to get latest features and best experience.</string>
     <string name="update_now">UPDATE NOW</string>
 
-    <string name="verify_your_identity">Verify Your Identity > </string>
-    <string name="kyc_approval_is_pending">KYC Approval is Pending > </string>
+    <string name="verify_your_identity">Verify Your Identity</string>
+    <string name="kyc_approval_is_pending">KYC Approval is Pending</string>
     <string name="n_a">N/A</string>
     <string name="date_in_order_book">01:02:22PM 24-03-2022</string>
     <string name="limit_buy">Limit / Buy</string>

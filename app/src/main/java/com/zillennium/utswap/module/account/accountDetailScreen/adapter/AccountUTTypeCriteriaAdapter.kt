@@ -2,6 +2,7 @@ package com.zillennium.utswap.module.account.accountDetailScreen.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.zillennium.utswap.bases.mvp.BaseRecyclerViewAdapterGeneric
@@ -16,7 +17,7 @@ class AccountUTTypeCriteriaAdapter : BaseRecyclerViewAdapterGeneric<User.Criteri
         fun bindData(criteriaList: User.CriteriaList, position: Int) {
             binding.apply {
                 tvId.text = criteriaList.id.toString() + "."
-                tvContent.text = criteriaList.content.toString()
+                tvContent.text = Html.fromHtml(criteriaList.content.toString())
                 tvTitle.text = criteriaList.title.toString()
             }
         }

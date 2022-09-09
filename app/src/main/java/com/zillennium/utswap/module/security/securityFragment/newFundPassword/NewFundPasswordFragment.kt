@@ -209,7 +209,7 @@ class NewFundPasswordFragment:
                 if (editFundPassword.length() == 4 && editConfirmFundPassword.length() == 4){
                     if(editFundPassword.text.toString() != editConfirmFundPassword.text.toString()){
                         txtMessage.visibility = View.VISIBLE
-                        txtMessage.text = resources.getString(R.string.password_did_not_match)
+                        txtMessage.text = resources.getString(R.string.fund_password_did_not_match)
 
                         for (child in numberVerification.children) {
                             child.background = ContextCompat.getDrawable(
