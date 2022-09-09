@@ -410,11 +410,15 @@ class PortfolioFragment :
 
             val sales = dataSuccess.data.indices.map { Entry(it.toFloat(), dataSuccess.data[it].y) }
             val myDateFormatter = SimpleDateFormat("dd MMM", Locale.getDefault())
+            val sdf = SimpleDateFormat("MM-dd")
 
             month1 = dataSuccess.data.map {
-                it.date
+              //  sdf.format(it.date)
+              //  myDateFormatter.format(it.date)
+               it.date
             }
-            
+
+
             val weekTwoSales = LineDataSet(sales, "")
             weekTwoSales.lineWidth = 3f
             weekTwoSales.valueTextSize = 15f
