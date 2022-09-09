@@ -23,6 +23,8 @@ import com.zillennium.utswap.module.project.ViewImage.ImageViewActivity
 import com.zillennium.utswap.module.project.projectInfoScreen.adapter.ProjectInfoDetailsAdapter
 import com.zillennium.utswap.module.project.projectInfoScreen.adapter.ProjectViewPagerAdapter
 import com.zillennium.utswap.module.project.subscriptionScreen.SubscriptionActivity
+import com.zillennium.utswap.module.project.subscriptionScreen.dialog.SubscriptionConfirmDialog
+import com.zillennium.utswap.module.project.subscriptionScreen.dialog.SubscriptionTermConditionDialog
 import com.zillennium.utswap.utils.Constants
 import com.zillennium.utswap.utils.UtilKt
 import com.zillennium.utswap.utils.groupingSeparatorInt
@@ -321,10 +323,19 @@ class ProjectInfoActivity :
                 btnSubscript.visibility = View.VISIBLE
                 btnUpcoming.visibility = View.GONE
                 btnSubscript.setOnClickListener {
-                    SubscriptionActivity.launchSubscriptionActivity(this@ProjectInfoActivity,
-                        data.id,
-                        projectName
-                    )
+                    val subscription: SubscriptionTermConditionDialog =
+                        SubscriptionTermConditionDialog.newInstance(
+                            data.id.toString().toInt(),
+                            data.title_deed.toString(),
+                            data.land_size.toString(),
+                            data.base_price?.toDouble(),
+                            data.target_price?.toDouble(),
+                            data.total_ut,
+                            data.managed_by.toString(),
+                            data.google_map_link.toString(),
+                            projectName
+                        )
+                    subscription.show(supportFragmentManager, "balanceHistoryDetailDialog")
                 }
             }
             if (data.action == "Trade") {

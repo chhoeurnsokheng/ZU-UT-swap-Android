@@ -9,10 +9,8 @@ import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityProjectSubscriptionBinding
-
 import com.zillennium.utswap.models.project.SubscriptionProject
 import com.zillennium.utswap.models.userService.User
-import com.zillennium.utswap.module.project.projectInfoScreen.ProjectInfoActivity
 import com.zillennium.utswap.module.project.subscriptionScreen.adapter.SubscriptionAdapter
 import com.zillennium.utswap.module.project.subscriptionScreen.bottomSheet.SubscriptionBottomSheet
 import com.zillennium.utswap.module.project.subscriptionScreen.dialog.SubscriptionConfirmDialog

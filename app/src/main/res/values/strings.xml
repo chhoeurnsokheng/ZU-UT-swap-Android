@@ -498,6 +498,10 @@
     <string name="to_account">To account:</string>
     <string name="your_phone_number_is_required_to_transfer_funds">Your Phone Number is Required to Transfer Funds</string>
     <string name="usd">USD</string>
+    <string name="land_size">Land Size</string>
+    <string name="total_ut">Total UT</string>
+    <string name="manage_by">Manage By</string>
+    <string name="agree">Agree</string>
 
 
 
