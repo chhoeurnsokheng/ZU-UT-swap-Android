@@ -11,27 +11,33 @@ import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.text.HtmlCompat
+import androidx.lifecycle.lifecycleScope
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
-import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
+import com.google.gson.JsonObject
 import com.zillennium.utswap.R
+import com.zillennium.utswap.api.manager.ApiNotificationImp
 import com.zillennium.utswap.screens.navbar.navbar.MainActivity
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import me.leolin.shortcutbadger.ShortcutBadger
 import java.util.*
-
 
 class MyFirebaseMessagingService : FirebaseMessagingService() {
 
 
     private val channelId = "com.zillennium.utswap"
+    private var badgeCount = 0
 
 
     override fun onMessageReceived(message: RemoteMessage) {
-        val data: Map<String, String> = message.data
-
-        Log.d("dataPaylaod", message.notification.toString())
-        displayNotification(message.notification?.title.toString(), message.notification?.body.toString(), 1)
-
+        Log.d("dataPayload", message.notification.toString())
+        if (message.notification != null) {
+            displayNotification(
+                message.notification?.title.toString(),
+                message.notification?.body.toString(),
+            )
+        }
 //        val title = data["title"]
 //        val body = data["body"]
 //        if (data.containsKey("title") && data.containsKey("body")) {
@@ -40,14 +46,20 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 //        }
     }
 
+//    override fun onNewToken(token: String) {
+//        Log.d("token", token)
+//        SessionPreferences().DEVICE_TOKEN = token
+//    }
+
+
     override fun handleIntent(intent: Intent?) {
-//        super.handleIntent(intent)
         try {
             if (intent?.extras != null) {
                 val builder = RemoteMessage.Builder("MyFirebaseMessagingService")
                 for (key in intent.extras?.keySet() ?: arrayListOf()) {
                     builder.addData(key!!, intent.extras!![key].toString())
                 }
+//                getBadgeNumber()
                 onMessageReceived(builder.build())
             } else {
                 super.handleIntent(intent)
@@ -55,19 +67,13 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         } catch (e: Exception) {
             super.handleIntent(intent)
         }
-//        Log.d("intent", intent?.extras?.keySet().toString())
     }
 
 
-    override fun onNewToken(token: String) {
-        Log.d("token", token)
-        SessionPreferences().DEVICE_TOKEN = token
-    }
 
     private fun displayNotification(
         title: String,
         message: String,
-        badgeCount: Int,
     ) {
         val intent = (Intent(this, MainActivity::class.java))
         intent.action = Intent.ACTION_MAIN
@@ -79,6 +85,10 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             }
             "Fund Transfer" -> {
                 intent.putExtra("dataIntent","Fund Transfer")
+            }
+            "Deposit Successful" -> {
+                intent.putExtra("dataIntent","Deposit Successful")
+
             }
 
         }
@@ -120,12 +130,36 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             notificationManager.createNotificationChannel(channel)
         }
         val incomingCallNotification: Notification = builder.build()
-        ShortcutBadger.applyCount(this, badgeCount)
-        ShortcutBadger.applyNotification(applicationContext, incomingCallNotification, badgeCount)
+
 
         val random = Random().nextInt(100)
         notificationManager.notify(random, incomingCallNotification)
 
+        val param = JsonObject()
+        param.addProperty("page", 1)
+        ApiNotificationImp().notification(this, param).subscribe({
+            if (it.status == 1) {
+                badgeCount = it.data?.countGroupNoti?.toInt() ?: 0
+                ShortcutBadger.applyCount(this, badgeCount)
+                ShortcutBadger.applyNotification(applicationContext, incomingCallNotification, badgeCount)
+            }
+        },{
+
+        })
+
     }
+
+    private fun getBadgeNumber() {
+        val param = JsonObject()
+        param.addProperty("page", 1)
+        ApiNotificationImp().notification(this, param).subscribe({
+            if (it.status == 1) {
+                badgeCount = it.data?.countGroupNoti?.toInt() ?: 0
+            }
+        },{
+
+        })
+    }
+
 
 }

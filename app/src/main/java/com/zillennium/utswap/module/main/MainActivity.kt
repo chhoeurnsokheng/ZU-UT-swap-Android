@@ -13,8 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI.setupWithNavController
-import com.google.firebase.FirebaseApp
-import com.google.firebase.messaging.FirebaseMessaging
+import com.google.firebase.iid.FirebaseInstanceId
 import com.zillennium.CheckUserLoginClearToken
 import com.zillennium.utswap.BuildConfig
 import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
@@ -49,7 +48,7 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
     var kcyComplete: Boolean? = false
     private var isSelected = false
     private var isSignInSuccess = true
-    var badgeNumber: String = ""
+    var badgeNumber: Int = 0
     val homeFragment = HomeFragment()
     private var checkStatusToken = false
     private var doubleBackToExitPressedOnce = false
@@ -58,8 +57,14 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
     override fun initView() {
         super.initView()
         onSetUpNavBar()
-        FirebaseApp.initializeApp(this)
-        FirebaseMessaging.getInstance().token
+
+        FirebaseInstanceId.getInstance().instanceId.addOnCompleteListener { p0 ->
+            if (p0.isSuccessful) {
+                SessionPreferences().DEVICE_TOKEN = p0.result.token
+            }
+        }
+//        FirebaseApp.initializeApp(this)
+//        FirebaseMessaging.getInstance().token
         binding.layAuth.setOnClickListener {
             val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
             startActivityForResult(intent, 555)
@@ -71,13 +76,9 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
                 SessionVariable.BADGE_NUMBER.value = ""
             }
         }
-
         eventClickFromOutSide(intent)
 
-
     }
-
-
 
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
@@ -87,14 +88,21 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
     private fun eventClickFromOutSide(intent: Intent?) {
         val dataIntent =intent?.getStringExtra("dataIntent")
         when (dataIntent) {
+
             "KYC" -> {
                 startActivity(
                     Intent(this, KYCActivity::class.java)
                         .putExtra("fromNotification", "KYC")
                 )
             }
+
             "Fund Transfer" -> {
                 startActivity(Intent(this, FinanceBalanceActivity::class.java))
+            }
+
+            "Deposit Successful" -> {
+                startActivity(Intent(this, FinanceBalanceActivity::class.java))
+
             }
 
         }
@@ -148,7 +156,9 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
 
     override fun onNotificationSuccess(data: NotificationModel.NotificationData) {
         SessionVariable.BADGE_NUMBER.value = data.countGroupNoti ?: ""
+        badgeNumber = data.countGroupNoti?.toInt() ?: 0
         homeFragment.setBadgeNumber()
+
 
     }
 
@@ -322,7 +332,7 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
                                         fragmentManager.beginTransaction().hide(activeFragment)
                                             .show(portfolioFragment).commit()
                                         activeFragment = portfolioFragment
-//                                        portfolioFragment.setBadgeNumberPortfolio()
+                                        portfolioFragment.setBadgeNumberPortfolio()
                                     }
                                     if (SessionPreferences().SESSION_TOKEN ==null){
                                         val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)

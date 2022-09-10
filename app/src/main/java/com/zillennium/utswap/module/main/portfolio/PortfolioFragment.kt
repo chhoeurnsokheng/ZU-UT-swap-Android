@@ -478,14 +478,14 @@ class PortfolioFragment :
                             Intent(UTSwapApp.instance, NotificationActivity::class.java)
                         startActivity(intent)
                     }
-                    txtCountNotification.visibility = View.VISIBLE
+                    tvBadgeNumber.visibility = View.VISIBLE
 
                 } else {
                     imgNotification.setOnClickListener {
                         val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
                         startActivity(intent)
                     }
-                    txtCountNotification.visibility = View.GONE
+                    tvBadgeNumber.visibility = View.GONE
                 }
             }
 
@@ -600,23 +600,23 @@ class PortfolioFragment :
         }
     }
 
-//    fun setBadgeNumber() {
-//        binding.apply {
-//            SessionVariable.BADGE_NUMBER.observe(this@PortfolioFragment) {
-//                if (SessionVariable.BADGE_NUMBER.value?.isNotEmpty() == true && SessionVariable.BADGE_NUMBER.value != "0") {
-//                    tvBadgeNumber.visibility = View.VISIBLE
-//                    if (it.toInt() > 9) {
-//                        tvBadgeNumber.text = "9+"
-//                    } else {
-//                        tvBadgeNumber.text = it
-//                    }
-//                } else {
-//                    tvBadgeNumber.visibility = View.INVISIBLE
-//
-//                }
-//            }
-//        }
-//    }
+    fun setBadgeNumberPortfolio() {
+        binding.apply {
+            SessionVariable.BADGE_NUMBER.observe(this@PortfolioFragment) {
+                if (SessionVariable.BADGE_NUMBER.value?.isNotEmpty() == true && SessionVariable.BADGE_NUMBER.value != "0") {
+                    tvBadgeNumber.visibility = View.VISIBLE
+                    if (it.toInt() > 9) {
+                        tvBadgeNumber.text = "9+"
+                    } else {
+                        tvBadgeNumber.text = it
+                    }
+                } else {
+                    tvBadgeNumber.visibility = View.INVISIBLE
+
+                }
+            }
+        }
+    }
 
     private fun onClearList() {
         changeList.clear()
