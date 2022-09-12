@@ -36,7 +36,7 @@ class ApiHomeImp : ApiManager() {
         ).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
 
     fun checkForceUpdate(context: Context): Observable<ForceUpdate.ForceUpdateRes> =
-        mHomeService.checkForceUpdate().subscribeOn(Schedulers.io())
+        mHomeService.checkForceUpdate().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
 
     fun checkKycStatus(context: Context): Observable<User.KycRes> =
         mHomeService.checkKYCStatus(

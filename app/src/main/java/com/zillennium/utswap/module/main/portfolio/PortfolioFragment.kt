@@ -191,15 +191,15 @@ class PortfolioFragment :
                                     imgSortChange.setImageResource(R.drawable.ic_sort_arrow_up_down_selected)
                                     imgSortChange.rotation = 180f
                                     list.sortByDescending {
-                                        it.mkt_project_change
+                                        it.mkt_project_change?.toDouble()
                                     }
                                 }
                                 1 -> {
                                     filter = 1
                                     imgSortChange.setImageResource(R.drawable.ic_sort_arrow_up_down_selected)
                                     imgSortChange.rotation = 0f
-                                    list.sortBy {
-                                        it.mkt_project_change
+                                    list.sortedBy {
+                                        it.mkt_project_change?.toDouble()
                                     }
                                 }
                                 else -> {
@@ -244,7 +244,7 @@ class PortfolioFragment :
                                     imgSortPerformance.setImageResource(R.drawable.ic_sort_arrow_up_down_selected)
                                     imgSortPerformance.rotation = 180f
                                     list.sortByDescending {
-                                        it.mkt_project_perf
+                                        it.mkt_project_perf?.toDouble()
                                     }
                                 }
                                 1 -> {
@@ -252,7 +252,7 @@ class PortfolioFragment :
                                     imgSortPerformance.setImageResource(R.drawable.ic_sort_arrow_up_down_selected)
                                     imgSortPerformance.rotation = 0f
                                     list.sortBy {
-                                        it.mkt_project_perf
+                                        it.mkt_project_perf?.toDouble()
                                     }
                                 }
                                 else -> {
@@ -400,11 +400,11 @@ class PortfolioFragment :
 
     override fun onGetPortfolioFail(data: Portfolio.GetPortfolio) {}
     override fun getPortfolioDashboardChartSuccess(dataSuccess: Portfolio.GetPortfolioDashboardChartRes) {
-
+            if (dataSuccess.message == "Please sign in"){
+                checkUserLogin()
+            }
         binding.apply {
-            val yValues: ArrayList<Entry> = arrayListOf()
-            //  yxValues.addAll(listOf(Entry(dataSuccess.data.maxOf { it.x }, dataSuccess.data.maxOf { it.y })))
-            month = dataSuccess.data?.map { it.x } as ArrayList<String>
+            month = dataSuccess.data.map { it.x } as ArrayList<String>
 
             val listData = ArrayList<Double>()
             listData.add(83.20)
@@ -426,19 +426,15 @@ class PortfolioFragment :
         val sdf = SimpleDateFormat("MM-dd")
 
         month1 = dataSuccess.data.map {
-            //  sdf.format(it.date)
-            //  myDateFormatter.format(it.date)
             it.date
         }
-
 
         val weekTwoSales = LineDataSet(sales, "")
         weekTwoSales.lineWidth = 3f
         weekTwoSales.valueTextSize = 15f
         weekTwoSales.mode = LineDataSet.Mode.CUBIC_BEZIER
         weekTwoSales.color = ContextCompat.getColor(requireActivity(), R.color.simple_green)
-        weekTwoSales.valueTextColor =
-            ContextCompat.getColor(requireActivity(), R.color.simple_green)
+        weekTwoSales.valueTextColor = ContextCompat.getColor(requireActivity(), R.color.simple_green)
         val dataSet = ArrayList<ILineDataSet>()
         dataSet.add(weekTwoSales)
         weekTwoSales.setDrawValues(false)
@@ -447,6 +443,7 @@ class PortfolioFragment :
         val lineData = LineData(dataSet)
         binding.lineChart.data = lineData
         binding.lineChart.invalidate()
+        binding.lineChart.axisRight.axisLineColor = getResources().getColor(R.color.red_ee1111);
         binding.lineChart.axisRight.valueFormatter = object : ValueFormatter() {
             override fun getFormattedValue(value: Float): String {
                 val v: String = getPriceFormat(Math.round(value).toFloat())

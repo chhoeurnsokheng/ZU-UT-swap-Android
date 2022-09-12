@@ -119,7 +119,7 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
                 "UPDATE NOW",
                 object : DialogUtil.OnAlertDialogClick {
                     override fun onLabelCancelClick() {
-                        val uri: Uri = Uri.parse(data.data?.ANDROID?.app_url?.android)
+                        val uri: Uri = Uri.parse(data.data?.ANDROID?.app_url)
                         startActivity(Intent(Intent.ACTION_VIEW, uri))
                     }
                 },
@@ -134,6 +134,7 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
     fun onRefreshData() {
         mPresenter.onCheckKYCStatus()
         mPresenter.getNotificationLists(this)
+
 
     }
 
@@ -270,6 +271,7 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
     }
 
     private fun onSetUpNavBar() {
+        mPresenter.checkForceUpdate(this)
         try {
             binding.apply {
 

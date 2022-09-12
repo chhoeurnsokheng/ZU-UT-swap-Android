@@ -18,13 +18,13 @@ object ForceUpdate {
     class IOSData{
         var version:String? = null
         var message:String? = null
-        var app_url:AppUrl? = null
+        var app_url:String? = null
         var version_type:String? = null
     }
     class ANDROIDData{
         var version:String? = null
         var message:String? = null
-        var app_url:AppUrl? = null
+        var app_url:String? = null
         var version_type:String? = null
     }
     class AppUrl{

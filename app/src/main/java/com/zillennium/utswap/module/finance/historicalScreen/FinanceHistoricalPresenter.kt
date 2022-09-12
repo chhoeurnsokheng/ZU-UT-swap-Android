@@ -28,7 +28,11 @@ class FinanceHistoricalPresenter : BaseMvpPresenterImpl<FinanceHistoricalView.Vi
             if(it.status == 1){
                 mView?.onGetMarketNameSuccess(it.data)
             }else{
-                mView?.onGetMarketNameFail(it)
+                if(it.message.toString() == "Please sign in"){
+                    mView?.onUserExpiredToken()
+                }else{
+                    mView?.onGetMarketNameFail(it)
+                }
             }
         }, {
             object : CallbackWrapper(it, UTSwapApp.instance, arrayListOf()){
@@ -45,7 +49,11 @@ class FinanceHistoricalPresenter : BaseMvpPresenterImpl<FinanceHistoricalView.Vi
             if(it.status == 1){
                 mView?.onGetUserTransactionSuccess(it.data!!)
             }else{
-                mView?.onGetUserTransactionFail(it)
+                if(it.message.toString() == "Please sign in"){
+                    mView?.onUserExpiredToken()
+                }else{
+                    mView?.onGetUserTransactionFail(it)
+                }
             }
         },{
             object : CallbackWrapper(it, UTSwapApp.instance, arrayListOf()){
@@ -61,7 +69,11 @@ class FinanceHistoricalPresenter : BaseMvpPresenterImpl<FinanceHistoricalView.Vi
             if(it.status == 1){
                 mView?.onGetTradeTransactionSuccess(it.data!!)
             }else{
-                mView?.onGetTradeTransactionFail(it)
+                if(it.message.toString() == "Please sign in"){
+                    mView?.onUserExpiredToken()
+                }else{
+                    mView?.onGetTradeTransactionFail(it)
+                }
             }
         },{
             object : CallbackWrapper(it, UTSwapApp.instance, arrayListOf()){
@@ -77,7 +89,11 @@ class FinanceHistoricalPresenter : BaseMvpPresenterImpl<FinanceHistoricalView.Vi
             if(it.status == 1){
                 mView?.onGetAllTransactionSuccess(it.data!!)
             }else{
-                mView?.onGetAllTransactionFail(it)
+                if(it.message.toString() == "Please sign in"){
+                    mView?.onUserExpiredToken()
+                }else{
+                    mView?.onGetAllTransactionFail(it)
+                }
             }
         },{
             object : CallbackWrapper(it, UTSwapApp.instance, arrayListOf()){
@@ -93,7 +109,11 @@ class FinanceHistoricalPresenter : BaseMvpPresenterImpl<FinanceHistoricalView.Vi
             if(it.status == 1){
                 mView?.onExportHistoricalSuccess(it.data!!)
             }else{
-                mView?.onExportHistoricalFail(it)
+                if(it.message.toString() == "Please sign in"){
+                    mView?.onUserExpiredToken()
+                }else{
+                    mView?.onExportHistoricalFail(it)
+                }
             }
         },{
             object : CallbackWrapper(it, UTSwapApp.instance, arrayListOf()){
