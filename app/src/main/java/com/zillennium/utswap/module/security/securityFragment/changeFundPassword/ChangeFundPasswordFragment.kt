@@ -1,6 +1,7 @@
 package com.zillennium.utswap.module.security.securityFragment.changeFundPassword
 
 import android.content.Context
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Handler
 import android.text.Editable
@@ -18,6 +19,8 @@ import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentAccountChangeFundPasswordBinding
 import com.zillennium.utswap.models.userService.User
+import com.zillennium.utswap.screens.navbar.navbar.MainActivity
+import com.zillennium.utswap.utils.ClientClearData
 
 
 class ChangeFundPasswordFragment :
@@ -132,6 +135,8 @@ class ChangeFundPasswordFragment :
                     }
                     mPresenter.onSubmitOldFundPassword(User.CheckOldFundPasswordObject(editFundPassword.text.toString()),UTSwapApp.instance)
                 }else{
+                    txtMessage.visibility = View.VISIBLE
+                    txtMessage.text = resources.getString(R.string.please_enter_4_digits_fund_password)
 
                     for (child in numberVerification.children) {
                         child.background = ContextCompat.getDrawable(
@@ -180,6 +185,13 @@ class ChangeFundPasswordFragment :
                 child.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
             }
         }
+    }
+
+    override fun onUserExpiredToken() {
+        ClientClearData.clearDataUser()
+        startActivity(Intent(requireActivity(), MainActivity::class.java))
+        activity?.finish()
+        requireActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
     }
 
     private fun onProgressBar(status: Boolean){

@@ -12,13 +12,18 @@ import com.zillennium.utswap.bases.mvp.BaseViewHolder
 import com.zillennium.utswap.databinding.ItemListAccountLogsBinding
 import com.zillennium.utswap.models.logs.Logs
 
-class LogsAdapter(val item: List<Logs.AccountLogsData>)  : RecyclerView.Adapter<LogsAdapter.LogsViewHolder>(){
+class LogsAdapter(val item: List<Logs.AccountLogsLists>)  : RecyclerView.Adapter<LogsAdapter.LogsViewHolder>(){
     inner class LogsViewHolder(val binding: ItemListAccountLogsBinding) :RecyclerView.ViewHolder(binding.root) {
-        fun bindData(listData: Logs.AccountLogsData) {
+        fun bindData(listData: Logs.AccountLogsLists) {
             binding.apply {
                 txtTime.text = listData.addtime
-                txtActionRemarks.text = listData.type
-                txtStatus.text = listData.status
+                txtActionRemarks.text = listData.remark
+                txtActionIp.text = listData.addip
+                if(listData.status.toString() == "1"){
+                    txtStatus.text = "Normal"
+                }else{
+                    txtStatus.text = listData.status
+                }
             }
         }
 

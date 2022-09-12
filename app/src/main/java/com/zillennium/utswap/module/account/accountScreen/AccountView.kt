@@ -13,6 +13,7 @@ class AccountView {
         fun onGetUserInfoFail(data: User.AppSideBarData)
         fun uploadProfileSuccess(data: User.AccountUploadProfileRes)
         fun uploadProfileFail(data: User.AccountUploadProfileRes)
+        fun userExpiredToken()
     }
 
     interface Presenter : BaseMvpPresenter<View> {

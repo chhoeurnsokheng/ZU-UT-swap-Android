@@ -9,9 +9,6 @@ class validate {
     }
 
     fun isValidPhoneNumber(number: String): Boolean {
-        if (number.length >= 8){
-            return !TextUtils.isEmpty(number) && Patterns.PHONE.matcher(number).matches()
-        }
-        return false
+        return !TextUtils.isEmpty(number) && Patterns.PHONE.matcher(number).matches()
     }
 }

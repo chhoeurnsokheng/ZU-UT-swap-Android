@@ -192,7 +192,6 @@ class DepositOpenLinkWebViewActivity :
 
     override fun getQueryOrderSuccess(data: DataQueryOrderObj.DataQueryOrderRes) {
         if (data.data?.dataQueryOrder?.data?.status == "SUCCESS") {
-
             DepositSuccessfullyActivity.lunchDepositSuccessfullyActivity(
                 this, transaction_id,
                 data.data?.dataQueryOrder?.data?.total_amount

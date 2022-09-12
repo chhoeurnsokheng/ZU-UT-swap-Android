@@ -38,6 +38,17 @@ class NewsFragment :
         onCallApi()
         onOrderActivity()
         onSwipeRefresh()
+
+        SessionVariable.USER_EXPIRE_TOKEN.observe(this@NewsFragment){
+            if(it == true){
+                (activity as MainActivity).onRefreshData()
+                page = 1
+                listNews.clear()
+                binding.txtEnd.visibility = View.GONE
+                binding.layNewsLoading.visibility = View.GONE
+                mPresenter.onGetNews(UTSwapApp.instance, News.NewsObj(page))
+            }
+        }
     }
 
 
@@ -45,6 +56,7 @@ class NewsFragment :
         Tovuti.from(UTSwapApp.instance).monitor{ _, isConnected, _ ->
             if(isConnected)
             {
+                binding.progressBar.visibility = View.VISIBLE
                 mPresenter.onGetNews(UTSwapApp.instance, News.NewsObj(page))
             }
         }
@@ -93,55 +105,61 @@ class NewsFragment :
     }
 
 
-    private fun onCheckPreference() {
+    private fun onCheckPreference(){
         binding.apply {
             SessionVariable.SESSION_STATUS.observe(this@NewsFragment) {
-                if (SessionVariable.SESSION_STATUS.value == true) {
+                if(SessionVariable.SESSION_STATUS.value == true){
                     imgMenu.setOnClickListener {
                         val intent = Intent(UTSwapApp.instance, AccountActivity::class.java)
                         startActivity(intent)
-                        requireActivity().overridePendingTransition(
-                            R.anim.slide_in_left,
-                            R.anim.slide_out_right
-                        )
+                        requireActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
                     }
-
                     imgNotification.setOnClickListener {
-                        SessionVariable.SESSION_STATUS.observe(this@NewsFragment) {
-                            if (SessionVariable.SESSION_STATUS.value == true) {
-                                val intent =
-                                    Intent(UTSwapApp.instance, NotificationActivity::class.java)
-                                startActivity(intent)
-
-                            } else {
-                                tvBadgeNumber.visibility = View.INVISIBLE
-                                val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
-                                startActivity(intent)
-                            }
-                        }
-
+                        val intent = Intent(UTSwapApp.instance, NotificationActivity::class.java)
+                        startActivity(intent)
                     }
+                    tvBadgeNumber.visibility =View.VISIBLE
 
-                } else {
+                    page = 1
+                    listNews.clear()
+                    txtEnd.visibility = View.GONE
+                    mPresenter.onGetNews(UTSwapApp.instance, News.NewsObj(page))
+                    layNewsLoading.visibility = View.GONE
+                    binding.progressBar.visibility = View.VISIBLE
+                }else{
                     imgMenu.setOnClickListener {
                         val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
                         startActivity(intent)
                     }
-                }
-                page = 1
-                listNews.clear()
-                binding.txtEnd.visibility = View.GONE
+                    imgNotification.setOnClickListener {
+                        val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
+                        startActivity(intent)
+                    }
+                    tvBadgeNumber.visibility = View.GONE
 
-                mPresenter.onGetNews(UTSwapApp.instance,News.NewsObj(1))
+                    page = 1
+                    listNews.clear()
+                    txtEnd.visibility = View.GONE
+                    mPresenter.onGetNews(UTSwapApp.instance, News.NewsObj(page))
+                    layNewsLoading.visibility = View.GONE
+                    binding.progressBar.visibility = View.VISIBLE
+                }
             }
 
         }
+
         SessionVariable.SESSION_KYC.observe(this@NewsFragment) {
-            page = 1
-            listNews.clear()
-            binding.txtEnd.visibility = View.GONE
-            mPresenter.onGetNews(UTSwapApp.instance,News.NewsObj(1))
+            if(it == false){
+                page = 1
+                listNews.clear()
+                binding.txtEnd.visibility = View.GONE
+                mPresenter.onGetNews(UTSwapApp.instance, News.NewsObj(page))
+                binding.layNewsLoading.visibility = View.GONE
+                binding.progressBar.visibility = View.VISIBLE
+            }
         }
+
+
     }
 
     fun setBadgeNumberNews() {
@@ -202,6 +220,7 @@ class NewsFragment :
                 listNews.clear()
                 txtEnd.visibility = View.GONE
                 (activity as MainActivity).onRefreshData()
+                layNewsLoading.visibility = View.GONE
                 mPresenter.onGetNews(UTSwapApp.instance, News.NewsObj(page))
             }
         }

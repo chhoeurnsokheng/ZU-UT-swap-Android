@@ -27,7 +27,11 @@ class NewFundPasswordPresenter : BaseMvpPresenterImpl<NewFundPasswordView.View>(
             if(it.status == 1){
                 mView?.onChangePasswordSuccess(it)
             }else{
-                mView?.onChangePasswordFail(it)
+                if(it.message.toString() == "Please sign in"){
+                    mView?.onUserExpiredToken()
+                }else{
+                    mView?.onChangePasswordFail(it)
+                }
             }
         },{
             object : CallbackWrapper(it, UTSwapApp.instance, arrayListOf()){

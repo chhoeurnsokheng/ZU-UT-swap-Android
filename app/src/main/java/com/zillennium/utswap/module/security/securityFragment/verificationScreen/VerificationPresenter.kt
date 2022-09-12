@@ -98,7 +98,11 @@ class VerificationPresenter : BaseMvpPresenterImpl<VerificationView.View>(),
             if(it.status == 1){
                 mView?.onVerifyAddPhoneNumberSuccess(it)
             }else{
-                mView?.onVerifyAddPhoneNumberFail(it)
+                if(it.message.toString() == "Please sign in"){
+                    mView?.onUserExpiredToken()
+                }else{
+                    mView?.onVerifyAddPhoneNumberFail(it)
+                }
             }
         },{
             object : CallbackWrapper(it, UTSwapApp.instance, arrayListOf()){
@@ -116,7 +120,11 @@ class VerificationPresenter : BaseMvpPresenterImpl<VerificationView.View>(),
             {
                 mView?.onResendCodeAddPhoneSuccess(it)
             }else{
-                mView?.onResendCodeAddPhoneFail(it)
+                if(it.message.toString() == "Please sign in"){
+                    mView?.onUserExpiredToken()
+                }else{
+                    mView?.onResendCodeAddPhoneFail(it)
+                }
             }
         },{
             object : CallbackWrapper(it, UTSwapApp.instance, arrayListOf()){

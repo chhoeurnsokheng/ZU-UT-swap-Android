@@ -4,23 +4,23 @@ import android.content.Intent
 import android.text.Html
 import android.view.View
 import androidx.core.content.ContextCompat
-import androidx.databinding.adapters.ViewBindingAdapter
 import com.androidstudy.networkmanager.Tovuti
 import com.bumptech.glide.Glide
 import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
-import com.zillennium.utswap.Datas.GlobalVariable.SettingVariable
-import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityAccountDetailBinding
 import com.zillennium.utswap.models.userService.User
 import com.zillennium.utswap.module.account.accountDetailScreen.dialog.DialogAccountUTType
+import com.zillennium.utswap.module.account.accountKycPending.AccountKycPendingActivity
 import com.zillennium.utswap.module.account.addNumberScreen.AddNumberActivity
 import com.zillennium.utswap.module.account.logsScreen.LogsActivity
 import com.zillennium.utswap.module.kyc.kycActivity.KYCActivity
 import com.zillennium.utswap.module.security.securityActivity.changeFundPassword.ChangeFundPasswordActivity
 import com.zillennium.utswap.module.security.securityActivity.changeLoginPassword.ChangeLoginPasswordActivity
+import com.zillennium.utswap.screens.navbar.navbar.MainActivity
+import com.zillennium.utswap.utils.ClientClearData
 
 class AccountDetailActivity :
         BaseMvpActivity<AccountDetailView.View, AccountDetailView.Presenter, ActivityAccountDetailBinding>(),
@@ -28,6 +28,8 @@ class AccountDetailActivity :
 
     override var mPresenter: AccountDetailView.Presenter = AccountDetailPresenter()
     override val layoutResource: Int = R.layout.activity_account_detail
+
+    private var strTitle: String? = ""
 
     override fun initView() {
         super.initView()
@@ -71,12 +73,17 @@ class AccountDetailActivity :
             }
 
             imgUtType.setOnClickListener {
-                val dialogAccountUTType: DialogAccountUTType = DialogAccountUTType.newInstance()
+                val dialogAccountUTType: DialogAccountUTType = DialogAccountUTType.newInstance(strTitle)
                 dialogAccountUTType.show(supportFragmentManager, "dialogAccountUTType")
             }
 
-            txtName.setOnClickListener {
+            linearVerifyIdentity.setOnClickListener {
                 val intent = Intent(UTSwapApp.instance, KYCActivity::class.java)
+                startActivity(intent)
+            }
+
+            linearVerifyPending.setOnClickListener {
+                val intent = Intent(UTSwapApp.instance, AccountKycPendingActivity::class.java)
                 startActivity(intent)
             }
         }
@@ -96,6 +103,8 @@ class AccountDetailActivity :
         binding.apply {
 
             progressBar.visibility = View.GONE
+
+            strTitle = data.name_user_lavel.toString()
 
             if(!data.phonenumber.isNullOrEmpty())
             {
@@ -130,14 +139,28 @@ class AccountDetailActivity :
                 txtAddPhoneNumber.isEnabled = true
             }
 
-            if (!data.username.isNullOrEmpty())
+            if(data.kyc.toString() == "0")
             {
-                txtName.text = data.truename.toString()
-                txtName.isEnabled = false
+                txtName.visibility = View.GONE
+                linearVerifyIdentity.visibility = View.VISIBLE
+                linearVerifyPending.visibility = View.GONE
+            }else if(data.kyc.toString() == "2"){
+                txtName.visibility = View.GONE
+                linearVerifyIdentity.visibility = View.GONE
+                linearVerifyPending.visibility = View.VISIBLE
             }else{
-                txtName.text = resources.getString(R.string.verify_your_identity)
-                txtName.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
-                txtName.isEnabled = true
+                if (!data.username.isNullOrEmpty())
+                {
+                    txtName.visibility = View.VISIBLE
+                    linearVerifyIdentity.visibility = View.GONE
+                    linearVerifyPending.visibility = View.GONE
+                    txtName.text = data.truename.toString()
+                    txtName.isEnabled = false
+                }else{
+                    txtName.visibility = View.GONE
+                    linearVerifyIdentity.visibility = View.VISIBLE
+                    linearVerifyPending.visibility = View.GONE
+                }
             }
 
             Glide
@@ -168,6 +191,22 @@ class AccountDetailActivity :
             if(data.kyc.toString() == "0")
             {
                 btnCertified.visibility = View.INVISIBLE
+                txtCompany.visibility = View.GONE
+                txtOccupation.visibility = View.GONE
+                linearLayoutCompany.visibility = View.GONE
+                linearLayoutOccupation.visibility = View.GONE
+                txtName.visibility = View.GONE
+                linearVerifyIdentity.visibility = View.VISIBLE
+                linearVerifyPending.visibility = View.GONE
+            }else if(data.kyc.toString() == "2"){
+                btnCertified.visibility = View.INVISIBLE
+                txtCompany.visibility = View.GONE
+                txtOccupation.visibility = View.GONE
+                linearLayoutCompany.visibility = View.GONE
+                linearLayoutOccupation.visibility = View.GONE
+                txtName.visibility = View.GONE
+                linearVerifyIdentity.visibility = View.GONE
+                linearVerifyPending.visibility = View.VISIBLE
             }else{
                 btnCertified.visibility = View.VISIBLE
             }
@@ -180,6 +219,13 @@ class AccountDetailActivity :
         binding.apply {
             progressBar.visibility = View.GONE
         }
+    }
+
+    override fun userExpiredToken() {
+        ClientClearData.clearDataUser()
+        startActivity(Intent(this@AccountDetailActivity, MainActivity::class.java))
+        finish()
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
     }
 
     private fun toolBar() {

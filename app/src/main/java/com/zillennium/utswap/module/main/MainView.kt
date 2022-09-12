@@ -19,6 +19,8 @@ class MainView {
         fun onNotificationSuccess(data: NotificationModel.NotificationData)
         fun onNotificationFail(data: NotificationModel.NotificationRes)
 
+        fun onCheckUserLoginStatusSuccess()
+        fun onCheckUserLoginStatusFail()
     }
 
     interface Presenter : BaseMvpPresenter<View> {
@@ -26,6 +28,6 @@ class MainView {
         fun checkForceUpdate(context: Context)
         fun onCheckKYCStatus()
         fun getNotificationLists(context: Context)
-
+        fun onCheckUserLoginStatus(context: Context)
     }
 }

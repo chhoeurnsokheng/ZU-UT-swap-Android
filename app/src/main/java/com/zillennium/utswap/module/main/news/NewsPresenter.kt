@@ -6,6 +6,7 @@ import com.gis.z1android.api.errorhandler.CallbackWrapper
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.api.manager.ApiManager
 import com.zillennium.utswap.api.manager.ApiNewsImp
+import com.zillennium.utswap.api.manager.ApiUserImp
 import com.zillennium.utswap.bases.mvp.BaseMvpPresenterImpl
 import com.zillennium.utswap.models.newsService.News
 import rx.Subscription

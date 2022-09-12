@@ -10,8 +10,7 @@
         <RelativeLayout
             android:id="@+id/lay_header"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/dimen_32">
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/img_close"
@@ -33,137 +32,169 @@
 
         </RelativeLayout>
 
+        <View
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/lay_header"
+            android:background="@color/gray_light"/>
 
         <LinearLayout
-            android:id="@+id/recycleView_header"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/lay_header"
-            android:layout_marginBottom="@dimen/dimen_8"
-            android:orientation="horizontal"
-            android:paddingHorizontal="@dimen/dimen_20">
+            android:layout_height="match_parent"
+            android:layout_below="@+id/line">
 
-            <TextView
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="start"
-                android:text="@string/time"
-                android:textAppearance="@style/regular_10"
-                android:textColor="@color/dark_gray" />
+                android:layout_height="match_parent"
+                android:nestedScrollingEnabled="false">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="@string/action_remarks"
-                android:textAppearance="@style/regular_10"
-                android:textColor="@color/dark_gray" />
+                <LinearLayout
+                    android:id="@+id/recycleView_header"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dimen_8"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/dimen_20"
+                    android:paddingHorizontal="@dimen/dimen_20">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="end"
-                android:text="@string/status"
-                android:textAppearance="@style/regular_10"
-                android:textColor="@color/dark_gray" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="start"
+                        android:text="@string/time"
+                        android:textAppearance="@style/regular_10"
+                        android:textColor="@color/dark_gray" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@string/action_remarks"
+                        android:textAppearance="@style/regular_10"
+                        android:textColor="@color/dark_gray" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:text="@string/action_ip"
+                        android:textAppearance="@style/regular_10"
+                        android:textColor="@color/dark_gray" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:text="@string/status"
+                        android:textAppearance="@style/regular_10"
+                        android:textColor="@color/dark_gray" />
+
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/line_header"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@+id/recycleView_header"
+                    android:layout_marginHorizontal="@dimen/dimen_20"
+                    android:background="@color/light_gray" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/line_header">
+
+                    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                        android:id="@+id/account_logs_swipe_refresh"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/dimen_20">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rv_logs"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:overScrollMode="never"
+                            android:nestedScrollingEnabled="false"
+                            android:scrollbars="none" />
+
+                        <LinearLayout
+                            android:id="@+id/layout_recycle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/dimen_20"
+                            android:orientation="vertical">
+
+                            <ProgressBar
+                                android:id="@+id/progress_bar_auto_scroll"
+                                android:layout_gravity="center"
+                                android:layout_width="@dimen/dimen_20"
+                                android:layout_marginStart="@dimen/dimen_10"
+                                android:layout_marginTop="@dimen/dimen_10"
+                                android:visibility="gone"
+                                android:layout_height="@dimen/dimen_20" />
+
+                            <LinearLayout
+                                android:id="@+id/lay_account_logs_loading"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:paddingBottom="@dimen/dimen_20"
+                                android:visibility="invisible">
+
+                                <LinearLayout
+                                    android:id="@+id/read_more"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_vertical"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        android:id="@+id/txt_read_more"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="@string/read_more"
+                                        android:textAppearance="@style/regular_10" />
+
+                                    <ProgressBar
+                                        android:id="@+id/progress_bar_read_more"
+                                        android:layout_width="@dimen/dimen_20"
+                                        android:layout_marginStart="@dimen/dimen_10"
+                                        android:layout_height="@dimen/dimen_20" />
+                                </LinearLayout>
+                            </LinearLayout>
+
+                            <TextView
+                                android:id="@+id/txt_end_data"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/dimen_15"
+                                android:gravity="center"
+                                android:text="======== End ======== "
+                                android:textColor="@color/primary"
+                                android:visibility="gone" />
+                        </LinearLayout>
+
+                    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+                </LinearLayout>
+
+
+                <ProgressBar
+                    android:id="@+id/main_progress_bar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true" />
+
+            </RelativeLayout>
 
         </LinearLayout>
 
-        <View
-            android:id="@+id/line_header"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_below="@+id/recycleView_header"
-            android:layout_marginHorizontal="@dimen/dimen_20"
-            android:layout_marginBottom="@dimen/dimen_15"
-            android:background="@color/light_gray" />
-
-        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/account_logs_swipe_refresh"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/lay_header"
-            android:layout_marginTop="@dimen/dimen_40">
-
-
-            <androidx.core.widget.NestedScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:overScrollMode="never"
-                android:scrollbars="none">
-
-                <LinearLayout
-                    android:id="@+id/layout_recycle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/dimen_20"
-                    android:orientation="vertical">
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rv_logs"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:overScrollMode="never"
-                        android:scrollbars="none" />
-
-                    <LinearLayout
-                        android:id="@+id/lay_account_logs_loading"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:visibility="gone">
-
-                        <LinearLayout
-                            android:id="@+id/read_more"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:id="@+id/txt_read_more"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/read_more"
-                                android:textAppearance="@style/regular_10" />
-
-                            <TextView
-                                android:id="@+id/txt_loading"
-                                android:visibility="gone"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/loading"
-                                android:textAppearance="@style/regular_10" />
-
-                            <ProgressBar
-                                android:id="@+id/progress_bar_read_more"
-                                android:layout_width="@dimen/dimen_20"
-                                android:layout_marginStart="@dimen/dimen_10"
-                                android:layout_height="@dimen/dimen_20" />
-                        </LinearLayout>
-                    </LinearLayout>
-
-                    <TextView
-                        android:id="@+id/txt_end_data"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/dimen_15"
-                        android:gravity="center"
-                        android:text="======== End ======== "
-                        android:textColor="@color/primary"
-                        android:visibility="gone" />
-                </LinearLayout>
-            </androidx.core.widget.NestedScrollView>
-        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
-        <ProgressBar
-            android:id="@+id/main_progress_bar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true" />
     </RelativeLayout>
 </layout>

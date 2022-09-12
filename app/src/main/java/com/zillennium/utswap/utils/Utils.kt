@@ -89,7 +89,6 @@ object Utils {
             return df.format(c.time)
         }
 
-
     fun getDateInMilliSeconds(givenDateString: String?, format: String): Long {
         val sdf = SimpleDateFormat(format, Locale.US)
         var timeInMilliseconds: Long = 1

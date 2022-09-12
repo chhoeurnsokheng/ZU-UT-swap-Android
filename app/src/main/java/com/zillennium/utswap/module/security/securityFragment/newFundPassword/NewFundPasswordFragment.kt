@@ -3,6 +3,7 @@ package com.zillennium.utswap.module.security.securityFragment.newFundPassword
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
@@ -19,6 +20,8 @@ import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentAccountNewFundPasswordBinding
 import com.zillennium.utswap.models.userService.User
+import com.zillennium.utswap.screens.navbar.navbar.MainActivity
+import com.zillennium.utswap.utils.ClientClearData
 
 class NewFundPasswordFragment:
     BaseMvpFragment<NewFundPasswordView.View, NewFundPasswordView.Presenter, FragmentAccountNewFundPasswordBinding>(),
@@ -203,30 +206,53 @@ class NewFundPasswordFragment:
     private fun onSubmitNewPassword(){
         binding.apply {
             btnNext.setOnClickListener {
-                if (editFundPassword.text.toString() == editConfirmFundPassword.text.toString() && editFundPassword.length() == 4 && editConfirmFundPassword.length() == 4){
-                    onProgressBar(true)
-                    for (child in numberVerification.children) {
-                        child.background = ContextCompat.getDrawable(
-                            UTSwapApp.instance,
-                            R.drawable.bg_border_bottom
-                        )
-                        child as TextView
-                        child.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.black))
-                    }
+                if (editFundPassword.length() == 4 && editConfirmFundPassword.length() == 4){
+                    if(editFundPassword.text.toString() != editConfirmFundPassword.text.toString()){
+                        txtMessage.visibility = View.VISIBLE
+                        txtMessage.text = resources.getString(R.string.fund_password_did_not_match)
 
-                    for (child in confirmNumberVerification.children) {
-                        child.background = ContextCompat.getDrawable(
-                            UTSwapApp.instance,
-                            R.drawable.bg_border_bottom
-                        )
-                        child as TextView
-                        child.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.black))
-                    }
+                        for (child in numberVerification.children) {
+                            child.background = ContextCompat.getDrawable(
+                                UTSwapApp.instance,
+                                R.drawable.bg_border_bottom_red
+                            )
+                            child as TextView
+                            child.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
+                        }
 
-                    mPresenter.onSubmitNewPassword(User.ChangeFundPasswordObject(editFundPassword.text.toString(),editConfirmFundPassword.text.toString()),UTSwapApp.instance)
+                        for (child in confirmNumberVerification.children) {
+                            child.background = ContextCompat.getDrawable(
+                                UTSwapApp.instance,
+                                R.drawable.bg_border_bottom_red
+                            )
+                            child as TextView
+                            child.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
+                        }
+                    }else{
+                        onProgressBar(true)
+                        for (child in numberVerification.children) {
+                            child.background = ContextCompat.getDrawable(
+                                UTSwapApp.instance,
+                                R.drawable.bg_border_bottom
+                            )
+                            child as TextView
+                            child.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.black))
+                        }
+
+                        for (child in confirmNumberVerification.children) {
+                            child.background = ContextCompat.getDrawable(
+                                UTSwapApp.instance,
+                                R.drawable.bg_border_bottom
+                            )
+                            child as TextView
+                            child.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.black))
+                        }
+
+                        mPresenter.onSubmitNewPassword(User.ChangeFundPasswordObject(editFundPassword.text.toString(),editConfirmFundPassword.text.toString()),UTSwapApp.instance)
+                    }
                 }else{
                     txtMessage.visibility = View.VISIBLE
-                    txtMessage.text = resources.getString(R.string.password_does_not_match)
+                    txtMessage.text = resources.getString(R.string.please_enter_4_digits_fund_password)
 
                     for (child in numberVerification.children) {
                         child.background = ContextCompat.getDrawable(
@@ -312,6 +338,13 @@ class NewFundPasswordFragment:
                 child.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
             }
         }
+    }
+
+    override fun onUserExpiredToken() {
+        ClientClearData.clearDataUser()
+        startActivity(Intent(requireActivity(), MainActivity::class.java))
+        activity?.finish()
+        requireActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
     }
 
     private fun onProgressBar(status: Boolean){

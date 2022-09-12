@@ -186,6 +186,7 @@ class SignInFragment :
         onProgressBar(false)
         body.data?.status_kyc
         SessionVariable.SESSION_STATUS.value = true
+        SessionVariable.USER_EXPIRE_TOKEN.value = false
 
         SessionPreferences().SESSION_STATUS = true
         SessionPreferences().SESSION_TOKEN = body.data?.TOKEN.toString()

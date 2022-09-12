@@ -336,10 +336,20 @@
             android:configChanges="uiMode|keyboardHidden|screenSize|orientation|screenLayout"
             android:resizeableActivity="true"
             android:screenOrientation="portrait" />
-
-        <service android:name=".module.notification.MyFirebaseMessagingService"
-            android:exported="true"
-            android:permission="">
+        <activity android:name=".module.finance.depositScreen.depositSuccessfully.DepositSuccessfullyActivity"
+            android:configChanges="uiMode|keyboardHidden|screenSize|orientation|screenLayout"
+            android:resizeableActivity="true"
+            android:screenOrientation="portrait"
+            />
+        <activity
+            android:name=".module.account.accountKycPending.AccountKycPendingActivity"
+            android:configChanges="uiMode|keyboardHidden|screenSize|orientation|screenLayout"
+            android:resizeableActivity="true"
+            android:screenOrientation="portrait"
+            />
+        <service
+            android:name=".module.notification.MyFirebaseMessagingService"
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>

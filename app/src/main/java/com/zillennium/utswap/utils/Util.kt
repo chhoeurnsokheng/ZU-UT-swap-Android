@@ -11,6 +11,8 @@ import android.util.TypedValue
 import com.zillennium.utswap.R
 import java.io.ByteArrayOutputStream
 import java.io.IOException
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 /**
@@ -180,4 +182,53 @@ class Util {
         }
 
     }
+
+
+    fun formatDateChartUptoCurrentRegion(dateTime: String?, activity: String?): String? {
+        val format: SimpleDateFormat
+        format = if (activity != null && activity == "NewsActivity") {
+            SimpleDateFormat("MMM dd yyyy hh:mm:ss a", Locale.UK)
+        } else {
+            SimpleDateFormat("MMM yyyy", Locale.UK)
+        }
+        val date: Date = formatDateTimeChartListing(dateTime)
+
+        // Get Raw Offset
+        val mCalendar: Calendar = GregorianCalendar()
+        val mTimeZone = mCalendar.timeZone
+        val mGMTOffset = mTimeZone.rawOffset
+//        if (activity != null && activity == "NewsActivity") {
+//        } else {
+//            val dateView = format.format(date.time + mGMTOffset)
+//            val dataSplit = dateView.split(" ").toTypedArray()
+//            if (dataSplit.size > 0) {
+//                val lng: String =
+//                    SpUtil.getObjectFromSp(Constant.CURRENT_LANGUAGE, Z1App.instance).toString()
+//                if (lng.endsWith("KHM")) {
+//                    val mInKhmer: String = DateUtils.INSTANCE.getMonthInKhmer(dataSplit[0])
+//                    return mInKhmer + " " + dataSplit[1]
+//                }
+//            }
+//        }
+        return format.format(date.time + mGMTOffset)
+    }
+
+
+    fun formatDateTimeChartListing(dateTime: String?): Date {
+        val format = SimpleDateFormat("yyyy-MM-dd", Locale.UK)
+        var newDate: Date? = Date()
+        try {
+            newDate = format.parse(dateTime)
+            Log.d("newDate", format.toString())
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        assert(newDate != null)
+        return newDate!!
+    }
+
+
+
+
+
 }

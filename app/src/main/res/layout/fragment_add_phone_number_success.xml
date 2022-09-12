@@ -17,7 +17,7 @@
                 android:layout_centerInParent="true"
                 android:text="@string/success"
                 android:textAlignment="center"
-                android:textAppearance="@style/medium_21"
+                android:textAppearance="@style/bold_20"
                 android:textColor="@color/simple_green" />
 
         </RelativeLayout>
@@ -50,7 +50,7 @@
                 android:gravity="center"
                 android:paddingHorizontal="@dimen/dimen_40"
                 android:text="@string/phone_number_has_been_add_successfully"
-                android:textAppearance="@style/regular_18"
+                android:textAppearance="@style/bold_18"
                 android:textColor="@color/black" />
 
         </LinearLayout>

@@ -11,6 +11,7 @@ class AddNumberView {
         override fun initView()
         fun onAddPhoneNumberSuccess(body: User.AddPhoneNumberRes)
         fun onAddPhoneNumberFail(body: User.AddPhoneNumberRes)
+        fun onUserExpiredToken()
     }
 
     interface Presenter : BaseMvpPresenter<View> {

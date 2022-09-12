@@ -64,7 +64,7 @@
                 android:layout_marginHorizontal="@dimen/dimen_21"
                 android:background="@drawable/outline_edittext_add_phone_number"
                 android:inputType="phone"
-                android:maxLength="10"
+                android:maxLength="12"
                 android:singleLine="true"
                 android:paddingStart="@dimen/dimen_10"
                 android:paddingEnd="@dimen/dimen_24"

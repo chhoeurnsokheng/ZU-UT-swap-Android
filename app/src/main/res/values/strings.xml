@@ -267,7 +267,7 @@
     <string name="create_a_new_account">Create a New Account</string>
     <string name="referral_id_optional">Referral ID (optional)</string>
     <string name="invalid_email_or_password">Invalid Email or Password</string>
-    <string name="field_can_t_be_empty">Field can\'t be empty</string>
+    <string name="field_can_t_be_empty">Field Can\'t Be Empty</string>
     <string name="password_not_matching">Password Not matching</string>
     <string name="cannot_leave_blank">Cannot leave blank</string>
     <string name="project_info">Project Info</string>
@@ -397,6 +397,7 @@
     <string name="log_s">Logs</string>
     <string name="time">Time</string>
     <string name="action_remarks">Action Remarks</string>
+    <string name="action_ip">Action IP</string>
     <string name="forgot_login_password">Forgot Login Password</string>
     <string name="news">News</string>
     <string name="share">Share</string>
@@ -437,30 +438,34 @@
     <string name="live">Live</string>
     <string name="please_enter_email_or_phone_number">Please Enter Email or Phone Number</string>
     <string name="please_enter_a_password_longer_than_8_digits">Please Enter a Password Longer Than 8 Digits</string>
+    <string name="please_enter_4_digits_fund_password">Please Enter 4 Digits Fund Password</string>
     <string name="invalid_try_again">Invalid. Please Try Again</string>
-    <string name="password_did_not_match">Password didn\'t match</string>
+    <string name="password_did_not_match">Password Does Not Match</string>
+    <string name="fund_password_did_not_match">Fund Password Does Not Match</string>
     <string name="email_phone_number_unavaible">Email/Phone Number Unavailable</string>
-    <string name="text_required">This field is required</string>
+    <string name="text_required">This Field Is Required</string>
     <string name="invalid_email_or_phone">Invalid email or phone number</string>
-    <string name="please_input_a_valid_email_phone">Please input a valid email/phone number.</string>
-    <string name="phone_email_or_password_is_incorrect">Phone/Email or password is incorrect</string>
-    <string name="password_does_not_match">Password does not match</string>
-    <string name="please_enter_valid_email_or_phone">Please Enter valid Email/Phone number</string>
-    <string name="new_password_cannot_be_the_same_as_old">New Password cannot be the same as old Password</string>
+    <string name="please_input_a_valid_email_phone">Please Input a Valid Email/Phone Number.</string>
+    <string name="phone_email_or_password_is_incorrect">Phone/Email or Password Is Incorrect</string>
+    <string name="password_does_not_match">Password Does Not Match</string>
+    <string name="please_enter_valid_email_or_phone">Please Enter Valid Email/Phone Number</string>
+    <string name="please_enter_valid_phone">Please Enter Valid Phone Number</string>
+    <string name="please_enter_phone">Please Enter Phone Number</string>
+    <string name="new_password_cannot_be_the_same_as_old">New Password Cannot Be The Same As Old Password</string>
     <string name="your_old_password_must_longer_than_8_digits">Your Old Password Must Longer Than 8 Digits</string>
-    <string name="old_fund_password_wrong">Old fund password wrong!</string>
+    <string name="old_fund_password_wrong">Old Fund Password Is Wrong!</string>
 
     <string name="see_more">See more</string>
     <string name="no_data_record">No Data Record</string>
     <string name="__end__">======== End ========</string>
 
-    <string name="this_account_already_have_phone_number">This account already have phone number</string>
-    <string name="please_enter_valid_phone_number">Please enter valid phone number</string>
+    <string name="this_account_already_have_phone_number">This Account Already Have Phone Number</string>
+    <string name="please_enter_valid_phone_number">Please Enter Valid Phone Number</string>
     <string name="success">Success</string>
     <string name="failed">Failed</string>
-    <string name="phone_number_has_been_add_successfully">Phone Number has been added Successfully</string>
-    <string name="password_has_been_changed_successfully">Password has been changed Successfully</string>
-    <string name="fund_password_has_been_changed_success">Fund Password has been changed Successfully</string>
+    <string name="phone_number_has_been_add_successfully">Phone Number Has Been Added Successfully</string>
+    <string name="password_has_been_changed_successfully">Password Has been Changed Successfully</string>
+    <string name="fund_password_has_been_changed_success">Fund Password Has Been Changed Successfully</string>
     <string name="password_changed">Password Changed</string>
     <string name="phone_number_already_used">Phone Number Already Used!</string>
 
@@ -468,7 +473,8 @@
     <string name="look_like_you_have_an_older_version_of_the_app_please_update_to_get_latest_features_and_best_experience">Looks like you have an older version of the app. Please update to get latest features and best experience.</string>
     <string name="update_now">UPDATE NOW</string>
 
-    <string name="verify_your_identity">Verify Your Identity > </string>
+    <string name="verify_your_identity">Verify Your Identity</string>
+    <string name="kyc_approval_is_pending">KYC Approval is Pending</string>
     <string name="n_a">N/A</string>
     <string name="date_in_order_book">01:02:22PM 24-03-2022</string>
     <string name="limit_buy">Limit / Buy</string>
@@ -478,8 +484,8 @@
     <string name="openWebView">OpenWebView</string>
     <string name="deposit_review">Deposit Review</string>
 
-    <string name="you_have_successfully_placed_an_order">You have successfully placed an order.</string>
-    <string name="order_has_been_canceled">Order has been canceled</string>
+    <string name="you_have_successfully_placed_an_order">You Have Successfully Placed an Order.</string>
+    <string name="order_has_been_canceled">Order Has Been Canceled</string>
     <string name="ok">OK</string>
 
     <string name="deposit_success">Deposit Successfully</string>
@@ -500,6 +506,10 @@
     <string name="to_account">To account:</string>
     <string name="your_phone_number_is_required_to_transfer_funds">Your Phone Number is Required to Transfer Funds</string>
     <string name="usd">USD</string>
+    <string name="normal">Normal</string>
+    <string name="not_available">Not Available</string>
+    <string name="old_password_is_wrong">Old Password Is Wrong!</string>
+    <string name="verify_password_did_not_match">Verify Password Did Not Match!</string>
 
 
 

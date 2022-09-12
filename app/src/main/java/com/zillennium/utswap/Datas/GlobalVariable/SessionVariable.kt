@@ -14,7 +14,7 @@ class SessionVariable {
         var SESSION_BANK : MutableLiveData<List<FinanceBankModel>> = MutableLiveData<List<FinanceBankModel>>()
         var SESSION_KYC_SUBMIT_STATUS = MutableLiveData<Boolean>(SessionPreferences().SESSION_KYC_SUBMIT_STATUS)
         var BADGE_NUMBER = MutableLiveData<String>(SessionPreferences().BADGE_NUMBER)
-
+        var USER_EXPIRE_TOKEN: MutableLiveData<Boolean> = MutableLiveData(false)
 
         var successTransfer: MutableLiveData<Boolean> = MutableLiveData()
 
