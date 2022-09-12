@@ -166,7 +166,6 @@ class AccountActivity :
                     "Sign Out",
                     object : DialogUtil.OnAlertDialogClick {
                         override fun onLabelCancelClick() {
-
 //                            SessionVariable.SESSION_STATUS.value = false
 //                            SessionVariable.SESSION_KYC.value = false
 //                            SessionVariable.SESSION_KYC_STATUS.value = 0

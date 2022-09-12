@@ -202,9 +202,9 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
             Log.d("KYC", "${kyc.statusKycSubmit}")
             binding.apply {
                 SessionVariable.SESSION_STATUS.observe(this@MainActivity) {
-
-                    if (SessionPreferences().SESSION_TOKEN != null) {
-                        if (kcySubmit == true) {
+                    if (it) {
+                        if (kcySubmit == true && kcyComplete == false) {
+                            layVerify.visibility = VISIBLE
                             statusKYC = "Pending"
                             btnVerify.text = "KYC Approval is Pending"
                             tvVerify.text = "Your KYC application is being reviewed by our team."
@@ -219,14 +219,17 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
                                     R.color.white
                                 )
                             )
-                        } else if (kcyComplete == false) {
+                        } else if (kcySubmit == true && kcyComplete == false) {
+                            layVerify.visibility = VISIBLE
                             btnVerify.visibility = VISIBLE
                             statusKYC = "New"
                             btnVerify.text = "Verify Your Identity"
                             tvVerify.text = "Please verify your identity to start trading."
                             btnVerify.backgroundTintList = ContextCompat.getColorStateList(this@MainActivity, R.color.primary)
                             btnVerify.setTextColor(ContextCompat.getColor(this@MainActivity, R.color.white))
-
+                        } else if (kcyComplete == true) {
+                            layAuth.visibility = GONE
+                            layVerify.visibility = GONE
                         }
                         layAuth.visibility = GONE
                     } else {
@@ -234,27 +237,6 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
                         layVerify.visibility = GONE
                     }
 
-                    if (SessionVariable.SESSION_STATUS.value == true) {
-                        layAuth.visibility = GONE
-                        layVerify.visibility = VISIBLE
-                    }
-                    if (kcyComplete == true) {
-                        layAuth.visibility = GONE
-                        layVerify.visibility = GONE
-                    } else {
-                        layAuth.visibility = GONE
-                        layVerify.visibility = VISIBLE
-
-
-                    }
-                    if (SessionPreferences().SESSION_TOKEN == null) {
-                        layAuth.visibility = VISIBLE
-                        layVerify.visibility = GONE
-
-                    } else {
-                        layAuth.visibility = GONE
-
-                    }
                 }
 
                 btnVerify.setOnClickListener {
@@ -322,7 +304,7 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
 
                 navView.setOnItemSelectedListener { item ->
                     mPresenter.onCheckKYCStatus()
-                    mPresenter.onCheckUserLoginStatus(this@MainActivity)
+//                    mPresenter.onCheckUserLoginStatus(this@MainActivity)
                     when (item.itemId) {
                         R.id.navigation_navbar_home -> {
                             fragmentManager.beginTransaction().hide(activeFragment)
@@ -356,6 +338,8 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
                                 } else {
                                     val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
                                     startActivityForResult(intent, 555)
+                                    navView.isEnabled = false
+
                                 }
                             }
 //                        if (checkStatusToken==true){
@@ -393,7 +377,7 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == RESULT_OK && requestCode == 555) {
+        if (requestCode == 555) {
             isSignInSuccess = false
             isSelected = true
 
