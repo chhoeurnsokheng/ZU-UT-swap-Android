@@ -98,8 +98,8 @@ class AccountActivity :
             }
 
             linearLayoutReferral.setOnClickListener {
-                val intent = Intent(UTSwapApp.instance, ReferralInformationActivity::class.java)
-                startActivity(intent)
+//                val intent = Intent(UTSwapApp.instance, ReferralInformationActivity::class.java)
+//                startActivity(intent)
             }
 
             linearLayoutDocuments.setOnClickListener {
