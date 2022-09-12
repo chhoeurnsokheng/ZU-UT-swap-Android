@@ -5,7 +5,6 @@ import android.content.Intent
 import android.graphics.BlurMaskFilter
 import android.graphics.MaskFilter
 import android.view.View
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -60,16 +59,17 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
         mPresenter.getBanner(requireActivity())
         mPresenter.getNewsHome(requireActivity())
         onSwipeRefresh()
-        SessionVariable.SESSION_STATUS.observe(this){
-            requestData()
-        }
 
-        SessionVariable.USER_EXPIRE_TOKEN.observe(this){
-            if(it == true){
-                (activity as MainActivity).onRefreshData()
-                requestData()
-            }
-        }
+//        SessionVariable.SESSION_STATUS.observe(this){
+//            requestData()
+//        }
+
+//        SessionVariable.USER_EXPIRE_TOKEN.observe(this){
+//            if(it == true){
+//                (activity as MainActivity).onRefreshData()
+//                requestData()
+//            }
+//        }
 
         binding.apply {
             swipeRefresh.setColorSchemeColors(

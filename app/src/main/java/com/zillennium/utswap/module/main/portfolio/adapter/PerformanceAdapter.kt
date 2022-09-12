@@ -32,7 +32,7 @@ class PerformanceAdapter: BaseRecyclerViewAdapterGeneric<Portfolio.GetPortfolioD
         fun bidData(performance: Portfolio.GetPortfolioDashBoard){
             binding.apply {
                 txtTitleProject.text = performance.mkt_project_name
-                txtPercent.text = performance.mkt_project_perf
+                txtPercent.text = performance.mkt_project_perf.toString()
 
                 if (performance.mkt_project_perf?.toDouble()!! > 0) {
                     txtPercent.text = "+" + performance.mkt_project_perf
