@@ -29,7 +29,9 @@ object ApiSettings {
     const val PATH_EXPORT_HISTORICAL_DATA = "finance/exportHistoryData"
 
 
-    const val PATH_NEWS_HOME = "Art/ArtList/p/1"
+    const val PATH_NEWS_HOME = "Art/ArtList"
+    const val PATH_NEWS_WITHOUT_TOKEN = "Art/ArtList"
+
 
 
     /**     Account Logs       **/

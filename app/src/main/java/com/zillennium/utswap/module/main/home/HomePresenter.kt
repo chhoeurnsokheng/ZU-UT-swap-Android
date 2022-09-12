@@ -3,6 +3,7 @@ package com.zillennium.utswap.module.main.home
 import android.content.Context
 import android.os.Bundle
 import com.gis.z1android.api.errorhandler.CallbackWrapper
+import com.google.gson.JsonObject
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.api.manager.ApiHomeImp
 import com.zillennium.utswap.api.manager.ApiManager
@@ -50,10 +51,12 @@ class HomePresenter : BaseMvpPresenterImpl<HomeView.View>(),
         })
     }
 
-    override fun getNewsHomeToken(context: Context) {
+    override fun getNewsWithoutToken(context: Context) {
+        val param = JsonObject()
+        param.addProperty("page", 1)
         subscriptionGetNewNoToken?.unsubscribe()
-        subscriptionGetNewNoToken = ApiNewsImp().getNewsHomeNoToken(context).subscribe({
-            mView?.onGetNewsHomeNoTokenSuccess(it)
+        subscriptionGetNewNoToken = ApiNewsImp().getNewsHomeNoToken(param).subscribe({
+            mView?.onGetNewsHomeSuccess(it)
         }, { error ->
             object : CallbackWrapper(error, context, arrayListOf()) {
                 override fun onCallbackWrapper(status: ApiManager.NetworkErrorStatus, data: Any) {

@@ -25,7 +25,7 @@ class HomeView {
         override fun initViewPresenter(context: Context, bundle: Bundle?)
         fun getBanner(context: Context)
         fun getNewsHome(context: Context)
-        fun getNewsHomeToken(context: Context)
+        fun getNewsWithoutToken(context: Context)
         fun getWatchListAndBalance(context: Context)
     }
 }

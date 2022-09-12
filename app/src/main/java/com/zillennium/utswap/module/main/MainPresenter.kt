@@ -99,10 +99,11 @@ class MainPresenter : BaseMvpPresenterImpl<MainView.View>(),
     override fun onCheckUserLoginStatus(context: Context) {
         subscriptionCheckUserLogin?.unsubscribe()
         subscriptionCheckUserLogin = ApiUserImp().checkUserLoginStatus(context).subscribe({
-            if (it.status == 0) {
-                mView?.onCheckUserLoginStatusSuccess()
+            if (it.status == 1) {
+                mView?.onUserActiveToken()
             } else {
-                mView?.onCheckUserLoginStatusFail()
+                mView?.onUserExpireToken()
+
             }
         }, {
             object : CallbackWrapper(it, UTSwapApp.instance, arrayListOf()) {

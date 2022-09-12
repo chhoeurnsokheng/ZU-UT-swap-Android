@@ -10,11 +10,13 @@ class NewsView {
     interface View : BaseMvpView {
         override fun initView()
         fun onGetNewsSuccess(data: News.NewsData)
-        fun onGetNewsFail(data: News.NewsData)
+        fun onGetNewsFail()
     }
 
     interface Presenter : BaseMvpPresenter<View> {
         override fun initViewPresenter(context: Context, bundle: Bundle?)
         fun onGetNews(context: Context,body: News.NewsObj)
+        fun getNewsWithoutToken(page: Int)
+
     }
 }

@@ -5,7 +5,6 @@ import android.content.Intent
 import android.graphics.BlurMaskFilter
 import android.graphics.MaskFilter
 import android.view.View
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -58,16 +57,13 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
 
         SessionVariable.realTimeWatchList.value = true
         mPresenter.getBanner(requireActivity())
-        mPresenter.getNewsHome(requireActivity())
         onSwipeRefresh()
-        SessionVariable.SESSION_STATUS.observe(this){
-            requestData()
-        }
+        requestData()
 
         SessionVariable.USER_EXPIRE_TOKEN.observe(this){
             if(it == true){
                 (activity as MainActivity).onRefreshData()
-                requestData()
+//                requestData()
             }
         }
 
@@ -171,7 +167,15 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
         }
     }
     private fun requestData() {
-        mPresenter.getNewsHome(requireActivity())
+        SessionVariable.SESSION_STATUS.observe(this){
+            if (it) {
+                mPresenter.getNewsHome(requireActivity())
+
+            } else {
+                mPresenter.getNewsWithoutToken(requireContext())
+
+            }
+        }
         mPresenter.getWatchListAndBalance(requireActivity())
         mPresenter.getBanner(requireActivity())
 
@@ -282,7 +286,6 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
         if (data.message== "Please sign in"){
             checkUserLogin()
             CheckUserLoginClearToken.clearTokenExpired()
-            mPresenter.getNewsHomeToken(requireContext())
         }
         newsList.clear()
         data.data?.NEW?.forEachIndexed { index, itemWishList ->
@@ -314,7 +317,7 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
     }
 
     override fun onGetNewsHomeNoTokenSuccess(data: News.NewsRes) {
-        newsList.clear()
+       /* newsList.clear()
         data.data?.NEW?.forEachIndexed { index, itemWishList ->
 
             if (index <= 2) {
@@ -333,7 +336,7 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
                     R.id.nav_view
                 )?.selectedItemId = R.id.navigation_navbar_news
             }
-        }
+        }*/
 
     }
 

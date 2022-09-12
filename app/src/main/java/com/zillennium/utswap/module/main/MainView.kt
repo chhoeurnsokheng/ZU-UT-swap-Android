@@ -19,8 +19,8 @@ class MainView {
         fun onNotificationSuccess(data: NotificationModel.NotificationData)
         fun onNotificationFail(data: NotificationModel.NotificationRes)
 
-        fun onCheckUserLoginStatusSuccess()
-        fun onCheckUserLoginStatusFail()
+        fun onUserExpireToken()
+        fun onUserActiveToken()
     }
 
     interface Presenter : BaseMvpPresenter<View> {

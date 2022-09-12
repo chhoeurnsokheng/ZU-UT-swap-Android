@@ -167,12 +167,13 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
     override fun onNotificationFail(data: NotificationModel.NotificationRes) {
     }
 
-    override fun onCheckUserLoginStatusSuccess() {
+    override fun onUserExpireToken() {
         ClientClearData.clearDataUser()
         SessionVariable.USER_EXPIRE_TOKEN.value = true
+
     }
 
-    override fun onCheckUserLoginStatusFail() {
+    override fun onUserActiveToken() {
 
     }
 
