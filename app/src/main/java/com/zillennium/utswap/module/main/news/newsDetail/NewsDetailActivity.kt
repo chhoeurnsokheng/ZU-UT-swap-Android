@@ -13,8 +13,6 @@ import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityNewsDetailBinding
 import com.zillennium.utswap.models.newsService.News
-import com.zillennium.utswap.module.main.trade.tradeExchangeScreen.TradeExchangeActivity
-import com.zillennium.utswap.utils.Constants
 
 class NewsDetailActivity :
     BaseMvpActivity<NewsDetailView.View, NewsDetailView.Presenter, ActivityNewsDetailBinding>(),

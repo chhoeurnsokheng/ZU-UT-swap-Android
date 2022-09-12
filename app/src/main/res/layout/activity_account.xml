@@ -213,7 +213,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/referral_account"
+                    android:text="Referral (Coming soon)"
                     android:textAppearance="@style/medium_18"
                     android:textColor="@color/white" />
 

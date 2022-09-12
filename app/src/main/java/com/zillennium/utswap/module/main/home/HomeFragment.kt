@@ -418,10 +418,10 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
                     //alert dialog
                     val builder = AlertDialog.Builder(requireActivity())
                     builder.setTitle("Withdraw is coming soon.")
-                    builder.setMessage("We are implementing it .")
+                    builder.setMessage("We are working on it.")
                   //  builder.setIcon(R.drawable.icon_log_out)
 
-                    builder.setPositiveButton("Yes"){dialogInterface, which ->
+                    builder.setPositiveButton("Okay"){dialogInterface, which ->
                     }
                     val alertDialog: AlertDialog = builder.create()
                     alertDialog.show()
