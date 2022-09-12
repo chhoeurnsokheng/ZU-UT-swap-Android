@@ -53,6 +53,7 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
     override fun initView() {
         super.initView()
         onSetUpNavBar()
+        mPresenter.checkForceUpdate(this)
         binding.layAuth.setOnClickListener {
             val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
             startActivityForResult(intent, 555)

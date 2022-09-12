@@ -156,9 +156,10 @@
                     <com.github.mikephil.charting.charts.LineChart
                         android:id="@+id/line_chart"
                         android:layout_width="match_parent"
-                        android:layout_height="196dp"
+                        android:layout_height="400dp"
                         android:layout_marginTop="@dimen/dimen_10"
                         android:visibility="visible" />
+
 
                     <RelativeLayout
                         android:id="@+id/lay_filter"
