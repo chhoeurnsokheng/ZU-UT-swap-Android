@@ -75,7 +75,7 @@
                                 android:id="@+id/txt_date_title"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Date: "
+                                android:text="Date:"
                                 android:textColor="@color/black_000000"
                                 android:layout_marginBottom="@dimen/dimen_30"
                                 android:visibility="invisible"
