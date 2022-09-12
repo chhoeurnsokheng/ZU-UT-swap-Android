@@ -323,20 +323,27 @@ class ProjectInfoActivity :
                 btnSubscript.visibility = View.VISIBLE
                 btnUpcoming.visibility = View.GONE
                 btnSubscript.setOnClickListener {
-                    val subscription: SubscriptionTermConditionDialog =
-                        SubscriptionTermConditionDialog.newInstance(
-                            data.id.toString().toInt(),
-                            data.title_deed.toString(),
-                            data.land_size.toString(),
-                            data.base_price?.toDouble(),
-                            data.target_price?.toDouble(),
-                            data.total_ut,
-                            data.managed_by.toString(),
-                            data.google_map_link.toString(),
-                            projectName
-                        )
-                    subscription.show(supportFragmentManager, "balanceHistoryDetailDialog")
+                    SubscriptionActivity.launchSubscriptionActivity(this@ProjectInfoActivity,
+                        data.id,
+                        projectName
+                    )
                 }
+
+//                btnSubscript.setOnClickListener {
+//                    val subscription: SubscriptionTermConditionDialog =
+//                        SubscriptionTermConditionDialog.newInstance(
+//                            data.id.toString().toInt(),
+//                            data.title_deed.toString(),
+//                            data.land_size.toString(),
+//                            data.base_price?.toDouble(),
+//                            data.target_price?.toDouble(),
+//                            data.total_ut,
+//                            data.managed_by.toString(),
+//                            data.google_map_link.toString(),
+//                            projectName
+//                        )
+//                    subscription.show(supportFragmentManager, "balanceHistoryDetailDialog")
+//                }
             }
             if (data.action == "Trade") {
                 btnTrade.visibility = View.VISIBLE
