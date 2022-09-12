@@ -429,14 +429,12 @@ class PortfolioFragment :
             it.date
         }
 
-
         val weekTwoSales = LineDataSet(sales, "")
         weekTwoSales.lineWidth = 3f
         weekTwoSales.valueTextSize = 15f
         weekTwoSales.mode = LineDataSet.Mode.CUBIC_BEZIER
         weekTwoSales.color = ContextCompat.getColor(requireActivity(), R.color.simple_green)
-        weekTwoSales.valueTextColor =
-            ContextCompat.getColor(requireActivity(), R.color.simple_green)
+        weekTwoSales.valueTextColor = ContextCompat.getColor(requireActivity(), R.color.simple_green)
         val dataSet = ArrayList<ILineDataSet>()
         dataSet.add(weekTwoSales)
         weekTwoSales.setDrawValues(false)
@@ -445,6 +443,7 @@ class PortfolioFragment :
         val lineData = LineData(dataSet)
         binding.lineChart.data = lineData
         binding.lineChart.invalidate()
+        binding.lineChart.axisRight.axisLineColor = getResources().getColor(R.color.red_ee1111);
         binding.lineChart.axisRight.valueFormatter = object : ValueFormatter() {
             override fun getFormattedValue(value: Float): String {
                 val v: String = getPriceFormat(Math.round(value).toFloat())
