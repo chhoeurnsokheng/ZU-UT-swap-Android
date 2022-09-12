@@ -27,7 +27,11 @@ class FinanceBalancePresenter : BaseMvpPresenterImpl<FinanceBalanceView.View>(),
             if(it.status == 1){
                 it.data?.let { it1 -> mView?.onGetUserBalanceInfoSuccess(it1) }
             }else{
-                mView?.onGetUserBalanceInfoFail(it)
+                if(it.message.toString() == "Please sign in"){
+                    mView?.onUserExpiredToken()
+                }else{
+                    mView?.onGetUserBalanceInfoFail(it)
+                }
             }
         }, {
             object : CallbackWrapper(it, UTSwapApp.instance, arrayListOf()){
@@ -44,7 +48,11 @@ class FinanceBalancePresenter : BaseMvpPresenterImpl<FinanceBalanceView.View>(),
             if (it.status == 1){
                 mView?.onGetUserBalanceFilterDateSuccess(it.data!!)
             }else{
-                mView?.onGetUserBalanceFilterDateFail(it)
+                if(it.message.toString() == "Please sign in"){
+                    mView?.onUserExpiredToken()
+                }else{
+                    mView?.onGetUserBalanceFilterDateFail(it)
+                }
             }
         },{
             object : CallbackWrapper(it, UTSwapApp.instance, arrayListOf()){
@@ -61,7 +69,11 @@ class FinanceBalancePresenter : BaseMvpPresenterImpl<FinanceBalanceView.View>(),
             if (it.status == 1){
                 it.data?.let { it1 -> mView?.onGetExportBalanceSuccess(it1) }
             }else{
-                mView?.onGetExportBalanceFail(it)
+                if(it.message.toString() == "Please sign in"){
+                    mView?.onUserExpiredToken()
+                }else{
+                    mView?.onGetExportBalanceFail(it)
+                }
             }
         }, {
             object : CallbackWrapper(it, UTSwapApp.instance, arrayListOf()){

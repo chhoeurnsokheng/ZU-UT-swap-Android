@@ -19,6 +19,7 @@ class FinanceHistoricalView {
         fun onGetAllTransactionFail(data: Historical.AllTransaction)
         fun onExportHistoricalSuccess(data: Historical.DataExportHistorical)
         fun onExportHistoricalFail(data: Historical.exportHistorical)
+        fun onUserExpiredToken()
     }
 
     interface Presenter : BaseMvpPresenter<View> {
