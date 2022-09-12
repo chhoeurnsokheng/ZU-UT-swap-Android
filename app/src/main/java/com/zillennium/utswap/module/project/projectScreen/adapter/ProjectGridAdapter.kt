@@ -36,7 +36,7 @@ class ProjectGridAdapter(var item: List<ProjectList.ProjectListData>) :
                     ProjectInfoActivity.launchProjectInfoActivity(
                         root.context,
                         projectList.id,
-                        projectList.project_name
+//                        projectList.project_name
                     )
 
                 }

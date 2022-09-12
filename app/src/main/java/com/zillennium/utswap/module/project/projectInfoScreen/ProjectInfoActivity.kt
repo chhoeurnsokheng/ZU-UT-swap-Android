@@ -42,10 +42,10 @@ class ProjectInfoActivity :
     private var id: Int = 0
 
     companion object {
-        fun launchProjectInfoActivity(context: Context, id: String?, projectName: String?) {
+        fun launchProjectInfoActivity(context: Context, id: String?) {
             val intent = Intent(context, ProjectInfoActivity::class.java)
             intent.putExtra(Constants.Project.Project_Id, id)
-            intent.putExtra(Constants.Project.ProjectName, projectName)
+//            intent.putExtra(Constants.Project.ProjectName, projectName)
             context.startActivity(intent)
         }
     }
@@ -57,17 +57,17 @@ class ProjectInfoActivity :
         if (intent.hasExtra(Constants.Project.Project_Id)) {
             id = intent.extras?.getString(Constants.Project.Project_Id)?.toInt() ?: 0
 
-            id.let { ProjectInfoDetail.ProjectInfoDetailObject(it) }.let {
-                mPresenter.projectInfoView(it, UTSwapApp.instance)
-            }
+//            id.let { ProjectInfoDetail.ProjectInfoDetailObject(it) }.let {
+//                mPresenter.projectInfoView(it, UTSwapApp.instance)
+//            }
         }
 
-        if (intent.hasExtra(Constants.Project.ProjectName)) {
+       /* if (intent.hasExtra(Constants.Project.ProjectName)) {
             val projectName = intent?.getStringExtra(Constants.Project.ProjectName)
             binding.apply {
                 txtDetailTitle.text = projectName
             }
-        }
+        }*/
 
 
 
@@ -89,6 +89,7 @@ class ProjectInfoActivity :
         val DECIMAL_FORMAT = "###,###.##"
 
         binding.apply {
+            txtDetailTitle.text = data.project_name
             progressbarGetData.visibility = View.GONE
             scrollView.visibility = View.VISIBLE
             viewBackground.visibility = View.GONE

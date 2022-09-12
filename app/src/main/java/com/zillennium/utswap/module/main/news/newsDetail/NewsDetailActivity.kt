@@ -26,9 +26,9 @@ class NewsDetailActivity :
     private var id: String? = null
 
     companion object {
-        fun launchNewsDetailsActivity(context: Context, projectName: String?) {
+        fun launchNewsDetailsActivity(context: Context, newsId: String?) {
             val intent = Intent(context, NewsDetailActivity::class.java)
-            intent.putExtra("id", projectName)
+            intent.putExtra("id", newsId)
             context.startActivity(intent)
         }
     }

@@ -31,8 +31,9 @@ interface Constants {
             const val TRADE = "trx_trade"
             const val SUBSCRIPTION = "trx_subscription"
             const val KYC = "kyc"
-            const val PROJECT_INFO = ""
-            const val NEWS_DETAIL = ""
+            const val NEW_PROJECT = "detail_project"
+            const val NEWS_DETAIL = "article"
+
 
         }
     }

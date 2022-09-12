@@ -703,7 +703,7 @@ class TradeExchangeActivity :
                 ProjectInfoActivity.launchProjectInfoActivity(
                     root.context,
                     intent?.getStringExtra(Constants.TradeExchange.ProjectId),
-                    intent?.getStringExtra(Constants.TradeExchange.ProjectName)
+//                    intent?.getStringExtra(Constants.TradeExchange.ProjectName)
                 )
             }
 

@@ -9,13 +9,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
 import com.zillennium.utswap.R
-import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivitySystemNotificationBinding
 
 import com.zillennium.utswap.models.notification.NotificationModel
 import com.zillennium.utswap.module.finance.balanceScreen.FinanceBalanceActivity
 import com.zillennium.utswap.module.kyc.kycActivity.KYCActivity
+import com.zillennium.utswap.module.main.news.newsDetail.NewsDetailActivity
+import com.zillennium.utswap.module.project.projectInfoScreen.ProjectInfoActivity
 import com.zillennium.utswap.module.system.notification.adapter.NotificationAdapter
 import com.zillennium.utswap.utils.Constants
 
@@ -30,7 +31,6 @@ class NotificationActivity :
     private var lastPosition = 0
     private var page = 1
 
-    private val notificationList: ArrayList<NotificationModel.NotificationListData> = arrayListOf()
     private var notificationAdapter: NotificationAdapter? = null
 
     override fun initView() {
@@ -66,6 +66,9 @@ class NotificationActivity :
 
     override fun onNotificationSuccess(data: NotificationModel.NotificationData) {
         totalPage = data.total_page
+//        data.list?.forEach {
+//            projectId = it.project_id
+//        }
         if (page == 1) {
             mList.clear()
         }
@@ -108,7 +111,7 @@ class NotificationActivity :
         binding.apply {
             notificationAdapter =
                 NotificationAdapter(object : NotificationAdapter.OnClickNotificationAdapter {
-                    override fun clickNotification(notify_type: String, idNotifi: String) {
+                    override fun clickNotification(notify_type: String, idNotifi: String, projectId: String, newsId: String) {
                         mPresenter.readNotification(idNotifi)
                         when(notify_type) {
                             Constants.NotificationType.DEPOSIT -> {
@@ -130,13 +133,20 @@ class NotificationActivity :
                                 startActivity(Intent(this@NotificationActivity, FinanceBalanceActivity::class.java))
 
                             }
-                            Constants.NotificationType.PROJECT_INFO -> {
+                            Constants.NotificationType.NEW_PROJECT -> {
+                                ProjectInfoActivity.launchProjectInfoActivity(this@NotificationActivity, projectId)
 
                             }
+
                             Constants.NotificationType.NEWS_DETAIL -> {
+                                NewsDetailActivity.launchNewsDetailsActivity(this@NotificationActivity, newsId)
 
                             }
                             Constants.NotificationType.KYC -> {
+                                startActivity(
+                                    Intent(this@NotificationActivity, KYCActivity::class.java)
+                                        .putExtra("fromNotification", "KYC")
+                                )
 
                             }
 

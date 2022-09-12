@@ -27,7 +27,9 @@ object NotificationModel {
         var mark_as_read: String? = null,
         var action_title: String? = null,
         var action_type: String = "",
-        var mark_as_read_msg: String? = null
+        var mark_as_read_msg: String? = null,
+        var project_id: String = "",
+        var article_id: String = ""
 
     )
 

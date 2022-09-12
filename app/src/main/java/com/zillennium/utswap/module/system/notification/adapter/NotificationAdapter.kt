@@ -78,7 +78,7 @@ class NotificationAdapter(var onClickNotificationAdapter: OnClickNotificationAda
                 }
 
                 itemView.setOnClickListener {
-                    onClickNotificationAdapter.clickNotification(notificationModel.notifi_type, notificationModel.id.toString())
+                    onClickNotificationAdapter.clickNotification(notificationModel.notifi_type, notificationModel.id.toString(), notificationModel.project_id, notificationModel.article_id)
                     layoutNotification.setBackgroundColor(
                         ContextCompat.getColor(
                             UTSwapApp.instance,
@@ -146,7 +146,7 @@ class NotificationAdapter(var onClickNotificationAdapter: OnClickNotificationAda
     }
 
     interface OnClickNotificationAdapter {
-        fun clickNotification(notify_type: String, idNotifi: String)
+        fun clickNotification(notify_type: String, idNotifi: String, projectId: String, newsId: String)
     }
 
 
