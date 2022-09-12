@@ -1,9 +1,11 @@
 package com.zillennium.utswap.module.main.home
 
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.BlurMaskFilter
 import android.graphics.MaskFilter
+import android.net.Uri
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
@@ -11,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager.widget.ViewPager
 import com.zillennium.CheckUserLoginClearToken
 import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
+import com.zillennium.utswap.Datas.StoredPreferences.KYCPreferences
 import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
@@ -32,8 +35,7 @@ import com.zillennium.utswap.module.project.projectScreen.ProjectActivity
 import com.zillennium.utswap.module.security.securityActivity.signInScreen.SignInActivity
 import com.zillennium.utswap.module.system.notification.NotificationActivity
 import com.zillennium.utswap.screens.navbar.navbar.MainActivity
-import com.zillennium.utswap.utils.Constants
-import com.zillennium.utswap.utils.UtilKt
+import com.zillennium.utswap.utils.*
 
 class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, FragmentHomeBinding>(),
     HomeView.View {
@@ -409,8 +411,19 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
                     startActivity(intent)
                 }
                 "Withdraw" -> {
-                    val intent = Intent(UTSwapApp.instance, WithdrawActivity::class.java)
-                    startActivity(intent)
+                    //alert dialog
+                    //alert dialog
+                    val builder = AlertDialog.Builder(requireActivity())
+                    builder.setTitle("Withdraw is coming soon.")
+                    builder.setMessage("We are implementing it .")
+                  //  builder.setIcon(R.drawable.icon_log_out)
+
+                    builder.setPositiveButton("Yes"){dialogInterface, which ->
+                    }
+                    val alertDialog: AlertDialog = builder.create()
+                    alertDialog.show()
+//                    val intent = Intent(UTSwapApp.instance, WithdrawActivity::class.java)
+//                    startActivity(intent)
                 }
                 "Transfer" -> {
                     val intent = Intent(UTSwapApp.instance, TransferActivity::class.java)
