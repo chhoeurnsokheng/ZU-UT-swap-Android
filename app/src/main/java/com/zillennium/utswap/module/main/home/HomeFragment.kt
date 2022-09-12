@@ -59,19 +59,15 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
 
         SessionVariable.realTimeWatchList.value = true
         mPresenter.getBanner(requireActivity())
-        mPresenter.getNewsHome(requireActivity())
         onSwipeRefresh()
+        requestData()
 
-//        SessionVariable.SESSION_STATUS.observe(this){
-//            requestData()
-//        }
-
-//        SessionVariable.USER_EXPIRE_TOKEN.observe(this){
-//            if(it == true){
-//                (activity as MainActivity).onRefreshData()
+        SessionVariable.USER_EXPIRE_TOKEN.observe(this){
+            if(it == true){
+                (activity as MainActivity).onRefreshData()
 //                requestData()
-//            }
-//        }
+            }
+        }
 
         binding.apply {
             swipeRefresh.setColorSchemeColors(
@@ -173,7 +169,15 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
         }
     }
     private fun requestData() {
-        mPresenter.getNewsHome(requireActivity())
+        SessionVariable.SESSION_STATUS.observe(this){
+            if (it) {
+                mPresenter.getNewsHome(requireActivity())
+
+            } else {
+                mPresenter.getNewsWithoutToken(requireContext())
+
+            }
+        }
         mPresenter.getWatchListAndBalance(requireActivity())
         mPresenter.getBanner(requireActivity())
 
@@ -284,7 +288,6 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
         if (data.message== "Please sign in"){
             checkUserLogin()
             CheckUserLoginClearToken.clearTokenExpired()
-            mPresenter.getNewsHomeToken(requireContext())
         }
         newsList.clear()
         data.data?.NEW?.forEachIndexed { index, itemWishList ->
@@ -316,7 +319,7 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
     }
 
     override fun onGetNewsHomeNoTokenSuccess(data: News.NewsRes) {
-        newsList.clear()
+       /* newsList.clear()
         data.data?.NEW?.forEachIndexed { index, itemWishList ->
 
             if (index <= 2) {
@@ -335,7 +338,7 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
                     R.id.nav_view
                 )?.selectedItemId = R.id.navigation_navbar_news
             }
-        }
+        }*/
 
     }
 
