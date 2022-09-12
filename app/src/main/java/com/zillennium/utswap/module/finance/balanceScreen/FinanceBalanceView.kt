@@ -15,6 +15,7 @@ class FinanceBalanceView {
         fun onGetUserBalanceFilterDateFail(data: BalanceFinance.GetBalanceSearchDate)
         fun onGetExportBalanceSuccess(data: BalanceFinance.ExportFinanceBalanceData)
         fun onGetExportBalanceFail(data: BalanceFinance.ExportFinanceBalance)
+        fun onUserExpiredToken()
     }
 
     interface Presenter : BaseMvpPresenter<View> {

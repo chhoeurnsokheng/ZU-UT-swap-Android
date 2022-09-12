@@ -29,6 +29,7 @@ import com.zillennium.utswap.module.finance.balanceScreen.bottomSheet.FinanceSel
 import com.zillennium.utswap.module.finance.balanceScreen.dialog.FinanceBalanceDialog
 import com.zillennium.utswap.module.finance.depositScreen.depositSuccessfully.DepositSuccessfullyActivity
 import com.zillennium.utswap.screens.navbar.navbar.MainActivity
+import com.zillennium.utswap.utils.ClientClearData
 import com.zillennium.utswap.utils.UtilKt
 
 class FinanceBalanceActivity :
@@ -239,6 +240,12 @@ class FinanceBalanceActivity :
         }
     }
     override fun onGetExportBalanceFail(data: BalanceFinance.ExportFinanceBalance) {}
+    override fun onUserExpiredToken() {
+        ClientClearData.clearDataUser()
+        startActivity(Intent(this@FinanceBalanceActivity, MainActivity::class.java))
+        finish()
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+    }
 
     /* On click item recyclerview */
     private val onClickAdapter: FinanceBalanceAdapter.OnClickAdapter =

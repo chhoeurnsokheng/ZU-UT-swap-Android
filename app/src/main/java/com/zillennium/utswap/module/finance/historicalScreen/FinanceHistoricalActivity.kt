@@ -32,6 +32,8 @@ import com.zillennium.utswap.module.finance.historicalScreen.bottomSheet.Finance
 import com.zillennium.utswap.module.finance.historicalScreen.bottomSheet.FinanceHistoricalFilterBottomSheet
 import com.zillennium.utswap.module.finance.historicalScreen.bottomSheet.FinanceHistoricalSelectDateRangeBottomSheet
 import com.zillennium.utswap.module.finance.historicalScreen.bottomSheet.FinanceHistoricalTransactionBottomSheet
+import com.zillennium.utswap.screens.navbar.navbar.MainActivity
+import com.zillennium.utswap.utils.ClientClearData
 import com.zillennium.utswap.utils.Constants
 
 
@@ -499,6 +501,12 @@ class FinanceHistoricalActivity :
         }
     }
     override fun onExportHistoricalFail(data: Historical.exportHistorical) {}
+    override fun onUserExpiredToken() {
+        ClientClearData.clearDataUser()
+        startActivity(Intent(this@FinanceHistoricalActivity, MainActivity::class.java))
+        finish()
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+    }
 
     /* Body */
     private fun bodyHistoryTransaction(){

@@ -18,6 +18,7 @@ class TransferView {
         fun onGetUserBalanceInfoFail(data: BalanceFinance.GetUserBalanceInfo)
         fun onGetValidateTransferSuccess(data: Transfer.GetValidateTransferData)
         fun onGetValidateTransferFail(data: Transfer.GetValidateTransfer)
+        fun onUserExpiredToken()
     }
 
     interface Presenter : BaseMvpPresenter<View> {

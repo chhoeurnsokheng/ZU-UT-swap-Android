@@ -25,6 +25,8 @@ import com.zillennium.utswap.models.userService.User
 import com.zillennium.utswap.module.account.addNumberScreen.AddNumberActivity
 import com.zillennium.utswap.module.finance.transferScreen.dialog.TransferSuccessDialog
 import com.zillennium.utswap.module.security.securityDialog.FundPasswordDialog
+import com.zillennium.utswap.screens.navbar.navbar.MainActivity
+import com.zillennium.utswap.utils.ClientClearData
 import com.zillennium.utswap.utils.Constants
 import com.zillennium.utswap.utils.DecimalDigitsInputFilter
 import com.zillennium.utswap.utils.UtilKt
@@ -170,6 +172,13 @@ class TransferActivity :
             Toast.makeText(UTSwapApp.instance, data.message, Toast.LENGTH_LONG).show()
 
         }
+    }
+
+    override fun onUserExpiredToken() {
+        ClientClearData.clearDataUser()
+        startActivity(Intent(this@TransferActivity, MainActivity::class.java))
+        finish()
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
     }
 
     private val filter = InputFilter { source, start, end, dest, dstart, dend ->
