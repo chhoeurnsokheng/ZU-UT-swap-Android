@@ -49,6 +49,14 @@ object ApiSettings {
     /**      Project Detail/Project Info          **/
     const val PATH_PROJECT_DETAIL = "issue/project_detail"
 
+    /**        Subscription Project       **/
+    const val PATH_SUBSCRIPTION_PROJECT = "issue/available_subscription"
+
+    /**    Check Subscription Project Order     **/
+    const val PATH_SUBSCRIPTION_PROJECT_ORDER = "issue/check_subscription_order"
+
+    /**     Subscription Order       **/
+    const val PATH_SUBSCRIPTION_ORDER = "issue/subscription_order"
 
     /** Finance */
     const val PATH_SUBSCRIPTION = "Issue/log"
@@ -113,7 +121,6 @@ object ApiSettings {
     const val PATH_NOTIFICATION_READ_ALL = "notification/showAllNoti"
     const val PATH_SAVE_FIREBASE_TOKEN = "notification/saveFirebaseToken"
 
-
     /** User Balance */
     const val PATH_FINANCE_USER_BALANCE = "finance/mytx"
     const val PATH_FINANCE_ACCOUNT_BALANCE_SEARCH_DATA = "finance/index"
@@ -166,8 +173,6 @@ object ApiSettings {
 
 
     const val PATH_LIST_AVAILABLE_WITHDRAWAL_BANK = "finance/available_withdrawal_bank"
-
-
 
     /** Portfolio */
     const val PATH_PORTFOLIO = "portfolio/index"

@@ -3,6 +3,7 @@ package com.zillennium.utswap.api.service
 import com.zillennium.utswap.api.ApiSettings
 import com.zillennium.utswap.models.project.ProjectInfoDetail
 import com.zillennium.utswap.models.project.ProjectList
+import com.zillennium.utswap.models.project.SubscriptionProject
 import retrofit2.http.Body
 import retrofit2.http.HeaderMap
 import retrofit2.http.POST
@@ -27,4 +28,25 @@ interface ProjectService {
     ): Observable<ProjectInfoDetail.ProjectInfoDetailRes>
 
 
+    /**       Subscription Project/Available Subscription      **/
+    @POST(ApiSettings.PATH_SUBSCRIPTION_PROJECT)
+    fun subscriptionProject(
+        @HeaderMap header: Map<String, String>,
+        @Body body: SubscriptionProject.SubscriptionProjectBody
+    ): Observable<SubscriptionProject.SubscriptionProjectRes>
+
+
+    /**    Subscription Order     **/
+    @POST(ApiSettings.PATH_SUBSCRIPTION_ORDER )
+    fun subscriptionProjectOrder(
+        @HeaderMap header: Map<String, String>,
+        @Body body: SubscriptionProject.SubscribeOrderBody
+    ): Observable<SubscriptionProject.SubscriptionOrderRes>
+
+    /** Check Subscription Project Balance*/
+    @POST(ApiSettings.PATH_SUBSCRIPTION_PROJECT_ORDER)
+    fun subscriptionProjectCheck(
+        @HeaderMap header: Map<String, String>,
+        @Body body: SubscriptionProject.SubscriptionCheckObj
+    ): Observable<SubscriptionProject.SubscriptionCheckRes>
 }

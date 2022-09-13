@@ -516,7 +516,7 @@ interface Constants {
         }
     }
 
-    interface TransferFundPassword{
+    interface FundPasswordType{
         companion object{
             const val transfer = "Transfer"
             const val withdraw = "Withdraw"
@@ -560,6 +560,22 @@ interface Constants {
         companion object{
             var itemWatchList = ArrayList<BannerObj.ItemWishList>()
 
+        }
+    }
+
+    /** Subscription */
+    interface SubscriptionBottomSheet {
+        companion object {
+            var id = 0
+            var volume = ""
+            var title = ""
+            var project_name = ""
+            var lock_time = ""
+            var volume_price = 0.0
+            var subscription = ""
+            var total_ut = 0
+            var min = 0
+            var max = 0
         }
     }
 

@@ -30,8 +30,8 @@ class KYCPreferences : BaseStoredPreferences(UTSwapApp.instance, "KYCPreferences
     var PASSPORT_FRONT by stringPref()
 
     var TERNCONDITION by stringPref()
-    var  status_kyc_submit     by booleanPref()
-    var   status_kyc_approved     by booleanPref()
+    var status_kyc_submit by booleanPref()
+    var status_kyc_approved by booleanPref()
     var DO_KYC_STATUS by stringPref()
     var ID_CARD_INFOR by stringPref()
 

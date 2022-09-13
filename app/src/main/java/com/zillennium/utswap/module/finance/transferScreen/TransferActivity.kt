@@ -162,7 +162,7 @@ class TransferActivity :
         binding.apply {
 
             loadingTransfer.visibility = View.GONE
-            val fundPasswordDialog: FundPasswordDialog = FundPasswordDialog.transferInstance(amountTransfer, currencyTransfer, receiverTransfer, Constants.TransferFundPassword.transfer)
+            val fundPasswordDialog: FundPasswordDialog = FundPasswordDialog.transferInstance(amountTransfer, currencyTransfer, receiverTransfer, Constants.FundPasswordType.transfer)
             fundPasswordDialog.show(supportFragmentManager, "Fund Password Dialog Transfer")
         }
     }
