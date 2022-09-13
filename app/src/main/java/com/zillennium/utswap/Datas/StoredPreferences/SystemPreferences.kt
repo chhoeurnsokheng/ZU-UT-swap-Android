@@ -5,20 +5,20 @@ import com.zillennium.utswap.BuildConfig
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.BaseStoredPreferences
 
-class SystemPreferences: BaseStoredPreferences(UTSwapApp.instance, "SystemPreferences") {
+class SystemPreferences : BaseStoredPreferences(UTSwapApp.instance, "SystemPreferences") {
 
     // Information App
     var APP_NAME by stringPref(defaultValue = "UT Swap")
     var APP_CURRENT_VERSION by stringPref()
     var APP_LAST_VERSION by stringPref()
-    var APP_WEBSITE by stringPref(defaultValue =  "https://utswap.io/")
+    var APP_WEBSITE by stringPref(defaultValue = "https://utswap.io/")
     var APP_WELCOME by stringPref()
     var APP_STORE by stringPref()
     var APP_PLAY_STORE by stringPref()
     var APP_WINDOWS by stringPref()
     var APP_GALLERY by stringPref()
-    var APP_FACEBOOK by stringPref(defaultValue =  "101543225693802")
-    var APP_INSTAGRAM by stringPref(defaultValue =  "zillion_united")
+    var APP_FACEBOOK by stringPref(defaultValue = "101543225693802")
+    var APP_INSTAGRAM by stringPref(defaultValue = "zillion_united")
     var APP_TELEGRAM by stringPref(defaultValue = "https://t.me/+VfhwdqEfvU8006HH")
     var APP_PHONE by stringPref(defaultValue = "+85512678987")
     var APP_TWITTER by stringPref(defaultValue = "ert")
@@ -29,7 +29,8 @@ class SystemPreferences: BaseStoredPreferences(UTSwapApp.instance, "SystemPrefer
     var DEVICE_BRAND by stringPref(defaultValue = Build.BRAND)
     var DEVICE_MODEL by stringPref(defaultValue = Build.MODEL)
     var DEVICE_VERSION by stringPref(defaultValue = Build.VERSION.RELEASE)
-//    var DEVICE_SDK by stringPref(defaultValue = Build.VERSION.SDK)
+
+    //    var DEVICE_SDK by stringPref(defaultValue = Build.VERSION.SDK)
     var DEVICE_OS by stringPref(defaultValue = System.getProperty("os.version"))
     var APP_VERSION by stringPref(defaultValue = BuildConfig.VERSION_NAME)
     var APP_VERSION_CODE by intPref(defaultValue = BuildConfig.VERSION_CODE)

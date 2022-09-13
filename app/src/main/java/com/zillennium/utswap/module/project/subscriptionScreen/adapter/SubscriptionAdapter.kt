@@ -1,63 +1,140 @@
 package com.zillennium.utswap.module.project.subscriptionScreen.adapter
 
+import android.content.Context
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
-import android.widget.TextView
+import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.zillennium.utswap.R
-import com.zillennium.utswap.models.SubscriptionModel
-import com.zillennium.utswap.utils.groupingSeparator
+import com.zillennium.utswap.UTSwapApp
+import com.zillennium.utswap.bases.mvp.BaseRecyclerViewAdapterGeneric
+import com.zillennium.utswap.bases.mvp.BaseViewHolder
+import com.zillennium.utswap.databinding.ItemListProjectSubscriptionBinding
+import com.zillennium.utswap.models.project.SubscriptionProject
+import com.zillennium.utswap.utils.formatThreeDigitValue
+import com.zillennium.utswap.utils.groupingSeparatorInt
 
-class SubscriptionAdapter(arrayList: ArrayList<SubscriptionModel>, onclickAdapter: OnclickAdapter):
-    RecyclerView.Adapter<SubscriptionAdapter.ViewHolder>()
-{
-    private var list_data: ArrayList<SubscriptionModel> = arrayList
-    private val onclickAdapter: OnclickAdapter
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        var tv_title: TextView = view.findViewById<View>(R.id.tv_title) as TextView
-        var tv_dollar: TextView = view.findViewById<View>(R.id.tv_dollar) as TextView
-        var tv_day_lock: TextView = view.findViewById<View>(R.id.tv_day_lock) as TextView
-        var tv_ut_value: TextView = view.findViewById<View>(R.id.tv_ut_value) as TextView
-        var tv_ut_main_value: TextView = view.findViewById<View>(R.id.tv_ut_main_value) as TextView
-        var determinateBar: ProgressBar = view.findViewById<View>(R.id.determinateBar) as ProgressBar
-        var tv_day_lock_text: TextView = view.findViewById(R.id.tv_day_lock_text)
+class SubscriptionAdapter(var onclickAdapter: OnclickAdapter, var userLevel: String) :
+    BaseRecyclerViewAdapterGeneric<SubscriptionProject.SubscriptionProjectData, SubscriptionAdapter.SubscriptionViewHolder>() {
+    inner class SubscriptionViewHolder(root: ItemListProjectSubscriptionBinding) :
+        BaseViewHolder<ItemListProjectSubscriptionBinding>(root) {
+        fun bindData(subscriptionList: SubscriptionProject.SubscriptionProjectData) {
+            binding.apply {
+
+                //Marquee TextView
+                tvTitle.isSelected = true
+
+                val Dollar =
+                    subscriptionList.price.let { formatThreeDigitValue(it ?: 0, "###,###.##") }
+                val UtValue = subscriptionList.deal?.let { groupingSeparatorInt(it.toInt()) }
+                val UtMainValue = subscriptionList.num?.let { groupingSeparatorInt(it.toInt()) }
+                tvProjectTitle.text = subscriptionList.name
+                tvTitle.text = subscriptionList.user_account_type
+                tvDollar.text = Dollar.toString()
+                tvDayLock.text = subscriptionList.jian.toString()
+                tvUtValue.text = UtValue.toString()
+                tvUtMainValue.text = UtMainValue.toString()
+                txtEndTime.text = subscriptionList.endtime
+
+                val userLevelConvert = userLevel.replace("\\s".toRegex(), "").substring(2)
+                if (subscriptionList.user_account_type.toString().contains(userLevelConvert)) {
+                    CardViewPopup.isEnabled = true
+                    imgCircle.imageTintList = ContextCompat.getColorStateList(UTSwapApp.instance, R.color.simple_green)
+                    determinateBar.progressBackgroundTintList = ContextCompat.getColorStateList(UTSwapApp.instance, R.color.gray_999999)
+                } else {
+                    imgCircle.imageTintList = ContextCompat.getColorStateList(UTSwapApp.instance, R.color.gray_E7E7E7)
+                }
+
+                val totalUT = subscriptionList.num.toString().toInt()
+                val volumeUT = subscriptionList.deal.toString().toInt()
+                if (volumeUT == totalUT) {
+                    imgCircle.imageTintList = ContextCompat.getColorStateList(UTSwapApp.instance, R.color.dark_pink)
+                }
+                itemView.setOnClickListener {
+                    itemView.isEnabled = false
+                    if (!subscriptionList.user_account_type.toString().contains(userLevelConvert)) {
+                        Toast.makeText(UTSwapApp.instance, "please upgrade your account", Toast.LENGTH_SHORT).show()
+                    } else {
+                        if (volumeUT == totalUT) {
+                            itemView.isEnabled = false
+                            itemView.isClickable = false
+//                            Toast.makeText(UTSwapApp.instance, "The current ICO is over", Toast.LENGTH_SHORT).show()
+                        } else {
+                            if (Dollar != null) {
+                                onclickAdapter.onClickMe(
+                                    subscriptionList.user_account_type.toString(),
+                                    subscriptionList.jian.toString(),
+                                    subscriptionList.id,
+                                    Dollar.toDouble(),
+                                    subscriptionList.num.toString().toInt(),
+                                    subscriptionList.min.toString().toInt(),
+                                    subscriptionList.max.toString().toInt()
+
+                                )
+                            }
+                        }
+                    }
+
+                    Handler().postDelayed({
+                        itemView.isEnabled = true
+                    }, 2000)
+                }
+                determinateBar.progress =
+                    ((subscriptionList.deal?.toInt() ?: 0) * 100) / (subscriptionList.num?.toInt()
+                        ?: 0)
+
+                //Check enable and disable item with launch
+                if (subscriptionList.launch == 1) {
+                    itemView.visibility = View.VISIBLE
+
+                } else {
+                    itemView.visibility = View.GONE
+                    itemView.layoutParams = RecyclerView.LayoutParams(0, 0)
+                }
+
+                //Check field pre-sale and booking
+                if (subscriptionList.type == 1) {
+                    layBookingPreSale.isEnabled = false
+                    tvBookingPreSale.text = "Pre-Sale"
+                    layBookingPreSale.backgroundTintList = ContextCompat.getColorStateList(UTSwapApp.instance, R.color.purple_700)
+
+                } else {
+                    layBookingPreSale.isEnabled = false
+                    tvBookingPreSale.text = "Booking"
+                    layBookingPreSale.backgroundTintList = ContextCompat.getColorStateList(UTSwapApp.instance, R.color.gray_999999)
+
+                }
+            }
+        }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.item_list_project_subscription, parent, false)
+    override fun onCreateItemHolder(
+        inflater: LayoutInflater,
+        parent: ViewGroup,
+        viewType: Int
+    ) = SubscriptionViewHolder(
+        ItemListProjectSubscriptionBinding.inflate(inflater, parent, false)
+    )
+
+    override fun onBindItemHolder(holder: SubscriptionViewHolder, position: Int, context: Context) {
+        holder.bindData(items[position])
+    }
+
+    interface OnclickAdapter {
+        fun onClickMe(
+            title: String,
+            lockTime: String,
+            subscriptionId: Int,
+            volumePrice: Double,
+            totalUt: Int,
+            min: Int,
+            max: Int
         )
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val subscriptionList: SubscriptionModel = list_data[position]
-        holder.tv_title.text = subscriptionList.tv_title
-        holder.tv_dollar.text = groupingSeparator(subscriptionList.tv_dollar)
-        holder.tv_day_lock.text = subscriptionList.tv_day_lock
-        holder.tv_ut_value.text = subscriptionList.tv_ut_value.toString()
-        holder.tv_ut_main_value.text = subscriptionList.tv_ut_main_value.toString()
-        holder.tv_day_lock_text.visibility = if (subscriptionList.tv_day_lock == "No Lock") View.GONE else View.VISIBLE
-
-        holder.itemView.setOnClickListener{
-            onclickAdapter.onClickMe(subscriptionList)
-        }
-        holder.determinateBar.progress = (subscriptionList.tv_ut_value.toInt() * 100)/subscriptionList.tv_ut_main_value.toInt()
-    }
-
-    override fun getItemCount(): Int {
-        return list_data.size
-    }
-
-    interface OnclickAdapter{
-        fun onClickMe(subscriptionModel: SubscriptionModel)
-    }
-
-    init {
-        this.list_data = arrayList
-        this.onclickAdapter = onclickAdapter
-    }
 }
 
 

@@ -24,6 +24,8 @@ import com.zillennium.utswap.module.project.ViewImage.ImageViewActivity
 import com.zillennium.utswap.module.project.projectInfoScreen.adapter.ProjectInfoDetailsAdapter
 import com.zillennium.utswap.module.project.projectInfoScreen.adapter.ProjectViewPagerAdapter
 import com.zillennium.utswap.module.project.subscriptionScreen.SubscriptionActivity
+import com.zillennium.utswap.module.project.subscriptionScreen.dialog.SubscriptionConfirmDialog
+import com.zillennium.utswap.module.project.subscriptionScreen.dialog.SubscriptionTermConditionDialog
 import com.zillennium.utswap.utils.Constants
 import com.zillennium.utswap.utils.UtilKt
 import com.zillennium.utswap.utils.groupingSeparatorInt
@@ -35,7 +37,7 @@ class ProjectInfoActivity :
 
     override var mPresenter: ProjectInfoView.Presenter = ProjectInfoPresenter()
     override val layoutResource: Int = R.layout.activity_project_info
-
+    private var projectName = ""
     private var termCondition = true
     private var condition = true
     private var imagesSlider: ArrayList<String> = arrayListOf()
@@ -57,17 +59,17 @@ class ProjectInfoActivity :
         if (intent.hasExtra(Constants.Project.Project_Id)) {
             id = intent.extras?.getString(Constants.Project.Project_Id)?.toInt() ?: 0
 
-//            id.let { ProjectInfoDetail.ProjectInfoDetailObject(it) }.let {
-//                mPresenter.projectInfoView(it, UTSwapApp.instance)
-//            }
+            id.let { ProjectInfoDetail.ProjectInfoDetailObject(it) }.let {
+                mPresenter.projectInfoView(it, UTSwapApp.instance)
+            }
         }
 
-       /* if (intent.hasExtra(Constants.Project.ProjectName)) {
-            val projectName = intent?.getStringExtra(Constants.Project.ProjectName)
-            binding.apply {
-                txtDetailTitle.text = projectName
-            }
-        }*/
+//        if (intent.hasExtra(Constants.Project.ProjectName)) {
+//            projectName = intent?.getStringExtra(Constants.Project.ProjectName).toString()
+//            binding.apply {
+//                txtDetailTitle.text = projectName
+//            }
+//        }
 
 
 
@@ -89,7 +91,7 @@ class ProjectInfoActivity :
         val DECIMAL_FORMAT = "###,###.##"
 
         binding.apply {
-            txtDetailTitle.text = data.project_name
+            txtDetailTitle.text = data.project_name.toString()
             progressbarGetData.visibility = View.GONE
             scrollView.visibility = View.VISIBLE
             viewBackground.visibility = View.GONE
@@ -323,9 +325,27 @@ class ProjectInfoActivity :
                 btnSubscript.visibility = View.VISIBLE
                 btnUpcoming.visibility = View.GONE
                 btnSubscript.setOnClickListener {
-                    val intent = Intent(UTSwapApp.instance, SubscriptionActivity::class.java)
-                    startActivity(intent)
+                    SubscriptionActivity.launchSubscriptionActivity(this@ProjectInfoActivity,
+                        data.id,
+                        data.project_name.toString()
+                    )
                 }
+
+//                btnSubscript.setOnClickListener {
+//                    val subscription: SubscriptionTermConditionDialog =
+//                        SubscriptionTermConditionDialog.newInstance(
+//                            data.id.toString().toInt(),
+//                            data.title_deed.toString(),
+//                            data.land_size.toString(),
+//                            data.base_price?.toDouble(),
+//                            data.target_price?.toDouble(),
+//                            data.total_ut,
+//                            data.managed_by.toString(),
+//                            data.google_map_link.toString(),
+//                            projectName
+//                        )
+//                    subscription.show(supportFragmentManager, "balanceHistoryDetailDialog")
+//                }
             }
             if (data.action == "Trade") {
                 btnTrade.visibility = View.VISIBLE
@@ -346,6 +366,7 @@ class ProjectInfoActivity :
                 btnUpcoming.visibility = View.VISIBLE
 
             }
+
         }
     }
 

@@ -84,9 +84,12 @@ open class ApiManager {
         mCustomerSupport = retrofit.create(CustomerSupportService::class.java)
         mProjectService = retrofit.create(ProjectService::class.java)
         mNotificationService = retrofit.create(NotificationService::class.java)
-        mDespositeService = retrofit.create(DespositeService::class.java)
-        mHistorical = retrofit.create(HistoricalService::class.java)
 
+        mDespositeService = retrofit.create(DespositeService::class.java)
+
+        mDespositeService = retrofit.create(DespositeService::class.java)
+
+        mHistorical = retrofit.create(HistoricalService::class.java)
 
         mHomeService = retrofit.create(HomeService::class.java)
         mFinanceService = retrofit.create(FinanceService::class.java)

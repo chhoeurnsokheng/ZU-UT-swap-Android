@@ -150,7 +150,7 @@
     <string name="transfer_amount">Transfer Amount:</string>
     <string name="receiver_phone_number">Receiver Phone Number:</string>
     <string name="transfer_big_letter">Transfer</string>
-    <string name="price">Price</string>
+    <string name="price">Price:</string>
     <string name="total_locked_balance_0_00">Total Locked Balance: $ 0.00</string>
     <string name="lock_up_period">Lock-up Period</string>
     <string name="no_data_available_in_table">No data available in table</string>
@@ -195,7 +195,6 @@
     <string name="accept">Accept</string>
     <string name="declaration">Declaration</string>
     <string name="e_agreement">E-Agreement</string>
-    <string name="enter_fund_password">Enter Fund Password</string>
     <string name="_4_digit_number">4-digit number</string>
     <string name="the_4_digit_password_will_be_used_n_for_transfers_amp_withdrawals"><![CDATA[The 4-digit password will be used \n for transfers & withdrawals]]></string>
     <string name="contract">Contract</string>
@@ -286,10 +285,12 @@
     <string name="disclaimer_market_prices_may_change_during_order_confirmation">DISCLAIMER:  Market prices may change during order confirmation</string>
     <string name="confirm">Confirm</string>
     <string name="price_subscription">Price:</string>
-    <string name="money3">$1 990.00</string>
-    <string name="Subscription">Subscription</string>
+    <string name="money3">1 990.00</string>
+    <string name="Subscription">Subscription:</string>
+    <string name="enter_fund_password">Please enter your fund password</string>
+    <string name="two_attempt_remaining">attempt(s) remaining</string>
     <string name="ut_pochentong">UT Pochentong 555</string>
-    <string name="time_date">End 10:00:00, 09/05/2022</string>
+    <string name="time_date">10:00:00, 09/05/2022</string>
     <string name="money">3.90</string>
     <string name="money1">3.98</string>
     <string name="money2">4.10</string>
@@ -302,7 +303,8 @@
     <string name="subscription_label">SubscriptionFragment</string>
     <string name="Premium_Professional">Premium, Professional</string>
     <string name="ut_Pochentong">UT Pochentong 555</string>
-    <string name="subscription_lock_period">Subscription amount is subjected to a locked period of 60 minutes.</string>
+    <string name="subscription_lock_period">Subscription amount is subjected to a locked period of</string>
+    <string name="subscription_lock_period_confirm">Subscription amount is subjected to a locked</string>
     <string name="volume_input">Volume:</string>
     <string name="subscription_price">Subscription Price:</string>
     <string name="price_subscript">$1 990.00</string>
@@ -400,6 +402,8 @@
     <string name="action_ip">Action IP</string>
     <string name="forgot_login_password">Forgot Login Password</string>
     <string name="news">News</string>
+    <string name="no_notification">No Notification</string>
+    <string name="notification_message">Here’s where you’ll find the newest notifications from Announcement and Transaction</string>
     <string name="share">Share</string>
     <string name="current_address">Current Address</string>
     <string name="finance_balance">Finance Balance</string>
@@ -506,6 +510,10 @@
     <string name="to_account">To account:</string>
     <string name="your_phone_number_is_required_to_transfer_funds">Your Phone Number is Required to Transfer Funds</string>
     <string name="usd">USD</string>
+    <string name="land_size">Land Size</string>
+    <string name="total_ut">Total UT</string>
+    <string name="manage_by">Manage By</string>
+    <string name="agree">Agree</string>
     <string name="normal">Normal</string>
     <string name="not_available">Not Available</string>
     <string name="old_password_is_wrong">Old Password Is Wrong!</string>
