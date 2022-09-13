@@ -54,6 +54,7 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
     private var checkStatusToken = false
     private var doubleBackToExitPressedOnce = false
     private var statusKYC = ""
+    private var isFromSignOut = false
 
     override fun initView() {
         super.initView()
@@ -219,7 +220,7 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
                                     R.color.white
                                 )
                             )
-                        } else if (kcySubmit == true && kcyComplete == false) {
+                        } else if (kcyComplete == false) {
                             layVerify.visibility = VISIBLE
                             btnVerify.visibility = VISIBLE
                             statusKYC = "New"
@@ -315,9 +316,9 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
                         }
                         R.id.navigation_navbar_portfolio -> {
 
-                            SessionVariable.SESSION_KYC_STATUS.observe(this@MainActivity) {
+                            SessionVariable.SESSION_STATUS.observe(this@MainActivity) {
 
-                                if (SessionPreferences().SESSION_TOKEN != null) {
+                                if (it) {
                                     if (kcyComplete == false && isSignInSuccess) {
                                         val intent = Intent(
                                             UTSwapApp.instance,
@@ -331,14 +332,17 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
                                         activeFragment = portfolioFragment
                                         portfolioFragment.setBadgeNumberPortfolio()
                                     }
-                                    if (SessionPreferences().SESSION_TOKEN ==null){
+//                                    if (SessionPreferences().SESSION_TOKEN ==null){
+//                                        val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
+//                                        startActivityForResult(intent, 555)
+//                                    }
+                                } else if (!it){
+//                                    navView.menu.findItem(R.id.navigation_navbar_portfolio).isEnabled = false
+                                    if (!isFromSignOut) {
                                         val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
                                         startActivityForResult(intent, 555)
                                     }
-                                } else {
-                                    val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
-                                    startActivityForResult(intent, 555)
-                                    navView.isEnabled = false
+
 
                                 }
                             }
@@ -379,14 +383,16 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 555) {
             isSignInSuccess = false
-            isSelected = true
-
+        } else {
+            isSignInSuccess = false
+            isFromSignOut = true
         }
     }
 
     override fun onResume() {
         super.onResume()
         if (!isSignInSuccess) {
+            isFromSignOut = false
             binding.navView.selectedItemId = R.id.navigation_navbar_home
         }
 

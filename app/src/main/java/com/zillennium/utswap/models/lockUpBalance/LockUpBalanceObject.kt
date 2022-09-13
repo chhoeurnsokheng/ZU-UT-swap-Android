@@ -35,6 +35,6 @@ object LockUpBalanceObject {
         var name: String = ""
         var nameid: String = ""
         var id: Int = 0
-        var status: Int = 0
+        var status: String = ""
     }
 }

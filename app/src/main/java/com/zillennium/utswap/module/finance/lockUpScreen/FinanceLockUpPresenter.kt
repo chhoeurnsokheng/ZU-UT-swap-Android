@@ -20,7 +20,7 @@ class FinanceLockUpPresenter : BaseMvpPresenterImpl<FinanceLockUpView.View>(),
         mView?.initView()
     }
 
-    override fun postLockUpBalance(type: String, page: Int) {
+    override fun postLockUpBalance(type: Int, page: Int) {
         mContext?.let { it1 ->
             val param = JsonObject()
             param.addProperty("type", type)

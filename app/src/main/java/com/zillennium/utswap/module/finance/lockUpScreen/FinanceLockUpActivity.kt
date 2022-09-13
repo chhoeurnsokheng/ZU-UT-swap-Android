@@ -187,14 +187,14 @@ class FinanceLockUpActivity :
             }
             when (SettingVariable.finance_lock_up_selected.value.toString()) {
                 "Lock Balance" -> {
-                    mPresenter.postLockUpBalance("4", page)
+                    mPresenter.postLockUpBalance(4, page)
                 }
                 "Buy Back" -> {
-                    mPresenter.postLockUpBalance("2", page)
+                    mPresenter.postLockUpBalance(2, page)
 
                 }
                 "Swap" -> {
-                    mPresenter.postLockUpBalance("1", page)
+                    mPresenter.postLockUpBalance(1, page)
 
                 }
             }

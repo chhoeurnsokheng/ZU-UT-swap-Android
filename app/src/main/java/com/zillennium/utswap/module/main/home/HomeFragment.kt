@@ -117,7 +117,7 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
                     imgMenu.setOnClickListener {
                         if (SessionPreferences().SESSION_TOKEN != null) {
                             val intent = Intent(UTSwapApp.instance, AccountActivity::class.java)
-                            startActivity(intent)
+                            startActivityForResult(intent, 1111)
                             requireActivity().overridePendingTransition(
                                 R.anim.slide_in_left,
                                 R.anim.slide_out_right
