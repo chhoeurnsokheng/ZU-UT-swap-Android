@@ -3,6 +3,7 @@ package com.zillennium.utswap.module.main.portfolio
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.BlurMaskFilter
+import android.graphics.Color
 import android.graphics.MaskFilter
 import android.view.View
 import androidx.core.content.ContextCompat
@@ -443,7 +444,6 @@ class PortfolioFragment :
         val lineData = LineData(dataSet)
         binding.lineChart.data = lineData
         binding.lineChart.invalidate()
-        binding.lineChart.axisRight.axisLineColor = getResources().getColor(R.color.red_ee1111);
         binding.lineChart.axisRight.valueFormatter = object : ValueFormatter() {
             override fun getFormattedValue(value: Float): String {
                 val v: String = getPriceFormat(Math.round(value).toFloat())
@@ -514,7 +514,7 @@ class PortfolioFragment :
         rightAxis.granularity = 1f
         rightAxis.isGranularityEnabled = true
         rightAxis.textSize = 14f
-        rightAxis.xOffset = 10f
+
 
         rightAxis.axisMinimum = yMin
         //  rightAxis.axisMaximum = yMax
@@ -523,8 +523,13 @@ class PortfolioFragment :
         val lp = binding.lineChart.layoutParams
         lp.height = (250 * density * labelCount / 5).toInt()
         binding.lineChart.layoutParams = lp
-        binding.lineChart.setVisibleXRangeMaximum(4f)
+        binding.lineChart.setVisibleXRangeMaximum(5f)
 
+        binding.lineChart.setDrawGridBackground(false);//set this to true to draw the
+        binding.apply {
+            lineChart.minOffset = 0f
+            lineChart.setViewPortOffsets(0f,20f,88f,40f)
+        }
 
     }
 
