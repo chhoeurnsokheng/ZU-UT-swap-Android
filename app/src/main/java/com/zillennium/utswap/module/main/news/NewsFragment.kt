@@ -28,9 +28,10 @@ class NewsFragment :
     override val layoutResource: Int = R.layout.fragment_news
     private var newsAdapter: NewsAdapter? = null
     private var listNews = ArrayList<News.NewsNew>()
-    private var totalPage: Int? = null
+    private var totalPage: Int? = 1
     private var page = 1
     private var lastPosition = 0
+    private var isCancelRequest = true
 
     override fun initView() {
         super.initView()
@@ -65,6 +66,9 @@ class NewsFragment :
                 newsAdapter?.items = listNews
                 newsAdapter?.notifyDataSetChanged()
 
+            }
+            if (page == totalPage) {
+                isCancelRequest = false
             }
         }
     }
@@ -156,7 +160,9 @@ class NewsFragment :
 
     override fun onResume() {
         super.onResume()
-        requestData()
+        if (isCancelRequest) {
+            requestData()
+        }
     }
 
     private fun requestData() {
@@ -208,6 +214,7 @@ class NewsFragment :
     private fun onSwipeRefresh() {
         binding.apply {
             swipeRefresh.setOnRefreshListener {
+                isCancelRequest = true
                 page = 1
                 (activity as MainActivity).onRefreshData()
                 requestData()
