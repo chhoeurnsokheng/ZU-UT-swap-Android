@@ -55,8 +55,7 @@ class AccountActivity :
         binding.apply {
             txtSignOut.text = Html.fromHtml("<u>Sign Out</u>")
 
-            txtVersion.text = "Version" +" Dev **" +"  ${BuildConfig.VERSION_NAME} "
-
+            txtVersion.text = "Version" +" Dev" +"  ${BuildConfig.VERSION_NAME} "
 
             txtVerifyIdentity.text = Html.fromHtml("<u>Verify Your Identity</u>")
             txtVerifyPending.text  = Html.fromHtml("<u>KYC Approval is Pending</u>")
