@@ -68,10 +68,28 @@
             android:layout_marginBottom="@dimen/dimen_10"
             android:background="@color/light_gray" />
 
+        <RelativeLayout
+            android:id="@+id/rl_no_record"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/tv_no_lock_up"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="No Record"
+                android:textAppearance="@style/medium_14"
+                android:textColor="@color/gray_888888"/>
+
+        </RelativeLayout>
+
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/subscription_project_swipe_refresh"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:visibility="visible">
 
             <ScrollView
                 android:layout_width="match_parent"
@@ -107,8 +125,10 @@
                                 android:focusable="true"
                                 android:overScrollMode="never"
                                 android:scrollbars="none" />
+
                         </LinearLayout>
                     </LinearLayout>
+
                 </RelativeLayout>
             </ScrollView>
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

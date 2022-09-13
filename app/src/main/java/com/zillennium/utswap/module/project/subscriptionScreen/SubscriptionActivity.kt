@@ -3,6 +3,7 @@ package com.zillennium.utswap.module.project.subscriptionScreen
 import android.content.Context
 import android.content.Intent
 import android.os.Handler
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
 import com.zillennium.utswap.R
@@ -141,6 +142,9 @@ class SubscriptionActivity :
             if(data.data?.isNotEmpty() == true)
             {
                 data.data?.let { subscriptionList.addAll(it) }
+            }else{
+                rlNoRecord.visibility = View.VISIBLE
+                subscriptionProjectSwipeRefresh.visibility = View.GONE
             }
 //            data.data?.forEach {
 //                txtEndTime.text = it.endtime

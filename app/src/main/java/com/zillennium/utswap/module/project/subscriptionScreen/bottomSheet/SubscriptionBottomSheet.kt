@@ -226,7 +226,7 @@ class SubscriptionBottomSheet : BottomSheetDialogFragment(), AdapterView.OnItemS
                     val max = arguments?.get("max").toString().toInt()
                     val etUtVolume = etInputVolume.text.toString().replace("\\s".toRegex(), "")
                     if(etUtVolume.isNotEmpty()){
-                        if (etUtVolume.toLong() >= max) {
+                        if (etUtVolume.toLong() > max) {
                             btnSubscript.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.gray_999999))
                             btnSubscript.isClickable = false
                             Toast.makeText(UTSwapApp.instance, "The maximum subscription amount per user is ${max} UT", Toast.LENGTH_SHORT).show()

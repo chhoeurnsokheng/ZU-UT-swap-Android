@@ -35,7 +35,7 @@
                     android:gravity="center"
                     android:text="@string/Please_confirm_your_order"
                     android:textAppearance="@style/regular_14"
-                    android:textColor="@color/gray_999999" />
+                    android:textColor="@color/black_000000" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -61,7 +61,7 @@
                             android:layout_alignParentEnd="true"
                             android:text="@string/ut_pochentong"
                             android:textAppearance="@style/regular_12"
-                            android:textColor="@color/gray_999999" />
+                            android:textColor="@color/black_000000" />
                     </RelativeLayout>
 
                     <View
@@ -99,7 +99,7 @@
                                 android:layout_alignParentEnd="true"
                                 android:text="500"
                                 android:textAppearance="@style/regular_12"
-                                android:textColor="@color/gray_999999" />
+                                android:textColor="@color/black_000000" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -107,7 +107,7 @@
                                 android:layout_marginStart="@dimen/dimen_5"
                                 android:text="UT"
                                 android:textAppearance="@style/regular_12"
-                                android:textColor="@color/gray_999999" />
+                                android:textColor="@color/black_000000" />
                         </LinearLayout>
                     </RelativeLayout>
 
@@ -150,7 +150,7 @@
                                 android:gravity="center"
                                 android:text="$"
                                 android:textAppearance="@style/medium_12"
-                                android:textColor="@color/gray_999999" />
+                                android:textColor="@color/black_000000" />
 
                             <TextView
                                 android:id="@+id/tv_subscriptions_price"
@@ -160,7 +160,7 @@
                                 android:layout_marginStart="@dimen/dimen_3"
                                 android:text="@string/money3"
                                 android:textAppearance="@style/regular_12"
-                                android:textColor="@color/gray_999999" />
+                                android:textColor="@color/black_000000" />
                         </LinearLayout>
                     </RelativeLayout>
 

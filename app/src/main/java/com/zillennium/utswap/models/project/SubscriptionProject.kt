@@ -45,10 +45,8 @@ object SubscriptionProject {
     class SubscriptionOrderRes {
         var status: Int? = null
         var message: String? = null
-        var data: SubscriptionOrderResData? = null
+        var data: Any? = null
     }
-
-    class SubscriptionOrderResData{}
 
     class SubscribeOrderBody(
         var sign_type: String? = null,
