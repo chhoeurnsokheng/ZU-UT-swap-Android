@@ -15,6 +15,6 @@ class FinanceLockUpView {
 
     interface Presenter : BaseMvpPresenter<View> {
         override fun initViewPresenter(context: Context, bundle: Bundle?)
-        fun postLockUpBalance(type: String, page: Int)
+        fun postLockUpBalance(type: Int, page: Int)
     }
 }

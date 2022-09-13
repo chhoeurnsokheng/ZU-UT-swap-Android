@@ -41,13 +41,13 @@ class LockUpAdapter(var arrayList: ArrayList<Any>, var onClickAdapter: OnClickAd
         holder.txtDateStart.text = buyBackList.addtimeReable
         holder.txtDateEnd.text = buyBackList.endtimeReable
         holder.txtDuration.text = "${buyBackList.lock_period} Day(s) left"
-        if (buyBackList.status == 1) {
-            holder.imageBalance.setImageResource(R.drawable.ic_unlocked)
-        } else {
+        if (buyBackList.status == "locked") {
             holder.imageBalance.setImageResource(R.drawable.ic_locked)
+        } else {
+            holder.imageBalance.setImageResource(R.drawable.ic_unlocked)
         }
         holder.layoutBuyBack.setOnClickListener {
-            isLock = buyBackList.status != 1
+            isLock = buyBackList.status == "locked"
             onClickAdapter.onClickMe(buyBackList.name, buyBackList.amount, buyBackList.addtimeReable,buyBackList.endtimeReable, buyBackList.lock_period, isLock)
         }
     }
