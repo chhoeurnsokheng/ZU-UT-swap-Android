@@ -34,5 +34,7 @@ interface DespositeService {
        @Body body: DepositObj.DataQueryOrderBody
    ):Observable<DataQueryOrderObj.DataQueryOrderRes>
 
+    @GET(ApiSettings.PATH_GET_DEPOSIT_FEE)
+    fun getDepositFee( @HeaderMap headerMap: Map<String ,String>):Observable<DataQueryOrderObj.DataQueryOrderRes>
 
 }

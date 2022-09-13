@@ -17,7 +17,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
-import com.androidstudy.networkmanager.Tovuti
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
 import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
@@ -94,6 +93,17 @@ class TradeExchangeActivity :
             Constants.OrderBookTable.marketIdChart = marketId.toString()
             context.startActivity(intent)
         }
+
+        fun launchTradeExchangeActivityFromProjectDetail(context: Context, projectName: String?, marketName: String?, projectId: String?,marketId: String?){
+            val intent = Intent(context, TradeExchangeActivity::class.java)
+            intent.putExtra(Constants.TradeExchange.ProjectName, projectName)
+            intent.putExtra(Constants.TradeExchange.MarketName,marketName)
+            intent.putExtra(Constants.TradeExchange.ProjectId, projectId)
+            Constants.OrderBookTable.marketNameOrderBook = marketName.toString()
+            Constants.OrderBookTable.projectName = projectName.toString()
+            Constants.OrderBookTable.marketIdChart = marketId.toString()
+            context.startActivity(intent)
+        }
     }
 
     @SuppressLint("SetTextI18n", "ClickableViewAccessibility")
@@ -101,19 +111,7 @@ class TradeExchangeActivity :
         super.initView()
         onSwipeRefresh()
 
-        /** for recall request available balance and order book table socket*/
-        SessionVariable.requestOrderBookSocket.value = true
-        SessionVariable.refreshOrderPending.value = false
-        //SessionVariable.createMatchingTransaction.value = false
-        //SessionVariable.createPendingOrder.value = false
-        SessionVariable.refreshMatchingTransaction.value = false
-        SessionVariable.callDialogErrorCreateOrder.value = false
-        SessionVariable.callDialogSuccessPlaceOrder.value = false
-        SessionVariable.waitingPlaceOrder.value = false
-        SessionVariable.callDialogSuccessPlaceOrder.value = false
-        SessionVariable.cancelPlaceOrder.value = false
-        SessionVariable.marketPriceSell.value = ""
-        SessionVariable.marketPriceBuy.value = ""
+        initData()
 
         SessionVariable.refreshOrderPending.observe(this@TradeExchangeActivity){
             if(it){
@@ -171,21 +169,36 @@ class TradeExchangeActivity :
             }
         }
 
-        Tovuti.from(UTSwapApp.instance).monitor{ _, isConnected, _ ->
-            if(isConnected)
-            {
-                mPresenter.onCheckKYCStatus()
-                mPresenter.startTradeDetailSocket(intent?.getStringExtra(Constants.TradeExchange.MarketName).toString())
-                mPresenter.onCheckFavoriteProject(TradingList.TradeFavoriteProjectObj(intent?.getStringExtra(Constants.TradeExchange.ProjectId).toString().toInt()),UTSwapApp.instance)
-                mPresenter.getAvailableBalance(TradingList.AvailableBalanceObj(intent?.getStringExtra(Constants.TradeExchange.MarketName).toString()),UTSwapApp.instance)
-                mPresenter.getMarketOpen(intent?.getStringExtra(Constants.TradeExchange.MarketName).toString(),UTSwapApp.instance)
-            }
-        }
+        onCallApi()
+
+//        Tovuti.from(UTSwapApp.instance).monitor{ _, isConnected, _ ->
+//            if(isConnected)
+//            {
+//                mPresenter.onCheckKYCStatus()
+//                mPresenter.startTradeDetailSocket(intent?.getStringExtra(Constants.TradeExchange.MarketName).toString())
+//                mPresenter.onCheckFavoriteProject(TradingList.TradeFavoriteProjectObj(intent?.getStringExtra(Constants.TradeExchange.ProjectId).toString().toInt()),UTSwapApp.instance)
+//                mPresenter.getAvailableBalance(TradingList.AvailableBalanceObj(intent?.getStringExtra(Constants.TradeExchange.MarketName).toString()),UTSwapApp.instance)
+//                mPresenter.getMarketOpen(intent?.getStringExtra(Constants.TradeExchange.MarketName).toString(),UTSwapApp.instance)
+//            }else{
+//                clearData()
+//            }
+//        }
 
         try {
             toolBar()
 
             fetchTradeDetailData.observe(this@TradeExchangeActivity){
+
+                binding.swipeRefresh.isRefreshing = false
+
+                binding.apply {
+                    txtHigh.text = ""
+                    txtLast.text = ""
+                    txtLow.text = ""
+                    txtVolume.text = ""
+                    txtTargetPrice.text = ""
+                    txtChange.text = ""
+                }
 
                 binding.apply {
 
@@ -690,7 +703,7 @@ class TradeExchangeActivity :
                 ProjectInfoActivity.launchProjectInfoActivity(
                     root.context,
                     intent?.getStringExtra(Constants.TradeExchange.ProjectId),
-                    intent?.getStringExtra(Constants.TradeExchange.ProjectName)
+//                    intent?.getStringExtra(Constants.TradeExchange.ProjectName)
                 )
             }
 
@@ -909,7 +922,8 @@ class TradeExchangeActivity :
             SessionVariable.refreshOrderPending.value = true
             SessionVariable.refreshMatchingTransaction.value = true
             SessionVariable.requestOrderBookSocket.value = true
-            mPresenter.startTradeDetailSocket(intent?.getStringExtra(Constants.TradeExchange.MarketName).toString())
+            //mPresenter.startTradeDetailSocket(intent?.getStringExtra(Constants.TradeExchange.MarketName).toString())
+            onCallApi()
         }
     }
 
@@ -928,6 +942,9 @@ class TradeExchangeActivity :
                 txtUtClick.text = "${data.data?.xnb?.let { groupingSeparatorInt(it) }}"
                 Constants.TradeExchange.utBalance = "${data.data?.xnb?.let { groupingSeparatorInt(it) }}"
             }
+
+            Constants.TradeExchange.sellFee = data.data?.sell_fee.toString()
+            Constants.TradeExchange.buyFee = data.data?.buy_fee.toString()
         }
     }
 
@@ -948,6 +965,8 @@ class TradeExchangeActivity :
                 )
 
                 includeLayout.btnLive.text = resources.getString(R.string.live)
+
+                SessionVariable.marketOpen.value = true
             }else{
                 includeLayout.btnLive.visibility = View.VISIBLE
                 includeLayout.btnLive.backgroundTintList = ColorStateList.valueOf(
@@ -957,6 +976,8 @@ class TradeExchangeActivity :
                     )
                 )
                 includeLayout.btnLive.text = resources.getString(R.string.close)
+
+                SessionVariable.marketOpen.value = false
             }
         }
     }
@@ -967,24 +988,16 @@ class TradeExchangeActivity :
 
     override fun onBackPressed() {
         super.onBackPressed()
-        mPresenter.closeTradeDetailSocket()
-        SessionVariable.requestOrderBookSocket.value = false
-        SessionVariable.requestTradingList.value = true
-        SessionVariable.callDialogErrorCreateOrder.value = false
-        SessionVariable.marketPriceSell.value = ""
-        SessionVariable.marketPriceBuy.value = ""
+        clearData()
+
+        OrderBookFragment().clearData()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        mPresenter.closeTradeDetailSocket()
-        SessionVariable.requestOrderBookSocket.value = false
-        SessionVariable.requestTradingList.value = true
-        SessionVariable.callDialogErrorCreateOrder.value = false
-        SessionVariable.marketPriceSell.value = ""
-        SessionVariable.marketPriceBuy.value = ""
 
-        runnable?.let { handler.removeCallbacks(it) }
+        clearData()
+        OrderBookFragment().clearData()
     }
 
     override fun onResume() {
@@ -994,6 +1007,41 @@ class TradeExchangeActivity :
             mPresenter.getMarketOpen(intent?.getStringExtra(Constants.TradeExchange.MarketName).toString(),UTSwapApp.instance)
         }.also { runnable = it }, delay.toLong())
         super.onResume()
+    }
+
+    private fun clearData(){
+        mPresenter.closeTradeDetailSocket()
+        SessionVariable.requestOrderBookSocket.value = false
+        SessionVariable.requestTradingList.value = true
+        SessionVariable.callDialogErrorCreateOrder.value = false
+        SessionVariable.marketPriceSell.value = "0.00"
+        SessionVariable.marketPriceBuy.value = "0.00"
+        Constants.TradeExchange.sellFee = ""
+        Constants.TradeExchange.buyFee = ""
+
+        runnable?.let { handler.removeCallbacks(it) }
+    }
+
+    private fun initData(){
+        /** for recall request available balance and order book table socket*/
+        SessionVariable.requestOrderBookSocket.value = true
+        SessionVariable.refreshOrderPending.value = false
+        SessionVariable.refreshMatchingTransaction.value = false
+        SessionVariable.callDialogErrorCreateOrder.value = false
+        SessionVariable.callDialogSuccessPlaceOrder.value = false
+        SessionVariable.waitingPlaceOrder.value = false
+        SessionVariable.callDialogSuccessPlaceOrder.value = false
+        SessionVariable.cancelPlaceOrder.value = false
+        SessionVariable.marketPriceSell.value = "0.00"
+        SessionVariable.marketPriceBuy.value = "0.00"
+    }
+
+    private fun onCallApi(){
+        mPresenter.onCheckKYCStatus()
+        mPresenter.startTradeDetailSocket(intent?.getStringExtra(Constants.TradeExchange.MarketName).toString())
+        mPresenter.onCheckFavoriteProject(TradingList.TradeFavoriteProjectObj(intent?.getStringExtra(Constants.TradeExchange.ProjectId).toString().toInt()),UTSwapApp.instance)
+        mPresenter.getAvailableBalance(TradingList.AvailableBalanceObj(intent?.getStringExtra(Constants.TradeExchange.MarketName).toString()),UTSwapApp.instance)
+        mPresenter.getMarketOpen(intent?.getStringExtra(Constants.TradeExchange.MarketName).toString(),UTSwapApp.instance)
     }
 
 }

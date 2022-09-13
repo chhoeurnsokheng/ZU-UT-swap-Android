@@ -42,6 +42,8 @@ open class IdTypeFragment :
                     if ((activity as KYCActivity).kycStatus== "Pending") {
                     findNavController().navigate(R.id.action_IDTypeKycFragment_to_KycApplicationKycFragment)
                 }
+            } else if (activity?.intent?.hasExtra("fromNotification") == true) {
+                findNavController().navigate(R.id.action_IDTypeKycFragment_to_KycApplicationKycFragment)
             }
             activity?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true){
                 override fun handleOnBackPressed() {

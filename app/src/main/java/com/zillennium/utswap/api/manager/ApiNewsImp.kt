@@ -1,6 +1,7 @@
 package com.zillennium.utswap.api.manager
 
 import android.content.Context
+import com.google.gson.JsonObject
 import com.zillennium.utswap.api.Header
 import com.zillennium.utswap.models.newsService.News
 import rx.Observable
@@ -25,6 +26,10 @@ class ApiNewsImp: ApiManager() {
     fun getNewsHome(context: Context):Observable<News.NewsRes> = mNewsService.newsHome(
         Header.getHeader(Header.Companion.AuthType.REQUIRED_TOKEN,context)
     )
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+
+    fun getNewsHomeNoToken(body: JsonObject):Observable<News.NewsRes> = mNewsService.newsHomeNoToken(body)
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
 

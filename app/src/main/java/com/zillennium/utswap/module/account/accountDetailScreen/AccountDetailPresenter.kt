@@ -27,7 +27,11 @@ class AccountDetailPresenter : BaseMvpPresenterImpl<AccountDetailView.View>(),
             {
                 mView?.onGetUserInfoDetailSuccess(it.data!!)
             }else{
-                mView?.onGetUserInfoDetailFail(it.data!!)
+                if(it.message.toString() == "Please sign in"){
+                    mView?.userExpiredToken()
+                }else{
+                    mView?.onGetUserInfoDetailFail(it.data!!)
+                }
             }
         },{
             object : CallbackWrapper(it, UTSwapApp.instance, arrayListOf()){

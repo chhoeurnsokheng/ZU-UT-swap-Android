@@ -23,11 +23,17 @@ class TransferPresenter : BaseMvpPresenterImpl<TransferView.View>(),
     override fun onGetUserInfo(context: Context) {
         subscription?.unsubscribe()
         subscription = ApiUserImp().appSideBarUserInfo(context).subscribe({
+
+
             if(it.status == 1)
             {
                 mView?.onGetUserInfoSuccess(it.data!!)
             }else{
-                mView?.onGetUserInfoFail(it.data!!)
+                if(it.message.toString() == "Please sign in"){
+                    mView?.onUserExpiredToken()
+                }else{
+                    mView?.onGetUserInfoFail(it.data!!)
+                }
             }
         },{
             object : CallbackWrapper(it, UTSwapApp.instance, arrayListOf()){
@@ -41,10 +47,15 @@ class TransferPresenter : BaseMvpPresenterImpl<TransferView.View>(),
     override fun onGetUserBalanceInfo(context: Context) {
         subscription?.unsubscribe()
         subscription = ApiFinanceBalanceImp().getUserBalanceInfo(context).subscribe({
+
             if(it.status == 1){
-                it.data?.let { it1 -> mView?.onGetUserBalanceInfoSuccess(it1) }
+                mView?.onGetUserBalanceInfoSuccess(it)
             }else{
-                mView?.onGetUserBalanceInfoFail(it)
+                if(it.message.toString() == "Please sign in"){
+                    mView?.onUserExpiredToken()
+                }else{
+                    mView?.onGetUserBalanceInfoFail(it)
+                }
             }
         }, {
             object : CallbackWrapper(it, UTSwapApp.instance, arrayListOf()){
@@ -61,7 +72,11 @@ class TransferPresenter : BaseMvpPresenterImpl<TransferView.View>(),
             if (it.status == 1){
                 mView?.onGetValidateTransferSuccess(it.data!!)
             }else{
-                mView?.onGetValidateTransferFail(it)
+                if(it.message.toString() == "Please sign in"){
+                    mView?.onUserExpiredToken()
+                }else{
+                    mView?.onGetValidateTransferFail(it)
+                }
             }
         },{
             object : CallbackWrapper(it, UTSwapApp.instance, arrayListOf()){

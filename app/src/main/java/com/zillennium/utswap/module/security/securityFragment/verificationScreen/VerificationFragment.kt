@@ -2,6 +2,7 @@ package com.zillennium.utswap.module.security.securityFragment.verificationScree
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -24,6 +25,8 @@ import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentSecurityVerificationBinding
 import com.zillennium.utswap.models.userService.User
 import com.zillennium.utswap.module.security.securityActivity.registerScreen.RegisterActivity
+import com.zillennium.utswap.screens.navbar.navbar.MainActivity
+import com.zillennium.utswap.utils.ClientClearData
 import com.zillennium.utswap.utils.Constants
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -161,8 +164,8 @@ class VerificationFragment :
                 override fun afterTextChanged(p0: Editable?) {
                     if (editBox.text.toString().length == 6 && editBox.text.toString().isNotEmpty()){
                         imgWrong.visibility = View.GONE
-                        linearCountdown.visibility = View.GONE
-                        stopTimer()
+//                        linearCountdown.visibility = View.GONE
+//                        stopTimer()
 //                        lifecycleScope.launch {
 //                            delay(1000)
 //                            if (arguments?.getString("title") == "register") {
@@ -173,7 +176,7 @@ class VerificationFragment :
 //                        }
                     } else if (editBox.text.toString().length == 6 && editBox.text.toString().isNotEmpty() ){
                         onBoxesBackgroundColor(1)
-                        stopTimer()
+//                        stopTimer()
                     }
                 }
 
@@ -195,8 +198,14 @@ class VerificationFragment :
                         Constants.FundPassword.ResetPassword -> {
                             mPresenter.onResetPassword(User.ForgotPasswordVerifyObject(editBox.text.toString(),SessionPreferences().SESSION_SECURE_KEY_FORGOT_PASSWORD.toString()),UTSwapApp.instance)
                         }
+                        Constants.FundPassword.ForgotLoginPassword ->{
+                            mPresenter.onResetPassword(User.ForgotPasswordVerifyObject(editBox.text.toString(),SessionPreferences().SESSION_SECURE_KEY_FORGOT_PASSWORD.toString()),UTSwapApp.instance)
+                        }
                         Constants.FundPassword.AddNumber -> {
                             mPresenter.onVerifyAddPhoneNumber(User.VerifyAddPhoneNumberObject(SessionPreferences().SESSION_SECURE_KEY_ADD_PHONE.toString(),editBox.text.toString()),UTSwapApp.instance)
+                        }
+                        Constants.FundPassword.ForgotFundPassword ->{
+                            mPresenter.onResetPassword(User.ForgotPasswordVerifyObject(editBox.text.toString(),SessionPreferences().SESSION_SECURE_KEY_FORGOT_PASSWORD.toString()),UTSwapApp.instance)
                         }
                     }
 
@@ -214,6 +223,7 @@ class VerificationFragment :
 
             onBoxesBackgroundColor(2)
             onProgressBar(false)
+            linearCountdown.visibility = View.GONE
 
             when (arguments?.getString("title")) {
                 Constants.FundPassword.Register -> {
@@ -222,6 +232,7 @@ class VerificationFragment :
                     SessionPreferences().SESSION_TOKEN = body.data?.TOKEN.toString()
                     SessionPreferences().SESSION_ID = body.data?.ID.toString()
                     SessionPreferences().SESSION_X_TOKEN_API = body.data?.x_api_key.toString()
+                    SessionVariable.USER_EXPIRE_TOKEN.value = false
 
                     findNavController().navigate(R.id.action_to_prompt_security_fragment)
                 }
@@ -268,6 +279,12 @@ class VerificationFragment :
                     Constants.FundPassword.AddNumber -> {
                         mPresenter.onResendCodeAddPhoneNumber(User.AddPhoneNumberObject(Constants.AddPhoneNumber.cellPhone),UTSwapApp.instance)
                     }
+                    Constants.FundPassword.ForgotLoginPassword ->{
+                        mPresenter.onResendCodeResetPassword(User.ForgotPasswordObject(Constants.RegisterData.username),UTSwapApp.instance)
+                    }
+                    Constants.FundPassword.ForgotFundPassword ->{
+                        mPresenter.onResendCodeResetPassword(User.ForgotPasswordObject(Constants.RegisterData.username),UTSwapApp.instance)
+                    }
                 }
             }
         }
@@ -295,6 +312,7 @@ class VerificationFragment :
         binding.apply {
             onBoxesBackgroundColor(2)
             onProgressBar(false)
+            linearCountdown.visibility = View.GONE
             when (arguments?.getString("title")) {
                 Constants.FundPassword.ResetPassword -> {
 
@@ -314,6 +332,7 @@ class VerificationFragment :
                     findNavController().navigate(R.id.action_from_verify_to_new_fund_password,bundle)
                 }
                 Constants.FundPassword.ForgotLoginPassword-> {
+                    SessionPreferences().SESSION_SECURE_KEY_FORGOT_PASSWORD = data.data?.secure_key.toString()
                     findNavController().navigate(R.id.action_to_new_account_login_password)
                 }
                 Constants.FundPassword.AddNumber -> {
@@ -354,6 +373,7 @@ class VerificationFragment :
 
             onBoxesBackgroundColor(2)
             onProgressBar(false)
+            linearCountdown.visibility = View.GONE
 
             when (arguments?.getString("title")) {
                 Constants.FundPassword.AddNumber -> {
@@ -388,6 +408,13 @@ class VerificationFragment :
             data.message.toString(),
             Toast.LENGTH_SHORT
         ).show()
+    }
+
+    override fun onUserExpiredToken() {
+        ClientClearData.clearDataUser()
+        startActivity(Intent(requireActivity(), MainActivity::class.java))
+        activity?.finish()
+        requireActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
     }
 
     private fun onProgressBar(status: Boolean){

@@ -166,8 +166,9 @@ class FundPasswordDialog : DialogFragment() {
                     onGetTransfer(Transfer.GetTransferObject(arguments?.getString("amountTrans"), arguments?.getString("currencyTrans"), arguments?.getString("receiverTrans"), codes), UTSwapApp.instance)
                 }*/
 
-                if (subscriptionCheck == Constants.FundPasswordType.subscription){
-                    val volume = arguments?.getString("volume")?.replace("\\s".toRegex(), "")?.toInt()
+                if (subscriptionCheck == Constants.FundPasswordType.subscription) {
+                    val volume =
+                        arguments?.getString("volume")?.replace("\\s".toRegex(), "")?.toInt()
                     val id = arguments?.getInt("id")
                     var params: Map<String, String> = emptyMap()
                     params = mapOf(
@@ -176,8 +177,31 @@ class FundPasswordDialog : DialogFragment() {
                         "ut_number" to volume.toString(),
                         "fund_password" to codes
                     )
+                    val result = VerifyClientData.makeSign(
+                        params,
+                        SessionPreferences().SESSION_X_TOKEN_API.toString()
+                    )
+                    onCheckSubscriptionConfirmPassword(
+                        SubscriptionProject.SubscribeOrderBody(
+                            "MD5",
+                            result,
+                            id,
+                            volume,
+                            codes
+                        ), UTSwapApp.instance
+                    )
+                }else if (transferCheck == Constants.FundPasswordType.transfer){
+                    var params: Map<String, String> = emptyMap()
+                    params = mapOf(
+                        "sign_type" to "MD5",
+                        "amount" to arguments?.getString("amountTrans").toString(),
+                        "currency" to arguments?.getString("currencyTrans").toString(),
+                        "receiver" to arguments?.getString("receiverTrans").toString(),
+                        "paypassword" to codes
+                    )
                     val result = VerifyClientData.makeSign(params, SessionPreferences().SESSION_X_TOKEN_API.toString())
-                    onCheckSubscriptionConfirmPassword(SubscriptionProject.SubscribeOrderBody("MD5", result , id, volume, codes), UTSwapApp.instance)
+                    onGetTransfer(Transfer.GetTransferObject("MD5", result, arguments?.getString("amountTrans"), arguments?.getString("currencyTrans"), arguments?.getString("receiverTrans"), codes), UTSwapApp.instance)
+
                 }
 
             }else{

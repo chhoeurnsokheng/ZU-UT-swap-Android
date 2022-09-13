@@ -122,7 +122,7 @@ class FundPasswordFragment :
                     KYCPreferences().FUND_PASSWORD = editFundPassword.text.toString()
 
 
-                    KycInfor.truename = IDVerificationFragment.sureName + IDVerificationFragment.name
+                    KycInfor.truename = "${IDVerificationFragment.sureName} ${IDVerificationFragment.name}"
                     KycInfor.email = KYCPreferences().EMAIL.toString()
                     KycInfor.gender = if (IDVerificationFragment.gender == "Male") "M" else "F"
                     KycInfor.phonenumber = KYCPreferences().PHONE_NUMBER.toString()

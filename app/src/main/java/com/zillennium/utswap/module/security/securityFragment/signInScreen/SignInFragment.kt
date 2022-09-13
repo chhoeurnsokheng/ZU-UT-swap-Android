@@ -8,6 +8,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
@@ -20,16 +21,18 @@ import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentSecuritySignInBinding
+import com.zillennium.utswap.models.notification.NotificationModel
 import com.zillennium.utswap.models.userService.User
 import com.zillennium.utswap.module.security.securityActivity.registerScreen.RegisterActivity
 import com.zillennium.utswap.module.security.securityActivity.resetPasswordScreen.ResetPasswordActivity
 import com.zillennium.utswap.module.security.securityFragment.signInScreen.CheckNetworkConnection.CheckNetworkConnection
+import com.zillennium.utswap.utils.MobileSetting
 import com.zillennium.utswap.utils.validate
 
 class SignInFragment :
     BaseMvpFragment<SignInView.View, SignInView.Presenter, FragmentSecuritySignInBinding>(),
     SignInView.View {
-
+    
     private lateinit var imageWifi: ImageView
     private lateinit var textView: TextView
     private lateinit var mainWifi: LinearLayout
@@ -183,6 +186,7 @@ class SignInFragment :
         onProgressBar(false)
         body.data?.status_kyc
         SessionVariable.SESSION_STATUS.value = true
+        SessionVariable.USER_EXPIRE_TOKEN.value = false
 
         SessionPreferences().SESSION_STATUS = true
         SessionPreferences().SESSION_TOKEN = body.data?.TOKEN.toString()
@@ -204,6 +208,7 @@ class SignInFragment :
             SessionPreferences().SESSION_KYC_SUBMIT_STATUS = false
             SessionVariable.SESSION_KYC_STATUS.value = 0
         }
+        sendFirebaseToken()
         hideKeyboard()
         activity?.setResult(RESULT_OK)
         activity?.finish()
@@ -220,6 +225,22 @@ class SignInFragment :
 
             hideKeyboard()
         }
+    }
+    private fun sendFirebaseToken() {
+        activity?.let {
+            val param = NotificationModel.SubmitFirebaseToken()
+            param.firebase_client_token = SessionPreferences().DEVICE_TOKEN.toString()
+            param.device_info = MobileSetting.getDeviceID(it).toString()
+            param.ip_device = MobileSetting.getIpDevice(it).toString()
+            mPresenter.saveFirebaseToken(param)
+        }
+    }
+
+    override fun onSaveFirebaseTokenSuccess(message: String) {
+        Log.d("success", message)
+    }
+
+    override fun onSaveFirebaseTokenFail() {
     }
 
     private fun onMessage(message: String) {

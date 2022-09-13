@@ -28,6 +28,8 @@ class VerificationView {
 
         fun onResendCodeAddPhoneSuccess(data: User.AddPhoneNumberRes)
         fun onResendCodeAddPhoneFail(data: User.AddPhoneNumberRes)
+
+        fun onUserExpiredToken()
     }
 
     interface Presenter : BaseMvpPresenter<View> {

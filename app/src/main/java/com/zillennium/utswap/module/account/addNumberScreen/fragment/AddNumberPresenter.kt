@@ -27,7 +27,11 @@ class AddNumberPresenter : BaseMvpPresenterImpl<AddNumberView.View>(),
             if(it.status == 1){
                 mView?.onAddPhoneNumberSuccess(it)
             }else{
-                mView?.onAddPhoneNumberFail(it)
+                if(it.message.toString() == "Please sign in"){
+                    mView?.onUserExpiredToken()
+                }else{
+                    mView?.onAddPhoneNumberFail(it)
+                }
             }
         },{
             object : CallbackWrapper(it, UTSwapApp.instance, arrayListOf()){

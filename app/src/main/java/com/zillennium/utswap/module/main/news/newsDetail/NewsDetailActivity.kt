@@ -13,8 +13,6 @@ import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityNewsDetailBinding
 import com.zillennium.utswap.models.newsService.News
-import com.zillennium.utswap.module.main.trade.tradeExchangeScreen.TradeExchangeActivity
-import com.zillennium.utswap.utils.Constants
 
 class NewsDetailActivity :
     BaseMvpActivity<NewsDetailView.View, NewsDetailView.Presenter, ActivityNewsDetailBinding>(),
@@ -26,9 +24,9 @@ class NewsDetailActivity :
     private var id: String? = null
 
     companion object {
-        fun launchNewsDetailsActivity(context: Context, projectName: String?) {
+        fun launchNewsDetailsActivity(context: Context, newsId: String?) {
             val intent = Intent(context, NewsDetailActivity::class.java)
-            intent.putExtra("id", projectName)
+            intent.putExtra("id", newsId)
             context.startActivity(intent)
         }
     }
@@ -45,7 +43,7 @@ class NewsDetailActivity :
 
         onSwipeRefresh()
 
-        //NoInternetLayoutUtil().noInternetLayoutUtil(binding.rlNoInt)
+       // NoInternetLayoutUtil().noInternetLayoutUtil(binding.rlNoInt)
     }
 
     private fun onCallApi(){

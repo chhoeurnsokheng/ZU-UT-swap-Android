@@ -19,6 +19,7 @@ import com.zillennium.utswap.databinding.ActivityProjectInfoBinding
 import com.zillennium.utswap.models.ProjectInfoDetailModel
 import com.zillennium.utswap.models.ViewImageModel
 import com.zillennium.utswap.models.project.ProjectInfoDetail
+import com.zillennium.utswap.module.main.trade.tradeExchangeScreen.TradeExchangeActivity
 import com.zillennium.utswap.module.project.ViewImage.ImageViewActivity
 import com.zillennium.utswap.module.project.projectInfoScreen.adapter.ProjectInfoDetailsAdapter
 import com.zillennium.utswap.module.project.projectInfoScreen.adapter.ProjectViewPagerAdapter
@@ -43,10 +44,10 @@ class ProjectInfoActivity :
     private var id: Int = 0
 
     companion object {
-        fun launchProjectInfoActivity(context: Context, id: String?, projectName: String?) {
+        fun launchProjectInfoActivity(context: Context, id: String?) {
             val intent = Intent(context, ProjectInfoActivity::class.java)
             intent.putExtra(Constants.Project.Project_Id, id)
-            intent.putExtra(Constants.Project.ProjectName, projectName)
+//            intent.putExtra(Constants.Project.ProjectName, projectName)
             context.startActivity(intent)
         }
     }
@@ -63,12 +64,12 @@ class ProjectInfoActivity :
             }
         }
 
-        if (intent.hasExtra(Constants.Project.ProjectName)) {
-            projectName = intent?.getStringExtra(Constants.Project.ProjectName).toString()
-            binding.apply {
-                txtDetailTitle.text = projectName
-            }
-        }
+//        if (intent.hasExtra(Constants.Project.ProjectName)) {
+//            projectName = intent?.getStringExtra(Constants.Project.ProjectName).toString()
+//            binding.apply {
+//                txtDetailTitle.text = projectName
+//            }
+//        }
 
 
 
@@ -90,6 +91,7 @@ class ProjectInfoActivity :
         val DECIMAL_FORMAT = "###,###.##"
 
         binding.apply {
+            txtDetailTitle.text = data.project_name.toString()
             progressbarGetData.visibility = View.GONE
             scrollView.visibility = View.VISIBLE
             viewBackground.visibility = View.GONE
@@ -325,7 +327,7 @@ class ProjectInfoActivity :
                 btnSubscript.setOnClickListener {
                     SubscriptionActivity.launchSubscriptionActivity(this@ProjectInfoActivity,
                         data.id,
-                        projectName
+                        data.project_name.toString()
                     )
                 }
 
@@ -349,6 +351,9 @@ class ProjectInfoActivity :
                 btnTrade.visibility = View.VISIBLE
                 btnSubscript.visibility = View.GONE
                 btnUpcoming.visibility = View.GONE
+                btnTrade.setOnClickListener {
+                    TradeExchangeActivity.launchTradeExchangeActivityFromProjectDetail(this@ProjectInfoActivity, data.project_name.toString(),data.market_name.toString(),data.id.toString(),data.market_id.toString())
+                }
 //                btnTrade.setOnClickListener {
 //                    val intent = Intent(UTSwapApp.instance, TradeExchangeActivity::class.java)
 //                    startActivity(intent)

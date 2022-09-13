@@ -32,6 +32,8 @@ import com.zillennium.utswap.module.finance.historicalScreen.bottomSheet.Finance
 import com.zillennium.utswap.module.finance.historicalScreen.bottomSheet.FinanceHistoricalFilterBottomSheet
 import com.zillennium.utswap.module.finance.historicalScreen.bottomSheet.FinanceHistoricalSelectDateRangeBottomSheet
 import com.zillennium.utswap.module.finance.historicalScreen.bottomSheet.FinanceHistoricalTransactionBottomSheet
+import com.zillennium.utswap.screens.navbar.navbar.MainActivity
+import com.zillennium.utswap.utils.ClientClearData
 import com.zillennium.utswap.utils.Constants
 
 
@@ -483,22 +485,31 @@ class FinanceHistoricalActivity :
     }
     override fun onExportHistoricalSuccess(data: Historical.DataExportHistorical) {
         binding.apply {
-            val request = DownloadManager.Request(Uri.parse(data.FILE_PATH))
-            val title = URLUtil.guessFileName(data.FILE_PATH, null, null)
-            request.setTitle(title)
-            request.setDescription("Downloading File please wait ...")
-            val cookie = CookieManager.getInstance().getCookie(data.FILE_PATH)
-            request.addRequestHeader("cookie", cookie)
-            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED) // This will show notification on top when downloading the file.
-            request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, title) // Title for notification.
+            // This is download in browser
+            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(data.FILE_PATH))
+            startActivity(browserIntent)
 
-            val downloadManager = getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager //This will start downloading
-            downloadManager.enqueue(request)
-
-            Toast.makeText(UTSwapApp.instance, "Downloading File.", Toast.LENGTH_SHORT).show()
+//            val request = DownloadManager.Request(Uri.parse(data.FILE_PATH))
+//            val title = URLUtil.guessFileName(data.FILE_PATH, null, null)
+//            request.setTitle(title)
+//            request.setDescription("Downloading File please wait ...")
+//            val cookie = CookieManager.getInstance().getCookie(data.FILE_PATH)
+//            request.addRequestHeader("cookie", cookie)
+//            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED) // This will show notification on top when downloading the file.
+//            request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, title) // Title for notification.
+//
+//            val downloadManager = getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager //This will start downloading
+//            downloadManager.enqueue(request)
+//            Toast.makeText(UTSwapApp.instance, "Downloading File.", Toast.LENGTH_SHORT).show()
         }
     }
     override fun onExportHistoricalFail(data: Historical.exportHistorical) {}
+    override fun onUserExpiredToken() {
+        ClientClearData.clearDataUser()
+        startActivity(Intent(this@FinanceHistoricalActivity, MainActivity::class.java))
+        finish()
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+    }
 
     /* Body */
     private fun bodyHistoryTransaction(){

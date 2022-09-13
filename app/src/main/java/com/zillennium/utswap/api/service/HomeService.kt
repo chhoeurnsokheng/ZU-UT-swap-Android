@@ -26,7 +26,6 @@ interface HomeService {
     @GET(ApiSettings.PATH_FORCE_UPDATE)
     fun checkForceUpdate(): Observable<ForceUpdate.ForceUpdateRes>
 
-
     @GET(ApiSettings.PATH_KYC_STATUS)
     fun checkKYCStatus(
         @HeaderMap headerMap: Map<String, String>

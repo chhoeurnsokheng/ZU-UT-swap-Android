@@ -29,7 +29,9 @@ object ApiSettings {
     const val PATH_EXPORT_HISTORICAL_DATA = "finance/exportHistoryData"
 
 
-    const val PATH_NEWS_HOME = "Art/ArtList/p/1"
+    const val PATH_NEWS_HOME = "Art/ArtList"
+    const val PATH_NEWS_WITHOUT_TOKEN = "Art/ArtList"
+
 
 
     /**     Account Logs       **/
@@ -65,6 +67,13 @@ object ApiSettings {
     const val PATH_FORGOT_PASSWORD = "login/forgetPassword"
     const val PATH_FORGOT_PASSWORD_VERIFY = "login/verifyForgetPassword"
     const val PATH_ENTER_NEW_PASSWORD = "login/changeNewPassword"
+
+    /** Change Login Password*/
+    const val PATH_CHANGE_LOGIN_PASSWORD = "user/changeNewPassword"
+
+    /** Change Fund Password*/
+    const val PATH_CHECK_OLD_FUND_PASSWORD = "user/checkOldFund"
+    const val PATH_CHANGE_FUND_PASSWORD = "user/changeFundPassword"
 
     /*User add KYC */
     const val PATH_KYC = "user/submitkyc"
@@ -108,6 +117,9 @@ object ApiSettings {
 
     /**         Notification List            **/
     const val PATH_NOTIFICATION_LIST = "notification/loadNotification"
+    const val PATH_NOTIFICATION_READ = "notification/mask_as_read_msg"
+    const val PATH_NOTIFICATION_READ_ALL = "notification/showAllNoti"
+    const val PATH_SAVE_FIREBASE_TOKEN = "notification/saveFirebaseToken"
 
     /** User Balance */
     const val PATH_FINANCE_USER_BALANCE = "finance/mytx"
@@ -151,14 +163,19 @@ object ApiSettings {
     const val PATH_ONLINE_DEPOSIT      ="finance/onlineMyczUp"
     const val PATH_FINANCE_TRANSFER_LOGS ="finance/outlog_transfer"
 
+    const val PATH_QUERY_ORDER = "finance/DataQueryOrder"
+
+    const val PATH_GET_DEPOSIT_FEE ="finance/getDepositFee"
 
     /** Finance Transfer */
     const val PATH_FINANCE_TRANSFER = "finance/direct_transfer"
     const val PATH_FINANCE_VALIDATE_TRANSFER = "finance/validate_transfer"
 
 
+    const val PATH_LIST_AVAILABLE_WITHDRAWAL_BANK = "finance/available_withdrawal_bank"
 
-    const val PATH_QUERY_ORDER = "finance/DataQueryOrder"
-
+    /** Portfolio */
+    const val PATH_PORTFOLIO = "portfolio/index"
+    const val PATH_DASHBOARD_CHART = "portfolio/dashboardchart"
 
 }

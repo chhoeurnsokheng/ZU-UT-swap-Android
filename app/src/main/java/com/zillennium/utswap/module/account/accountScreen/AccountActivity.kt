@@ -14,13 +14,13 @@ import com.bumptech.glide.Glide
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.zillennium.utswap.BuildConfig
 import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
-import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityAccountBinding
 import com.zillennium.utswap.models.userService.User
 import com.zillennium.utswap.module.account.accountDetailScreen.AccountDetailActivity
+import com.zillennium.utswap.module.account.accountKycPending.AccountKycPendingActivity
 import com.zillennium.utswap.module.account.addNumberScreen.AddNumberActivity
 import com.zillennium.utswap.module.account.customerSupportScreen.CustomerSupportActivity
 import com.zillennium.utswap.module.account.documentsScreen.DocumentsActivity
@@ -28,6 +28,7 @@ import com.zillennium.utswap.module.account.lockTimeOutScreen.LockTimeOutActivit
 import com.zillennium.utswap.module.account.referralInformationScreen.ReferralInformationActivity
 import com.zillennium.utswap.screens.navbar.navbar.MainActivity
 import com.zillennium.utswap.module.kyc.kycActivity.KYCActivity
+import com.zillennium.utswap.utils.ClientClearData
 import com.zillennium.utswap.utils.DialogUtil
 import java.io.ByteArrayOutputStream
 import java.io.File
@@ -42,6 +43,7 @@ class AccountActivity :
     private val PICK_IMAGE_FROM_GALLERY = 1
     private var newImageFile: File? = null
     var preferencesCondition = true
+    private var strKyc: String? = ""
 
     override fun initView() {
         super.initView()
@@ -53,16 +55,10 @@ class AccountActivity :
         binding.apply {
             txtSignOut.text = Html.fromHtml("<u>Sign Out</u>")
 
-            txtVersion.text = "Version" + " APT" + "  ${BuildConfig.VERSION_NAME} "
+            txtVersion.text = "Version" +" Dev" +"  ${BuildConfig.VERSION_NAME} "
 
-//            if (SessionPreferences().SESSION_USER_PROFILE != "") {
-//                // Glide.with(UTSwapApp.instance).load("https://image.kpopmap.com/2019/02/IU-LILAC.jpg").into(profileImageView)
-//            }
-//
-//            if (SessionPreferences().SESSION_PHONE_NUMBER.toString() != "") {
-//                //  txtPhoneNumber.visibility = View.VISIBLE
-//                txtPhoneNumber.text = SessionPreferences().SESSION_PHONE_NUMBER.toString()
-//            }
+            txtVerifyIdentity.text = Html.fromHtml("<u>Verify Your Identity</u>")
+            txtVerifyPending.text  = Html.fromHtml("<u>KYC Approval is Pending</u>")
 
             SessionVariable.SESSION_PHONE_NUMBER.observe(this@AccountActivity) {
                onCallApi()
@@ -101,8 +97,8 @@ class AccountActivity :
             }
 
             linearLayoutReferral.setOnClickListener {
-                val intent = Intent(UTSwapApp.instance, ReferralInformationActivity::class.java)
-                startActivity(intent)
+//                val intent = Intent(UTSwapApp.instance, ReferralInformationActivity::class.java)
+//                startActivity(intent)
             }
 
             linearLayoutDocuments.setOnClickListener {
@@ -120,7 +116,12 @@ class AccountActivity :
                 startActivity(intent)
             }
 
-            txtVerifyIdentity.setOnClickListener {
+            linearVerifyPending.setOnClickListener {
+                val intent = Intent(UTSwapApp.instance, AccountKycPendingActivity::class.java)
+                startActivity(intent)
+            }
+
+            linearVerifyIdentity.setOnClickListener {
                 val intent = Intent(UTSwapApp.instance, KYCActivity::class.java)
                 startActivity(intent)
             }
@@ -164,18 +165,19 @@ class AccountActivity :
                     "Sign Out",
                     object : DialogUtil.OnAlertDialogClick {
                         override fun onLabelCancelClick() {
-                            SessionVariable.SESSION_STATUS.value = false
-                            SessionVariable.SESSION_KYC.value = false
-                            SessionVariable.SESSION_KYC_STATUS.value = 0
-
-                            SessionPreferences().removeValue("SESSION_TOKEN")
-                            SessionPreferences().removeValue("SESSION_ID")
-                            SessionPreferences().removeValue("SESSION_USERNAME")
-                            SessionPreferences().removeValue("SESSION_KYC")
-                            SessionPreferences().removeValue("SESSION_X_TOKEN_API")
-                            SessionPreferences().removeValue("SESSION_STATUS")
-                            SessionPreferences().removeValue("SESSION_KYC_SUBMIT_STATUS")
-                            SessionPreferences().removeValue("SESSION_KYC_STATUS")
+//                            SessionVariable.SESSION_STATUS.value = false
+//                            SessionVariable.SESSION_KYC.value = false
+//                            SessionVariable.SESSION_KYC_STATUS.value = 0
+//
+//                            SessionPreferences().removeValue("SESSION_TOKEN")
+//                            SessionPreferences().removeValue("SESSION_ID")
+//                            SessionPreferences().removeValue("SESSION_USERNAME")
+//                            SessionPreferences().removeValue("SESSION_KYC")
+//                            SessionPreferences().removeValue("SESSION_X_TOKEN_API")
+//                            SessionPreferences().removeValue("SESSION_STATUS")
+//                            SessionPreferences().removeValue("SESSION_KYC_SUBMIT_STATUS")
+//                            SessionPreferences().removeValue("SESSION_KYC_STATUS")
+                            ClientClearData.clearDataUser()
 
                             startActivity(Intent(this@AccountActivity, MainActivity::class.java))
                             finish()
@@ -236,17 +238,26 @@ class AccountActivity :
                 txtPhoneNumber.isEnabled = true
             }
 
-            if (!data.username.isNullOrEmpty())
+            if(data.kyc.toString() == "0")
             {
-                txtName.text = data.truename.toString()
-                txtVerifyIdentity.isEnabled = false
-                txtArrow.visibility = View.GONE
+                linearVerifyIdentity.visibility = View.VISIBLE
+                linearVerifyPending.visibility = View.GONE
+                txtName.visibility = View.GONE
+            }else if(data.kyc.toString() == "2"){
+                linearVerifyIdentity.visibility = View.GONE
+                linearVerifyPending.visibility = View.VISIBLE
+                txtName.visibility = View.GONE
             }else{
-                txtArrow.visibility = View.VISIBLE
-                txtName.text = Html.fromHtml("<u>Verify Your Identity</u>")
-                txtName.setTextAppearance(UTSwapApp.instance, R.style.medium_18)
-                txtName.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.white))
-                txtVerifyIdentity.isEnabled = true
+                if (!data.username.isNullOrEmpty())
+                {
+                    txtName.text = data.truename.toString()
+                    txtVerifyIdentity.isEnabled = false
+                    txtName.visibility = View.VISIBLE
+                }else{
+                    linearVerifyIdentity.visibility = View.VISIBLE
+                    linearVerifyPending.visibility = View.GONE
+                    txtName.visibility = View.GONE
+                }
             }
 
             Glide
@@ -270,6 +281,13 @@ class AccountActivity :
 
     override fun uploadProfileFail(data: User.AccountUploadProfileRes) {
         Toast.makeText(UTSwapApp.instance,"Fail To Change Profile", Toast.LENGTH_LONG).show()
+    }
+
+    override fun userExpiredToken() {
+        ClientClearData.clearDataUser()
+        SessionVariable.USER_EXPIRE_TOKEN.value = true
+        startActivity(Intent(this@AccountActivity, MainActivity::class.java))
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
     }
 
     override fun onGetUserInfoFail(data: User.AppSideBarData) {

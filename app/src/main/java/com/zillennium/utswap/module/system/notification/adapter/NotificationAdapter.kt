@@ -1,6 +1,7 @@
 package com.zillennium.utswap.module.system.notification.adapter
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
@@ -16,6 +17,9 @@ import com.zillennium.utswap.databinding.ItemEarlierTitleBinding
 import com.zillennium.utswap.databinding.ItemListSystemNotificationBinding
 import com.zillennium.utswap.models.notification.NotificationModel
 import com.zillennium.utswap.utils.dpToPx
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class NotificationAdapter(var onClickNotificationAdapter: OnClickNotificationAdapter) :
     BaseRecyclerViewAdapterGeneric<NotificationModel.NotificationListData, NotificationAdapter.NotificationViewHolder>() {
@@ -35,14 +39,23 @@ class NotificationAdapter(var onClickNotificationAdapter: OnClickNotificationAda
                 Glide.with(UTSwapApp.instance)
                     .asBitmap()
                     .load(notificationModel.icon)
-//                    .placeholder(R.drawable.ic_notification)
+                    .placeholder(R.drawable.ic_notification)
                     .fitCenter()
                     .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .skipMemoryCache(true)
                     .into(icNotification)
-                txtTitleAnnouncement.text = notificationModel.action_title
+                txtTitleAnnouncement.text = notificationModel.action_type
                 txtDescription.text = notificationModel.body
                 txtDuration.text = notificationModel.sent_time
+
+                var date = "Mar 10, 2016 6:30:00 PM"
+                var spf = SimpleDateFormat("MMM dd, yyyy hh:mm:ss aaa")
+                val newDate: Date = spf.parse(date)
+                spf = SimpleDateFormat("dd MMM yyyy")
+                date = spf.format(newDate)
+
+
+                Log.d( "date", date)
 
                 if (position == items.lastIndex) {
                     layoutNotification.setPadding(dpToPx(20), dpToPx(20), dpToPx(20), dpToPx(20))
@@ -65,7 +78,13 @@ class NotificationAdapter(var onClickNotificationAdapter: OnClickNotificationAda
                 }
 
                 itemView.setOnClickListener {
-                    onClickNotificationAdapter.clickNotification(notificationModel.action.toString(), notificationModel.id.toString())
+                    onClickNotificationAdapter.clickNotification(notificationModel.notifi_type, notificationModel.id.toString(), notificationModel.project_id, notificationModel.article_id)
+                    layoutNotification.setBackgroundColor(
+                        ContextCompat.getColor(
+                            UTSwapApp.instance,
+                            R.color.white
+                        )
+                    )
                 }
             }
 
@@ -127,10 +146,7 @@ class NotificationAdapter(var onClickNotificationAdapter: OnClickNotificationAda
     }
 
     interface OnClickNotificationAdapter {
-        fun clickNotification(
-            action: String,
-            id: String
-        )
+        fun clickNotification(notify_type: String, idNotifi: String, projectId: String, newsId: String)
     }
 
 

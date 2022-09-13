@@ -1,5 +1,6 @@
 package com.zillennium.utswap.api.service
 
+import com.google.gson.JsonObject
 import com.zillennium.utswap.api.ApiSettings
 import com.zillennium.utswap.models.newsService.News
 import retrofit2.http.*
@@ -21,5 +22,10 @@ interface NewsService {
     @POST(ApiSettings.PATH_NEWS_HOME)
     fun newsHome(
         @HeaderMap headers: Map<String, String>
+    ):Observable<News.NewsRes>
+
+    @POST(ApiSettings.PATH_NEWS_WITHOUT_TOKEN)
+    fun newsHomeNoToken(
+        @Body body: JsonObject
     ):Observable<News.NewsRes>
 }

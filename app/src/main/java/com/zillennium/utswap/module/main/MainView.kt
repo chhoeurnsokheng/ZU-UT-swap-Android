@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import com.zillennium.utswap.bases.mvp.BaseMvpPresenter
 import com.zillennium.utswap.bases.mvp.BaseMvpView
+import com.zillennium.utswap.models.notification.NotificationModel
 import com.zillennium.utswap.models.home.ForceUpdate
 import com.zillennium.utswap.models.userService.User
 
@@ -15,13 +16,18 @@ class MainView {
         fun onGetForceUpdateFailed(data:String)
         fun onCheckKYCSuccess(data: User.KycRes)
         fun onCheckKYCFail()
+        fun onNotificationSuccess(data: NotificationModel.NotificationData)
+        fun onNotificationFail(data: NotificationModel.NotificationRes)
 
+        fun onUserExpireToken()
+        fun onUserActiveToken()
     }
 
     interface Presenter : BaseMvpPresenter<View> {
         override fun initViewPresenter(context: Context, bundle: Bundle?)
         fun checkForceUpdate(context: Context)
         fun onCheckKYCStatus()
-
+        fun getNotificationLists(context: Context)
+        fun onCheckUserLoginStatus(context: Context)
     }
 }

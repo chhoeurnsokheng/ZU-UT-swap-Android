@@ -1,80 +1,52 @@
 package com.zillennium.utswap.module.main.portfolio.adapter
 
-import android.annotation.SuppressLint
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.RecyclerView
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
-import com.zillennium.utswap.models.portfolio.Performance
+import com.zillennium.utswap.bases.mvp.BaseRecyclerViewAdapterGeneric
+import com.zillennium.utswap.bases.mvp.BaseViewHolder
+import com.zillennium.utswap.databinding.ItemListPortfolioPerformanceBinding
+import com.zillennium.utswap.models.portfolio.Portfolio
 
-class PerformanceAdapter (
-    arrayList: ArrayList<Performance>,
-) :
-    RecyclerView.Adapter<PerformanceAdapter.ViewHolder>() {
-    private var arrayList: ArrayList<Performance> = ArrayList()
-    override fun onCreateViewHolder(
+class PerformanceAdapter: BaseRecyclerViewAdapterGeneric<Portfolio.GetPortfolioDashBoard, PerformanceAdapter.ItemViewHolder>(){
+
+    override fun onCreateItemHolder(
+        inflater: LayoutInflater,
         parent: ViewGroup,
         viewType: Int
-    ): ViewHolder {
-        val view: View = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_list_portfolio_performance, parent, false)
-        return ViewHolder(
-            view
-        )
+    ) = ItemViewHolder(ItemListPortfolioPerformanceBinding.inflate(inflater, parent, false))
+
+    override fun onBindItemHolder(
+        holder: PerformanceAdapter.ItemViewHolder,
+        position: Int,
+        context: Context
+    ) {
+        holder.bidData(items[position])
     }
 
-    override fun getItemCount(): Int {
-        return arrayList.size
-    }
+    inner class ItemViewHolder(root: ItemListPortfolioPerformanceBinding) : BaseViewHolder<ItemListPortfolioPerformanceBinding>(root){
+        fun bidData(performance: Portfolio.GetPortfolioDashBoard){
+            binding.apply {
+                txtTitleProject.text = performance.mkt_project_name
+                txtPercent.text = performance.mkt_project_perf.toString()
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        internal val txtTitleProject: TextView = itemView.findViewById(R.id.txt_title_project)
-        internal val txtPercent: TextView = itemView.findViewById(R.id.txt_percent)
-        internal val percent: TextView = itemView.findViewById(R.id.percent)
-        internal val line: View = itemView.findViewById(R.id.line)
-    }
-
-    @SuppressLint("SetTextI18n")
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val performance: Performance = arrayList[position]
-
-        holder.txtTitleProject.text = performance.projectName
-        holder.txtPercent.text = performance.txtPercent.toString()
-
-        if (performance.txtPercent > 0)
-        {
-            holder.txtPercent.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.simple_green))
-            holder.percent.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.simple_green))
-        }
-        else
-        {
-            holder.txtPercent.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
-            holder.percent.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
-        }
-
-        if (arrayList.size == 1) {
-            holder.line.visibility = View.GONE
-        } else {
-            when (position) {
-                arrayList.size - 1 -> {
-                    holder.line.visibility = View.GONE
+                if (performance.mkt_project_perf?.toDouble()!! > 0) {
+                    txtPercent.text = "+" + performance.mkt_project_perf
+                    txtPercent.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.simple_green))
+                    percent.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.simple_green))
+                }else if (performance.mkt_project_perf?.toDouble()!! < 0){
+                    txtPercent.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
+                    percent.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
+                }else {
+                    txtPercent.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.black_333333))
+                    percent.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.black_333333))
                 }
-                0 -> {
-                    holder.line.visibility = View.VISIBLE
-                }
-                else -> {
-                    holder.line.visibility = View.VISIBLE
-                }
+
             }
         }
-
-    }
-
-    init {
-        this.arrayList = arrayList
     }
 }

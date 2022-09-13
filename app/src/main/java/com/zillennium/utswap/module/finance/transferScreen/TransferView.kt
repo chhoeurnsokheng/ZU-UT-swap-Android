@@ -14,10 +14,11 @@ class TransferView {
         override fun initView()
         fun onGetUserInfoSuccess(data: User.AppSideBarData)
         fun onGetUserInfoFail(data: User.AppSideBarData)
-        fun onGetUserBalanceInfoSuccess(data: BalanceFinance.GetUserBalanceInfoData)
+        fun onGetUserBalanceInfoSuccess(data: BalanceFinance.GetUserBalanceInfo)
         fun onGetUserBalanceInfoFail(data: BalanceFinance.GetUserBalanceInfo)
         fun onGetValidateTransferSuccess(data: Transfer.GetValidateTransferData)
         fun onGetValidateTransferFail(data: Transfer.GetValidateTransfer)
+        fun onUserExpiredToken()
     }
 
     interface Presenter : BaseMvpPresenter<View> {

@@ -13,6 +13,8 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI.setupWithNavController
+import com.google.firebase.iid.FirebaseInstanceId
+import com.zillennium.CheckUserLoginClearToken
 import com.zillennium.utswap.BuildConfig
 import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
 import com.zillennium.utswap.Datas.StoredPreferences.KYCPreferences
@@ -22,7 +24,9 @@ import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityMainBinding
 import com.zillennium.utswap.models.home.ForceUpdate
+import com.zillennium.utswap.models.notification.NotificationModel
 import com.zillennium.utswap.models.userService.User
+import com.zillennium.utswap.module.finance.balanceScreen.FinanceBalanceActivity
 import com.zillennium.utswap.module.kyc.kycActivity.KYCActivity
 import com.zillennium.utswap.module.main.MainPresenter
 import com.zillennium.utswap.module.main.MainView
@@ -31,35 +35,83 @@ import com.zillennium.utswap.module.main.news.NewsFragment
 import com.zillennium.utswap.module.main.portfolio.PortfolioFragment
 import com.zillennium.utswap.module.main.trade.tradeScreen.TradeFragment
 import com.zillennium.utswap.module.security.securityActivity.signInScreen.SignInActivity
+import com.zillennium.utswap.utils.ClientClearData
 import com.zillennium.utswap.utils.DialogUtil
 import com.zillennium.utswap.utils.DialogUtilKyc
 
 
-class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, ActivityMainBinding>(), MainView.View {
+class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, ActivityMainBinding>(),
+    MainView.View {
 
     override var mPresenter: MainView.Presenter = MainPresenter()
     override val layoutResource: Int = R.layout.activity_main
-    private var kcySubmit: Boolean? = false
+    var kcySubmit: Boolean? = false
     var kcyComplete: Boolean? = false
     private var isSelected = false
     private var isSignInSuccess = true
-    private val homeFragment = HomeFragment()
-
+    var badgeNumber: Int = 0
+    val homeFragment = HomeFragment()
+    private var checkStatusToken = false
     private var doubleBackToExitPressedOnce = false
     private var statusKYC = ""
 
     override fun initView() {
         super.initView()
         onSetUpNavBar()
+
+        FirebaseInstanceId.getInstance().instanceId.addOnCompleteListener { p0 ->
+            if (p0.isSuccessful) {
+                SessionPreferences().DEVICE_TOKEN = p0.result.token
+            }
+        }
+//        FirebaseApp.initializeApp(this)
+//        FirebaseMessaging.getInstance().token
+        mPresenter.checkForceUpdate(this)
         binding.layAuth.setOnClickListener {
             val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
             startActivityForResult(intent, 555)
         }
+        SessionVariable.SESSION_STATUS.observe(this@MainActivity) {
+            if (it) {
+                mPresenter.getNotificationLists(this)
+            } else {
+                SessionVariable.BADGE_NUMBER.value = ""
+            }
+        }
+        eventClickFromOutSide(intent)
 
     }
 
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        eventClickFromOutSide(intent)
+    }
+
+    private fun eventClickFromOutSide(intent: Intent?) {
+        val dataIntent =intent?.getStringExtra("dataIntent")
+        when (dataIntent) {
+
+            "KYC" -> {
+                startActivity(
+                    Intent(this, KYCActivity::class.java)
+                        .putExtra("fromNotification", "KYC")
+                )
+            }
+
+            "Fund Transfer" -> {
+                startActivity(Intent(this, FinanceBalanceActivity::class.java))
+            }
+
+            "Deposit Successful" -> {
+                startActivity(Intent(this, FinanceBalanceActivity::class.java))
+
+            }
+
+        }
+    }
+
     override fun onGetForceUpdateSuccess(data: ForceUpdate.ForceUpdateRes) {
-        if (BuildConfig.VERSION_NAME <data.data?.version.toString()){
+        if (BuildConfig.VERSION_NAME < data.data?.ANDROID?.version.toString()) {
             DialogUtilKyc().customDialog(
                 com.zillennium.utswap.R.drawable.ic_force_update,
                 "New version available",
@@ -67,7 +119,7 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
                 "UPDATE NOW",
                 object : DialogUtil.OnAlertDialogClick {
                     override fun onLabelCancelClick() {
-                        val uri: Uri = Uri.parse(data.data!!.app_url?.android)
+                        val uri: Uri = Uri.parse(data.data?.ANDROID?.app_url)
                         startActivity(Intent(Intent.ACTION_VIEW, uri))
                     }
                 },
@@ -81,6 +133,8 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
 
     fun onRefreshData() {
         mPresenter.onCheckKYCStatus()
+        mPresenter.getNotificationLists(this)
+
 
     }
 
@@ -89,18 +143,46 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
         kcyComplete = data.data?.status_kyc
         homeFragment.onHomeMenuGrid(data.data?.status_kyc ?: false)
         onCheckSession()
-
+        homeFragment.actionAfterKYC()
+        if (data.message =="Please sign in"){
+            CheckUserLoginClearToken.clearTokenExpired()
+        }
     }
 
     override fun onCheckKYCFail() {
         binding.layAuth.visibility = VISIBLE
         binding.layVerify.visibility = GONE
+        kcyComplete = false
+        homeFragment.actionAfterKYC()
+
+    }
+
+    override fun onNotificationSuccess(data: NotificationModel.NotificationData) {
+        SessionVariable.BADGE_NUMBER.value = data.countGroupNoti ?: ""
+        badgeNumber = data.countGroupNoti?.toInt() ?: 0
+        homeFragment.setBadgeNumber()
+
+
+    }
+
+    override fun onNotificationFail(data: NotificationModel.NotificationRes) {
+    }
+
+    override fun onUserExpireToken() {
+        ClientClearData.clearDataUser()
+        SessionVariable.USER_EXPIRE_TOKEN.value = true
+
+    }
+
+    override fun onUserActiveToken() {
+
     }
 
 
     object kyc {
         var statusKycSubmit = ""
     }
+
 
     override fun onBackPressed() {
         if (doubleBackToExitPressedOnce) {
@@ -120,9 +202,9 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
             Log.d("KYC", "${kyc.statusKycSubmit}")
             binding.apply {
                 SessionVariable.SESSION_STATUS.observe(this@MainActivity) {
-
-                    if (SessionPreferences().SESSION_TOKEN != null) {
-                        if (kcySubmit == true) {
+                    if (it) {
+                        if (kcySubmit == true && kcyComplete == false) {
+                            layVerify.visibility = VISIBLE
                             statusKYC = "Pending"
                             btnVerify.text = "KYC Approval is Pending"
                             tvVerify.text = "Your KYC application is being reviewed by our team."
@@ -137,22 +219,17 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
                                     R.color.white
                                 )
                             )
-                        } else if (kcyComplete == false) {
+                        } else if (kcySubmit == true && kcyComplete == false) {
+                            layVerify.visibility = VISIBLE
                             btnVerify.visibility = VISIBLE
                             statusKYC = "New"
                             btnVerify.text = "Verify Your Identity"
                             tvVerify.text = "Please verify your identity to start trading."
-                            btnVerify.backgroundTintList = ContextCompat.getColorStateList(
-                                this@MainActivity,
-                                R.color.primary
-                            )
-                            btnVerify.setTextColor(
-                                ContextCompat.getColor(
-                                    this@MainActivity,
-                                    R.color.white
-                                )
-                            )
-
+                            btnVerify.backgroundTintList = ContextCompat.getColorStateList(this@MainActivity, R.color.primary)
+                            btnVerify.setTextColor(ContextCompat.getColor(this@MainActivity, R.color.white))
+                        } else if (kcyComplete == true) {
+                            layAuth.visibility = GONE
+                            layVerify.visibility = GONE
                         }
                         layAuth.visibility = GONE
                     } else {
@@ -160,27 +237,6 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
                         layVerify.visibility = GONE
                     }
 
-                    if (SessionVariable.SESSION_STATUS.value == true) {
-                        layAuth.visibility = GONE
-                        layVerify.visibility = VISIBLE
-                    }
-                    if (kcyComplete == true) {
-                        layAuth.visibility = GONE
-                        layVerify.visibility = GONE
-                    } else {
-                        layAuth.visibility = GONE
-                        layVerify.visibility = VISIBLE
-
-
-                    }
-                    if (SessionPreferences().SESSION_TOKEN == null) {
-                        layAuth.visibility = VISIBLE
-                        layVerify.visibility = GONE
-
-                    } else {
-                        layAuth.visibility = GONE
-
-                    }
                 }
 
                 btnVerify.setOnClickListener {
@@ -197,6 +253,7 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
     }
 
     private fun onSetUpNavBar() {
+        mPresenter.checkForceUpdate(this)
         try {
             binding.apply {
 
@@ -247,6 +304,7 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
 
                 navView.setOnItemSelectedListener { item ->
                     mPresenter.onCheckKYCStatus()
+//                    mPresenter.onCheckUserLoginStatus(this@MainActivity)
                     when (item.itemId) {
                         R.id.navigation_navbar_home -> {
                             fragmentManager.beginTransaction().hide(activeFragment)
@@ -256,38 +314,51 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
 
                         }
                         R.id.navigation_navbar_portfolio -> {
+
                             SessionVariable.SESSION_KYC_STATUS.observe(this@MainActivity) {
+
                                 if (SessionPreferences().SESSION_TOKEN != null) {
                                     if (kcyComplete == false && isSignInSuccess) {
                                         val intent = Intent(
                                             UTSwapApp.instance,
-                                            KYCActivity::class.java).putExtra("KYCStatus", statusKYC)
+                                            KYCActivity::class.java
+                                        ).putExtra("KYCStatus", statusKYC)
                                         startActivity(intent)
 
                                     } else if (kcyComplete == true) {
                                         fragmentManager.beginTransaction().hide(activeFragment)
                                             .show(portfolioFragment).commit()
                                         activeFragment = portfolioFragment
+                                        portfolioFragment.setBadgeNumberPortfolio()
+                                    }
+                                    if (SessionPreferences().SESSION_TOKEN ==null){
+                                        val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
+                                        startActivityForResult(intent, 555)
                                     }
                                 } else {
-                                    val intent =
-                                        Intent(UTSwapApp.instance, SignInActivity::class.java)
+                                    val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
                                     startActivityForResult(intent, 555)
+                                    navView.isEnabled = false
+
                                 }
                             }
-
+//                        if (checkStatusToken==true){
+//                            startActivity(Intent(this@MainActivity, SignInActivity::class.java))
+//                        }
 
                         }
                         R.id.navigation_navbar_trade -> {
                             fragmentManager.beginTransaction().hide(activeFragment)
                                 .show(tradeFragment).commit()
                             activeFragment = tradeFragment
+                            tradeFragment.setBadgeNumberTrade()
 
                         }
                         R.id.navigation_navbar_news -> {
                             fragmentManager.beginTransaction().hide(activeFragment)
                                 .show(newsTabFragment).commit()
                             activeFragment = newsTabFragment
+                            newsTabFragment.setBadgeNumberNews()
 
                         }
                     }
@@ -306,7 +377,7 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == RESULT_OK && requestCode == 555) {
+        if (requestCode == 555) {
             isSignInSuccess = false
             isSelected = true
 
@@ -315,7 +386,7 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
 
     override fun onResume() {
         super.onResume()
-        if(!isSignInSuccess){
+        if (!isSignInSuccess) {
             binding.navView.selectedItemId = R.id.navigation_navbar_home
         }
 

@@ -1,15 +1,19 @@
 package com.zillennium.utswap.module.main.home
 
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.BlurMaskFilter
 import android.graphics.MaskFilter
+import android.net.Uri
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager.widget.ViewPager
+import com.zillennium.CheckUserLoginClearToken
 import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
+import com.zillennium.utswap.Datas.StoredPreferences.KYCPreferences
 import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
@@ -31,8 +35,7 @@ import com.zillennium.utswap.module.project.projectScreen.ProjectActivity
 import com.zillennium.utswap.module.security.securityActivity.signInScreen.SignInActivity
 import com.zillennium.utswap.module.system.notification.NotificationActivity
 import com.zillennium.utswap.screens.navbar.navbar.MainActivity
-import com.zillennium.utswap.utils.Constants
-import com.zillennium.utswap.utils.UtilKt
+import com.zillennium.utswap.utils.*
 
 class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, FragmentHomeBinding>(),
     HomeView.View {
@@ -51,16 +54,21 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
     var isUserSwipe = false
     var currentPosition = 0
 
-
     override fun initView() {
         super.initView()
+
         SessionVariable.realTimeWatchList.value = true
         mPresenter.getBanner(requireActivity())
-
         onSwipeRefresh()
-        SessionVariable.SESSION_STATUS.observe(this){
-            requestData()
+        requestData()
+
+        SessionVariable.USER_EXPIRE_TOKEN.observe(this){
+            if(it == true){
+                (activity as MainActivity).onRefreshData()
+//                requestData()
+            }
         }
+
         binding.apply {
             swipeRefresh.setColorSchemeColors(
                 ContextCompat.getColor(
@@ -74,6 +82,8 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
                 //real time watchlist
                 SessionVariable.realTimeWatchList.observe(this@HomeFragment){
                     if(it){
+                        rvHomeWatchlist.visibility = View.VISIBLE
+                        linearLayoutWatchlist.visibility = View.VISIBLE
                         mPresenter.getWatchListAndBalance(requireActivity())
                         SessionVariable.realTimeWatchList.value = false
                     }
@@ -103,9 +113,9 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
                             linearLayoutBalance.visibility = View.GONE
                             rvHomeWatchlist.visibility = View.GONE
                             linearLayoutWatchlist.visibility = View.GONE
-
                         }
                     }
+
                     imgMenu.setOnClickListener {
                         if (SessionPreferences().SESSION_TOKEN != null) {
                             val intent = Intent(UTSwapApp.instance, AccountActivity::class.java)
@@ -120,12 +130,7 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
 
                         }
                     }
-                    /*imgMenu.setOnClickListener {
-                    val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
-                    startActivity(intent)
-                }*/
 
-                    /* Show or Hide Trading Balance */
                     tradingBalance.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
                     tradingBalance.paint.maskFilter = blurMask
 
@@ -138,42 +143,89 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
 
                     /* Home Menu Grid */
                     onHomeMenuGrid(SessionVariable.SESSION_STATUS.value.toString().toBoolean())
-                    SessionVariable.SESSION_STATUS.observe(this@HomeFragment) {
-                        if (SessionVariable.SESSION_STATUS.value == true && (SessionPreferences().SESSION_KYC == true)) {
-                            onHomeMenuGrid(true)
-                            txtCountNotification.visibility = View.VISIBLE
-                            imgNotification.setOnClickListener {
+                    imgNotification.setOnClickListener {
+                        SessionVariable.SESSION_STATUS.observe(this@HomeFragment) {
+                            if (SessionVariable.SESSION_STATUS.value == true) {
                                 val intent =
                                     Intent(UTSwapApp.instance, NotificationActivity::class.java)
                                 startActivity(intent)
-                            }
-                        } else {
-                            onHomeMenuGrid(false)
-                            txtCountNotification.visibility = View.INVISIBLE
-                            imgNotification.setOnClickListener {
+
+                            } else {
+                                tvBadgeNumber.visibility = View.INVISIBLE
                                 val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
                                 startActivity(intent)
                             }
                         }
+
                     }
+
 
                 }
 
 
             }
         } catch (error: Exception) {
-            // Must be safe
+
         }
     }
     private fun requestData() {
-        mPresenter.getNewsHome(requireActivity())
+        SessionVariable.SESSION_STATUS.observe(this){
+            if (it) {
+                mPresenter.getNewsHome(requireActivity())
+
+            } else {
+                mPresenter.getNewsWithoutToken(requireContext())
+
+            }
+        }
         mPresenter.getWatchListAndBalance(requireActivity())
         mPresenter.getBanner(requireActivity())
 
     }
 
-    override fun onGetBannerSuccess(data: BannerObj.Banner) {
+    fun setBadgeNumber() {
+        binding.apply {
+            SessionVariable.BADGE_NUMBER.observe(this@HomeFragment) {
+                if (SessionVariable.BADGE_NUMBER.value?.isNotEmpty() == true && SessionVariable.BADGE_NUMBER.value != "0") {
+                    tvBadgeNumber.visibility = View.VISIBLE
+                    if (it.toInt() > 9) {
+                        tvBadgeNumber.text = "9+"
+                    } else {
+                        tvBadgeNumber.text = it
+                    }
+                } else {
+                    tvBadgeNumber.visibility = View.INVISIBLE
 
+                }
+            }
+        }
+    }
+
+    fun actionAfterKYC() {
+        binding.apply {
+            if ((activity as MainActivity).kcyComplete == true) {
+                onHomeMenuGrid(true)
+            } else {
+                onHomeMenuGrid(false)
+            }
+        }
+    }
+
+    private fun checkUserLogin(){
+        onHomeMenuGrid(false)
+        binding.apply {
+            linearLayoutWatchlist.visibility =View.GONE
+            linearLayoutBalance.visibility =View.GONE
+            txtTotalBalance .visibility =View.GONE
+            imgMenu.setOnClickListener {
+                val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
+                startActivity(intent)
+            }
+        }
+    }
+
+    override fun onGetBannerSuccess(data: BannerObj.Banner) {
+        mPresenter.getNewsHome(requireActivity())
         binding.apply {
             swipeRefresh.isRefreshing = false
             bannerLoopingPagerAdapter = object : BannerLoopingPagerAdapter(
@@ -233,6 +285,10 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
     }
 
     override fun onGetNewsHomeSuccess(data: News.NewsRes) {
+        if (data.message== "Please sign in"){
+            checkUserLogin()
+            CheckUserLoginClearToken.clearTokenExpired()
+        }
         newsList.clear()
         data.data?.NEW?.forEachIndexed { index, itemWishList ->
 
@@ -262,8 +318,36 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
         }
     }
 
-    override fun onGetWishListAndBalanceSuccess(data: BannerObj.whistListRes) {
+    override fun onGetNewsHomeNoTokenSuccess(data: News.NewsRes) {
+       /* newsList.clear()
+        data.data?.NEW?.forEachIndexed { index, itemWishList ->
 
+            if (index <= 2) {
+                newsList.add(itemWishList)
+            }
+        }
+        binding.apply {
+            swipeRefresh.isRefreshing = false
+
+            rvHomeNews.layoutManager = LinearLayoutManager(UTSwapApp.instance)
+            homeRecentNewsAdapter = HomeRecentNewsAdapter(newsList)
+            //data.data?.NEW?.let { HomeRecentNewsAdapter(it) }
+            rvHomeNews.adapter = homeRecentNewsAdapter
+            layNewsLoading.setOnClickListener {
+                activity?.findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(
+                    R.id.nav_view
+                )?.selectedItemId = R.id.navigation_navbar_news
+            }
+        }*/
+
+    }
+
+    override fun onGetNewsHomeNoTokenFail(message: String) {}
+
+    override fun onGetWishListAndBalanceSuccess(data: BannerObj.whistListRes) {
+            if (data.message== "Please sign in"){
+                checkUserLogin()
+            }
 
         if (data.data?.watch_lists?.size == 0) {
             binding.apply {
@@ -330,8 +414,19 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
                     startActivity(intent)
                 }
                 "Withdraw" -> {
-                    val intent = Intent(UTSwapApp.instance, WithdrawActivity::class.java)
-                    startActivity(intent)
+                    //alert dialog
+                    //alert dialog
+                    val builder = AlertDialog.Builder(requireActivity())
+                    builder.setTitle("Withdraw is coming soon.")
+                    builder.setMessage("We are working on it.")
+                  //  builder.setIcon(R.drawable.icon_log_out)
+
+                    builder.setPositiveButton("Okay"){dialogInterface, which ->
+                    }
+                    val alertDialog: AlertDialog = builder.create()
+                    alertDialog.show()
+//                    val intent = Intent(UTSwapApp.instance, WithdrawActivity::class.java)
+//                    startActivity(intent)
                 }
                 "Transfer" -> {
                     val intent = Intent(UTSwapApp.instance, TransferActivity::class.java)
@@ -376,16 +471,18 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
     private fun showBalanceClick() {
         binding.apply {
 
-            blurCondition = !blurCondition
-
             if (blurCondition) {
                 tradingBalance.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
                 tradingBalance.paint.maskFilter = null
                 eyeImage.setImageResource(R.drawable.ic_baseline_remove_red_eye_24)
+                blurCondition = false
+
             } else {
                 tradingBalance.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
                 tradingBalance.paint.maskFilter = blurMask
                 eyeImage.setImageResource(R.drawable.ic_baseline_visibility_off_24)
+                blurCondition = true
+
             }
         }
     }

@@ -13,6 +13,8 @@ object ProjectInfoDetail {
     class ProjectInfoDetailData {
         var id: String? = null
         var project_name: String? = null
+        var market_id: String? = null
+        var market_name: String? = null
         var base_price: Float? = null
         var target_price: Float? = null
         var total_ut: Int? = null

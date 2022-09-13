@@ -10,13 +10,17 @@ import retrofit2.http.Body
 class LogsView {
     interface View : BaseMvpView {
         override fun initView()
-        fun accountLogsSuccess(data: ArrayList<Logs.AccountLogsData>?)
+        fun accountLogsSuccess(data: Logs.AccountLogsRes)
         fun accountLogsFail(data: Logs.AccountLogsRes)
+        fun accountLogsNextPageSuccess(data: Logs.AccountLogsRes)
+        fun accountLogsNextPageFail(data: Logs.AccountLogsRes)
+        fun onUserExpiredToken()
 //        override fun onFail(any: Any)
     }
 
     interface Presenter : BaseMvpPresenter<View> {
         override fun initViewPresenter(context: Context, bundle: Bundle?)
         fun accountLogs(body: Logs.AccountLogsObject, context: Context)
+        fun accountLogsNextPage(body: Logs.AccountLogsObject,context: Context)
     }
 }

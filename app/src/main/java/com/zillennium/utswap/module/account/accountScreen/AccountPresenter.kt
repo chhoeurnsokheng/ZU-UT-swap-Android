@@ -29,7 +29,11 @@ class AccountPresenter : BaseMvpPresenterImpl<AccountView.View>(),
             {
                 mView?.onGetUserInfoSuccess(it.data!!)
             }else{
-                mView?.onGetUserInfoFail(it.data!!)
+                if(it.message.toString() == "Please sign in"){
+                    mView?.userExpiredToken()
+                }else{
+                    mView?.onGetUserInfoFail(it.data!!)
+                }
             }
         },{
             object : CallbackWrapper(it, UTSwapApp.instance, arrayListOf()){
@@ -46,7 +50,11 @@ class AccountPresenter : BaseMvpPresenterImpl<AccountView.View>(),
             if(it.status == 1){
                 mView?.uploadProfileSuccess(it)
             }else{
-                mView?.uploadProfileFail(it)
+                if(it.message.toString() == "Please sign in"){
+                    mView?.userExpiredToken()
+                }else{
+                    mView?.uploadProfileFail(it)
+                }
             }
         },{
             object : CallbackWrapper(it, UTSwapApp.instance, arrayListOf()){

@@ -13,7 +13,8 @@ class SessionVariable {
         var SESSION_PHONE_NUMBER = MutableLiveData<String>(SessionPreferences().SESSION_PHONE_NUMBER)
         var SESSION_BANK : MutableLiveData<List<FinanceBankModel>> = MutableLiveData<List<FinanceBankModel>>()
         var SESSION_KYC_SUBMIT_STATUS = MutableLiveData<Boolean>(SessionPreferences().SESSION_KYC_SUBMIT_STATUS)
-
+        var BADGE_NUMBER = MutableLiveData<String>(SessionPreferences().BADGE_NUMBER)
+        var USER_EXPIRE_TOKEN: MutableLiveData<Boolean> = MutableLiveData(false)
 
 
         var SESSION_SUBSCRIPTION_BOTTOM_SHEET: MutableLiveData<Boolean> = MutableLiveData()
@@ -29,9 +30,6 @@ class SessionVariable {
         var refreshOrderPending: MutableLiveData<Boolean> = MutableLiveData()
         var refreshMatchingTransaction: MutableLiveData<Boolean> = MutableLiveData()
 
-        var createPendingOrder: MutableLiveData<Boolean> = MutableLiveData()
-        var createMatchingTransaction: MutableLiveData<Boolean> = MutableLiveData()
-
         var marketPriceSell: MutableLiveData<String> = MutableLiveData()
         var marketPriceBuy: MutableLiveData<String> = MutableLiveData()
 
@@ -41,6 +39,8 @@ class SessionVariable {
         var realTimeWatchList: MutableLiveData<Boolean> = MutableLiveData()
         var waitingPlaceOrder: MutableLiveData<Boolean> = MutableLiveData()
         var cancelPlaceOrder: MutableLiveData<Boolean> = MutableLiveData()
+
+        var marketOpen: MutableLiveData<Boolean> = MutableLiveData()
 
     }
 }

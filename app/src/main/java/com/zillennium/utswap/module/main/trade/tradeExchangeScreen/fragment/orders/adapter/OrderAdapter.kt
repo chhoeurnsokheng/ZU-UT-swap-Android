@@ -18,7 +18,7 @@ class OrderAdapter(private var listener: OnClickDelete): BaseRecyclerViewAdapter
     {
         fun bindData(orders: TradingList.TradeOrderPendingEntrust, position: Int){
             binding.apply {
-                txtUt.text = groupingSeparatorInt(orders.num.toString().toInt())
+                txtUt.text = "${groupingSeparatorInt(orders.num.toString().toInt())} UT"
                 txtPrice.text = "$ ${orders.price.toString().toDouble().let { groupingSeparator(it) }}"
                 txtDate.text = orders.addtime.toString()
 

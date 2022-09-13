@@ -25,6 +25,8 @@ import com.zillennium.utswap.models.userService.User
 import com.zillennium.utswap.module.account.addNumberScreen.AddNumberActivity
 import com.zillennium.utswap.module.finance.transferScreen.dialog.TransferSuccessDialog
 import com.zillennium.utswap.module.security.securityDialog.FundPasswordDialog
+import com.zillennium.utswap.screens.navbar.navbar.MainActivity
+import com.zillennium.utswap.utils.ClientClearData
 import com.zillennium.utswap.utils.Constants
 import com.zillennium.utswap.utils.DecimalDigitsInputFilter
 import com.zillennium.utswap.utils.UtilKt
@@ -46,8 +48,6 @@ class TransferActivity :
     private var receiverTransfer = ""
 
     private var countLoop = 0
-    private var count = 0
-
 
     override fun initView() {
         super.initView()
@@ -55,7 +55,10 @@ class TransferActivity :
             binding.apply {
 
                 onCallApi()
+                onSwapRefresh()
                 onTextChangeListener()
+
+                swipeRefreshTransfer.setColorSchemeColors(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
 
                 SessionVariable.successTransfer.value = false
 
@@ -115,9 +118,11 @@ class TransferActivity :
                 mPresenter.onGetUserInfo(UTSwapApp.instance)
                 binding.progressBar.visibility = View.GONE
                 binding.layNoInternet.visibility = View.GONE
+                binding.swipeRefreshTransfer.isEnabled = true
             }else{
                 binding.progressBar.visibility = View.VISIBLE
                 binding.layNoInternet.visibility = View.VISIBLE
+                binding.swipeRefreshTransfer.isEnabled = false
             }
         }
     }
@@ -139,15 +144,20 @@ class TransferActivity :
         }
     }
     override fun onGetUserInfoFail(data: User.AppSideBarData) {}
-    override fun onGetUserBalanceInfoSuccess(data: BalanceFinance.GetUserBalanceInfoData) {
+    override fun onGetUserBalanceInfoSuccess(data: BalanceFinance.GetUserBalanceInfo) {
         binding.apply {
-            txtTransferBalance.text = "$ " + data.transfer_balance?.let { UtilKt().formatValue(it.toDouble(), "###,###.##") }
-            txtAvailableBalance.text = "$ " + data.available_balance?.let { UtilKt().formatValue(it.toDouble(), "###,###.##") }
-            txtPending.text = "$ " + data.pending?.let { UtilKt().formatValue(it.toDouble(), "###,###.##") }
-            txtLockUp.text = "$ " + data.lock_up?.let { UtilKt().formatValue(it.toDouble(), "###,###.##") }
+            swipeRefreshTransfer.isRefreshing = false
+            txtTransferBalance.text = "$ " + data.data?.transfer_balance?.let { UtilKt().formatValue(it.toDouble(), "###,###.##") }
+            txtAvailableBalance.text = "$ " + data.data?.available_balance?.let { UtilKt().formatValue(it.toDouble(), "###,###.##") }
+            txtPending.text = "$ " + data.data?.pending?.let { UtilKt().formatValue(it.toDouble(), "###,###.##") }
+            txtLockUp.text = "$ " + data.data?.lock_up?.let { UtilKt().formatValue(it.toDouble(), "###,###.##") }
         }
     }
-    override fun onGetUserBalanceInfoFail(data: BalanceFinance.GetUserBalanceInfo) {}
+    override fun onGetUserBalanceInfoFail(data: BalanceFinance.GetUserBalanceInfo) {
+        binding.apply {
+            swipeRefreshTransfer.isRefreshing = false
+        }
+    }
     override fun onGetValidateTransferSuccess(data: Transfer.GetValidateTransferData) {
         binding.apply {
 
@@ -159,10 +169,16 @@ class TransferActivity :
     override fun onGetValidateTransferFail(data: Transfer.GetValidateTransfer) {
         binding.apply {
             loadingTransfer.visibility = View.GONE
-            DrawableCompat.setTint(etPhoneNumberScanQR.background, ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
             Toast.makeText(UTSwapApp.instance, data.message, Toast.LENGTH_LONG).show()
 
         }
+    }
+
+    override fun onUserExpiredToken() {
+        ClientClearData.clearDataUser()
+        startActivity(Intent(this@TransferActivity, MainActivity::class.java))
+        finish()
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
     }
 
     private val filter = InputFilter { source, start, end, dest, dstart, dend ->
@@ -248,7 +264,6 @@ class TransferActivity :
                     before: Int,
                     count: Int
                 ) {
-                    DrawableCompat.setTint(etPhoneNumberScanQR.background, ContextCompat.getColor(UTSwapApp.instance, R.color.light_gray))
                     if (s.toString().matches("^00".toRegex())) {
                         etPhoneNumberScanQR.removeTextChangedListener(this)
                         etPhoneNumberScanQR.setText("0")
@@ -309,14 +324,22 @@ class TransferActivity :
                     override fun onVisibilityChanged(isOpen: Boolean) {
                         if (!isOpen) {
                             etMountTransfer.clearFocus()
+                            swipeRefreshTransfer.isEnabled = true
                         }else{
                             layTransactions.visibility = View.VISIBLE
+                            swipeRefreshTransfer.isEnabled = false
                         }
                     }
                 })
         }
     }
-
+    private fun onSwapRefresh(){
+        binding.apply {
+            swipeRefreshTransfer.setOnRefreshListener {
+                mPresenter.onGetUserBalanceInfo(UTSwapApp.instance)
+            }
+        }
+    }
     override fun onDestroy() {
         super.onDestroy()
         SessionVariable.successTransfer.value = false

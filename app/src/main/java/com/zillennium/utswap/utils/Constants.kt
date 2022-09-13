@@ -23,6 +23,21 @@ interface Constants {
         const val DELAY: Long = 500 //MILI
     }
 
+    interface NotificationType{
+        companion object {
+            const val TRANSFER = "trx_transfer"
+            const val WITHDRAW = "trx_withdraw"
+            const val DEPOSIT = "trx_deposit"
+            const val TRADE = "trx_trade"
+            const val SUBSCRIPTION = "trx_subscription"
+            const val KYC = "kyc"
+            const val NEW_PROJECT = "detail_project"
+            const val NEWS_DETAIL = "article"
+
+
+        }
+    }
+
     interface FundPassword{
         companion object{
             const val SignIn = "sign in"
@@ -472,9 +487,9 @@ interface Constants {
             var ProjectId = "ProjectId"
             var availableBalance = ""
             var utBalance = ""
-            var marketPriceSell = ""
-            var marketPriceBuy = ""
             var errorMessagePlaceOrder = ""
+            var sellFee = ""
+            var buyFee = ""
         }
     }
     interface Project{
@@ -549,8 +564,8 @@ interface Constants {
     }
 
     /** Subscription */
-    interface SubscriptionBottomSheet{
-        companion object{
+    interface SubscriptionBottomSheet {
+        companion object {
             var id = 0
             var volume = ""
             var title = ""
@@ -561,6 +576,16 @@ interface Constants {
             var total_ut = 0
             var min = 0
             var max = 0
+        }
+    }
+
+    interface PortfolioFilter {
+        companion object{
+            const val Change = "Change"
+            const val Performance = "Performance"
+            const val Price = "Price"
+            const val Balance = "Balance"
+            const val Weight = "Weight"
         }
     }
 

@@ -4,7 +4,7 @@
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/dimen_15">
+        android:layout_marginTop="@dimen/dimen_15">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -29,7 +29,17 @@
                 android:gravity="center"
                 android:text="@string/action_remarks"
                 android:textAppearance="@style/regular_10"
-                android:textColor="@color/black_000000" />
+                android:textColor="@color/black_0a0b12" />
+
+            <TextView
+                android:id="@+id/txt_action_ip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:text="@string/action_remarks"
+                android:textAppearance="@style/regular_10"
+                android:textColor="@color/black_0a0b12" />
 
             <TextView
                 android:id="@+id/txt_status"
@@ -39,7 +49,7 @@
                 android:gravity="end"
                 android:text="@string/status"
                 android:textAppearance="@style/regular_10"
-                android:textColor="@color/black_000000" />
+                android:textColor="@color/black_0a0b12" />
 
         </LinearLayout>
 

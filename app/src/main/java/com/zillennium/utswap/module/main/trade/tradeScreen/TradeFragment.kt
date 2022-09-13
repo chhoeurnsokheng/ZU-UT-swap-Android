@@ -27,6 +27,7 @@ import com.zillennium.utswap.module.main.trade.tradeScreen.adapter.TradeAdapter
 import com.zillennium.utswap.module.main.trade.tradeScreen.adapter.TradeUpcomingProjectAdapter
 import com.zillennium.utswap.module.security.securityActivity.signInScreen.SignInActivity
 import com.zillennium.utswap.module.system.notification.NotificationActivity
+import com.zillennium.utswap.screens.navbar.navbar.MainActivity
 
 
 class TradeFragment :
@@ -37,7 +38,7 @@ class TradeFragment :
     override val layoutResource: Int = R.layout.fragment_navbar_trade
     private var tradeAdapter: TradeAdapter? = null
     private var tradeUpcomingProjectAdapter: TradeUpcomingProjectAdapter? = null
-    private var listUpcomingProject =  ArrayList<TradingList.TradeUpComingProjectList>()
+    private var listUpcomingProject = ArrayList<TradingList.TradeUpComingProjectList>()
 
     private var search: String = ""
     private var filter: Int = 0 // 0 = no sort,
@@ -64,18 +65,19 @@ class TradeFragment :
             }
         }
 
+
         fetchTradeData.observe(this@TradeFragment){
+            println("=== start socket trade list")
             if(search.isNotEmpty())
             {
                 search()
-            }else{
+            } else {
                 tradeArrayList.clear()
-                for(i in it.market_trend?.url?.indices!!)
-                {
-                    if(!it.market_trend?.url?.get(i)?.get(11)?.toString().isNullOrEmpty())
-                    {
+                for (i in it.market_trend?.url?.indices!!) {
+                    if (!it.market_trend?.url?.get(i)?.get(11)?.toString().isNullOrEmpty()) {
                         tradeArrayList.add(
-                            TradeModel(it.market_trend?.url!![i][0].toString(),
+                            TradeModel(
+                                it.market_trend?.url!![i][0].toString(),
                                 it.market_trend?.url!![i][13].toString(),
                                 it.market_trend?.url!![i][1].toString(),
                                 it.market_trend?.url!![i][6].toString(),
@@ -87,14 +89,13 @@ class TradeFragment :
                     }
                 }
 
-                if(filter != 0)
-                {
-                    if(search != ""){
+                if (filter != 0) {
+                    if (search != "") {
                         search()
-                    }else{
+                    } else {
                         getFilterData(tradeArrayList)
                     }
-                }else{
+                } else {
                     binding.apply {
                         tradeAdapter!!.items = tradeArrayList
                         tradeAdapter!!.notifyDataSetChanged()
@@ -104,10 +105,29 @@ class TradeFragment :
         }
     }
 
-    private fun onOtherActivity(){
+    fun setBadgeNumberTrade() {
+        binding.apply {
+            SessionVariable.BADGE_NUMBER.observe(this@TradeFragment) {
+                if (SessionVariable.BADGE_NUMBER.value?.isNotEmpty() == true && SessionVariable.BADGE_NUMBER.value != "0") {
+                    tvBadgeNumber.visibility = View.VISIBLE
+                    if (it.toInt() > 9) {
+                        tvBadgeNumber.text = "9+"
+                    } else {
+                        tvBadgeNumber.text = it
+                    }
+                } else {
+                    tvBadgeNumber.visibility = View.INVISIBLE
+
+                }
+            }
+        }
+    }
+
+    private fun onOtherActivity() {
         binding.apply {
             rvTrade.layoutManager = LinearLayoutManager(UTSwapApp.instance)
 //            tradeAdapter = TradeAdapter(tradeArrayList, onclickTrade)
+
             tradeAdapter = TradeAdapter(listener = object : TradeAdapter.Listener{
                 override fun clickMe(tradeProject:TradeModel) {
                     TradeExchangeActivity.launchTradeExchangeActivity(requireActivity(), tradeProject)
@@ -122,14 +142,24 @@ class TradeFragment :
             etSearch.setOnFocusChangeListener { _, hasFocus ->
                 if (hasFocus) {
                     laySearch.backgroundTintList =
-                        ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
+                        ColorStateList.valueOf(
+                            ContextCompat.getColor(
+                                UTSwapApp.instance,
+                                R.color.primary
+                            )
+                        )
                 } else {
                     laySearch.backgroundTintList =
-                        ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.light_gray))
+                        ColorStateList.valueOf(
+                            ContextCompat.getColor(
+                                UTSwapApp.instance,
+                                R.color.light_gray
+                            )
+                        )
                 }
             }
 
-            etSearch.addTextChangedListener(object: TextWatcher {
+            etSearch.addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
 
 
@@ -152,7 +182,7 @@ class TradeFragment :
             }
 
             layChange.setOnClickListener {
-                filter = when(filter){
+                filter = when (filter) {
                     2 -> 0
                     1 -> 2
                     else -> 1
@@ -161,7 +191,7 @@ class TradeFragment :
             }
 
             layLast.setOnClickListener {
-                filter = when(filter){
+                filter = when (filter) {
                     4 -> 0
                     3 -> 4
                     else -> 3
@@ -170,7 +200,7 @@ class TradeFragment :
             }
 
             layVolume.setOnClickListener {
-                filter = when(filter){
+                filter = when (filter) {
                     6 -> 0
                     5 -> 6
                     else -> 5
@@ -194,10 +224,25 @@ class TradeFragment :
                 inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0)
             }
 
+            imgNotification.setOnClickListener {
+                SessionVariable.SESSION_STATUS.observe(this@TradeFragment) {
+                    if (SessionVariable.SESSION_STATUS.value == true) {
+                        val intent =
+                            Intent(UTSwapApp.instance, NotificationActivity::class.java)
+                        startActivity(intent)
+
+                    } else {
+                        tvBadgeNumber.visibility = View.INVISIBLE
+                        val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
+                        startActivity(intent)
+                    }
+                }
+
+            }
+
             txtCancel.setOnClickListener {
                 linearLayoutSearch.visibility = View.GONE
-                if(listUpcomingProject.size != 0)
-                {
+                if (listUpcomingProject.size != 0) {
                     linearLayoutUpcomingProject.visibility = View.VISIBLE
                 }
                 etSearch.text.clear()
@@ -206,41 +251,35 @@ class TradeFragment :
         }
     }
 
-    private fun onCheckPreference(){
+    private fun onCheckPreference() {
         binding.apply {
             SessionVariable.SESSION_STATUS.observe(this@TradeFragment) {
-                if(SessionVariable.SESSION_STATUS.value == true){
+                if (SessionVariable.SESSION_STATUS.value == true) {
                     imgMenu.setOnClickListener {
                         val intent = Intent(UTSwapApp.instance, AccountActivity::class.java)
                         startActivity(intent)
-                        requireActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+                        requireActivity().overridePendingTransition(
+                            R.anim.slide_in_left,
+                            R.anim.slide_out_right
+                        )
                     }
-                    imgNotification.setOnClickListener {
-                        val intent = Intent(UTSwapApp.instance, NotificationActivity::class.java)
-                        startActivity(intent)
-                    }
-                    txtCountNotification.visibility =View.VISIBLE
 
-                }else{
+
+                } else {
                     imgMenu.setOnClickListener {
                         val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
                         startActivity(intent)
                     }
-                    imgNotification.setOnClickListener {
-                        val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
-                        startActivity(intent)
-                    }
-                    txtCountNotification.visibility= View.GONE
+
                 }
             }
         }
     }
 
-    private fun onCallWebSocketAndAPI(){
+    private fun onCallWebSocketAndAPI() {
 
-        Tovuti.from(UTSwapApp.instance).monitor{ _, isConnected, _ ->
-            if(isConnected)
-            {
+        Tovuti.from(UTSwapApp.instance).monitor { _, isConnected, _ ->
+            if (isConnected) {
                 mPresenter.startSocketTrading()
                 mPresenter.onGetUpcomingProject()
             }
@@ -250,7 +289,7 @@ class TradeFragment :
     override fun onGetUpcomingProjectSuccess(data: TradingList.TradeUpComingProjectRes) {
         binding.apply {
 
-            if(data.data?.project?.isNotEmpty() == true){
+            if (data.data?.project?.isNotEmpty() == true) {
                 txtUpcoming.visibility = View.VISIBLE
                 linearLayoutUpcomingProject.visibility = View.VISIBLE
 
@@ -260,7 +299,7 @@ class TradeFragment :
                 tradeUpcomingProjectAdapter = TradeUpcomingProjectAdapter()
                 tradeUpcomingProjectAdapter!!.items = listUpcomingProject
                 rvUpcomingProject.adapter = tradeUpcomingProjectAdapter
-            }else{
+            } else {
                 txtUpcoming.visibility = View.GONE
                 linearLayoutUpcomingProject.visibility = View.GONE
             }
@@ -289,6 +328,7 @@ class TradeFragment :
                 tradeData.addAll(tradeArrayList)
             }
 
+
             tradeAdapter = TradeAdapter(listener = object : TradeAdapter.Listener{
                 override fun clickMe(tradeProject:TradeModel) {
                     TradeExchangeActivity.launchTradeExchangeActivity(requireActivity(), tradeProject)
@@ -301,7 +341,7 @@ class TradeFragment :
         }
     }
 
-    private fun getFilterData(list: ArrayList<TradeModel>){
+    private fun getFilterData(list: ArrayList<TradeModel>) {
 
         val tradeData = ArrayList<TradeModel>()
         binding.apply {
@@ -310,7 +350,7 @@ class TradeFragment :
             tradeData.addAll(list)
 
             onClearFilter()
-            when(filter){
+            when (filter) {
                 6 -> {
                     tradeData.sortByDescending { it.volume.toDouble() }
                     iconVolume.setImageResource(R.drawable.ic_sort_arrow_up_down_selected)
@@ -347,6 +387,7 @@ class TradeFragment :
             }
 
 //            tradeAdapter = TradeAdapter(tradeData, onclickTrade)
+
             tradeAdapter = TradeAdapter(listener = object : TradeAdapter.Listener{
                 override fun clickMe(tradeProject:TradeModel) {
                     TradeExchangeActivity.launchTradeExchangeActivity(requireActivity(), tradeProject)
@@ -361,7 +402,7 @@ class TradeFragment :
 
     }
 
-    private fun onClearFilter(){
+    private fun onClearFilter() {
         binding.apply {
             iconChange.setImageResource(R.drawable.ic_sort_arrow_up_down)
             iconLast.setImageResource(R.drawable.ic_sort_arrow_up_down)
@@ -374,7 +415,8 @@ class TradeFragment :
     }
 
     fun Context.hideKeyboard(view: View) {
-        val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        val inputMethodManager =
+            getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
