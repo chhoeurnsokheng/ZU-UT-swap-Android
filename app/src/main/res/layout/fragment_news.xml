@@ -22,7 +22,7 @@
                 android:padding="@dimen/dimen_20"
                 android:src="@drawable/ic_bars"
                 app:tint="@color/primary" />
-            
+
             <ImageView
                 android:id="@+id/img_logo"
                 android:layout_width="@dimen/dimen_20"
@@ -41,9 +41,8 @@
                 android:layout_toStartOf="@+id/lay_notification"
                 android:layout_toEndOf="@+id/img_menu"
                 android:text="@string/news"
-                style="@style/bold_18"
                 android:textAlignment="center"
-                android:textAppearance="@style/medium_21"
+                android:textAppearance="@style/bold_22"
                 android:textColor="@color/primary" />
 
             <RelativeLayout

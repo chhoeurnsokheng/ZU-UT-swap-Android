@@ -21,7 +21,7 @@
                 android:src="@drawable/ic_baseline_arrow_back_24"
                 app:tint="@color/primary" />
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/txt_subscription_title"
                 android:layout_width="@dimen/dimen_200"
                 android:layout_height="wrap_content"
@@ -29,7 +29,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="@dimen/dimen_55"
                 android:text="@string/ut_pochentong"
-                android:textAppearance="@style/medium_20"
+                android:textAppearance="@style/bold_20"
                 android:textColor="@color/purple_700" />
 
             <LinearLayout
