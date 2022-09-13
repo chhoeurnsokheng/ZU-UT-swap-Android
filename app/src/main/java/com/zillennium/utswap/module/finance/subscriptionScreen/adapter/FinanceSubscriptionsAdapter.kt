@@ -47,17 +47,17 @@ class FinanceSubscriptionsAdapter(
         holder.titleSubscriptions.text = itemSubscriptionList.name
         holder.dateSubscription.text = itemSubscriptionList.addtimeReadble
         holder.amountSubscription.text = "$" + groupingSeparator(itemSubscriptionList.mum.toDouble())
-        if (itemSubscriptionList.status == "1") {
+        if (itemSubscriptionList.status == "Completed") {
             holder.imageSubscription.setImageResource(R.drawable.ic_unlocked)
-            holder.statusDays.text = "Unlocked"
+            holder.statusDays.text = "—"
 
         } else {
             holder.imageSubscription.setImageResource(R.drawable.ic_locked)
-            holder.statusDays.text = "${itemSubscriptionList.lock_period_left} day(s) left"
+            holder.statusDays.text = "${-itemSubscriptionList.lock_period_left} day(s) left"
 
         }
         holder.layoutSubscription.setOnClickListener {
-            isLocked = itemSubscriptionList.status != "1"
+            isLocked = itemSubscriptionList.status != "Completed"
             onClickAdapter.onSubscriptionItemClick(
                 itemSubscriptionList.name,
                 isLocked,
