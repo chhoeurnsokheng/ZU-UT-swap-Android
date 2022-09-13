@@ -106,7 +106,6 @@ class ProjectActivity :
         data.data?.projects?.let { projectList.addAll(it) }
 
         binding.apply {
-
             rvProject.adapter?.notifyDataSetChanged()
             pgLoading.visibility = View.GONE
             progressBar.visibility = View.GONE
@@ -145,7 +144,6 @@ class ProjectActivity :
                         )
                 }
             }
-
             etSearch.addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(char: CharSequence?, p1: Int, p2: Int, p3: Int) {
 
@@ -153,6 +151,7 @@ class ProjectActivity :
 
                 override fun onTextChanged(char: CharSequence?, p1: Int, p2: Int, p3: Int) {
                     name = char.toString()
+                    page = 1
                     requestData()
                 }
 
@@ -169,8 +168,7 @@ class ProjectActivity :
             txtCancel.setOnClickListener {
                 linearLayoutSearch.visibility = View.GONE
                 etSearch.text.clear()
-                val inputMethodManager =
-                    UTSwapApp.instance.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+                val inputMethodManager = UTSwapApp.instance.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
                 inputMethodManager.hideSoftInputFromWindow(etSearch.windowToken, 0)
             }
 
@@ -183,8 +181,7 @@ class ProjectActivity :
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 if (dy > 0) {
-                    lastPosition =
-                        (binding.rvProject.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
+                    lastPosition = (binding.rvProject.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
                     if (lastPosition == projectList.size - 1 && page < totalItem) {
                         binding.progressBar.visibility = View.VISIBLE
                         page++

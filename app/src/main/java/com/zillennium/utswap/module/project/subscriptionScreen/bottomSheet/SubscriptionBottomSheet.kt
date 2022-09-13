@@ -195,10 +195,7 @@ class SubscriptionBottomSheet : BottomSheetDialogFragment(), AdapterView.OnItemS
                         btnSubscript.isClickable = true
                     } else {
                         btnSubscript.backgroundTintList = ColorStateList.valueOf(
-                            ContextCompat.getColor(
-                                UTSwapApp.instance,
-                                R.color.gray_999999
-                            )
+                            ContextCompat.getColor(UTSwapApp.instance, R.color.gray_999999)
                         )
                         btnSubscript.isClickable = false
                     }
@@ -213,18 +210,14 @@ class SubscriptionBottomSheet : BottomSheetDialogFragment(), AdapterView.OnItemS
 
                 override fun afterTextChanged(s: Editable?) {
                     val inputVolumePrice: Int = etInputVolume.text.toString().length
-                    if (count <= inputVolumePrice && (inputVolumePrice == 3 ||
-                                inputVolumePrice == 7 || inputVolumePrice == 11 || inputVolumePrice == 15)
+                    if (count <= inputVolumePrice && (inputVolumePrice == 3 || inputVolumePrice == 7 || inputVolumePrice == 11 || inputVolumePrice == 15)
                     ) {
                         etInputVolume.setText(etInputVolume.text.toString() + " ")
                         val pos = etInputVolume.text.length
                         etInputVolume.setSelection(pos)
-                    } else if (count >= inputVolumePrice && (inputVolumePrice == 3 ||
-                                inputVolumePrice == 7 || inputVolumePrice == 11 || inputVolumePrice == 15)
+                    } else if (count >= inputVolumePrice && (inputVolumePrice == 3 || inputVolumePrice == 7 || inputVolumePrice == 11 || inputVolumePrice == 15)
                     ) {
-                        etInputVolume.setText(
-                            etInputVolume.text.toString()
-                                .substring(0, etInputVolume.text.toString().length - 1)
+                        etInputVolume.setText(etInputVolume.text.toString().substring(0, etInputVolume.text.toString().length - 1)
                         )
                         val pos = etInputVolume.text.length
                         etInputVolume.setSelection(pos)
@@ -247,13 +240,9 @@ class SubscriptionBottomSheet : BottomSheetDialogFragment(), AdapterView.OnItemS
         }
     }
 
-    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {}
 
-    }
-
-    override fun onNothingSelected(parent: AdapterView<*>?) {
-
-    }
+    override fun onNothingSelected(parent: AdapterView<*>?) {}
 
 
 }
