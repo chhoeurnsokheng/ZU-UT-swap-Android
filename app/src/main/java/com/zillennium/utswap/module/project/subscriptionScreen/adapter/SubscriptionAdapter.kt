@@ -39,49 +39,61 @@ class SubscriptionAdapter(var onclickAdapter: OnclickAdapter, var userLevel: Str
                 tvUtMainValue.text = UtMainValue.toString()
                 txtEndTime.text = subscriptionList.endtime
 
-                val userLevelConvert = userLevel.replace("\\s".toRegex(), "").substring(2)
-                if (subscriptionList.user_account_type.toString().contains(userLevelConvert)) {
-                    CardViewPopup.isEnabled = true
-                    imgCircle.imageTintList = ContextCompat.getColorStateList(UTSwapApp.instance, R.color.simple_green)
-                    determinateBar.progressBackgroundTintList = ContextCompat.getColorStateList(UTSwapApp.instance, R.color.gray_999999)
-                } else {
-                    imgCircle.imageTintList = ContextCompat.getColorStateList(UTSwapApp.instance, R.color.gray_E7E7E7)
-                }
+                if(userLevel.isEmpty()){
 
-                val totalUT = subscriptionList.num.toString().toInt()
-                val volumeUT = subscriptionList.deal.toString().toInt()
-                if (volumeUT == totalUT) {
-                    imgCircle.imageTintList = ContextCompat.getColorStateList(UTSwapApp.instance, R.color.dark_pink)
-                }
-                itemView.setOnClickListener {
-                    itemView.isEnabled = false
-                    if (!subscriptionList.user_account_type.toString().contains(userLevelConvert)) {
-                        Toast.makeText(UTSwapApp.instance, "please upgrade your account", Toast.LENGTH_SHORT).show()
-                    } else {
-                        if (volumeUT == totalUT) {
-                            itemView.isEnabled = false
-                            itemView.isClickable = false
-//                            Toast.makeText(UTSwapApp.instance, "The current ICO is over", Toast.LENGTH_SHORT).show()
-                        } else {
-                            if (Dollar != null) {
-                                onclickAdapter.onClickMe(
-                                    subscriptionList.user_account_type.toString(),
-                                    subscriptionList.jian.toString(),
-                                    subscriptionList.id,
-                                    Dollar.toDouble(),
-                                    subscriptionList.num.toString().toInt(),
-                                    subscriptionList.min.toString().toInt(),
-                                    subscriptionList.max.toString().toInt()
-
-                                )
-                            }
-                        }
+                    val totalUT = subscriptionList.num.toString().toInt()
+                    val volumeUT = subscriptionList.deal.toString().toInt()
+                    if (volumeUT == totalUT) {
+                        imgCircle.imageTintList = ContextCompat.getColorStateList(UTSwapApp.instance, R.color.dark_pink)
                     }
 
-                    Handler().postDelayed({
-                        itemView.isEnabled = true
-                    }, 2000)
+                }else{
+                    val userLevelConvert = userLevel.replace("\\s".toRegex(), "").substring(2)
+                    if (subscriptionList.user_account_type.toString().contains(userLevelConvert)) {
+                        CardViewPopup.isEnabled = true
+                        imgCircle.imageTintList = ContextCompat.getColorStateList(UTSwapApp.instance, R.color.simple_green)
+                        determinateBar.progressBackgroundTintList = ContextCompat.getColorStateList(UTSwapApp.instance, R.color.gray_999999)
+                    } else {
+                        imgCircle.imageTintList = ContextCompat.getColorStateList(UTSwapApp.instance, R.color.gray_E7E7E7)
+                    }
+
+                    val totalUT = subscriptionList.num.toString().toInt()
+                    val volumeUT = subscriptionList.deal.toString().toInt()
+                    if (volumeUT == totalUT) {
+                        imgCircle.imageTintList = ContextCompat.getColorStateList(UTSwapApp.instance, R.color.dark_pink)
+                    }
+                    itemView.setOnClickListener {
+                        itemView.isEnabled = false
+                        if (!subscriptionList.user_account_type.toString().contains(userLevelConvert)) {
+                            Toast.makeText(UTSwapApp.instance, "please upgrade your account", Toast.LENGTH_SHORT).show()
+                        } else {
+                            if (volumeUT == totalUT) {
+                                itemView.isEnabled = false
+                                itemView.isClickable = false
+//                            Toast.makeText(UTSwapApp.instance, "The current ICO is over", Toast.LENGTH_SHORT).show()
+                            } else {
+                                if (Dollar != null) {
+                                    onclickAdapter.onClickMe(
+                                        subscriptionList.user_account_type.toString(),
+                                        subscriptionList.jian.toString(),
+                                        subscriptionList.id,
+                                        Dollar.toDouble(),
+                                        subscriptionList.num.toString().toInt(),
+                                        subscriptionList.min.toString().toInt(),
+                                        subscriptionList.max.toString().toInt()
+
+                                    )
+                                }
+                            }
+                        }
+
+                        Handler().postDelayed({
+                            itemView.isEnabled = true
+                        }, 2000)
+                    }
                 }
+
+
                 determinateBar.progress =
                     ((subscriptionList.deal?.toInt() ?: 0) * 100) / (subscriptionList.num?.toInt()
                         ?: 0)

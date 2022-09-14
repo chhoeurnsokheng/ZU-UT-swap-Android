@@ -2,6 +2,7 @@ package com.zillennium.utswap.module.security.securityDialog
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -26,6 +27,8 @@ import com.zillennium.utswap.models.project.SubscriptionProject
 import com.zillennium.utswap.api.manager.ApiTransferImp
 import com.zillennium.utswap.models.financeTransfer.Transfer
 import com.zillennium.utswap.module.project.subscriptionScreen.dialog.SubscriptionConfirmDialog
+import com.zillennium.utswap.screens.navbar.navbar.MainActivity
+import com.zillennium.utswap.utils.ClientClearData
 import com.zillennium.utswap.utils.Constants
 import com.zillennium.utswap.utils.VerifyClientData
 import eightbitlab.com.blurview.RenderScriptBlur
@@ -254,7 +257,7 @@ class FundPasswordDialog : DialogFragment() {
             SessionVariable.SESSION_SUBSCRIPTION_ORDER.value = true
             Handler().postDelayed({
                 dismiss()
-            }, 2000)
+            }, 1000)
         }
     }
     private fun onCheckSubscriptionFail(data: SubscriptionProject.SubscriptionOrderRes) {
@@ -287,7 +290,17 @@ class FundPasswordDialog : DialogFragment() {
             if (it.status == 1) {
                 onCheckSubscriptionSuccess(it)
             } else {
-                onCheckSubscriptionFail(it)
+                if(it.message.toString() == "Please sign in"){
+                    Handler().postDelayed({
+                        dismiss()
+                    }, 1000)
+                    ClientClearData.clearDataUser()
+                    startActivity(Intent(requireContext(), MainActivity::class.java))
+                    requireActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                }else{
+                    onCheckSubscriptionFail(it)
+                }
+
             }
         }, {
             object : CallbackWrapper(it, UTSwapApp.instance, arrayListOf()) {
