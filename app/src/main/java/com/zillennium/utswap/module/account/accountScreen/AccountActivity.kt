@@ -178,6 +178,7 @@ class AccountActivity :
 //                            SessionPreferences().removeValue("SESSION_KYC_SUBMIT_STATUS")
 //                            SessionPreferences().removeValue("SESSION_KYC_STATUS")
                             ClientClearData.clearDataUser()
+                            SessionVariable.CLEAR_TOKEN_TRADE_EXCHANGE.value = false
 
                             startActivity(Intent(this@AccountActivity, MainActivity::class.java))
                             finish()

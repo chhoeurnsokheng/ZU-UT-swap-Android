@@ -187,6 +187,7 @@ class SignInFragment :
         body.data?.status_kyc
         SessionVariable.SESSION_STATUS.value = true
         SessionVariable.USER_EXPIRE_TOKEN.value = false
+        SessionVariable.CLEAR_TOKEN_TRADE_EXCHANGE.value = false
 
         SessionPreferences().SESSION_STATUS = true
         SessionPreferences().SESSION_TOKEN = body.data?.TOKEN.toString()

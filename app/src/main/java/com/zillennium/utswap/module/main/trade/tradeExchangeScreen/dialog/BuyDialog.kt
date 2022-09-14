@@ -2,6 +2,7 @@ package com.zillennium.utswap.module.main.trade.tradeExchangeScreen.dialog
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -21,10 +22,8 @@ import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.api.manager.ApiManager
 import com.zillennium.utswap.api.manager.ApiTradeImp
 import com.zillennium.utswap.models.tradingList.TradingList
-import com.zillennium.utswap.utils.Constants
-import com.zillennium.utswap.utils.VerifyClientData
-import com.zillennium.utswap.utils.groupingSeparator
-import com.zillennium.utswap.utils.groupingSeparatorInt
+import com.zillennium.utswap.screens.navbar.navbar.MainActivity
+import com.zillennium.utswap.utils.*
 import rx.Subscription
 import kotlin.math.roundToInt
 
