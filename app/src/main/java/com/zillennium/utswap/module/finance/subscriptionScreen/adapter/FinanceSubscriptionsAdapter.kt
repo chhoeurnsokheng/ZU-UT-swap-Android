@@ -48,15 +48,17 @@ class FinanceSubscriptionsAdapter(
         holder.dateSubscription.text = itemSubscriptionList.addtimeReadble
         holder.amountSubscription.text = "$" + groupingSeparator(itemSubscriptionList.mum.toDouble())
         if (itemSubscriptionList.status == "Completed") {
+
             holder.imageSubscription.setImageResource(R.drawable.ic_locked)
             holder.statusDays.text = "${  (itemSubscriptionList.lock_period_left)} day(s) left"
         } else {
+
             holder.imageSubscription.setImageResource(R.drawable.ic_unlocked)
             holder.statusDays.text = "—"
         }
 
         holder.layoutSubscription.setOnClickListener {
-            isLocked = itemSubscriptionList.status != "Completed"
+            isLocked = itemSubscriptionList.status =="Completed"
 
             onClickAdapter.onSubscriptionItemClick(
                 itemSubscriptionList.name,
@@ -75,7 +77,6 @@ class FinanceSubscriptionsAdapter(
     override fun getItemCount(): Int {
         return arrayList.size
     }
-
 
     interface OnClickAdapter {
         fun onSubscriptionItemClick(
