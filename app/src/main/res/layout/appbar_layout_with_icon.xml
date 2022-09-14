@@ -24,8 +24,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:textAppearance="@style/bold_22"
-                android:textColor="@color/primary"
+                android:textAppearance="@style/bold_16"
+                android:textColor="@color/black"
+                android:textSize="@dimen/dimen_16"
+
                 android:visibility="visible" />
 
             <LinearLayout

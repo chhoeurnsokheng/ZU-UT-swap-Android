@@ -30,6 +30,7 @@ import com.zillennium.utswap.module.main.portfolio.adapter.*
 import com.zillennium.utswap.module.main.portfolio.dialog.FilterPortfolioDialogBottomSheet
 import com.zillennium.utswap.module.security.securityActivity.signInScreen.SignInActivity
 import com.zillennium.utswap.module.system.notification.NotificationActivity
+import com.zillennium.utswap.screens.navbar.navbar.MainActivity
 import com.zillennium.utswap.utils.Constants
 import com.zillennium.utswap.utils.UtilKt
 import com.zillennium.utswap.utils.Utils
@@ -76,6 +77,7 @@ class PortfolioFragment :
     override fun initView() {
         super.initView()
         try {
+            onSwipeRefresh()
             binding.apply {
 
                 mPresenter.getPortfolioDashboardChart(requireActivity())
@@ -159,11 +161,9 @@ class PortfolioFragment :
              ut_projects  =data.data?.ut_projects?.toDouble() ?:0.0
 
 
-
-
-
         mPresenter.getPortfolioDashboardChart(requireActivity())
         binding.apply {
+            swipeRefresh.isRefreshing = false
             loadingProgressBar.visibility = View.GONE
             layTradingBalance.visibility = View.VISIBLE
             txtBalance.text =
@@ -414,12 +414,17 @@ class PortfolioFragment :
         }
     }
 
-    override fun onGetPortfolioFail(data: Portfolio.GetPortfolio) {}
+    override fun onGetPortfolioFail(data: Portfolio.GetPortfolio) {
+        binding.apply {
+            swipeRefresh.isRefreshing = false
+        }
+    }
     override fun getPortfolioDashboardChartSuccess(dataSuccess: Portfolio.GetPortfolioDashboardChartRes) {
             if (dataSuccess.message == "Please sign in"){
                 checkUserLogin()
             }
         binding.apply {
+            swipeRefresh.isRefreshing = false
             month = dataSuccess.data.map { it.x } as ArrayList<String>
 
             val listData = ArrayList<Double>()
@@ -542,6 +547,9 @@ class PortfolioFragment :
     }
 
     override fun getPortfolioDashboardChartFailed(data: String) {
+        binding.apply {
+            swipeRefresh.isRefreshing = false
+        }
     }
 
 
@@ -643,7 +651,14 @@ class PortfolioFragment :
             }
         }
     }
-
+    private fun onSwipeRefresh() {
+        binding.apply {
+            swipeRefresh.setOnRefreshListener {
+                requestData()
+                mPresenter.getPortfolioDashboardChart(requireActivity())
+            }
+        }
+    }
 
     private fun week2(): ArrayList<Entry> {
         val sales = ArrayList<Entry>()
