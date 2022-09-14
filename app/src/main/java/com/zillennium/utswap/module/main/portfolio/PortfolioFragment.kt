@@ -516,7 +516,7 @@ class PortfolioFragment :
         binding.lineChart.setDrawGridBackground(false);//set this to true to draw the
         binding.apply {
             lineChart.minOffset = 0f
-            lineChart.setViewPortOffsets(0f, 20f, 88f, 40f)
+            lineChart.setViewPortOffsets(0f, 20f, 88f, 50f)
         }
 
     }
