@@ -17,6 +17,7 @@
             android:layout_gravity="center"
             app:tint="@color/danger"
             android:src="@drawable/ic_screen_lock"
+            android:layout_marginTop="@dimen/dimen_14"
             android:layout_marginBottom="@dimen/dimen_30"/>
 
         <TextView

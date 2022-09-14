@@ -11,6 +11,7 @@ import com.zillennium.utswap.bases.mvp.BaseRecyclerViewAdapterGeneric
 import com.zillennium.utswap.bases.mvp.BaseViewHolder
 import com.zillennium.utswap.databinding.ItemListPortfolioPerformanceBinding
 import com.zillennium.utswap.models.portfolio.Portfolio
+import com.zillennium.utswap.module.main.trade.tradeExchangeScreen.TradeExchangeActivity
 
 class PerformanceAdapter: BaseRecyclerViewAdapterGeneric<Portfolio.GetPortfolioDashBoard, PerformanceAdapter.ItemViewHolder>(){
 
@@ -44,6 +45,14 @@ class PerformanceAdapter: BaseRecyclerViewAdapterGeneric<Portfolio.GetPortfolioD
                 }else {
                     txtPercent.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.black_333333))
                     percent.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.black_333333))
+                }
+                layoutProject.setOnClickListener {
+                    TradeExchangeActivity.launchTradeExchangeActivityFromWishList(
+                        root.context,
+                        performance.mkt_project_name,
+                        performance.market_name,performance.project_id,
+                        performance.market_id.toString()
+                    )
                 }
 
             }

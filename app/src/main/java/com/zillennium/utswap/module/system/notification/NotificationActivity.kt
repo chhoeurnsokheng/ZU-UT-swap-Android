@@ -55,7 +55,7 @@ class NotificationActivity :
         binding.toolBar.apply {
             tbTitle.setText(R.string.notifications)
             tbTitle.typeface = Typeface.DEFAULT_BOLD
-            tbTitle.setTextColor(ContextCompat.getColor(this@NotificationActivity, R.color.black))
+            tbTitle.setTextColor(ContextCompat.getColor(this@NotificationActivity, R.color.primary))
             tb.setNavigationOnClickListener {
                 finish()
             }

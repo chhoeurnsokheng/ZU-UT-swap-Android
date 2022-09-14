@@ -67,6 +67,9 @@ class PortfolioFragment :
     companion object {
         var month1: List<String> = arrayListOf()
         var month: List<String> = arrayListOf()
+        var balance_weight = 0.0
+        var ut_projects = 0.0
+
     }
 
     @SuppressLint("UseCompatLoadingForDrawables", "NotifyDataSetChanged", "SetTextI18n")
@@ -82,14 +85,11 @@ class PortfolioFragment :
                     requestData()
                 }
 
-
-                //  setDataToLineChart()
-                //  setUpLineChart()
                 onCallApi()
                 onCheckUserKYC()
                 onLayoutHeader()
                 onUserBalancePortfolio()
-                //  onGetDiagram()
+
 
                 layFilter.setOnClickListener {
                     layFilter.isEnabled = false
@@ -154,6 +154,14 @@ class PortfolioFragment :
         if (data.message == "Please sign in") {
             checkUserLogin()
         }
+
+             balance_weight = data.data?.balance_weight?.toDouble() ?: 0.0
+             ut_projects  =data.data?.ut_projects?.toDouble() ?:0.0
+
+
+
+
+
         mPresenter.getPortfolioDashboardChart(requireActivity())
         binding.apply {
             loadingProgressBar.visibility = View.GONE
@@ -214,12 +222,16 @@ class PortfolioFragment :
                         }
 
                         lineChart.visibility = View.VISIBLE
+
+
+
                         txtTradingBalance.text = "$ " + data.data?.total_market_value?.let {
                             UtilKt().formatValue(
                                 it,
                                 "###,###.##"
                             )
                         }
+
 
                     }
                     Constants.PortfolioFilter.Performance -> {
@@ -387,12 +399,15 @@ class PortfolioFragment :
                         }
 
                         chartPie.visibility = View.VISIBLE
-                        txtTradingBalance.text = "$ " + data.data?.total_market_value?.let {
+
+                        txtTradingBalance.text = "% " + data.data?.balance_weight?.let {
                             UtilKt().formatValue(
-                                it,
+                                it.toDouble(),
                                 "###,###.##"
                             )
                         }
+
+
                     }
                 }
             }
@@ -408,15 +423,8 @@ class PortfolioFragment :
             month = dataSuccess.data.map { it.x } as ArrayList<String>
 
             val listData = ArrayList<Double>()
-            listData.add(83.20)
-            listData.add(16.80)
-            listData.add(12.0)
-            listData.add(1.0)
-            listData.add(14.0)
-            listData.add(19.0)
-            listData.add(2.0)
-            listData.add(21.0)
-
+            balance_weight.let { listData.add(it) }
+            ut_projects.let { listData.add(it) }
             chartPie.setDataOfChart(listData)
 
 
@@ -434,12 +442,12 @@ class PortfolioFragment :
         weekTwoSales.lineWidth = 3f
         weekTwoSales.valueTextSize = 15f
         weekTwoSales.mode = LineDataSet.Mode.CUBIC_BEZIER
-        weekTwoSales.color = ContextCompat.getColor(requireActivity(), R.color.simple_green)
-        weekTwoSales.valueTextColor = ContextCompat.getColor(requireActivity(), R.color.simple_green)
+        weekTwoSales.color = ContextCompat.getColor(requireActivity(), R.color.primary)
+        weekTwoSales.valueTextColor = ContextCompat.getColor(requireActivity(), R.color.primary)
         val dataSet = ArrayList<ILineDataSet>()
         dataSet.add(weekTwoSales)
         weekTwoSales.setDrawValues(false)
-        weekTwoSales.valueTextColor = R.color.white
+        weekTwoSales.valueTextColor = R.color.gray
         weekTwoSales.circleRadius = 6f
         val lineData = LineData(dataSet)
         binding.lineChart.data = lineData

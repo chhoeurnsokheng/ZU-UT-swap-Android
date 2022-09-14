@@ -37,7 +37,7 @@
                     android:src="@drawable/ic_ut_swap_logotype_svg"
                     android:visibility="gone" />
 
-                <TextView
+                <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -46,7 +46,7 @@
                     android:layout_toEndOf="@+id/img_menu"
                     android:text="@string/portfolio"
                     android:textAlignment="center"
-                    android:textAppearance="@style/bold_18"
+                    android:textAppearance="@style/bold_22"
                     android:textColor="@color/primary" />
 
                 <RelativeLayout
