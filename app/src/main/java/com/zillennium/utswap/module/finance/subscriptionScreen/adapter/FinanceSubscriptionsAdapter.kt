@@ -67,8 +67,8 @@ class FinanceSubscriptionsAdapter(
                 itemSubscriptionList.price,
                 itemSubscriptionList.num,
                 itemSubscriptionList.mum.toDouble(),
-                itemSubscriptionList.addtimeReadble,
-                itemSubscriptionList.endtime,
+                itemSubscriptionList.startDate,
+                itemSubscriptionList.endDate,
                 itemSubscriptionList.lock_period_left
             )
         }

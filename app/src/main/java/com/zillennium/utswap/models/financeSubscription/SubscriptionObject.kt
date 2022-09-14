@@ -45,6 +45,8 @@ object SubscriptionObject {
         var unlock : String = ""
         var ci : Int = 0
         var endtime : String = ""
+        var startDate : String = ""
+        var endDate : String = ""
         var sort : String = ""
         var convertcurrency : String = ""
         var buycoin : String = ""
