@@ -157,8 +157,8 @@ class PortfolioFragment :
             checkUserLogin()
         }
 
-             balance_weight = data.data?.balance_weight?.toDouble() ?: 0.0
-             ut_projects  =data.data?.ut_projects?.toDouble() ?:0.0
+        balance_weight = data.data?.balance_weight?.toDouble() ?: 0.0
+        ut_projects = data.data?.ut_projects?.toDouble() ?: 0.0
 
 
         mPresenter.getPortfolioDashboardChart(requireActivity())
@@ -419,10 +419,11 @@ class PortfolioFragment :
             swipeRefresh.isRefreshing = false
         }
     }
+
     override fun getPortfolioDashboardChartSuccess(dataSuccess: Portfolio.GetPortfolioDashboardChartRes) {
-            if (dataSuccess.message == "Please sign in"){
-                checkUserLogin()
-            }
+        if (dataSuccess.message == "Please sign in") {
+            checkUserLogin()
+        }
         binding.apply {
             swipeRefresh.isRefreshing = false
             month = dataSuccess.data.map { it.x } as ArrayList<String>
@@ -490,35 +491,9 @@ class PortfolioFragment :
             legend.form = Legend.LegendForm.LINE
         }
 
-//            binding.lineChart.xAxis.valueFormatter = object : ValueFormatter() {
-//                override fun getFormattedValue(value: Float): String {
-//                    return if (value % 1 == 0f && value >= 0 && value < mo.size) {
-////                            formatDateTime(Z1App.instance, list[value.toInt()].date!!, "yyyy-MM-dd", "MMM yyyy")
-//                        Util.formatDateChartUptoCurrentRegion(month1[value.toInt()], null)
-//                    } else {
-//                        ""
-//                    }
-//                }
-//            }
 
         var yMin = 0f
-//            val yMax: Float = when {
-//                binding.lineChart.yMax >= 10000000 -> {
-//                    binding.lineChart.yMax + 4000000
-//                }
-//                binding.lineChart.yMax >= 1000000 -> {
-//                    binding.lineChart.yMax + 1000000
-//                }
-//                binding.lineChart.yMax >= 100000 -> {
-//                    binding.lineChart.yMax + 100000
-//                }
-//                binding.lineChart.yMax >= 10000 -> {
-//                    binding.lineChart.yMax + 10000
-//                }
-//                else -> {
-//                    binding.lineChart.yMax + 1000
-//                }
-//            }
+
 
         //right axis
         val rightAxis = binding.lineChart.axisRight
@@ -541,7 +516,7 @@ class PortfolioFragment :
         binding.lineChart.setDrawGridBackground(false);//set this to true to draw the
         binding.apply {
             lineChart.minOffset = 0f
-            lineChart.setViewPortOffsets(0f,20f,88f,40f)
+            lineChart.setViewPortOffsets(0f, 20f, 88f, 40f)
         }
 
     }
@@ -651,6 +626,7 @@ class PortfolioFragment :
             }
         }
     }
+
     private fun onSwipeRefresh() {
         binding.apply {
             swipeRefresh.setOnRefreshListener {
