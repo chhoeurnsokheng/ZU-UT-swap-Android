@@ -1,16 +1,12 @@
 package com.zillennium.utswap.module.finance.historicalScreen
 
 
-import android.app.DownloadManager
-import android.content.Context
+
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
-import android.os.Environment
 import android.os.Handler
 import android.view.View
-import android.webkit.CookieManager
-import android.webkit.URLUtil
 import android.widget.AdapterView
 import android.widget.Toast
 import androidx.annotation.RequiresApi

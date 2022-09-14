@@ -35,7 +35,7 @@ class FilterPortfolioDialogBottomSheet(
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        dialog!!.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog?.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
         binding = DataBindingUtil.inflate(inflater, R.layout.bottom_sheet_portfolio_filter, container, false)

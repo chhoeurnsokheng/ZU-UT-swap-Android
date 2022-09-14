@@ -3,8 +3,10 @@ package com.zillennium.utswap.module.main.news.newsDetail
 import android.content.Context
 import android.content.Intent
 import android.os.Handler
-import android.text.Html
+import android.util.Base64
+import android.view.MotionEvent
 import android.view.View
+import android.view.View.OnTouchListener
 import androidx.core.content.ContextCompat
 import com.androidstudy.networkmanager.Tovuti
 import com.bumptech.glide.Glide
@@ -13,6 +15,7 @@ import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityNewsDetailBinding
 import com.zillennium.utswap.models.newsService.News
+
 
 class NewsDetailActivity :
     BaseMvpActivity<NewsDetailView.View, NewsDetailView.Presenter, ActivityNewsDetailBinding>(),
@@ -64,7 +67,8 @@ class NewsDetailActivity :
             txtDateTitle.visibility = View.VISIBLE
             txtTitle.text = data.title.toString()
             txtDate.text = data.date?.addtime.toString()
-            txtContent.text = Html.fromHtml(data.content.toString())
+            txtContent.loadData(getHTML(data.content.toString()), "text/html", "base64")
+            txtContent.setOnTouchListener(OnTouchListener { v, event -> event.action == MotionEvent.ACTION_MOVE })
             Glide.with(imgNews.context)
                 .load(data.image.toString())
                 .placeholder(R.drawable.ic_placeholder)
@@ -72,6 +76,22 @@ class NewsDetailActivity :
             view.visibility = View.VISIBLE
         }
     }
+
+    private fun getHTML(data: String): String {
+        val unencodedHtml = "<html><head>\n" +
+                "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n" +
+                "<link rel=\"stylesheet\" type=\"text/css\" href=\"font.css\">\n" +
+                "<style>\n" +
+                "   body {\n" +
+                "       margin: 24px;\n" +
+                "   }\n" +
+                "</style>\n" +
+                "</head><body>$data</body></html>"
+        val encodedHtml = Base64.encodeToString(unencodedHtml.toByteArray(), Base64.NO_WRAP)
+        return encodedHtml
+    }
+
+
 
     override fun onGetNewsFail(data: News.NewsDetailData) {
        binding.apply {

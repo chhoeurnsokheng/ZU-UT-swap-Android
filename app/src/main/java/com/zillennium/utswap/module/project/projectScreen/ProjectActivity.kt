@@ -10,7 +10,6 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
@@ -90,18 +89,6 @@ class ProjectActivity :
 
             }
 
-            SessionVariable.BADGE_NUMBER.observe(this@ProjectActivity){
-                if (it.isNotEmpty() && it != "0") {
-                    if (it.toInt() > 9) {
-                        tvBadgeNumber.text = "9+"
-                    } else {
-                        tvBadgeNumber.text = it
-                    }
-                } else {
-                    tvBadgeNumber.visibility = View.INVISIBLE
-                }
-            }
-
 
         }
 
@@ -119,7 +106,6 @@ class ProjectActivity :
         data.data?.projects?.let { projectList.addAll(it) }
 
         binding.apply {
-
             rvProject.adapter?.notifyDataSetChanged()
             pgLoading.visibility = View.GONE
             progressBar.visibility = View.GONE
@@ -158,7 +144,6 @@ class ProjectActivity :
                         )
                 }
             }
-
             etSearch.addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(char: CharSequence?, p1: Int, p2: Int, p3: Int) {
 
@@ -166,6 +151,7 @@ class ProjectActivity :
 
                 override fun onTextChanged(char: CharSequence?, p1: Int, p2: Int, p3: Int) {
                     name = char.toString()
+                    page = 1
                     requestData()
                 }
 
@@ -182,8 +168,7 @@ class ProjectActivity :
             txtCancel.setOnClickListener {
                 linearLayoutSearch.visibility = View.GONE
                 etSearch.text.clear()
-                val inputMethodManager =
-                    UTSwapApp.instance.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+                val inputMethodManager = UTSwapApp.instance.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
                 inputMethodManager.hideSoftInputFromWindow(etSearch.windowToken, 0)
             }
 
@@ -196,8 +181,7 @@ class ProjectActivity :
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 if (dy > 0) {
-                    lastPosition =
-                        (binding.rvProject.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
+                    lastPosition = (binding.rvProject.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
                     if (lastPosition == projectList.size - 1 && page < totalItem) {
                         binding.progressBar.visibility = View.VISIBLE
                         page++

@@ -11,6 +11,7 @@ import com.zillennium.utswap.bases.mvp.BaseRecyclerViewAdapterGeneric
 import com.zillennium.utswap.bases.mvp.BaseViewHolder
 import com.zillennium.utswap.databinding.ItemListPortfolioPriceBinding
 import com.zillennium.utswap.models.portfolio.Portfolio
+import com.zillennium.utswap.module.main.trade.tradeExchangeScreen.TradeExchangeActivity
 import com.zillennium.utswap.utils.UtilKt
 import kotlin.math.roundToInt
 
@@ -45,6 +46,16 @@ class PriceAdapter : BaseRecyclerViewAdapterGeneric<Portfolio.GetPortfolioDashBo
                 }else if (mktPrice == buyPrice){
                     txtMkt.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
                 }
+                layoutPrice.setOnClickListener {
+                    TradeExchangeActivity.launchTradeExchangeActivityFromWishList(
+                        root.context,
+                        price.mkt_project_name,
+                        price.market_name,price.project_id,
+                        price.market_id.toString()
+                    )
+                }
+
+
             }
         }
     }

@@ -229,9 +229,9 @@ class FinanceLockUpActivity :
         mList.addAll(dataRes.transaction)
         if (dataRes.total_lock_balance.isNotEmpty()) {
             binding.amountLockUp.text =
-                "$${groupingSeparator(dataRes.total_lock_balance.toDouble())}"
+                "$ ${groupingSeparator(dataRes.total_lock_balance.toDouble())}"
         } else {
-            binding.amountLockUp.text = "$0.00"
+            binding.amountLockUp.text = "$ 0.00"
         }
         binding.tvNoLockUp.visibility =
             if (dataRes.transaction.isEmpty()) View.VISIBLE else View.GONE

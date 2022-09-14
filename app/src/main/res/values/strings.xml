@@ -90,7 +90,7 @@
     <string name="withdrawal">Withdrawal</string>
     <string name="transfer">Transfer</string>
     <string name="subscription">Subscription</string>
-    <string name="lock_up">Lock-up</string>
+    <string name="lock_up">Lock-Up</string>
     <string name="historical">Historical</string>
     <string name="trade_exchange">Trade Exchange</string>
     <string name="scan_qrcode">Scan QRCode</string>
@@ -138,7 +138,7 @@
     <string name="withdrawal_balance_0_00">Withdrawal Balance: $ 0.00</string>
     <string name="withdrawal_balance">Withdrawal Balance</string>
     <string name="withdrawal_amount">Withdrawal Amount</string>
-    <string name="pending1">Pending</string>
+    <string name="pending1">Pending :</string>
 
     <string name="withdrawal_fee_1_50">Withdrawal fee 1.50%</string>
     <string name="withdraw">Withdraw</string>
@@ -147,8 +147,8 @@
     <string name="transfer_balance_0_00">Transfer Balance: $ 0.00</string>
     <string name="zero">000 000 0000</string>
     <string name="enter_receiver_s_phone_number">Enter Receiver\'s phone number</string>
-    <string name="transfer_amount">Transfer Amount:</string>
-    <string name="receiver_phone_number">Receiver Phone Number:</string>
+    <string name="transfer_amount">Transfer Amount</string>
+    <string name="receiver_phone_number">Receiver Phone Number</string>
     <string name="transfer_big_letter">Transfer</string>
     <string name="price">Price:</string>
     <string name="total_locked_balance_0_00">Total Locked Balance: $ 0.00</string>
@@ -518,7 +518,8 @@
     <string name="not_available">Not Available</string>
     <string name="old_password_is_wrong">Old Password Is Wrong!</string>
     <string name="verify_password_did_not_match">Verify Password Did Not Match!</string>
-
+    <string name="lock_period">Lock Period</string>
+    <string name="price_without_dot">Price</string>
 
 
 </resources>

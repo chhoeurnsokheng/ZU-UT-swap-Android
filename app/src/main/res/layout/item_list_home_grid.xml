@@ -27,21 +27,21 @@
 
                 <ImageView
                     android:id="@+id/image_homeview"
-                    android:layout_width="@dimen/dimen_30"
-                    android:layout_height="@dimen/dimen_25"
+                    android:layout_width="@dimen/dimen_35"
+                    android:layout_height="@dimen/dimen_30"
                     android:layout_gravity="center"
                     android:layout_marginBottom="@dimen/dimen_12"
                     android:src="@drawable/ic_deposit"
                     app:tint="@color/gray_999999" />
 
-                <TextView
+                <com.google.android.material.textview.MaterialTextView
                     android:gravity="center"
                     android:id="@+id/title_home"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:singleLine="true"
                     android:text="Portfolio"
-                    android:textAppearance="@style/medium_14"
+                    android:textAppearance="@style/bold_14"
                     android:textColor="@color/gray_999999" />
 
             </LinearLayout>

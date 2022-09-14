@@ -47,17 +47,19 @@ class FinanceSubscriptionsAdapter(
         holder.titleSubscriptions.text = itemSubscriptionList.name
         holder.dateSubscription.text = itemSubscriptionList.addtimeReadble
         holder.amountSubscription.text = "$" + groupingSeparator(itemSubscriptionList.mum.toDouble())
-        if (itemSubscriptionList.status == "1") {
-            holder.imageSubscription.setImageResource(R.drawable.ic_unlocked)
-            holder.statusDays.text = "Unlocked"
+        if (itemSubscriptionList.status == "Completed") {
 
-        } else {
             holder.imageSubscription.setImageResource(R.drawable.ic_locked)
-            holder.statusDays.text = "${itemSubscriptionList.lock_period_left} day(s) left"
+            holder.statusDays.text = "${  (itemSubscriptionList.lock_period_left)} day(s) left"
+        } else {
 
+            holder.imageSubscription.setImageResource(R.drawable.ic_unlocked)
+            holder.statusDays.text = "—"
         }
+
         holder.layoutSubscription.setOnClickListener {
-            isLocked = itemSubscriptionList.status != "1"
+            isLocked = itemSubscriptionList.status =="Completed"
+
             onClickAdapter.onSubscriptionItemClick(
                 itemSubscriptionList.name,
                 isLocked,
@@ -65,8 +67,8 @@ class FinanceSubscriptionsAdapter(
                 itemSubscriptionList.price,
                 itemSubscriptionList.num,
                 itemSubscriptionList.mum.toDouble(),
-                itemSubscriptionList.addtimeReadble,
-                itemSubscriptionList.endtime,
+                itemSubscriptionList.startDate,
+                itemSubscriptionList.endDate,
                 itemSubscriptionList.lock_period_left
             )
         }
@@ -75,7 +77,6 @@ class FinanceSubscriptionsAdapter(
     override fun getItemCount(): Int {
         return arrayList.size
     }
-
 
     interface OnClickAdapter {
         fun onSubscriptionItemClick(
