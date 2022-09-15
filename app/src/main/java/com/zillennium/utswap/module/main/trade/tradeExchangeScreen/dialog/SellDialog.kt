@@ -42,6 +42,7 @@ class SellDialog : DialogFragment() {
     private var volume: String? = ""
     private var price: String? = ""
     private var fee: Double? = 0.00
+    private var gross: Double? = 0.00
 
     private var subscriptions: Subscription? = null
 
@@ -74,10 +75,12 @@ class SellDialog : DialogFragment() {
         val grossValue = ((volume?.toDouble()?.times(price!!.toDouble())))
         fee = (grossValue?.times(Constants.TradeExchange.sellFee.toDouble()))?.div(100)
 
+        gross = grossValue?.minus(fee!!)
+
         txtFee?.text = fee?.let { groupingSeparator(it) }
 
         txtGrossValue?.text = grossValue?.let { groupingSeparator(it) }
-        txtNetValue?.text = grossValue?.let { groupingSeparator(it) }
+        txtNetValue?.text = gross?.let { groupingSeparator(it) }
 
         //convert md 5
         var params: Map<String, String> = emptyMap()
