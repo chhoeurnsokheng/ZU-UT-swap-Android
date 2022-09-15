@@ -41,6 +41,7 @@ class BuyDialog : DialogFragment() {
     private var volume: String? = ""
     private var price: String? = ""
     private var fee: Double? = 0.00
+    private var gross: Double? = 0.00
 
     private var subscriptions: Subscription? = null
 
@@ -76,7 +77,9 @@ class BuyDialog : DialogFragment() {
 
         txtFee?.text = fee?.let { groupingSeparator(it) }
 
-        txtGrossValue?.text = grossValue?.let { groupingSeparator(it) }
+        gross = grossValue?.plus(fee!!)
+
+        txtGrossValue?.text = gross?.let { groupingSeparator(it) }
         txtNetValue?.text = grossValue?.let { groupingSeparator(it) }
 
         //convert md 5
