@@ -25,10 +25,10 @@ import com.zillennium.utswap.module.account.addNumberScreen.AddNumberActivity
 import com.zillennium.utswap.module.account.customerSupportScreen.CustomerSupportActivity
 import com.zillennium.utswap.module.account.documentsScreen.DocumentsActivity
 import com.zillennium.utswap.module.account.lockTimeOutScreen.LockTimeOutActivity
-import com.zillennium.utswap.module.account.referralInformationScreen.ReferralInformationActivity
 import com.zillennium.utswap.screens.navbar.navbar.MainActivity
 import com.zillennium.utswap.module.kyc.kycActivity.KYCActivity
 import com.zillennium.utswap.utils.ClientClearData
+import com.zillennium.utswap.utils.Constants
 import com.zillennium.utswap.utils.DialogUtil
 import java.io.ByteArrayOutputStream
 import java.io.File
@@ -44,11 +44,20 @@ class AccountActivity :
     private var newImageFile: File? = null
     var preferencesCondition = true
     private var strKyc: String? = ""
+    private var intentStr = ""
+
 
     override fun initView() {
         super.initView()
         onOtherActivity()
         onCallApi()
+        if (intent?.hasExtra(Constants.IntentType.FROM_MAIN_ACTIVITY) == true) {
+            intentStr = intent.getStringExtra(Constants.IntentType.FROM_MAIN_ACTIVITY).toString()
+        }
+    }
+
+    companion object {
+        var status = false
     }
 
     private fun onOtherActivity(){
@@ -65,8 +74,17 @@ class AccountActivity :
             }
 
             imgClose.setOnClickListener {
-                finish()
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                status = false
+                if (intentStr == Constants.IntentType.FROM_MAIN_ACTIVITY) {
+                    startActivity(Intent(this@AccountActivity, MainActivity::class.java))
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                    finish()
+
+                } else {
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                    finish()
+
+                }
             }
 
             linearLayoutAccount.setOnClickListener {
@@ -178,6 +196,11 @@ class AccountActivity :
 //                            SessionPreferences().removeValue("SESSION_KYC_SUBMIT_STATUS")
 //                            SessionPreferences().removeValue("SESSION_KYC_STATUS")
                             ClientClearData.clearDataUser()
+
+                            SessionVariable.CLEAR_TOKEN_TRADE_EXCHANGE.value = false
+
+
+                            status = true
 
                             startActivity(Intent(this@AccountActivity, MainActivity::class.java))
                             finish()
@@ -331,7 +354,14 @@ class AccountActivity :
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
-        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+        status = false
+        if (intentStr == Constants.IntentType.FROM_MAIN_ACTIVITY) {
+            startActivity(Intent(this@AccountActivity, MainActivity::class.java))
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            finish()
+        } else {
+            super.onBackPressed()
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+        }
     }
 }

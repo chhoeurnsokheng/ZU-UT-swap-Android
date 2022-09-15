@@ -15,6 +15,7 @@ import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.api.manager.ApiManager
 import com.zillennium.utswap.api.manager.ApiTradeImp
 import com.zillennium.utswap.models.tradingList.TradingList
+import com.zillennium.utswap.utils.Constants
 import rx.Subscription
 
 class DeleteOrdersDialog : DialogFragment() {
@@ -55,7 +56,9 @@ class DeleteOrdersDialog : DialogFragment() {
                 dismiss()
             }else{
                 SessionVariable.waitingPlaceOrder.value = false
-                Toast.makeText(UTSwapApp.instance,"Can not Cancel",Toast.LENGTH_LONG).show()
+                SessionVariable.callDialogErrorCreateOrder.value = true
+                Constants.TradeExchange.errorMessagePlaceOrder = it.message.toString()
+                dismiss()
             }
         },{
             object : CallbackWrapper(it, UTSwapApp.instance, arrayListOf()){

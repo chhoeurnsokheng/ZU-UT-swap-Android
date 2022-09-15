@@ -18,6 +18,7 @@ import com.zillennium.utswap.module.main.news.newsDetail.NewsDetailActivity
 import com.zillennium.utswap.module.security.securityActivity.signInScreen.SignInActivity
 import com.zillennium.utswap.module.system.notification.NotificationActivity
 import com.zillennium.utswap.screens.navbar.navbar.MainActivity
+import com.zillennium.utswap.utils.Constants
 
 
 class NewsFragment :
@@ -87,6 +88,7 @@ class NewsFragment :
                 if (SessionVariable.SESSION_STATUS.value == true) {
                     imgMenu.setOnClickListener {
                         val intent = Intent(UTSwapApp.instance, AccountActivity::class.java)
+                            .putExtra(Constants.IntentType.FROM_MAIN_ACTIVITY, Constants.IntentType.FROM_MAIN_ACTIVITY )
                         startActivity(intent)
                         requireActivity().overridePendingTransition(
                             R.anim.slide_in_left,
@@ -102,10 +104,12 @@ class NewsFragment :
                     imgMenu.setOnClickListener {
                         val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
                         startActivity(intent)
+                        activity?.finish()
                     }
                     imgNotification.setOnClickListener {
                         val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
                         startActivity(intent)
+                        activity?.finish()
                     }
                     tvBadgeNumber.visibility = View.GONE
 

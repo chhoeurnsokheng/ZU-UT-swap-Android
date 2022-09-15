@@ -23,6 +23,12 @@ interface Constants {
         const val DELAY: Long = 500 //MILI
     }
 
+    interface IntentType {
+        companion object {
+            const val FROM_MAIN_ACTIVITY = "main_activity"
+        }
+    }
+
     interface NotificationType{
         companion object {
             const val TRANSFER = "trx_transfer"

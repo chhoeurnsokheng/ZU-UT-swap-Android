@@ -133,6 +133,14 @@ class TradeExchangeActivity :
             }
         }
 
+        //clear token
+        SessionVariable.CLEAR_TOKEN_TRADE_EXCHANGE.observe(this@TradeExchangeActivity){
+            if(it){
+                clearData()
+                OrderBookFragment().clearData()
+            }
+        }
+
         //cancel place order
         SessionVariable.cancelPlaceOrder.observe(this@TradeExchangeActivity){
             if(it){
@@ -1018,6 +1026,7 @@ class TradeExchangeActivity :
         SessionVariable.marketPriceBuy.value = "0.00"
         Constants.TradeExchange.sellFee = ""
         Constants.TradeExchange.buyFee = ""
+        SessionVariable.CLEAR_TOKEN_TRADE_EXCHANGE.value = false
 
         runnable?.let { handler.removeCallbacks(it) }
     }
