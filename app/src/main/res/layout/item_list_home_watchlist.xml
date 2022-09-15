@@ -17,9 +17,7 @@
             android:layout_marginEnd="@dimen/dimen_6"
             android:layout_marginBottom="@dimen/dimen_2"
             app:cardElevation="@dimen/dimen_6"
-            app:cardCornerRadius="@dimen/dimen_12"
-
-            >
+            app:cardCornerRadius="@dimen/dimen_12">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -30,15 +28,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <TextView
+                    <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/location_project"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:ellipsize="end"
                         android:gravity="start"
                         android:maxLines="2"
-                        android:ellipsize="end"
                         android:text="Siem Reap 17140 Siem Reap 17140 Siem Reap 17140"
-                        android:textAppearance="@style/medium_12"
+                        android:textAppearance="@style/medium_14"
                         android:textColor="@color/black_222222" />
 
                     <View

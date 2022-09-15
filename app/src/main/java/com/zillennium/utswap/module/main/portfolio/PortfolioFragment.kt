@@ -3,6 +3,7 @@ package com.zillennium.utswap.module.main.portfolio
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.BlurMaskFilter
+import android.graphics.Color
 import android.graphics.MaskFilter
 import android.view.View
 import androidx.core.content.ContextCompat
@@ -29,6 +30,7 @@ import com.zillennium.utswap.module.main.portfolio.adapter.*
 import com.zillennium.utswap.module.main.portfolio.dialog.FilterPortfolioDialogBottomSheet
 import com.zillennium.utswap.module.security.securityActivity.signInScreen.SignInActivity
 import com.zillennium.utswap.module.system.notification.NotificationActivity
+import com.zillennium.utswap.screens.navbar.navbar.MainActivity
 import com.zillennium.utswap.utils.Constants
 import com.zillennium.utswap.utils.UtilKt
 import com.zillennium.utswap.utils.Utils
@@ -66,12 +68,16 @@ class PortfolioFragment :
     companion object {
         var month1: List<String> = arrayListOf()
         var month: List<String> = arrayListOf()
+        var balance_weight = 0.0
+        var ut_projects = 0.0
+
     }
 
     @SuppressLint("UseCompatLoadingForDrawables", "NotifyDataSetChanged", "SetTextI18n")
     override fun initView() {
         super.initView()
         try {
+            onSwipeRefresh()
             binding.apply {
 
                 mPresenter.getPortfolioDashboardChart(requireActivity())
@@ -81,14 +87,11 @@ class PortfolioFragment :
                     requestData()
                 }
 
-
-                //  setDataToLineChart()
-                //  setUpLineChart()
                 onCallApi()
                 onCheckUserKYC()
                 onLayoutHeader()
                 onUserBalancePortfolio()
-                //  onGetDiagram()
+
 
                 layFilter.setOnClickListener {
                     layFilter.isEnabled = false
@@ -153,8 +156,14 @@ class PortfolioFragment :
         if (data.message == "Please sign in") {
             checkUserLogin()
         }
+
+        balance_weight = data.data?.balance_weight?.toDouble() ?: 0.0
+        ut_projects = data.data?.ut_projects?.toDouble() ?: 0.0
+
+
         mPresenter.getPortfolioDashboardChart(requireActivity())
         binding.apply {
+            swipeRefresh.isRefreshing = false
             loadingProgressBar.visibility = View.GONE
             layTradingBalance.visibility = View.VISIBLE
             txtBalance.text =
@@ -213,12 +222,16 @@ class PortfolioFragment :
                         }
 
                         lineChart.visibility = View.VISIBLE
+
+
+
                         txtTradingBalance.text = "$ " + data.data?.total_market_value?.let {
                             UtilKt().formatValue(
                                 it,
                                 "###,###.##"
                             )
                         }
+
 
                     }
                     Constants.PortfolioFilter.Performance -> {
@@ -386,36 +399,38 @@ class PortfolioFragment :
                         }
 
                         chartPie.visibility = View.VISIBLE
-                        txtTradingBalance.text = "$ " + data.data?.total_market_value?.let {
+
+                        txtTradingBalance.text = "% " + data.data?.balance_weight?.let {
                             UtilKt().formatValue(
-                                it,
+                                it.toDouble(),
                                 "###,###.##"
                             )
                         }
+
+
                     }
                 }
             }
         }
     }
 
-    override fun onGetPortfolioFail(data: Portfolio.GetPortfolio) {}
-    override fun getPortfolioDashboardChartSuccess(dataSuccess: Portfolio.GetPortfolioDashboardChartRes) {
-            if (dataSuccess.message == "Please sign in"){
-                checkUserLogin()
-            }
+    override fun onGetPortfolioFail(data: Portfolio.GetPortfolio) {
         binding.apply {
+            swipeRefresh.isRefreshing = false
+        }
+    }
+
+    override fun getPortfolioDashboardChartSuccess(dataSuccess: Portfolio.GetPortfolioDashboardChartRes) {
+        if (dataSuccess.message == "Please sign in") {
+            checkUserLogin()
+        }
+        binding.apply {
+            swipeRefresh.isRefreshing = false
             month = dataSuccess.data.map { it.x } as ArrayList<String>
 
             val listData = ArrayList<Double>()
-            listData.add(83.20)
-            listData.add(16.80)
-            listData.add(12.0)
-            listData.add(1.0)
-            listData.add(14.0)
-            listData.add(19.0)
-            listData.add(2.0)
-            listData.add(21.0)
-
+            balance_weight.let { listData.add(it) }
+            ut_projects.let { listData.add(it) }
             chartPie.setDataOfChart(listData)
 
 
@@ -433,17 +448,16 @@ class PortfolioFragment :
         weekTwoSales.lineWidth = 3f
         weekTwoSales.valueTextSize = 15f
         weekTwoSales.mode = LineDataSet.Mode.CUBIC_BEZIER
-        weekTwoSales.color = ContextCompat.getColor(requireActivity(), R.color.simple_green)
-        weekTwoSales.valueTextColor = ContextCompat.getColor(requireActivity(), R.color.simple_green)
+        weekTwoSales.color = ContextCompat.getColor(requireActivity(), R.color.primary)
+        weekTwoSales.valueTextColor = ContextCompat.getColor(requireActivity(), R.color.primary)
         val dataSet = ArrayList<ILineDataSet>()
         dataSet.add(weekTwoSales)
         weekTwoSales.setDrawValues(false)
-        weekTwoSales.valueTextColor = R.color.white
+        weekTwoSales.valueTextColor = R.color.gray
         weekTwoSales.circleRadius = 6f
         val lineData = LineData(dataSet)
         binding.lineChart.data = lineData
         binding.lineChart.invalidate()
-        binding.lineChart.axisRight.axisLineColor = getResources().getColor(R.color.red_ee1111);
         binding.lineChart.axisRight.valueFormatter = object : ValueFormatter() {
             override fun getFormattedValue(value: Float): String {
                 val v: String = getPriceFormat(Math.round(value).toFloat())
@@ -477,35 +491,9 @@ class PortfolioFragment :
             legend.form = Legend.LegendForm.LINE
         }
 
-//            binding.lineChart.xAxis.valueFormatter = object : ValueFormatter() {
-//                override fun getFormattedValue(value: Float): String {
-//                    return if (value % 1 == 0f && value >= 0 && value < mo.size) {
-////                            formatDateTime(Z1App.instance, list[value.toInt()].date!!, "yyyy-MM-dd", "MMM yyyy")
-//                        Util.formatDateChartUptoCurrentRegion(month1[value.toInt()], null)
-//                    } else {
-//                        ""
-//                    }
-//                }
-//            }
 
         var yMin = 0f
-//            val yMax: Float = when {
-//                binding.lineChart.yMax >= 10000000 -> {
-//                    binding.lineChart.yMax + 4000000
-//                }
-//                binding.lineChart.yMax >= 1000000 -> {
-//                    binding.lineChart.yMax + 1000000
-//                }
-//                binding.lineChart.yMax >= 100000 -> {
-//                    binding.lineChart.yMax + 100000
-//                }
-//                binding.lineChart.yMax >= 10000 -> {
-//                    binding.lineChart.yMax + 10000
-//                }
-//                else -> {
-//                    binding.lineChart.yMax + 1000
-//                }
-//            }
+
 
         //right axis
         val rightAxis = binding.lineChart.axisRight
@@ -514,7 +502,7 @@ class PortfolioFragment :
         rightAxis.granularity = 1f
         rightAxis.isGranularityEnabled = true
         rightAxis.textSize = 14f
-        rightAxis.xOffset = 10f
+
 
         rightAxis.axisMinimum = yMin
         //  rightAxis.axisMaximum = yMax
@@ -523,12 +511,20 @@ class PortfolioFragment :
         val lp = binding.lineChart.layoutParams
         lp.height = (250 * density * labelCount / 5).toInt()
         binding.lineChart.layoutParams = lp
-        binding.lineChart.setVisibleXRangeMaximum(4f)
+        binding.lineChart.setVisibleXRangeMaximum(5f)
 
+        binding.lineChart.setDrawGridBackground(false);//set this to true to draw the
+        binding.apply {
+            lineChart.minOffset = 0f
+            lineChart.setViewPortOffsets(0f, 20f, 88f, 50f)
+        }
 
     }
 
     override fun getPortfolioDashboardChartFailed(data: String) {
+        binding.apply {
+            swipeRefresh.isRefreshing = false
+        }
     }
 
 
@@ -636,6 +632,14 @@ class PortfolioFragment :
         }
     }
 
+    private fun onSwipeRefresh() {
+        binding.apply {
+            swipeRefresh.setOnRefreshListener {
+                requestData()
+                mPresenter.getPortfolioDashboardChart(requireActivity())
+            }
+        }
+    }
 
     private fun week2(): ArrayList<Entry> {
         val sales = ArrayList<Entry>()

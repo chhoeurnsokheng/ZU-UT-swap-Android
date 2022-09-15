@@ -6,6 +6,7 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
+import android.view.MotionEvent
 import android.view.View
 import android.webkit.*
 import androidx.core.content.ContextCompat
@@ -76,7 +77,7 @@ class DepositOpenLinkWebViewActivity :
 
         webPay.setVerticalScrollBarEnabled(false)
         webPay.setHorizontalScrollBarEnabled(false)
-
+        binding.webView.setOnTouchListener(View.OnTouchListener { v, event -> event.action == MotionEvent.ACTION_MOVE })
 
 
         webPay.webViewClient = object : WebViewClient() {

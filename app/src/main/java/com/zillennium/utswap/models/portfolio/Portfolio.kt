@@ -27,6 +27,8 @@ object Portfolio {
         var total_user_balance: Double? = null
         var total_market_value: Double? = null
         var buy_price_type: Int? = null
+        var balance_weight:String? = null
+        var ut_projects:String? = null
     }
 
     class GetPortfolioWatchList{
@@ -49,6 +51,9 @@ object Portfolio {
         var weight: String? = null
         var vol: String? = null
         var value: Double? = null
+        var project_id:String? = null
+        var market_name:String? =null
+        var market_id:Int?  =null
     }
 
     class GetPortfolioObject(

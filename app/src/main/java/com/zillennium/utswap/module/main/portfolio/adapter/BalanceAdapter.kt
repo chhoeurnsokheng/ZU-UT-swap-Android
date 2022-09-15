@@ -11,6 +11,7 @@ import com.zillennium.utswap.bases.mvp.BaseRecyclerViewAdapterGeneric
 import com.zillennium.utswap.bases.mvp.BaseViewHolder
 import com.zillennium.utswap.databinding.ItemListPortfolioPriceBinding
 import com.zillennium.utswap.models.portfolio.Portfolio
+import com.zillennium.utswap.module.main.trade.tradeExchangeScreen.TradeExchangeActivity
 import com.zillennium.utswap.utils.UtilKt
 
 class BalanceAdapter: BaseRecyclerViewAdapterGeneric<Portfolio.GetPortfolioDashBoard, BalanceAdapter.ItemViewHolder>(){
@@ -36,6 +37,17 @@ class BalanceAdapter: BaseRecyclerViewAdapterGeneric<Portfolio.GetPortfolioDashB
                 txtBuy.text = balance.vol?.let { UtilKt().formatValue(it.toDouble(), "###,###.##") }
                 txtMkt.text = balance.value?.let { UtilKt().formatValue(it, "###,###.##") }
                 txtMkt.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.black_222222))
+
+                layoutPrice.setOnClickListener {
+                    TradeExchangeActivity.launchTradeExchangeActivityFromWishList(
+                        root.context,
+                        balance.mkt_project_name,
+                        balance.market_name,balance.project_id,
+                        balance.market_id.toString()
+                    )
+                }
+
+
 
             }
         }

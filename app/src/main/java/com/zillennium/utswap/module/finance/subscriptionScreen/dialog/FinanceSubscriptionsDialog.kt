@@ -57,8 +57,8 @@ class FinanceSubscriptionsDialog : DialogFragment() {
             }
 
 
-            val status: Boolean = arguments?.getBoolean("status") == true
-            if (status) {
+            val status = arguments?.getBoolean("status")
+            if (status ==true) {
                 imgIcon.setImageResource(R.drawable.ic_locked)
                 txtStatus.text = "Locked"
                 txtDuration.text = "${arguments?.getInt("duration").toString()} Day(s)"
@@ -68,16 +68,21 @@ class FinanceSubscriptionsDialog : DialogFragment() {
                         R.color.danger
                     )
                 )
-            } else {
+                txtStartDate.text = arguments?.getString("start")
+                txtEndDate.text = arguments?.getString("end")
+            }
+            else {
                 imgIcon.setImageResource(R.drawable.ic_unlocked)
-                txtStatus.text = "Unlocked"
-                txtDuration.text = "Unlocked"
+                txtStatus.text = "Completed"
+                txtDuration.text = "—"
                 txtStatus.setTextColor(
                     ContextCompat.getColor(
                         UTSwapApp.instance,
                         R.color.simple_green
                     )
                 )
+                txtStartDate.text = arguments?.getString("start")
+                txtEndDate.text =  "—"       // arguments?.getString("end")
             }
 
             txtTitle.text = arguments?.getString("title")
@@ -85,8 +90,7 @@ class FinanceSubscriptionsDialog : DialogFragment() {
             txtPrice.text = arguments?.getDouble("price")?.let { groupingSeparator(it) }
             txtVolume.text = arguments?.getString("volume")
             txtAmount.text = arguments?.getDouble("value")?.let { groupingSeparator(it) }
-            txtStartDate.text = arguments?.getString("start")
-            txtEndDate.text = arguments?.getString("end")
+
         }
     }
 

@@ -5,7 +5,6 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.BlurMaskFilter
 import android.graphics.MaskFilter
-import android.net.Uri
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
@@ -13,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager.widget.ViewPager
 import com.zillennium.CheckUserLoginClearToken
 import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
-import com.zillennium.utswap.Datas.StoredPreferences.KYCPreferences
 import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
@@ -25,7 +23,6 @@ import com.zillennium.utswap.models.newsService.News
 import com.zillennium.utswap.module.account.accountScreen.AccountActivity
 import com.zillennium.utswap.module.finance.depositScreen.DepositActivity
 import com.zillennium.utswap.module.finance.transferScreen.TransferActivity
-import com.zillennium.utswap.module.finance.withdrawScreen.WithdrawActivity
 import com.zillennium.utswap.module.main.home.adapter.HomeMenuAdapter
 import com.zillennium.utswap.module.main.home.adapter.HomeRecentNewsAdapter
 import com.zillennium.utswap.module.main.home.adapter.HomeWatchlistAdapter
@@ -35,7 +32,8 @@ import com.zillennium.utswap.module.project.projectScreen.ProjectActivity
 import com.zillennium.utswap.module.security.securityActivity.signInScreen.SignInActivity
 import com.zillennium.utswap.module.system.notification.NotificationActivity
 import com.zillennium.utswap.screens.navbar.navbar.MainActivity
-import com.zillennium.utswap.utils.*
+import com.zillennium.utswap.utils.Constants
+import com.zillennium.utswap.utils.UtilKt
 
 class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, FragmentHomeBinding>(),
     HomeView.View {

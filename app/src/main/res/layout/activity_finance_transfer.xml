@@ -33,14 +33,14 @@
                         android:src="@drawable/ic_baseline_arrow_back_24"
                         app:tint="@color/primary" />
 
-                    <TextView
+                    <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:text="@string/transfer"
                         android:textAlignment="center"
-                        android:textAppearance="@style/medium_21"
+                        android:textAppearance="@style/bold_22"
                         android:textColor="@color/primary" />
 
                 </RelativeLayout>
@@ -79,19 +79,21 @@
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:orientation="vertical"
-                                android:layout_centerVertical="true">
+                                android:layout_centerVertical="true"
+                                android:orientation="vertical">
+
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="@string/transfer"
-                                    android:textAppearance="@style/medium_14"
+                                    android:textAppearance="@style/medium_16"
                                     android:textColor="@color/black_0A0B12" />
+
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="@string/balance"
-                                    android:textAppearance="@style/medium_14"
+                                    android:textAppearance="@style/medium_16"
                                     android:textColor="@color/black_0A0B12" />
 
                             </LinearLayout>
@@ -110,23 +112,23 @@
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/dimen_1"
-                            android:background="@color/light_gray"
+                            android:layout_marginHorizontal="@dimen/dimen_20"
                             android:layout_marginBottom="@dimen/dimen_25"
-                            android:layout_marginHorizontal="@dimen/dimen_20"/>
+                            android:background="@color/light_gray" />
 
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:paddingHorizontal="@dimen/dimen_20"
                             android:layout_marginBottom="@dimen/dimen_16"
-                            android:gravity="center_vertical">
+                            android:gravity="center_vertical"
+                            android:paddingHorizontal="@dimen/dimen_20">
 
-                            <TextView
+                            <com.google.android.material.textview.MaterialTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
-                                android:text="@string/available"
-                                android:textAppearance="@style/regular_12"
+                                android:text="Available :"
+                                android:textAppearance="@style/medium_12"
                                 android:textColor="@color/dark_gray" />
 
                             <TextView
@@ -135,23 +137,23 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentEnd="true"
                                 android:text="$ 0.00"
-                                android:textAppearance="@style/regular_16"
+                                android:textAppearance="@style/medium_16"
                                 android:textColor="@color/black_000000" />
                         </RelativeLayout>
 
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:paddingHorizontal="@dimen/dimen_20"
                             android:layout_marginBottom="@dimen/dimen_16"
-                            android:gravity="center_vertical">
+                            android:gravity="center_vertical"
+                            android:paddingHorizontal="@dimen/dimen_20">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
-                                android:text="@string/lock_up"
-                                android:textAppearance="@style/regular_12"
+                                android:text="Lock-up :"
+                                android:textAppearance="@style/medium_12"
                                 android:textColor="@color/dark_gray" />
 
                             <TextView
@@ -160,23 +162,23 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentEnd="true"
                                 android:text="$ 0.00"
-                                android:textAppearance="@style/regular_16"
+                                android:textAppearance="@style/medium_16"
                                 android:textColor="@color/black_000000" />
                         </RelativeLayout>
 
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:paddingHorizontal="@dimen/dimen_20"
                             android:layout_marginBottom="@dimen/dimen_16"
-                            android:gravity="center_vertical">
+                            android:gravity="center_vertical"
+                            android:paddingHorizontal="@dimen/dimen_20">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerVertical="true"
-                                android:text="@string/pending1"
-                                android:textAppearance="@style/regular_12"
+                                android:text="Pending :"
+                                android:textAppearance="@style/medium_12"
                                 android:textColor="@color/dark_gray" />
 
                             <TextView
@@ -185,7 +187,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentEnd="true"
                                 android:text="$ 0.00"
-                                android:textAppearance="@style/regular_16"
+                                android:textAppearance="@style/medium_16"
                                 android:textColor="@color/black_000000" />
                         </RelativeLayout>
                     </LinearLayout>
@@ -240,7 +242,7 @@
                         android:layout_marginBottom="@dimen/dimen_8"
                         android:gravity="center"
                         android:text="@string/transfer_amount"
-                        android:textAppearance="@style/regular_12"
+                        android:textAppearance="@style/medium_18"
                         android:textColor="@color/write_ECECEC" />
 
                 </RelativeLayout>
@@ -308,7 +310,7 @@
                         android:layout_marginBottom="@dimen/dimen_8"
                         android:gravity="center"
                         android:text="@string/receiver_phone_number"
-                        android:textAppearance="@style/regular_12"
+                        android:textAppearance="@style/medium_18"
                         android:textColor="@color/dark_gray" />
 
                     <RelativeLayout
@@ -356,7 +358,7 @@
                         android:alpha="1"
                         android:background="@drawable/btn_withdraw_payment_amount"
                         android:hint="@string/transfer"
-                        android:textAppearance="@style/medium_16"
+                        android:textAppearance="@style/medium_18"
                         android:textColorHint="@color/white" />
                     <ProgressBar
                         android:id="@+id/loading_transfer"

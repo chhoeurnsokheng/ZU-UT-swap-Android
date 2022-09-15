@@ -22,8 +22,7 @@
                 android:layout_gravity="center"
                 android:text=""
                 android:textColor="@color/primary"
-                android:textSize="@dimen/dimen_18"
-                android:textAppearance="@style/toolBar_style"
+                android:textAppearance="@style/bold_22"
                 android:visibility="visible" />
 
             <com.google.android.material.textview.MaterialTextView

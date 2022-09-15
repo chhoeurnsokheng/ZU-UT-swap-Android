@@ -20,8 +20,8 @@
 
                 <ImageView
                     android:id="@+id/image_subscription"
-                    android:layout_width="@dimen/dimen_26"
-                    android:layout_height="@dimen/dimen_26"
+                    android:layout_width="@dimen/dimen_14"
+                    android:layout_height="@dimen/dimen_18"
                     android:src="@drawable/ic_locked" />
             </LinearLayout>
 
