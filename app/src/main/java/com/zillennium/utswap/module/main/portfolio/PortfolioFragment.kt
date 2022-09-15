@@ -29,7 +29,6 @@ import com.zillennium.utswap.module.main.portfolio.adapter.*
 import com.zillennium.utswap.module.main.portfolio.dialog.FilterPortfolioDialogBottomSheet
 import com.zillennium.utswap.module.security.securityActivity.signInScreen.SignInActivity
 import com.zillennium.utswap.module.system.notification.NotificationActivity
-import com.zillennium.utswap.screens.navbar.navbar.MainActivity
 import com.zillennium.utswap.utils.Constants
 import com.zillennium.utswap.utils.UtilKt
 import com.zillennium.utswap.utils.Utils
@@ -122,7 +121,7 @@ class PortfolioFragment :
             }
 
         } catch (error: Exception) {
-            // Must be safe
+
         }
     }
 
