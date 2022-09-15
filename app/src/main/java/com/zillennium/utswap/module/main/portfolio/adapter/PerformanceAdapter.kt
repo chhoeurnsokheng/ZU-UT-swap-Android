@@ -42,7 +42,12 @@ class PerformanceAdapter: BaseRecyclerViewAdapterGeneric<Portfolio.GetPortfolioD
                 }else if (performance.mkt_project_perf?.toDouble()!! < 0){
                     txtPercent.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
                     percent.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
-                }else {
+                }else if (performance.mkt_project_perf?.toDouble() ==0.0){
+                    txtPercent.text ="_"
+                    percent.visibility = View.INVISIBLE
+                    txtPercent.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.black))
+                }
+                else {
                     txtPercent.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.black_333333))
                     percent.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.black_333333))
                 }

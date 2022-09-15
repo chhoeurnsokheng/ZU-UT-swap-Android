@@ -3,7 +3,6 @@ package com.zillennium.utswap.module.main.portfolio
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.BlurMaskFilter
-import android.graphics.Color
 import android.graphics.MaskFilter
 import android.view.View
 import androidx.core.content.ContextCompat
@@ -91,7 +90,6 @@ class PortfolioFragment :
                 onCheckUserKYC()
                 onLayoutHeader()
                 onUserBalancePortfolio()
-
 
                 layFilter.setOnClickListener {
                     layFilter.isEnabled = false
@@ -224,8 +222,13 @@ class PortfolioFragment :
                         lineChart.visibility = View.VISIBLE
 
 
+                        val balance_weight = data.data?.balance_weight?.toDouble()
+                        val totalUserBalance = data.data?.total_user_balance
+                        val totalTrading = (totalUserBalance?.let { balance_weight?.times(it) })?.div(
+                            100
+                        )
 
-                        txtTradingBalance.text = "$ " + data.data?.total_market_value?.let {
+                        txtTradingBalance.text =  "$ " + data.data?.total_market_value?.let {
                             UtilKt().formatValue(
                                 it,
                                 "###,###.##"
@@ -279,12 +282,20 @@ class PortfolioFragment :
                         }
 
                         lineChart.visibility = View.VISIBLE
-                        txtTradingBalance.text = "$ " + data.data?.total_market_value?.let {
-                            UtilKt().formatValue(
-                                it,
-                                "###,###.##"
-                            )
-                        }
+                        val balance_weight = data.data?.balance_weight?.toDouble()
+                        val totalUserBalance = data.data?.total_user_balance
+                        val totalTrading = (totalUserBalance?.let { balance_weight?.times(it) })?.div(
+                            100
+                        )
+
+                        txtTradingBalance.text =  totalTrading.toString()
+
+//                            "$ " + data.data?.total_market_value?.let {
+//                            UtilKt().formatValue(
+//                                it,
+//                                "###,###.##"
+//                            )
+//                        }
                     }
                     Constants.PortfolioFilter.Price -> {
                         linearLayoutPrice.visibility = View.VISIBLE
@@ -348,6 +359,13 @@ class PortfolioFragment :
                         }
 
                         lineChart.visibility = View.VISIBLE
+
+                        val balance_weight = data.data?.balance_weight?.toDouble()
+                        val totalUserBalance = data.data?.total_user_balance
+                        val totalTrading = (totalUserBalance?.let { balance_weight?.times(it) })?.div(
+                            100
+                        )
+
                         txtTradingBalance.text = "$ " + data.data?.total_market_value?.let {
                             UtilKt().formatValue(
                                 it,
@@ -400,12 +418,15 @@ class PortfolioFragment :
 
                         chartPie.visibility = View.VISIBLE
 
-                        txtTradingBalance.text = "% " + data.data?.balance_weight?.let {
-                            UtilKt().formatValue(
-                                it.toDouble(),
-                                "###,###.##"
-                            )
-                        }
+                        val balance_weight = data.data?.balance_weight?.toDouble()
+                        val totalUserBalance = data.data?.total_user_balance
+                        val totalTrading = (totalUserBalance?.let { balance_weight?.times(it) })?.div(
+                            100
+                        )
+
+                        txtTradingBalance.text =  data.data?.balance_weight.toString() + "%"
+
+
 
 
                     }
@@ -541,21 +562,6 @@ class PortfolioFragment :
             }
         }
     }
-
-//    object MyAxisFormatter : IndexAxisValueFormatter() {
-//
-//        var items = arrayListOf("January",  "February", "March", "April","May", "June")
-//
-//        override fun getAxisLabel(value: Float, axis: AxisBase?): String? {
-//            val index = value.toInt()
-//            return if (index < month.size) {
-//                items[index]
-//            } else {
-//                null
-//            }
-//        }
-//    }
-
 
     private fun onUserBalancePortfolio() {
         binding.apply {
