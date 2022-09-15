@@ -163,8 +163,7 @@ class PortfolioFragment :
             swipeRefresh.isRefreshing = false
             loadingProgressBar.visibility = View.GONE
             layTradingBalance.visibility = View.VISIBLE
-            txtBalance.text =
-                "$ " + data.data?.total_user_balance?.let { UtilKt().formatValue(it, "###,###.##") }
+            txtBalance.text = "$ " + data.data?.total_user_balance?.let { UtilKt().formatValue(it, "###,###.##") }
 
             filter = 0
 
@@ -227,7 +226,7 @@ class PortfolioFragment :
                             100
                         )
 
-                        txtTradingBalance.text =  "$ " + data.data?.total_market_value?.let {
+                        txtTradingBalance.text =  "$ " + data.data?.user_balance?.usd?.let {
                             UtilKt().formatValue(
                                 it,
                                 "###,###.##"
@@ -287,14 +286,12 @@ class PortfolioFragment :
                             100
                         )
 
-                        txtTradingBalance.text =  totalTrading.toString()
-
-//                            "$ " + data.data?.total_market_value?.let {
-//                            UtilKt().formatValue(
-//                                it,
-//                                "###,###.##"
-//                            )
-//                        }
+                        txtTradingBalance.text = "$ " + data.data?.user_balance?.usd?.let {
+                            UtilKt().formatValue(
+                                it,
+                                "###,###.##"
+                            )
+                        }
                     }
                     Constants.PortfolioFilter.Price -> {
                         linearLayoutPrice.visibility = View.VISIBLE
@@ -306,7 +303,7 @@ class PortfolioFragment :
                         rvFilter.adapter = pricePortfolioAdapter
 
                         lineChart.visibility = View.VISIBLE
-                        txtTradingBalance.text = "$ " + data.data?.total_market_value?.let {
+                        txtTradingBalance.text = "$ " + data.data?.user_balance?.usd?.let {
                             UtilKt().formatValue(
                                 it,
                                 "###,###.##"
@@ -365,7 +362,7 @@ class PortfolioFragment :
                             100
                         )
 
-                        txtTradingBalance.text = "$ " + data.data?.total_market_value?.let {
+                        txtTradingBalance.text = "$ " + data.data?.user_balance?.usd?.let {
                             UtilKt().formatValue(
                                 it,
                                 "###,###.##"
@@ -423,7 +420,7 @@ class PortfolioFragment :
                             100
                         )
 
-                        txtTradingBalance.text =  data.data?.balance_weight.toString() + "%"
+                        txtTradingBalance.text = data.data?.balance_weight.toString() + "%"
 
 
 
@@ -457,8 +454,7 @@ class PortfolioFragment :
         }
 
         val sales = dataSuccess.data.indices.map { Entry(it.toFloat(), dataSuccess.data[it].y) }
-        val myDateFormatter = SimpleDateFormat("dd MMM", Locale.getDefault())
-        val sdf = SimpleDateFormat("MM-dd")
+
 
         month1 = dataSuccess.data.map {
             it.date
@@ -466,10 +462,10 @@ class PortfolioFragment :
 
         val weekTwoSales = LineDataSet(sales, "")
         weekTwoSales.lineWidth = 3f
-        weekTwoSales.valueTextSize = 15f
+
         weekTwoSales.mode = LineDataSet.Mode.CUBIC_BEZIER
         weekTwoSales.color = ContextCompat.getColor(requireActivity(), R.color.primary)
-        weekTwoSales.valueTextColor = ContextCompat.getColor(requireActivity(), R.color.primary)
+        weekTwoSales.valueTextColor = ContextCompat.getColor(requireActivity(), R.color.gray)
         val dataSet = ArrayList<ILineDataSet>()
         dataSet.add(weekTwoSales)
         weekTwoSales.setDrawValues(false)
@@ -478,6 +474,13 @@ class PortfolioFragment :
         val lineData = LineData(dataSet)
         binding.lineChart.data = lineData
         binding.lineChart.invalidate()
+        binding.lineChart.axisRight.textColor = ContextCompat.getColor(requireActivity(), R.color.secondary_text)
+       // binding.lineChart.axisRight.textSize = 1f    //ContextCompat.getColor(requireActivity(), R.color.secondary_text)
+        binding.apply {
+          //  lineChart.getXAxis().setTextSize(10f)
+          //  lineChart.setExtraOffsets(0f,0f,10f,12f);
+
+        }
         binding.lineChart.axisRight.valueFormatter = object : ValueFormatter() {
             override fun getFormattedValue(value: Float): String {
                 val v: String = getPriceFormat(Math.round(value).toFloat())
@@ -507,7 +510,7 @@ class PortfolioFragment :
             legend.orientation = Legend.LegendOrientation.VERTICAL
             legend.verticalAlignment = Legend.LegendVerticalAlignment.TOP
             legend.horizontalAlignment = Legend.LegendHorizontalAlignment.CENTER
-            legend.textSize = 15F
+                // legend.textSize = 10F
             legend.form = Legend.LegendForm.LINE
         }
 
@@ -521,22 +524,21 @@ class PortfolioFragment :
         rightAxis.mDecimals = 1
         rightAxis.granularity = 1f
         rightAxis.isGranularityEnabled = true
-        rightAxis.textSize = 14f
+      //  rightAxis.textSize = 14f
 
 
         rightAxis.axisMinimum = yMin
-        //  rightAxis.axisMaximum = yMax
         val labelCount = rightAxis.labelCount
         val density = resources.displayMetrics.density
         val lp = binding.lineChart.layoutParams
-        lp.height = (250 * density * labelCount / 5).toInt()
+        lp.height = (200 * density * labelCount / 7).toInt()
         binding.lineChart.layoutParams = lp
         binding.lineChart.setVisibleXRangeMaximum(5f)
 
-        binding.lineChart.setDrawGridBackground(false);//set this to true to draw the
+        binding.lineChart.setDrawGridBackground(false)
         binding.apply {
             lineChart.minOffset = 0f
-            lineChart.setViewPortOffsets(0f, 20f, 88f, 50f)
+            lineChart.setViewPortOffsets(0f, 20f, 70f, 50f)
         }
 
     }
