@@ -579,6 +579,7 @@ class PortfolioFragment :
                 if (SessionVariable.SESSION_STATUS.value == true) {
                     imgMenu.setOnClickListener {
                         val intent = Intent(UTSwapApp.instance, AccountActivity::class.java)
+                            .putExtra(Constants.IntentType.FROM_MAIN_ACTIVITY, Constants.IntentType.FROM_MAIN_ACTIVITY )
                         startActivity(intent)
                         requireActivity().overridePendingTransition(
                             R.anim.slide_in_left,
@@ -589,6 +590,8 @@ class PortfolioFragment :
                     imgMenu.setOnClickListener {
                         val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
                         startActivity(intent)
+                        activity?.finish()
+
                     }
                 }
             }
@@ -614,6 +617,8 @@ class PortfolioFragment :
             imgMenu.setOnClickListener {
                 val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
                 startActivity(intent)
+                activity?.finish()
+
             }
         }
     }

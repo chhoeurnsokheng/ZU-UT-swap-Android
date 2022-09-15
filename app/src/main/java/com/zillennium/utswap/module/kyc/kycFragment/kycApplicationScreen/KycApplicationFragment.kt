@@ -1,5 +1,6 @@
 package com.zillennium.utswap.module.kyc.kycFragment.kycApplicationScreen
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -39,7 +40,9 @@ class KycApplicationFragment :
                 }
                 imgBack.setOnClickListener {
                     if ((activity as KYCActivity).kycStatus == "Pending" || dataNotification == "KYC") {
+                        activity?.setResult(Activity.RESULT_OK)
                         activity?.finish()
+
                     } else {
                         findNavController().popBackStack()
                     }
@@ -87,6 +90,7 @@ class KycApplicationFragment :
                     }
                     if ((activity as KYCActivity).kycStatus == "Pending") {
                         activity?.finish()
+//                        activity?.setResult(Activity.RESULT_OK)
                     } else {
                         startActivity(Intent(requireActivity(),MainActivity::class.java))
                     }

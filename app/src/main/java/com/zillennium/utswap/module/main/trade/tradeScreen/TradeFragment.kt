@@ -28,6 +28,7 @@ import com.zillennium.utswap.module.main.trade.tradeScreen.adapter.TradeUpcoming
 import com.zillennium.utswap.module.security.securityActivity.signInScreen.SignInActivity
 import com.zillennium.utswap.module.system.notification.NotificationActivity
 import com.zillennium.utswap.screens.navbar.navbar.MainActivity
+import com.zillennium.utswap.utils.Constants
 
 
 class TradeFragment :
@@ -257,6 +258,7 @@ class TradeFragment :
                 if (SessionVariable.SESSION_STATUS.value == true) {
                     imgMenu.setOnClickListener {
                         val intent = Intent(UTSwapApp.instance, AccountActivity::class.java)
+                            .putExtra(Constants.IntentType.FROM_MAIN_ACTIVITY, Constants.IntentType.FROM_MAIN_ACTIVITY )
                         startActivity(intent)
                         requireActivity().overridePendingTransition(
                             R.anim.slide_in_left,

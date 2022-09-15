@@ -26,6 +26,7 @@ import com.zillennium.utswap.databinding.ActivityMainBinding
 import com.zillennium.utswap.models.home.ForceUpdate
 import com.zillennium.utswap.models.notification.NotificationModel
 import com.zillennium.utswap.models.userService.User
+import com.zillennium.utswap.module.account.accountScreen.AccountActivity
 import com.zillennium.utswap.module.finance.balanceScreen.FinanceBalanceActivity
 import com.zillennium.utswap.module.kyc.kycActivity.KYCActivity
 import com.zillennium.utswap.module.main.MainPresenter
@@ -48,13 +49,15 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
     var kcySubmit: Boolean? = false
     var kcyComplete: Boolean? = false
     private var isSelected = false
-    private var isSignInSuccess = true
+    private var isSignInSuccess = false
     var badgeNumber: Int = 0
     val homeFragment = HomeFragment()
     private var checkStatusToken = false
     private var doubleBackToExitPressedOnce = false
     private var statusKYC = ""
     private var isFromSignOut = false
+    var activeFragment: Fragment = homeFragment
+    val fragmentManager = supportFragmentManager
 
     override fun initView() {
         super.initView()
@@ -89,7 +92,7 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
     }
 
     private fun eventClickFromOutSide(intent: Intent?) {
-        val dataIntent =intent?.getStringExtra("dataIntent")
+        val dataIntent = intent?.getStringExtra("dataIntent")
         when (dataIntent) {
 
             "KYC" -> {
@@ -145,9 +148,10 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
         homeFragment.onHomeMenuGrid(data.data?.status_kyc ?: false)
         onCheckSession()
         homeFragment.actionAfterKYC()
-        if (data.message =="Please sign in"){
+        if (data.message == "Please sign in") {
             CheckUserLoginClearToken.clearTokenExpired()
         }
+
     }
 
     override fun onCheckKYCFail() {
@@ -226,8 +230,14 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
                             statusKYC = "New"
                             btnVerify.text = "Verify Your Identity"
                             tvVerify.text = "Please verify your identity to start trading."
-                            btnVerify.backgroundTintList = ContextCompat.getColorStateList(this@MainActivity, R.color.primary)
-                            btnVerify.setTextColor(ContextCompat.getColor(this@MainActivity, R.color.white))
+                            btnVerify.backgroundTintList =
+                                ContextCompat.getColorStateList(this@MainActivity, R.color.primary)
+                            btnVerify.setTextColor(
+                                ContextCompat.getColor(
+                                    this@MainActivity,
+                                    R.color.white
+                                )
+                            )
                         } else if (kcyComplete == true) {
                             layAuth.visibility = GONE
                             layVerify.visibility = GONE
@@ -245,7 +255,7 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
                         "KYCStatus",
                         statusKYC
                     )
-                    startActivity(intent)
+                    startActivityForResult(intent, 1111)
                 }
             }
         } catch (e: Exception) {
@@ -277,8 +287,6 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
                 val portfolioFragment = PortfolioFragment()
                 val tradeFragment = TradeFragment()
                 val newsTabFragment = NewsFragment()
-                val fragmentManager = supportFragmentManager
-                var activeFragment: Fragment = tradeFragment
 
                 fragmentManager.beginTransaction().apply {
                     add(
@@ -305,26 +313,34 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
 
                 navView.setOnItemSelectedListener { item ->
                     mPresenter.onCheckKYCStatus()
+                    isSignInSuccess = false
 //                    mPresenter.onCheckUserLoginStatus(this@MainActivity)
+
                     when (item.itemId) {
                         R.id.navigation_navbar_home -> {
+                            isSelected = true
+//                            homeFragment.hideShowBalance()
                             fragmentManager.beginTransaction().hide(activeFragment)
                                 .show(homeFragment).commit()
                             activeFragment = homeFragment
-                            isSignInSuccess = true
+//                            onCheckSession()
+                            homeFragment.actionAfterKYC()
 
                         }
                         R.id.navigation_navbar_portfolio -> {
+                            AccountActivity.status = false
 
+                            homeFragment.hideShowBalance()
                             SessionVariable.SESSION_STATUS.observe(this@MainActivity) {
-
-                                if (it) {
-                                    if (kcyComplete == false && isSignInSuccess) {
+                                if (it && !AccountActivity.status) {
+                                    isSelected = true
+                                    if (kcyComplete == false) {
                                         val intent = Intent(
                                             UTSwapApp.instance,
                                             KYCActivity::class.java
                                         ).putExtra("KYCStatus", statusKYC)
-                                        startActivity(intent)
+                                        startActivityForResult(intent, 1111)
+                                        isSelected = false
 
                                     } else if (kcyComplete == true) {
                                         fragmentManager.beginTransaction().hide(activeFragment)
@@ -332,17 +348,23 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
                                         activeFragment = portfolioFragment
                                         portfolioFragment.setBadgeNumberPortfolio()
                                     }
+                                    isSignInSuccess = true
 //                                    if (SessionPreferences().SESSION_TOKEN ==null){
 //                                        val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
 //                                        startActivityForResult(intent, 555)
 //                                    }
-                                } else if (!it){
-//                                    navView.menu.findItem(R.id.navigation_navbar_portfolio).isEnabled = false
-                                    if (!isFromSignOut) {
-                                        val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
-                                        startActivityForResult(intent, 555)
+
+                                } else if (!it && !AccountActivity.status) {
+                                    if (!isSignInSuccess) {
+                                        isSelected = false
+                                        val intent =
+                                            Intent(UTSwapApp.instance, SignInActivity::class.java)
+                                        startActivity(intent)
                                     }
 
+                                } else if (AccountActivity.status) {
+                                    fragmentManager.beginTransaction().hide(activeFragment).show(homeFragment).commit()
+                                    navView.selectedItemId = R.id.navigation_navbar_home
 
                                 }
                             }
@@ -352,26 +374,30 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
 
                         }
                         R.id.navigation_navbar_trade -> {
+                            isSelected = true
+                            homeFragment.hideShowBalance()
                             fragmentManager.beginTransaction().hide(activeFragment)
                                 .show(tradeFragment).commit()
                             activeFragment = tradeFragment
                             tradeFragment.setBadgeNumberTrade()
+                            isSignInSuccess = true
 
                         }
                         R.id.navigation_navbar_news -> {
+                            isSelected = true
+                            homeFragment.hideShowBalance()
                             fragmentManager.beginTransaction().hide(activeFragment)
                                 .show(newsTabFragment).commit()
                             activeFragment = newsTabFragment
                             newsTabFragment.setBadgeNumberNews()
+                            isSignInSuccess = true
+
 
                         }
                     }
-                    true
+                    isSelected
                 }
-
-
                 fragmentManager.beginTransaction().hide(activeFragment).show(homeFragment).commit()
-                activeFragment = tradeFragment
                 navView.selectedItemId = R.id.navigation_navbar_home
             }
         } catch (e: Exception) {
@@ -381,20 +407,15 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == 555) {
-            isSignInSuccess = false
-        } else {
-            isSignInSuccess = false
-            isFromSignOut = true
-        }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        if (!isSignInSuccess) {
-            isFromSignOut = false
+        if (resultCode == RESULT_CANCELED && requestCode == 1111) {
+            fragmentManager.beginTransaction().hide(activeFragment).show(homeFragment).commit()
             binding.navView.selectedItemId = R.id.navigation_navbar_home
-        }
+            mPresenter.onCheckKYCStatus()
 
+        }
     }
+
+
+
+
 }
