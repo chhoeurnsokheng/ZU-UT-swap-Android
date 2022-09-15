@@ -38,7 +38,7 @@ open class IdTypeFragment :
         super.initView()
         try {
             if (activity?.intent?.hasExtra("KYCStatus") == true) {
-                (activity as KYCActivity).kycStatus = activity?.intent?.getSerializableExtra("KYCStatus").toString()
+                (activity as KYCActivity).kycStatus = activity?.intent?.getStringExtra("KYCStatus").toString()
                     if ((activity as KYCActivity).kycStatus== "Pending") {
                     findNavController().navigate(R.id.action_IDTypeKycFragment_to_KycApplicationKycFragment)
                 }

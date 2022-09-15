@@ -56,7 +56,6 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
 
     override fun initView() {
         super.initView()
-
         SessionVariable.realTimeWatchList.value = true
         mPresenter.getBanner(requireActivity())
         onSwipeRefresh()
@@ -102,6 +101,7 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
                         if (SessionVariable.SESSION_STATUS.value == true) {
                             imgMenu.setOnClickListener {
                                 val intent = Intent(UTSwapApp.instance, AccountActivity::class.java)
+                                    .putExtra(Constants.IntentType.FROM_MAIN_ACTIVITY, Constants.IntentType.FROM_MAIN_ACTIVITY )
                                 startActivity(intent)
                                 requireActivity().overridePendingTransition(
                                     R.anim.slide_in_left,
@@ -119,14 +119,16 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
                     imgMenu.setOnClickListener {
                         if (SessionPreferences().SESSION_TOKEN != null) {
                             val intent = Intent(UTSwapApp.instance, AccountActivity::class.java)
-                            startActivityForResult(intent, 1111)
+                                .putExtra(Constants.IntentType.FROM_MAIN_ACTIVITY, Constants.IntentType.FROM_MAIN_ACTIVITY )
+                            startActivity(intent)
+                            activity?.finish()
                             requireActivity().overridePendingTransition(
                                 R.anim.slide_in_left,
                                 R.anim.slide_out_right
                             )
                         } else {
                             val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
-                            startActivity(intent)
+                            startActivity(intent, )
 
                         }
                     }
@@ -374,11 +376,8 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
             if (data.data?.total_user_balance == 0.0) {
                 tradingBalance.text = "$ " + "0.00"
             } else {
-                tradingBalance.text = "$ " + "" + "" + data.data?.total_user_balance?.let {
-                    UtilKt().formatDecimal(
-                        "#,###.00",
-                        it
-                    )
+                tradingBalance.text = "$ " + data.data?.total_user_balance?.let {
+                    groupingSeparator(it)
                 }
 
 
@@ -467,10 +466,18 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
         }
     }
 
+    fun hideShowBalance() {
+        binding.apply {
+            tradingBalance.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
+            tradingBalance.paint.maskFilter = blurMask
+            eyeImage.setImageResource(R.drawable.ic_baseline_visibility_off_24)
+            blurCondition = true
+        }
+    }
+
 
     private fun showBalanceClick() {
         binding.apply {
-
             if (blurCondition) {
                 tradingBalance.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
                 tradingBalance.paint.maskFilter = null

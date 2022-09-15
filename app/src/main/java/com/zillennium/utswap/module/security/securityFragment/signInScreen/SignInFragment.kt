@@ -1,6 +1,5 @@
 package com.zillennium.utswap.module.security.securityFragment.signInScreen
 
-import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.Intent
 import android.content.res.ColorStateList
@@ -23,6 +22,7 @@ import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentSecuritySignInBinding
 import com.zillennium.utswap.models.notification.NotificationModel
 import com.zillennium.utswap.models.userService.User
+import com.zillennium.utswap.module.account.accountScreen.AccountActivity
 import com.zillennium.utswap.module.security.securityActivity.registerScreen.RegisterActivity
 import com.zillennium.utswap.module.security.securityActivity.resetPasswordScreen.ResetPasswordActivity
 import com.zillennium.utswap.module.security.securityFragment.signInScreen.CheckNetworkConnection.CheckNetworkConnection
@@ -196,8 +196,7 @@ class SignInFragment :
         if (body.data?.status_kyc == true) {
             SessionPreferences().SESSION_KYC = true
             SessionVariable.SESSION_KYC.value = true
-        }
-        if (body.data?.status_kyc == false) {
+        }else if (body.data?.status_kyc == false) {
             SessionPreferences().SESSION_KYC = false
             SessionVariable.SESSION_KYC.value = false
         }
@@ -210,7 +209,7 @@ class SignInFragment :
         }
         sendFirebaseToken()
         hideKeyboard()
-        activity?.setResult(RESULT_OK)
+        AccountActivity.status = true
         activity?.finish()
     }
 
