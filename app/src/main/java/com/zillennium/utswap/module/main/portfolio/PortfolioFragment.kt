@@ -150,6 +150,7 @@ class PortfolioFragment :
 
     override fun onGetPortfolioSuccess(data: Portfolio.GetPortfolio) {
 
+
         if (data.message == "Please sign in") {
             checkUserLogin()
         }
