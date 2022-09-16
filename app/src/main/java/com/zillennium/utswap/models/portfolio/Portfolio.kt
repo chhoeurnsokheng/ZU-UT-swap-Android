@@ -23,12 +23,18 @@ object Portfolio {
         var coinname: String? = null
         var name: String? = null
         var watch_lists: List<GetPortfolioWatchList> = arrayListOf()
+        var user_balance:PortfolioUserBalance? = null
         var profolio_dashboard: List<GetPortfolioDashBoard> = arrayListOf()
         var total_user_balance: Double? = null
         var total_market_value: Double? = null
         var buy_price_type: Int? = null
         var balance_weight:String? = null
         var ut_projects:String? = null
+
+    }
+    class PortfolioUserBalance{
+        var usd:Double?  =null
+        var usdd:Double? = null
     }
 
     class GetPortfolioWatchList{
@@ -54,6 +60,8 @@ object Portfolio {
         var project_id:String? = null
         var market_name:String? =null
         var market_id:Int?  =null
+        var mkt_project_new_price:String? = ""
+
     }
 
     class GetPortfolioObject(

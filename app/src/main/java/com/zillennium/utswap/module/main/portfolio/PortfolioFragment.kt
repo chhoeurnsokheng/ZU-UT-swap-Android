@@ -3,7 +3,6 @@ package com.zillennium.utswap.module.main.portfolio
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.BlurMaskFilter
-import android.graphics.Color
 import android.graphics.MaskFilter
 import android.view.View
 import androidx.core.content.ContextCompat
@@ -30,7 +29,6 @@ import com.zillennium.utswap.module.main.portfolio.adapter.*
 import com.zillennium.utswap.module.main.portfolio.dialog.FilterPortfolioDialogBottomSheet
 import com.zillennium.utswap.module.security.securityActivity.signInScreen.SignInActivity
 import com.zillennium.utswap.module.system.notification.NotificationActivity
-import com.zillennium.utswap.screens.navbar.navbar.MainActivity
 import com.zillennium.utswap.utils.Constants
 import com.zillennium.utswap.utils.UtilKt
 import com.zillennium.utswap.utils.Utils
@@ -92,7 +90,6 @@ class PortfolioFragment :
                 onLayoutHeader()
                 onUserBalancePortfolio()
 
-
                 layFilter.setOnClickListener {
                     layFilter.isEnabled = false
                     layFilter.postDelayed({ layFilter.isEnabled = true }, 1000)
@@ -124,7 +121,7 @@ class PortfolioFragment :
             }
 
         } catch (error: Exception) {
-            // Must be safe
+
         }
     }
 
@@ -153,6 +150,7 @@ class PortfolioFragment :
 
     override fun onGetPortfolioSuccess(data: Portfolio.GetPortfolio) {
 
+
         if (data.message == "Please sign in") {
             checkUserLogin()
         }
@@ -166,8 +164,7 @@ class PortfolioFragment :
             swipeRefresh.isRefreshing = false
             loadingProgressBar.visibility = View.GONE
             layTradingBalance.visibility = View.VISIBLE
-            txtBalance.text =
-                "$ " + data.data?.total_user_balance?.let { UtilKt().formatValue(it, "###,###.##") }
+            txtBalance.text = "$ " + data.data?.total_market_value?.let { UtilKt().formatValue(it, "###,###.##") }
 
             filter = 0
 
@@ -224,8 +221,13 @@ class PortfolioFragment :
                         lineChart.visibility = View.VISIBLE
 
 
+                        val balance_weight = data.data?.balance_weight?.toDouble()
+                        val totalUserBalance = data.data?.total_user_balance
+                        val totalTrading = (totalUserBalance?.let { balance_weight?.times(it) })?.div(
+                            100
+                        )
 
-                        txtTradingBalance.text = "$ " + data.data?.total_market_value?.let {
+                        txtTradingBalance.text =  "$ " + data.data?.total_user_balance?.let {
                             UtilKt().formatValue(
                                 it,
                                 "###,###.##"
@@ -279,7 +281,13 @@ class PortfolioFragment :
                         }
 
                         lineChart.visibility = View.VISIBLE
-                        txtTradingBalance.text = "$ " + data.data?.total_market_value?.let {
+                        val balance_weight = data.data?.balance_weight?.toDouble()
+                        val totalUserBalance = data.data?.total_user_balance
+                        val totalTrading = (totalUserBalance?.let { balance_weight?.times(it) })?.div(
+                            100
+                        )
+
+                        txtTradingBalance.text = "$ " + data.data?.total_user_balance?.let {
                             UtilKt().formatValue(
                                 it,
                                 "###,###.##"
@@ -296,7 +304,7 @@ class PortfolioFragment :
                         rvFilter.adapter = pricePortfolioAdapter
 
                         lineChart.visibility = View.VISIBLE
-                        txtTradingBalance.text = "$ " + data.data?.total_market_value?.let {
+                        txtTradingBalance.text = "$ " + data.data?.total_user_balance?.let {
                             UtilKt().formatValue(
                                 it,
                                 "###,###.##"
@@ -348,7 +356,14 @@ class PortfolioFragment :
                         }
 
                         lineChart.visibility = View.VISIBLE
-                        txtTradingBalance.text = "$ " + data.data?.total_market_value?.let {
+
+                        val balance_weight = data.data?.balance_weight?.toDouble()
+                        val totalUserBalance = data.data?.total_user_balance
+                        val totalTrading = (totalUserBalance?.let { balance_weight?.times(it) })?.div(
+                            100
+                        )
+
+                        txtTradingBalance.text = "$ " + data.data?.total_user_balance?.let {
                             UtilKt().formatValue(
                                 it,
                                 "###,###.##"
@@ -400,12 +415,15 @@ class PortfolioFragment :
 
                         chartPie.visibility = View.VISIBLE
 
-                        txtTradingBalance.text = "% " + data.data?.balance_weight?.let {
-                            UtilKt().formatValue(
-                                it.toDouble(),
-                                "###,###.##"
-                            )
-                        }
+                        val balance_weight = data.data?.balance_weight?.toDouble()
+                        val totalUserBalance = data.data?.total_user_balance
+                        val totalTrading = (totalUserBalance?.let { balance_weight?.times(it) })?.div(
+                            100
+                        )
+
+                        txtTradingBalance.text = data.data?.balance_weight.toString() + "%"
+
+
 
 
                     }
@@ -428,17 +446,18 @@ class PortfolioFragment :
             swipeRefresh.isRefreshing = false
             month = dataSuccess.data.map { it.x } as ArrayList<String>
 
+
             val listData = ArrayList<Double>()
-            balance_weight.let { listData.add(it) }
             ut_projects.let { listData.add(it) }
+            balance_weight.let { listData.add(it) }
+
             chartPie.setDataOfChart(listData)
 
 
         }
 
         val sales = dataSuccess.data.indices.map { Entry(it.toFloat(), dataSuccess.data[it].y) }
-        val myDateFormatter = SimpleDateFormat("dd MMM", Locale.getDefault())
-        val sdf = SimpleDateFormat("MM-dd")
+
 
         month1 = dataSuccess.data.map {
             it.date
@@ -446,10 +465,10 @@ class PortfolioFragment :
 
         val weekTwoSales = LineDataSet(sales, "")
         weekTwoSales.lineWidth = 3f
-        weekTwoSales.valueTextSize = 15f
+
         weekTwoSales.mode = LineDataSet.Mode.CUBIC_BEZIER
         weekTwoSales.color = ContextCompat.getColor(requireActivity(), R.color.primary)
-        weekTwoSales.valueTextColor = ContextCompat.getColor(requireActivity(), R.color.primary)
+        weekTwoSales.valueTextColor = ContextCompat.getColor(requireActivity(), R.color.gray)
         val dataSet = ArrayList<ILineDataSet>()
         dataSet.add(weekTwoSales)
         weekTwoSales.setDrawValues(false)
@@ -458,6 +477,13 @@ class PortfolioFragment :
         val lineData = LineData(dataSet)
         binding.lineChart.data = lineData
         binding.lineChart.invalidate()
+        binding.lineChart.axisRight.textColor = ContextCompat.getColor(requireActivity(), R.color.secondary_text)
+       // binding.lineChart.axisRight.textSize = 1f    //ContextCompat.getColor(requireActivity(), R.color.secondary_text)
+        binding.apply {
+          //  lineChart.getXAxis().setTextSize(10f)
+          //  lineChart.setExtraOffsets(0f,0f,10f,12f);
+
+        }
         binding.lineChart.axisRight.valueFormatter = object : ValueFormatter() {
             override fun getFormattedValue(value: Float): String {
                 val v: String = getPriceFormat(Math.round(value).toFloat())
@@ -487,7 +513,7 @@ class PortfolioFragment :
             legend.orientation = Legend.LegendOrientation.VERTICAL
             legend.verticalAlignment = Legend.LegendVerticalAlignment.TOP
             legend.horizontalAlignment = Legend.LegendHorizontalAlignment.CENTER
-            legend.textSize = 15F
+                // legend.textSize = 10F
             legend.form = Legend.LegendForm.LINE
         }
 
@@ -501,22 +527,22 @@ class PortfolioFragment :
         rightAxis.mDecimals = 1
         rightAxis.granularity = 1f
         rightAxis.isGranularityEnabled = true
-        rightAxis.textSize = 14f
+      //  rightAxis.textSize = 14f
 
 
         rightAxis.axisMinimum = yMin
-        //  rightAxis.axisMaximum = yMax
         val labelCount = rightAxis.labelCount
         val density = resources.displayMetrics.density
         val lp = binding.lineChart.layoutParams
-        lp.height = (250 * density * labelCount / 5).toInt()
+        lp.height = (200 * density * labelCount / 7).toInt()
         binding.lineChart.layoutParams = lp
-        binding.lineChart.setVisibleXRangeMaximum(5f)
+        binding.lineChart.setVisibleXRangeMaximum(6f)
 
-        binding.lineChart.setDrawGridBackground(false);//set this to true to draw the
+        binding.lineChart.setDrawGridBackground(false)
         binding.apply {
             lineChart.minOffset = 0f
-            lineChart.setViewPortOffsets(0f, 20f, 88f, 50f)
+            lineChart.setViewPortOffsets(0f, 20f, 70f, 50f)
+
         }
 
     }
@@ -542,21 +568,6 @@ class PortfolioFragment :
         }
     }
 
-//    object MyAxisFormatter : IndexAxisValueFormatter() {
-//
-//        var items = arrayListOf("January",  "February", "March", "April","May", "June")
-//
-//        override fun getAxisLabel(value: Float, axis: AxisBase?): String? {
-//            val index = value.toInt()
-//            return if (index < month.size) {
-//                items[index]
-//            } else {
-//                null
-//            }
-//        }
-//    }
-
-
     private fun onUserBalancePortfolio() {
         binding.apply {
             /* Show or Hide Trading Balance */
@@ -571,7 +582,7 @@ class PortfolioFragment :
             }
         }
     }
-
+    
     private fun onLayoutHeader() {
         binding.apply {
             //check share preference
@@ -703,7 +714,7 @@ class PortfolioFragment :
 
     private fun showBalanceClick() {
         binding.apply {
-            blurCondition = !blurCondition
+
 
             if (blurCondition) {
                 txtBalance.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
@@ -711,6 +722,7 @@ class PortfolioFragment :
                 imgVisibility.setImageResource(R.drawable.ic_baseline_remove_red_eye_24)
 
                 lineChart.axisRight.isEnabled = false
+                blurCondition = false
 
             } else {
                 txtBalance.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
@@ -718,6 +730,7 @@ class PortfolioFragment :
                 imgVisibility.setImageResource(R.drawable.ic_baseline_visibility_off_24)
 
                 lineChart.axisRight.isEnabled = true
+                blurCondition = true
             }
         }
     }
