@@ -311,9 +311,9 @@ class FinanceBalanceActivity :
             tbTitle.setTextColor(ContextCompat.getColor(applicationContext, R.color.primary))
             tb.setNavigationOnClickListener {
                 finish()
-                if (DepositSuccessfullyActivity.backToHome){
-                    startActivity(Intent(this@FinanceBalanceActivity,MainActivity::class.java))
-                }
+//                if (DepositSuccessfullyActivity.backToHome){
+//                    startActivity(Intent(this@FinanceBalanceActivity,MainActivity::class.java))
+//                }
             }
         }
     }

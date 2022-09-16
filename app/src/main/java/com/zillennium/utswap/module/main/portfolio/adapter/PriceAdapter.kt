@@ -2,7 +2,6 @@ package com.zillennium.utswap.module.main.portfolio.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import com.zillennium.utswap.R
@@ -36,15 +35,17 @@ class PriceAdapter : BaseRecyclerViewAdapterGeneric<Portfolio.GetPortfolioDashBo
             binding.apply {
                 txtTitleProject.text = price.mkt_project_name
                 txtBuy.text = price.mkt_project_buy_price?.let { UtilKt().formatValue(it.toDouble(), "###,###.##") }
-                txtMkt.text = price.mkt_project_mkt_price?.let { UtilKt().formatValue(it.toDouble(), "###,###.##") }
+                txtMkt.text = price.mkt_project_new_price?.let { UtilKt().formatValue(it.toDouble(), "###,###.##") }
 
-                val mktPrice = (price.mkt_project_mkt_price?.toDouble()!! * 100.0).roundToInt() / 100.0
-                val buyPrice = (price.mkt_project_buy_price?.toDouble()!! * 100.0).roundToInt() / 100.0
+                val  buyPrice= (price.mkt_project_buy_price?.toDouble()!! * 100.0).roundToInt() / 100.0
+                val    mktPrice= (price.mkt_project_new_price?.toDouble()!! * 100.0).roundToInt() / 100.0
 
                 if (mktPrice < buyPrice){
                     txtMkt.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
                 }else if (mktPrice == buyPrice){
-                    txtMkt.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
+                    txtMkt.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.black))
+                }else if (mktPrice>buyPrice){
+                    txtMkt.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.success))
                 }
                 layoutPrice.setOnClickListener {
                     TradeExchangeActivity.launchTradeExchangeActivityFromWishList(

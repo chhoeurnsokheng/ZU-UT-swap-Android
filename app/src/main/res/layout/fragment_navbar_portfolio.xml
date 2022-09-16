@@ -120,7 +120,7 @@
                         android:layout_height="wrap_content"
                         android:alpha="0.4"
                         android:text="@string/portfolio"
-                        android:textAppearance="@style/bold_12"
+                        android:textAppearance="@style/bold_14"
                         android:textColor="@color/black_0a0b12" />
 
                     <LinearLayout
@@ -457,7 +457,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/trading_balance"
-                                android:textAppearance="@style/bold_14"
+                                android:textAppearance="@style/bold_16"
                                 android:textColor="@color/primary" />
 
                             <TextView

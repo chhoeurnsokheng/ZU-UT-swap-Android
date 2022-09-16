@@ -53,6 +53,7 @@ class SignInFragment :
     private fun onOtherActivity() {
         binding.apply {
             imgBack.setOnClickListener {
+                AccountActivity.status = false
                 activity?.finish()
                 hideKeyboard()
             }

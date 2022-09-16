@@ -235,7 +235,6 @@ class TradeFragment :
             }
 
             imgNotification.setOnClickListener {
-                SessionVariable.SESSION_STATUS.observe(this@TradeFragment) {
                     if (SessionVariable.SESSION_STATUS.value == true) {
                         val intent =
                             Intent(UTSwapApp.instance, NotificationActivity::class.java)
@@ -246,7 +245,6 @@ class TradeFragment :
                         val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
                         startActivity(intent)
                     }
-                }
 
             }
 

@@ -68,7 +68,7 @@
                     android:text="9"
                     android:textAppearance="@style/regular_8"
                     android:textColor="@color/white"
-                    android:visibility="visible" />
+                    android:visibility="invisible" />
             </RelativeLayout>
 
         </RelativeLayout>

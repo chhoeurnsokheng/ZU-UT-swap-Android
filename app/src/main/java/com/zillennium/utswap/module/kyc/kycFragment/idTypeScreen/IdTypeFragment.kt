@@ -1,5 +1,6 @@
 package com.zillennium.utswap.module.kyc.kycFragment.idTypeScreen
 
+import android.app.Activity
 import android.app.AlertDialog
 import android.view.KeyEvent
 import android.view.View
@@ -68,6 +69,7 @@ open class IdTypeFragment :
                         occupation = ""
                         company = ""
                     }
+                    activity?.setResult(Activity.RESULT_OK)
                     activity?.finish()
                 }
             })
@@ -203,6 +205,7 @@ open class IdTypeFragment :
                          occupation = ""
                          company = ""
                      }
+                     activity?.setResult(Activity.RESULT_OK)
                      activity?.finish()
                  }
                   tbTitle.text ="1/4"

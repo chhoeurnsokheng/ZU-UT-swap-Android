@@ -170,11 +170,11 @@ class FinanceSubscriptionsActivity :
         arraySubscription.addAll(dataRes.transaction)
         listProject.clear()
         val allProjectObj = SubscriptionObject.ProjectList()
-        allProjectObj.project_name = "All Projects"
+        allProjectObj.name = "All Projects"
         listProject.add(allProjectObj)
 
         listProject.sortBy {
-            it.project_name
+            it.name
         }
 
         if (dataRes.transaction.isEmpty()) {

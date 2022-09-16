@@ -36,15 +36,15 @@ class FinanceSubscriptionFilterAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.titleFilter.text = titleList[position].project_name
+        holder.titleFilter.text = titleList[position].name
         if (position == titleList.size - 1) {
             holder.line.visibility = View.GONE
         }
-        if (FinanceSubscriptionsActivity.titleProject == titleList[position].project_name) {
+        if (FinanceSubscriptionsActivity.titleProject == titleList[position].name) {
             holder.layIconCheck.visibility = View.VISIBLE
         }
         holder.layoutFilter.setOnClickListener {
-            onClickAdapter.onClickMe(titleList[position].project, titleList[position].project_name)
+            onClickAdapter.onClickMe(titleList[position].project, titleList[position].name)
 
 
         }

@@ -45,7 +45,7 @@ class DepositSuccessfullyActivity:BaseMvpActivity<DepositSuccessfullyView.View,D
    private fun handleUI(){
        binding.apply {
            btnDone.setOnClickListener {
-               backToHome
+//               backToHome
             startActivity(Intent(this@DepositSuccessfullyActivity, FinanceBalanceActivity::class.java))
            }
            if (intent.hasExtra(Constants.Deposit.TRANSATION_ID)) {

@@ -104,12 +104,12 @@ class NewsFragment :
                     imgMenu.setOnClickListener {
                         val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
                         startActivity(intent)
-                        activity?.finish()
+//                        activity?.finish()
                     }
                     imgNotification.setOnClickListener {
                         val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
                         startActivity(intent)
-                        activity?.finish()
+//                        activity?.finish()
                     }
                     tvBadgeNumber.visibility = View.GONE
 
