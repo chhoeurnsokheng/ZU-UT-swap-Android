@@ -164,7 +164,7 @@ class PortfolioFragment :
             swipeRefresh.isRefreshing = false
             loadingProgressBar.visibility = View.GONE
             layTradingBalance.visibility = View.VISIBLE
-            txtBalance.text = "$ " + data.data?.total_user_balance?.let { UtilKt().formatValue(it, "###,###.##") }
+            txtBalance.text = "$ " + data.data?.total_market_value?.let { UtilKt().formatValue(it, "###,###.##") }
 
             filter = 0
 
@@ -227,7 +227,7 @@ class PortfolioFragment :
                             100
                         )
 
-                        txtTradingBalance.text =  "$ " + data.data?.user_balance?.usd?.let {
+                        txtTradingBalance.text =  "$ " + data.data?.total_user_balance?.let {
                             UtilKt().formatValue(
                                 it,
                                 "###,###.##"
@@ -287,7 +287,7 @@ class PortfolioFragment :
                             100
                         )
 
-                        txtTradingBalance.text = "$ " + data.data?.user_balance?.usd?.let {
+                        txtTradingBalance.text = "$ " + data.data?.total_user_balance?.let {
                             UtilKt().formatValue(
                                 it,
                                 "###,###.##"
@@ -304,7 +304,7 @@ class PortfolioFragment :
                         rvFilter.adapter = pricePortfolioAdapter
 
                         lineChart.visibility = View.VISIBLE
-                        txtTradingBalance.text = "$ " + data.data?.user_balance?.usd?.let {
+                        txtTradingBalance.text = "$ " + data.data?.total_user_balance?.let {
                             UtilKt().formatValue(
                                 it,
                                 "###,###.##"
@@ -363,7 +363,7 @@ class PortfolioFragment :
                             100
                         )
 
-                        txtTradingBalance.text = "$ " + data.data?.user_balance?.usd?.let {
+                        txtTradingBalance.text = "$ " + data.data?.total_user_balance?.let {
                             UtilKt().formatValue(
                                 it,
                                 "###,###.##"
@@ -579,7 +579,7 @@ class PortfolioFragment :
             }
         }
     }
-
+    
     private fun onLayoutHeader() {
         binding.apply {
             //check share preference
@@ -711,7 +711,7 @@ class PortfolioFragment :
 
     private fun showBalanceClick() {
         binding.apply {
-            blurCondition = !blurCondition
+
 
             if (blurCondition) {
                 txtBalance.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
@@ -719,6 +719,7 @@ class PortfolioFragment :
                 imgVisibility.setImageResource(R.drawable.ic_baseline_remove_red_eye_24)
 
                 lineChart.axisRight.isEnabled = false
+                blurCondition = false
 
             } else {
                 txtBalance.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
@@ -726,6 +727,7 @@ class PortfolioFragment :
                 imgVisibility.setImageResource(R.drawable.ic_baseline_visibility_off_24)
 
                 lineChart.axisRight.isEnabled = true
+                blurCondition = true
             }
         }
     }
