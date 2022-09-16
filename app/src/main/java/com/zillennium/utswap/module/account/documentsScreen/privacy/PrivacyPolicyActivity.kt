@@ -15,6 +15,9 @@ class PrivacyPolicyActivity: BaseMvpActivity<PrivacyPolicyView.View, PrivacyPoli
     override fun initView() {
         super.initView()
         toolBar()
+        binding.apply {
+            pdfView.fromAsset("Privacy Policy- UT Swap platform.pdf").load()
+        }
     }
     private fun toolBar(){
         setSupportActionBar(binding.includeLayout.tb)

@@ -15,6 +15,9 @@ class OperationRuleActivity : BaseMvpActivity<OperationRuleView.View, OperationR
     override fun initView() {
         super.initView()
         toolBar()
+        binding.apply {
+            pdfView.fromAsset("OPERATIONAL RULES- EN.pdf").load()
+        }
     }
 
 

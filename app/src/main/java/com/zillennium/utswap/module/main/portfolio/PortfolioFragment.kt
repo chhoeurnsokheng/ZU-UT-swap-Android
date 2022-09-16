@@ -540,6 +540,7 @@ class PortfolioFragment :
         binding.apply {
             lineChart.minOffset = 0f
             lineChart.setViewPortOffsets(0f, 20f, 70f, 50f)
+
         }
 
     }

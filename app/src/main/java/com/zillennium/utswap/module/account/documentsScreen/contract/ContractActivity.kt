@@ -1,6 +1,6 @@
 package com.zillennium.utswap.module.account.documentsScreen.contract
 
-import android.os.Bundle
+
 import com.zillennium.utswap.R
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityContractBinding
@@ -13,6 +13,10 @@ class ContractActivity :  BaseMvpActivity<ContractView.View, ContractView.Presen
     override fun initView() {
         super.initView()
         toolBar()
+        binding.apply {
+
+            pdfView.fromAsset("E- Agreement- KH&EN.pdf").load()
+        }
     }
 
 

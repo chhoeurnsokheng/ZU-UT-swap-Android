@@ -33,7 +33,6 @@ import com.zillennium.utswap.module.security.securityActivity.signInScreen.SignI
 import com.zillennium.utswap.module.system.notification.NotificationActivity
 import com.zillennium.utswap.screens.navbar.navbar.MainActivity
 import com.zillennium.utswap.utils.Constants
-import com.zillennium.utswap.utils.UtilKt
 import com.zillennium.utswap.utils.groupingSeparator
 
 class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, FragmentHomeBinding>(),
@@ -55,6 +54,12 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
 
     override fun initView() {
         super.initView()
+
+      //  FirebaseCrash.log("")
+//        binding.readMore.setOnClickListener(View.OnClickListener {
+//            throw RuntimeException("Test Crash") // Force a crash
+//        })
+
         SessionVariable.realTimeWatchList.value = true
         mPresenter.getBanner(requireActivity())
         onSwipeRefresh()
@@ -127,7 +132,7 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
                             )
                         } else {
                             val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
-                            startActivity(intent, )
+                            startActivity(intent)
 
                         }
                     }
