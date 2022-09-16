@@ -69,7 +69,7 @@ class TradeExchangeActivity :
 
     var handler = Handler()
     var runnable: Runnable? = null
-    var delay = 1000
+    var delay = 6000
 
     companion object {
         fun launchTradeExchangeActivity(context: Context, trade: TradeModel?) {
@@ -114,6 +114,15 @@ class TradeExchangeActivity :
         initData()
 
         SessionVariable.refreshOrderPending.observe(this@TradeExchangeActivity){
+            if(it){
+
+            }else{
+                binding.swipeRefresh.isRefreshing = false
+            }
+        }
+
+        //refresh order book table
+        SessionVariable.refreshOrderBookTable.observe(this@TradeExchangeActivity){
             if(it){
 
             }else{
@@ -930,6 +939,7 @@ class TradeExchangeActivity :
             SessionVariable.refreshOrderPending.value = true
             SessionVariable.refreshMatchingTransaction.value = true
             SessionVariable.requestOrderBookSocket.value = true
+            SessionVariable.refreshOrderBookTable.value = true
             //mPresenter.startTradeDetailSocket(intent?.getStringExtra(Constants.TradeExchange.MarketName).toString())
             onCallApi()
         }
@@ -1035,6 +1045,7 @@ class TradeExchangeActivity :
         /** for recall request available balance and order book table socket*/
         SessionVariable.requestOrderBookSocket.value = true
         SessionVariable.refreshOrderPending.value = false
+        SessionVariable.refreshOrderBookTable.value = false
         SessionVariable.refreshMatchingTransaction.value = false
         SessionVariable.callDialogErrorCreateOrder.value = false
         SessionVariable.callDialogSuccessPlaceOrder.value = false
