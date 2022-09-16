@@ -15,6 +15,7 @@ import androidx.lifecycle.lifecycleScope
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.google.gson.JsonObject
+import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
 import com.zillennium.utswap.R
 import com.zillennium.utswap.api.manager.ApiNotificationImp
 import com.zillennium.utswap.screens.navbar.navbar.MainActivity
@@ -35,7 +36,9 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         if (message.notification != null) {
             displayNotification(
                 message.notification?.title.toString(),
-                message.notification?.body.toString(),
+                HtmlCompat.fromHtml(
+                    message.notification?.body.toString(),
+                    HtmlCompat.FROM_HTML_MODE_COMPACT).toString()
             )
         }
 //        val title = data["title"]
@@ -140,6 +143,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         ApiNotificationImp().notification(this, param).subscribe({
             if (it.status == 1) {
                 badgeCount = it.data?.countGroupNoti?.toInt() ?: 0
+                SessionVariable.BADGE_NUMBER.value = it.data?.countGroupNoti
                 ShortcutBadger.applyCount(this, badgeCount)
                 ShortcutBadger.applyNotification(applicationContext, incomingCallNotification, badgeCount)
             }

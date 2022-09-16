@@ -3,6 +3,7 @@ package com.zillennium.utswap.screens.navbar.navbar
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
+import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import android.view.View.GONE
@@ -50,7 +51,6 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
     var kcyComplete: Boolean? = false
     private var isSelected = false
     private var isSignInSuccess = false
-    var badgeNumber: Int = 0
     val homeFragment = HomeFragment()
     private var checkStatusToken = false
     private var doubleBackToExitPressedOnce = false
@@ -58,6 +58,8 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
     private var isFromSignOut = false
     var activeFragment: Fragment = homeFragment
     val fragmentManager = supportFragmentManager
+    private var resultIntent = ""
+
 
     override fun initView() {
         super.initView()
@@ -89,6 +91,9 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
         eventClickFromOutSide(intent)
+        if (intent?.hasExtra("goHome") == true) {
+             resultIntent = intent.getStringExtra("goHome").toString()
+        }
     }
 
     private fun eventClickFromOutSide(intent: Intent?) {
@@ -164,7 +169,6 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
 
     override fun onNotificationSuccess(data: NotificationModel.NotificationData) {
         SessionVariable.BADGE_NUMBER.value = data.countGroupNoti ?: ""
-        badgeNumber = data.countGroupNoti?.toInt() ?: 0
         homeFragment.setBadgeNumber()
 
 
@@ -362,7 +366,8 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
                                         startActivity(intent)
                                     }
 
-                                } else if (AccountActivity.status) {
+                                }
+                                else if (AccountActivity.status) {
                                     fragmentManager.beginTransaction().hide(activeFragment).show(homeFragment).commit()
                                     navView.selectedItemId = R.id.navigation_navbar_home
 
@@ -405,14 +410,24 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == RESULT_CANCELED && requestCode == 1111) {
+//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+//        super.onActivityResult(requestCode, resultCode, data)
+//        if (resultCode == RESULT_CANCELED && requestCode == 1111) {
+//            fragmentManager.beginTransaction().hide(activeFragment).show(homeFragment).commit()
+//            binding.navView.selectedItemId = R.id.navigation_navbar_home
+//
+//        }
+//    }
+
+    override fun onResume() {
+        super.onResume()
+        if (AccountActivity.status || resultIntent == "goHome") {
             fragmentManager.beginTransaction().hide(activeFragment).show(homeFragment).commit()
             binding.navView.selectedItemId = R.id.navigation_navbar_home
-            mPresenter.onCheckKYCStatus()
-
+            resultIntent = ""
+            AccountActivity.status = false
         }
+        mPresenter.onCheckKYCStatus()
     }
 
 

@@ -10,14 +10,17 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityProjectBinding
+import com.zillennium.utswap.models.notification.NotificationModel
 import com.zillennium.utswap.models.project.ProjectList
 import com.zillennium.utswap.module.project.projectInfoScreen.ProjectInfoActivity
 import com.zillennium.utswap.module.project.projectScreen.adapter.ProjectAdapter
 import com.zillennium.utswap.module.project.projectScreen.adapter.ProjectGridAdapter
+import com.zillennium.utswap.module.security.securityActivity.signInScreen.SignInActivity
 import com.zillennium.utswap.module.system.notification.NotificationActivity
 
 
@@ -50,15 +53,32 @@ class ProjectActivity :
         onSwipeRefresh()
         onSearchBox()
         onChangeLayoutManager()
-
+        mPresenter.getNotificationLists(this)
+        SessionVariable.BADGE_NUMBER.observe(this){
+            if (SessionVariable.BADGE_NUMBER.value?.isNotEmpty() == true && SessionVariable.BADGE_NUMBER.value != "0") {
+                binding.tvBadgeNumber.visibility = View.VISIBLE
+                if (it.toInt() > 9) {
+                    binding.tvBadgeNumber.text = "9+"
+                } else {
+                    binding.tvBadgeNumber.text = it
+                }
+            } else {
+                binding.tvBadgeNumber.visibility = View.INVISIBLE
+            }
+        }
         binding.apply {
             backImage.setOnClickListener {
                 finish()
             }
 
             imgNotification.setOnClickListener {
-                val intent = Intent(UTSwapApp.instance, NotificationActivity::class.java)
-                startActivity(intent)
+                if (SessionVariable.SESSION_STATUS.value == true) {
+                    val intent = Intent(this@ProjectActivity, NotificationActivity::class.java)
+                    startActivity(intent)
+                } else {
+                    val intent = Intent(this@ProjectActivity, SignInActivity::class.java)
+                    startActivityForResult(intent, 1111)
+                }
             }
 
             layView.setOnClickListener {
@@ -114,11 +134,29 @@ class ProjectActivity :
     }
 
 
+
     override fun projectListFail(data: ProjectList.ProjectListRes) {
         binding.apply {
             pgLoading.visibility = View.GONE
             projectListSwipeRefresh.isRefreshing = false
         }
+    }
+
+    override fun onNotificationSuccess(data: NotificationModel.NotificationData) {
+        if (data.countGroupNoti?.isNotEmpty() == true || data.countGroupNoti == "0" ) {
+            binding.tvBadgeNumber.visibility = View.VISIBLE
+            if ((data.countGroupNoti?.toInt() ?: 0) > 9) {
+                binding.tvBadgeNumber.text = "9+"
+            } else {
+                binding.tvBadgeNumber.text = data.countGroupNoti
+            }
+        } else {
+            binding.tvBadgeNumber.visibility = View.INVISIBLE
+        }
+
+    }
+
+    override fun onNotificationFail(data: NotificationModel.NotificationRes) {
     }
 
 
@@ -230,7 +268,15 @@ class ProjectActivity :
             projectListSwipeRefresh.setOnRefreshListener {
                 page = 1
                 requestData()
+                mPresenter.getNotificationLists(this@ProjectActivity)
             }
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == RESULT_CANCELED) {
+            mPresenter.getNotificationLists(this)
         }
     }
 

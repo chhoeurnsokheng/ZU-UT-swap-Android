@@ -10,6 +10,7 @@ import com.zillennium.utswap.Datas.StoredPreferences.KYCPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentKycApplicationBinding
+import com.zillennium.utswap.module.account.accountScreen.AccountActivity
 import com.zillennium.utswap.module.kyc.kycActivity.KYCActivity
 import com.zillennium.utswap.module.kyc.kycFragment.employmentInfoScreen.EmploymentInfoFragment
 import com.zillennium.utswap.module.kyc.kycFragment.idTypeScreen.camera.idCardCameraFragment.IDCardCameraFragment
@@ -41,6 +42,7 @@ class KycApplicationFragment :
                 imgBack.setOnClickListener {
                     if ((activity as KYCActivity).kycStatus == "Pending" || dataNotification == "KYC") {
                         activity?.setResult(Activity.RESULT_OK)
+                        activity?.setResult(Activity.RESULT_OK)
                         activity?.finish()
 
                     } else {
@@ -50,6 +52,7 @@ class KycApplicationFragment :
                 activity?.let {
                     activity?.onBackPressedDispatcher?.addCallback(it, object : OnBackPressedCallback(true){
                         override fun handleOnBackPressed() {
+                            activity?.setResult(Activity.RESULT_OK)
                             activity?.finish()
                         }
                     })
@@ -90,9 +93,9 @@ class KycApplicationFragment :
                     }
                     if ((activity as KYCActivity).kycStatus == "Pending") {
                         activity?.finish()
-//                        activity?.setResult(Activity.RESULT_OK)
                     } else {
-                        startActivity(Intent(requireActivity(),MainActivity::class.java))
+                        startActivity(Intent(activity, MainActivity::class.java)
+                            .putExtra("goHome","goHome"))
                     }
                 }
             }

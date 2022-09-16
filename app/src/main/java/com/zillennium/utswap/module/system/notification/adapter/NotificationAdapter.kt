@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.text.HtmlCompat
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
@@ -45,7 +46,9 @@ class NotificationAdapter(var onClickNotificationAdapter: OnClickNotificationAda
                     .skipMemoryCache(true)
                     .into(icNotification)
                 txtTitleAnnouncement.text = notificationModel.action_type
-                txtDescription.text = notificationModel.body
+                txtDescription.text = HtmlCompat.fromHtml(
+                    notificationModel.body.toString(),
+                    HtmlCompat.FROM_HTML_MODE_COMPACT)
                 txtDuration.text = notificationModel.sent_time
 
                 var date = "Mar 10, 2016 6:30:00 PM"

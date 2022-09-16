@@ -34,6 +34,7 @@ import com.zillennium.utswap.module.system.notification.NotificationActivity
 import com.zillennium.utswap.screens.navbar.navbar.MainActivity
 import com.zillennium.utswap.utils.Constants
 import com.zillennium.utswap.utils.UtilKt
+import com.zillennium.utswap.utils.groupingSeparator
 
 class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, FragmentHomeBinding>(),
     HomeView.View {
@@ -43,6 +44,7 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
     private var homeAdapter: HomeMenuAdapter? = null
     var blurCondition = true
     val blurMask: MaskFilter = BlurMaskFilter(50f, BlurMaskFilter.Blur.NORMAL)
+    private var isSignInSuccess = false
 
     private val HomeArrayList = ArrayList<HomeMenuModel>()
     var bannerLoopingPagerAdapter: BannerLoopingPagerAdapter? = null
@@ -144,7 +146,7 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
                     /* Home Menu Grid */
                     onHomeMenuGrid(SessionVariable.SESSION_STATUS.value.toString().toBoolean())
                     imgNotification.setOnClickListener {
-                        SessionVariable.SESSION_STATUS.observe(this@HomeFragment) {
+//                        SessionVariable.SESSION_STATUS.observe(this@HomeFragment) {
                             if (SessionVariable.SESSION_STATUS.value == true) {
                                 val intent =
                                     Intent(UTSwapApp.instance, NotificationActivity::class.java)
@@ -155,7 +157,7 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
                                 val intent = Intent(UTSwapApp.instance, SignInActivity::class.java)
                                 startActivity(intent)
                             }
-                        }
+//                        }
 
                     }
 
