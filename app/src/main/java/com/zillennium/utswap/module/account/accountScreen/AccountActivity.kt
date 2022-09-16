@@ -196,7 +196,12 @@ class AccountActivity :
 //                            SessionPreferences().removeValue("SESSION_KYC_SUBMIT_STATUS")
 //                            SessionPreferences().removeValue("SESSION_KYC_STATUS")
                             ClientClearData.clearDataUser()
+
+                            SessionVariable.CLEAR_TOKEN_TRADE_EXCHANGE.value = false
+
+
                             status = true
+
                             startActivity(Intent(this@AccountActivity, MainActivity::class.java))
                             finish()
                             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)

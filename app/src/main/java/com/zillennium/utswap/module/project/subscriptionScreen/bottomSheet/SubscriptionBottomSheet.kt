@@ -1,6 +1,7 @@
 package com.zillennium.utswap.module.project.subscriptionScreen.bottomSheet
 
 import android.content.Context
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.os.Handler
@@ -24,6 +25,8 @@ import com.zillennium.utswap.api.manager.ApiManager
 import com.zillennium.utswap.api.manager.ApiProjectImp
 import com.zillennium.utswap.databinding.BottomSheetProjectSubscriptionBinding
 import com.zillennium.utswap.models.project.SubscriptionProject
+import com.zillennium.utswap.screens.navbar.navbar.MainActivity
+import com.zillennium.utswap.utils.ClientClearData
 import com.zillennium.utswap.utils.Constants
 import com.zillennium.utswap.utils.formatThreeDigitValue
 import rx.Subscription
@@ -246,6 +249,14 @@ class SubscriptionBottomSheet : BottomSheetDialogFragment(), AdapterView.OnItemS
                 if(it.message.toString() == "Insufficient UT BalanceUSD")
                 {
                     Toast.makeText(UTSwapApp.instance, "Insufficient UT Balance USD",Toast.LENGTH_LONG).show()
+                }else if(it.message.toString() == "Please sign in"){
+                    Handler().postDelayed({
+                        dismiss()
+                    }, 1000)
+                    ClientClearData.clearDataUser()
+                    startActivity(Intent(requireContext(), MainActivity::class.java))
+                    requireActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+
                 }else{
                     Toast.makeText(UTSwapApp.instance, it.message.toString(),Toast.LENGTH_LONG).show()
                 }

@@ -86,7 +86,11 @@ class SubscriptionPresenter : BaseMvpPresenterImpl<SubscriptionView.View>(),
             {
                 mView?.onGetUserInfoSuccess(it.data!!)
             }else{
-                mView?.onGetUserInfoFail(it.data!!)
+                if(it.message.toString() == "Please sign in"){
+                    mView?.userExpiredToken()
+                }else{
+                    mView?.onGetUserInfoFail(it.data!!)
+                }
             }
         },{
             object : CallbackWrapper(it, UTSwapApp.instance, arrayListOf()){

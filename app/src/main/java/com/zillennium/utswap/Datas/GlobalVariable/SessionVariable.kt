@@ -15,6 +15,7 @@ class SessionVariable {
         var SESSION_KYC_SUBMIT_STATUS = MutableLiveData<Boolean>(SessionPreferences().SESSION_KYC_SUBMIT_STATUS)
         var BADGE_NUMBER = MutableLiveData<String>(SessionPreferences().BADGE_NUMBER)
         var USER_EXPIRE_TOKEN: MutableLiveData<Boolean> = MutableLiveData(false)
+        var CLEAR_TOKEN_TRADE_EXCHANGE: MutableLiveData<Boolean> = MutableLiveData(false)
 
 
         var SESSION_SUBSCRIPTION_BOTTOM_SHEET: MutableLiveData<Boolean> = MutableLiveData()

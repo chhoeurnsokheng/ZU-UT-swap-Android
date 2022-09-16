@@ -15,6 +15,8 @@ import com.zillennium.utswap.models.userService.User
 import com.zillennium.utswap.module.project.subscriptionScreen.adapter.SubscriptionAdapter
 import com.zillennium.utswap.module.project.subscriptionScreen.bottomSheet.SubscriptionBottomSheet
 import com.zillennium.utswap.module.project.subscriptionScreen.dialog.SubscriptionConfirmDialog
+import com.zillennium.utswap.screens.navbar.navbar.MainActivity
+import com.zillennium.utswap.utils.ClientClearData
 import com.zillennium.utswap.utils.Constants
 
 
@@ -197,6 +199,10 @@ class SubscriptionActivity :
     }
 
     override fun onGetUserInfoFail(data: User.AppSideBarData) {
+    }
+
+    override fun userExpiredToken() {
+        ClientClearData.clearDataUser()
     }
 
     private val onclickAdapter: SubscriptionAdapter.OnclickAdapter =
