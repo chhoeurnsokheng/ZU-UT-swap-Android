@@ -43,7 +43,7 @@ class PerformanceAdapter: BaseRecyclerViewAdapterGeneric<Portfolio.GetPortfolioD
                     txtPercent.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
                     percent.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
                 }else if (performance.mkt_project_perf?.toDouble() ==0.0){
-                    txtPercent.text ="_"
+                    txtPercent.text ="--"
                     percent.visibility = View.INVISIBLE
                     txtPercent.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.black))
                 }

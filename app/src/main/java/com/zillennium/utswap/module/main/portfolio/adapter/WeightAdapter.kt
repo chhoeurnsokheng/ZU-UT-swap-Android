@@ -37,7 +37,7 @@ class WeightAdapter: BaseRecyclerViewAdapterGeneric<Portfolio.GetPortfolioDashBo
                 txtPercent.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.black_222222))
                 percent.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.black_222222))
                 if (weight.weight?.toDouble() ==0.0){
-                    txtPercent.text = "-"
+                    txtPercent.text = "--"
                     percent.visibility =View.INVISIBLE
                     txtPercent.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.black_222222))
                 }

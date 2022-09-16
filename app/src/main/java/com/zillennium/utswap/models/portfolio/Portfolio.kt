@@ -60,6 +60,7 @@ object Portfolio {
         var project_id:String? = null
         var market_name:String? =null
         var market_id:Int?  =null
+        var mkt_project_new_price:String? = ""
 
     }
 

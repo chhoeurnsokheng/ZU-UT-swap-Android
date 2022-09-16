@@ -446,9 +446,11 @@ class PortfolioFragment :
             swipeRefresh.isRefreshing = false
             month = dataSuccess.data.map { it.x } as ArrayList<String>
 
+
             val listData = ArrayList<Double>()
-            balance_weight.let { listData.add(it) }
             ut_projects.let { listData.add(it) }
+            balance_weight.let { listData.add(it) }
+
             chartPie.setDataOfChart(listData)
 
 
@@ -534,7 +536,7 @@ class PortfolioFragment :
         val lp = binding.lineChart.layoutParams
         lp.height = (200 * density * labelCount / 7).toInt()
         binding.lineChart.layoutParams = lp
-        binding.lineChart.setVisibleXRangeMaximum(5f)
+        binding.lineChart.setVisibleXRangeMaximum(6f)
 
         binding.lineChart.setDrawGridBackground(false)
         binding.apply {
