@@ -141,7 +141,7 @@ class FinanceBalanceDialog: DialogFragment() {
 
         fos?.use {
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, it)
-            Toast.makeText(UTSwapApp.instance , "Captured View and saved to Gallery" , Toast.LENGTH_SHORT).show()
+            Toast.makeText(UTSwapApp.instance , "Screenshot" , Toast.LENGTH_SHORT).show()
         }
     }
 
