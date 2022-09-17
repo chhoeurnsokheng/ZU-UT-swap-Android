@@ -364,7 +364,18 @@ class ProjectInfoActivity :
                 btnTrade.visibility = View.GONE
                 btnSubscript.visibility = View.GONE
                 btnUpcoming.visibility = View.VISIBLE
+            }
 
+            if(data.market_id.isNullOrEmpty() || data.market_name.isNullOrEmpty()){
+                btnTrade.visibility = View.GONE
+                btnSubscript.visibility = View.VISIBLE
+                btnUpcoming.visibility = View.GONE
+                btnSubscript.setOnClickListener {
+                    SubscriptionActivity.launchSubscriptionActivity(this@ProjectInfoActivity,
+                        data.id,
+                        data.project_name.toString()
+                    )
+                }
             }
 
         }

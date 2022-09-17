@@ -95,6 +95,9 @@ class BuyDialog : DialogFragment() {
         )
         val result = VerifyClientData.makeSign(params, SessionPreferences().SESSION_X_TOKEN_API.toString())
 
+        println("buy sign"+ result.toString())
+        println("buy token "+ SessionPreferences().SESSION_TOKEN)
+
         btnBuy?.setOnClickListener {
             SessionVariable.waitingPlaceOrder.value = true
             createTradeOrder(

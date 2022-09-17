@@ -1,12 +1,9 @@
 package com.zillennium.utswap.module.main.trade.tradeExchangeScreen.fragment.orderBook
 
-import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.androidstudy.networkmanager.Tovuti
 import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
 import com.zillennium.utswap.R
-import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentExchangeOrderBookBinding
 import com.zillennium.utswap.models.tradingList.TradeOrderBookAsk
@@ -35,6 +32,16 @@ class OrderBookFragment :
     override fun initView() {
         super.initView()
         onOtherActivity()
+
+        SessionVariable.refreshOrderBookTable.observe(this@OrderBookFragment){
+            if(it){
+                println("====== refresh")
+                clearData()
+                mPresenter.startTradeOrderBookTable(Constants.OrderBookTable.marketNameOrderBook)
+                SessionVariable.refreshOrderBookTable.value = false
+            }
+        }
+
         SessionVariable.requestOrderBookSocket.observe(this@OrderBookFragment){
             if(it){
                 mPresenter.startTradeOrderBookTable(Constants.OrderBookTable.marketNameOrderBook)
@@ -58,6 +65,8 @@ class OrderBookFragment :
         }
 
         fetchTradeOrderBookTable.observe(this@OrderBookFragment){
+
+            println("===== socket order book $it")
 
             orderBookBidList.clear()
             orderBookAskList.clear()

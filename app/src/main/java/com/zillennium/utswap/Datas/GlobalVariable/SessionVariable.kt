@@ -28,14 +28,15 @@ class SessionVariable {
         var requestTradingList: MutableLiveData<Boolean> = MutableLiveData()
 
 
-        var refreshOrderPending: MutableLiveData<Boolean> = MutableLiveData()
-        var refreshMatchingTransaction: MutableLiveData<Boolean> = MutableLiveData()
+        var refreshOrderPending: MutableLiveData<Boolean> = MutableLiveData(false)
+        var refreshOrderBookTable: MutableLiveData<Boolean> = MutableLiveData(false)
+        var refreshMatchingTransaction: MutableLiveData<Boolean> = MutableLiveData(false)
 
         var marketPriceSell: MutableLiveData<String> = MutableLiveData()
         var marketPriceBuy: MutableLiveData<String> = MutableLiveData()
 
-        var callDialogErrorCreateOrder: MutableLiveData<Boolean> = MutableLiveData()
-        var callDialogSuccessPlaceOrder: MutableLiveData<Boolean> = MutableLiveData()
+        var callDialogErrorCreateOrder: MutableLiveData<Boolean> = MutableLiveData(false)
+        var callDialogSuccessPlaceOrder: MutableLiveData<Boolean> = MutableLiveData(false)
 
         var realTimeWatchList: MutableLiveData<Boolean> = MutableLiveData()
         var waitingPlaceOrder: MutableLiveData<Boolean> = MutableLiveData()
