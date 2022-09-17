@@ -110,8 +110,9 @@ class AccountActivity :
             }
 
             linearLayoutLockTimeOut.setOnClickListener {
-                val intent = Intent(UTSwapApp.instance, LockTimeOutActivity::class.java)
-                startActivity(intent)
+
+//                val intent = Intent(UTSwapApp.instance, LockTimeOutActivity::class.java)
+//                startActivity(intent)
             }
 
             linearLayoutReferral.setOnClickListener {
