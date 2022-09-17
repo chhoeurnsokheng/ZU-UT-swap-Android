@@ -77,7 +77,7 @@ class DepositOpenLinkWebViewActivity :
 
         webPay.setVerticalScrollBarEnabled(false)
         webPay.setHorizontalScrollBarEnabled(false)
-        binding.webView.setOnTouchListener(View.OnTouchListener { v, event -> event.action == MotionEvent.ACTION_MOVE })
+      //  binding.webView.setOnTouchListener(View.OnTouchListener { v, event -> event.action == MotionEvent.ACTION_MOVE })
 
 
         webPay.webViewClient = object : WebViewClient() {
