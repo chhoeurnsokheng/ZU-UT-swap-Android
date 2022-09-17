@@ -81,7 +81,7 @@ android {
         stage {
             debuggable true
             minifyEnabled false
-            applicationIdSuffix ".stage"
+           applicationIdSuffix ".stage"
             versionNameSuffix ".$build"
             signingConfig signingConfigs.stage
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -102,10 +102,10 @@ android {
             signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 
-            buildConfigField "String", 'BASE_URL', '"https://sandbox.utswap.io/api/"'
+          //  buildConfigField "String", 'BASE_URL', '"https://sandbox.utswap.io/api/"'
 
 
-            /*buildConfigField "String", 'BASE_URL', '"https://dev-staging.zillionunited.io/api/"'*/
+            buildConfigField "String", 'BASE_URL', '"https://dev-staging.zillionunited.io/api/"'
 
 
             //buildConfigField "String", 'BASE_SOCKET_URL', '"ws://192.168.41.222/"'

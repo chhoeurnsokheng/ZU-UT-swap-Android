@@ -1,6 +1,6 @@
 package com.zillennium.utswap.module.main.portfolio.adapter
 
-import android.content.Context
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,7 +8,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
-import com.zillennium.utswap.bases.mvp.BaseRecyclerViewAdapterGeneric
+
 import com.zillennium.utswap.bases.mvp.BaseViewHolder
 import com.zillennium.utswap.databinding.ItemListPortfolioPerformanceBinding
 import com.zillennium.utswap.models.portfolio.Portfolio
