@@ -56,10 +56,6 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
     override fun initView() {
         super.initView()
 
-      //  FirebaseCrash.log("")
-//        binding.readMore.setOnClickListener(View.OnClickListener {
-//            throw RuntimeException("Test Crash") // Force a crash
-//        })
 
         SessionVariable.realTimeWatchList.value = true
         mPresenter.getBanner(requireActivity())
