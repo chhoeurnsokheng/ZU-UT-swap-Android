@@ -39,7 +39,7 @@ class OrdersFragment :
 
     var handler = Handler()
     var runnable: Runnable? = null
-    var delay = 1000
+    var delay = 6000
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun initView() {

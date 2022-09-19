@@ -5,6 +5,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.res.ColorStateList
+import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
@@ -27,7 +28,6 @@ import com.zillennium.utswap.module.main.trade.tradeScreen.adapter.TradeAdapter
 import com.zillennium.utswap.module.main.trade.tradeScreen.adapter.TradeUpcomingProjectAdapter
 import com.zillennium.utswap.module.security.securityActivity.signInScreen.SignInActivity
 import com.zillennium.utswap.module.system.notification.NotificationActivity
-import com.zillennium.utswap.screens.navbar.navbar.MainActivity
 import com.zillennium.utswap.utils.Constants
 
 
@@ -57,6 +57,7 @@ class TradeFragment :
         onOtherActivity()
         onCallWebSocketAndAPI()
         onCheckPreference()
+        onSwipeRefresh()
         SessionVariable.requestTradingList.value = false
 
         SessionVariable.requestTradingList.observe(this@TradeFragment){
@@ -68,7 +69,7 @@ class TradeFragment :
 
 
         fetchTradeData.observe(this@TradeFragment){
-            println("=== start socket trade list")
+            binding.swipeRefresh.isRefreshing = false
             if(search.isNotEmpty())
             {
                 search()
@@ -126,6 +127,14 @@ class TradeFragment :
 
     private fun onOtherActivity() {
         binding.apply {
+
+            swipeRefresh.setColorSchemeColors(
+                ContextCompat.getColor(
+                    UTSwapApp.instance,
+                    R.color.primary
+                )
+            )
+
             rvTrade.layoutManager = LinearLayoutManager(UTSwapApp.instance)
 //            tradeAdapter = TradeAdapter(tradeArrayList, onclickTrade)
 
@@ -289,6 +298,8 @@ class TradeFragment :
     override fun onGetUpcomingProjectSuccess(data: TradingList.TradeUpComingProjectRes) {
         binding.apply {
 
+            swipeRefresh.isRefreshing = false
+
             if (data.data?.project?.isNotEmpty() == true) {
                 txtUpcoming.visibility = View.VISIBLE
                 linearLayoutUpcomingProject.visibility = View.VISIBLE
@@ -310,6 +321,7 @@ class TradeFragment :
         binding.apply {
             txtUpcoming.visibility = View.GONE
             linearLayoutUpcomingProject.visibility = View.GONE
+            swipeRefresh.isRefreshing = false
         }
     }
 
@@ -400,6 +412,24 @@ class TradeFragment :
 
         }
 
+    }
+
+    private fun onSwipeRefresh(){
+        binding.apply {
+            swipeRefresh.setOnRefreshListener {
+                mPresenter.closeSocketTrading()
+                onClearFilter()
+                tradeArrayList.clear()
+                linearLayoutSearch.visibility = View.GONE
+                etSearch.text.clear()
+                search = ""
+                filter = 0
+                hideKeyboard()
+                Handler().postDelayed({
+                    mPresenter.startSocketTrading()
+                }, 500)
+            }
+        }
     }
 
     private fun onClearFilter() {
