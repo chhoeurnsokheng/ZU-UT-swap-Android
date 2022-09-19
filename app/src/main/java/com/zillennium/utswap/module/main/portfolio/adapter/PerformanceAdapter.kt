@@ -5,29 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.RecyclerView
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseRecyclerViewAdapterGeneric
 import com.zillennium.utswap.bases.mvp.BaseViewHolder
 import com.zillennium.utswap.databinding.ItemListPortfolioPerformanceBinding
+import com.zillennium.utswap.databinding.ItemListPortfolioPriceBinding
 import com.zillennium.utswap.models.portfolio.Portfolio
 import com.zillennium.utswap.module.main.trade.tradeExchangeScreen.TradeExchangeActivity
 
-class PerformanceAdapter: BaseRecyclerViewAdapterGeneric<Portfolio.GetPortfolioDashBoard, PerformanceAdapter.ItemViewHolder>(){
+class PerformanceAdapter   (var itemList:List<Portfolio.GetPortfolioDashBoard>, val onClickListener: OnClickPortfolio) :  RecyclerView.Adapter<PerformanceAdapter.ItemViewHolder>(){
 
-    override fun onCreateItemHolder(
-        inflater: LayoutInflater,
-        parent: ViewGroup,
-        viewType: Int
-    ) = ItemViewHolder(ItemListPortfolioPerformanceBinding.inflate(inflater, parent, false))
 
-    override fun onBindItemHolder(
-        holder: PerformanceAdapter.ItemViewHolder,
-        position: Int,
-        context: Context
-    ) {
-        holder.bidData(items[position])
-    }
 
     inner class ItemViewHolder(root: ItemListPortfolioPerformanceBinding) : BaseViewHolder<ItemListPortfolioPerformanceBinding>(root){
         fun bidData(performance: Portfolio.GetPortfolioDashBoard){
@@ -52,15 +42,36 @@ class PerformanceAdapter: BaseRecyclerViewAdapterGeneric<Portfolio.GetPortfolioD
                     percent.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.black_333333))
                 }
                 layoutProject.setOnClickListener {
-                    TradeExchangeActivity.launchTradeExchangeActivityFromWishList(
-                        root.context,
-                        performance.mkt_project_name,
-                        performance.market_name,performance.project_id,
-                        performance.market_id.toString()
-                    )
+                    if (performance.project_id == null){
+                        onClickListener.ClickPortfolioProjectID(true)
+                    }else if (performance.market_name == null){
+                        onClickListener.ClickPortfolioProjectID(true)
+                    }else{
+                        TradeExchangeActivity.launchTradeExchangeActivityFromWishList(
+                            root.context,
+                            performance.mkt_project_name,
+                            performance.market_name,performance.project_id,
+                            performance.market_id.toString()
+                        )
+                    }
+
                 }
 
             }
         }
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
+        return ItemViewHolder(
+            ItemListPortfolioPerformanceBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+        )
+    }
+
+    override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
+        holder.bidData(itemList[position])
+    }
+
+    override fun getItemCount(): Int {
+        return itemList.size
     }
 }

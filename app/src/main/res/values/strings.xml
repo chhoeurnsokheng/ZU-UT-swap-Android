@@ -361,7 +361,7 @@
     <string name="account">Account</string>
     <string name="preferences">Preferences</string>
     <string name="customer_support">Customer Support</string>
-    <string name="lock_time_out">Lock Timeout</string>
+    <string name="lock_time_out">Lock Timeout (Coming soon)</string>
     <string name="dark_mode_coming_soon">Darkmode (Coming Soon)</string>
     <string name="sign_out">Sign Out</string>
     <string name="referral_account">Referral</string>

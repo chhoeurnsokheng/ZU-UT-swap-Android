@@ -1,6 +1,7 @@
 package com.zillennium.utswap.module.main.portfolio
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.BlurMaskFilter
 import android.graphics.MaskFilter
@@ -30,6 +31,7 @@ import com.zillennium.utswap.module.main.portfolio.dialog.FilterPortfolioDialogB
 import com.zillennium.utswap.module.security.securityActivity.signInScreen.SignInActivity
 import com.zillennium.utswap.module.system.notification.NotificationActivity
 import com.zillennium.utswap.utils.Constants
+import com.zillennium.utswap.utils.Util
 import com.zillennium.utswap.utils.UtilKt
 import com.zillennium.utswap.utils.Utils
 import java.math.BigDecimal
@@ -180,8 +182,15 @@ class PortfolioFragment :
 
                         data.data?.let { changeList.addAll(it.profolio_dashboard) }
                         rvFilter.layoutManager = LinearLayoutManager(UTSwapApp.instance)
-                        val changePortfolioAdapter = ChangeAdapter()
-                        changePortfolioAdapter.items = changeList
+                        val changePortfolioAdapter = ChangeAdapter(changeList, onClickListener = object :OnClickPortfolio{
+                            override fun ClickPortfolioProjectID(isNull: Boolean) {
+                                if (isNull==true){
+                                    showAlterProjectCannotShowTradeDetails()
+                                }
+                            }
+
+                        })
+
                         rvFilter.adapter = changePortfolioAdapter
 
                         imgSortChange.setImageResource(R.drawable.ic_sort_arrow_up_down)
@@ -214,7 +223,7 @@ class PortfolioFragment :
                                 }
                             }
 
-                            changePortfolioAdapter.items = list
+                            changePortfolioAdapter.itemList = list
                             rvFilter.adapter = changePortfolioAdapter
                         }
 
@@ -241,8 +250,14 @@ class PortfolioFragment :
 
                         data.data?.profolio_dashboard?.let { performanceList.addAll(it) }
                         rvFilter.layoutManager = LinearLayoutManager(UTSwapApp.instance)
-                        val performancePortfolioAdapter = PerformanceAdapter()
-                        performancePortfolioAdapter.items = performanceList
+                        val performancePortfolioAdapter = PerformanceAdapter(performanceList, object :OnClickPortfolio{
+                            override fun ClickPortfolioProjectID(isNull: Boolean) {
+                                if (isNull==true){
+                                    showAlterProjectCannotShowTradeDetails()
+                                }
+                            }
+                        })
+                        performancePortfolioAdapter.itemList = performanceList
                         rvFilter.adapter = performancePortfolioAdapter
 
                         txtPerformance.text = Constants.PortfolioFilter.Performance
@@ -276,7 +291,7 @@ class PortfolioFragment :
                                 }
                             }
 
-                            performancePortfolioAdapter.items = list
+                            performancePortfolioAdapter.itemList = list
                             rvFilter.adapter = performancePortfolioAdapter
                         }
 
@@ -299,8 +314,17 @@ class PortfolioFragment :
 
                         data.data?.profolio_dashboard?.let { priceList.addAll(it) }
                         rvFilter.layoutManager = LinearLayoutManager(UTSwapApp.instance)
-                        val pricePortfolioAdapter = PriceAdapter()
-                        pricePortfolioAdapter.items = priceList
+                        val pricePortfolioAdapter = PriceAdapter(priceList, object :OnClickPortfolio{
+                            override fun ClickPortfolioProjectID(isNull: Boolean) {
+                                    if (isNull == true){
+                                       showAlterProjectCannotShowTradeDetails()
+                                    }
+                            }
+
+                        }
+
+                        )
+                        pricePortfolioAdapter.itemList = priceList
                         rvFilter.adapter = pricePortfolioAdapter
 
                         lineChart.visibility = View.VISIBLE
@@ -316,8 +340,13 @@ class PortfolioFragment :
 
                         data.data?.profolio_dashboard?.let { balanceList.addAll(it) }
                         rvFilter.layoutManager = LinearLayoutManager(UTSwapApp.instance)
-                        val balancePortfolioAdapter = BalanceAdapter()
-                        balancePortfolioAdapter.items = balanceList
+                        val balancePortfolioAdapter = BalanceAdapter(balanceList, object :OnClickPortfolio{
+                            override fun ClickPortfolioProjectID(isNull: Boolean) {
+                                showAlterProjectCannotShowTradeDetails()
+                            }
+
+                        })
+                        balancePortfolioAdapter.itemList = balanceList
                         rvFilter.adapter = balancePortfolioAdapter
 
                         imgSortBalance.setImageResource(R.drawable.ic_sort_arrow_up_down)
@@ -350,7 +379,7 @@ class PortfolioFragment :
                                 }
                             }
 
-                            balancePortfolioAdapter.items = list
+                            balancePortfolioAdapter.itemList = list
                             rvFilter.adapter = balancePortfolioAdapter
 
                         }
@@ -375,8 +404,15 @@ class PortfolioFragment :
 
                         data.data?.profolio_dashboard?.let { weightList.addAll(it) }
                         rvFilter.layoutManager = LinearLayoutManager(UTSwapApp.instance)
-                        val weightPortfolioAdapter = WeightAdapter()
-                        weightPortfolioAdapter.items = weightList
+                        val weightPortfolioAdapter = WeightAdapter(weightList, object :OnClickPortfolio{
+                            override fun ClickPortfolioProjectID(isNull: Boolean) {
+                                if (isNull==true){
+                                    showAlterProjectCannotShowTradeDetails()
+                                }
+                            }
+
+                        })
+                        weightPortfolioAdapter.itemList = weightList
                         rvFilter.adapter = weightPortfolioAdapter
 
                         imgSortWeight.setImageResource(R.drawable.ic_sort_arrow_up_down)
@@ -409,7 +445,7 @@ class PortfolioFragment :
                                 }
                             }
 
-                            weightPortfolioAdapter.items = list
+                            weightPortfolioAdapter.itemList = list
                             rvFilter.adapter = weightPortfolioAdapter
                         }
 
@@ -478,12 +514,6 @@ class PortfolioFragment :
         binding.lineChart.data = lineData
         binding.lineChart.invalidate()
         binding.lineChart.axisRight.textColor = ContextCompat.getColor(requireActivity(), R.color.secondary_text)
-       // binding.lineChart.axisRight.textSize = 1f    //ContextCompat.getColor(requireActivity(), R.color.secondary_text)
-        binding.apply {
-          //  lineChart.getXAxis().setTextSize(10f)
-          //  lineChart.setExtraOffsets(0f,0f,10f,12f);
-
-        }
         binding.lineChart.axisRight.valueFormatter = object : ValueFormatter() {
             override fun getFormattedValue(value: Float): String {
                 val v: String = getPriceFormat(Math.round(value).toFloat())
@@ -556,7 +586,7 @@ class PortfolioFragment :
 
     object MyAxisFormatter : IndexAxisValueFormatter() {
 
-        var items = month1    //arrayListOf("January",  "February", "March", "April","May", "June")
+        var items = month1
 
         override fun getAxisLabel(value: Float, axis: AxisBase?): String? {
             val index = value.toInt()
@@ -567,7 +597,16 @@ class PortfolioFragment :
             }
         }
     }
+    private fun showAlterProjectCannotShowTradeDetails(){
+        val builder = AlertDialog.Builder(requireActivity())
+        builder.setTitle("This project is closed .")
+        builder.setMessage("Can not open trad Details")
 
+        builder.setPositiveButton("Okay"){dialogInterface, which ->
+        }
+        val alertDialog: AlertDialog = builder.create()
+        alertDialog.show()
+    }
     private fun onUserBalancePortfolio() {
         binding.apply {
             /* Show or Hide Trading Balance */
@@ -652,15 +691,7 @@ class PortfolioFragment :
         }
     }
 
-    private fun week2(): ArrayList<Entry> {
-        val sales = ArrayList<Entry>()
-        sales.add(Entry(0f, 11f))
-        sales.add(Entry(1f, 13f))
-        sales.add(Entry(2f, 18f))
-        sales.add(Entry(3f, 16f))
-        sales.add(Entry(4f, 22f))
-        return sales
-    }
+
 
 
     fun setBadgeNumberPortfolio() {
@@ -779,27 +810,4 @@ class PortfolioFragment :
     }
 }
 
-class ClaimsXAxisValueFormatter(var datesList: List<String>) :
-    ValueFormatter() {
-    override fun getAxisLabel(value: Float, axis: AxisBase): String {
 
-        var position = Math.round(value)
-        val sdf = SimpleDateFormat("MMM dd")
-        if (value > 1 && value < 2) {
-            position = 0
-        } else if (value > 2 && value < 3) {
-            position = 1
-        } else if (value > 3 && value < 4) {
-            position = 2
-        } else if (value > 4 && value <= 5) {
-            position = 3
-        }
-        return if (position < datesList.size) sdf.format(
-            Date(
-                Utils.getDateInMilliSeconds(
-                    datesList[position], "yyyy-MM-dd"
-                )
-            )
-        ) else ""
-    }
-}
