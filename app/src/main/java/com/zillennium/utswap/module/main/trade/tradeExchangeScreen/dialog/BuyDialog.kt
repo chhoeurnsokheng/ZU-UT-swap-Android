@@ -126,6 +126,7 @@ class BuyDialog : DialogFragment() {
             if(it.status == 1){
                 SessionVariable.callDialogSuccessPlaceOrder.value = true
                 SessionVariable.refreshMatchingTransaction.value = true
+                SessionVariable.tradeCreateOrder.value = true
             }else{
                 //Toast.makeText(UTSwapApp.instance,it.message.toString(),Toast.LENGTH_LONG).show()
                 SessionVariable.callDialogErrorCreateOrder.value = true

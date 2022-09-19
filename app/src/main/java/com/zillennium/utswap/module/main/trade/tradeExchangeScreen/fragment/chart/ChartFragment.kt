@@ -53,12 +53,9 @@ class ChartFragment :
             webSettings.loadWithOverviewMode = true
             webSettings.loadsImagesAutomatically = true
 
-            webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN)
-            webView.setScrollbarFadingEnabled(false)
-            webSettings.setUseWideViewPort(true)
-
-            webView.setVerticalScrollBarEnabled(false)
-            webView.setHorizontalScrollBarEnabled(false)
+            webSettings.layoutAlgorithm = WebSettings.LayoutAlgorithm.SINGLE_COLUMN
+            webView.isScrollbarFadingEnabled = false
+            webSettings.useWideViewPort = true
 
             webView.webChromeClient = WebChromeClient()
             webView.webViewClient = object : WebViewClient() {
