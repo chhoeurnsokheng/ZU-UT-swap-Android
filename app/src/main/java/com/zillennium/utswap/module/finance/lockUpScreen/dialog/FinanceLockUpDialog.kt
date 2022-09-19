@@ -49,7 +49,7 @@ class FinanceLockUpDialog: DialogFragment() {
                     .setHasFixedTransformationMatrix(true)
             }
 
-            closeImage.setOnClickListener{
+            blurView.setOnClickListener{
                 dismiss()
             }
             isLocked = arguments?.getBoolean("isLock") == true

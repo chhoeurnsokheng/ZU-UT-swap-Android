@@ -152,6 +152,7 @@
                     app:tabPaddingEnd="@dimen/dimen_9"
                     app:tabPaddingStart="@dimen/dimen_9" />
 
+
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/txt_total_balance"
                     android:layout_width="match_parent"
@@ -159,9 +160,8 @@
                     android:layout_marginVertical="@dimen/dimen_5"
                     android:paddingHorizontal="@dimen/dimen_20"
                     android:text="Total Balance"
-                    android:textAppearance="@style/bold_12"
-                    android:textColor="@color/dark_gray" />
-
+                    android:textAppearance="@style/bold_18"
+                    android:textColor="@color/black" />
 
                 <LinearLayout
                     android:id="@+id/linear_layout_balance"
