@@ -424,9 +424,11 @@ class TradeFragment :
                 etSearch.text.clear()
                 search = ""
                 filter = 0
+                listUpcomingProject.clear()
                 hideKeyboard()
                 Handler().postDelayed({
                     mPresenter.startSocketTrading()
+                    mPresenter.onGetUpcomingProject()
                 }, 500)
             }
         }
