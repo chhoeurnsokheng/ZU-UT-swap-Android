@@ -46,6 +46,15 @@ class OrdersFragment :
         super.initView()
         onOtherActivity()
         onCallApi()
+
+        //call api order again after create place order
+        SessionVariable.tradeCreateOrder.observe(this@OrdersFragment){
+            if(it){
+                onSwipeRefresh()
+                SessionVariable.tradeCreateOrder.value = false
+            }
+        }
+
         SessionVariable.refreshOrderPending.observe(this@OrdersFragment){
             if(it){
                 onSwipeRefresh()

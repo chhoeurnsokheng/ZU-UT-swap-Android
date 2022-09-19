@@ -155,6 +155,8 @@ class TradeExchangeActivity :
             if(it){
                 val cancelOrderDialog = CancelOrderDialog()
                 this@TradeExchangeActivity.supportFragmentManager.let { it1 -> cancelOrderDialog.show(it1, "asaf") }
+                mPresenter.getAvailableBalance(TradingList.AvailableBalanceObj(intent?.getStringExtra(Constants.TradeExchange.MarketName).toString()),UTSwapApp.instance)
+                SessionVariable.tradeCreateOrder.value = true
                 SessionVariable.cancelPlaceOrder.value = false
                 SessionVariable.waitingPlaceOrder.value = false
             }
@@ -164,6 +166,7 @@ class TradeExchangeActivity :
             if(it){
                 val successPlaceOrderDialog = SuccessPlaceOrderDialog()
                 this@TradeExchangeActivity.supportFragmentManager.let { it1 -> successPlaceOrderDialog.show(it1, "asaf") }
+                mPresenter.getAvailableBalance(TradingList.AvailableBalanceObj(intent?.getStringExtra(Constants.TradeExchange.MarketName).toString()),UTSwapApp.instance)
                 SessionVariable.callDialogSuccessPlaceOrder.value = false
                 SessionVariable.waitingPlaceOrder.value = false
             }
@@ -173,6 +176,7 @@ class TradeExchangeActivity :
             if (it){
                 val errorPlaceOrderDialog = ErrorPlaceOrderDialog()
                 this@TradeExchangeActivity.supportFragmentManager.let { it1 -> errorPlaceOrderDialog.show(it1, "asaf") }
+                mPresenter.getAvailableBalance(TradingList.AvailableBalanceObj(intent?.getStringExtra(Constants.TradeExchange.MarketName).toString()),UTSwapApp.instance)
                 SessionVariable.callDialogErrorCreateOrder.value = false
                 SessionVariable.waitingPlaceOrder.value = false
             }
@@ -1037,6 +1041,7 @@ class TradeExchangeActivity :
         Constants.TradeExchange.sellFee = ""
         Constants.TradeExchange.buyFee = ""
         SessionVariable.CLEAR_TOKEN_TRADE_EXCHANGE.value = false
+        SessionVariable.tradeCreateOrder.value = false
 
         runnable?.let { handler.removeCallbacks(it) }
     }

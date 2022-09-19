@@ -31,6 +31,7 @@ class SessionVariable {
         var refreshOrderPending: MutableLiveData<Boolean> = MutableLiveData(false)
         var refreshOrderBookTable: MutableLiveData<Boolean> = MutableLiveData(false)
         var refreshMatchingTransaction: MutableLiveData<Boolean> = MutableLiveData(false)
+        var tradeCreateOrder: MutableLiveData<Boolean> = MutableLiveData(false)
 
         var marketPriceSell: MutableLiveData<String> = MutableLiveData()
         var marketPriceBuy: MutableLiveData<String> = MutableLiveData()
