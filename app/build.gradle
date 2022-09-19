@@ -28,6 +28,7 @@ android {
         versionName     name // "1.0.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
+       // vectorDrawables.useSupportLibrary = true
 //        renderscriptTargetApi 32
 //        renderscriptSupportModeEnabled true
 
@@ -64,13 +65,9 @@ android {
             minifyEnabled false
             applicationIdSuffix ".debug"
             versionNameSuffix ".$build"
+            signingConfig signingConfigs.debug
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            
-            buildConfigField "String", 'CORE_SUB_DOMAIN', '"demo"'
-            buildConfigField "String", 'CORE_APP_ID', '"37fe30c0-ad17-11ea-b572-31a193d8c9ee"'
-            buildConfigField "String", 'CORE_APP_SECRET', '"GPQ6Ccy8EJ25s1xY6bQhZfRToHhnYbHc7oY7"'
 
-            //buildConfigField "String", 'BASE_SOCKET_URL', '"ws://192.168.41.222/"'
             buildConfigField "String", 'BASE_URL', '"https://dev-staging.zillionunited.io/api/"'
             buildConfigField "String", 'BASE_SOCKET_URL', '"wss://dev-staging.zillionunited.io/"'
             buildConfigField "String", 'FIRE_BASE_URL', '"https://devzu.page.link"'
@@ -79,14 +76,15 @@ android {
         stage {
             debuggable true
             minifyEnabled false
-           applicationIdSuffix ".stage"
+            applicationIdSuffix ".stage"
             versionNameSuffix ".$build"
-            signingConfig signingConfigs.stage
+            signingConfig signingConfigs.debug
+
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 
 //            buildConfigField "String", 'BASE_URL', '"http://192.168.41.222/api/"'
             buildConfigField "String", 'BASE_URL', '"https://dev-staging.zillionunited.io/api/"'
-
+            //  buildConfigField "String", 'BASE_URL', '"https://sandbox.utswap.io/api/"'
             //buildConfigField "String", 'BASE_SOCKET_URL', '"ws://192.168.41.222/"'
             buildConfigField "String", 'BASE_SOCKET_URL', '"wss://dev-staging.zillionunited.io/"'
 
@@ -98,6 +96,7 @@ android {
             minifyEnabled true
             shrinkResources true
             signingConfig signingConfigs.release
+
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 
           //  buildConfigField "String", 'BASE_URL', '"https://sandbox.utswap.io/api/"'
@@ -270,5 +269,5 @@ dependencies {
     implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
     implementation "com.dmitryborodin:pdfview-android:1.1.0"
 
-
+    implementation "android.arch.lifecycle:extensions:1.1.1"
 }
