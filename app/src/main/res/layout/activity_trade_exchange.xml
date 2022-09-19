@@ -459,7 +459,8 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:orientation="vertical"
-                android:paddingBottom="@dimen/dimen_12">
+                android:paddingBottom="@dimen/dimen_12"
+                android:visibility="gone">
 
                 <LinearLayout
                     android:id="@+id/lay_kyc_status"
@@ -498,7 +499,7 @@
                     android:hint="Verify Your Identity"
                     android:textAppearance="@style/bold_14"
                     android:textColorHint="@color/white"
-                    android:visibility="gone"/>
+                    />
 
                 <TextView
                     android:layout_width="wrap_content"
