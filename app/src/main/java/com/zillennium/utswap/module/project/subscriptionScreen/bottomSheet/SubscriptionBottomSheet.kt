@@ -130,10 +130,9 @@ class SubscriptionBottomSheet : BottomSheetDialogFragment(), AdapterView.OnItemS
                 btnSubscript.isClickable = true
             }
 
-            println("======"+ arguments?.getInt("id") )
-
             btnSubscript.setOnClickListener {
-                onSubscriptionProjectCheck(SubscriptionProject.SubscriptionCheckObj(arguments?.getInt("id"),etInputVolume.text.toString().toInt()),UTSwapApp.instance)
+                val txtUtRemoveSpace = etInputVolume.text.toString().trim().replace(" ","")
+                onSubscriptionProjectCheck(SubscriptionProject.SubscriptionCheckObj(arguments?.getInt("id"),txtUtRemoveSpace.toInt()),UTSwapApp.instance)
 //                val utSubscriptionPrice =
 //                    volumeDollarPrice?.let { formatThreeDigitValue(it, "###,###.##") }
 //                if (!etInputVolume.text.isNullOrEmpty()) {

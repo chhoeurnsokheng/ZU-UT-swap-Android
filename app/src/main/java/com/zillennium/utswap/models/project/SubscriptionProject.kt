@@ -11,6 +11,7 @@ object SubscriptionProject {
         var id: Int = 0
         var num: Int? = null
         var deal: Int? = null
+        var homepage: Int? = null
         var price: Double? = null
         var jian: Int? = null
         var addtime: String? = null
