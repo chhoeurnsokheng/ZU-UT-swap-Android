@@ -65,7 +65,7 @@ class SubscriptionAdapter(var onclickAdapter: OnclickAdapter, var userLevel: Str
                     itemView.setOnClickListener {
                         itemView.isEnabled = false
                         if (!subscriptionList.user_account_type.toString().contains(userLevelConvert)) {
-                            Toast.makeText(UTSwapApp.instance, "please upgrade your account", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(UTSwapApp.instance, "Please upgrade your account", Toast.LENGTH_SHORT).show()
                         } else {
                             if (volumeUT == totalUT) {
                                 itemView.isEnabled = false

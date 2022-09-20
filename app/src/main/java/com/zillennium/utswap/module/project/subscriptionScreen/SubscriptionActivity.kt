@@ -29,8 +29,7 @@ class SubscriptionActivity :
     private var kycSubmit: Boolean? = false
     private var kycComplete: Boolean? = false
     private var mBottomSheet: SubscriptionBottomSheet? = null
-    private var subscriptionList: ArrayList<SubscriptionProject.SubscriptionProjectData> =
-        arrayListOf()
+    private var subscriptionList: ArrayList<SubscriptionProject.SubscriptionProjectData> = arrayListOf()
     private var date_range = ""
     private var projectName = ""
     private var userLevel = ""
@@ -148,10 +147,6 @@ class SubscriptionActivity :
                 rlNoRecord.visibility = View.VISIBLE
                 subscriptionProjectSwipeRefresh.visibility = View.GONE
             }
-//            data.data?.forEach {
-//                txtEndTime.text = it.endtime
-//            }
-            /* Recycle view of project info detail */
 
             recycleViewSubscriptionProject.layoutManager = LinearLayoutManager(UTSwapApp.instance)
             val subscriptionAdapter = SubscriptionAdapter(onclickAdapter, userLevel)

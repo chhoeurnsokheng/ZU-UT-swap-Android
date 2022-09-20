@@ -534,7 +534,7 @@ class PortfolioFragment :
             description.isEnabled = false
             xAxis.setDrawGridLines(false)
             xAxis.position = XAxis.XAxisPosition.BOTTOM
-            xAxis.granularity = 1F
+         //   xAxis.granularity = 1F
             xAxis.yOffset = 4.0F
             xAxis.valueFormatter = MyAxisFormatter
             axisLeft.isEnabled = false
@@ -555,8 +555,8 @@ class PortfolioFragment :
         val rightAxis = binding.lineChart.axisRight
         rightAxis.setDrawAxisLine(false)
         rightAxis.mDecimals = 1
-        rightAxis.granularity = 1f
-        rightAxis.isGranularityEnabled = true
+      //  rightAxis.granularity = 1f
+      //   rightAxis.isGranularityEnabled = true
       //  rightAxis.textSize = 14f
 
 

@@ -15,7 +15,8 @@ if (minor > 99) throw new GradleException("Minor version ${minor} exceeds limit"
 if (patch > 99) throw new GradleException("Patch version ${patch} exceeds limit")
 if (build > 999) throw new GradleException("Build version ${patch} exceeds limit")
 def code = (major * 10000000) + (minor * 100000) + (patch * 1000) + build
-def name = "$major.$minor.$patch"
+//def name = "$major.$minor.$patch"   //
+def name = "$major.$minor.$patch.$build"   // ForRelease
 
 android {
     compileSdk 32
@@ -28,10 +29,7 @@ android {
         versionName     name // "1.0.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
-       // vectorDrawables.useSupportLibrary = true
-//        renderscriptTargetApi 32
-//        renderscriptSupportModeEnabled true
-
+        vectorDrawables.useSupportLibrary = true
 
     }
 
@@ -64,7 +62,7 @@ android {
         debug {
             minifyEnabled false
             applicationIdSuffix ".debug"
-            versionNameSuffix ".$build"
+         //   versionNameSuffix ".$build"
             signingConfig signingConfigs.debug
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 
@@ -77,9 +75,8 @@ android {
             debuggable true
             minifyEnabled false
             applicationIdSuffix ".stage"
-            versionNameSuffix ".$build"
+          //  versionNameSuffix ".$build"
             signingConfig signingConfigs.debug
-
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 
 //            buildConfigField "String", 'BASE_URL', '"http://192.168.41.222/api/"'
@@ -93,10 +90,9 @@ android {
         }
         release {
             debuggable false
-            minifyEnabled true
-            shrinkResources true
+            minifyEnabled false
+            shrinkResources false
             signingConfig signingConfigs.release
-
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 
           //  buildConfigField "String", 'BASE_URL', '"https://sandbox.utswap.io/api/"'
@@ -226,7 +222,6 @@ dependencies {
     implementation "me.leolin:ShortcutBadger:1.1.22@aar"
     implementation 'com.github.arturogutierrez:badges:1.0.5@aar'
 
-//    implementation 'com.github.viniciusmo:keyboard-visibility-event-android:1.0.4'
 
     //Crash Reporting with Firebase
     implementation 'com.google.firebase:firebase-crash:9.0.0'
@@ -270,4 +265,5 @@ dependencies {
     implementation "com.dmitryborodin:pdfview-android:1.1.0"
 
     implementation "android.arch.lifecycle:extensions:1.1.1"
+
 }
