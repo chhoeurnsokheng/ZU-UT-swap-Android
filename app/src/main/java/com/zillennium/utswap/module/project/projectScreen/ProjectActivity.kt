@@ -142,7 +142,7 @@ class ProjectActivity :
     }
 
     override fun onNotificationSuccess(data: NotificationModel.NotificationData) {
-        if (data.countGroupNoti?.isNotEmpty() == true || data.countGroupNoti == "0" ) {
+        if (data.countGroupNoti?.isNotEmpty() == true && data.countGroupNoti != "0" ) {
             binding.tvBadgeNumber.visibility = View.VISIBLE
             if ((data.countGroupNoti?.toInt() ?: 0) > 9) {
                 binding.tvBadgeNumber.text = "9+"
