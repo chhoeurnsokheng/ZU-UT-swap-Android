@@ -531,7 +531,7 @@ class PortfolioFragment :
 
         with(binding.lineChart) {
 
-            description.isEnabled = false
+           description.isEnabled = false
             xAxis.setDrawGridLines(false)
             xAxis.position = XAxis.XAxisPosition.BOTTOM
             xAxis.granularity = 1F
@@ -539,12 +539,14 @@ class PortfolioFragment :
             xAxis.valueFormatter = MyAxisFormatter
             axisLeft.isEnabled = false
             axisRight.isEnabled = true
-            extraRightOffset = 30f
+
             legend.orientation = Legend.LegendOrientation.VERTICAL
             legend.verticalAlignment = Legend.LegendVerticalAlignment.TOP
             legend.horizontalAlignment = Legend.LegendHorizontalAlignment.CENTER
-                // legend.textSize = 10F
+
             legend.form = Legend.LegendForm.LINE
+            legend.isEnabled = false
+
         }
 
 
@@ -556,8 +558,6 @@ class PortfolioFragment :
         rightAxis.setDrawAxisLine(false)
         rightAxis.mDecimals = 1
         rightAxis.granularity = 1f
-        rightAxis.isGranularityEnabled = true
-      //  rightAxis.textSize = 14f
 
 
         rightAxis.axisMinimum = yMin

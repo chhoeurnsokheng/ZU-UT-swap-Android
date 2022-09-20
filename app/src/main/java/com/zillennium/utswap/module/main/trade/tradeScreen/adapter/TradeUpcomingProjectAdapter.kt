@@ -10,6 +10,7 @@ import com.zillennium.utswap.databinding.ItemListTradeUpcomingProjectBinding
 import com.zillennium.utswap.models.TradeModel
 import com.zillennium.utswap.models.tradingList.TradingList
 import com.zillennium.utswap.module.project.projectInfoScreen.ProjectInfoActivity
+import com.zillennium.utswap.module.project.subscriptionScreen.SubscriptionActivity
 
 class TradeUpcomingProjectAdapter() : BaseRecyclerViewAdapterGeneric<TradingList.TradeUpComingProjectList, TradeUpcomingProjectAdapter.ItemViewHolder>(){
     inner class ItemViewHolder(root: ItemListTradeUpcomingProjectBinding): BaseViewHolder<ItemListTradeUpcomingProjectBinding>(root)
@@ -26,10 +27,11 @@ class TradeUpcomingProjectAdapter() : BaseRecyclerViewAdapterGeneric<TradingList
                 }
 
                 txtSubscribe.setOnClickListener {
-                    ProjectInfoActivity.launchProjectInfoActivity(
-                        root.context,
-                        tradeList.id,
-                    )
+                    SubscriptionActivity.launchSubscriptionActivity(root.context, tradeList.id, tradeList.project_name)
+//                    ProjectInfoActivity.launchProjectInfoActivity(
+//                        root.context,
+//                        tradeList.id,
+//                    )
                 }
 
                 if(position + 1 == items.size){
