@@ -545,7 +545,7 @@ class PortfolioFragment :
             legend.horizontalAlignment = Legend.LegendHorizontalAlignment.CENTER
 
             legend.form = Legend.LegendForm.LINE
-            getLegend().setEnabled(false)
+            legend.isEnabled = false
 
         }
 
