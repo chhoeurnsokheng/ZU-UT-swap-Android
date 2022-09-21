@@ -5,6 +5,7 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.BlurMaskFilter
 import android.graphics.MaskFilter
+import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -39,6 +40,7 @@ import java.math.RoundingMode
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 class PortfolioFragment :
     BaseMvpFragment<PortfolioView.View, PortfolioView.Presenter, FragmentNavbarPortfolioBinding>(),
@@ -81,6 +83,12 @@ class PortfolioFragment :
             binding.apply {
 
                 mPresenter.getPortfolioDashboardChart(requireActivity())
+
+                val list1 = listOf("1", "-214", "114","0","1","2","3","0","0")
+                 var sorted = list1.sortedBy { it.toDouble() }
+                 var sortDec  = list1.sortedByDescending { it.toDouble() }
+                Log.d("SortBy"," , $sorted , $sortDec")
+                println("$sorted , $sortDec" )
 
 
                 SessionVariable.SESSION_STATUS.observe(this@PortfolioFragment) {
@@ -196,7 +204,7 @@ class PortfolioFragment :
                         imgSortChange.setImageResource(R.drawable.ic_sort_arrow_up_down)
                         laySortChange.setOnClickListener {
 
-                            val list = arrayListOf<Portfolio.GetPortfolioDashBoard>()
+                            var list = mutableListOf<Portfolio.GetPortfolioDashBoard>()
                             list.addAll(changeList)
                             filter++
 
@@ -205,21 +213,27 @@ class PortfolioFragment :
                                     filter = 2
                                     imgSortChange.setImageResource(R.drawable.ic_sort_arrow_up_down_selected)
                                     imgSortChange.rotation = 180f
-                                    list.sortByDescending {
+
+                                  list.sortBy {
                                         it.mkt_project_change?.toDouble()
                                     }
+
                                 }
                                 1 -> {
                                     filter = 1
                                     imgSortChange.setImageResource(R.drawable.ic_sort_arrow_up_down_selected)
                                     imgSortChange.rotation = 0f
-                                    list.sortedBy {
+
+                                   val sorted =  list.sortedByDescending {
                                         it.mkt_project_change?.toDouble()
                                     }
+
+                                    list  = sorted as   MutableList<Portfolio.GetPortfolioDashBoard>
                                 }
                                 else -> {
                                     filter = 0
                                     imgSortChange.setImageResource(R.drawable.ic_sort_arrow_up_down)
+
                                 }
                             }
 
@@ -264,7 +278,7 @@ class PortfolioFragment :
 
                         imgSortPerformance.setImageResource(R.drawable.ic_sort_arrow_up_down)
                         laySortPerformance.setOnClickListener {
-                            val list = arrayListOf<Portfolio.GetPortfolioDashBoard>()
+                            var list = mutableListOf<Portfolio.GetPortfolioDashBoard>()
                             list.addAll(performanceList)
                             filter++
 
@@ -273,7 +287,7 @@ class PortfolioFragment :
                                     filter = 2
                                     imgSortPerformance.setImageResource(R.drawable.ic_sort_arrow_up_down_selected)
                                     imgSortPerformance.rotation = 180f
-                                    list.sortByDescending {
+                                    list.sortBy {
                                         it.mkt_project_perf?.toDouble()
                                     }
                                 }
@@ -281,9 +295,12 @@ class PortfolioFragment :
                                     filter = 1
                                     imgSortPerformance.setImageResource(R.drawable.ic_sort_arrow_up_down_selected)
                                     imgSortPerformance.rotation = 0f
-                                    list.sortBy {
+
+                                    val sorted =  list.sortedByDescending {
                                         it.mkt_project_perf?.toDouble()
                                     }
+
+                                    list  = sorted as   MutableList<Portfolio.GetPortfolioDashBoard>
                                 }
                                 else -> {
                                     filter = 0
@@ -418,7 +435,7 @@ class PortfolioFragment :
                         imgSortWeight.setImageResource(R.drawable.ic_sort_arrow_up_down)
                         layWeight.setOnClickListener {
 
-                            val list = arrayListOf<Portfolio.GetPortfolioDashBoard>()
+                            var list = mutableListOf<Portfolio.GetPortfolioDashBoard>()
                             list.addAll(weightList)
                             filter++
 
@@ -427,7 +444,7 @@ class PortfolioFragment :
                                     filter = 2
                                     imgSortWeight.setImageResource(R.drawable.ic_sort_arrow_up_down_selected)
                                     imgSortWeight.rotation = 180f
-                                    list.sortByDescending {
+                                    list.sortBy {
                                         it.weight
                                     }
                                 }
@@ -435,9 +452,13 @@ class PortfolioFragment :
                                     filter = 1
                                     imgSortWeight.setImageResource(R.drawable.ic_sort_arrow_up_down_selected)
                                     imgSortWeight.rotation = 0f
-                                    list.sortBy {
-                                        it.weight
+
+                                    val sorted =  list.sortedByDescending {
+                                        it.weight?.toDouble()
                                     }
+
+                                    list  = sorted as   MutableList<Portfolio.GetPortfolioDashBoard>
+
                                 }
                                 else -> {
                                     filter = 0
