@@ -8,7 +8,8 @@ plugins {
 }
 apply plugin: 'kotlin-android'
 
-def major = 1, minor = 0, patch = 0, build = 3
+//def major = 1, minor = 0, patch = 0, build = 3  build
+def major = 1, minor = 0, patch = 0, build = 1   // Release
 
 if (major > 209) throw new GradleException("Major version ${major} exceeds limit")
 if (minor > 99) throw new GradleException("Minor version ${minor} exceeds limit")
