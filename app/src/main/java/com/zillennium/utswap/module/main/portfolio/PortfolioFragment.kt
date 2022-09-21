@@ -214,9 +214,12 @@ class PortfolioFragment :
                                     imgSortChange.setImageResource(R.drawable.ic_sort_arrow_up_down_selected)
                                     imgSortChange.rotation = 180f
 
-                                  list.sortBy {
+                                    val sorted =  list.sortedByDescending {
                                         it.mkt_project_change?.toDouble()
                                     }
+
+                                    list  = sorted as   MutableList<Portfolio.GetPortfolioDashBoard>
+
 
                                 }
                                 1 -> {
@@ -224,11 +227,12 @@ class PortfolioFragment :
                                     imgSortChange.setImageResource(R.drawable.ic_sort_arrow_up_down_selected)
                                     imgSortChange.rotation = 0f
 
-                                   val sorted =  list.sortedByDescending {
+
+                                    list.sortBy {
                                         it.mkt_project_change?.toDouble()
                                     }
 
-                                    list  = sorted as   MutableList<Portfolio.GetPortfolioDashBoard>
+
                                 }
                                 else -> {
                                     filter = 0
@@ -287,20 +291,21 @@ class PortfolioFragment :
                                     filter = 2
                                     imgSortPerformance.setImageResource(R.drawable.ic_sort_arrow_up_down_selected)
                                     imgSortPerformance.rotation = 180f
-                                    list.sortBy {
+                                    val sorted =  list.sortedByDescending {
                                         it.mkt_project_perf?.toDouble()
                                     }
+
+                                    list  = sorted as   MutableList<Portfolio.GetPortfolioDashBoard>
                                 }
                                 1 -> {
                                     filter = 1
                                     imgSortPerformance.setImageResource(R.drawable.ic_sort_arrow_up_down_selected)
                                     imgSortPerformance.rotation = 0f
 
-                                    val sorted =  list.sortedByDescending {
+                                    list.sortBy {
                                         it.mkt_project_perf?.toDouble()
                                     }
 
-                                    list  = sorted as   MutableList<Portfolio.GetPortfolioDashBoard>
                                 }
                                 else -> {
                                     filter = 0
@@ -444,20 +449,20 @@ class PortfolioFragment :
                                     filter = 2
                                     imgSortWeight.setImageResource(R.drawable.ic_sort_arrow_up_down_selected)
                                     imgSortWeight.rotation = 180f
-                                    list.sortBy {
-                                        it.weight?.toDouble()
-                                    }
-                                }
-                                1 -> {
-                                    filter = 1
-                                    imgSortWeight.setImageResource(R.drawable.ic_sort_arrow_up_down_selected)
-                                    imgSortWeight.rotation = 0f
-
                                     val sorted =  list.sortedByDescending {
                                         it.weight?.toDouble()
                                     }
 
                                     list  = sorted as   MutableList<Portfolio.GetPortfolioDashBoard>
+                                }
+                                1 -> {
+                                    filter = 1
+                                    imgSortWeight.setImageResource(R.drawable.ic_sort_arrow_up_down_selected)
+                                    imgSortWeight.rotation = 0f
+                                    list.sortBy {
+                                        it.weight?.toDouble()
+                                    }
+
 
                                 }
                                 else -> {
