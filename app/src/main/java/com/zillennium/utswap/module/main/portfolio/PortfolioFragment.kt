@@ -445,7 +445,7 @@ class PortfolioFragment :
                                     imgSortWeight.setImageResource(R.drawable.ic_sort_arrow_up_down_selected)
                                     imgSortWeight.rotation = 180f
                                     list.sortBy {
-                                        it.weight
+                                        it.weight?.toDouble()
                                     }
                                 }
                                 1 -> {
