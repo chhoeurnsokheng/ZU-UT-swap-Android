@@ -17,7 +17,7 @@ import com.zillennium.utswap.models.project.SubscriptionProject
 import com.zillennium.utswap.utils.formatThreeDigitValue
 import com.zillennium.utswap.utils.groupingSeparatorInt
 
-class SubscriptionAdapter(var onclickAdapter: OnclickAdapter, var userLevel: String) :
+class SubscriptionAdapter(var onclickAdapter: OnclickAdapter, var userLevel: String, var userLevelId: String) :
     BaseRecyclerViewAdapterGeneric<SubscriptionProject.SubscriptionProjectData, SubscriptionAdapter.SubscriptionViewHolder>() {
     inner class SubscriptionViewHolder(root: ItemListProjectSubscriptionBinding) :
         BaseViewHolder<ItemListProjectSubscriptionBinding>(root) {
@@ -54,7 +54,13 @@ class SubscriptionAdapter(var onclickAdapter: OnclickAdapter, var userLevel: Str
                         imgCircle.imageTintList = ContextCompat.getColorStateList(UTSwapApp.instance, R.color.simple_green)
                         determinateBar.progressBackgroundTintList = ContextCompat.getColorStateList(UTSwapApp.instance, R.color.gray_999999)
                     } else {
-                        imgCircle.imageTintList = ContextCompat.getColorStateList(UTSwapApp.instance, R.color.gray_E7E7E7)
+                        if(userLevelId == "3" || userLevelId == "4"){
+                            CardViewPopup.isEnabled = true
+                            imgCircle.imageTintList = ContextCompat.getColorStateList(UTSwapApp.instance, R.color.simple_green)
+                            determinateBar.progressBackgroundTintList = ContextCompat.getColorStateList(UTSwapApp.instance, R.color.gray_999999)
+                        }else{
+                            imgCircle.imageTintList = ContextCompat.getColorStateList(UTSwapApp.instance, R.color.gray_E7E7E7)
+                        }
                     }
 
                     val totalUT = subscriptionList.num.toString().toInt()
@@ -65,7 +71,27 @@ class SubscriptionAdapter(var onclickAdapter: OnclickAdapter, var userLevel: Str
                     itemView.setOnClickListener {
                         itemView.isEnabled = false
                         if (!subscriptionList.user_account_type.toString().contains(userLevelConvert)) {
-                            Toast.makeText(UTSwapApp.instance, "Please upgrade your account", Toast.LENGTH_SHORT).show()
+                            if(userLevelId == "3" || userLevelId == "4"){
+                                if (volumeUT == totalUT) {
+                                    itemView.isEnabled = false
+                                    itemView.isClickable = false
+                                } else {
+                                    if (Dollar != null) {
+                                        onclickAdapter.onClickMe(
+                                            subscriptionList.user_account_type.toString(),
+                                            subscriptionList.jian.toString(),
+                                            subscriptionList.id,
+                                            Dollar.toDouble(),
+                                            subscriptionList.num.toString().toInt(),
+                                            subscriptionList.min.toString().toInt(),
+                                            subscriptionList.max.toString().toInt()
+
+                                        )
+                                    }
+                                }
+                            }else{
+                                Toast.makeText(UTSwapApp.instance, "Please upgrade your account", Toast.LENGTH_SHORT).show()
+                            }
                         } else {
                             if (volumeUT == totalUT) {
                                 itemView.isEnabled = false

@@ -33,6 +33,7 @@ class SubscriptionActivity :
     private var date_range = ""
     private var projectName = ""
     private var userLevel = ""
+    private var userLevelId = ""
 
     var handler = Handler()
     var runnable: Runnable? = null
@@ -149,7 +150,7 @@ class SubscriptionActivity :
             }
 
             recycleViewSubscriptionProject.layoutManager = LinearLayoutManager(UTSwapApp.instance)
-            val subscriptionAdapter = SubscriptionAdapter(onclickAdapter, userLevel)
+            val subscriptionAdapter = SubscriptionAdapter(onclickAdapter, userLevel,userLevelId)
             subscriptionAdapter.items = subscriptionList
             recycleViewSubscriptionProject.adapter = subscriptionAdapter
             subscriptionAdapter.notifyDataSetChanged()
@@ -181,7 +182,8 @@ class SubscriptionActivity :
 
     /**   User Profile Level      **/
     override fun onGetUserInfoSuccess(data: User.AppSideBarData) {
-        userLevel = data.name_user_lavel.toString()
+        userLevel = data.doc_user_lavel?.title.toString()
+        userLevelId = data.doc_user_lavel?.id.toString()
         if (intent.hasExtra("subscription_id")) {
             val id = intent?.getStringExtra("subscription_id")
             mPresenter.onCheckSubscriptionStatus(

@@ -1012,6 +1012,8 @@ class TradeExchangeActivity :
         super.onBackPressed()
         clearData()
 
+        OrderBookFragment().orderBookAskList.clear()
+        OrderBookFragment().orderBookBidList.clear()
         OrderBookFragment().clearData()
     }
 
@@ -1019,6 +1021,8 @@ class TradeExchangeActivity :
         super.onDestroy()
 
         clearData()
+        OrderBookFragment().orderBookAskList.clear()
+        OrderBookFragment().orderBookBidList.clear()
         OrderBookFragment().clearData()
     }
 
