@@ -174,7 +174,12 @@ class PortfolioFragment :
             swipeRefresh.isRefreshing = false
             loadingProgressBar.visibility = View.GONE
             layTradingBalance.visibility = View.VISIBLE
-            txtBalance.text = "$ " + data.data?.total_market_value?.let { UtilKt().formatValue(it, "###,###.##") }
+
+            if (data.data?.total_market_value == 0.0){
+                txtBalance.text = "$ 0.00"
+            }else{
+                txtBalance.text = "$ " + data.data?.total_market_value?.let { UtilKt().formatValue(it, "###,###.##") }
+            }
 
             filter = 0
 
