@@ -631,7 +631,7 @@ class PortfolioFragment :
     private fun showAlterProjectCannotShowTradeDetails(){
         val builder = AlertDialog.Builder(requireActivity())
         builder.setTitle("This project is closed .")
-        builder.setMessage("Can not open trad Details")
+        builder.setMessage("Can not open trade Details")
 
         builder.setPositiveButton("Okay"){dialogInterface, which ->
         }

@@ -696,7 +696,9 @@ class TradeExchangeActivity :
         kycSubmit = data.data?.status_submit_kyc
         kycComplete = data.data?.status_kyc
         onCheckSessionStatusAndKYC()
-
+        if (data.message =="Please sign in"){
+            binding.layAuth.visibility = View.VISIBLE
+        }
     }
 
     override fun onCheckKYCFail() {

@@ -136,7 +136,7 @@ class FinanceSubscriptionDateRangeBottomSheet : BottomSheetDialogFragment(),
 
                     SettingVariable.finance_subscription_date_start.value = etStartDate.text.toString()
                     SettingVariable.finance_subscription_date_end.value = etEndDate.text.toString()
-                    dismiss()
+                   // dismiss()
                     val dateS = sdf.parse(etStartDate.text.toString())
                     val dateE = sdf.parse(etEndDate.text.toString())
                     if (dateS != null) {
