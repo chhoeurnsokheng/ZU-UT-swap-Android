@@ -24,8 +24,6 @@ import com.zillennium.utswap.module.project.ViewImage.ImageViewActivity
 import com.zillennium.utswap.module.project.projectInfoScreen.adapter.ProjectInfoDetailsAdapter
 import com.zillennium.utswap.module.project.projectInfoScreen.adapter.ProjectViewPagerAdapter
 import com.zillennium.utswap.module.project.subscriptionScreen.SubscriptionActivity
-import com.zillennium.utswap.module.project.subscriptionScreen.dialog.SubscriptionConfirmDialog
-import com.zillennium.utswap.module.project.subscriptionScreen.dialog.SubscriptionTermConditionDialog
 import com.zillennium.utswap.utils.Constants
 import com.zillennium.utswap.utils.UtilKt
 import com.zillennium.utswap.utils.groupingSeparatorInt
