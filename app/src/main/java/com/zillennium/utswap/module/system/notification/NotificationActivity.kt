@@ -11,7 +11,6 @@ import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
 import com.zillennium.utswap.R
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivitySystemNotificationBinding
-
 import com.zillennium.utswap.models.notification.NotificationModel
 import com.zillennium.utswap.module.finance.balanceScreen.FinanceBalanceActivity
 import com.zillennium.utswap.module.kyc.kycActivity.KYCActivity

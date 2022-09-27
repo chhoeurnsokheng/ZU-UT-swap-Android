@@ -9,6 +9,7 @@ import android.text.TextWatcher
 import android.view.*
 import android.widget.AdapterView
 import android.widget.DatePicker
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -50,6 +51,9 @@ class FinanceSubscriptionDateRangeBottomSheet : BottomSheetDialogFragment(),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding?.apply {
+            val fm = "dd-MMM-yyyy"
+            val sdf = SimpleDateFormat(fm)
+
             (view.parent as View).setBackgroundColor(ContextCompat.getColor(UTSwapApp.instance, android.R.color.transparent))
 
             val calendar = Calendar.getInstance()
@@ -59,7 +63,7 @@ class FinanceSubscriptionDateRangeBottomSheet : BottomSheetDialogFragment(),
                     calendar[Calendar.YEAR] = year
                     calendar[Calendar.MONTH] = month
                     calendar[Calendar.DAY_OF_MONTH] = day
-                    val format = "dd-MMMM-yyyy"
+                    val format = "dd-MMM-yyyy"
                     val simpleDateFormat =
                         SimpleDateFormat(format, Locale.US)
                     etStartDate.setText(simpleDateFormat.format(calendar.time))
@@ -75,7 +79,7 @@ class FinanceSubscriptionDateRangeBottomSheet : BottomSheetDialogFragment(),
                     calendar[Calendar.YEAR] = year
                     calendar[Calendar.MONTH] = month
                     calendar[Calendar.DAY_OF_MONTH] = day
-                    val format = "dd-MMMM-yyyy"
+                    val format = "dd-MMM-yyyy"
                     val simpleDateFormat =
                         SimpleDateFormat(format, Locale.US)
                     etEndDate.setText(simpleDateFormat.format(calendar.time))
@@ -118,6 +122,7 @@ class FinanceSubscriptionDateRangeBottomSheet : BottomSheetDialogFragment(),
                 override fun afterTextChanged(p0: Editable?) {
                     etEndDate.setHintTextColor(resources.getColor(R.color.primary))
                     etEndDate.isEnabled = true
+
                 }
 
             })
@@ -129,11 +134,22 @@ class FinanceSubscriptionDateRangeBottomSheet : BottomSheetDialogFragment(),
 
                 override fun afterTextChanged(p0: Editable?) {
 
-                    SettingVariable.finance_subscription_date_start.value =
-                        etStartDate.text.toString()
-                    SettingVariable.finance_subscription_date_end.value =
-                        etEndDate.text.toString()
+                    SettingVariable.finance_subscription_date_start.value = etStartDate.text.toString()
+                    SettingVariable.finance_subscription_date_end.value = etEndDate.text.toString()
                     dismiss()
+                    val dateS = sdf.parse(etStartDate.text.toString())
+                    val dateE = sdf.parse(etEndDate.text.toString())
+                    if (dateS != null) {
+                        if (dateS > dateE){
+                            Toast.makeText(
+                                UTSwapApp.instance,
+                                "EndDate should be greater than StartDate",
+                                Toast.LENGTH_LONG
+                            ).show()
+                        }
+                    }
+
+
                 }
             })
         }

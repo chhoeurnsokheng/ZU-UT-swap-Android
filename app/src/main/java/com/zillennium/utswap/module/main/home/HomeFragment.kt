@@ -57,6 +57,11 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
     override fun initView() {
         super.initView()
 
+        SessionVariable.successTransfer.observe(this){
+            if (!it){
+                mPresenter.getWatchListAndBalance(requireActivity())
+            }
+        }
 
         SessionVariable.realTimeWatchList.value = true
         mPresenter.getBanner(requireActivity())

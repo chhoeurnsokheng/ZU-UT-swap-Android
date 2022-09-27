@@ -347,6 +347,7 @@ class TransferActivity :
     override fun onBackPressed() {
         super.onBackPressed()
         SessionVariable.successTransfer.value = false
+
     }
 
 }

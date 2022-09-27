@@ -171,7 +171,6 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
         SessionVariable.BADGE_NUMBER.value = data.countGroupNoti ?: ""
         homeFragment.setBadgeNumber()
 
-
     }
 
     override fun onNotificationFail(data: NotificationModel.NotificationRes) {
