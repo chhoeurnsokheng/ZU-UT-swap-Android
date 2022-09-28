@@ -46,11 +46,15 @@ object ApiSettings {
     /**      Project List        **/
     const val PATH_PROJECT_LIST = "issue"
 
+
     /**      Project Detail/Project Info          **/
     const val PATH_PROJECT_DETAIL = "issue/project_detail"
 
     /**        Subscription Project       **/
     const val PATH_SUBSCRIPTION_PROJECT = "issue/available_subscription"
+    const val PATH_SUBSCRIPTION_PROJECT_TERM_CONDITION_SUBMIT ="issue/checkStatusTerms"
+    const val PATH_CHECK_PROJECT_STATUS ="issue/checkCondition"
+
 
     /**    Check Subscription Project Order     **/
     const val PATH_SUBSCRIPTION_PROJECT_ORDER = "issue/check_subscription_order"

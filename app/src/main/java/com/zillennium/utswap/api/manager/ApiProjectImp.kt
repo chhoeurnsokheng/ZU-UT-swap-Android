@@ -1,6 +1,7 @@
 package com.zillennium.utswap.api.manager
 
 import android.content.Context
+import com.google.gson.JsonObject
 import com.zillennium.utswap.api.Header
 import com.zillennium.utswap.models.project.ProjectInfoDetail
 import com.zillennium.utswap.models.project.ProjectList
@@ -45,6 +46,29 @@ class ApiProjectImp : ApiManager() {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
 
+
+    fun subscriptionProjectTermConditionSubmit(
+        body: JsonObject,
+        context: Context
+    ): Observable<SubscriptionProject.SubscriptionProjectRes> =
+        mProjectService.subscriptionProjectTermCondition(
+            Header.getHeader(Header.Companion.AuthType.REQUIRED, context),
+            body
+        )
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+
+    fun checkProjectStatus(
+        body: JsonObject,
+        context: Context
+    ): Observable<SubscriptionProject.SubscriptionProjectRes> =
+        mProjectService.subscriptionProjectTermCondition(
+            Header.getHeader(Header.Companion.AuthType.REQUIRED, context),
+            body
+        )
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+
     /**     Subscription Project Order     **/
     fun subscriptionProjectOrder(
         body: SubscriptionProject.SubscribeOrderBody,
@@ -58,7 +82,10 @@ class ApiProjectImp : ApiManager() {
             .observeOn(AndroidSchedulers.mainThread())
 
     /** Check Subscription Project Balance*/
-    fun subscriptionProjectCheck(body: SubscriptionProject.SubscriptionCheckObj,context: Context): Observable<SubscriptionProject.SubscriptionCheckRes> =
+    fun subscriptionProjectCheck(
+        body: SubscriptionProject.SubscriptionCheckObj,
+        context: Context
+    ): Observable<SubscriptionProject.SubscriptionCheckRes> =
         mProjectService.subscriptionProjectCheck(
             Header.getHeader(Header.Companion.AuthType.REQUIRED_TOKEN, context),
             body

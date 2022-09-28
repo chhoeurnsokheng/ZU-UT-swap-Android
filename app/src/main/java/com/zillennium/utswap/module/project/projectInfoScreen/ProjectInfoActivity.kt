@@ -19,12 +19,12 @@ import com.zillennium.utswap.databinding.ActivityProjectInfoBinding
 import com.zillennium.utswap.models.ProjectInfoDetailModel
 import com.zillennium.utswap.models.ViewImageModel
 import com.zillennium.utswap.models.project.ProjectInfoDetail
+import com.zillennium.utswap.models.project.SubscriptionProject
 import com.zillennium.utswap.module.main.trade.tradeExchangeScreen.TradeExchangeActivity
 import com.zillennium.utswap.module.project.ViewImage.ImageViewActivity
 import com.zillennium.utswap.module.project.projectInfoScreen.adapter.ProjectInfoDetailsAdapter
 import com.zillennium.utswap.module.project.projectInfoScreen.adapter.ProjectViewPagerAdapter
 import com.zillennium.utswap.module.project.subscriptionScreen.SubscriptionActivity
-import com.zillennium.utswap.module.project.subscriptionScreen.dialog.SubscriptionConfirmDialog
 import com.zillennium.utswap.module.project.subscriptionScreen.dialog.SubscriptionTermConditionDialog
 import com.zillennium.utswap.utils.Constants
 import com.zillennium.utswap.utils.UtilKt
@@ -42,6 +42,9 @@ class ProjectInfoActivity :
     private var condition = true
     private var imagesSlider: ArrayList<String> = arrayListOf()
     private var id: Int = 0
+    private var project_Id :Int? = 0
+    private var project_Name:String = ""
+    private var project_Action :String? = ""
 
     companion object {
         fun launchProjectInfoActivity(context: Context, id: String?) {
@@ -64,12 +67,7 @@ class ProjectInfoActivity :
             }
         }
 
-//        if (intent.hasExtra(Constants.Project.ProjectName)) {
-//            projectName = intent?.getStringExtra(Constants.Project.ProjectName).toString()
-//            binding.apply {
-//                txtDetailTitle.text = projectName
-//            }
-//        }
+
 
 
 
@@ -79,16 +77,18 @@ class ProjectInfoActivity :
                 onBackPressed()
             }
 
-//            btnSubscriptTrade.setOnClickListener {
-//                val intent = Intent(UTSwapApp.instance, SubscriptionActivity::class.java)
-//                startActivity(intent)
-//            }
+
 
         }
     }
 
     override fun projectInfoViewSuccess(data: ProjectInfoDetail.ProjectInfoDetailData) {
         val DECIMAL_FORMAT = "###,###.##"
+        data.id?.toInt()?.let { mPresenter.subscriptionProjectTermCondition(this, it) }
+        data.id?.toInt()?.let { mPresenter.checkProjectStatus(this, it) }
+
+
+      //  mPresenter.checkProjectStatus(this, (data.id ?:0) as Int)
 
         binding.apply {
             txtDetailTitle.text = data.project_name.toString()
@@ -320,32 +320,23 @@ class ProjectInfoActivity :
                 }
             }
 
+            project_Name = data.project_name.toString()
+            project_Id = data.id?.toInt()
+
             if (data.action == "Subscribe") {
                 btnTrade.visibility = View.GONE
                 btnSubscript.visibility = View.VISIBLE
                 btnUpcoming.visibility = View.GONE
-                btnSubscript.setOnClickListener {
-                    SubscriptionActivity.launchSubscriptionActivity(this@ProjectInfoActivity,
-                        data.id,
-                        data.project_name.toString()
-                    )
-                }
+                project_Action = "Subscribe"
 
 //                btnSubscript.setOnClickListener {
-//                    val subscription: SubscriptionTermConditionDialog =
-//                        SubscriptionTermConditionDialog.newInstance(
-//                            data.id.toString().toInt(),
-//                            data.title_deed.toString(),
-//                            data.land_size.toString(),
-//                            data.base_price?.toDouble(),
-//                            data.target_price?.toDouble(),
-//                            data.total_ut,
-//                            data.managed_by.toString(),
-//                            data.google_map_link.toString(),
-//                            projectName
-//                        )
-//                    subscription.show(supportFragmentManager, "balanceHistoryDetailDialog")
+//                    SubscriptionActivity.launchSubscriptionActivity(this@ProjectInfoActivity,
+//                        data.id,
+//                        data.project_name.toString()
+//                    )
 //                }
+
+
             }
             if (data.action == "Trade") {
                 btnTrade.visibility = View.VISIBLE
@@ -354,10 +345,7 @@ class ProjectInfoActivity :
                 btnTrade.setOnClickListener {
                     TradeExchangeActivity.launchTradeExchangeActivityFromProjectDetail(this@ProjectInfoActivity, data.project_name.toString(),data.market_name.toString(),data.id.toString(),data.market_id.toString())
                 }
-//                btnTrade.setOnClickListener {
-//                    val intent = Intent(UTSwapApp.instance, TradeExchangeActivity::class.java)
-//                    startActivity(intent)
-//                }
+
 
             }
             if (data.action == "Upcomming") {
@@ -387,6 +375,34 @@ class ProjectInfoActivity :
             viewBackground.visibility = View.VISIBLE
         }
     }
+
+    override fun subscriptionProjectTermConditionSuccess(data: SubscriptionProject.SubscriptionProjectRes) {}
+
+    override fun subscriptionProjectTermConditionFailed(data: String) {}
+
+    override fun checkProjectStatusSuccess(data: SubscriptionProject.SubscriptionProjectRes) {
+        binding.apply {
+            if (data.status ==1){
+                btnSubscript.setOnClickListener {
+                    SubscriptionActivity.launchSubscriptionActivity(this@ProjectInfoActivity,
+                        project_Id.toString(),
+                        project_Name
+                    )
+                }
+            }else{
+                btnSubscript.setOnClickListener {
+                    project_Id?.let { it1 ->
+                        SubscriptionTermConditionDialog.newInstance(
+                            it1,"","",231.5,123.4,34, "Sokheng", "Hello", ""
+                        )
+                    }
+                }
+            }
+
+        }
+    }
+
+    override fun checkProjectStatusFailed(data: String) {}
 
     private fun onCallApi() {
         Tovuti.from(UTSwapApp.instance).monitor { _, isConnected, _ ->

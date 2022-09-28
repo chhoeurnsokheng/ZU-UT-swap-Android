@@ -72,4 +72,5 @@ object SubscriptionProject {
         var id: Int?,
         var ut_number: Int?
     )
+
 }

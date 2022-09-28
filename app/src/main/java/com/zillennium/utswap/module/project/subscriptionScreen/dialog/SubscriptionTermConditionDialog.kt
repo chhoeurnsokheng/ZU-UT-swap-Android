@@ -58,8 +58,8 @@ class SubscriptionTermConditionDialog : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        dialog!!.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog!!.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog?.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         binding =
             DataBindingUtil.inflate(
                 inflater,

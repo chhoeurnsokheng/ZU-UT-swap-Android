@@ -81,8 +81,9 @@
                         android:id="@+id/txt_select_date_from_to"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/dimen_10"
+                        android:layout_marginStart="@dimen/dimen_40"
                         android:text="@string/select_date_range"
+
                         android:textAppearance="@style/medium_14"
                         android:textColor="@color/primary" />
                 </LinearLayout>
@@ -110,6 +111,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/txt_title_filter">
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_subscriptions"
                     android:layout_width="match_parent"
