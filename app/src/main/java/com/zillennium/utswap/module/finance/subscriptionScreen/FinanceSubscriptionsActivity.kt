@@ -37,7 +37,6 @@ class FinanceSubscriptionsActivity :
     private var lastPosition = 0
     private var isLostConnection = false
 
-
     companion object {
         var titleProject = "All Projects"
     }
@@ -68,14 +67,7 @@ class FinanceSubscriptionsActivity :
                 requestData()
             }
 
-            /* Sorted Date */
-            /*val dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MMMM-yyyy")
-            arraySubscription.sortByDescending {
-                LocalDate.parse(
-                    it.dateSubscription,
-                    dateTimeFormatter
-                )
-            }*/
+
 
             Tovuti.from(this@FinanceSubscriptionsActivity).monitor { _, isConnected, _ ->
                 if (isConnected && isLostConnection) {
