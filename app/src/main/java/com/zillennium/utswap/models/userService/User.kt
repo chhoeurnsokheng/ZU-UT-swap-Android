@@ -263,6 +263,8 @@ object User {
     }
 
     class AppSideBarDocUserLevel{
+        var id : String? = null
+        var title: String? = null
         var criteria: List<CriteriaList>? = null
         var priority_and_privileges: List<PriorityAndPrivilegesList>? = null
     }

@@ -157,7 +157,11 @@ class SubscriptionBottomSheet : BottomSheetDialogFragment(), AdapterView.OnItemS
 
             txtStandard.text = arguments?.getString("title")
             tvProjectName.text = arguments?.getString("project_name")
-            tvTimeLock.text = arguments?.getString("lock_time")
+
+            var lockDay = arguments?.getString("lock_time")
+
+            tvTimeLock.text =
+                "Subscription amount is subjected to a locked period of $lockDay Day(s)"
             etInputVolume.addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(
                     s: CharSequence?,

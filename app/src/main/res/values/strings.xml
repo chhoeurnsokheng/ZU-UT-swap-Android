@@ -303,7 +303,7 @@
     <string name="subscription_label">SubscriptionFragment</string>
     <string name="Premium_Professional">Premium, Professional</string>
     <string name="ut_Pochentong">UT Pochentong 555</string>
-    <string name="subscription_lock_period">Subscription amount is subjected to a locked period of</string>
+    <string name="subscription_lock_period">Subscription amount is subjected to a locked period of 30 Day(s)</string>
     <string name="subscription_lock_period_confirm">Subscription amount is subjected to a locked</string>
     <string name="volume_input">Volume:</string>
     <string name="subscription_price">Subscription Price:</string>

@@ -3,6 +3,7 @@ package com.zillennium.utswap.module.project.subscriptionScreen
 import android.content.Context
 import android.os.Bundle
 import com.gis.z1android.api.errorhandler.CallbackWrapper
+import com.google.gson.JsonObject
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.api.manager.ApiHomeImp
 import com.zillennium.utswap.api.manager.ApiManager
@@ -16,6 +17,7 @@ class SubscriptionPresenter : BaseMvpPresenterImpl<SubscriptionView.View>(),
     SubscriptionView.Presenter {
 
     private var subscription: Subscription? = null
+
 
     override fun initViewPresenter(context: Context, bundle: Bundle?) {
         mBundle = bundle
@@ -100,5 +102,7 @@ class SubscriptionPresenter : BaseMvpPresenterImpl<SubscriptionView.View>(),
             }
         })
     }
+
+
 
 }
