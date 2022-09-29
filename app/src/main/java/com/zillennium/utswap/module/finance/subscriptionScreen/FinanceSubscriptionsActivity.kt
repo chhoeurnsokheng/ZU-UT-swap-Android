@@ -11,6 +11,8 @@ import com.zillennium.utswap.R
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityFinanceSubscriptionsBinding
 import com.zillennium.utswap.models.financeSubscription.SubscriptionObject
+import com.zillennium.utswap.module.finance.historicalScreen.bottomSheet.FinanceHistoricalFilterBottomSheet
+import com.zillennium.utswap.module.finance.historicalScreen.bottomSheet.FinanceHistoricalSelectDateRangeBottomSheet
 import com.zillennium.utswap.module.finance.subscriptionScreen.adapter.FinanceSubscriptionsAdapter
 import com.zillennium.utswap.module.finance.subscriptionScreen.bottomSheet.FinanceSubscriptionDateRangeBottomSheet
 import com.zillennium.utswap.module.finance.subscriptionScreen.bottomSheet.FinanceSubscriptionFilterBottomSheet
@@ -35,6 +37,8 @@ class FinanceSubscriptionsActivity :
     private var end = ""
     private var totalItem = ""
     private var lastPosition = 0
+    private var dateStart: String = ""
+    private var dateEnd: String = ""
     private var isLostConnection = false
 
     companion object {
@@ -57,8 +61,28 @@ class FinanceSubscriptionsActivity :
 
             /* Select Date Range */
             laySelectDateRange.setOnClickListener {
-                FinanceSubscriptionDateRangeBottomSheet.newInstance()
-                    .show(supportFragmentManager, "Select Date Time Subscription")
+
+                val financeHistoricalSelectDateRangeBottomSheet = FinanceHistoricalSelectDateRangeBottomSheet(
+                    dateStart,
+                    dateEnd,
+                    object: FinanceHistoricalSelectDateRangeBottomSheet.CallBackDateListener{
+                        override fun onSelectDateChangeSelect(startDate: String, endDate: String) {
+
+                            dateStart = startDate
+                            dateEnd = endDate
+                            if (endDate.isNotEmpty()){
+                                txtSelectedDateStart.visibility = View.VISIBLE
+                                txtSelectedDateEnd.visibility = View.VISIBLE
+                                txtSelectDateTo.visibility = View.VISIBLE
+                                txtSelectDateFromTo.visibility = View.GONE
+                                txtSelectedDateStart.text = dateStart
+                                txtSelectedDateEnd.text = dateEnd
+                            }
+
+                        }
+                    }
+                )
+                  financeHistoricalSelectDateRangeBottomSheet.show(supportFragmentManager, "Select Date Time Subscription")
             }
 
             swipeRefresh.setOnRefreshListener {

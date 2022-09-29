@@ -17,11 +17,12 @@ import com.zillennium.utswap.Datas.GlobalVariable.SettingVariable
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.databinding.BottomSheetFinanceSubscriptionSelectDateRangeBinding
+import com.zillennium.utswap.module.finance.historicalScreen.bottomSheet.FinanceHistoricalSelectDateRangeBottomSheet
 import java.text.SimpleDateFormat
 import java.util.*
 
 
-class FinanceSubscriptionDateRangeBottomSheet : BottomSheetDialogFragment(),
+class FinanceSubscriptionDateRangeBottomSheet( var listener: CallBackDateListener) : BottomSheetDialogFragment(),
     AdapterView.OnItemSelectedListener {
 
     private var binding: BottomSheetFinanceSubscriptionSelectDateRangeBinding? = null
@@ -30,7 +31,9 @@ class FinanceSubscriptionDateRangeBottomSheet : BottomSheetDialogFragment(),
     override fun getTheme(): Int {
         return R.style.BottomSheetStyle
     }
-
+    interface CallBackDateListener {
+        fun onSelectDateChangeSelect(startDate: String, endDate: String)
+    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -147,6 +150,9 @@ class FinanceSubscriptionDateRangeBottomSheet : BottomSheetDialogFragment(),
                                 Toast.LENGTH_LONG
                             ).show()
                         }
+                    }else{
+                        listener.onSelectDateChangeSelect(etStartDate.text.toString(), etEndDate.text.toString())
+                        dismiss()
                     }
 
 
@@ -155,22 +161,22 @@ class FinanceSubscriptionDateRangeBottomSheet : BottomSheetDialogFragment(),
         }
     }
 
-    companion object {
-        fun newInstance(
-//            startDate: String?,
-//            endDate: String?,
-        ): FinanceSubscriptionDateRangeBottomSheet {
-            val financeSubscriptionSelectDateRangeBottomSheet =
-                FinanceSubscriptionDateRangeBottomSheet()
-            val args = Bundle()
-
-//            args.putString("startDate", startDate)
-//            args.putString("endDate", endDate)
-
-            financeSubscriptionSelectDateRangeBottomSheet.arguments = args
-            return financeSubscriptionSelectDateRangeBottomSheet
-        }
-    }
+//    companion object {
+//        fun newInstance(
+////            startDate: String?,
+////            endDate: String?,
+//        ): FinanceSubscriptionDateRangeBottomSheet {
+//            val financeSubscriptionSelectDateRangeBottomSheet =
+//                FinanceSubscriptionDateRangeBottomSheet()
+//            val args = Bundle()
+//
+////            args.putString("startDate", startDate)
+////            args.putString("endDate", endDate)
+//
+//            financeSubscriptionSelectDateRangeBottomSheet.arguments = args
+//            return financeSubscriptionSelectDateRangeBottomSheet
+//        }
+//    }
 
     override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {}
 
