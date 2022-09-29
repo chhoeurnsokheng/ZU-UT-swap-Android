@@ -3,20 +3,20 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-android'
     id 'kotlin-kapt'
-//    id 'com.android.application'
     id 'com.google.gms.google-services'
     id 'com.google.firebase.crashlytics'
 }
 apply plugin: 'kotlin-android'
 
-def major = 1, minor = 0, patch = 0, build = 2
+def major = 1, minor = 0, patch = 0, build = 3
 
 if (major > 209) throw new GradleException("Major version ${major} exceeds limit")
 if (minor > 99) throw new GradleException("Minor version ${minor} exceeds limit")
 if (patch > 99) throw new GradleException("Patch version ${patch} exceeds limit")
 if (build > 999) throw new GradleException("Build version ${patch} exceeds limit")
 def code = (major * 10000000) + (minor * 100000) + (patch * 1000) + build
-def name = "$major.$minor.$patch"
+//def name = "$major.$minor.$patch"   //
+def name = "$major.$minor.$patch.$build"   // ForRelease
 
 android {
     compileSdk 32
@@ -29,9 +29,7 @@ android {
         versionName     name // "1.0.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
-//        renderscriptTargetApi 32
-//        renderscriptSupportModeEnabled true
-
+        vectorDrawables.useSupportLibrary = true
 
     }
 
@@ -63,16 +61,11 @@ android {
         
         debug {
             minifyEnabled false
-//            applicationIdSuffix ".module.notification"
-          //  applicationIdSuffix ".debug"
-            versionNameSuffix ".$build"
+            applicationIdSuffix ".debug"
+         //   versionNameSuffix ".$build"
+            signingConfig signingConfigs.debug
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            
-            buildConfigField "String", 'CORE_SUB_DOMAIN', '"demo"'
-            buildConfigField "String", 'CORE_APP_ID', '"37fe30c0-ad17-11ea-b572-31a193d8c9ee"'
-            buildConfigField "String", 'CORE_APP_SECRET', '"GPQ6Ccy8EJ25s1xY6bQhZfRToHhnYbHc7oY7"'
 
-            //buildConfigField "String", 'BASE_SOCKET_URL', '"ws://192.168.41.222/"'
             buildConfigField "String", 'BASE_URL', '"https://dev-staging.zillionunited.io/api/"'
             buildConfigField "String", 'BASE_SOCKET_URL', '"wss://dev-staging.zillionunited.io/"'
             buildConfigField "String", 'FIRE_BASE_URL', '"https://devzu.page.link"'
@@ -82,13 +75,13 @@ android {
             debuggable true
             minifyEnabled false
             applicationIdSuffix ".stage"
-            versionNameSuffix ".$build"
-            signingConfig signingConfigs.stage
+          //  versionNameSuffix ".$build"
+            signingConfig signingConfigs.debug
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 
 //            buildConfigField "String", 'BASE_URL', '"http://192.168.41.222/api/"'
             buildConfigField "String", 'BASE_URL', '"https://dev-staging.zillionunited.io/api/"'
-
+            //  buildConfigField "String", 'BASE_URL', '"https://sandbox.utswap.io/api/"'
             //buildConfigField "String", 'BASE_SOCKET_URL', '"ws://192.168.41.222/"'
             buildConfigField "String", 'BASE_SOCKET_URL', '"wss://dev-staging.zillionunited.io/"'
 
@@ -97,15 +90,15 @@ android {
         }
         release {
             debuggable false
-            minifyEnabled true
-            shrinkResources true
+            minifyEnabled false
+            shrinkResources false
             signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 
-            buildConfigField "String", 'BASE_URL', '"https://sandbox.utswap.io/api/"'
+          //  buildConfigField "String", 'BASE_URL', '"https://sandbox.utswap.io/api/"'
 
 
-            /*buildConfigField "String", 'BASE_URL', '"https://dev-staging.zillionunited.io/api/"'*/
+            buildConfigField "String", 'BASE_URL', '"https://dev-staging.zillionunited.io/api/"'
 
 
             //buildConfigField "String", 'BASE_SOCKET_URL', '"ws://192.168.41.222/"'
@@ -229,7 +222,6 @@ dependencies {
     implementation "me.leolin:ShortcutBadger:1.1.22@aar"
     implementation 'com.github.arturogutierrez:badges:1.0.5@aar'
 
-//    implementation 'com.github.viniciusmo:keyboard-visibility-event-android:1.0.4'
 
     //Crash Reporting with Firebase
     implementation 'com.google.firebase:firebase-crash:9.0.0'
@@ -272,5 +264,6 @@ dependencies {
     implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
     implementation "com.dmitryborodin:pdfview-android:1.1.0"
 
+    implementation "android.arch.lifecycle:extensions:1.1.1"
 
 }

@@ -1,6 +1,6 @@
 buildscript {
     ext.kotlin_version = '1.7.20-Beta'
-
+   // apply from: "gradle/dependencies.gradle"
     repositories {
         google()
         jcenter()
@@ -13,6 +13,7 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.21"
         classpath 'com.google.gms:google-services:4.3.13'
         classpath 'com.google.firebase:firebase-crashlytics-gradle:2.9.2'
+
     }
 }
 
@@ -22,7 +23,7 @@ allprojects {
         google()
         jcenter()
         mavenCentral()
-        maven { url "https://jitpack.io" }
+        maven { url "https://jitpack.io"}
     }
 }
 

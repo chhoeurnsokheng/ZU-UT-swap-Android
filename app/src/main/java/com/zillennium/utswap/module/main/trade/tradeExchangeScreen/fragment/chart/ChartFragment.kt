@@ -1,6 +1,8 @@
 package com.zillennium.utswap.module.main.trade.tradeExchangeScreen.fragment.chart
 
 import android.annotation.SuppressLint
+import android.graphics.Bitmap
+import android.view.View
 import android.webkit.WebChromeClient
 import android.webkit.WebSettings
 import android.webkit.WebView
@@ -53,15 +55,17 @@ class ChartFragment :
             webSettings.loadWithOverviewMode = true
             webSettings.loadsImagesAutomatically = true
 
-            webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN)
-            webView.setScrollbarFadingEnabled(false)
-            webSettings.setUseWideViewPort(true)
-
-            webView.setVerticalScrollBarEnabled(false)
-            webView.setHorizontalScrollBarEnabled(false)
+            webSettings.layoutAlgorithm = WebSettings.LayoutAlgorithm.SINGLE_COLUMN
+            webView.isScrollbarFadingEnabled = false
+            webSettings.useWideViewPort = true
 
             webView.webChromeClient = WebChromeClient()
             webView.webViewClient = object : WebViewClient() {
+                override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
+                    super.onPageStarted(view, url, favicon)
+                    binding.progressBar.visibility = View.VISIBLE
+                }
+
                 override fun onPageFinished(view: WebView, url: String) {
                     injectCssIntoWebView(
                         webView,
@@ -71,6 +75,7 @@ class ChartFragment :
                         )
                     )
                     super.onPageFinished(view, url)
+                    binding.progressBar.visibility = View.GONE
                 }
             }
 //              webView.addJavascriptInterface(AndroidJSInterface, "Android");

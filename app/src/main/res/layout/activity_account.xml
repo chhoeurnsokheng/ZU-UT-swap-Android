@@ -215,7 +215,7 @@
                     android:layout_height="wrap_content"
                     android:text="Referral (Coming soon)"
                     android:textAppearance="@style/medium_18"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/gray_999999" />
 
             </LinearLayout>
 
@@ -286,7 +286,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/lock_time_out"
                         android:textAppearance="@style/medium_18"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/gray_999999"/>
 
                 </LinearLayout>
 

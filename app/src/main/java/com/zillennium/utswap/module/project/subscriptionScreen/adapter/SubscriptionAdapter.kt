@@ -21,7 +21,7 @@ class SubscriptionAdapter(var onclickAdapter: OnclickAdapter, var userLevel: Str
     BaseRecyclerViewAdapterGeneric<SubscriptionProject.SubscriptionProjectData, SubscriptionAdapter.SubscriptionViewHolder>() {
     inner class SubscriptionViewHolder(root: ItemListProjectSubscriptionBinding) :
         BaseViewHolder<ItemListProjectSubscriptionBinding>(root) {
-        fun bindData(subscriptionList: SubscriptionProject.SubscriptionProjectData) {
+        fun bindData(subscriptionList: SubscriptionProject.SubscriptionProjectData,position: Int) {
             binding.apply {
 
                 //Marquee TextView
@@ -65,7 +65,7 @@ class SubscriptionAdapter(var onclickAdapter: OnclickAdapter, var userLevel: Str
                     itemView.setOnClickListener {
                         itemView.isEnabled = false
                         if (!subscriptionList.user_account_type.toString().contains(userLevelConvert)) {
-                            Toast.makeText(UTSwapApp.instance, "please upgrade your account", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(UTSwapApp.instance, "Please upgrade your account", Toast.LENGTH_SHORT).show()
                         } else {
                             if (volumeUT == totalUT) {
                                 itemView.isEnabled = false
@@ -99,7 +99,7 @@ class SubscriptionAdapter(var onclickAdapter: OnclickAdapter, var userLevel: Str
                         ?: 0)
 
                 //Check enable and disable item with launch
-                if (subscriptionList.launch == 1) {
+                if (subscriptionList.homepage == 1) {
                     itemView.visibility = View.VISIBLE
 
                 } else {
@@ -110,14 +110,18 @@ class SubscriptionAdapter(var onclickAdapter: OnclickAdapter, var userLevel: Str
                 //Check field pre-sale and booking
                 if (subscriptionList.type == 1) {
                     layBookingPreSale.isEnabled = false
-                    tvBookingPreSale.text = "Pre-Sale"
+                    tvBookingPreSale.text = "Subscribe"
                     layBookingPreSale.backgroundTintList = ContextCompat.getColorStateList(UTSwapApp.instance, R.color.purple_700)
 
                 } else {
                     layBookingPreSale.isEnabled = false
-                    tvBookingPreSale.text = "Booking"
+                    tvBookingPreSale.text = "Wait List"
                     layBookingPreSale.backgroundTintList = ContextCompat.getColorStateList(UTSwapApp.instance, R.color.gray_999999)
 
+                }
+
+                if(position == items.size){
+                    line.visibility = View.GONE
                 }
             }
         }
@@ -132,7 +136,7 @@ class SubscriptionAdapter(var onclickAdapter: OnclickAdapter, var userLevel: Str
     )
 
     override fun onBindItemHolder(holder: SubscriptionViewHolder, position: Int, context: Context) {
-        holder.bindData(items[position])
+        holder.bindData(items[position],position)
     }
 
     interface OnclickAdapter {

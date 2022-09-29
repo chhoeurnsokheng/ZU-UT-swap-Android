@@ -126,6 +126,7 @@ class SellDialog : DialogFragment() {
             if(it.status == 1){
                 SessionVariable.callDialogSuccessPlaceOrder.value = true
                 SessionVariable.refreshMatchingTransaction.value = true
+                SessionVariable.tradeCreateOrder.value = true
             }else{
                 SessionVariable.callDialogErrorCreateOrder.value = true
                 Constants.TradeExchange.errorMessagePlaceOrder = it.message.toString()
