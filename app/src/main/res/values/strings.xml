@@ -520,6 +520,7 @@
     <string name="verify_password_did_not_match">Verify Password Did Not Match!</string>
     <string name="lock_period">Lock Period</string>
     <string name="price_without_dot">Price</string>
+    <string name="e_agreement_words">I have read and agreed to the Terms and Conditions</string>
 
 
 </resources>

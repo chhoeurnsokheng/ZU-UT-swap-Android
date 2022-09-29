@@ -63,11 +63,9 @@ class ProjectInfoPresenter : BaseMvpPresenterImpl<ProjectInfoView.View>(),
 
     }
 
-    override fun checkProjectStatus(context: Context, project_id: Int) {
-        var param = JsonObject()
-        param.addProperty("project_id",project_id)
+    override fun checkProjectStatus(context: Context,  body: ProjectInfoDetail.ProjectTerCondition,) {
         subscriptionProjectStatus?.unsubscribe()
-        subscriptionProjectStatus = ApiProjectImp().checkProjectStatus(param,context).subscribe({
+        subscriptionProjectStatus = ApiProjectImp().checkProjectStatus(body,context).subscribe({
             mView?.checkProjectStatusSuccess(it)
         },{error -> object :CallbackWrapper(error,context, arrayListOf()){
             override fun onCallbackWrapper(status: ApiManager.NetworkErrorStatus, data: Any) {

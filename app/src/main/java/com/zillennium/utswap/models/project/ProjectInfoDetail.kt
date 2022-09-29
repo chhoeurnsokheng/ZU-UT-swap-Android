@@ -49,4 +49,8 @@ object ProjectInfoDetail {
     class ProjectInfoDetailObject(
         var id: Int
     )
+
+    class ProjectTerCondition(
+        var project_id:Int
+    )
 }

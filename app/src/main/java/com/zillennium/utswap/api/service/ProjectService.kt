@@ -37,12 +37,12 @@ interface ProjectService {
     fun subscriptionProjectTermCondition(
         @HeaderMap header: Map<String, String>,
         @Body body: JsonObject
-    ):Observable<SubscriptionProject.SubscriptionProjectRes>
+    ):Observable<SubscriptionProject.SubScribeTermCondition>
 
-    @GET(ApiSettings.PATH_CHECK_PROJECT_STATUS)
+    @POST(ApiSettings.PATH_CHECK_PROJECT_STATUS)
     fun checkStatusProject(  @HeaderMap header: Map<String, String>,
-                             @Body body: JsonObject
-    ):Observable<SubscriptionProject.SubscriptionProjectRes>
+                             @Body  body: ProjectInfoDetail.ProjectTerCondition
+    ):Observable<SubscriptionProject.SubScribeTermCondition>
 
     /**    Subscription Order     **/
     @POST(ApiSettings.PATH_SUBSCRIPTION_ORDER )

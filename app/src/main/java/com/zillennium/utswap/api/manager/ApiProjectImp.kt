@@ -50,20 +50,20 @@ class ApiProjectImp : ApiManager() {
     fun subscriptionProjectTermConditionSubmit(
         body: JsonObject,
         context: Context
-    ): Observable<SubscriptionProject.SubscriptionProjectRes> =
+    ): Observable<SubscriptionProject.SubScribeTermCondition> =
         mProjectService.subscriptionProjectTermCondition(
-            Header.getHeader(Header.Companion.AuthType.REQUIRED, context),
+            Header.getHeader(Header.Companion.AuthType.REQUIRED_TOKEN, context),
             body
         )
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
 
     fun checkProjectStatus(
-        body: JsonObject,
+       body: ProjectInfoDetail.ProjectTerCondition,
         context: Context
-    ): Observable<SubscriptionProject.SubscriptionProjectRes> =
-        mProjectService.subscriptionProjectTermCondition(
-            Header.getHeader(Header.Companion.AuthType.REQUIRED, context),
+    ): Observable<SubscriptionProject.SubScribeTermCondition> =
+        mProjectService.checkStatusProject(
+            Header.getHeader(Header.Companion.AuthType.REQUIRED_TOKEN, context),
             body
         )
             .subscribeOn(Schedulers.io())

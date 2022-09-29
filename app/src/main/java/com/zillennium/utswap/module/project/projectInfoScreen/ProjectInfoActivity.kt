@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.res.ColorStateList
 import android.net.Uri
 import android.view.View
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
@@ -25,10 +26,9 @@ import com.zillennium.utswap.module.project.ViewImage.ImageViewActivity
 import com.zillennium.utswap.module.project.projectInfoScreen.adapter.ProjectInfoDetailsAdapter
 import com.zillennium.utswap.module.project.projectInfoScreen.adapter.ProjectViewPagerAdapter
 import com.zillennium.utswap.module.project.subscriptionScreen.SubscriptionActivity
+import com.zillennium.utswap.module.project.subscriptionScreen.dialog.SubscriptionConfirmDialog
 import com.zillennium.utswap.module.project.subscriptionScreen.dialog.SubscriptionTermConditionDialog
-import com.zillennium.utswap.utils.Constants
-import com.zillennium.utswap.utils.UtilKt
-import com.zillennium.utswap.utils.groupingSeparatorInt
+import com.zillennium.utswap.utils.*
 
 
 class ProjectInfoActivity :
@@ -44,7 +44,7 @@ class ProjectInfoActivity :
     private var id: Int = 0
     private var project_Id :Int? = 0
     private var project_Name:String = ""
-    private var project_Action :String? = ""
+    private var project_Action  = false
 
     companion object {
         fun launchProjectInfoActivity(context: Context, id: String?) {
@@ -65,6 +65,7 @@ class ProjectInfoActivity :
             id.let { ProjectInfoDetail.ProjectInfoDetailObject(it) }.let {
                 mPresenter.projectInfoView(it, UTSwapApp.instance)
             }
+
         }
 
 
@@ -84,11 +85,10 @@ class ProjectInfoActivity :
 
     override fun projectInfoViewSuccess(data: ProjectInfoDetail.ProjectInfoDetailData) {
         val DECIMAL_FORMAT = "###,###.##"
-        data.id?.toInt()?.let { mPresenter.subscriptionProjectTermCondition(this, it) }
-        data.id?.toInt()?.let { mPresenter.checkProjectStatus(this, it) }
 
 
-      //  mPresenter.checkProjectStatus(this, (data.id ?:0) as Int)
+        mPresenter.checkProjectStatus(this, ProjectInfoDetail.ProjectTerCondition(id))
+
 
         binding.apply {
             txtDetailTitle.text = data.project_name.toString()
@@ -327,7 +327,7 @@ class ProjectInfoActivity :
                 btnTrade.visibility = View.GONE
                 btnSubscript.visibility = View.VISIBLE
                 btnUpcoming.visibility = View.GONE
-                project_Action = "Subscribe"
+                project_Action = true
 
 //                btnSubscript.setOnClickListener {
 //                    SubscriptionActivity.launchSubscriptionActivity(this@ProjectInfoActivity,
@@ -376,26 +376,39 @@ class ProjectInfoActivity :
         }
     }
 
-    override fun subscriptionProjectTermConditionSuccess(data: SubscriptionProject.SubscriptionProjectRes) {}
+    override fun subscriptionProjectTermConditionSuccess(data: SubscriptionProject.SubScribeTermCondition) {}
 
     override fun subscriptionProjectTermConditionFailed(data: String) {}
 
-    override fun checkProjectStatusSuccess(data: SubscriptionProject.SubscriptionProjectRes) {
+    override fun checkProjectStatusSuccess(data: SubscriptionProject.SubScribeTermCondition) {
         binding.apply {
             if (data.status ==1){
-                btnSubscript.setOnClickListener {
-                    SubscriptionActivity.launchSubscriptionActivity(this@ProjectInfoActivity,
-                        project_Id.toString(),
-                        project_Name
-                    )
-                }
-            }else{
-                btnSubscript.setOnClickListener {
-                    project_Id?.let { it1 ->
-                        SubscriptionTermConditionDialog.newInstance(
-                            it1,"","",231.5,123.4,34, "Sokheng", "Hello", ""
+                if ( project_Action == true){
+                    btnSubscript.setOnClickListener {
+                        SubscriptionActivity.launchSubscriptionActivity(this@ProjectInfoActivity,
+                            project_Id.toString(),
+                            project_Name
                         )
                     }
+                }
+            }
+            if (data.status ==0){
+                btnSubscript.setOnClickListener {
+                    DialogUtiSubscribe().customDialog(
+                        R.drawable.ic_vserion_icon,"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in re","Terms and Conditions",true, "Agree",object : DialogUtil.OnAlertDialogClick {
+                            override fun onLabelCancelClick() {
+                                mPresenter.subscriptionProjectTermCondition(this@ProjectInfoActivity,id)
+
+                                SubscriptionActivity.launchSubscriptionActivity(this@ProjectInfoActivity,
+                                    project_Id.toString(),
+                                    project_Name
+                                )
+
+                            }
+
+                        },this@ProjectInfoActivity
+                    )
+
                 }
             }
 

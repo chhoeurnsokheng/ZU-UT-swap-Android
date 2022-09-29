@@ -13,10 +13,10 @@ class ProjectInfoView {
         fun projectInfoViewSuccess(data: ProjectInfoDetail.ProjectInfoDetailData)
         fun projectInfoViewFail(data: ProjectInfoDetail.ProjectInfoDetailRes)
 
-        fun  subscriptionProjectTermConditionSuccess(data: SubscriptionProject.SubscriptionProjectRes)
+        fun  subscriptionProjectTermConditionSuccess(data: SubscriptionProject.SubScribeTermCondition)
         fun  subscriptionProjectTermConditionFailed(data: String)
 
-        fun checkProjectStatusSuccess(data: SubscriptionProject.SubscriptionProjectRes)
+        fun checkProjectStatusSuccess(data: SubscriptionProject.SubScribeTermCondition)
         fun checkProjectStatusFailed(data: String)
     }
 
@@ -25,6 +25,6 @@ class ProjectInfoView {
         fun projectInfoView(body: ProjectInfoDetail.ProjectInfoDetailObject, context: Context)
 
         fun subscriptionProjectTermCondition(context: Context, project_id:Int)
-        fun checkProjectStatus(context: Context, project_id:Int)
+        fun checkProjectStatus(context: Context,  body: ProjectInfoDetail.ProjectTerCondition,)
     }
 }

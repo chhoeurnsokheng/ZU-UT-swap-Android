@@ -28,7 +28,11 @@ object SubscriptionProject {
         var id: Int? = null,
         var date_range: String? = null
     )
-
+    class SubScribeTermCondition{
+        var status: Int? = null
+        var message: String? = null
+      //  var data: SubscribeConfirmBody ?  = null
+    }
     /** Project Subscription Order*/
     class SubscriptionConfirmRes {
         var status: Int? = null
@@ -72,5 +76,6 @@ object SubscriptionProject {
         var id: Int?,
         var ut_number: Int?
     )
+
 
 }
