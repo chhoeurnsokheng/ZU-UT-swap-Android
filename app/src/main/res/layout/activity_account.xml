@@ -62,36 +62,36 @@
                         android:id="@+id/txt_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/dimen_10"
                         android:singleLine="true"
                         android:text=""
                         android:textAppearance="@style/medium_18"
-                        android:layout_marginEnd="@dimen/dimen_10"
-                        android:visibility="gone"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/white"
+                        android:visibility="gone" />
 
                     <LinearLayout
                         android:id="@+id/linear_verify_identity"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:visibility="gone"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:visibility="gone">
 
                         <TextView
                             android:id="@+id/txt_verify_identity"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/dimen_10"
                             android:singleLine="true"
                             android:text="@string/verify_your_identity"
                             android:textAppearance="@style/medium_18"
-                            android:layout_marginEnd="@dimen/dimen_10"
                             android:textColor="@color/white" />
 
                         <ImageView
                             android:layout_width="@dimen/dimen_7"
                             android:layout_height="@dimen/dimen_13"
                             android:layout_gravity="center_vertical"
-                            app:tint="@color/white"
-                            android:src="@drawable/ic_back_follow_ui"/>
+                            android:src="@drawable/ic_back_follow_ui"
+                            app:tint="@color/white" />
 
                     </LinearLayout>
 
@@ -99,25 +99,25 @@
                         android:id="@+id/linear_verify_pending"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:visibility="gone"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:visibility="gone">
 
                         <TextView
                             android:id="@+id/txt_verify_pending"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/dimen_10"
                             android:singleLine="true"
                             android:text="@string/kyc_approval_is_pending"
                             android:textAppearance="@style/medium_18"
-                            android:layout_marginEnd="@dimen/dimen_10"
                             android:textColor="@color/white" />
 
                         <ImageView
                             android:layout_width="@dimen/dimen_7"
                             android:layout_height="@dimen/dimen_13"
                             android:layout_gravity="center_vertical"
-                            app:tint="@color/white"
-                            android:src="@drawable/ic_back_follow_ui"/>
+                            android:src="@drawable/ic_back_follow_ui"
+                            app:tint="@color/white" />
 
                     </LinearLayout>
 

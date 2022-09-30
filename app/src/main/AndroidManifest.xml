@@ -95,6 +95,7 @@
             android:configChanges="uiMode|keyboardHidden|screenSize|orientation|screenLayout"
             android:exported="false"
             android:label="@string/KYC"
+            android:windowSoftInputMode="adjustResize"
             android:screenOrientation="portrait" /> <!-- End Activity KYC -->
         <!-- Activity Finance -->
         <activity

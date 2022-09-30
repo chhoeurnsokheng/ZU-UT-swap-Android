@@ -49,7 +49,7 @@ class NotificationActivity :
     private fun initToolBar() {
         setSupportActionBar(binding.toolBar.tb)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_back_black)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_back_primary)
         supportActionBar?.setDisplayShowTitleEnabled(false)
         binding.toolBar.apply {
             tbTitle.setText(R.string.notifications)
@@ -110,7 +110,7 @@ class NotificationActivity :
         binding.apply {
             notificationAdapter =
                 NotificationAdapter(object : NotificationAdapter.OnClickNotificationAdapter {
-                    override fun clickNotification(notify_type: String, idNotifi: String, projectId: String, newsId: String) {
+                    override fun clickNotification(notify_type: String, idNotifi: String, notifiTitle: String, projectId: String, newsId: String) {
                         mPresenter.readNotification(idNotifi)
                         when(notify_type) {
                             Constants.NotificationType.DEPOSIT -> {
@@ -144,7 +144,7 @@ class NotificationActivity :
                             Constants.NotificationType.KYC -> {
                                 startActivity(
                                     Intent(this@NotificationActivity, KYCActivity::class.java)
-                                        .putExtra("fromNotification", "KYC")
+                                        .putExtra("fromNotification", notifiTitle)
                                 )
 
                             }
