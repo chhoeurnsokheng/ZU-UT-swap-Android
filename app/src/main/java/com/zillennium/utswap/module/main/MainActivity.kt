@@ -100,10 +100,10 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
         val dataIntent = intent?.getStringExtra("dataIntent")
         when (dataIntent) {
 
-            "KYC" -> {
+            "KYC Approved", "KYC Rejected" -> {
                 startActivity(
                     Intent(this, KYCActivity::class.java)
-                        .putExtra("fromNotification", "KYC")
+                        .putExtra("fromNotification", dataIntent)
                 )
             }
 

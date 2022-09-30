@@ -84,7 +84,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         when (title) {
             "KYC Approved", "KYC Rejected" -> {
-                intent.putExtra("dataIntent",  "KYC")
+                intent.putExtra("dataIntent",  title)
             }
             "Fund Transfer" -> {
                 intent.putExtra("dataIntent","Fund Transfer")
