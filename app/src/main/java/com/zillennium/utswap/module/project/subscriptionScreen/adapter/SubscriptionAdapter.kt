@@ -33,7 +33,7 @@ class SubscriptionAdapter(var onclickAdapter: OnclickAdapter, var userLevel: Str
                 tvProjectTitle.text = subscriptionList.name
                 tvTitle.text = subscriptionList.user_account_type
                 tvDollar.text = Dollar.toString()
-                tvDayLock.text = subscriptionList.jian.toString()
+                tvDayLock.text = subscriptionList.jian?.toInt().toString()
                 tvUtValue.text = UtValue.toString()
                 tvUtMainValue.text = UtMainValue.toString()
                 txtEndTime.text = subscriptionList.endtime
@@ -51,9 +51,11 @@ class SubscriptionAdapter(var onclickAdapter: OnclickAdapter, var userLevel: Str
                 }else if(subscriptionList.status==2){
                     txtProjectStatus.text = "Upcoming"
                     txtProjectStatus.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.dark_yellow))
+
                 }else if (subscriptionList.status ==3){
                     txtProjectStatus.text = "Ended"
                     txtProjectStatus.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.red_ee1111))
+
                 }
 
                 if(userLevel.isEmpty()){
@@ -67,16 +69,38 @@ class SubscriptionAdapter(var onclickAdapter: OnclickAdapter, var userLevel: Str
                 }else{
                     val userLevelConvert = userLevel.replace("\\s".toRegex(), "").substring(2)
                     if (subscriptionList.user_account_type.toString().contains(userLevelConvert)) {
-                        CardViewPopup.isEnabled = true
+
+                        if (subscriptionList.status==3){
+                            CardViewPopup.isEnabled = false
+                        }else if (subscriptionList.status ==2){
+                            CardViewPopup.isEnabled = false
+                        }
+                        else{
+                            CardViewPopup.isEnabled = true
+                        }
                         imgCircle.imageTintList = ContextCompat.getColorStateList(UTSwapApp.instance, R.color.simple_green)
                         determinateBar.progressBackgroundTintList = ContextCompat.getColorStateList(UTSwapApp.instance, R.color.gray_999999)
                     } else {
                         if(userLevelId == "5" || userLevelId == "4"){
-                            CardViewPopup.isEnabled = true
+
                             imgCircle.imageTintList = ContextCompat.getColorStateList(UTSwapApp.instance, R.color.simple_green)
                             determinateBar.progressBackgroundTintList = ContextCompat.getColorStateList(UTSwapApp.instance, R.color.gray_999999)
+                            if (subscriptionList.status==3 ){
+                                CardViewPopup.isEnabled = false
+                            }else if (subscriptionList.status ==2){
+                                CardViewPopup.isEnabled = false
+                            }
+                            else{
+                                CardViewPopup.isEnabled = true
+                            }
+
                         }else{
-                            CardViewPopup.isEnabled = false
+                            if (subscriptionList.status==3 || subscriptionList.status ==2){
+                                CardViewPopup.isEnabled = false
+                            }else{
+                                CardViewPopup.isEnabled = true
+                            }
+
                             imgCircle.imageTintList = ContextCompat.getColorStateList(UTSwapApp.instance, R.color.gray_E7E7E7)
                         }
                     }
@@ -86,8 +110,8 @@ class SubscriptionAdapter(var onclickAdapter: OnclickAdapter, var userLevel: Str
                     if (volumeUT == totalUT) {
                         imgCircle.imageTintList = ContextCompat.getColorStateList(UTSwapApp.instance, R.color.dark_pink)
                     }
-                    itemView.setOnClickListener {
-                        itemView.isEnabled = false
+                    CardViewPopup.setOnClickListener {
+                      //  itemView.isEnabled = false
                         if (!subscriptionList.user_account_type.toString().contains(userLevelConvert)) {
                             if(userLevelId == "5" || userLevelId == "4"){
                                 if (volumeUT == totalUT) {
