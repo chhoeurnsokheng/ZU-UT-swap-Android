@@ -13,7 +13,7 @@ object SubscriptionProject {
         var deal: Int? = null
         var homepage: Int? = null
         var price: Double? = null
-        var jian: Int? = null
+        var jian: Double? = null
         var addtime: String? = null
         var endtime: String? = null
         var user_account_type: String? = null
@@ -22,6 +22,8 @@ object SubscriptionProject {
         var launch: Int? = null
         var type: Int? = null
         var name: String? = null
+        var content:String?  = null
+        var status:Int ? = null
     }
 
     class SubscriptionProjectBody(

@@ -27,8 +27,7 @@ class SubscriptionAdapter(var onclickAdapter: OnclickAdapter, var userLevel: Str
                 //Marquee TextView
                 tvTitle.isSelected = true
 
-                val Dollar =
-                    subscriptionList.price.let { formatThreeDigitValue(it ?: 0, "###,###.##") }
+                val Dollar = subscriptionList.price.let { formatThreeDigitValue(it ?: 0, "###,###.##") }
                 val UtValue = subscriptionList.deal?.let { groupingSeparatorInt(it.toInt()) }
                 val UtMainValue = subscriptionList.num?.let { groupingSeparatorInt(it.toInt()) }
                 tvProjectTitle.text = subscriptionList.name
@@ -38,7 +37,7 @@ class SubscriptionAdapter(var onclickAdapter: OnclickAdapter, var userLevel: Str
                 tvUtValue.text = UtValue.toString()
                 tvUtMainValue.text = UtMainValue.toString()
                 txtEndTime.text = subscriptionList.endtime
-
+                txtStatus.text = subscriptionList.content
                 if(userLevel.isEmpty()){
 
                     val totalUT = subscriptionList.num.toString().toInt()
@@ -54,11 +53,12 @@ class SubscriptionAdapter(var onclickAdapter: OnclickAdapter, var userLevel: Str
                         imgCircle.imageTintList = ContextCompat.getColorStateList(UTSwapApp.instance, R.color.simple_green)
                         determinateBar.progressBackgroundTintList = ContextCompat.getColorStateList(UTSwapApp.instance, R.color.gray_999999)
                     } else {
-                        if(userLevelId == "3" || userLevelId == "4"){
+                        if(userLevelId == "5" || userLevelId == "4"){
                             CardViewPopup.isEnabled = true
                             imgCircle.imageTintList = ContextCompat.getColorStateList(UTSwapApp.instance, R.color.simple_green)
                             determinateBar.progressBackgroundTintList = ContextCompat.getColorStateList(UTSwapApp.instance, R.color.gray_999999)
                         }else{
+                            CardViewPopup.isEnabled = false
                             imgCircle.imageTintList = ContextCompat.getColorStateList(UTSwapApp.instance, R.color.gray_E7E7E7)
                         }
                     }
@@ -71,7 +71,7 @@ class SubscriptionAdapter(var onclickAdapter: OnclickAdapter, var userLevel: Str
                     itemView.setOnClickListener {
                         itemView.isEnabled = false
                         if (!subscriptionList.user_account_type.toString().contains(userLevelConvert)) {
-                            if(userLevelId == "3" || userLevelId == "4"){
+                            if(userLevelId == "5" || userLevelId == "4"){
                                 if (volumeUT == totalUT) {
                                     itemView.isEnabled = false
                                     itemView.isClickable = false
@@ -96,7 +96,6 @@ class SubscriptionAdapter(var onclickAdapter: OnclickAdapter, var userLevel: Str
                             if (volumeUT == totalUT) {
                                 itemView.isEnabled = false
                                 itemView.isClickable = false
-//                            Toast.makeText(UTSwapApp.instance, "The current ICO is over", Toast.LENGTH_SHORT).show()
                             } else {
                                 if (Dollar != null) {
                                     onclickAdapter.onClickMe(
