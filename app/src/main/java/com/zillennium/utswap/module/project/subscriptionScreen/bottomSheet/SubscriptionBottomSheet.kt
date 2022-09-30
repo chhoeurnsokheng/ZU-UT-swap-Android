@@ -91,10 +91,6 @@ class SubscriptionBottomSheet : BottomSheetDialogFragment(), AdapterView.OnItemS
             (dialog as BottomSheetDialog).behavior.state = BottomSheetBehavior.STATE_EXPANDED
         }
 
-
-//        dialog!!.requestWindowFeature(Window.FEATURE_NO_TITLE)
-//        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-//        dialog?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
         binding = DataBindingUtil.inflate(
             inflater,
             R.layout.bottom_sheet_project_subscription,
@@ -133,25 +129,6 @@ class SubscriptionBottomSheet : BottomSheetDialogFragment(), AdapterView.OnItemS
             btnSubscript.setOnClickListener {
                 val txtUtRemoveSpace = etInputVolume.text.toString().trim().replace(" ","")
                 onSubscriptionProjectCheck(SubscriptionProject.SubscriptionCheckObj(arguments?.getInt("id"),txtUtRemoveSpace.toInt()),UTSwapApp.instance)
-//                val utSubscriptionPrice =
-//                    volumeDollarPrice?.let { formatThreeDigitValue(it, "###,###.##") }
-//                if (!etInputVolume.text.isNullOrEmpty()) {
-//                    if (etInputVolume.text.toString().replace("\\s".toRegex(), "").toLong() > 0) {
-//                        val subscriptionConfirmDialog: SubscriptionConfirmDialog =
-//                            SubscriptionConfirmDialog.newInstance(
-////                                arguments?.get("id").toString().toInt(),
-//                                etInputVolume.text.toString(),
-////                                arguments?.get("title").toString(),
-////                                arguments?.get("project_name").toString(),
-////                                arguments?.get("lock_time").toString(),
-////                                arguments?.get("volume_price").toString().toDouble(),
-//                                utSubscriptionPrice.toString(),
-//                            )
-//                        subscriptionConfirmDialog.show(
-//                            requireActivity().supportFragmentManager,
-//                            "balanceHistoryDetailDialog"
-//                        )
-
 
             }
 
@@ -160,8 +137,7 @@ class SubscriptionBottomSheet : BottomSheetDialogFragment(), AdapterView.OnItemS
 
             var lockDay = arguments?.getString("lock_time")
 
-            tvTimeLock.text =
-                "Subscription amount is subjected to a locked period of $lockDay Day(s)"
+            tvTimeLock.text = "Subscription amount is subjected to a locked period of $lockDay Day(s)"
             etInputVolume.addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(
                     s: CharSequence?,
@@ -175,7 +151,7 @@ class SubscriptionBottomSheet : BottomSheetDialogFragment(), AdapterView.OnItemS
 
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                     val strVolume = if (etInputVolume.text.toString().isNotEmpty()) {
-                        //etInputVolume.text.toString().toLong()
+
                         etInputVolume.text.toString().replace("\\s".toRegex(), "").toLong()
                     } else {
                         0
@@ -275,8 +251,7 @@ class SubscriptionBottomSheet : BottomSheetDialogFragment(), AdapterView.OnItemS
 
     private fun onConfirmDialog(){
         binding?.apply {
-            val utSubscriptionPrice =
-                volumeDollarPrice?.let { formatThreeDigitValue(it, "###,###.##") }
+            val utSubscriptionPrice = volumeDollarPrice?.let { formatThreeDigitValue(it, "###,###.##") }
             if (!etInputVolume.text.isNullOrEmpty()) {
                 if (etInputVolume.text.toString().replace("\\s".toRegex(), "").toLong() > 0) {
                     Constants.SubscriptionBottomSheet.id = arguments?.get("id").toString().toInt()

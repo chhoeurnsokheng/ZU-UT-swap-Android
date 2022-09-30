@@ -37,7 +37,25 @@ class SubscriptionAdapter(var onclickAdapter: OnclickAdapter, var userLevel: Str
                 tvUtValue.text = UtValue.toString()
                 tvUtMainValue.text = UtMainValue.toString()
                 txtEndTime.text = subscriptionList.endtime
-                txtStatus.text = subscriptionList.content
+
+                if (subscriptionList.content?.isNotEmpty() == true){
+                    txtStatus.text = subscriptionList.content
+                }else{
+                    txtStatus.visibility = View.GONE
+                    layoutDiscount.visibility =View.GONE
+                }
+
+                if (subscriptionList.status==1){
+                    txtProjectStatus.text = "Processing"
+                    txtProjectStatus.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.success))
+                }else if(subscriptionList.status==2){
+                    txtProjectStatus.text = "Upcoming"
+                    txtProjectStatus.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.dark_yellow))
+                }else if (subscriptionList.status ==3){
+                    txtProjectStatus.text = "Ended"
+                    txtProjectStatus.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.red_ee1111))
+                }
+
                 if(userLevel.isEmpty()){
 
                     val totalUT = subscriptionList.num.toString().toInt()
