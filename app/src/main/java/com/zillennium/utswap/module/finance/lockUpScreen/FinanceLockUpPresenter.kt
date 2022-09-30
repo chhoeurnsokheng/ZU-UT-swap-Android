@@ -8,7 +8,6 @@ import com.google.gson.JsonObject
 import com.zillennium.utswap.api.manager.ApiFinanceImp
 import com.zillennium.utswap.api.manager.ApiManager
 import com.zillennium.utswap.bases.mvp.BaseMvpPresenterImpl
-import com.zillennium.utswap.models.BaseResponse.BaseResponse
 import com.zillennium.utswap.models.lockUpBalance.LockUpBalanceObject
 import rx.Subscription
 

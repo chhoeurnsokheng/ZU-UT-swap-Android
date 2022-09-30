@@ -9,8 +9,10 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.zillennium.utswap.R
+import com.zillennium.utswap.databinding.ItemListFinanceSubscriptionsBinding
 import com.zillennium.utswap.models.financeSubscription.SubscriptionObject
 import com.zillennium.utswap.utils.groupingSeparator
+import rx.internal.util.SubscriptionList
 
 class FinanceSubscriptionsAdapter(
     var arrayList: ArrayList<SubscriptionObject.SubscriptionList>,
@@ -21,57 +23,99 @@ class FinanceSubscriptionsAdapter(
     private var isLocked = false
 
 
-    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        var imageSubscription: ImageView =
-            view.findViewById<View>(R.id.image_subscription) as ImageView
-        var titleSubscriptions: TextView =
-            view.findViewById<View>(R.id.title_subscription) as TextView
-        var dateSubscription: TextView = view.findViewById<View>(R.id.date_subscription) as TextView
-        var amountSubscription: TextView =
-            view.findViewById<View>(R.id.amount_subscription) as TextView
-        var statusDays: TextView = view.findViewById(R.id.status_days) as TextView
-        var layoutSubscription: LinearLayout =
-            view.findViewById<View>(R.id.linear_subscription) as LinearLayout
+    inner class ViewHolder(var binding: ItemListFinanceSubscriptionsBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(data: SubscriptionObject.SubscriptionList) {
+            binding.apply {
+
+                titleSubscription.text = data.name
+                dateSubscription.text = data.addtimeReadble
+                amountSubscription.text = "$" + groupingSeparator(data.mum.toDouble())
+
+                if (data.status == "Completed") {
+                    imageSubscription.setImageResource(R.drawable.ic_locked)
+                    statusDays.text = "${(data.lock_period_left)} day(s) left"
+                } else {
+                    imageSubscription.setImageResource(R.drawable.ic_unlocked)
+                    statusDays.text = "—"
+                }
+                linearSubscription.setOnClickListener {
+                    isLocked = data.status == "Completed"
+                    onClickAdapter.onSubscriptionItemClick(
+                        data.name,
+                        isLocked,
+                        data.transaction_id,
+                        data.price,
+                        data.num,
+                        data.mum.toDouble(),
+                        data.startDate,
+                        data.endDate,
+                        data.lock_period_left
+                    )
+
+
+                }
+
+            }
+        }
+
+//        var imageSubscription: ImageView =
+//            view.findViewById<View>(R.id.image_subscription) as ImageView
+//        var titleSubscriptions: TextView =
+//            view.findViewById<View>(R.id.title_subscription) as TextView
+//        var dateSubscription: TextView = view.findViewById<View>(R.id.date_subscription) as TextView
+//        var amountSubscription: TextView =
+//            view.findViewById<View>(R.id.amount_subscription) as TextView
+//        var statusDays: TextView = view.findViewById(R.id.status_days) as TextView
+//        var layoutSubscription: LinearLayout =
+//            view.findViewById<View>(R.id.linear_subscription) as LinearLayout
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
-            LayoutInflater.from(viewGroup.context)
-                .inflate(R.layout.item_list_finance_subscriptions, viewGroup, false)
+            ItemListFinanceSubscriptionsBinding.inflate(
+                LayoutInflater.from(viewGroup.context),
+                viewGroup,
+                false
+            )
         )
+
+
     }
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val itemSubscriptionList = arrayList[position]
-        holder.titleSubscriptions.text = itemSubscriptionList.name
-        holder.dateSubscription.text = itemSubscriptionList.addtimeReadble
-        holder.amountSubscription.text = "$" + groupingSeparator(itemSubscriptionList.mum.toDouble())
-        if (itemSubscriptionList.status == "Completed") {
+        holder.bind(arrayList[position])
 
-            holder.imageSubscription.setImageResource(R.drawable.ic_locked)
-            holder.statusDays.text = "${  (itemSubscriptionList.lock_period_left)} day(s) left"
-        } else {
-
-            holder.imageSubscription.setImageResource(R.drawable.ic_unlocked)
-            holder.statusDays.text = "—"
-        }
-
-        holder.layoutSubscription.setOnClickListener {
-            isLocked = itemSubscriptionList.status =="Completed"
-
-            onClickAdapter.onSubscriptionItemClick(
-                itemSubscriptionList.name,
-                isLocked,
-                itemSubscriptionList.transaction_id,
-                itemSubscriptionList.price,
-                itemSubscriptionList.num,
-                itemSubscriptionList.mum.toDouble(),
-                itemSubscriptionList.startDate,
-                itemSubscriptionList.endDate,
-                itemSubscriptionList.lock_period_left
-            )
-        }
+//        val itemSubscriptionList = arrayList[position]
+//        holder.titleSubscriptions.text = itemSubscriptionList.name
+//        holder.dateSubscription.text = itemSubscriptionList.addtimeReadble
+//        holder.amountSubscription.text = "$" + groupingSeparator(itemSubscriptionList.mum.toDouble())
+//        if (itemSubscriptionList.status == "Completed") {
+//
+//            holder.imageSubscription.setImageResource(R.drawable.ic_locked)
+//            holder.statusDays.text = "${  (itemSubscriptionList.lock_period_left)} day(s) left"
+//        } else {
+//
+//            holder.imageSubscription.setImageResource(R.drawable.ic_unlocked)
+//            holder.statusDays.text = "—"
+//        }
+//
+//        holder.layoutSubscription.setOnClickListener {
+//            isLocked = itemSubscriptionList.status =="Completed"
+//
+//            onClickAdapter.onSubscriptionItemClick(
+//                itemSubscriptionList.name,
+//                isLocked,
+//                itemSubscriptionList.transaction_id,
+//                itemSubscriptionList.price,
+//                itemSubscriptionList.num,
+//                itemSubscriptionList.mum.toDouble(),
+//                itemSubscriptionList.startDate,
+//                itemSubscriptionList.endDate,
+//                itemSubscriptionList.lock_period_left
+//            )
+//        }
     }
 
     override fun getItemCount(): Int {

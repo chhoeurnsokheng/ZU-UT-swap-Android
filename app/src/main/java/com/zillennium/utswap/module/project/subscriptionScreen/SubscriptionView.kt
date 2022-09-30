@@ -22,6 +22,8 @@ class SubscriptionView {
         fun onGetUserInfoFail(data: User.AppSideBarData)
 
         fun userExpiredToken()
+
+
     }
 
     interface Presenter : BaseMvpPresenter<View> {
@@ -33,6 +35,7 @@ class SubscriptionView {
 
         /**  User Profile Level   **/
         fun onGetUserInfo(context: Context)
+
 
     }
 }

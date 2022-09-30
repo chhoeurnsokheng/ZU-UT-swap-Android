@@ -47,7 +47,7 @@
             android:name=".module.account.documentsScreen.privacy.PrivacyPolicyActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
-        <!-- android:allowTaskReparenting="false" -->
+
 
         <activity
             android:name="com.zillennium.utswap.module.splashScreen.SplashScreenActivity"
@@ -84,38 +84,6 @@
             </intent-filter>
         </activity>
 
-<!--        <activity-->
-
-<!--            android:name=".screens.navbar.navbar.MainActivity"-->
-
-<!--            android:launchMode="singleTask">-->
-
-<!--            <intent-filter android:autoVerify="true">-->
-
-<!--                <action android:name="android.intent.action.MAIN" />-->
-
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-
-<!--            </intent-filter>-->
-
-<!--            <intent-filter>-->
-
-<!--                <action android:name="android.intent.action.VIEW" />-->
-
-<!--                <category android:name="android.intent.category.DEFAULT" />-->
-
-<!--                <category android:name="android.intent.category.BROWSABLE" />-->
-
-<!--                <data android:scheme="your_URI_" />-->
-
-<!--                <data android:scheme="https" android:host="your_URL" />-->
-
-<!--                <data android:scheme="http" android:host="your_URL" />-->
-
-<!--            </intent-filter>-->
-
-<!--        </activity>-->
-        <!-- Activity KYC -->
         <activity
             android:name=".module.finance.depositScreen.OpenWebViewToComfirmPayment.DepositOpenLinkWebViewActivity"
             android:configChanges="uiMode|keyboardHidden|screenSize|orientation|screenLayout"

@@ -150,7 +150,7 @@
     <string name="transfer_amount">Transfer Amount</string>
     <string name="receiver_phone_number">Receiver Phone Number</string>
     <string name="transfer_big_letter">Transfer</string>
-    <string name="price">Price:</string>
+    <string name="price">Price</string>
     <string name="total_locked_balance_0_00">Total Locked Balance: $ 0.00</string>
     <string name="lock_up_period">Lock-up Period</string>
     <string name="no_data_available_in_table">No data available in table</string>
@@ -303,7 +303,7 @@
     <string name="subscription_label">SubscriptionFragment</string>
     <string name="Premium_Professional">Premium, Professional</string>
     <string name="ut_Pochentong">UT Pochentong 555</string>
-    <string name="subscription_lock_period">Subscription amount is subjected to a locked period of</string>
+    <string name="subscription_lock_period">Subscription amount is subjected to a locked period of 30 Day(s)</string>
     <string name="subscription_lock_period_confirm">Subscription amount is subjected to a locked</string>
     <string name="volume_input">Volume:</string>
     <string name="subscription_price">Subscription Price:</string>
@@ -520,6 +520,7 @@
     <string name="verify_password_did_not_match">Verify Password Did Not Match!</string>
     <string name="lock_period">Lock Period</string>
     <string name="price_without_dot">Price</string>
+    <string name="e_agreement_words">I have read and agreed to the Terms and Conditions</string>
 
 
 </resources>

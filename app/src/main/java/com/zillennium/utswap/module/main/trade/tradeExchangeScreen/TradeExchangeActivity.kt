@@ -696,7 +696,9 @@ class TradeExchangeActivity :
         kycSubmit = data.data?.status_submit_kyc
         kycComplete = data.data?.status_kyc
         onCheckSessionStatusAndKYC()
-
+        if (data.message =="Please sign in"){
+            binding.layAuth.visibility = View.VISIBLE
+        }
     }
 
     override fun onCheckKYCFail() {
@@ -1012,6 +1014,8 @@ class TradeExchangeActivity :
         super.onBackPressed()
         clearData()
 
+        OrderBookFragment().orderBookAskList.clear()
+        OrderBookFragment().orderBookBidList.clear()
         OrderBookFragment().clearData()
     }
 
@@ -1019,6 +1023,8 @@ class TradeExchangeActivity :
         super.onDestroy()
 
         clearData()
+        OrderBookFragment().orderBookAskList.clear()
+        OrderBookFragment().orderBookBidList.clear()
         OrderBookFragment().clearData()
     }
 

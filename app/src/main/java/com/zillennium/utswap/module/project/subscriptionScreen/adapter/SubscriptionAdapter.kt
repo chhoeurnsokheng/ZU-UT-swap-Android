@@ -17,7 +17,7 @@ import com.zillennium.utswap.models.project.SubscriptionProject
 import com.zillennium.utswap.utils.formatThreeDigitValue
 import com.zillennium.utswap.utils.groupingSeparatorInt
 
-class SubscriptionAdapter(var onclickAdapter: OnclickAdapter, var userLevel: String) :
+class SubscriptionAdapter(var onclickAdapter: OnclickAdapter, var userLevel: String, var userLevelId: String) :
     BaseRecyclerViewAdapterGeneric<SubscriptionProject.SubscriptionProjectData, SubscriptionAdapter.SubscriptionViewHolder>() {
     inner class SubscriptionViewHolder(root: ItemListProjectSubscriptionBinding) :
         BaseViewHolder<ItemListProjectSubscriptionBinding>(root) {
@@ -27,17 +27,36 @@ class SubscriptionAdapter(var onclickAdapter: OnclickAdapter, var userLevel: Str
                 //Marquee TextView
                 tvTitle.isSelected = true
 
-                val Dollar =
-                    subscriptionList.price.let { formatThreeDigitValue(it ?: 0, "###,###.##") }
+                val Dollar = subscriptionList.price.let { formatThreeDigitValue(it ?: 0, "###,###.##") }
                 val UtValue = subscriptionList.deal?.let { groupingSeparatorInt(it.toInt()) }
                 val UtMainValue = subscriptionList.num?.let { groupingSeparatorInt(it.toInt()) }
                 tvProjectTitle.text = subscriptionList.name
                 tvTitle.text = subscriptionList.user_account_type
                 tvDollar.text = Dollar.toString()
-                tvDayLock.text = subscriptionList.jian.toString()
+                tvDayLock.text = subscriptionList.jian?.toInt().toString()
                 tvUtValue.text = UtValue.toString()
                 tvUtMainValue.text = UtMainValue.toString()
                 txtEndTime.text = subscriptionList.endtime
+
+                if (subscriptionList.content?.isNotEmpty() == true){
+                    txtStatus.text = subscriptionList.content
+                }else{
+                    txtStatus.visibility = View.GONE
+                    layoutDiscount.visibility =View.GONE
+                }
+
+                if (subscriptionList.status==1){
+                    txtProjectStatus.text = "Processing"
+                    txtProjectStatus.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.success))
+                }else if(subscriptionList.status==2){
+                    txtProjectStatus.text = "Upcoming"
+                    txtProjectStatus.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.dark_yellow))
+
+                }else if (subscriptionList.status ==3){
+                    txtProjectStatus.text = "Ended"
+                    txtProjectStatus.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.red_ee1111))
+
+                }
 
                 if(userLevel.isEmpty()){
 
@@ -50,11 +69,40 @@ class SubscriptionAdapter(var onclickAdapter: OnclickAdapter, var userLevel: Str
                 }else{
                     val userLevelConvert = userLevel.replace("\\s".toRegex(), "").substring(2)
                     if (subscriptionList.user_account_type.toString().contains(userLevelConvert)) {
-                        CardViewPopup.isEnabled = true
+
+                        if (subscriptionList.status==3){
+                            CardViewPopup.isEnabled = false
+                        }else if (subscriptionList.status ==2){
+                            CardViewPopup.isEnabled = false
+                        }
+                        else{
+                            CardViewPopup.isEnabled = true
+                        }
                         imgCircle.imageTintList = ContextCompat.getColorStateList(UTSwapApp.instance, R.color.simple_green)
                         determinateBar.progressBackgroundTintList = ContextCompat.getColorStateList(UTSwapApp.instance, R.color.gray_999999)
                     } else {
-                        imgCircle.imageTintList = ContextCompat.getColorStateList(UTSwapApp.instance, R.color.gray_E7E7E7)
+                        if(userLevelId == "5" || userLevelId == "4"){
+
+                            imgCircle.imageTintList = ContextCompat.getColorStateList(UTSwapApp.instance, R.color.simple_green)
+                            determinateBar.progressBackgroundTintList = ContextCompat.getColorStateList(UTSwapApp.instance, R.color.gray_999999)
+                            if (subscriptionList.status==3 ){
+                                CardViewPopup.isEnabled = false
+                            }else if (subscriptionList.status ==2){
+                                CardViewPopup.isEnabled = false
+                            }
+                            else{
+                                CardViewPopup.isEnabled = true
+                            }
+
+                        }else{
+                            if (subscriptionList.status==3 || subscriptionList.status ==2){
+                                CardViewPopup.isEnabled = false
+                            }else{
+                                CardViewPopup.isEnabled = true
+                            }
+
+                            imgCircle.imageTintList = ContextCompat.getColorStateList(UTSwapApp.instance, R.color.gray_E7E7E7)
+                        }
                     }
 
                     val totalUT = subscriptionList.num.toString().toInt()
@@ -62,15 +110,34 @@ class SubscriptionAdapter(var onclickAdapter: OnclickAdapter, var userLevel: Str
                     if (volumeUT == totalUT) {
                         imgCircle.imageTintList = ContextCompat.getColorStateList(UTSwapApp.instance, R.color.dark_pink)
                     }
-                    itemView.setOnClickListener {
-                        itemView.isEnabled = false
+                    CardViewPopup.setOnClickListener {
+                      //  itemView.isEnabled = false
                         if (!subscriptionList.user_account_type.toString().contains(userLevelConvert)) {
-                            Toast.makeText(UTSwapApp.instance, "Please upgrade your account", Toast.LENGTH_SHORT).show()
+                            if(userLevelId == "5" || userLevelId == "4"){
+                                if (volumeUT == totalUT) {
+                                    itemView.isEnabled = false
+                                    itemView.isClickable = false
+                                } else {
+                                    if (Dollar != null) {
+                                        onclickAdapter.onClickMe(
+                                            subscriptionList.user_account_type.toString(),
+                                            subscriptionList.jian.toString(),
+                                            subscriptionList.id,
+                                            Dollar.toDouble(),
+                                            subscriptionList.num.toString().toInt(),
+                                            subscriptionList.min.toString().toInt(),
+                                            subscriptionList.max.toString().toInt()
+
+                                        )
+                                    }
+                                }
+                            }else{
+                                Toast.makeText(UTSwapApp.instance, "Please upgrade your account", Toast.LENGTH_SHORT).show()
+                            }
                         } else {
                             if (volumeUT == totalUT) {
                                 itemView.isEnabled = false
                                 itemView.isClickable = false
-//                            Toast.makeText(UTSwapApp.instance, "The current ICO is over", Toast.LENGTH_SHORT).show()
                             } else {
                                 if (Dollar != null) {
                                     onclickAdapter.onClickMe(

@@ -33,6 +33,7 @@ import com.zillennium.utswap.module.security.securityActivity.signInScreen.SignI
 import com.zillennium.utswap.module.system.notification.NotificationActivity
 import com.zillennium.utswap.screens.navbar.navbar.MainActivity
 import com.zillennium.utswap.utils.Constants
+import com.zillennium.utswap.utils.UtilKt
 import com.zillennium.utswap.utils.groupingSeparator
 
 class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, FragmentHomeBinding>(),
@@ -56,6 +57,11 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
     override fun initView() {
         super.initView()
 
+        SessionVariable.successTransfer.observe(this){
+            if (!it){
+                mPresenter.getWatchListAndBalance(requireActivity())
+            }
+        }
 
         SessionVariable.realTimeWatchList.value = true
         mPresenter.getBanner(requireActivity())
@@ -377,9 +383,10 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
             if (data.data?.total_user_balance == 0.0) {
                 tradingBalance.text = "$ " + "0.00"
             } else {
-                tradingBalance.text = "$ " + data.data?.total_user_balance?.let {
-                    groupingSeparator(it)
-                }
+                tradingBalance.text = "$ " + data.data?.total_user_balance?.let { UtilKt().formatValue(it, "###,###.##") }
+//                let {
+//                    groupingSeparator(it)
+//                }
 
 
             }

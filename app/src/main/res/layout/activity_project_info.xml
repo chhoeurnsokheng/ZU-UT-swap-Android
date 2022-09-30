@@ -29,7 +29,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginStart="@dimen/dimen_40"
                 android:text="@string/project"
-                android:textAppearance="@style/medium_20"
+                android:textAppearance="@style/medium_18"
                 android:textColor="@color/purple_700" />
 
             <com.google.android.material.button.MaterialButton
@@ -71,7 +71,6 @@
                 android:layout_height="@dimen/dimen_40"
                 android:layout_alignParentEnd="true"
                 android:layout_centerInParent="true"
-                android:layout_centerVertical="true"
                 android:background="@drawable/bg_circular_trade"
                 android:gravity="center"
                 android:hint="@string/upcoming"
