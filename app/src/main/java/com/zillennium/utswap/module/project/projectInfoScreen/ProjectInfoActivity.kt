@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.net.Uri
+import android.text.Html
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -391,8 +392,9 @@ class ProjectInfoActivity :
             }
             if (data.status ==0){
                 btnSubscript.setOnClickListener {
+                    val message = Html.fromHtml("${data.message}")
                     DialogUtiSubscribe().customDialog(
-                        R.drawable.ic_vserion_icon,"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in re","Terms and Conditions",true, "Agree",object : DialogUtil.OnAlertDialogClick {
+                        R.drawable.ic_sharp_close_24,"${message}","Terms and Conditions",true, "Agree",object : DialogUtil.OnAlertDialogClick {
                             override fun onLabelCancelClick() {
                                 mPresenter.subscriptionProjectTermCondition(this@ProjectInfoActivity,id)
 

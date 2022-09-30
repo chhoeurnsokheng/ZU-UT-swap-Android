@@ -11,14 +11,11 @@ import com.zillennium.utswap.R
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityFinanceSubscriptionsBinding
 import com.zillennium.utswap.models.financeSubscription.SubscriptionObject
-import com.zillennium.utswap.module.finance.historicalScreen.bottomSheet.FinanceHistoricalFilterBottomSheet
-import com.zillennium.utswap.module.finance.historicalScreen.bottomSheet.FinanceHistoricalSelectDateRangeBottomSheet
 import com.zillennium.utswap.module.finance.subscriptionScreen.adapter.FinanceSubscriptionsAdapter
 import com.zillennium.utswap.module.finance.subscriptionScreen.bottomSheet.FinanceSubscriptionDateRangeBottomSheet
 import com.zillennium.utswap.module.finance.subscriptionScreen.bottomSheet.FinanceSubscriptionFilterBottomSheet
 import com.zillennium.utswap.module.finance.subscriptionScreen.dialog.FinanceSubscriptionsDialog
 import com.zillennium.utswap.utils.isOnline
-import kotlin.collections.ArrayList
 
 
 class FinanceSubscriptionsActivity :
@@ -62,10 +59,8 @@ class FinanceSubscriptionsActivity :
             /* Select Date Range */
             laySelectDateRange.setOnClickListener {
 
-                val financeHistoricalSelectDateRangeBottomSheet = FinanceHistoricalSelectDateRangeBottomSheet(
-                    dateStart,
-                    dateEnd,
-                    object: FinanceHistoricalSelectDateRangeBottomSheet.CallBackDateListener{
+                val financeHistoricalSelectDateRangeBottomSheet = FinanceSubscriptionDateRangeBottomSheet(
+                    object: FinanceSubscriptionDateRangeBottomSheet.CallBackDateListener{
                         override fun onSelectDateChangeSelect(startDate: String, endDate: String) {
 
                             dateStart = startDate
@@ -82,7 +77,7 @@ class FinanceSubscriptionsActivity :
                         }
                     }
                 )
-                  financeHistoricalSelectDateRangeBottomSheet.show(supportFragmentManager, "Select Date Time Subscription")
+                financeHistoricalSelectDateRangeBottomSheet.show(supportFragmentManager, "Select Date Time Subscription")
             }
 
             swipeRefresh.setOnRefreshListener {
@@ -90,8 +85,6 @@ class FinanceSubscriptionsActivity :
                 page = 1
                 requestData()
             }
-
-
 
             Tovuti.from(this@FinanceSubscriptionsActivity).monitor { _, isConnected, _ ->
                 if (isConnected && isLostConnection) {
@@ -164,8 +157,7 @@ class FinanceSubscriptionsActivity :
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 if (dy > 0) {
-                    lastPosition =
-                        (binding.rvSubscriptions.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
+                    lastPosition = (binding.rvSubscriptions.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
                     if (lastPosition == arraySubscription.size - 1 && arraySubscription.size < totalItem.toInt()) {
                         binding.progressBar.visibility = View.VISIBLE
                         page++

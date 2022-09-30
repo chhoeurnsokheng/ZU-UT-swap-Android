@@ -22,8 +22,9 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class FinanceSubscriptionDateRangeBottomSheet( var listener: CallBackDateListener) : BottomSheetDialogFragment(),
-    AdapterView.OnItemSelectedListener {
+class FinanceSubscriptionDateRangeBottomSheet(
+    var listener: CallBackDateListener) : BottomSheetDialogFragment()
+   {
 
     private var binding: BottomSheetFinanceSubscriptionSelectDateRangeBinding? = null
     private var startRequest = ""
@@ -139,9 +140,10 @@ class FinanceSubscriptionDateRangeBottomSheet( var listener: CallBackDateListene
 
                     SettingVariable.finance_subscription_date_start.value = etStartDate.text.toString()
                     SettingVariable.finance_subscription_date_end.value = etEndDate.text.toString()
-                   // dismiss()
+
                     val dateS = sdf.parse(etStartDate.text.toString())
                     val dateE = sdf.parse(etEndDate.text.toString())
+
                     if (dateS != null) {
                         if (dateS > dateE){
                             Toast.makeText(
@@ -149,36 +151,18 @@ class FinanceSubscriptionDateRangeBottomSheet( var listener: CallBackDateListene
                                 "EndDate should be greater than StartDate",
                                 Toast.LENGTH_LONG
                             ).show()
+                        }else{
+                            listener.onSelectDateChangeSelect(etStartDate.text.toString(), etEndDate.text.toString())
+                            dismiss()
+
                         }
-                    }else{
-                        listener.onSelectDateChangeSelect(etStartDate.text.toString(), etEndDate.text.toString())
-                        dismiss()
                     }
-
-
                 }
             })
         }
     }
 
-//    companion object {
-//        fun newInstance(
-////            startDate: String?,
-////            endDate: String?,
-//        ): FinanceSubscriptionDateRangeBottomSheet {
-//            val financeSubscriptionSelectDateRangeBottomSheet =
-//                FinanceSubscriptionDateRangeBottomSheet()
-//            val args = Bundle()
-//
-////            args.putString("startDate", startDate)
-////            args.putString("endDate", endDate)
-//
-//            financeSubscriptionSelectDateRangeBottomSheet.arguments = args
-//            return financeSubscriptionSelectDateRangeBottomSheet
-//        }
-//    }
 
-    override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {}
 
-    override fun onNothingSelected(p0: AdapterView<*>?) {}
+
 }

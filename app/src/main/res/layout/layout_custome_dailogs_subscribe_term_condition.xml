@@ -50,16 +50,19 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/white">
-                    <TextView
-                        android:id="@+id/tv_message"
+                    <ScrollView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textAlignment="center"
-                        android:visibility="visible"
-                        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in re"
-                        android:textAppearance="@style/regular_10"
-                        android:textColor="@color/black_333333"
-                        android:layout_margin="@dimen/dimen_10"/>
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:id="@+id/tv_message"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in re"
+                            android:textAppearance="@style/regular_10"
+                            android:textColor="@color/black_333333"
+                            android:layout_margin="@dimen/dimen_10"/>
+                    </ScrollView>
+
                 </LinearLayout>
 
 
