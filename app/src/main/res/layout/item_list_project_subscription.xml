@@ -30,12 +30,14 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+
                         android:gravity="center_vertical"
                         android:orientation="horizontal"
                         android:layout_marginTop="@dimen/dimen_10"
                         android:paddingVertical="@dimen/dimen_5">
 
                         <ImageView
+                            android:visibility="gone"
                             android:id="@+id/img_circle"
                             android:layout_width="@dimen/dimen_20"
                             android:layout_height="@dimen/dimen_20"
@@ -50,8 +52,8 @@
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="@dimen/dimen_3"
                             android:text="UT Test"
-                            android:textAppearance="@style/medium_14"
-                            android:textColor="@color/gray_999999" />
+                            android:textAppearance="@style/bold_18"
+                            android:textColor="@color/black" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -108,7 +110,7 @@
                             android:layout_weight="1"
                             android:gravity="center_vertical"
                             android:orientation="horizontal"
-                            android:layout_marginTop="@dimen/dimen_10"
+                            android:layout_marginTop="@dimen/dimen_4"
                             android:paddingVertical="@dimen/dimen_5">
                             <TextView
                                 android:layout_width="wrap_content"
@@ -147,7 +149,7 @@
                                 android:layout_width="@dimen/dimen_80"
                                 android:layout_height="@dimen/dimen_30"
                                 android:layout_marginTop="@dimen/dimen_10"
-                                android:background="@drawable/btn_booking_remark"
+                                android:background="@drawable/bg_subscription_16"
                                 android:gravity="center">
 
                                 <TextView
@@ -181,9 +183,10 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="Subscribe"
+                            android:layout_marginHorizontal="@dimen/dimen_5"
                             android:minLines="1"
-                            android:layout_marginEnd="@dimen/dimen_3"
-                            android:layout_marginStart="@dimen/dimen_3"
+                            android:layout_marginEnd="@dimen/dimen_10"
+                            android:layout_marginStart="@dimen/dimen_10"
                             android:textAppearance="@style/regular_12"
                             android:textColor="@color/white" />
                     </LinearLayout>

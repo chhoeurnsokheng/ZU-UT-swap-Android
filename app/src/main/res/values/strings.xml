@@ -486,7 +486,7 @@
     <string name="empty_price_order_book">--</string>
 
     <string name="openWebView">OpenWebView</string>
-    <string name="deposit_review">Deposit Review</string>
+    <string name="deposit_review">Deposit</string>
 
     <string name="you_have_successfully_placed_an_order">You Have Successfully Placed an Order.</string>
     <string name="order_has_been_canceled">Order Has Been Canceled</string>
