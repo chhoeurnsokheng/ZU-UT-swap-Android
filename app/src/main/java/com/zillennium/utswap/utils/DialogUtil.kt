@@ -109,6 +109,7 @@ class DialogUtiSubscribe{    // Publish
                     if (cbEAgreement.isChecked) {
                         btnPositive.isEnabled = true
                         btnPositive.backgroundTintList = ContextCompat.getColorStateList(context, R.color.primary)
+
                     } else {
                         btnPositive.isEnabled = false
                         btnPositive.backgroundTintList = ContextCompat.getColorStateList(context, R.color.light_gray)

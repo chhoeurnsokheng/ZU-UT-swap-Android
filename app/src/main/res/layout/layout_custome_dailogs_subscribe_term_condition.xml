@@ -69,7 +69,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="@dimen/dimen_10"
-                            android:text="quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reLorem ipsum dolor sit amet, asfaskfjlkslkjklsfjsjflsfjlkskjlfjklsjkskjlfjlksfjklsflkjlkfsjlksfjklskflskdfklsflksdkfljkslkfsklfjkskjflsdkflkksjjsflksklfskdljfjssjfklsfjklsskljfsjklfkljsklfksjlfsjfkskljfjklsjklfsjklfjklsjkklkjlkkkkkkkkkkkkkkkkkkkconsectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in re"
+                             android:text="Hello"
                             android:textAppearance="@style/regular_10"
                             android:textColor="@color/black_333333" />
                         </LinearLayout>
