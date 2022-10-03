@@ -52,7 +52,7 @@ class FinanceSubscriptionsDialog : DialogFragment() {
                     .setHasFixedTransformationMatrix(true)
             }
 
-            closeImage.setOnClickListener {
+            blurView.setOnClickListener {
                 dismiss()
             }
 

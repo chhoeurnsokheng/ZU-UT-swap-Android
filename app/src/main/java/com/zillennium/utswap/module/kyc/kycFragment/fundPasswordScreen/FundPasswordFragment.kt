@@ -367,7 +367,7 @@ class FundPasswordFragment :
             }
             findNavController().navigate(R.id.action_FundPasswordKycFragment_to_fundPasswordSuccess)
 
-            IDVerificationFragment.apply {
+            /*IDVerificationFragment.apply {
                 provice = ""
                 district = ""
                 commune = ""
@@ -387,7 +387,7 @@ class FundPasswordFragment :
             EmploymentInfoFragment.apply {
                 occupation = ""
                 company = ""
-            }
+            }*/
 
         }
     }

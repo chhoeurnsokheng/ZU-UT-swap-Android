@@ -43,8 +43,8 @@ class AccountActivity :
     private val PICK_IMAGE_FROM_GALLERY = 1
     private var newImageFile: File? = null
     var preferencesCondition = true
-    private var strKyc: String? = ""
     private var intentStr = ""
+    private var fullName = ""
 
 
     override fun initView() {
@@ -137,6 +137,7 @@ class AccountActivity :
 
             linearVerifyPending.setOnClickListener {
                 val intent = Intent(UTSwapApp.instance, AccountKycPendingActivity::class.java)
+                    .putExtra("fullName", fullName)
                 startActivity(intent)
             }
 
@@ -226,6 +227,7 @@ class AccountActivity :
     }
 
     override fun onGetUserInfoSuccess(data: User.AppSideBarData) {
+        fullName = data.truename.toString()
         binding.apply {
             txtPhoneNumber.visibility = View.VISIBLE
 

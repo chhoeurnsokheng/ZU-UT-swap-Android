@@ -62,13 +62,19 @@ class KycApplicationFragment :
                     dataNotification =
                         activity?.intent?.getStringExtra("fromNotification").toString()
                 }
+                tvFullName.text = "[${IDVerificationFragment.sureName} ${IDVerificationFragment.name}]"
                 activity?.let {
                     activity?.onBackPressedDispatcher?.addCallback(
                         it,
                         object : OnBackPressedCallback(true) {
                             override fun handleOnBackPressed() {
-                                activity?.setResult(Activity.RESULT_OK)
-                                activity?.finish()
+                                if ((activity as KYCActivity).kycStatus == "Pending" || dataNotification == "KYC Approved" || dataNotification == "KYC Rejected") {
+                                    it.setResult(Activity.RESULT_OK)
+                                    it.finish()
+
+                                } else {
+                                    findNavController().popBackStack()
+                                }
                             }
                         })
                 }

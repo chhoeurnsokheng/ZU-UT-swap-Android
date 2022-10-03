@@ -11,6 +11,7 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.DatePicker
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -23,6 +24,8 @@ import com.zillennium.utswap.models.SpinnerTestModel
 import com.zillennium.utswap.models.province.PProvinceObj
 import com.zillennium.utswap.module.kyc.kycFragment.dropDownAdapter.DropDownAdapter
 import com.zillennium.utswap.utils.Util
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -35,14 +38,9 @@ class IDVerificationFragment :
     override val layoutResource: Int = R.layout.fragment_kyc_id_verification
 
     private val genderList: ArrayList<Any> = arrayListOf()
-    private val dataListTest = mutableListOf<SpinnerTestModel>()
-    private val provinceTest = mutableListOf<SpinnerTestModel>()
     private var provinceList: ArrayList<Any> = arrayListOf()
     private var districtList: ArrayList<Any> = arrayListOf()
     private var communeList: ArrayList<Any> = arrayListOf()
-    private var parent_code: String? = null
-    private var parent_code1: String? = null
-    private var isClickable = true
 
 
     object info {
@@ -547,7 +545,10 @@ class IDVerificationFragment :
                         activity?.let {
                             hideKeyboard(it)
                         }
-                        findNavController().popBackStack()
+                        lifecycleScope.launch {
+                            delay(100)
+                            findNavController().popBackStack()
+                        }
                     }
                 }
             }

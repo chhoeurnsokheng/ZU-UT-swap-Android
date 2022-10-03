@@ -35,16 +35,6 @@ class FundPasswordSuccessFragment: BaseMvpFragment<FundPasswordSuccessView.View,
                 findNavController().navigate(R.id.action_fundPasswordSuccess_to_KycApplicationKycFragment)
 
             }
-            root.setOnKeyListener(object : View.OnKeyListener{
-                override fun onKey(p0: View?, p1: Int, p2: KeyEvent?): Boolean {
-                    if (p2?.action == KeyEvent.ACTION_DOWN) {
-                        if (p1 == KeyEvent.KEYCODE_BACK) {
-                            return true
-                        }
-                    }
-                    return false
-                }
-            })
 
         }
     }

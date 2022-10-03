@@ -739,23 +739,24 @@ class TradeExchangeActivity :
             if (SessionPreferences().SESSION_TOKEN != null) {
                 includeLayout.imgRemember.visibility = View.VISIBLE
 
-                if (kycComplete == true) {
+                if (kycComplete == true) { //Complete
                     layTransactions.visibility = View.VISIBLE
                     layVerify.visibility = View.GONE
                     layAuth.visibility = View.GONE
                     llBottom.visibility = View.VISIBLE
                     llBtnVerify.visibility = View.GONE
-                } else if (kycComplete == false && kycSubmit == true) {
+                } else if (kycComplete == false && kycSubmit == true) { // Pending
                     layVerify.visibility = View.GONE
                     layTransactions.visibility = View.GONE
                     layAuth.visibility = View.GONE
                     llBottom.visibility = View.VISIBLE
                     llBtnVerify.visibility = View.VISIBLE
-                } else if (kycComplete == false && kycSubmit == false) {
+                } else if (kycComplete == false && kycSubmit == false) { // New
                     layVerify.visibility = View.VISIBLE
                     layTransactions.visibility = View.GONE
                     layAuth.visibility = View.GONE
                     llBottom.visibility = View.GONE
+
                 }
             } else {
                 layTransactions.visibility = View.GONE

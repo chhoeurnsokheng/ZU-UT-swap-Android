@@ -13,15 +13,19 @@ class AccountKycPendingActivity :
 
     override fun initView() {
         super.initView()
-        try {
             binding.apply {
+                setSupportActionBar(binding.includeLayout.tb)
+                supportActionBar?.setDisplayHomeAsUpEnabled(false)
+                supportActionBar?.setDisplayShowTitleEnabled(false)
+                includeLayout.tbTitle.setText(R.string.kyc_application)
                 btnBack.setOnClickListener {
                     finish()
                 }
+                if (intent.hasExtra("fullName")) {
+                    val fullName = intent.getStringExtra("fullName")
+                    tvFullName.text = "[$fullName]"
+                }
             }
-            // Code
-        } catch (error: Exception) {
-            // Must be safe
-        }
+
     }
 }
