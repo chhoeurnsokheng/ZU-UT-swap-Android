@@ -177,8 +177,7 @@ class SubscriptionBottomSheet : BottomSheetDialogFragment(), AdapterView.OnItemS
 
                     if (etInputVolume.text.isNotEmpty()) {
                         volumeDollarPrice = (arguments?.getDouble("volume_price")?.times(strVolume))
-                        tvSubscriptPrice.text =
-                            volumeDollarPrice?.let { formatThreeDigitValue(it, "###,###.##") }
+                        tvSubscriptPrice.text = volumeDollarPrice?.let { formatThreeDigitValue(it, "###,###.##") }
                     }
 
                 }

@@ -59,7 +59,6 @@ class ProjectInfoActivity :
 
         if (intent.hasExtra(Constants.Project.Project_Id)) {
             id = intent.extras?.getString(Constants.Project.Project_Id)?.toInt() ?: 0
-
             id.let { ProjectInfoDetail.ProjectInfoDetailObject(it) }.let {
                 mPresenter.projectInfoView(it, UTSwapApp.instance)
             }
@@ -75,12 +74,16 @@ class ProjectInfoActivity :
             btnBack.setOnClickListener {
                 onBackPressed()
             }
-
+        checkBackPress()
 
 
         }
     }
-
+    private fun checkBackPress(){
+       if (SubscriptionActivity.backToProjectInformation  ==true){
+           mPresenter.subscriptionProjectTermCondition(this@ProjectInfoActivity,id)
+       }
+    }
     override fun projectInfoViewSuccess(data: ProjectInfoDetail.ProjectInfoDetailData) {
         val DECIMAL_FORMAT = "###,###.##"
 

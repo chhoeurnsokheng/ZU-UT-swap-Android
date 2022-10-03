@@ -38,7 +38,7 @@ class SubscriptionActivity : BaseMvpActivity<SubscriptionView.View, Subscription
     var delay = 1000
 
     companion object {
-
+        var backToProjectInformation = false
         fun launchSubscriptionActivity(context: Context, id: String?, project_name: String?) {
             val intent = Intent(context, SubscriptionActivity::class.java)
             intent.putExtra("subscription_id", id)
@@ -243,6 +243,7 @@ class SubscriptionActivity : BaseMvpActivity<SubscriptionView.View, Subscription
         super.onBackPressed()
         SessionVariable.SESSION_SUBSCRIPTION_BOTTOM_SHEET.value = false
         runnable?.let { handler.removeCallbacks(it) }
+        backToProjectInformation = true
     }
 
     override fun onResume() {
