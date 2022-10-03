@@ -521,6 +521,7 @@
     <string name="lock_period">Lock Period</string>
     <string name="price_without_dot">Price</string>
     <string name="e_agreement_words">I have read and agreed to the Terms and Conditions</string>
-
+    <string name="transfer_internal_cash">Internal Cash Transfer</string>
+   <string name="transfer_review"> Transfer Review </string>
 
 </resources>
