@@ -2,12 +2,14 @@ package com.zillennium.utswap.module.finance.transferScreen
 
 import android.content.Context
 import android.content.Intent
+import android.view.View
 import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
 import com.zillennium.utswap.R
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityTransferReviewBinding
 import com.zillennium.utswap.module.security.securityDialog.FundPasswordDialog
 import com.zillennium.utswap.utils.Constants
+import com.zillennium.utswap.utils.UtilKt
 
 class TransferActivityReview :
     BaseMvpActivity<TransferActivityReviewView.View, TransferActivityReviewView.Presenter, ActivityTransferReviewBinding>(),
@@ -57,19 +59,36 @@ class TransferActivityReview :
 
             if (intent.hasExtra(Constants.Transfer.transferAmount)) {
                 transferAmount= intent.extras?.getString(Constants.Transfer.transferAmount).toString()
-                txtAmount.text ="$"+ transferAmount
+                if (transferAmount.isEmpty()){
+                    txtAmount.text = "$"+ "0"
+                }else{
+                    txtAmount.text =     "$ " +  UtilKt().formatValue(transferAmount.toDouble(), "###,###.##")
+                }
+
             }
             if (intent.hasExtra(Constants.Transfer.fee)) {
                 fee= intent.extras?.getString(Constants.Transfer.fee).toString()
-                txtFee.text = "$"+ fee
+                if (fee.isEmpty()){
+                    txtFee.visibility =View.GONE
+                }else{
+                    txtFee.text =     "$ " +  UtilKt().formatValue(fee.toDouble(), "###,###.##")
+                }
+
             }
             if (intent.hasExtra(Constants.Transfer.total)) {
                 total= intent.extras?.getString(Constants.Transfer.total).toString()
                 txtTotalBalance.text = "$" + total
+
+                if (total.isEmpty()){
+                    txtTotalBalance.text = "$" + "0"
+
+                }else{
+                    txtTotalBalance.text ="$" +UtilKt().formatValue(total.toDouble(), "###,###.##")
+                }
+
             }
             if (intent.hasExtra(Constants.Transfer.receiverTransfer)) {
                 receiverTransfer = intent.extras?.getString(Constants.Transfer.receiverTransfer).toString()
-
             }
             btnTransfer.setOnClickListener {
 

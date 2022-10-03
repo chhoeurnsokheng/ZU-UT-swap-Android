@@ -43,6 +43,7 @@ class FundPasswordDialog : DialogFragment() {
     private var codes: String = ""
     private var subCode: String = ""
     private var subscription: Subscription? = null
+    private var getTransferData = Transfer.TransferSuccessulReview()
 
     var amount = ""
     var trxTransfer = ""
@@ -176,17 +177,7 @@ class FundPasswordDialog : DialogFragment() {
                 val subscriptionCheck = arguments?.getString("subscriptionFund")
 
 
-                var transfer: TransferSuccessDialog = TransferSuccessDialog.transferInstance(
-                    amount,
-                    trxTransfer,
-                    trxDate,
-                    sender,
-                    toAccount
-                )
-                transfer.show(
-                    requireActivity().supportFragmentManager,
-                    "balanceHistoryDetailDialog"
-                )
+
 
 //                val transferSuccessDialog = TransferSuccessDialog()
 //                activity?.supportFragmentManager?.let {
@@ -384,25 +375,26 @@ class FundPasswordDialog : DialogFragment() {
                 )
             }
 
-            Constants.Transfer.amount = data.amount.toString()
-            Constants.Transfer.trxTransfer = data.trx_transfer.toString()
-            Constants.Transfer.fromAccount = data.sender.toString()
-            Constants.Transfer.trxDate = data.trx_date.toString()
-            Constants.Transfer.toAccount = data.receiver.toString()
 
 
-            data.amount = KYCPreferences().amount
-            data.trx_transfer = KYCPreferences().trxTransfer
-            data.sender = KYCPreferences().fromAccount
-            data.receiver = KYCPreferences().toAccount
-            data.trx_date = KYCPreferences().trxDate
+            getTransferData = Transfer.TransferSuccessulReview(
+            data.amount ,
+            data.trx_transfer,
+            data.sender,
+            data.receiver,
+            data.trx_date)
+            val transfer = TransferSuccessDialog(getTransferData)
+            transfer.show(
+                requireActivity().supportFragmentManager,
+                "balanceHistoryDetailDialog"
+            )
 
-//
-//            SessionVariable.amount.value = data.amount.toString()
-//            SessionVariable.trxTransfer.value = data.trx_transfer.toString()
-//            SessionVariable.fromAccount.value = data.sender.toString()
-//            SessionVariable.trxDate.value = data.trx_date.toString()
-//            SessionVariable.toAccount.value = data.receiver.toString()
+
+
+            amount = data.amount.toString()
+            trxTransfer  = data.trx_transfer.toString()
+            toAccount = data.receiver.toString()
+
 
             Handler().postDelayed({
                 dismiss()
@@ -447,6 +439,14 @@ class FundPasswordDialog : DialogFragment() {
     }
 
     companion object {
+
+        var amount   = ""
+        var trxTransfer  = ""
+        var fromAccount   = ""
+        var trxDate  = ""
+        var toAccount  = ""
+        var sender  = ""
+
         fun newInstance(
             id: Int,
             volume: String?,

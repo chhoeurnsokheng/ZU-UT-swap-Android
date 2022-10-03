@@ -69,8 +69,8 @@ class TransferActivity :
                         layTransactions.visibility = View.GONE
                         etMountTransfer.hideKeyboard()
 
-                        val transferSuccessDialog = TransferSuccessDialog()
-                        transferSuccessDialog.show(supportFragmentManager, "Transfer Success Dialog")
+                       // val transferSuccessDialog = TransferSuccessDialog()
+                      //  transferSuccessDialog.show(supportFragmentManager, "Transfer Success Dialog")
 
                         mPresenter.onGetUserInfo(UTSwapApp.instance)
                     }

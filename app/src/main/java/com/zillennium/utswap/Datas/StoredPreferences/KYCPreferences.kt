@@ -36,12 +36,6 @@ class KYCPreferences : BaseStoredPreferences(UTSwapApp.instance, "KYCPreferences
     var ID_CARD_INFOR by stringPref()
 
 
-    var amount  by stringPref()
-    var trxTransfer by  stringPref()
-    var fromAccount  by  stringPref()
-    var trxDate by  stringPref()
-    var toAccount by  stringPref()
-    var sender by  stringPref()
 
 
 }

@@ -23,6 +23,7 @@ import com.zillennium.utswap.module.security.securityDialog.FundPasswordDialog
 import com.zillennium.utswap.screens.navbar.navbar.MainActivity
 import com.zillennium.utswap.utils.ClientClearData
 import com.zillennium.utswap.utils.Constants
+import com.zillennium.utswap.utils.UtilKt
 import eightbitlab.com.blurview.RenderScriptBlur
 import rx.Subscription
 
@@ -84,7 +85,8 @@ class SubscriptionConfirmDialog : DialogFragment() {
         binding?.txtVolume?.text = arguments?.get("volume").toString()
         binding?.tvSubscriptionsPrice?.text =     arguments?.get("volume_price").toString()
         binding?.tvProjectTitle?.text = arguments?.get("project_name").toString()
-        binding?.tvTimeLock?.text = arguments?.get("lock_time").toString()
+        var timeLocked = arguments?.get("lock_time").toString()
+        binding?.tvTimeLock?.text = UtilKt().formatValue(timeLocked.toDouble(), "###,###.##")
         return binding?.root
     }
 
