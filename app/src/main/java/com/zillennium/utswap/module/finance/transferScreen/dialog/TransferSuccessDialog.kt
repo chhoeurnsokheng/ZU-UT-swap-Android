@@ -24,7 +24,9 @@ class TransferSuccessDialog(var data: Transfer.TransferSuccessulReview): DialogF
     override fun getTheme(): Int {
         return R.style.AlertDialog
     }
-
+        companion object{
+            var backToHomeTranfer = false
+        }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -49,9 +51,11 @@ class TransferSuccessDialog(var data: Transfer.TransferSuccessulReview): DialogF
 //                    Constants.Transfer.toAccount = ""
 //                    Constants.Transfer.fromAccount = ""
 //                    Constants.Transfer.trxDate = ""
-                  //  dismiss()
-                    activity?.finish()
+                   dismiss()
+                  //  activity?.finish()
+
                     startActivity(Intent(requireActivity(), TransferActivity::class.java))
+                    backToHomeTranfer = true
                 }
 
 
