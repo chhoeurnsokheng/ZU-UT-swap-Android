@@ -45,5 +45,12 @@ class SessionVariable {
 
         var marketOpen: MutableLiveData<Boolean> = MutableLiveData()
 
+        var amount :MutableLiveData<String> = MutableLiveData()
+        var trxTransfer :MutableLiveData<String> = MutableLiveData()
+        var fromAccount :MutableLiveData<String> = MutableLiveData()
+        var trxDate  :MutableLiveData<String> = MutableLiveData()
+        var toAccount :MutableLiveData<String> = MutableLiveData()
+
+
     }
 }

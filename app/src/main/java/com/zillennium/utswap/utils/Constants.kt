@@ -519,6 +519,12 @@ interface Constants {
             var trxDate = ""
             var fromAccount = ""
             var toAccount = ""
+            var phoneNumber = "phoneNumber"
+            var accountName ="accountName"
+            var transferAmount = "transferAmount"
+            var fee = "fee"
+            var total = "total"
+            var receiverTransfer = "receiverTransfer"
         }
     }
 

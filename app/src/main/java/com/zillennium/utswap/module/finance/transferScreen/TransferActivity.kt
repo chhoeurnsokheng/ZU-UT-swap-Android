@@ -69,8 +69,8 @@ class TransferActivity :
                         layTransactions.visibility = View.GONE
                         etMountTransfer.hideKeyboard()
 
-                        val transferSuccessDialog = TransferSuccessDialog()
-                        transferSuccessDialog.show(supportFragmentManager, "Transfer Success Dialog")
+                       // val transferSuccessDialog = TransferSuccessDialog()
+                      //  transferSuccessDialog.show(supportFragmentManager, "Transfer Success Dialog")
 
                         mPresenter.onGetUserInfo(UTSwapApp.instance)
                     }
@@ -162,8 +162,14 @@ class TransferActivity :
         binding.apply {
 
             loadingTransfer.visibility = View.GONE
-            val fundPasswordDialog: FundPasswordDialog = FundPasswordDialog.transferInstance(amountTransfer, currencyTransfer, receiverTransfer, Constants.FundPasswordType.transfer)
-            fundPasswordDialog.show(supportFragmentManager, "Fund Password Dialog Transfer")
+
+            data.to_account?.let {
+                TransferActivityReview.lunchTransferActivityReviewActivity(this@TransferActivity, data.to_cellphone,
+                    it,data.balance_transfer, data.fee, data.total, receiverTransfer )
+            }
+
+//            val fundPasswordDialog: FundPasswordDialog = FundPasswordDialog.transferInstance(amountTransfer, currencyTransfer, receiverTransfer, Constants.FundPasswordType.transfer)
+//            fundPasswordDialog.show(supportFragmentManager, "Fund Password Dialog Transfer")
         }
     }
     override fun onGetValidateTransferFail(data: Transfer.GetValidateTransfer) {
@@ -340,14 +346,14 @@ class TransferActivity :
             }
         }
     }
-    override fun onDestroy() {
-        super.onDestroy()
-        SessionVariable.successTransfer.value = false
-    }
-    override fun onBackPressed() {
-        super.onBackPressed()
-        SessionVariable.successTransfer.value = false
-
-    }
+//    override fun onDestroy() {
+//        super.onDestroy()
+//        SessionVariable.successTransfer.value = false
+//    }
+//    override fun onBackPressed() {
+//        super.onBackPressed()
+//        SessionVariable.successTransfer.value = false
+//
+//    }
 
 }

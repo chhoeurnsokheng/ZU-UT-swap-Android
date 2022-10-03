@@ -48,14 +48,16 @@ class SubscriptionAdapter(var onclickAdapter: OnclickAdapter, var userLevel: Str
                 if (subscriptionList.status==1){
                     txtProjectStatus.text = "Processing"
                     txtProjectStatus.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.success))
+                    layBookingPreSale.backgroundTintList = ContextCompat.getColorStateList(UTSwapApp.instance, R.color.purple_700)
                 }else if(subscriptionList.status==2){
                     txtProjectStatus.text = "Upcoming"
                     txtProjectStatus.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.dark_yellow))
+                    layBookingPreSale.backgroundTintList = ContextCompat.getColorStateList(UTSwapApp.instance, R.color.gray_999999)
 
                 }else if (subscriptionList.status ==3){
                     txtProjectStatus.text = "Ended"
                     txtProjectStatus.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.red_ee1111))
-
+                    layBookingPreSale.backgroundTintList = ContextCompat.getColorStateList(UTSwapApp.instance, R.color.gray_999999)
                 }
 
                 if(userLevel.isEmpty()){
@@ -178,12 +180,12 @@ class SubscriptionAdapter(var onclickAdapter: OnclickAdapter, var userLevel: Str
                 if (subscriptionList.type == 1) {
                     layBookingPreSale.isEnabled = false
                     tvBookingPreSale.text = "Subscribe"
-                    layBookingPreSale.backgroundTintList = ContextCompat.getColorStateList(UTSwapApp.instance, R.color.purple_700)
+
 
                 } else {
                     layBookingPreSale.isEnabled = false
                     tvBookingPreSale.text = "Wait List"
-                    layBookingPreSale.backgroundTintList = ContextCompat.getColorStateList(UTSwapApp.instance, R.color.gray_999999)
+
 
                 }
 
