@@ -182,12 +182,12 @@ class PortfolioFragment :
                 txtBalance.text = "$ " + data.data?.total_market_value?.let { UtilKt().formatValue(it, "###,###.##") }
             }
 
-            if (data.data?.total_market_value ==0.0){
-                txtTradingBalance.text ="$ 0.00"
-            }else{
-                txtTradingBalance.text = "$ " + data.data?.total_user_balance?.toDouble()
-                    ?.let { UtilKt().formatValue(it, "###,###.##") }
-            }
+//            if (data.data?.total_market_value ==0.0){
+//                txtTradingBalance.text ="$ 0.00"
+//            }else{
+//                txtTradingBalance.text = "$ " + data.data?.total_user_balance?.toDouble()
+//                    ?.let { UtilKt().formatValue(it, "###,###.##") }
+//            }
 
             filter = 0
 
@@ -259,7 +259,12 @@ class PortfolioFragment :
                         }
 
                         lineChart.visibility = View.VISIBLE
-
+                        if (data.data?.total_market_value ==0.0){
+                            txtTradingBalance.text ="$ 0.00"
+                        }else{
+                            txtTradingBalance.text = "$ " + data.data?.total_user_balance?.toDouble()
+                                ?.let { UtilKt().formatValue(it, "###,###.##") }
+                        }
 
 
 
@@ -319,6 +324,12 @@ class PortfolioFragment :
                         }
 
                         lineChart.visibility = View.VISIBLE
+                        if (data.data?.total_market_value ==0.0){
+                            txtTradingBalance.text ="$ 0.00"
+                        }else{
+                            txtTradingBalance.text = "$ " + data.data?.total_user_balance?.toDouble()
+                                ?.let { UtilKt().formatValue(it, "###,###.##") }
+                        }
 
                     }
                     Constants.PortfolioFilter.Price -> {
@@ -392,12 +403,12 @@ class PortfolioFragment :
                         }
 
                         lineChart.visibility = View.VISIBLE
-
-                        val balance_weight = data.data?.balance_weight?.toDouble()
-                        val totalUserBalance = data.data?.total_user_balance
-                        val totalTrading = (totalUserBalance?.let { balance_weight?.times(it) })?.div(
-                            100
-                        )
+                        if (data.data?.total_market_value ==0.0){
+                            txtTradingBalance.text ="$ 0.00"
+                        }else{
+                            txtTradingBalance.text = "$ " + data.data?.total_user_balance?.toDouble()
+                                ?.let { UtilKt().formatValue(it, "###,###.##") }
+                        }
 
 
                     }
@@ -457,6 +468,11 @@ class PortfolioFragment :
 
                         chartPie.visibility = View.VISIBLE
 
+                        if (data.data?.total_market_value ==0.0){
+                            txtTradingBalance.text ="% 0.00"
+                        }else{
+                            txtTradingBalance.text =  data.data?.balance_weight + "%"
+                        }
 
 
 
