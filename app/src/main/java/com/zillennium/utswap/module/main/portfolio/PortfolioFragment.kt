@@ -261,18 +261,6 @@ class PortfolioFragment :
                         lineChart.visibility = View.VISIBLE
 
 
-//                        val balance_weight = data.data?.balance_weight?.toDouble()
-//                        val totalUserBalance = data.data?.total_user_balance
-//                        val totalTrading = (totalUserBalance?.let { balance_weight?.times(it) })?.div(
-//                            100
-//                        )
-
-//                        txtTradingBalance.text =  "$ " + data.data?.total_user_balance?.let {
-//                            UtilKt().formatValue(
-//                                it,
-//                                "###,###.##"
-//                            )
-//                        }
 
 
                     }
@@ -331,18 +319,7 @@ class PortfolioFragment :
                         }
 
                         lineChart.visibility = View.VISIBLE
-//                        val balance_weight = data.data?.balance_weight?.toDouble()
-//                        val totalUserBalance = data.data?.total_user_balance
-//                        val totalTrading = (totalUserBalance?.let { balance_weight?.times(it) })?.div(
-//                            100
-//                        )
 
-//                        txtTradingBalance.text = "$ " + data.data?.total_user_balance?.let {
-//                            UtilKt().formatValue(
-//                                it,
-//                                "###,###.##"
-//                            )
-//                        }
                     }
                     Constants.PortfolioFilter.Price -> {
                         linearLayoutPrice.visibility = View.VISIBLE
@@ -363,12 +340,7 @@ class PortfolioFragment :
                         rvFilter.adapter = pricePortfolioAdapter
 
                         lineChart.visibility = View.VISIBLE
-//                        txtTradingBalance.text = "$ " + data.data?.total_user_balance?.let {
-//                            UtilKt().formatValue(
-//                                it,
-//                                "###,###.##"
-//                            )
-//                        }
+
                     }
                     Constants.PortfolioFilter.Balance -> {
                         linearLayoutBalance.visibility = View.VISIBLE
@@ -427,12 +399,7 @@ class PortfolioFragment :
                             100
                         )
 
-//                        txtTradingBalance.text = "$ " + data.data?.total_user_balance?.let {
-//                            UtilKt().formatValue(
-//                                it,
-//                                "###,###.##"
-//                            )
-//                        }
+
                     }
                     Constants.PortfolioFilter.Weight -> {
                         linearLayoutWeight.visibility = View.VISIBLE
@@ -490,13 +457,6 @@ class PortfolioFragment :
 
                         chartPie.visibility = View.VISIBLE
 
-//                        val balance_weight = data.data?.balance_weight?.toDouble()
-//                        val totalUserBalance = data.data?.total_user_balance
-//                        val totalTrading = (totalUserBalance?.let { balance_weight?.times(it) })?.div(
-//                            100
-//                        )
-
-//                        txtTradingBalance.text = data.data?.balance_weight.toString() + "%"
 
 
 
