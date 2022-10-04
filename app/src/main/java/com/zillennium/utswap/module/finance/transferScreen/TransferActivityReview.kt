@@ -70,7 +70,7 @@ class TransferActivityReview :
             if (intent.hasExtra(Constants.Transfer.fee)) {
                 fee= intent.extras?.getString(Constants.Transfer.fee).toString()
                 if (fee.toDouble() ==0.0){
-                    txtFee.visibility =View.GONE
+                    layoutFee.visibility =View.GONE
                 }else{
                     txtFee.text =     "$ " +  UtilKt().formatValue(fee.toDouble(), "###,###.##")
                 }

@@ -120,6 +120,7 @@
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dimen_10"
                     android:orientation="horizontal">
 
                     <com.google.android.material.textview.MaterialTextView
@@ -141,6 +142,7 @@
 
 
                 <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/layout_fee"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dimen_10"
