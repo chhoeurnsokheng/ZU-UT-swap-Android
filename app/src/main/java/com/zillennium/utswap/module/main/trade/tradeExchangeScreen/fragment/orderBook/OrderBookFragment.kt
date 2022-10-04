@@ -23,8 +23,8 @@ class OrderBookFragment :
     private var orderBookAsk: OrderBookAskAdapter? = null
     private var orderBookBid: OrderBookBidAdapter? = null
 
-    private var orderBookBidList = ArrayList<TradeOrderBookBid>()
-    private var orderBookAskList = ArrayList<TradeOrderBookAsk>()
+    var orderBookBidList = ArrayList<TradeOrderBookBid>()
+    var orderBookAskList = ArrayList<TradeOrderBookAsk>()
 
     override var fetchTradeOrderBookTable: MutableLiveData<TradingList.TradeOrderBookTableRes> = MutableLiveData()
 

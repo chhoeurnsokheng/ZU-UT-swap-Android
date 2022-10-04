@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.net.Uri
+import android.text.Html
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,16 +20,13 @@ import com.zillennium.utswap.databinding.ActivityProjectInfoBinding
 import com.zillennium.utswap.models.ProjectInfoDetailModel
 import com.zillennium.utswap.models.ViewImageModel
 import com.zillennium.utswap.models.project.ProjectInfoDetail
+import com.zillennium.utswap.models.project.SubscriptionProject
 import com.zillennium.utswap.module.main.trade.tradeExchangeScreen.TradeExchangeActivity
 import com.zillennium.utswap.module.project.ViewImage.ImageViewActivity
 import com.zillennium.utswap.module.project.projectInfoScreen.adapter.ProjectInfoDetailsAdapter
 import com.zillennium.utswap.module.project.projectInfoScreen.adapter.ProjectViewPagerAdapter
 import com.zillennium.utswap.module.project.subscriptionScreen.SubscriptionActivity
-import com.zillennium.utswap.module.project.subscriptionScreen.dialog.SubscriptionConfirmDialog
-import com.zillennium.utswap.module.project.subscriptionScreen.dialog.SubscriptionTermConditionDialog
-import com.zillennium.utswap.utils.Constants
-import com.zillennium.utswap.utils.UtilKt
-import com.zillennium.utswap.utils.groupingSeparatorInt
+import com.zillennium.utswap.utils.*
 
 
 class ProjectInfoActivity :
@@ -42,6 +40,9 @@ class ProjectInfoActivity :
     private var condition = true
     private var imagesSlider: ArrayList<String> = arrayListOf()
     private var id: Int = 0
+    private var project_Id :Int? = 0
+    private var project_Name:String = ""
+    private var project_Action  = false
 
     companion object {
         fun launchProjectInfoActivity(context: Context, id: String?) {
@@ -58,18 +59,13 @@ class ProjectInfoActivity :
 
         if (intent.hasExtra(Constants.Project.Project_Id)) {
             id = intent.extras?.getString(Constants.Project.Project_Id)?.toInt() ?: 0
-
             id.let { ProjectInfoDetail.ProjectInfoDetailObject(it) }.let {
                 mPresenter.projectInfoView(it, UTSwapApp.instance)
             }
+
         }
 
-//        if (intent.hasExtra(Constants.Project.ProjectName)) {
-//            projectName = intent?.getStringExtra(Constants.Project.ProjectName).toString()
-//            binding.apply {
-//                txtDetailTitle.text = projectName
-//            }
-//        }
+
 
 
 
@@ -78,17 +74,22 @@ class ProjectInfoActivity :
             btnBack.setOnClickListener {
                 onBackPressed()
             }
+        checkBackPress()
 
-//            btnSubscriptTrade.setOnClickListener {
-//                val intent = Intent(UTSwapApp.instance, SubscriptionActivity::class.java)
-//                startActivity(intent)
-//            }
 
         }
     }
-
+    private fun checkBackPress(){
+       if (SubscriptionActivity.backToProjectInformation  ==true){
+           mPresenter.subscriptionProjectTermCondition(this@ProjectInfoActivity,id)
+       }
+    }
     override fun projectInfoViewSuccess(data: ProjectInfoDetail.ProjectInfoDetailData) {
         val DECIMAL_FORMAT = "###,###.##"
+
+
+        mPresenter.checkProjectStatus(this, ProjectInfoDetail.ProjectTerCondition(id))
+
 
         binding.apply {
             txtDetailTitle.text = data.project_name.toString()
@@ -320,32 +321,23 @@ class ProjectInfoActivity :
                 }
             }
 
+            project_Name = data.project_name.toString()
+            project_Id = data.id?.toInt()
+
             if (data.action == "Subscribe") {
                 btnTrade.visibility = View.GONE
                 btnSubscript.visibility = View.VISIBLE
                 btnUpcoming.visibility = View.GONE
-                btnSubscript.setOnClickListener {
-                    SubscriptionActivity.launchSubscriptionActivity(this@ProjectInfoActivity,
-                        data.id,
-                        data.project_name.toString()
-                    )
-                }
+                project_Action = true
 
 //                btnSubscript.setOnClickListener {
-//                    val subscription: SubscriptionTermConditionDialog =
-//                        SubscriptionTermConditionDialog.newInstance(
-//                            data.id.toString().toInt(),
-//                            data.title_deed.toString(),
-//                            data.land_size.toString(),
-//                            data.base_price?.toDouble(),
-//                            data.target_price?.toDouble(),
-//                            data.total_ut,
-//                            data.managed_by.toString(),
-//                            data.google_map_link.toString(),
-//                            projectName
-//                        )
-//                    subscription.show(supportFragmentManager, "balanceHistoryDetailDialog")
+//                    SubscriptionActivity.launchSubscriptionActivity(this@ProjectInfoActivity,
+//                        data.id,
+//                        data.project_name.toString()
+//                    )
 //                }
+
+
             }
             if (data.action == "Trade") {
                 btnTrade.visibility = View.VISIBLE
@@ -354,10 +346,7 @@ class ProjectInfoActivity :
                 btnTrade.setOnClickListener {
                     TradeExchangeActivity.launchTradeExchangeActivityFromProjectDetail(this@ProjectInfoActivity, data.project_name.toString(),data.market_name.toString(),data.id.toString(),data.market_id.toString())
                 }
-//                btnTrade.setOnClickListener {
-//                    val intent = Intent(UTSwapApp.instance, TradeExchangeActivity::class.java)
-//                    startActivity(intent)
-//                }
+
 
             }
             if (data.action == "Upcomming") {
@@ -387,6 +376,48 @@ class ProjectInfoActivity :
             viewBackground.visibility = View.VISIBLE
         }
     }
+
+    override fun subscriptionProjectTermConditionSuccess(data: SubscriptionProject.SubScribeTermCondition) {}
+
+    override fun subscriptionProjectTermConditionFailed(data: String) {}
+
+    override fun checkProjectStatusSuccess(data: SubscriptionProject.SubScribeTermCondition) {
+        binding.apply {
+            if (data.status ==1){
+                if ( project_Action == true){
+                    btnSubscript.setOnClickListener {
+                        SubscriptionActivity.launchSubscriptionActivity(this@ProjectInfoActivity,
+                            project_Id.toString(),
+                            project_Name
+                        )
+                    }
+                }
+            }
+            if (data.status ==0){
+                btnSubscript.setOnClickListener {
+                    val message = Html.fromHtml("${data.message}")
+                    DialogUtiSubscribe().customDialog(
+                        R.drawable.ic_sharp_close_24,"${message}","Terms and Conditions",true, "Agree",object : DialogUtil.OnAlertDialogClick {
+                            override fun onLabelCancelClick() {
+                                mPresenter.subscriptionProjectTermCondition(this@ProjectInfoActivity,id)
+
+                                SubscriptionActivity.launchSubscriptionActivity(this@ProjectInfoActivity,
+                                    project_Id.toString(),
+                                    project_Name
+                                )
+
+                            }
+
+                        },this@ProjectInfoActivity
+                    )
+
+                }
+            }
+
+        }
+    }
+
+    override fun checkProjectStatusFailed(data: String) {}
 
     private fun onCallApi() {
         Tovuti.from(UTSwapApp.instance).monitor { _, isConnected, _ ->

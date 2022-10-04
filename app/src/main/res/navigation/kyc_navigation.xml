@@ -132,13 +132,7 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
 
-<!--        <action-->
-<!--            android:id="@+id/action_to_selfie_holding_kyc_fragment"-->
-<!--            app:destination="@id/SelfieHoldingKycFragment"-->
-<!--            app:enterAnim="@anim/slide_in_right"-->
-<!--            app:exitAnim="@anim/slide_out_left"-->
-<!--            app:popEnterAnim="@anim/slide_in_left"-->
-<!--            app:popExitAnim="@anim/slide_out_right" />-->
+
     </fragment>
 
     <fragment
@@ -154,13 +148,7 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
 
-<!--        <action-->
-<!--            android:id="@+id/action_to_employment_info_kyc_fragment"-->
-<!--            app:destination="@id/EmploymentInfoKycFragment"-->
-<!--            app:enterAnim="@anim/slide_in_right"-->
-<!--            app:exitAnim="@anim/slide_out_left"-->
-<!--            app:popEnterAnim="@anim/slide_in_left"-->
-<!--            app:popExitAnim="@anim/slide_out_right" />-->
+
     </fragment>
 
     <fragment
@@ -168,13 +156,20 @@
         android:name="com.zillennium.utswap.module.kyc.kycFragment.fundPasswordScreen.FundPasswordFragment"
         android:label="FundPasswordKycFragment"
         tools:layout="@layout/fragment_kyc_fund_password">
-        <action
+        <!--<action
             android:id="@+id/action_to_contract_kyc_fragment"
             app:destination="@id/KycApplicationKycFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
+            app:popExitAnim="@anim/slide_out_right" />-->
+        <action
+            android:id="@+id/action_FundPasswordKycFragment_to_fundPasswordSuccess"
+            app:destination="@id/fundPasswordSuccess"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
 
     </fragment>
 
@@ -206,16 +201,25 @@
         android:label="KycApplicationKycFragment"
         tools:layout="@layout/fragment_kyc_application">
 
-      <!--  <action
-            android:id="@+id/action_to_contract_kyc_fragment"
-            app:destination="@id/FundPasswordKycFragment"
+
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/fundPasswordSuccess"
+        android:name="com.zillennium.utswap.module.kyc.kycFragment.fundPasswordSuccess.FundPasswordSuccessFragment"
+        android:label="FundPasswordSuccess"
+        tools:layout="@layout/layout_kyc_fund_password_success">
+        <action
+            android:id="@+id/action_fundPasswordSuccess_to_KycApplicationKycFragment"
+            app:destination="@id/KycApplicationKycFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"
-            app:popUpToInclusive="true"/>-->
-
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
+
+
 
 
 </navigation>

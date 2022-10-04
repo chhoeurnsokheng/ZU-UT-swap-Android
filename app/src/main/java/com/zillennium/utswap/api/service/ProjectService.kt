@@ -1,13 +1,11 @@
 package com.zillennium.utswap.api.service
 
+import com.google.gson.JsonObject
 import com.zillennium.utswap.api.ApiSettings
 import com.zillennium.utswap.models.project.ProjectInfoDetail
 import com.zillennium.utswap.models.project.ProjectList
 import com.zillennium.utswap.models.project.SubscriptionProject
-import retrofit2.http.Body
-import retrofit2.http.HeaderMap
-import retrofit2.http.POST
-import retrofit2.http.Query
+import retrofit2.http.*
 import rx.Observable
 
 interface ProjectService {
@@ -35,6 +33,16 @@ interface ProjectService {
         @Body body: SubscriptionProject.SubscriptionProjectBody
     ): Observable<SubscriptionProject.SubscriptionProjectRes>
 
+    @POST(ApiSettings.PATH_SUBSCRIPTION_PROJECT_TERM_CONDITION_SUBMIT)
+    fun subscriptionProjectTermCondition(
+        @HeaderMap header: Map<String, String>,
+        @Body body: JsonObject
+    ):Observable<SubscriptionProject.SubScribeTermCondition>
+
+    @POST(ApiSettings.PATH_CHECK_PROJECT_STATUS)
+    fun checkStatusProject(  @HeaderMap header: Map<String, String>,
+                             @Body  body: ProjectInfoDetail.ProjectTerCondition
+    ):Observable<SubscriptionProject.SubScribeTermCondition>
 
     /**    Subscription Order     **/
     @POST(ApiSettings.PATH_SUBSCRIPTION_ORDER )

@@ -12,6 +12,7 @@ import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.databinding.DialogFinanceSubscriptionBinding
 import com.zillennium.utswap.utils.groupingSeparator
+import com.zillennium.utswap.utils.groupingSeparatorInt
 import eightbitlab.com.blurview.RenderScriptBlur
 
 class FinanceSubscriptionsDialog : DialogFragment() {
@@ -52,7 +53,7 @@ class FinanceSubscriptionsDialog : DialogFragment() {
                     .setHasFixedTransformationMatrix(true)
             }
 
-            closeImage.setOnClickListener {
+            blurView.setOnClickListener {
                 dismiss()
             }
 
@@ -88,7 +89,8 @@ class FinanceSubscriptionsDialog : DialogFragment() {
             txtTitle.text = arguments?.getString("title")
             txtTransactionId.text = arguments?.getString("transactionId")
             txtPrice.text = arguments?.getDouble("price")?.let { groupingSeparator(it) }
-            txtVolume.text = arguments?.getString("volume")
+            val valume = arguments?.getString("volume")
+            txtVolume.text = valume?.toDouble()?.let { groupingSeparatorInt(it) }
             txtAmount.text = arguments?.getDouble("value")?.let { groupingSeparator(it) }
 
         }

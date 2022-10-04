@@ -1,17 +1,17 @@
 package com.zillennium.utswap.module.kyc.kycFragment.idVerificationScreen
 
+import android.app.Activity
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
 import android.content.res.ColorStateList
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
-import android.widget.AdapterView
+import android.view.inputmethod.InputMethodManager
 import android.widget.DatePicker
-import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -20,14 +20,14 @@ import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpFragment
 import com.zillennium.utswap.databinding.FragmentKycIdVerificationBinding
-import com.zillennium.utswap.models.SpinnerModel
 import com.zillennium.utswap.models.SpinnerTestModel
 import com.zillennium.utswap.models.province.PProvinceObj
 import com.zillennium.utswap.module.kyc.kycFragment.dropDownAdapter.DropDownAdapter
 import com.zillennium.utswap.utils.Util
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 
 class IDVerificationFragment :
@@ -38,14 +38,9 @@ class IDVerificationFragment :
     override val layoutResource: Int = R.layout.fragment_kyc_id_verification
 
     private val genderList: ArrayList<Any> = arrayListOf()
-    private val dataListTest = mutableListOf<SpinnerTestModel>()
-    private val provinceTest = mutableListOf<SpinnerTestModel>()
     private var provinceList: ArrayList<Any> = arrayListOf()
     private var districtList: ArrayList<Any> = arrayListOf()
     private var communeList: ArrayList<Any> = arrayListOf()
-    private var parent_code: String? = null
-    private var parent_code1: String? = null
-    private var isClickable = true
 
 
     object info {
@@ -120,30 +115,6 @@ class IDVerificationFragment :
                 genderList.add("Female")
                 showDialog(genderList, "")
             }
-//            mPresenter.getAllProvinceSuccess(requireActivity())
-
-//            initSpinnerGender()
-
-            /* if Data already input */
-            /*if (!KYCPreferences().FIRST_NAME.isNullOrEmpty()) {
-                info.firstName = KYCPreferences().FIRST_NAME.toString()
-                etFirstName.setText(info.firstName)
-            }
-
-            if (!KYCPreferences().LAST_NAME.isNullOrEmpty()) {
-                info.lastName = KYCPreferences().LAST_NAME.toString()
-                etLastName.setText(info.lastName)
-            }
-            if (!KYCPreferences().BIRTHDAY.isNullOrEmpty()) {
-                info.dateOfBirth = KYCPreferences().BIRTHDAY.toString()
-                etDate.setText(info.dateOfBirth)
-            }
-
-            if (!KYCPreferences().ADDRESS.isNullOrEmpty()) {
-                info.addressHouse = KYCPreferences().ADDRESS.toString()
-                etHouse.setText(info.addressHouse)
-            }*/
-
 
             val calendar = Calendar.getInstance()
 
@@ -534,39 +505,6 @@ class IDVerificationFragment :
             showDialog(provinceList, "province")
         }
 
-//        binding.apply {
-//            spinnerCityProvince.item = provinceList.map { it.english }
-//            spinnerCityProvince.onItemSelectedListener =
-//                object : AdapterView.OnItemSelectedListener {
-//                    override fun onItemSelected(
-//                        adapterView: AdapterView<*>,
-//                        view: View,
-//                        position: Int,
-//                        id: Long
-//                    ) {
-//                        if (spinnerCityProvince.item == null) {
-//                            txtLabelProvince.visibility = View.GONE
-//                            info.city = ""
-//                        } else {
-//                            txtLabelProvince.visibility = View.VISIBLE
-//                            info.city = provinceList[position].code?.toString().toString()
-//                            parent_code = provinceList[position].code.toString()
-//                            provinceList[position].code?.let { mPresenter.queryProvince(requireActivity(), PProvinceObj.BodyProvince(parent_code))
-//                            }
-//                        }
-//                        spinnerCityProvince.underlineColor = ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text)
-//                        txtErrorCity.visibility = View.GONE
-//                       spinnerCommuneSangkat.visibility = View.GONE
-//                       spinnerCommuneSangkatView.visibility =View.VISIBLE
-//
-//                    }
-//
-//                    override fun onNothingSelected(adapterView: AdapterView<*>) {
-//                        txtLabelProvince.visibility = View.GONE
-//                        info.city = ""
-//                    }
-//                }
-//        }
     }
 
     override fun OngetAllProvinceFail(data: PProvinceObj.ProvinceRes) {
@@ -583,54 +521,8 @@ class IDVerificationFragment :
                 PProvinceObj.BodyProvince(disCode)
             )
         }
+        binding.rlProgressBar.visibility = View.GONE
         setEventShowDialog()
-//        binding.llDistrict.setOnClickListener {
-//            showDialog(districtList, "district")
-//        }
-
-
-//        var dataRespo = (data.data as MutableList<PProvinceObj.Items>).map { it.english }
-
-//        binding.apply {
-//
-//            spinnerDistrictKhan.item = districtList.map { it.english }
-//            spinnerDistrictKhan.onItemSelectedListener =
-//                object : AdapterView.OnItemSelectedListener {
-//                    override fun onItemSelected(
-//                        adapterView: AdapterView<*>,
-//                        view: View,
-//                        position: Int,
-//                        id: Long
-//                    ) {
-//                        if (dataRespo == null) {
-//                            txtLabelDistrict.visibility = View.GONE
-//                            info.district = ""
-//                        } else {
-//                            txtLabelDistrict.visibility = View.VISIBLE
-//                            info.district = districtList[position].code?.toString().toString()
-//                            mPresenter.queryCommune(
-//                                requireActivity(),
-//                                PProvinceObj.BodyProvince(districtList[position].code.toString())
-//                            )
-//                        }
-//                        spinnerDistrictKhan.underlineColor =
-//                            ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text)
-//                        txtErrorDistrict.visibility = View.GONE
-//                        spinnerCommuneSangkat.visibility = View.VISIBLE
-//                        spinnerCommuneSangkatView.visibility = View.GONE
-//
-//                    }
-//
-//                    override fun onNothingSelected(adapterView: AdapterView<*>) {
-//                        txtLabelDistrict.visibility = View.GONE
-//                        mPresenter.queryCommune(
-//                            requireActivity(),
-//                            PProvinceObj.BodyProvince("111111")
-//                        )
-//                        info.district = ""
-//                    }
-//                }
-//        }
 
     }
 
@@ -641,49 +533,6 @@ class IDVerificationFragment :
         binding.rlProgressBar.visibility = View.GONE
 
 
-//        binding.llCommune.setOnClickListener {
-//            showDialog(communeList, "commune")
-//        }
-
-        /*if (district.isNotEmpty()) {
-            binding.llCommune.setOnClickListener {
-                showDialog(communeList, "commune")
-            }
-        }*/
-
-//        binding.apply {
-//            spinnerCommuneSangkat.item = communeList.map { it.english }
-//            spinnerCommuneSangkat.onItemSelectedListener =
-//                object : AdapterView.OnItemSelectedListener {
-//                    override fun onItemSelected(
-//                        adapterView: AdapterView<*>,
-//                        view: View,
-//                        position: Int,
-//                        id: Long
-//                    ) {
-//                        if (spinnerCommuneSangkat.item == null) {
-//                            txtLabelCommune.visibility = View.GONE
-//                            info.commune = ""
-//                        } else {
-//                            txtLabelCommune.visibility = View.VISIBLE
-//                            info.commune = communeList[position].code?.toString().toString()
-//
-//
-//                        }
-//                        spinnerCommuneSangkat.underlineColor =
-//                            ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text)
-//                        txtErrorCommune.visibility = View.GONE
-//
-//
-//                    }
-//
-//                    override fun onNothingSelected(adapterView: AdapterView<*>) {
-//                        txtLabelCommune.visibility = View.GONE
-//                        info.commune = ""
-//
-//                    }
-//                }
-//        }
     }
 
 
@@ -693,88 +542,30 @@ class IDVerificationFragment :
                 includeLayout.apply {
                     tbTitle.text = "2/4"
                     cdBack.setOnClickListener {
-                        findNavController().popBackStack()
+                        activity?.let {
+                            hideKeyboard(it)
+                        }
+                        lifecycleScope.launch {
+                            delay(100)
+                            findNavController().popBackStack()
+                        }
                     }
                 }
             }
         }
     }
 
-//    private fun initSpinnerGender() {
-//        binding.apply {
-//
-//            genderList.add(SpinnerModel(1, "M", "Male"))
-//            genderList.add(SpinnerModel(2, "F", "Female"))
-//            spinnerGender.item = genderList.map { it.showName }
-//
-//            spinnerGender.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-//                override fun onItemSelected(
-//                    adapterView: AdapterView<*>,
-//                    view: View,
-//                    position: Int,
-//                    id: Long
-//                ) {
-//                    spinnerGender.underlineColor =
-//                        ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text)
-//                    gender = genderList[position].id.toString()
-//                    gender = genderList[position].name
-//                    txtErrorGender.visibility = View.GONE
-//                }
-//
-//                override fun onNothingSelected(adapterView: AdapterView<*>) {
-//
-//                }
-//            }
-//        }
-//
-//    }
-
-
-    /*override fun onResume() {
-        super.onResume()
-        binding.apply {
-
-            if (KYCPreferences().GENDER?.isNotBlank() == true) {
-                info.gender = KYCPreferences().GENDER.toString()
-                genderList.forEachIndexed { index, item ->
-                    if (item.id == info.gender.toInt()) {
-                        spinnerGender.setSelection(index)
-                    }
-                }
-            }
-
-            if (KYCPreferences().CITY_PROVINCE?.isNotBlank() == true) {
-                info.city = KYCPreferences().CITY_PROVINCE.toString()
-                provinceList.forEachIndexed { index, item ->
-                    if (item.code == info.city.toInt()) {
-                        spinnerCityProvince.setSelection(index)
-                    }
-                }
-            }
-
-            if (KYCPreferences().DISTRICT_KHAN?.isNotBlank() == true) {
-                info.district = KYCPreferences().DISTRICT_KHAN.toString()
-                districtList.forEachIndexed { index, item ->
-                    if (item.code == info.district.toInt()) {
-                        spinnerDistrictKhan.setSelection(index)
-                    }
-                }
-            }
-
-            if (KYCPreferences().COMMUNE_SANGKAT?.isNotBlank() == true) {
-
-                info.commune = KYCPreferences().COMMUNE_SANGKAT.toString()
-                communeList.forEachIndexed { index, item ->
-                    if (item.code == info.commune.toInt()) {
-                        spinnerCommuneSangkat.setSelection(index)
-//                        spinnerCommuneSangkat.visibility =View.VISIBLE
-//                        spinnerCommuneSangkatView.visibility =View.GONE
-                    }
-                }
-            }
-
+    private fun hideKeyboard(activity: Activity) {
+        val imm = activity.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        //Find the currently focused view, so we can grab the correct window token from it.
+        var view = activity.currentFocus
+        //If no view currently has focus, create a new one, just so we can grab a window token from it
+        if (view == null) {
+            view = View(activity)
         }
-    }*/
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
+    }
+
 
     private fun setTextToAddress() {
         binding.apply {

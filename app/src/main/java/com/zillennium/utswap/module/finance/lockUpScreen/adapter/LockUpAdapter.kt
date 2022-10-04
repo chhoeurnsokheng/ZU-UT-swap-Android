@@ -37,7 +37,7 @@ class LockUpAdapter(var arrayList: ArrayList<Any>, var onClickAdapter: OnClickAd
         val buyBackList: LockUpBalanceObject.LockUpBalanceItem = arrayList[position] as LockUpBalanceObject.LockUpBalanceItem
 
         holder.txtTitle.text = buyBackList.name
-        holder.txtAmount.text = "$" + groupingSeparator(buyBackList.amount)
+        holder.txtAmount.text = "$" + groupingSeparator(buyBackList.action_balance.toDouble())
         holder.txtDateStart.text = buyBackList.addtimeReable
         holder.txtDateEnd.text = buyBackList.endtimeReable
         holder.txtDuration.text = "${buyBackList.lock_period} Day(s) left"
@@ -48,7 +48,7 @@ class LockUpAdapter(var arrayList: ArrayList<Any>, var onClickAdapter: OnClickAd
         }
         holder.layoutBuyBack.setOnClickListener {
             isLock = buyBackList.status == "locked"
-            onClickAdapter.onClickMe(buyBackList.name, buyBackList.amount, buyBackList.addtimeReable,buyBackList.endtimeReable, buyBackList.lock_period, isLock)
+            onClickAdapter.onClickMe(buyBackList.name, buyBackList.action_balance.toDouble(), buyBackList.addtimeReable,buyBackList.endtimeReable, buyBackList.lock_period, isLock)
         }
     }
 

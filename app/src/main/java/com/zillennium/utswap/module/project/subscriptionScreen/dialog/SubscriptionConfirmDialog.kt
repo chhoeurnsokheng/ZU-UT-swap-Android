@@ -23,6 +23,7 @@ import com.zillennium.utswap.module.security.securityDialog.FundPasswordDialog
 import com.zillennium.utswap.screens.navbar.navbar.MainActivity
 import com.zillennium.utswap.utils.ClientClearData
 import com.zillennium.utswap.utils.Constants
+import com.zillennium.utswap.utils.UtilKt
 import eightbitlab.com.blurview.RenderScriptBlur
 import rx.Subscription
 
@@ -30,7 +31,7 @@ class SubscriptionConfirmDialog : DialogFragment() {
 
     private var binding: DialogNavbarProjectSubscriptionConfirmBinding? = null
     private var subscriptions: Subscription? = null
-
+       private var price_SubScription:String? = null
     companion object {
         fun newInstance(
             id: Int,
@@ -57,6 +58,7 @@ class SubscriptionConfirmDialog : DialogFragment() {
             args.putInt("totalUT", totalUt)
             args.putInt("min", min)
             args.putInt("max", max)
+
             subscriptionConfirmDialog.arguments = args
             return subscriptionConfirmDialog
         }
@@ -81,9 +83,10 @@ class SubscriptionConfirmDialog : DialogFragment() {
                 true
             )
         binding?.txtVolume?.text = arguments?.get("volume").toString()
-        binding?.tvSubscriptionsPrice?.text = arguments?.get("subscription_price").toString()
+        binding?.tvSubscriptionsPrice?.text =     arguments?.get("volume_price").toString()
         binding?.tvProjectTitle?.text = arguments?.get("project_name").toString()
-        binding?.tvTimeLock?.text = arguments?.get("lock_time").toString()
+        var timeLocked = arguments?.get("lock_time").toString()
+        binding?.tvTimeLock?.text = UtilKt().formatValue(timeLocked.toDouble(), "###,###.##")
         return binding?.root
     }
 

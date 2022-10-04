@@ -16,7 +16,7 @@ class SessionVariable {
         var BADGE_NUMBER = MutableLiveData<String>(SessionPreferences().BADGE_NUMBER)
         var USER_EXPIRE_TOKEN: MutableLiveData<Boolean> = MutableLiveData(false)
         var CLEAR_TOKEN_TRADE_EXCHANGE: MutableLiveData<Boolean> = MutableLiveData(false)
-
+        var NOTIFICATION_LISTENER: MutableLiveData<Boolean> = MutableLiveData(false)
 
         var SESSION_SUBSCRIPTION_BOTTOM_SHEET: MutableLiveData<Boolean> = MutableLiveData()
         var SESSION_SUBSCRIPTION_ORDER: MutableLiveData<Boolean> = MutableLiveData()
@@ -44,6 +44,13 @@ class SessionVariable {
         var cancelPlaceOrder: MutableLiveData<Boolean> = MutableLiveData()
 
         var marketOpen: MutableLiveData<Boolean> = MutableLiveData()
+
+        var amount :MutableLiveData<String> = MutableLiveData()
+        var trxTransfer :MutableLiveData<String> = MutableLiveData()
+        var fromAccount :MutableLiveData<String> = MutableLiveData()
+        var trxDate  :MutableLiveData<String> = MutableLiveData()
+        var toAccount :MutableLiveData<String> = MutableLiveData()
+
 
     }
 }

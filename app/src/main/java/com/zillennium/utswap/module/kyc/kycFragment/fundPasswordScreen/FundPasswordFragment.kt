@@ -679,9 +679,9 @@ class FundPasswordFragment :
             binding.apply {
                 progressBar.visibility = View.GONE
             }
-            findNavController().navigate(R.id.action_to_contract_kyc_fragment)
+            findNavController().navigate(R.id.action_FundPasswordKycFragment_to_fundPasswordSuccess)
 
-            IDVerificationFragment.apply {
+            /*IDVerificationFragment.apply {
                 provice = ""
                 district = ""
                 commune = ""
@@ -701,7 +701,7 @@ class FundPasswordFragment :
             EmploymentInfoFragment.apply {
                 occupation = ""
                 company = ""
-            }
+            }*/
 
         }
     }

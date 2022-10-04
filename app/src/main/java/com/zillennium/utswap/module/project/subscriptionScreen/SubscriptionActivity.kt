@@ -15,13 +15,11 @@ import com.zillennium.utswap.models.userService.User
 import com.zillennium.utswap.module.project.subscriptionScreen.adapter.SubscriptionAdapter
 import com.zillennium.utswap.module.project.subscriptionScreen.bottomSheet.SubscriptionBottomSheet
 import com.zillennium.utswap.module.project.subscriptionScreen.dialog.SubscriptionConfirmDialog
-import com.zillennium.utswap.screens.navbar.navbar.MainActivity
 import com.zillennium.utswap.utils.ClientClearData
 import com.zillennium.utswap.utils.Constants
 
 
-class SubscriptionActivity :
-    BaseMvpActivity<SubscriptionView.View, SubscriptionView.Presenter, ActivityProjectSubscriptionBinding>(),
+class SubscriptionActivity : BaseMvpActivity<SubscriptionView.View, SubscriptionView.Presenter, ActivityProjectSubscriptionBinding>(),
     SubscriptionView.View {
 
     override var mPresenter: SubscriptionView.Presenter = SubscriptionPresenter()
@@ -33,13 +31,14 @@ class SubscriptionActivity :
     private var date_range = ""
     private var projectName = ""
     private var userLevel = ""
+    private var userLevelId = ""
 
     var handler = Handler()
     var runnable: Runnable? = null
     var delay = 1000
 
     companion object {
-
+        var backToProjectInformation = false
         fun launchSubscriptionActivity(context: Context, id: String?, project_name: String?) {
             val intent = Intent(context, SubscriptionActivity::class.java)
             intent.putExtra("subscription_id", id)
@@ -149,7 +148,7 @@ class SubscriptionActivity :
             }
 
             recycleViewSubscriptionProject.layoutManager = LinearLayoutManager(UTSwapApp.instance)
-            val subscriptionAdapter = SubscriptionAdapter(onclickAdapter, userLevel)
+            val subscriptionAdapter = SubscriptionAdapter(onclickAdapter, userLevel,userLevelId)
             subscriptionAdapter.items = subscriptionList
             recycleViewSubscriptionProject.adapter = subscriptionAdapter
             subscriptionAdapter.notifyDataSetChanged()
@@ -181,7 +180,8 @@ class SubscriptionActivity :
 
     /**   User Profile Level      **/
     override fun onGetUserInfoSuccess(data: User.AppSideBarData) {
-        userLevel = data.name_user_lavel.toString()
+        userLevel = data.doc_user_lavel?.title.toString()
+        userLevelId = data.doc_user_lavel?.id.toString()
         if (intent.hasExtra("subscription_id")) {
             val id = intent?.getStringExtra("subscription_id")
             mPresenter.onCheckSubscriptionStatus(
@@ -199,6 +199,8 @@ class SubscriptionActivity :
     override fun userExpiredToken() {
         ClientClearData.clearDataUser()
     }
+
+
 
     private val onclickAdapter: SubscriptionAdapter.OnclickAdapter =
         object : SubscriptionAdapter.OnclickAdapter {
@@ -241,6 +243,7 @@ class SubscriptionActivity :
         super.onBackPressed()
         SessionVariable.SESSION_SUBSCRIPTION_BOTTOM_SHEET.value = false
         runnable?.let { handler.removeCallbacks(it) }
+        backToProjectInformation = true
     }
 
     override fun onResume() {

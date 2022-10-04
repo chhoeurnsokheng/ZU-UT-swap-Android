@@ -607,13 +607,13 @@
         <LinearLayout
             android:id="@+id/btn_next"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dimen_50"
+            android:layout_height="@dimen/dimen_48"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="@dimen/dimen_30"
-            android:layout_marginTop="@dimen/dimen_30"
-            android:layout_marginEnd="@dimen/dimen_30"
-            android:layout_marginBottom="31dp"
-            android:background="@drawable/bg_circular"
+            android:layout_marginStart="@dimen/dimen_20"
+            android:layout_marginEnd="@dimen/dimen_20"
+            android:layout_marginBottom="@dimen/dimen_8"
+            android:background="@drawable/bg_gray_ripple_radius_100"
+            android:backgroundTint="@color/primary"
             android:gravity="center">
 
             <TextView
@@ -639,12 +639,13 @@
             android:layout_height="match_parent"
             android:background="@color/ripple_color"
             android:clickable="true"
-            android:focusable="true">
+            android:focusable="true"
+            android:visibility="gone">
 
             <ProgressBar
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"/>
+                android:layout_centerInParent="true" />
 
         </RelativeLayout>
 

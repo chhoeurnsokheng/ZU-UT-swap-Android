@@ -17,6 +17,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import com.gis.z1android.api.errorhandler.CallbackWrapper
 import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
+import com.zillennium.utswap.Datas.StoredPreferences.KYCPreferences
 import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
@@ -26,6 +27,7 @@ import com.zillennium.utswap.databinding.DialogSecurityFundPasswordBinding
 import com.zillennium.utswap.models.project.SubscriptionProject
 import com.zillennium.utswap.api.manager.ApiTransferImp
 import com.zillennium.utswap.models.financeTransfer.Transfer
+import com.zillennium.utswap.module.finance.transferScreen.dialog.TransferSuccessDialog
 import com.zillennium.utswap.module.project.subscriptionScreen.dialog.SubscriptionConfirmDialog
 import com.zillennium.utswap.screens.navbar.navbar.MainActivity
 import com.zillennium.utswap.utils.ClientClearData
@@ -35,13 +37,20 @@ import eightbitlab.com.blurview.RenderScriptBlur
 import rx.Subscription
 
 
-
 class FundPasswordDialog : DialogFragment() {
 
     private var binding: DialogSecurityFundPasswordBinding? = null
     private var codes: String = ""
     private var subCode: String = ""
     private var subscription: Subscription? = null
+    private var getTransferData = Transfer.TransferSuccessulReview()
+
+    var amount = ""
+    var trxTransfer = ""
+    var fromAccount = ""
+    var trxDate = ""
+    var toAccount = ""
+    var sender = ""
 
     override fun getTheme(): Int {
         return R.style.FullScreenDialog
@@ -145,11 +154,13 @@ class FundPasswordDialog : DialogFragment() {
     private fun setPingCode() {
         binding?.apply {
             for (pingCode in layPingCode.children) {
-                pingCode.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_circular_border)
+                pingCode.background =
+                    ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_circular_border)
             }
             if (codes.isNotEmpty()) {
                 for (i in codes.indices) {
-                    layPingCode.getChildAt(i).background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_circular)
+                    layPingCode.getChildAt(i).background =
+                        ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_circular)
                 }
             } else {
                 for (i in subCode.indices) {
@@ -158,12 +169,25 @@ class FundPasswordDialog : DialogFragment() {
                 }
             }
 
-            if(codes.length == 4){
+            if (codes.length == 4) {
                 subCode = codes
                 layProgressBar.visibility = View.VISIBLE
 
                 val transferCheck = arguments?.getString("transferFund")
                 val subscriptionCheck = arguments?.getString("subscriptionFund")
+
+
+
+
+//                val transferSuccessDialog = TransferSuccessDialog()
+//                activity?.supportFragmentManager?.let {
+//                    transferSuccessDialog.show(
+//                        it,
+//                        "Transfer Success Dialog"
+//                    )
+
+
+                // }
 
                 /*if (transferCheck == Constants.FundPasswordType.transfer){
                     onGetTransfer(Transfer.GetTransferObject(arguments?.getString("amountTrans"), arguments?.getString("currencyTrans"), arguments?.getString("receiverTrans"), codes), UTSwapApp.instance)
@@ -193,7 +217,7 @@ class FundPasswordDialog : DialogFragment() {
                             codes
                         ), UTSwapApp.instance
                     )
-                }else if (transferCheck == Constants.FundPasswordType.transfer){
+                } else if (transferCheck == Constants.FundPasswordType.transfer) {
                     var params: Map<String, String> = emptyMap()
                     params = mapOf(
                         "sign_type" to "MD5",
@@ -202,23 +226,40 @@ class FundPasswordDialog : DialogFragment() {
                         "receiver" to arguments?.getString("receiverTrans").toString(),
                         "paypassword" to codes
                     )
-                    val result = VerifyClientData.makeSign(params, SessionPreferences().SESSION_X_TOKEN_API.toString())
-                    onGetTransfer(Transfer.GetTransferObject("MD5", result, arguments?.getString("amountTrans"), arguments?.getString("currencyTrans"), arguments?.getString("receiverTrans"), codes), UTSwapApp.instance)
+                    val result = VerifyClientData.makeSign(
+                        params,
+                        SessionPreferences().SESSION_X_TOKEN_API.toString()
+                    )
+                    onGetTransfer(
+                        Transfer.GetTransferObject(
+                            "MD5",
+                            result,
+                            arguments?.getString("amountTrans"),
+                            arguments?.getString("currencyTrans"),
+                            arguments?.getString("receiverTrans"),
+                            codes
+                        ), UTSwapApp.instance
+                    )
 
                 }
 
-            }else{
+            } else {
                 imgIcon.setImageResource(R.drawable.ic_fund_key_normal)
                 txtMessage.text = "Please enter your fund password"
                 txtMessage.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
                 for (pingCode in layPingCode.children) {
-                    pingCode.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
+                    pingCode.backgroundTintList = ColorStateList.valueOf(
+                        ContextCompat.getColor(
+                            UTSwapApp.instance,
+                            R.color.primary
+                        )
+                    )
                 }
             }
         }
     }
 
-    private fun removeNumber(){
+    private fun removeNumber() {
         if (codes.isNotEmpty()) {
             if (codes.length in 1..4) {
                 codes = codes.substring(0, codes.length - 1)
@@ -253,13 +294,13 @@ class FundPasswordDialog : DialogFragment() {
                 )
             }
 
-
             SessionVariable.SESSION_SUBSCRIPTION_ORDER.value = true
             Handler().postDelayed({
                 dismiss()
             }, 1000)
         }
     }
+
     private fun onCheckSubscriptionFail(data: SubscriptionProject.SubscriptionOrderRes) {
         binding?.apply {
             imgIcon.setImageResource(R.drawable.ic_fund_key_invalid)
@@ -284,20 +325,27 @@ class FundPasswordDialog : DialogFragment() {
 
         }
     }
-    private fun onCheckSubscriptionConfirmPassword(body: SubscriptionProject.SubscribeOrderBody, context: Context) {
+
+    private fun onCheckSubscriptionConfirmPassword(
+        body: SubscriptionProject.SubscribeOrderBody,
+        context: Context
+    ) {
         subscription?.unsubscribe()
         subscription = ApiProjectImp().subscriptionProjectOrder(body, context).subscribe({
             if (it.status == 1) {
                 onCheckSubscriptionSuccess(it)
             } else {
-                if(it.message.toString() == "Please sign in"){
+                if (it.message.toString() == "Please sign in") {
                     Handler().postDelayed({
                         dismiss()
                     }, 1000)
                     ClientClearData.clearDataUser()
                     startActivity(Intent(requireContext(), MainActivity::class.java))
-                    requireActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
-                }else{
+                    requireActivity().overridePendingTransition(
+                        R.anim.slide_in_right,
+                        R.anim.slide_out_left
+                    )
+                } else {
                     onCheckSubscriptionFail(it)
                 }
 
@@ -327,11 +375,26 @@ class FundPasswordDialog : DialogFragment() {
                 )
             }
 
-            Constants.Transfer.amount = data.amount.toString()
-            Constants.Transfer.trxTransfer = data.trx_transfer.toString()
-            Constants.Transfer.fromAccount = data.sender.toString()
-            Constants.Transfer.trxDate = data.trx_date.toString()
-            Constants.Transfer.toAccount = data.receiver.toString()
+
+
+            getTransferData = Transfer.TransferSuccessulReview(
+            data.amount ,
+            data.trx_transfer,
+            data.sender,
+            data.receiver,
+            data.trx_date)
+            val transfer = TransferSuccessDialog(getTransferData)
+            transfer.show(
+                requireActivity().supportFragmentManager,
+                "balanceHistoryDetailDialog"
+            )
+
+
+
+            amount = data.amount.toString()
+            trxTransfer  = data.trx_transfer.toString()
+            toAccount = data.receiver.toString()
+
 
             Handler().postDelayed({
                 dismiss()
@@ -341,34 +404,49 @@ class FundPasswordDialog : DialogFragment() {
 
         }
     }
-    private fun onGetTransferFail(data: Transfer.GetTransfer){
+
+    private fun onGetTransferFail(data: Transfer.GetTransfer) {
         binding?.apply {
             imgIcon.setImageResource(R.drawable.ic_fund_key_invalid)
             txtMessage.text = "Invalid"
             txtMessage.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
-            for (pingCode in layPingCode.children){
-                pingCode.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
+            for (pingCode in layPingCode.children) {
+                pingCode.backgroundTintList = ColorStateList.valueOf(
+                    ContextCompat.getColor(
+                        UTSwapApp.instance,
+                        R.color.danger
+                    )
+                )
             }
             layProgressBar.visibility = View.GONE
             codes = ""
         }
     }
+
     private fun onGetTransfer(body: Transfer.GetTransferObject, context: Context) {
         subscription?.unsubscribe()
         subscription = ApiTransferImp().getFinanceTransfer(body, context).subscribe({
-            if (it.status == 1){
-                onGetTransferSuccess(it.data!!)
-            }else{
+            if (it.status == 1) {
+                it.data?.let { it1 -> onGetTransferSuccess(it1) }
+            } else {
                 onGetTransferFail(it)
             }
         }, {
-            object : CallbackWrapper(it, UTSwapApp.instance, arrayListOf()){
+            object : CallbackWrapper(it, UTSwapApp.instance, arrayListOf()) {
                 override fun onCallbackWrapper(status: ApiManager.NetworkErrorStatus, data: Any) {}
             }
         })
     }
 
     companion object {
+
+        var amount   = ""
+        var trxTransfer  = ""
+        var fromAccount   = ""
+        var trxDate  = ""
+        var toAccount  = ""
+        var sender  = ""
+
         fun newInstance(
             id: Int,
             volume: String?,

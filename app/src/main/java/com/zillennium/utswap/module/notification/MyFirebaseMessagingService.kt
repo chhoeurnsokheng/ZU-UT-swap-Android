@@ -1,5 +1,6 @@
 package com.zillennium.utswap.module.notification
 
+import android.annotation.SuppressLint
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -11,6 +12,7 @@ import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.text.HtmlCompat
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.lifecycleScope
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
@@ -78,13 +80,16 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         title: String,
         message: String,
     ) {
+        if (title == "KYC Approved" || title == "KYC Rejected") {
+            SessionVariable.NOTIFICATION_LISTENER.postValue(true)
+        }
         val intent = (Intent(this, MainActivity::class.java))
         intent.action = Intent.ACTION_MAIN
         intent.addCategory(Intent.CATEGORY_LAUNCHER)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         when (title) {
             "KYC Approved", "KYC Rejected" -> {
-                intent.putExtra("dataIntent",  "KYC")
+                intent.putExtra("dataIntent",  title)
             }
             "Fund Transfer" -> {
                 intent.putExtra("dataIntent","Fund Transfer")

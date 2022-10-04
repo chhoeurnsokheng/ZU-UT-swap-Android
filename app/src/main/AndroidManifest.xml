@@ -2,23 +2,25 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.internet"/>
+    <uses-permission android:name="android.permission.internet" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" tools:node="remove"/>
+    <uses-permission
+        android:name="android.permission.POST_NOTIFICATIONS"
+        tools:node="remove" />
 
-        <queries>
-            <package android:name="com.paygo24.ibank" />
-            <package android:name="com.domain.acledabankqr" />
-            <package android:name="kh.com.sathapana.consumer" />
-            <package android:name= "io.kessinnovation.kesschat"/>
-            <package android:name="com.eg.android.AlipayGphone"/>
-        </queries>
-    
+    <queries>
+        <package android:name="com.paygo24.ibank" />
+        <package android:name="com.domain.acledabankqr" />
+        <package android:name="kh.com.sathapana.consumer" />
+        <package android:name="io.kessinnovation.kesschat" />
+        <package android:name="com.eg.android.AlipayGphone" />
+    </queries>
+
     <application
         android:name=".UTSwapApp"
         android:allowBackup="true"
@@ -33,7 +35,9 @@
         android:theme="@style/Theme.UTSwapApp"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-
+        <activity
+            android:name=".Transfer_Activity"
+            android:exported="false" />
         <activity
             android:name=".module.account.documentsScreen.contract.ContractActivity"
             android:configChanges="uiMode|keyboardHidden|screenSize|orientation|screenLayout"
@@ -47,8 +51,6 @@
             android:name=".module.account.documentsScreen.privacy.PrivacyPolicyActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
-        <!-- android:allowTaskReparenting="false" -->
-
         <activity
             android:name="com.zillennium.utswap.module.splashScreen.SplashScreenActivity"
             android:configChanges="uiMode|keyboardHidden|screenSize|orientation|screenLayout"
@@ -61,61 +63,27 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".screens.navbar.navbar.MainActivity"
             android:exported="true"
             android:launchMode="singleTask"
             android:screenOrientation="portrait">
-
             <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />
-
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data android:scheme="http" />
-
                 <data android:scheme="https" />
-
-                <data  android:host="ut-swap.com" />
-
+                <data android:host="ut-swap.com" />
             </intent-filter>
         </activity>
-
-<!--        <activity-->
-
-<!--            android:name=".screens.navbar.navbar.MainActivity"-->
-
-<!--            android:launchMode="singleTask">-->
-
-<!--            <intent-filter android:autoVerify="true">-->
-
-<!--                <action android:name="android.intent.action.MAIN" />-->
-
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-
-<!--            </intent-filter>-->
-
-<!--            <intent-filter>-->
-
-<!--                <action android:name="android.intent.action.VIEW" />-->
-
-<!--                <category android:name="android.intent.category.DEFAULT" />-->
-
-<!--                <category android:name="android.intent.category.BROWSABLE" />-->
-
-<!--                <data android:scheme="your_URI_" />-->
-
-<!--                <data android:scheme="https" android:host="your_URL" />-->
-
-<!--                <data android:scheme="http" android:host="your_URL" />-->
-
-<!--            </intent-filter>-->
-
-<!--        </activity>-->
-        <!-- Activity KYC -->
+        <activity
+            android:name=".module.finance.transferScreen.TransferActivityReview"
+            android:configChanges="uiMode|keyboardHidden|screenSize|orientation|screenLayout"
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".module.finance.depositScreen.OpenWebViewToComfirmPayment.DepositOpenLinkWebViewActivity"
             android:configChanges="uiMode|keyboardHidden|screenSize|orientation|screenLayout"
@@ -127,7 +95,8 @@
             android:configChanges="uiMode|keyboardHidden|screenSize|orientation|screenLayout"
             android:exported="false"
             android:label="@string/KYC"
-            android:screenOrientation="portrait" /> <!-- End Activity KYC -->
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" /> <!-- End Activity KYC -->
         <!-- Activity Finance -->
         <activity
             android:name="com.zillennium.utswap.module.finance.balanceScreen.FinanceBalanceActivity"
@@ -219,7 +188,6 @@
             android:label="@string/trade_exchange"
             android:resizeableActivity="true"
             android:screenOrientation="portrait" /> <!-- End Activity Trade -->
-
         <activity
             android:name="com.zillennium.utswap.module.finance.addCardScreen.DepositAddCardActivity"
             android:configChanges="uiMode|keyboardHidden|screenSize|orientation|screenLayout"
@@ -330,23 +298,22 @@
             android:label="@string/referral_information"
             android:resizeableActivity="true"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".module.project.ViewImage.ImageViewActivity"
             android:configChanges="uiMode|keyboardHidden|screenSize|orientation|screenLayout"
             android:resizeableActivity="true"
             android:screenOrientation="portrait" />
-        <activity android:name=".module.finance.depositScreen.depositSuccessfully.DepositSuccessfullyActivity"
+        <activity
+            android:name=".module.finance.depositScreen.depositSuccessfully.DepositSuccessfullyActivity"
             android:configChanges="uiMode|keyboardHidden|screenSize|orientation|screenLayout"
             android:resizeableActivity="true"
-            android:screenOrientation="portrait"
-            />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".module.account.accountKycPending.AccountKycPendingActivity"
             android:configChanges="uiMode|keyboardHidden|screenSize|orientation|screenLayout"
             android:resizeableActivity="true"
-            android:screenOrientation="portrait"
-            />
+            android:screenOrientation="portrait" />
+
         <service
             android:name=".module.notification.MyFirebaseMessagingService"
             android:exported="false">
@@ -355,6 +322,5 @@
             </intent-filter>
         </service>
     </application>
-
 
 </manifest>
