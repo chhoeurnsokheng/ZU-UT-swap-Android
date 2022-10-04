@@ -175,10 +175,18 @@ class PortfolioFragment :
             loadingProgressBar.visibility = View.GONE
             layTradingBalance.visibility = View.VISIBLE
 
+
             if (data.data?.total_market_value == 0.0){
                 txtBalance.text = "$ 0.00"
             }else{
                 txtBalance.text = "$ " + data.data?.total_market_value?.let { UtilKt().formatValue(it, "###,###.##") }
+            }
+
+            if (data.data?.total_market_value ==0.0){
+                txtTradingBalance.text ="$ 0.00"
+            }else{
+                txtTradingBalance.text = "$ " + data.data?.total_user_balance?.toDouble()
+                    ?.let { UtilKt().formatValue(it, "###,###.##") }
             }
 
             filter = 0
@@ -253,18 +261,18 @@ class PortfolioFragment :
                         lineChart.visibility = View.VISIBLE
 
 
-                        val balance_weight = data.data?.balance_weight?.toDouble()
-                        val totalUserBalance = data.data?.total_user_balance
-                        val totalTrading = (totalUserBalance?.let { balance_weight?.times(it) })?.div(
-                            100
-                        )
+//                        val balance_weight = data.data?.balance_weight?.toDouble()
+//                        val totalUserBalance = data.data?.total_user_balance
+//                        val totalTrading = (totalUserBalance?.let { balance_weight?.times(it) })?.div(
+//                            100
+//                        )
 
-                        txtTradingBalance.text =  "$ " + data.data?.total_user_balance?.let {
-                            UtilKt().formatValue(
-                                it,
-                                "###,###.##"
-                            )
-                        }
+//                        txtTradingBalance.text =  "$ " + data.data?.total_user_balance?.let {
+//                            UtilKt().formatValue(
+//                                it,
+//                                "###,###.##"
+//                            )
+//                        }
 
 
                     }
@@ -323,18 +331,18 @@ class PortfolioFragment :
                         }
 
                         lineChart.visibility = View.VISIBLE
-                        val balance_weight = data.data?.balance_weight?.toDouble()
-                        val totalUserBalance = data.data?.total_user_balance
-                        val totalTrading = (totalUserBalance?.let { balance_weight?.times(it) })?.div(
-                            100
-                        )
+//                        val balance_weight = data.data?.balance_weight?.toDouble()
+//                        val totalUserBalance = data.data?.total_user_balance
+//                        val totalTrading = (totalUserBalance?.let { balance_weight?.times(it) })?.div(
+//                            100
+//                        )
 
-                        txtTradingBalance.text = "$ " + data.data?.total_user_balance?.let {
-                            UtilKt().formatValue(
-                                it,
-                                "###,###.##"
-                            )
-                        }
+//                        txtTradingBalance.text = "$ " + data.data?.total_user_balance?.let {
+//                            UtilKt().formatValue(
+//                                it,
+//                                "###,###.##"
+//                            )
+//                        }
                     }
                     Constants.PortfolioFilter.Price -> {
                         linearLayoutPrice.visibility = View.VISIBLE
@@ -355,12 +363,12 @@ class PortfolioFragment :
                         rvFilter.adapter = pricePortfolioAdapter
 
                         lineChart.visibility = View.VISIBLE
-                        txtTradingBalance.text = "$ " + data.data?.total_user_balance?.let {
-                            UtilKt().formatValue(
-                                it,
-                                "###,###.##"
-                            )
-                        }
+//                        txtTradingBalance.text = "$ " + data.data?.total_user_balance?.let {
+//                            UtilKt().formatValue(
+//                                it,
+//                                "###,###.##"
+//                            )
+//                        }
                     }
                     Constants.PortfolioFilter.Balance -> {
                         linearLayoutBalance.visibility = View.VISIBLE
@@ -419,12 +427,12 @@ class PortfolioFragment :
                             100
                         )
 
-                        txtTradingBalance.text = "$ " + data.data?.total_user_balance?.let {
-                            UtilKt().formatValue(
-                                it,
-                                "###,###.##"
-                            )
-                        }
+//                        txtTradingBalance.text = "$ " + data.data?.total_user_balance?.let {
+//                            UtilKt().formatValue(
+//                                it,
+//                                "###,###.##"
+//                            )
+//                        }
                     }
                     Constants.PortfolioFilter.Weight -> {
                         linearLayoutWeight.visibility = View.VISIBLE
@@ -482,13 +490,13 @@ class PortfolioFragment :
 
                         chartPie.visibility = View.VISIBLE
 
-                        val balance_weight = data.data?.balance_weight?.toDouble()
-                        val totalUserBalance = data.data?.total_user_balance
-                        val totalTrading = (totalUserBalance?.let { balance_weight?.times(it) })?.div(
-                            100
-                        )
+//                        val balance_weight = data.data?.balance_weight?.toDouble()
+//                        val totalUserBalance = data.data?.total_user_balance
+//                        val totalTrading = (totalUserBalance?.let { balance_weight?.times(it) })?.div(
+//                            100
+//                        )
 
-                        txtTradingBalance.text = data.data?.balance_weight.toString() + "%"
+//                        txtTradingBalance.text = data.data?.balance_weight.toString() + "%"
 
 
 
