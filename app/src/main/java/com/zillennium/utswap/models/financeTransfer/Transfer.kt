@@ -17,13 +17,15 @@ object Transfer {
         var receiver:String? = null
     }
 
-    class TransferSuccessulReview(
-        var amount: String? = null,
-        var trx_transfer: String? = null,
-        var trx_date: String? = null,
-        var sender: String? = null,
-        var receiver:String? = null,
-    )
+    class TransferSuccessulReview {
+        var amount: String? = null
+        var trx_transfer: String? = null
+        var trx_date: String? = null
+        var sender: String? = null
+        var receiver:String? = null
+    }
+
+
 
 
     class GetTransferObject(

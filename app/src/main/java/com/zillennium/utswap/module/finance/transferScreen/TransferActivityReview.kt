@@ -25,6 +25,7 @@ class TransferActivityReview :
     private var currencyTransfer = "usd"
    var receiverTransfer =""
     companion object {
+
         fun lunchTransferActivityReviewActivity(
             context: Context,
             phoneNumber: String?,
@@ -68,7 +69,7 @@ class TransferActivityReview :
             }
             if (intent.hasExtra(Constants.Transfer.fee)) {
                 fee= intent.extras?.getString(Constants.Transfer.fee).toString()
-                if (fee.isEmpty()){
+                if (fee.toDouble() ==0.0){
                     txtFee.visibility =View.GONE
                 }else{
                     txtFee.text =     "$ " +  UtilKt().formatValue(fee.toDouble(), "###,###.##")

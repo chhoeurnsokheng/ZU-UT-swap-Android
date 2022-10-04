@@ -145,6 +145,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginVertical="@dimen/dimen_10"
                             android:layout_weight="35"
+                            android:maxLines="2"
                             android:text="@string/transaction_date"
                             android:textAppearance="@style/regular_12"
                             android:textColor="@color/gray_888888" />
