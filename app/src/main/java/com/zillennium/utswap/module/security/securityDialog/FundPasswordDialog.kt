@@ -377,12 +377,12 @@ class FundPasswordDialog : DialogFragment() {
 
 
 
-            getTransferData = Transfer.TransferSuccessulReview(
-            data.amount ,
-            data.trx_transfer,
-            data.sender,
-            data.receiver,
-            data.trx_date)
+            getTransferData = Transfer.TransferSuccessulReview()
+            getTransferData.amount = data.amount
+            getTransferData.trx_transfer = data.trx_transfer
+            getTransferData.sender = data.sender
+            getTransferData.receiver = data.receiver
+            getTransferData.trx_date = data.trx_date
             val transfer = TransferSuccessDialog(getTransferData)
             transfer.show(
                 requireActivity().supportFragmentManager,
