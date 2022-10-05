@@ -21,7 +21,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:textColor="@color/primary"
-                android:textAppearance="@style/bold_18"
+                android:textAppearance="@style/bold_20"
                 android:visibility="visible" />
 
             <com.google.android.material.textview.MaterialTextView
