@@ -12,7 +12,6 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.core.graphics.drawable.DrawableCompat
 import com.androidstudy.networkmanager.Tovuti
 import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
 import com.zillennium.utswap.R
@@ -23,13 +22,9 @@ import com.zillennium.utswap.models.financeBalance.BalanceFinance
 import com.zillennium.utswap.models.financeTransfer.Transfer
 import com.zillennium.utswap.models.userService.User
 import com.zillennium.utswap.module.account.addNumberScreen.AddNumberActivity
-import com.zillennium.utswap.module.finance.depositScreen.depositSuccessfully.DepositSuccessfullyActivity.Companion.backToHome
-import com.zillennium.utswap.module.finance.transferScreen.dialog.TransferSuccessDialog
 import com.zillennium.utswap.module.finance.transferScreen.dialog.TransferSuccessDialog.Companion.backToHomeTranfer
-import com.zillennium.utswap.module.security.securityDialog.FundPasswordDialog
 import com.zillennium.utswap.screens.navbar.navbar.MainActivity
 import com.zillennium.utswap.utils.ClientClearData
-import com.zillennium.utswap.utils.Constants
 import com.zillennium.utswap.utils.DecimalDigitsInputFilter
 import com.zillennium.utswap.utils.UtilKt
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent

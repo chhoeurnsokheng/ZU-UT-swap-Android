@@ -268,4 +268,5 @@ dependencies {
 
     implementation "android.arch.lifecycle:extensions:1.1.1"
 
+    implementation "androidx.preference:preference-ktx:1.1.1"
 }

@@ -17,7 +17,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import com.gis.z1android.api.errorhandler.CallbackWrapper
 import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
-import com.zillennium.utswap.Datas.StoredPreferences.KYCPreferences
 import com.zillennium.utswap.Datas.StoredPreferences.SessionPreferences
 import com.zillennium.utswap.R
 import com.zillennium.utswap.UTSwapApp
@@ -27,6 +26,7 @@ import com.zillennium.utswap.databinding.DialogSecurityFundPasswordBinding
 import com.zillennium.utswap.models.project.SubscriptionProject
 import com.zillennium.utswap.api.manager.ApiTransferImp
 import com.zillennium.utswap.models.financeTransfer.Transfer
+import com.zillennium.utswap.module.finance.transferScreen.TransferActivityReview
 import com.zillennium.utswap.module.finance.transferScreen.dialog.TransferSuccessDialog
 import com.zillennium.utswap.module.project.subscriptionScreen.dialog.SubscriptionConfirmDialog
 import com.zillennium.utswap.screens.navbar.navbar.MainActivity
@@ -86,12 +86,15 @@ class FundPasswordDialog : DialogFragment() {
                     .setOverlayColor(getColor(R.color.white))
 
                 imgBack.setOnClickListener {
+                  //  backToTransferScreen = true
+                   // startActivity(Intent(requireActivity(), TransferActivityReview::class.java))
                     when (javaClass.simpleName.toString()) {
                         "WithdrawActivity" -> {
                             dismiss()
                         }
                         "TransferActivity" -> {
-                            dismiss()
+                            startActivity(Intent(requireActivity(), TransferActivityReview::class.java))
+                          //  dismiss()
                         }
                         else -> {
                             val subscriptionConfirmDialog: SubscriptionConfirmDialog =
@@ -175,23 +178,6 @@ class FundPasswordDialog : DialogFragment() {
 
                 val transferCheck = arguments?.getString("transferFund")
                 val subscriptionCheck = arguments?.getString("subscriptionFund")
-
-
-
-
-//                val transferSuccessDialog = TransferSuccessDialog()
-//                activity?.supportFragmentManager?.let {
-//                    transferSuccessDialog.show(
-//                        it,
-//                        "Transfer Success Dialog"
-//                    )
-
-
-                // }
-
-                /*if (transferCheck == Constants.FundPasswordType.transfer){
-                    onGetTransfer(Transfer.GetTransferObject(arguments?.getString("amountTrans"), arguments?.getString("currencyTrans"), arguments?.getString("receiverTrans"), codes), UTSwapApp.instance)
-                }*/
 
                 if (subscriptionCheck == Constants.FundPasswordType.subscription) {
                     val volume =
@@ -375,8 +361,6 @@ class FundPasswordDialog : DialogFragment() {
                 )
             }
 
-
-
             getTransferData = Transfer.TransferSuccessulReview()
             getTransferData.amount = data.amount
             getTransferData.trx_transfer = data.trx_transfer
@@ -446,7 +430,7 @@ class FundPasswordDialog : DialogFragment() {
         var trxDate  = ""
         var toAccount  = ""
         var sender  = ""
-
+        var backToTransferScreen = false
         fun newInstance(
             id: Int,
             volume: String?,

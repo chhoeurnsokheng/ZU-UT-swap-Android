@@ -28,6 +28,7 @@
                 android:layout_width="@dimen/dimen_0"
                 android:layout_weight="91"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_4"
                 android:orientation="vertical">
 
                 <LinearLayout

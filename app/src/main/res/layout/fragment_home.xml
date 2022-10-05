@@ -132,7 +132,7 @@
                     android:layout_height="wrap_content"
                     app:dotsColor="@color/gray"
                     app:dotsCornerRadius="8dp"
-                    app:dotsSize="@dimen/dimen_8"
+                    app:dotsSize="@dimen/dimen_5"
                     app:dotsSpacing="4dp"
                     app:dotsWidthFactor="2.5"
                     android:layout_marginTop="@dimen/dimen_10"
@@ -160,8 +160,7 @@
                     android:paddingHorizontal="@dimen/dimen_20"
                     android:text="Total Balance"
                     android:textAppearance="@style/bold_18"
-                    android:textColor="@color/dark_gray" />
-
+                    android:textColor="@color/black" />
 
                 <LinearLayout
                     android:id="@+id/linear_layout_balance"

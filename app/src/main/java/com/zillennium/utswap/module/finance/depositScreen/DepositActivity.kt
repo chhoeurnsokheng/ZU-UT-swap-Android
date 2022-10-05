@@ -63,18 +63,18 @@ class DepositActivity :
     override fun onGetListBankSuccess(data: DepositObj.DepositRes) {
         listBank = data.data
         binding.swipeRefresh.isRefreshing = false
-        var indexAliPay = 0
-        var indexKessPay = 0
-        listBank?.forEachIndexed { index, dataListRes ->
-            if (dataListRes.title == "AliPay") {
-                indexAliPay = index
-            }
-            if (dataListRes.title == "KESS PAY") {
-                indexKessPay = index
-            }
-        }
-        listBank?.removeAt(indexAliPay)
-        listBank?.removeAt(indexKessPay)
+//        var indexAliPay = 0
+//        var indexKessPay = 0
+//        listBank?.forEachIndexed { index, dataListRes ->
+//            if (dataListRes.title == "AliPay") {
+//                indexAliPay = index
+//            }
+//            if (dataListRes.title == "KESS PAY") {
+//                indexKessPay = index
+//            }
+//        }
+//        listBank?.removeAt(indexAliPay)
+//        listBank?.removeAt(indexKessPay)
 
 
         binding.rvPayment.apply {

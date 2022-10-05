@@ -18,8 +18,8 @@
 
             <ImageView
                 android:id="@+id/img_cardImage"
-                android:layout_width="49dp"
-                android:layout_height="@dimen/dimen_30"
+                android:layout_width="39dp"
+                android:layout_height="@dimen/dimen_39"
                 android:layout_marginStart="@dimen/dimen_20"
                 android:adjustViewBounds="true"
                 android:layout_gravity="center"
