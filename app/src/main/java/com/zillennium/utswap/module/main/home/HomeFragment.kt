@@ -249,7 +249,7 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
                 bannerImage.adapter = bannerLoopingPagerAdapter
             }
 
-            indicator.attachTo(bannerImage)
+            indicator.attachToPager(bannerImage)
             bannerImage.setLooperPic(true)
 
             bannerImage.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
@@ -262,13 +262,9 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
 
                 override fun onPageSelected(position: Int) {
                     try {
+                        /*indicator.selectedDotColor = ContextCompat.getColor(requireActivity(), R.color.secondary)*/
 
                         if (isUserSwipe) {
-                            if (currentPosition < position) {
-
-                            } else if (currentPosition > position) {
-
-                            }
                             isUserSwipe = false
                         }
                     } catch (e: Exception) {
@@ -279,7 +275,7 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
                 }
 
                 override fun onPageScrollStateChanged(state: Int) {
-
+                  //  indicator.selectedDotColor = ContextCompat.getColor(requireActivity(), R.color.secondary)
                 }
             })
 
