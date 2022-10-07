@@ -523,6 +523,6 @@
     <string name="price_without_dot">Price</string>
     <string name="e_agreement_words">I have read and agreed to the Terms and Conditions</string>
     <string name="transfer_internal_cash">Internal Cash Transfer</string>
-   <string name="transfer_review"> Transfer Review </string>
-   <string name="choose_theme_text">Dark Mode</string>
+    <string name="transfer_review"> Transfer Review </string>
+    <string name="choose_theme_text">Dark Mode</string>
 </resources>

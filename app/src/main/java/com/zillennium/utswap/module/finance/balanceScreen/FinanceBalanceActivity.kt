@@ -215,8 +215,8 @@ class FinanceBalanceActivity :
         binding.apply {
             // This is download in browser
             val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(data.FILE_PATH))
-            startActivity(browserIntent)
-            
+       //     startActivity(browserIntent)
+            PdfViewActivity.launchProjectInfoActivity(this@FinanceBalanceActivity, data.FILE_PATH)
 //            val request = DownloadManager.Request(Uri.parse(data.FILE_PATH))
 //            val title = URLUtil.guessFileName(data.FILE_PATH, null, null)
 //            request.setTitle(title)

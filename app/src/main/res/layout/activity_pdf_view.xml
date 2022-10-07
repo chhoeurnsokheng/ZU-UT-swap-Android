@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".module.finance.balanceScreen.PdfViewActivity">
+    <include
+        android:id="@+id/includeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/appbar_layout"
+        />
+    <!--on below line we are creating our pdf view-->
+
+    <com.github.barteksc.pdfviewer.PDFView
+        android:layout_below="@+id/includeLayout"
+        android:id="@+id/idPDFView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>
