@@ -520,15 +520,18 @@ class PortfolioFragment :
         weekTwoSales.mode = LineDataSet.Mode.CUBIC_BEZIER
         weekTwoSales.color = ContextCompat.getColor(requireActivity(), R.color.primary)
         weekTwoSales.valueTextColor = ContextCompat.getColor(requireActivity(), R.color.gray)
+        weekTwoSales.setCircleColor(getResources().getColor(R.color.primary))
+
         val dataSet = ArrayList<ILineDataSet>()
         dataSet.add(weekTwoSales)
         weekTwoSales.setDrawValues(false)
-        weekTwoSales.valueTextColor = R.color.gray
+     //   weekTwoSales.valueTextColor = R.color.gray
         weekTwoSales.circleRadius = 6f
         val lineData = LineData(dataSet)
         binding.lineChart.data = lineData
         binding.lineChart.invalidate()
-        binding.lineChart.axisRight.textColor = ContextCompat.getColor(requireActivity(), R.color.secondary_text)
+
+
         binding.lineChart.axisRight.valueFormatter = object : ValueFormatter() {
             override fun getFormattedValue(value: Float): String {
                 val v: String = getPriceFormat(Math.round(value).toFloat())
@@ -767,7 +770,7 @@ class PortfolioFragment :
                 txtBalance.paint.maskFilter = null
                 imgVisibility.setImageResource(R.drawable.ic_baseline_remove_red_eye_24)
 
-                lineChart.axisRight.isEnabled = false
+             //   lineChart.axisRight.isEnabled = false
                 blurCondition = false
 
             } else {
@@ -775,7 +778,7 @@ class PortfolioFragment :
                 txtBalance.paint.maskFilter = blurMask
                 imgVisibility.setImageResource(R.drawable.ic_baseline_visibility_off_24)
 
-                lineChart.axisRight.isEnabled = true
+             //   lineChart.axisRight.isEnabled = true
                 blurCondition = true
             }
         }

@@ -86,7 +86,7 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dimen_2"
+            android:layout_height="@dimen/dimen_1"
             android:background="@color/gray_E7E7E7" />
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -112,7 +112,7 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingTop="@dimen/dimen_30">
+                        android:paddingTop="@dimen/dimen_15">
 
                         <androidx.cardview.widget.CardView
                             android:layout_width="match_parent"
@@ -141,20 +141,6 @@
                         app:spi_dotSelectedSize="7dp"
                         app:spi_dotSize="5dp"
                         app:spi_dotSpacing="4dp" />
-                    <!--                <com.tbuonomo.viewpagerdotsindicator.DotsIndicator-->
-                    <!--                    android:id="@+id/indicator"-->
-                    <!--                    android:layout_width="wrap_content"-->
-                    <!--                    android:layout_height="wrap_content"-->
-                    <!--                    app:dotsColor="@color/gray"-->
-                    <!--                    app:dotsCornerRadius="8dp"-->
-                    <!--                    app:dotsSize="@dimen/dimen_5"-->
-                    <!--                    app:dotsSpacing="4dp"-->
-                    <!--                    app:dotsWidthFactor="2.5"-->
-                    <!--                    android:layout_marginTop="@dimen/dimen_10"-->
-                    <!--                    android:layout_gravity="center_horizontal"-->
-
-                    <!--                    app:progressMode="true"-->
-                    <!--                    />-->
 
                     <com.google.android.material.tabs.TabLayout
                         android:id="@+id/tabLayout_dot"

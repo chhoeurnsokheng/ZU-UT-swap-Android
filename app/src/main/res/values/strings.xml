@@ -413,6 +413,7 @@
     <string name="all_transactions">All Transactions</string>
     <string name="open">Open</string>
     <string name="close">Close</string>
+    <string name="closed">Closed</string>
     <string name="high">High</string>
     <string name="low">Low</string>
     <string name="gross">Gross</string>

@@ -112,5 +112,6 @@
     <dimen name="space_20">20dp</dimen>
     <dimen name="dimen_180">180dp</dimen>
     <dimen name="dimen_39">39dp</dimen>
+    <dimen name="dimen_89">89dp</dimen>
     <!---->
 </resources>
