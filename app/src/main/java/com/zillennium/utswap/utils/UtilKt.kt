@@ -1,9 +1,13 @@
 package com.zillennium.utswap.utils
 
+import android.app.Activity
 import android.content.Context
 import android.graphics.Rect
+import android.util.DisplayMetrics
 import android.util.TypedValue
 import android.view.View
+import android.widget.RelativeLayout
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.recyclerview.widget.RecyclerView
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
@@ -53,6 +57,7 @@ class UtilKt {
         return formatter.format(value)
     }
 }
+
 class SpaceDecoration(
     private val leftSpace: Int = 0,
     private val topSpace: Int = 0,
@@ -61,10 +66,18 @@ class SpaceDecoration(
     private val skipFirst: Boolean = true
 ) : RecyclerView.ItemDecoration() {
 
-    override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
+    override fun getItemOffsets(
+        outRect: Rect,
+        view: View,
+        parent: RecyclerView,
+        state: RecyclerView.State
+    ) {
         val position = parent.getChildAdapterPosition(view)
         if ((!skipFirst && position == 0) || position > 0) {
             outRect.set(leftSpace, topSpace, rightSpace, bottomSpace)
         }
     }
+
+
 }
+

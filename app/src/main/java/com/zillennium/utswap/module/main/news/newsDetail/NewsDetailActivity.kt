@@ -15,6 +15,10 @@ import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityNewsDetailBinding
 import com.zillennium.utswap.models.newsService.News
+import com.zillennium.utswap.utils.AspectRatioUtil
+import com.zillennium.utswap.utils.NoInternetLayoutUtil
+import com.zillennium.utswap.utils.UtilConvert
+import kotlin.math.roundToInt
 
 
 class NewsDetailActivity :
@@ -47,7 +51,7 @@ class NewsDetailActivity :
 
         onSwipeRefresh()
 
-        // NoInternetLayoutUtil().noInternetLayoutUtil(binding.rlNoInt)
+         NoInternetLayoutUtil().noInternetLayoutUtil(binding.rlNoInt)
     }
 
     private fun onCallApi() {
@@ -74,6 +78,15 @@ class NewsDetailActivity :
                 .placeholder(R.drawable.ic_placeholder)
                 .into(imgNews)
             view.visibility = View.VISIBLE
+
+            AspectRatioUtil.apply(
+                9,
+                16,
+                UtilConvert.convertDpToPixel(0f, UTSwapApp.instance).roundToInt(),
+                this@NewsDetailActivity,
+                binding.imgNews
+            )
+
         }
     }
 

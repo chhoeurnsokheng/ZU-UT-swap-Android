@@ -262,7 +262,7 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
 
                 override fun onPageSelected(position: Int) {
                     try {
-                        /*indicator.selectedDotColor = ContextCompat.getColor(requireActivity(), R.color.secondary)*/
+
 
                         if (isUserSwipe) {
                             isUserSwipe = false
@@ -275,7 +275,7 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
                 }
 
                 override fun onPageScrollStateChanged(state: Int) {
-                  //  indicator.selectedDotColor = ContextCompat.getColor(requireActivity(), R.color.secondary)
+
                 }
             })
 
