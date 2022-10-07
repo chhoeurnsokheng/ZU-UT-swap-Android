@@ -170,6 +170,7 @@ object TradingList {
     class TradeMatchingTransactionEntrust{
         var addtime: String? =null
         var type: String? = null
+        var type_trade_log:String? = null
         var price: String? = null
         var num: Int? = null
         var id: String? = null
@@ -243,6 +244,7 @@ object TradingList {
         var addtime: String? = null
         var transaction_id: String? = null
         var type: String? = null
+        var type_trade_log:String?  =null
         var price: String? = null
         var volume: Int? = null
         var gross: String? = null

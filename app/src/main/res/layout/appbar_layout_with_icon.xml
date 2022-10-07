@@ -15,7 +15,7 @@
             app:title="">
            <ImageView
                android:id="@+id/tb"
-               android:src="@drawable/ic_arrow_left"
+               android:src="@drawable/ic_back_primary"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:paddingRight="@dimen/dimen_8"/>
