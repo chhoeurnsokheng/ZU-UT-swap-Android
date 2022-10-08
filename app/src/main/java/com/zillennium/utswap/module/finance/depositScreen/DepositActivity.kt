@@ -14,7 +14,10 @@ import com.zillennium.utswap.models.deposite.DataQueryOrderObj
 import com.zillennium.utswap.models.deposite.DepositObj
 import com.zillennium.utswap.module.finance.depositScreen.adapter.DepositAdapter
 import com.zillennium.utswap.module.finance.depositScreen.depositBottomSheet.BottomSheetFinanceDepositPayment
-
+/**
+ * @author chhoeurnsokheng
+ * By Mac
+ */
 class DepositActivity :
     BaseMvpActivity<DepositView.View, DepositView.Presenter, ActivityFinanceDepositBinding>(),
     DepositView.View {

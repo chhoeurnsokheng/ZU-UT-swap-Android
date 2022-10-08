@@ -16,6 +16,10 @@ import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityPdfViewBinding
 import java.io.File
 
+/**
+ * @author chhoeurnsokheng
+ * By Mac
+ */
 class PdfViewActivity :
     BaseMvpActivity<PdfViewView.View, PdfViewView.Presenter, ActivityPdfViewBinding>(),
     PdfViewView.View {
@@ -26,8 +30,9 @@ class PdfViewActivity :
     lateinit var progressBar: ProgressBar
     var file = ""
     var tittle = ""
+
     companion object {
-        fun launchProjectInfoActivity(context: Context, filePath: String?, tittle:String?) {
+        fun launchProjectInfoActivity(context: Context, filePath: String?, tittle: String?) {
             val intent = Intent(context, PdfViewActivity::class.java)
             intent.putExtra("PDFView", filePath)
             intent.putExtra("Tittle", tittle)
@@ -43,7 +48,7 @@ class PdfViewActivity :
             this@PdfViewActivity.progressBar = binding.progressBar
 
             if (intent.hasExtra("PDFView")) {
-                 file = intent.extras?.getString("PDFView").toString()
+                file = intent.extras?.getString("PDFView").toString()
                 PRDownloader.initialize(applicationContext)
                 val fileName = "myFile.pdf"
                 downloadPdfFromInternet(
@@ -65,7 +70,7 @@ class PdfViewActivity :
             tbTitleLeft.setOnClickListener {
                 startShareIntent(file)
             }
-            if (intent.hasExtra("Tittle")){
+            if (intent.hasExtra("Tittle")) {
                 tittle = intent.extras?.getString("Tittle").toString()
                 tbTitle.text = tittle
             }
@@ -76,6 +81,7 @@ class PdfViewActivity :
             }
         }
     }
+
     private fun startShareIntent(shortLink: String) {
         val sharingIntent = Intent(Intent.ACTION_SEND)
         sharingIntent.type = "text/plain"
@@ -84,6 +90,7 @@ class PdfViewActivity :
         startActivity(Intent.createChooser(sharingIntent, shortLink))
 
     }
+
     private fun showPdfFromFile(file: File) {
         pdfView.fromFile(file)
             .password(null)
