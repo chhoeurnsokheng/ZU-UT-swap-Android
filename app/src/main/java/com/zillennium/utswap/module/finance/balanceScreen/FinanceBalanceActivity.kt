@@ -21,6 +21,7 @@ import com.zillennium.utswap.module.finance.balanceScreen.bottomSheet.FinanceExp
 import com.zillennium.utswap.module.finance.balanceScreen.bottomSheet.FinanceFilterBottomSheet
 import com.zillennium.utswap.module.finance.balanceScreen.bottomSheet.FinanceSelectDateRangeBottomSheet
 import com.zillennium.utswap.module.finance.balanceScreen.dialog.FinanceBalanceDialog
+import com.zillennium.utswap.module.finance.balanceScreen.pdfview.PdfViewActivity
 import com.zillennium.utswap.module.finance.depositScreen.depositSuccessfully.DepositSuccessfullyActivity
 import com.zillennium.utswap.screens.navbar.navbar.MainActivity
 import com.zillennium.utswap.utils.ClientClearData
@@ -33,7 +34,8 @@ class FinanceBalanceActivity :
     override var mPresenter: FinanceBalanceView.Presenter = FinanceBalancePresenter()
     override val layoutResource: Int = R.layout.activity_finance_balance
 
-    private var financeBalanceList: ArrayList<BalanceFinance.GetBalanceSearchDateTransactionData>? = arrayListOf()
+    private var financeBalanceList: ArrayList<BalanceFinance.GetBalanceSearchDateTransactionData>? =
+        arrayListOf()
 
     private var balanceFilterSelect = ""
     private var selectedDateStart = ""
@@ -60,15 +62,26 @@ class FinanceBalanceActivity :
                 onSwapRefresh()
                 loadMoreData()
 
-                swipeRefreshBalance.setColorSchemeColors(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
+                swipeRefreshBalance.setColorSchemeColors(
+                    ContextCompat.getColor(
+                        UTSwapApp.instance,
+                        R.color.primary
+                    )
+                )
 
                 /* Export as File bottom sheet dialog */
                 exportAsPdf.setOnClickListener {
-                    if (selectedDateStart.isNotEmpty() && selectedDateEnd.isNotEmpty()){
-                        mPresenter.onGetExportBalance(BalanceFinance.ExportFinanceBalanceObject(selectedDateStart, selectedDateEnd, balanceFilterSelect), UTSwapApp.instance)
-                    } else{
+                    if (selectedDateStart.isNotEmpty() && selectedDateEnd.isNotEmpty()) {
+                        mPresenter.onGetExportBalance(
+                            BalanceFinance.ExportFinanceBalanceObject(
+                                selectedDateStart,
+                                selectedDateEnd,
+                                balanceFilterSelect
+                            ), UTSwapApp.instance
+                        )
+                    } else {
                         val financeExportBalance = FinanceExportFileBottomSheet(
-                            object : FinanceExportFileBottomSheet.CallBackExportBalance{
+                            object : FinanceExportFileBottomSheet.CallBackExportBalance {
                                 override fun onExportBalance(
                                     startDateExport: String,
                                     endDateExport: String
@@ -76,7 +89,13 @@ class FinanceBalanceActivity :
                                     selectStartDateExport = startDateExport
                                     selectEndDateExport = endDateExport
 
-                                    mPresenter.onGetExportBalance(BalanceFinance.ExportFinanceBalanceObject(selectStartDateExport, selectEndDateExport, balanceFilterSelect), UTSwapApp.instance)
+                                    mPresenter.onGetExportBalance(
+                                        BalanceFinance.ExportFinanceBalanceObject(
+                                            selectStartDateExport,
+                                            selectEndDateExport,
+                                            balanceFilterSelect
+                                        ), UTSwapApp.instance
+                                    )
                                 }
                             }
                         )
@@ -90,7 +109,7 @@ class FinanceBalanceActivity :
                 filterButton.setOnClickListener {
                     val financeFilterBottomSheet = FinanceFilterBottomSheet(
                         balanceFilterSelect,
-                        object: FinanceFilterBottomSheet.CallBackFilterListener{
+                        object : FinanceFilterBottomSheet.CallBackFilterListener {
                             override fun onChangeFilterSelected(balanceFilterSelected: String) {
                                 balanceFilterSelect = balanceFilterSelected
                                 onClearList()
@@ -98,7 +117,14 @@ class FinanceBalanceActivity :
                                 pageBalance = 1
                                 countLoop = 2
                                 loadingProgressBar.visibility = View.VISIBLE
-                                mPresenter.onGetUserBalanceFilterDate(BalanceFinance.GetBalanceSearchDateObject(selectedDateStart, selectedDateEnd, balanceFilterSelect, pageBalance), UTSwapApp.instance)
+                                mPresenter.onGetUserBalanceFilterDate(
+                                    BalanceFinance.GetBalanceSearchDateObject(
+                                        selectedDateStart,
+                                        selectedDateEnd,
+                                        balanceFilterSelect,
+                                        pageBalance
+                                    ), UTSwapApp.instance
+                                )
                             }
                         }
                     )
@@ -107,41 +133,57 @@ class FinanceBalanceActivity :
 
                 /* Select Date Range bottom sheet dialog */
                 selectDateRange.setOnClickListener {
-                    val financeSelectDateRangeBottomSheetBalance = FinanceSelectDateRangeBottomSheet(
-                        object: FinanceSelectDateRangeBottomSheet.CallBackSelectDateRangeBalance{
-                            override fun onChangeFilterSelectDateRange(
-                                selectDateStart: String,
-                                selectDateEnd: String
-                            ) {
-                                selectedDateStart = selectDateStart
-                                selectedDateEnd = selectDateEnd
-                                invisibleText()
-                                onClearList()
-                                pageBalance = 1
-                                countLoop = 2
-                                loadingProgressBar.visibility = View.VISIBLE
+                    val financeSelectDateRangeBottomSheetBalance =
+                        FinanceSelectDateRangeBottomSheet(
+                            object :
+                                FinanceSelectDateRangeBottomSheet.CallBackSelectDateRangeBalance {
+                                override fun onChangeFilterSelectDateRange(
+                                    selectDateStart: String,
+                                    selectDateEnd: String
+                                ) {
+                                    selectedDateStart = selectDateStart
+                                    selectedDateEnd = selectDateEnd
+                                    invisibleText()
+                                    onClearList()
+                                    pageBalance = 1
+                                    countLoop = 2
+                                    loadingProgressBar.visibility = View.VISIBLE
 
-                                if (selectDateEnd.isNotEmpty()){
-                                    txtBalanceDateStart.visibility = View.VISIBLE
-                                    txtBalanceDateEnd.visibility = View.VISIBLE
-                                    txtBalanceDateTo.visibility = View.VISIBLE
-                                    txtBalanceSelectDateFromTo.visibility = View.GONE
-                                    txtBalanceDateStart.text = selectDateStart
-                                    txtBalanceDateEnd.text = selectDateEnd
+                                    if (selectDateEnd.isNotEmpty()) {
+                                        txtBalanceDateStart.visibility = View.VISIBLE
+                                        txtBalanceDateEnd.visibility = View.VISIBLE
+                                        txtBalanceDateTo.visibility = View.VISIBLE
+                                        txtBalanceSelectDateFromTo.visibility = View.GONE
+                                        txtBalanceDateStart.text = selectDateStart
+                                        txtBalanceDateEnd.text = selectDateEnd
+                                    }
+
+                                    mPresenter.onGetUserBalanceFilterDate(
+                                        BalanceFinance.GetBalanceSearchDateObject(
+                                            selectedDateStart,
+                                            selectedDateEnd,
+                                            balanceFilterSelect,
+                                            pageBalance
+                                        ), UTSwapApp.instance
+                                    )
+
                                 }
-
-                                mPresenter.onGetUserBalanceFilterDate(BalanceFinance.GetBalanceSearchDateObject(selectedDateStart, selectedDateEnd, balanceFilterSelect, pageBalance), UTSwapApp.instance)
-
                             }
-                        }
-                    )
+                        )
                     financeSelectDateRangeBottomSheetBalance.show(
                         supportFragmentManager, "Select Date Range User Balance"
                     )
                 }
 
-                readMore.setOnClickListener{
-                    mPresenter.onGetUserBalanceFilterDate(BalanceFinance.GetBalanceSearchDateObject(selectedDateStart, selectedDateEnd, balanceFilterSelect, pageBalance), UTSwapApp.instance)
+                readMore.setOnClickListener {
+                    mPresenter.onGetUserBalanceFilterDate(
+                        BalanceFinance.GetBalanceSearchDateObject(
+                            selectedDateStart,
+                            selectedDateEnd,
+                            balanceFilterSelect,
+                            pageBalance
+                        ), UTSwapApp.instance
+                    )
                 }
 
             }
@@ -150,14 +192,14 @@ class FinanceBalanceActivity :
         }
     }
 
-    private fun onCallApi(){
-        Tovuti.from(UTSwapApp.instance).monitor{ _, isConnected, _ ->
-            if(isConnected) {
+    private fun onCallApi() {
+        Tovuti.from(UTSwapApp.instance).monitor { _, isConnected, _ ->
+            if (isConnected) {
                 mPresenter.onGetUserBalanceInfo(UTSwapApp.instance)
                 binding.progressBar.visibility = View.GONE
                 binding.loadingProgressBar.visibility = View.VISIBLE
                 binding.swipeRefreshBalance.visibility = View.VISIBLE
-            }else{
+            } else {
                 binding.swipeRefreshBalance.visibility = View.GONE
                 binding.progressBar.visibility = View.VISIBLE
             }
@@ -169,12 +211,27 @@ class FinanceBalanceActivity :
         binding.apply {
             pageBalance = 1
             countLoop = 2
-            txtTotalAmount.text = "$ " + data.total_balance?.let { UtilKt().formatValue(it, "###,###.##") }
-            txtAvailableAmount.text = "$ " + data.available_balance?.let { UtilKt().formatValue(it.toDouble(), "###,###.##") }
-            txtPendingAmount.text = "$ " + data.pending?.let { UtilKt().formatValue(it.toDouble(), "###,###.##") }
-            mPresenter.onGetUserBalanceFilterDate(BalanceFinance.GetBalanceSearchDateObject(selectedDateStart, selectedDateEnd, balanceFilterSelect, pageBalance), UTSwapApp.instance)
+            txtTotalAmount.text =
+                "$ " + data.total_balance?.let { UtilKt().formatValue(it, "###,###.##") }
+            txtAvailableAmount.text = "$ " + data.available_balance?.let {
+                UtilKt().formatValue(
+                    it.toDouble(),
+                    "###,###.##"
+                )
+            }
+            txtPendingAmount.text =
+                "$ " + data.pending?.let { UtilKt().formatValue(it.toDouble(), "###,###.##") }
+            mPresenter.onGetUserBalanceFilterDate(
+                BalanceFinance.GetBalanceSearchDateObject(
+                    selectedDateStart,
+                    selectedDateEnd,
+                    balanceFilterSelect,
+                    pageBalance
+                ), UTSwapApp.instance
+            )
         }
     }
+
     override fun onGetUserBalanceInfoFail(data: BalanceFinance.GetUserBalanceInfo) {}
     override fun onGetUserBalanceFilterDateSuccess(data: BalanceFinance.GetBalanceSearchDateData) {
         binding.apply {
@@ -184,39 +241,45 @@ class FinanceBalanceActivity :
 
             totalPageBalance = data.total_page!!
 
-            if (totalPageBalance >= pageBalance){
-                if (data.transaction.isNotEmpty()){
+            if (totalPageBalance >= pageBalance) {
+                if (data.transaction.isNotEmpty()) {
                     financeBalanceList?.addAll(data.transaction)
                     rvFinanceBalance.layoutManager = LinearLayoutManager(UTSwapApp.instance)
                     val financeBalanceAdapter = FinanceBalanceAdapter(onClickAdapter)
                     financeBalanceAdapter.items = financeBalanceList!!
                     rvFinanceBalance.adapter = financeBalanceAdapter
                 }
-                if (totalPageBalance == pageBalance){
+                if (totalPageBalance == pageBalance) {
                     txtEnd.visibility = View.GONE
-                }else{
+                } else {
                     // Loading More
                     Handler().postDelayed({
                         layNewsLoading.visibility = View.VISIBLE
                     }, 500)
                     pageBalance++
                 }
-            }else{
+            } else {
                 onClearList()
-                layNewsLoading.visibility =View.GONE
+                layNewsLoading.visibility = View.GONE
                 txtNoData.visibility = View.VISIBLE
             }
         }
     }
+
     override fun onGetUserBalanceFilterDateFail(data: BalanceFinance.GetBalanceSearchDate) {
         binding.swipeRefreshBalance.isRefreshing = false
     }
+
     override fun onGetExportBalanceSuccess(data: BalanceFinance.ExportFinanceBalanceData) {
         binding.apply {
             // This is download in browser
             val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(data.FILE_PATH))
-       //     startActivity(browserIntent)
-            PdfViewActivity.launchProjectInfoActivity(this@FinanceBalanceActivity, data.FILE_PATH)
+            //     startActivity(browserIntent)
+            PdfViewActivity.launchProjectInfoActivity(
+                this@FinanceBalanceActivity,
+                data.FILE_PATH,
+                "User Balance"
+            )
 //            val request = DownloadManager.Request(Uri.parse(data.FILE_PATH))
 //            val title = URLUtil.guessFileName(data.FILE_PATH, null, null)
 //            request.setTitle(title)
@@ -233,6 +296,7 @@ class FinanceBalanceActivity :
 
         }
     }
+
     override fun onGetExportBalanceFail(data: BalanceFinance.ExportFinanceBalance) {}
     override fun onUserExpiredToken() {
         ClientClearData.clearDataUser()
@@ -260,7 +324,7 @@ class FinanceBalanceActivity :
         }
 
     /* Auto Loading */
-    private fun loadMoreData(){
+    private fun loadMoreData() {
         binding.apply {
             nestedRvBalance.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
                 if (v.getChildAt(v.childCount - 1) != null) {
@@ -279,7 +343,7 @@ class FinanceBalanceActivity :
         }
     }
 
-    private fun onSwapRefresh(){
+    private fun onSwapRefresh() {
         binding.apply {
             swipeRefreshBalance.setOnRefreshListener {
                 onClearList()
@@ -289,12 +353,12 @@ class FinanceBalanceActivity :
         }
     }
 
-    private fun onClearList(){
+    private fun onClearList() {
         financeBalanceList?.clear()
         binding.rvFinanceBalance.adapter?.notifyDataSetChanged()
     }
 
-    private fun invisibleText(){
+    private fun invisibleText() {
         binding.apply {
             txtNoData.visibility = View.GONE
             layNewsLoading.visibility = View.GONE
@@ -311,8 +375,8 @@ class FinanceBalanceActivity :
             tbTitle.setTextColor(ContextCompat.getColor(applicationContext, R.color.primary))
             tb.setNavigationOnClickListener {
                 finish()
-                if (DepositSuccessfullyActivity.backToHome){
-                    startActivity(Intent(this@FinanceBalanceActivity,MainActivity::class.java))
+                if (DepositSuccessfullyActivity.backToHome) {
+                    startActivity(Intent(this@FinanceBalanceActivity, MainActivity::class.java))
                 }
             }
         }

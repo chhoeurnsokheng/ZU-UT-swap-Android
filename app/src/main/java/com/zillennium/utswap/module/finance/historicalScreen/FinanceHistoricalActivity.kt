@@ -1,7 +1,6 @@
 package com.zillennium.utswap.module.finance.historicalScreen
 
 
-
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
@@ -20,6 +19,7 @@ import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityFinanceHistoricalBinding
 import com.zillennium.utswap.models.financeHistorical.Historical
+import com.zillennium.utswap.module.finance.balanceScreen.pdfview.PdfViewActivity
 import com.zillennium.utswap.module.finance.historicalScreen.adapter.CustomDropDownAdapter
 import com.zillennium.utswap.module.finance.historicalScreen.adapter.HistoricalAllTransactionsAdapter
 import com.zillennium.utswap.module.finance.historicalScreen.adapter.HistoricalMyTransactionsAdapter
@@ -41,17 +41,20 @@ class FinanceHistoricalActivity :
     override val layoutResource: Int = R.layout.activity_finance_historical
 
     private var filterBottomSheetList: ArrayList<Historical.GetMarketNameData> = arrayListOf()
-    private var financeHistoricalMyTransaction: ArrayList<Historical.DataTransaction> = arrayListOf()
-    private var financeHistoricalTradeTransaction: ArrayList<Historical.TradeTransactionDate> = arrayListOf()
-    private var financeHistoricalAllTransaction: ArrayList<Historical.DataAllTransaction> = arrayListOf()
+    private var financeHistoricalMyTransaction: ArrayList<Historical.DataTransaction> =
+        arrayListOf()
+    private var financeHistoricalTradeTransaction: ArrayList<Historical.TradeTransactionDate> =
+        arrayListOf()
+    private var financeHistoricalAllTransaction: ArrayList<Historical.DataAllTransaction> =
+        arrayListOf()
 
     private var historicalTransactionSelected = Constants.HistoricalTransaction.MyTransactions
     private var marketNameFilter: String = ""
     private var marketNameDisplay: String = ""
-    private var historicalType:String = ""
+    private var historicalType: String = ""
     private var dateStart: String = ""
     private var dateEnd: String = ""
-    private var totalPageTrans: Int  = 1
+    private var totalPageTrans: Int = 1
     private var pageTrans: Int = 1
     private var countLoop: Int = 2
 
@@ -72,52 +75,66 @@ class FinanceHistoricalActivity :
                 onSwipeRefresh()
                 loadMoreData()
 
-                swipeRefresh.setColorSchemeColors(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
+                swipeRefresh.setColorSchemeColors(
+                    ContextCompat.getColor(
+                        UTSwapApp.instance,
+                        R.color.primary
+                    )
+                )
                 /* Back button */
                 backImage.setOnClickListener { finish() }
                 /* Historical Transaction Filter */
                 layHistoricalTransaction.setOnClickListener {
-                    val financeHistoricalFilterBottomSheet = FinanceHistoricalTransactionBottomSheet(
-                        historicalTransactionSelected,
-                        object: FinanceHistoricalTransactionBottomSheet.CallBackListener{
-                            override fun onChangeSelect(historicalTransactionSelect: String) {
+                    val financeHistoricalFilterBottomSheet =
+                        FinanceHistoricalTransactionBottomSheet(
+                            historicalTransactionSelected,
+                            object : FinanceHistoricalTransactionBottomSheet.CallBackListener {
+                                override fun onChangeSelect(historicalTransactionSelect: String) {
 
-                                onClearRecycleView()
-                                invisibleText()
-                                invisibleLayoutTransaction()
+                                    onClearRecycleView()
+                                    invisibleText()
+                                    invisibleLayoutTransaction()
 
-                                this@FinanceHistoricalActivity.historicalTransactionSelected = historicalTransactionSelect
-                                txtTransactionHistorical.text = this@FinanceHistoricalActivity.historicalTransactionSelected
+                                    this@FinanceHistoricalActivity.historicalTransactionSelected =
+                                        historicalTransactionSelect
+                                    txtTransactionHistorical.text =
+                                        this@FinanceHistoricalActivity.historicalTransactionSelected
 
-                                dateGroup = ""
-                                childData.clear()
+                                    dateGroup = ""
+                                    childData.clear()
 
-                                dateStart = ""
-                                dateEnd = ""
-                                selectStartDateExport = ""
-                                selectEndDateExport = ""
-                                historicalType = "0"
+                                    dateStart = ""
+                                    dateEnd = ""
+                                    selectStartDateExport = ""
+                                    selectEndDateExport = ""
+                                    historicalType = "0"
 
-                                txtSelectedDateStart.visibility = View.GONE
-                                txtSelectedDateEnd.visibility = View.GONE
-                                txtSelectDateTo.visibility = View.GONE
-                                txtSelectDateFromTo.visibility = View.VISIBLE
-                                txtSelectedDateStart.text = ""
-                                txtSelectedDateEnd.text = ""
+                                    txtSelectedDateStart.visibility = View.GONE
+                                    txtSelectedDateEnd.visibility = View.GONE
+                                    txtSelectDateTo.visibility = View.GONE
+                                    txtSelectDateFromTo.visibility = View.VISIBLE
+                                    txtSelectedDateStart.text = ""
+                                    txtSelectedDateEnd.text = ""
 
-                                onCallApi()
+                                    onCallApi()
+                                }
                             }
-                        }
+                        )
+                    financeHistoricalFilterBottomSheet.show(
+                        supportFragmentManager,
+                        "Filter Transaction"
                     )
-                    financeHistoricalFilterBottomSheet.show(supportFragmentManager, "Filter Transaction")
                 }
                 /* Filter button */
                 layFilterButton.setOnClickListener {
                     val financeHistoricalFilterBottomSheet = FinanceHistoricalFilterBottomSheet(
                         filterBottomSheetList,
                         historicalTransactionSelected,
-                        object: FinanceHistoricalFilterBottomSheet.CallBackFilterListener{
-                            override fun onFilterChangeSelect(historicalFilterSelect: String, marketName: String) {
+                        object : FinanceHistoricalFilterBottomSheet.CallBackFilterListener {
+                            override fun onFilterChangeSelect(
+                                historicalFilterSelect: String,
+                                marketName: String
+                            ) {
                                 dateGroup = ""
                                 childData.clear()
                                 onClearRecycleView()
@@ -130,54 +147,82 @@ class FinanceHistoricalActivity :
                             }
                         }
                     )
-                    financeHistoricalFilterBottomSheet.show(supportFragmentManager, "Filter History UT")
+                    financeHistoricalFilterBottomSheet.show(
+                        supportFragmentManager,
+                        "Filter History UT"
+                    )
                 }
                 /* Select Date Range */
                 laySelectDateRange.setOnClickListener {
-                    val financeHistoricalSelectDateRangeBottomSheet = FinanceHistoricalSelectDateRangeBottomSheet(
-                        dateStart,
-                        dateEnd,
-                        object: FinanceHistoricalSelectDateRangeBottomSheet.CallBackDateListener{
-                            override fun onSelectDateChangeSelect(startDate: String, endDate: String) {
-                                dateGroup = ""
-                                childData.clear()
-                                onClearRecycleView()
-                                invisibleText()
-                                dateStart = startDate
-                                dateEnd = endDate
-                                if (endDate.isNotEmpty()){
-                                    txtSelectedDateStart.visibility = View.VISIBLE
-                                    txtSelectedDateEnd.visibility = View.VISIBLE
-                                    txtSelectDateTo.visibility = View.VISIBLE
-                                    txtSelectDateFromTo.visibility = View.GONE
-                                    txtSelectedDateStart.text = dateStart
-                                    txtSelectedDateEnd.text = dateEnd
-                                }
-
-                                bodyHistoryTransaction()
-                            }
-                        }
-                    )
-                    financeHistoricalSelectDateRangeBottomSheet.show(supportFragmentManager, "Select date range")
-                }
-                /* Export Button */
-                exportAsPdf.setOnClickListener {
-                    if (dateStart.isNotEmpty() && dateEnd.isNotEmpty()){
-                        mPresenter.onExportHistorical(Historical.exportHistoricalObject(marketNameFilter, dateStart, dateEnd), UTSwapApp.instance)
-                    }else{
-                        val financeHistoricalExportFileBottomSheet = FinanceHistoricalExportFileBottomSheet(
-                            object : FinanceHistoricalExportFileBottomSheet.CallBackDateExportListener {
-                                override fun onExportDate(
-                                    startDateExport: String,
-                                    endDateExport: String
+                    val financeHistoricalSelectDateRangeBottomSheet =
+                        FinanceHistoricalSelectDateRangeBottomSheet(
+                            dateStart,
+                            dateEnd,
+                            object :
+                                FinanceHistoricalSelectDateRangeBottomSheet.CallBackDateListener {
+                                override fun onSelectDateChangeSelect(
+                                    startDate: String,
+                                    endDate: String
                                 ) {
-                                    selectStartDateExport = startDateExport
-                                    selectEndDateExport = endDateExport
-                                    mPresenter.onExportHistorical(Historical.exportHistoricalObject(marketNameFilter, selectStartDateExport, selectEndDateExport), UTSwapApp.instance)
+                                    dateGroup = ""
+                                    childData.clear()
+                                    onClearRecycleView()
+                                    invisibleText()
+                                    dateStart = startDate
+                                    dateEnd = endDate
+                                    if (endDate.isNotEmpty()) {
+                                        txtSelectedDateStart.visibility = View.VISIBLE
+                                        txtSelectedDateEnd.visibility = View.VISIBLE
+                                        txtSelectDateTo.visibility = View.VISIBLE
+                                        txtSelectDateFromTo.visibility = View.GONE
+                                        txtSelectedDateStart.text = dateStart
+                                        txtSelectedDateEnd.text = dateEnd
+                                    }
+
+                                    bodyHistoryTransaction()
                                 }
                             }
                         )
-                        financeHistoricalExportFileBottomSheet.show(supportFragmentManager, "Export File")
+                    financeHistoricalSelectDateRangeBottomSheet.show(
+                        supportFragmentManager,
+                        "Select date range"
+                    )
+                }
+                /* Export Button */
+                exportAsPdf.setOnClickListener {
+                    if (dateStart.isNotEmpty() && dateEnd.isNotEmpty()) {
+                        mPresenter.onExportHistorical(
+                            Historical.exportHistoricalObject(
+                                marketNameFilter,
+                                dateStart,
+                                dateEnd
+                            ), UTSwapApp.instance
+                        )
+                    } else {
+                        val financeHistoricalExportFileBottomSheet =
+                            FinanceHistoricalExportFileBottomSheet(
+                                object :
+                                    FinanceHistoricalExportFileBottomSheet.CallBackDateExportListener {
+                                    override fun onExportDate(
+                                        startDateExport: String,
+                                        endDateExport: String
+                                    ) {
+                                        selectStartDateExport = startDateExport
+                                        selectEndDateExport = endDateExport
+                                        mPresenter.onExportHistorical(
+                                            Historical.exportHistoricalObject(
+                                                marketNameFilter,
+                                                selectStartDateExport,
+                                                selectEndDateExport
+                                            ), UTSwapApp.instance
+                                        )
+                                    }
+                                }
+                            )
+                        financeHistoricalExportFileBottomSheet.show(
+                            supportFragmentManager,
+                            "Export File"
+                        )
                     }
 
                 }
@@ -185,13 +230,35 @@ class FinanceHistoricalActivity :
                 readMore.setOnClickListener {
                     when (historicalTransactionSelected) {
                         Constants.HistoricalTransaction.MyTransactions -> {
-                            mPresenter.onGetUserTransaction(Historical.UserTransactionObject(marketNameFilter, dateStart, dateEnd, historicalType, pageTrans.toString()), UTSwapApp.instance)
+                            mPresenter.onGetUserTransaction(
+                                Historical.UserTransactionObject(
+                                    marketNameFilter,
+                                    dateStart,
+                                    dateEnd,
+                                    historicalType,
+                                    pageTrans.toString()
+                                ), UTSwapApp.instance
+                            )
                         }
                         Constants.HistoricalTransaction.Trade -> {
-                            mPresenter.onGetTradeTransaction(Historical.TradeTransactionObject(marketNameFilter, dateStart, dateEnd, pageTrans.toString()), UTSwapApp.instance)
+                            mPresenter.onGetTradeTransaction(
+                                Historical.TradeTransactionObject(
+                                    marketNameFilter,
+                                    dateStart,
+                                    dateEnd,
+                                    pageTrans.toString()
+                                ), UTSwapApp.instance
+                            )
                         }
                         Constants.HistoricalTransaction.AllTransactions -> {
-                            mPresenter.onGetAllTransaction(Historical.AllTransactionObject(marketNameFilter, dateStart, dateEnd, pageTrans.toString()), UTSwapApp.instance)
+                            mPresenter.onGetAllTransaction(
+                                Historical.AllTransactionObject(
+                                    marketNameFilter,
+                                    dateStart,
+                                    dateEnd,
+                                    pageTrans.toString()
+                                ), UTSwapApp.instance
+                            )
                         }
                     }
                 }
@@ -201,11 +268,10 @@ class FinanceHistoricalActivity :
         }
     }
 
-    private fun onCheckInternet(){
-        Tovuti.from(UTSwapApp.instance).monitor{ _, isConnected, _ ->
-            if(isConnected)
-            {
-                when(historicalTransactionSelected) {
+    private fun onCheckInternet() {
+        Tovuti.from(UTSwapApp.instance).monitor { _, isConnected, _ ->
+            if (isConnected) {
+                when (historicalTransactionSelected) {
                     Constants.HistoricalTransaction.MyTransactions -> {
                         binding.layMyTransactions.visibility = View.VISIBLE
                     }
@@ -219,7 +285,7 @@ class FinanceHistoricalActivity :
                 binding.progressBar.visibility = View.GONE
                 binding.swipeRefresh.visibility = View.VISIBLE
                 onCallApi()
-            }else{
+            } else {
                 onClearRecycleView()
                 invisibleLayoutTransaction()
                 invisibleText()
@@ -228,8 +294,9 @@ class FinanceHistoricalActivity :
             }
         }
     }
+
     private fun onCallApi() {
-        when(historicalTransactionSelected) {
+        when (historicalTransactionSelected) {
             Constants.HistoricalTransaction.MyTransactions -> {
                 mPresenter.onGetMarketName()
             }
@@ -243,7 +310,7 @@ class FinanceHistoricalActivity :
     }
 
     /* Auto Loading */
-    private fun loadMoreData(){
+    private fun loadMoreData() {
         binding.apply {
             nestedRv.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
                 if (v.getChildAt(v.childCount - 1) != null) {
@@ -266,7 +333,7 @@ class FinanceHistoricalActivity :
     override fun onGetMarketNameSuccess(data: List<Historical.GetMarketNameData>) {
         binding.apply {
             if (data.isNotEmpty()) {
-                when(historicalTransactionSelected) {
+                when (historicalTransactionSelected) {
                     Constants.HistoricalTransaction.MyTransactions -> {
                         filterBottomSheetList.clear()
                         filterBottomSheetList.addAll(data)
@@ -300,6 +367,7 @@ class FinanceHistoricalActivity :
             }
         }
     }
+
     override fun onGetMarketNameFail(data: Historical.GetMarketName) {}
     override fun onGetUserTransactionSuccess(data: Historical.UserTransactionData) {
         binding.apply {
@@ -310,7 +378,7 @@ class FinanceHistoricalActivity :
 
             totalPageTrans = data.TOTAL_PAGE!!
 
-            if(totalPageTrans >= pageTrans){
+            if (totalPageTrans >= pageTrans) {
                 if (data.TRANSACTION.isNotEmpty()) {
                     layMyTransactions.visibility = View.VISIBLE
                     financeHistoricalMyTransaction.addAll(data.TRANSACTION)
@@ -320,26 +388,27 @@ class FinanceHistoricalActivity :
                     rvFinanceHistorical.adapter = historicalMyTransactionsAdapter
                 }
 
-                if(totalPageTrans == pageTrans){
+                if (totalPageTrans == pageTrans) {
                     // Text End
 
                     Handler().postDelayed({
                         txtEnd.visibility = View.VISIBLE
                     }, 500)
-                }else{
+                } else {
                     // Loading More
                     Handler().postDelayed({
                         layNewsLoading.visibility = View.VISIBLE
                     }, 500)
                     pageTrans++
                 }
-            }else{
+            } else {
                 onClearRecycleView()
-                layNewsLoading.visibility =View.GONE
+                layNewsLoading.visibility = View.GONE
                 txtNoData.visibility = View.VISIBLE
             }
         }
     }
+
     override fun onGetUserTransactionFail(data: Historical.UserTransaction) {
         binding.apply {
             onClearRecycleView()
@@ -348,6 +417,7 @@ class FinanceHistoricalActivity :
             swipeRefresh.isRefreshing = false
         }
     }
+
     override fun onGetTradeTransactionSuccess(data: Historical.TradeTransactionData) {
         binding.apply {
             loadingProgressBar.visibility = View.GONE
@@ -357,39 +427,51 @@ class FinanceHistoricalActivity :
 
             totalPageTrans = data.TOTAL_PAGE!!
 
-            if(totalPageTrans >= pageTrans) {
+            if (totalPageTrans >= pageTrans) {
                 if (data.TRADE_TRANSACTION.isNotEmpty()) {
                     layTrade.visibility = View.VISIBLE
 
-                    for(tradeTransaction in data.TRADE_TRANSACTION){
-                        if(dateGroup == ""){
+                    for (tradeTransaction in data.TRADE_TRANSACTION) {
+                        if (dateGroup == "") {
                             dateGroup = tradeTransaction.addtimeReadble.toString()
                         }
-                        if(dateGroup != tradeTransaction.addtimeReadble){
+                        if (dateGroup != tradeTransaction.addtimeReadble) {
 
-                            if(financeHistoricalTradeTransaction.isNotEmpty()){
-                                if(financeHistoricalTradeTransaction.last().TRADE_DATE == dateGroup){
+                            if (financeHistoricalTradeTransaction.isNotEmpty()) {
+                                if (financeHistoricalTradeTransaction.last().TRADE_DATE == dateGroup) {
                                     financeHistoricalTradeTransaction.removeLast()
                                 }
                             }
 
-                            financeHistoricalTradeTransaction.add(Historical.TradeTransactionDate(dateGroup, childData))
+                            financeHistoricalTradeTransaction.add(
+                                Historical.TradeTransactionDate(
+                                    dateGroup,
+                                    childData
+                                )
+                            )
                             dateGroup = tradeTransaction.addtimeReadble.toString()
                             childData = arrayListOf()
                         }
-                        childData.add(Historical.DataTradeDateTransaction(
-                            tradeTransaction.market,
-                            tradeTransaction.opened_price,
-                            tradeTransaction.closed_price,
-                            tradeTransaction.min_value,
-                            tradeTransaction.high_value,
-                            tradeTransaction.volume,
-                            tradeTransaction.addtimeReadble
-                        ))
+                        childData.add(
+                            Historical.DataTradeDateTransaction(
+                                tradeTransaction.market,
+                                tradeTransaction.opened_price,
+                                tradeTransaction.closed_price,
+                                tradeTransaction.min_value,
+                                tradeTransaction.high_value,
+                                tradeTransaction.volume,
+                                tradeTransaction.addtimeReadble
+                            )
+                        )
                     }
 
-                    if(childData.isNotEmpty()){
-                        financeHistoricalTradeTransaction.add(Historical.TradeTransactionDate(dateGroup, childData))
+                    if (childData.isNotEmpty()) {
+                        financeHistoricalTradeTransaction.add(
+                            Historical.TradeTransactionDate(
+                                dateGroup,
+                                childData
+                            )
+                        )
                     }
 
                     rvFinanceHistorical.layoutManager = LinearLayoutManager(UTSwapApp.instance)
@@ -399,25 +481,26 @@ class FinanceHistoricalActivity :
 
                 }
 
-                if(totalPageTrans == pageTrans){
+                if (totalPageTrans == pageTrans) {
                     // Text End
                     Handler().postDelayed({
                         txtEnd.visibility = View.VISIBLE
                     }, 500)
-                }else{
+                } else {
                     // Loading More
                     Handler().postDelayed({
                         layNewsLoading.visibility = View.VISIBLE
                     }, 500)
                     pageTrans++
                 }
-            }else{
+            } else {
                 onClearRecycleView()
-                layNewsLoading.visibility =View.GONE
+                layNewsLoading.visibility = View.GONE
                 txtNoData.visibility = View.VISIBLE
             }
         }
     }
+
     override fun onGetTradeTransactionFail(data: Historical.TradeTransaction) {
         binding.apply {
             onClearRecycleView()
@@ -426,6 +509,7 @@ class FinanceHistoricalActivity :
             swipeRefresh.isRefreshing = false
         }
     }
+
     override fun onGetAllTransactionSuccess(data: Historical.AllTransactionData) {
         binding.apply {
             loadingProgressBar.visibility = View.GONE
@@ -435,13 +519,20 @@ class FinanceHistoricalActivity :
 
             totalPageTrans = data.TOTAL_PAGE!!
 
-            if(totalPageTrans >= pageTrans) {
-                if (data.TRADE_TRANSACTION.isNotEmpty()){
-                    if (pageTrans == 1){
+            if (totalPageTrans >= pageTrans) {
+                if (data.TRADE_TRANSACTION.isNotEmpty()) {
+                    if (pageTrans == 1) {
                         financeHistoricalAllTransaction.addAll(data.TRADE_TRANSACTION)
                         pageTrans++
-                        mPresenter.onGetAllTransaction(Historical.AllTransactionObject(marketNameFilter, dateStart, dateEnd, pageTrans.toString()), UTSwapApp.instance)
-                    }else{
+                        mPresenter.onGetAllTransaction(
+                            Historical.AllTransactionObject(
+                                marketNameFilter,
+                                dateStart,
+                                dateEnd,
+                                pageTrans.toString()
+                            ), UTSwapApp.instance
+                        )
+                    } else {
                         layAllTransaction.visibility = View.VISIBLE
                         financeHistoricalAllTransaction.addAll(data.TRADE_TRANSACTION)
                         rvFinanceHistorical.layoutManager = LinearLayoutManager(UTSwapApp.instance)
@@ -451,12 +542,12 @@ class FinanceHistoricalActivity :
                     }
                 }
 
-                if(totalPageTrans == pageTrans){
+                if (totalPageTrans == pageTrans) {
                     // Text End
                     Handler().postDelayed({
                         txtEnd.visibility = View.VISIBLE
                     }, 1000)
-                }else{
+                } else {
                     // Loading more
                     Handler().postDelayed({
                         layNewsLoading.visibility = View.VISIBLE
@@ -466,11 +557,12 @@ class FinanceHistoricalActivity :
             } else {
                 onClearRecycleView()
                 layAllTransaction.visibility = View.VISIBLE
-                layNewsLoading.visibility =View.GONE
+                layNewsLoading.visibility = View.GONE
                 txtNoData.visibility = View.VISIBLE
             }
         }
     }
+
     override fun onGetAllTransactionFail(data: Historical.AllTransaction) {
         binding.apply {
             onClearRecycleView()
@@ -479,12 +571,17 @@ class FinanceHistoricalActivity :
             swipeRefresh.isRefreshing = false
         }
     }
+
     override fun onExportHistoricalSuccess(data: Historical.DataExportHistorical) {
         binding.apply {
             // This is download in browser
-            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(data.FILE_PATH))
-            startActivity(browserIntent)
-
+//            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(data.FILE_PATH))
+//            startActivity(browserIntent)
+            PdfViewActivity.launchProjectInfoActivity(
+                this@FinanceHistoricalActivity,
+                data.FILE_PATH,
+                "My Transaction"
+            )
 //            val request = DownloadManager.Request(Uri.parse(data.FILE_PATH))
 //            val title = URLUtil.guessFileName(data.FILE_PATH, null, null)
 //            request.setTitle(title)
@@ -499,6 +596,7 @@ class FinanceHistoricalActivity :
 //            Toast.makeText(UTSwapApp.instance, "Downloading File.", Toast.LENGTH_SHORT).show()
         }
     }
+
     override fun onExportHistoricalFail(data: Historical.exportHistorical) {}
     override fun onUserExpiredToken() {
         ClientClearData.clearDataUser()
@@ -508,16 +606,24 @@ class FinanceHistoricalActivity :
     }
 
     /* Body */
-    private fun bodyHistoryTransaction(){
+    private fun bodyHistoryTransaction() {
         binding.apply {
-            when (historicalTransactionSelected){
+            when (historicalTransactionSelected) {
                 Constants.HistoricalTransaction.MyTransactions -> {
                     pageTrans = 1
                     countLoop = 2
                     txtHistoryMyTrans.text = marketNameDisplay
                     layMyTransactions.visibility = View.VISIBLE
                     loadingProgressBar.visibility = View.VISIBLE
-                    mPresenter.onGetUserTransaction(Historical.UserTransactionObject(marketNameFilter, dateStart, dateEnd, historicalType, pageTrans.toString()), UTSwapApp.instance)
+                    mPresenter.onGetUserTransaction(
+                        Historical.UserTransactionObject(
+                            marketNameFilter,
+                            dateStart,
+                            dateEnd,
+                            historicalType,
+                            pageTrans.toString()
+                        ), UTSwapApp.instance
+                    )
                 }
                 Constants.HistoricalTransaction.Trade -> {
                     pageTrans = 1
@@ -527,7 +633,14 @@ class FinanceHistoricalActivity :
                     txtTradeTitle.text = marketNameDisplay
                     layTrade.visibility = View.VISIBLE
                     loadingProgressBar.visibility = View.VISIBLE
-                    mPresenter.onGetTradeTransaction(Historical.TradeTransactionObject(marketNameFilter, dateStart, dateEnd, pageTrans.toString()), UTSwapApp.instance)
+                    mPresenter.onGetTradeTransaction(
+                        Historical.TradeTransactionObject(
+                            marketNameFilter,
+                            dateStart,
+                            dateEnd,
+                            pageTrans.toString()
+                        ), UTSwapApp.instance
+                    )
                 }
                 Constants.HistoricalTransaction.AllTransactions -> {
                     pageTrans = 1
@@ -535,14 +648,21 @@ class FinanceHistoricalActivity :
                     txtAllTransTitle.text = marketNameDisplay
                     layAllTransaction.visibility = View.VISIBLE
                     loadingProgressBar.visibility = View.VISIBLE
-                    mPresenter.onGetAllTransaction(Historical.AllTransactionObject(marketNameFilter, dateStart, dateEnd, pageTrans.toString()), UTSwapApp.instance)
+                    mPresenter.onGetAllTransaction(
+                        Historical.AllTransactionObject(
+                            marketNameFilter,
+                            dateStart,
+                            dateEnd,
+                            pageTrans.toString()
+                        ), UTSwapApp.instance
+                    )
                 }
             }
         }
     }
 
     /* Spinner */
-    private fun filterType(){
+    private fun filterType() {
         binding.apply {
             val data = ArrayList<String>()
             data.add("ALL")
@@ -562,9 +682,9 @@ class FinanceHistoricalActivity :
                     loadingProgressBar.visibility = View.GONE
                     invisibleText()
                     onClearRecycleView()
-                    if(historicalType == ""){
+                    if (historicalType == "") {
                         historicalType = position.toString()
-                    }else{
+                    } else {
                         historicalType = position.toString()
                         bodyHistoryTransaction()
                     }
@@ -575,8 +695,9 @@ class FinanceHistoricalActivity :
             }
         }
     }
+
     /* Swipe Refresh */
-    private fun onSwipeRefresh(){
+    private fun onSwipeRefresh() {
         binding.apply {
             //swipe refresh to get page 1 again
             swipeRefresh.setOnRefreshListener {
@@ -587,26 +708,49 @@ class FinanceHistoricalActivity :
                     Constants.HistoricalTransaction.MyTransactions -> {
                         invisibleText()
                         countLoop = 2
-                        mPresenter.onGetUserTransaction(Historical.UserTransactionObject(marketNameFilter, dateStart, dateEnd, historicalType, "1"), UTSwapApp.instance)
+                        mPresenter.onGetUserTransaction(
+                            Historical.UserTransactionObject(
+                                marketNameFilter,
+                                dateStart,
+                                dateEnd,
+                                historicalType,
+                                "1"
+                            ), UTSwapApp.instance
+                        )
                     }
                     Constants.HistoricalTransaction.Trade -> {
                         invisibleText()
                         dateGroup = ""
                         childData.clear()
                         countLoop = 2
-                        mPresenter.onGetTradeTransaction(Historical.TradeTransactionObject(marketNameFilter, dateStart, dateEnd, "1"), UTSwapApp.instance)
+                        mPresenter.onGetTradeTransaction(
+                            Historical.TradeTransactionObject(
+                                marketNameFilter,
+                                dateStart,
+                                dateEnd,
+                                "1"
+                            ), UTSwapApp.instance
+                        )
                     }
                     Constants.HistoricalTransaction.AllTransactions -> {
                         invisibleText()
                         countLoop = 4
-                        mPresenter.onGetAllTransaction(Historical.AllTransactionObject(marketNameFilter, dateStart, dateEnd,"1"), UTSwapApp.instance)
+                        mPresenter.onGetAllTransaction(
+                            Historical.AllTransactionObject(
+                                marketNameFilter,
+                                dateStart,
+                                dateEnd,
+                                "1"
+                            ), UTSwapApp.instance
+                        )
                     }
                 }
             }
         }
     }
+
     /* Clear RecyclerView and text */
-    private fun onClearRecycleView(){
+    private fun onClearRecycleView() {
         binding.apply {
             financeHistoricalMyTransaction.clear()
             financeHistoricalTradeTransaction.clear()
@@ -614,14 +758,16 @@ class FinanceHistoricalActivity :
             rvFinanceHistorical.adapter?.notifyDataSetChanged()
         }
     }
-    private fun invisibleLayoutTransaction(){
+
+    private fun invisibleLayoutTransaction() {
         binding.apply {
             layMyTransactions.visibility = View.GONE
             layTrade.visibility = View.GONE
             layAllTransaction.visibility = View.GONE
         }
     }
-    private fun invisibleText(){
+
+    private fun invisibleText() {
         binding.apply {
             txtEnd.visibility = View.GONE
             txtNoData.visibility = View.GONE

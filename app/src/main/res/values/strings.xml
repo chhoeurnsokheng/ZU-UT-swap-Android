@@ -525,4 +525,5 @@
     <string name="transfer_internal_cash">Internal Cash Transfer</string>
     <string name="transfer_review"> Transfer Review </string>
     <string name="choose_theme_text">Dark Mode</string>
+    <string name="user_balance">User Balance</string>
 </resources>
