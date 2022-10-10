@@ -86,44 +86,6 @@ class FundPasswordFragment :
     override fun initView() {
         super.initView()
         toolBar()
-        /** clear focus when keyboard hide*/
-        activity?.let { it1 ->
-            setEventListener(
-                it1,
-                object : KeyboardVisibilityEventListener {
-                    override fun onVisibilityChanged(isOpen: Boolean) {
-                        if (!isOpen) {
-                            binding.numberVerification.forEach {
-                                if (it is EditText) {
-                                    if (it.text.isEmpty()) {
-                                        it.background = ContextCompat.getDrawable(
-                                            UTSwapApp.instance,
-                                            R.drawable.bg_border_bottom
-                                        )
-                                    }
-                                    it.clearFocus()
-
-                                }
-
-                            }
-                            binding.confirmNumberVerification.forEach {
-                                if (it is EditText) {
-                                    if (it.text.isEmpty()) {
-                                        it.background = ContextCompat.getDrawable(
-                                            UTSwapApp.instance,
-                                            R.drawable.bg_border_bottom
-                                        )
-                                    }
-                                    it.clearFocus()
-
-                                }
-                            }
-
-                        }
-                    }
-                })
-
-        }
 
         binding.root.rootView.setOnKeyListener { view, i, keyEvent ->
             if (i == KeyEvent.KEYCODE_BACK) {
@@ -375,6 +337,45 @@ class FundPasswordFragment :
                             UTSwapApp.instance,
                             R.drawable.bg_border_bottom_red
                         )
+                    }
+                } else {
+                    /** clear focus when keyboard hide*/
+                    activity?.let { it1 ->
+                        setEventListener(
+                            it1,
+                            object : KeyboardVisibilityEventListener {
+                                override fun onVisibilityChanged(isOpen: Boolean) {
+                                    if (!isOpen) {
+                                        binding.numberVerification.forEach {
+                                            if (it is EditText) {
+                                                if (it.text.isEmpty()) {
+                                                    it.background = ContextCompat.getDrawable(
+                                                        UTSwapApp.instance,
+                                                        R.drawable.bg_border_bottom
+                                                    )
+                                                }
+                                                it.clearFocus()
+
+                                            }
+
+                                        }
+                                        binding.confirmNumberVerification.forEach {
+                                            if (it is EditText) {
+                                                if (it.text.isEmpty()) {
+                                                    it.background = ContextCompat.getDrawable(
+                                                        UTSwapApp.instance,
+                                                        R.drawable.bg_border_bottom
+                                                    )
+                                                }
+                                                it.clearFocus()
+
+                                            }
+                                        }
+
+                                    }
+                                }
+                            })
+
                     }
                 }
             }
