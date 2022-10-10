@@ -249,7 +249,7 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
                 bannerImage.adapter = bannerLoopingPagerAdapter
             }
 
-            indicator.attachTo(bannerImage)
+            indicator.attachToPager(bannerImage)
             bannerImage.setLooperPic(true)
 
             bannerImage.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
@@ -263,12 +263,8 @@ class HomeFragment : BaseMvpFragment<HomeView.View, HomeView.Presenter, Fragment
                 override fun onPageSelected(position: Int) {
                     try {
 
+
                         if (isUserSwipe) {
-                            if (currentPosition < position) {
-
-                            } else if (currentPosition > position) {
-
-                            }
                             isUserSwipe = false
                         }
                     } catch (e: Exception) {

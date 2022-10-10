@@ -75,7 +75,7 @@ class ProjectInfoActivity :
                 onBackPressed()
             }
         checkBackPress()
-
+           progressbarGetData.visibility =View.VISIBLE
 
         }
     }

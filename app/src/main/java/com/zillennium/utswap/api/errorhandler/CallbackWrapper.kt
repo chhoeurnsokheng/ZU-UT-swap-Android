@@ -26,7 +26,7 @@ abstract class CallbackWrapper(e: Throwable, context: Context, var codesToPass: 
                 Log.d("Logger", "" + e.code())
                 val responseBody = e.message()
                 when (e.code()) {
-                    ErrorCode.BadRequest -> {
+                   /* ErrorCode.BadRequest -> {
                         if (!codesToPass.contains(e.code())) {
                             AlertUtil().alertRequestError(
                                 context,
@@ -38,8 +38,8 @@ abstract class CallbackWrapper(e: Throwable, context: Context, var codesToPass: 
                             )
                         }
                         onCallbackWrapper(ApiManager.NetworkErrorStatus.ON_ERROR, responseBody)
-                    }
-                    ErrorCode.Unauthorized -> {
+                    }*/
+                  /*  ErrorCode.Unauthorized -> {
                         AlertUtil().alertRequestError(
                             context,
                             "401",
@@ -58,8 +58,8 @@ abstract class CallbackWrapper(e: Throwable, context: Context, var codesToPass: 
                         )
                         onCallbackWrapper(ApiManager.NetworkErrorStatus.UNAUTHORIZED, "")
                         ///   popupSessionExpired(context, "")
-                    }
-                    ErrorCode.Forbidden -> {
+                    }*/
+                  /*  ErrorCode.Forbidden -> {
                         if (!codesToPass.contains(e.code())) {
                             AlertUtil().alertRequestError(
                                 context,
@@ -71,8 +71,8 @@ abstract class CallbackWrapper(e: Throwable, context: Context, var codesToPass: 
                             )
                         }
                         onCallbackWrapper(ApiManager.NetworkErrorStatus.ON_ERROR, responseBody)
-                    }
-                    ErrorCode.NotFound -> {
+                    }*/
+                  /*  ErrorCode.NotFound -> {
                         if (!codesToPass.contains(e.code())) {
                             AlertUtil().alertRequestError(
                                 context,
@@ -95,8 +95,8 @@ abstract class CallbackWrapper(e: Throwable, context: Context, var codesToPass: 
                         if (responseBody != null) {
                             onCallbackWrapper(ApiManager.NetworkErrorStatus.NOT_FOUND, responseBody)
                         }
-                    }
-                    ErrorCode.MethodNotAllowed -> {
+                    }*/
+                /*    ErrorCode.MethodNotAllowed -> {
                         if (!codesToPass.contains(e.code())) {
                             AlertUtil().alertRequestError(
                                 context,
@@ -108,8 +108,8 @@ abstract class CallbackWrapper(e: Throwable, context: Context, var codesToPass: 
                             )
                         }
                         onCallbackWrapper(ApiManager.NetworkErrorStatus.ON_ERROR, responseBody)
-                    }
-                    ErrorCode.RequestEntityTooLarge -> {
+                    }*/
+                  /*  ErrorCode.RequestEntityTooLarge -> {
                         if (!codesToPass.contains(e.code())) {
                             AlertUtil().alertRequestError(
                                 context,
@@ -121,8 +121,8 @@ abstract class CallbackWrapper(e: Throwable, context: Context, var codesToPass: 
                             )
                         }
                         onCallbackWrapper(ApiManager.NetworkErrorStatus.ON_ERROR, responseBody)
-                    }
-                    ErrorCode.UnProcessableEntity -> {
+                    }*/
+                /*    ErrorCode.UnProcessableEntity -> {
                         if (!codesToPass.contains(e.code())) {
                             AlertUtil().alertRequestError(
                                 context,
@@ -141,8 +141,8 @@ abstract class CallbackWrapper(e: Throwable, context: Context, var codesToPass: 
                             )
                         }
 //                        onCallbackWrapper(ApiManager.NetworkErrorStatus.ON_ERROR, responseBody)
-                    }
-                    ErrorCode.InternalServerError -> {
+                    }*/
+                 /*   ErrorCode.InternalServerError -> {
                         if (!codesToPass.contains(e.code())) {
                             AlertUtil().alertRequestError(
                                 context,
@@ -154,8 +154,8 @@ abstract class CallbackWrapper(e: Throwable, context: Context, var codesToPass: 
                             )
                         }
                         onCallbackWrapper(ApiManager.NetworkErrorStatus.ON_ERROR, responseBody)
-                    }
-                    ErrorCode.BadGateway -> {
+                    }*/
+                  /*  ErrorCode.BadGateway -> {
                         if (!codesToPass.contains(e.code())) {
                             AlertUtil().alertRequestError(
                                 context,
@@ -167,8 +167,8 @@ abstract class CallbackWrapper(e: Throwable, context: Context, var codesToPass: 
                             )
                         }
                         onCallbackWrapper(ApiManager.NetworkErrorStatus.ON_ERROR, responseBody)
-                    }
-                    ErrorCode.GatewayTimeout -> {
+                    }*/
+                 /*   ErrorCode.GatewayTimeout -> {
                         if (!codesToPass.contains(e.code())) {
                             AlertUtil().alertRequestError(
                                 context,
@@ -180,7 +180,7 @@ abstract class CallbackWrapper(e: Throwable, context: Context, var codesToPass: 
                             )
                         }
                         onCallbackWrapper(ApiManager.NetworkErrorStatus.ON_ERROR, responseBody)
-                    }
+                    }*/
                     else -> {
                         //  AlertUtil().alertAppRequestError(context)
                         val responseBody = e.response()?.errorBody()

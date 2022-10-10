@@ -75,10 +75,12 @@ class TransactionDetailActivity :
             txtUnitNet.visibility = View.VISIBLE
             txtUnitPrice.visibility = View.VISIBLE
 
-            if(data.type == "1")
+            if(data.type_trade_log == "BUY")
             {
                 txtStatus.text = resources.getString(R.string.buy)
-            }else{
+            }
+            if(data.type_trade_log == "SELL")
+            {
                 txtStatus.text = resources.getString(R.string.sell)
                 txtStatus.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
             }

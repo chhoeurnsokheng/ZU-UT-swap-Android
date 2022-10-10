@@ -19,7 +19,7 @@
                 android:layout_width="@dimen/dimen_32"
                 android:layout_height="@dimen/dimen_32"
                 android:layout_centerVertical="true"
-                android:src="@drawable/ic_baseline_arrow_back_24"
+                android:src="@drawable/ic_back_primary"
                 app:tint="@color/primary" />
 
             <TextView
@@ -35,49 +35,56 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_subscript"
                 style="?android:attr/borderlessButtonStyle"
-                android:layout_width="@dimen/dimen_110"
-                android:layout_height="@dimen/dimen_40"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dimen_30"
                 android:layout_alignParentEnd="true"
                 android:layout_centerInParent="true"
                 android:layout_centerVertical="true"
                 android:background="@drawable/bg_circular"
                 android:gravity="center"
+                android:textAlignment="center"
                 android:hint="@string/subscribe"
                 android:textAppearance="@style/regular_14"
                 android:textColorHint="@color/white"
                 android:visibility="invisible"
+                android:padding="@dimen/dimen_0"
                 app:backgroundTint="@color/primary" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_trade"
                 style="?android:attr/borderlessButtonStyle"
-                android:layout_width="@dimen/dimen_110"
-                android:layout_height="@dimen/dimen_40"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dimen_30"
                 android:layout_alignParentEnd="true"
                 android:layout_centerInParent="true"
                 android:layout_centerVertical="true"
                 android:background="@drawable/bg_circular_trade"
                 android:gravity="center"
                 android:hint="@string/trade"
+                android:padding="@dimen/dimen_0"
+                android:textAlignment="center"
                 android:textAppearance="@style/regular_14"
                 android:textColorHint="@color/white"
                 android:visibility="invisible"
-                app:backgroundTint="@color/yellow_19" />
+                app:backgroundTint="@color/secondary" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_upcoming"
                 style="?android:attr/borderlessButtonStyle"
-                android:layout_width="@dimen/dimen_110"
-                android:layout_height="@dimen/dimen_40"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dimen_30"
                 android:layout_alignParentEnd="true"
                 android:layout_centerInParent="true"
                 android:background="@drawable/bg_circular_trade"
                 android:gravity="center"
+                android:text="HELLO"
                 android:hint="@string/upcoming"
+                android:textAlignment="center"
                 android:textAppearance="@style/regular_14"
                 android:textColorHint="@color/white"
                 android:visibility="invisible"
-                app:backgroundTint="@color/yellow_19" />
+                android:padding="0dp"
+                app:backgroundTint="@color/secondary" />
         </RelativeLayout>
 
         <View
@@ -123,7 +130,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/dimen_5"
-                            android:layout_marginTop="@dimen/dimen_25"
+                            android:layout_marginTop="@dimen/dimen_10"
                             android:layout_marginEnd="@dimen/dimen_5"
                             android:layout_marginBottom="@dimen/dimen_10"
                             android:elevation="@dimen/dimen_0"
@@ -194,7 +201,7 @@
                                 android:drawablePadding="@dimen/dimen_5"
                                 android:gravity="center"
                                 android:text="@string/view_in_google_maps"
-                                android:textAppearance="@style/medium_14"
+                                android:textAppearance="@style/bold_18"
                                 android:textColor="@color/primary" />
                         </LinearLayout>
 
@@ -205,7 +212,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dimen_5"
-                        android:layout_marginTop="@dimen/dimen_50"
+                        android:layout_marginTop="@dimen/dimen_35"
                         android:gravity="center"
                         android:text="@string/investment_information"
                         android:textAppearance="@style/regular_16"
@@ -275,7 +282,6 @@
                             android:layout_marginTop="35dp" />
 
                         <include
-
                             android:id="@+id/layout_target_price"
                             layout="@layout/item_list_project_info_investment"
                             android:layout_width="match_parent"
@@ -347,7 +353,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="match_parent"
                                     android:layout_marginStart="@dimen/dimen_5"
-                                    android:gravity="center"
+
                                     android:text="@string/target_selling_price"
                                     android:textAppearance="@style/regular_14" />
 
@@ -373,7 +379,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginStart="@dimen/dimen_5"
-                                android:text="17%"
+                                android:text=""
                                 android:textAppearance="@style/medium_16"
                                 android:textColor="@color/primary" />
 
@@ -402,7 +408,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/terms_and_and_conditions"
-                            android:textAppearance="@style/regular_16"
+                            android:textAppearance="@style/medium_14"
                             android:textColor="@color/primary" />
 
                         <ImageView
@@ -429,8 +435,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dimen_5"
                         android:layout_marginBottom="@dimen/dimen_10"
-                        android:text=""
-                        android:textAppearance="@style/regular_14"
+                        android:textColor="@color/black"
+                        android:textAppearance="@style/medium_14"
                         android:visibility="gone" />
 
                     <RelativeLayout
@@ -445,7 +451,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/documents"
-                            android:textAppearance="@style/regular_16"
+                            android:textAppearance="@style/medium_14"
                             android:textColor="@color/primary" />
 
                         <ImageView

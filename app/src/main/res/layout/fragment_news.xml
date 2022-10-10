@@ -6,17 +6,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-
+        <View
+            android:layout_below="@+id/lay_header"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_1"
+            android:background="@color/gray_light"/>
         <RelativeLayout
             android:id="@+id/lay_header"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/dimen_10">
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/img_menu"
-                android:layout_width="@dimen/dimen_64"
-                android:layout_height="@dimen/dimen_64"
+                android:layout_width="@dimen/dimen_60"
+                android:layout_height="@dimen/dimen_60"
                 android:layout_centerVertical="true"
                 android:contentDescription="@string/menu"
                 android:padding="@dimen/dimen_20"
@@ -96,7 +99,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:overScrollMode="never"
-                    android:scrollbars="none" />
+                    android:scrollbars="none"
+                    android:layout_marginTop="@dimen/dimen_20" />
 
             </LinearLayout>
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

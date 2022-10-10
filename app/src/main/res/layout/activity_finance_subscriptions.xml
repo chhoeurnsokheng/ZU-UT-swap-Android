@@ -26,8 +26,7 @@
                 android:layout_marginEnd="@dimen/dimen_6"
                 android:layout_marginBottom="@dimen/dimen_22"
                 app:cardCornerRadius="@dimen/dimen_25"
-                app:cardElevation="@dimen/dimen_8"
-                >
+                app:cardElevation="@dimen/dimen_8">
 
                 <LinearLayout
                     android:id="@+id/lay_filter_button"
@@ -48,7 +47,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dimen_10"
                         android:text="@string/filter_"
-                        android:textAppearance="@style/medium_14"
+                        android:textAppearance="@style/bold_14"
                         android:textColor="@color/primary" />
 
                 </LinearLayout>
@@ -93,7 +92,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dimen_5"
                         android:text="@string/select_date_range"
-                        android:textAppearance="@style/medium_12"
+                        android:textAppearance="@style/bold_14"
                         android:textColor="@color/primary" />
 
                     <TextView

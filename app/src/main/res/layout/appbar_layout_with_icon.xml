@@ -15,7 +15,7 @@
             app:title="">
            <ImageView
                android:id="@+id/tb"
-               android:src="@drawable/ic_arrow_left"
+               android:src="@drawable/ic_back_primary"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:paddingRight="@dimen/dimen_8"/>
@@ -27,7 +27,6 @@
                 android:textAppearance="@style/bold_16"
                 android:textColor="@color/black"
                 android:textSize="@dimen/dimen_16"
-
                 android:visibility="visible" />
 
             <LinearLayout
@@ -41,13 +40,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_raduis_3_color_sucess"
-                    android:padding="@dimen/dimen_4"
-                    android:text=""
+                    android:text="HELLO"
                     android:textAllCaps="true"
-                    android:textAppearance="@style/regular_12"
+                    android:textAppearance="@style/nunito_san_extr_bold_12"
                     android:textColor="@color/white"
                     android:visibility="invisible"
-                    android:textSize="@dimen/dimen_12" />
+                    android:paddingStart="@dimen/dimen_6"
+                    android:paddingEnd="@dimen/dimen_6"
+                    android:paddingTop="@dimen/dimen_4"
+                    android:paddingBottom="@dimen/dimen_4" />
 
                 <ImageView
                     android:id="@+id/img_remember"
@@ -56,8 +57,7 @@
                     android:src="@drawable/ic_baseline_star_24"
                     android:layout_gravity="center"
                     android:layout_marginEnd="@dimen/dimen_10"
-                    android:layout_marginStart="@dimen/dimen_10"
-                    app:tint="@color/dark_gray" />
+                    android:layout_marginStart="@dimen/dimen_10" />
 
                 <ImageView
                     android:id="@+id/tb_left"

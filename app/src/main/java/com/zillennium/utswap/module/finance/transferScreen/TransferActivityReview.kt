@@ -48,6 +48,7 @@ class TransferActivityReview :
     override fun initView() {
         super.initView()
         toolBar()
+        FundPasswordDialog.backToTransferScreen  = true
         binding.apply {
             if (intent.hasExtra(Constants.Transfer.phoneNumber)) {
                 phoneNumber = intent.extras?.getString(Constants.Transfer.phoneNumber).toString()
@@ -97,7 +98,6 @@ class TransferActivityReview :
                 fundPasswordDialog.show(supportFragmentManager, "Fund Password Dialog Transfer")
             }
         }
-
 
     }
 

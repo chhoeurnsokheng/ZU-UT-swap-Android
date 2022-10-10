@@ -76,7 +76,7 @@ class ChangeLoginPasswordFragment :
                 override fun afterTextChanged(editable: Editable) {
                     txtPasswordMessage.visibility = View.GONE
                     etOldPassword.backgroundTintList =
-                        ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text))
+                        ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.gray_500))
 
                 }
             })
@@ -101,7 +101,7 @@ class ChangeLoginPasswordFragment :
                 override fun afterTextChanged(editable: Editable) {
                     txtPasswordMessage.visibility = View.GONE
                     etNewPassword.backgroundTintList =
-                        ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text))
+                        ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.gray_500))
 
                 }
             })
@@ -126,7 +126,7 @@ class ChangeLoginPasswordFragment :
                 override fun afterTextChanged(editable: Editable) {
                     txtPasswordMessage.visibility = View.GONE
                     etConfirmPassword.backgroundTintList =
-                        ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.secondary_text))
+                        ColorStateList.valueOf(ContextCompat.getColor(UTSwapApp.instance, R.color.gray_500))
 
                 }
             })
