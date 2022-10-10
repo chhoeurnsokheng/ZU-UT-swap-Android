@@ -66,8 +66,13 @@ android {
             signingConfig signingConfigs.debug
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 
-            buildConfigField "String", 'BASE_URL', '"https://dev-staging.zillionunited.io/api/"'
-            buildConfigField "String", 'BASE_SOCKET_URL', '"wss://dev-staging.zillionunited.io/"'
+
+            buildConfigField "String", 'BASE_URL', '"https://sandbox.utswap.io/api/"'
+            buildConfigField "String", 'BASE_SOCKET_URL', '"wss://sandbox.utswap.io/wsocket/"'
+            
+//            buildConfigField "String", 'BASE_URL', '"https://dev-staging.zillionunited.io/api/"'
+//            buildConfigField "String", 'BASE_SOCKET_URL', '"wss://dev-staging.zillionunited.io/"'
+
             buildConfigField "String", 'FIRE_BASE_URL', '"https://devzu.page.link"'
 
         }
@@ -79,11 +84,11 @@ android {
             signingConfig signingConfigs.debug
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 
-//            buildConfigField "String", 'BASE_URL', '"http://192.168.41.222/api/"'
-            buildConfigField "String", 'BASE_URL', '"https://dev-staging.zillionunited.io/api/"'
-            //  buildConfigField "String", 'BASE_URL', '"https://sandbox.utswap.io/api/"'
-            //buildConfigField "String", 'BASE_SOCKET_URL', '"ws://192.168.41.222/"'
-            buildConfigField "String", 'BASE_SOCKET_URL', '"wss://dev-staging.zillionunited.io/"'
+            buildConfigField "String", 'BASE_URL', '"https://sandbox.utswap.io/api/"'
+            buildConfigField "String", 'BASE_SOCKET_URL', '"wss://sandbox.utswap.io/wsocket/"'
+
+          //  buildConfigField "String", 'BASE_URL', '"https://dev-staging.zillionunited.io/api/"'
+          //  buildConfigField "String", 'BASE_SOCKET_URL', '"wss://dev-staging.zillionunited.io/"'
 
             buildConfigField "String", 'FIRE_BASE_URL', '"https://devzu.page.link"'
 

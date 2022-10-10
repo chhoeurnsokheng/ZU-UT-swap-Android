@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.zillennium.utswap.R
 import com.zillennium.utswap.databinding.ItemListNavbarNewsBinding
 import com.zillennium.utswap.models.newsService.News
 import com.zillennium.utswap.module.main.news.newsDetail.NewsDetailActivity
@@ -30,7 +31,11 @@ class HomeRecentNewsAdapter(private val item: List<News.NewsNew>) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: News.NewsNew) {
             binding.apply {
-                Glide.with(imgNews).load(data.img).fitCenter().into(imgNews)
+                Glide.with(imgNews)
+                    .load(data.img)
+                    .placeholder(R.drawable.ic_placeholder)
+                    .fitCenter()
+                    .into(imgNews)
                 txtTitle.text = data.title
                 txtDate.text = data.addtime
                 linerLayoutNews.setOnClickListener {
