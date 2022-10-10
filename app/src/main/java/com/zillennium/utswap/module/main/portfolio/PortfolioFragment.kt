@@ -149,10 +149,16 @@ class PortfolioFragment :
                     loadingProgressBar.visibility = View.VISIBLE
                     layTradingBalance.visibility = View.GONE
                     btnFilter.text = portfolioSelectType
-                    mPresenter.onGetPortfolio(
-                        Portfolio.GetPortfolioObject(typePortfolio),
-                        requireActivity()
-                    )
+                    activity?.let {
+                        mPresenter.onGetPortfolio(
+                            Portfolio.GetPortfolioObject(typePortfolio),
+                            it
+                        )
+                    }
+//                    mPresenter.onGetPortfolio(
+//                        Portfolio.GetPortfolioObject(typePortfolio),
+//                        requireActivity()
+//                    )
                 }
             }
         }
