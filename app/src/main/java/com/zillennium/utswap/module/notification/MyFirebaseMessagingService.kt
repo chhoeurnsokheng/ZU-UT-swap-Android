@@ -34,7 +34,9 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
 
     override fun onMessageReceived(message: RemoteMessage) {
-        Log.d("dataPayload", message.notification.toString())
+        if (message.data.isNotEmpty()) {
+            Log.d("dataPayload", message.data["title"].toString())
+        }
         if (message.notification != null) {
             displayNotification(
                 message.notification?.title.toString(),

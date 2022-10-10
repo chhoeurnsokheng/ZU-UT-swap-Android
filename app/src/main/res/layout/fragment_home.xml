@@ -162,7 +162,6 @@
                         android:text="Total Balance"
                         android:textAppearance="@style/bold_18"
                         android:textColor="@color/black" />
-
                     <LinearLayout
                         android:id="@+id/linear_layout_balance"
                         android:layout_width="match_parent"
