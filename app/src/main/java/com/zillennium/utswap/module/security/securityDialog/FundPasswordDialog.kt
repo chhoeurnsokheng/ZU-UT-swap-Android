@@ -87,36 +87,36 @@ class FundPasswordDialog : DialogFragment() {
 
                 imgBack.setOnClickListener {
                   //  backToTransferScreen = true
-                   // startActivity(Intent(requireActivity(), TransferActivityReview::class.java))
-                    when (javaClass.simpleName.toString()) {
-                        "WithdrawActivity" -> {
-                            dismiss()
-                        }
-                        "TransferActivity" -> {
-                            startActivity(Intent(requireActivity(), TransferActivityReview::class.java))
-                          //  dismiss()
-                        }
-                        else -> {
-                            val subscriptionConfirmDialog: SubscriptionConfirmDialog =
-                                SubscriptionConfirmDialog.newInstance(
-                                    arguments?.get("id").toString().toInt(),
-                                    arguments?.get("volume").toString(),
-                                    arguments?.get("title").toString(),
-                                    arguments?.get("project_name").toString(),
-                                    arguments?.get("lock_time").toString(),
-                                    arguments?.get("volume_price").toString().toDouble(),
-                                    arguments?.get("subscription_price").toString(),
-                                    Constants.SubscriptionBottomSheet.total_ut,
-                                    Constants.SubscriptionBottomSheet.min,
-                                    Constants.SubscriptionBottomSheet.max,
-                                )
-                            subscriptionConfirmDialog.show(
-                                requireActivity().supportFragmentManager,
-                                "balanceHistoryDetailDialog"
-                            )
-                            dismiss()
-                        }
-                    }
+                    startActivity(Intent(requireActivity(), TransferActivityReview::class.java))
+//                    when (javaClass.simpleName.toString()) {
+//                        "WithdrawActivity" -> {
+//                            dismiss()
+//                        }
+//                        "TransferActivity" -> {
+//                            startActivity(Intent(requireActivity(), TransferActivityReview::class.java))
+//                          //  dismiss()
+//                        }
+//                        else -> {
+//                            val subscriptionConfirmDialog: SubscriptionConfirmDialog =
+//                                SubscriptionConfirmDialog.newInstance(
+//                                    arguments?.get("id").toString().toInt(),
+//                                    arguments?.get("volume").toString(),
+//                                    arguments?.get("title").toString(),
+//                                    arguments?.get("project_name").toString(),
+//                                    arguments?.get("lock_time").toString(),
+//                                    arguments?.get("volume_price").toString().toDouble(),
+//                                    arguments?.get("subscription_price").toString(),
+//                                    Constants.SubscriptionBottomSheet.total_ut,
+//                                    Constants.SubscriptionBottomSheet.min,
+//                                    Constants.SubscriptionBottomSheet.max,
+//                                )
+//                            subscriptionConfirmDialog.show(
+//                                requireActivity().supportFragmentManager,
+//                                "balanceHistoryDetailDialog"
+//                            )
+//                            dismiss()
+//                        }
+//                    }
                 }
 
                 val numberList = arrayListOf(
