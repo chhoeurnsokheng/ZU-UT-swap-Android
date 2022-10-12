@@ -102,7 +102,6 @@ class IDVerificationFragment :
             etFirstName.hint = Util().getHtmlText("#DCDCDC", "Surename", "*", "#EE1111")
             etLastName.hint = Util().getHtmlText("#DCDCDC", "Name", "*", "#EE1111")
             etDate.hint = Util().getHtmlText("#DCDCDC", "Date of Birth", "*", "#EE1111")
-            spinnerGender.hint = Util().getHtmlText("#DCDCDC", "Gender", "*", "#EE1111")
 
 
         }
@@ -114,6 +113,10 @@ class IDVerificationFragment :
                 genderList.add("Male")
                 genderList.add("Female")
                 showDialog(genderList, "")
+                activity?.let {
+                    hideKeyboard(it)
+
+                }
             }
 
             val calendar = Calendar.getInstance()
@@ -126,11 +129,12 @@ class IDVerificationFragment :
                     val format = "MM/dd/yyyy"
                     val simpleDateFormat =
                         SimpleDateFormat(format, Locale.US)
-                    etDate.setText(simpleDateFormat.format(calendar.time))
+                    etDate.text = simpleDateFormat.format(calendar.time)
+                    txtErrorDate.visibility = View.GONE
+                    etDate.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_underline_text)
+
                 }
 
-            etDate.isFocusableInTouchMode = false
-            etDate.isLongClickable = false
             etDate.setOnClickListener {
                 DatePickerDialog(
                     this@IDVerificationFragment.requireActivity(),
@@ -139,6 +143,10 @@ class IDVerificationFragment :
                     calendar[Calendar.MONTH],
                     calendar[Calendar.DAY_OF_MONTH]
                 ).show()
+                activity?.let {
+                    hideKeyboard(it)
+
+                }
             }
 
 
@@ -157,16 +165,18 @@ class IDVerificationFragment :
                     i1: Int,
                     i2: Int
                 ) {
-                    txtErrorFirstName.visibility = View.GONE
-                    etFirstName.backgroundTintList =
-                        ColorStateList.valueOf(
-                            ContextCompat.getColor(
-                                UTSwapApp.instance,
-                                R.color.secondary_text
+                    if (charSequence.toString().isNotEmpty()) {
+                        txtErrorFirstName.visibility = View.GONE
+                        etFirstName.backgroundTintList =
+                            ColorStateList.valueOf(
+                                ContextCompat.getColor(
+                                    UTSwapApp.instance,
+                                    R.color.secondary_text
+                                )
                             )
-                        )
 
-//                    info.firstName = charSequence.toString()
+                    }
+
                 }
 
                 override fun afterTextChanged(editable: Editable?) {
@@ -191,16 +201,18 @@ class IDVerificationFragment :
                     i1: Int,
                     i2: Int
                 ) {
-                    txtErrorLastName.visibility = View.GONE
-                    etLastName.backgroundTintList =
-                        ColorStateList.valueOf(
-                            ContextCompat.getColor(
-                                UTSwapApp.instance,
-                                R.color.secondary_text
+                    if (charSequence.toString().isNotEmpty()) {
+                        txtErrorLastName.visibility = View.GONE
+                        etLastName.backgroundTintList =
+                            ColorStateList.valueOf(
+                                ContextCompat.getColor(
+                                    UTSwapApp.instance,
+                                    R.color.secondary_text
+                                )
                             )
-                        )
+                    }
 
-//                    info.lastName = charSequence.toString()
+
                 }
 
                 override fun afterTextChanged(editable: Editable?) {
@@ -210,40 +222,6 @@ class IDVerificationFragment :
                 }
             })
 
-            etDate.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(
-                    charSequence: CharSequence,
-                    i: Int,
-                    i1: Int,
-                    i2: Int
-                ) {
-                }
-
-                override fun onTextChanged(
-                    charSequence: CharSequence,
-                    i: Int,
-                    i1: Int,
-                    i2: Int
-                ) {
-                    txtErrorDate.visibility = View.GONE
-                    etDate.backgroundTintList =
-                        ColorStateList.valueOf(
-                            ContextCompat.getColor(
-                                UTSwapApp.instance,
-                                R.color.secondary_text
-                            )
-                        )
-
-//                    info.dateOfBirth = charSequence.toString()
-
-                }
-
-                override fun afterTextChanged(editable: Editable?) {
-                    date = editable.toString()
-
-                }
-            })
-//
             etHouse.addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(
                     charSequence: CharSequence,
@@ -274,7 +252,6 @@ class IDVerificationFragment :
                             )
                         )
 
-//                    info.addressHouse = charSequence.toString()
                 }
 
                 override fun afterTextChanged(editable: Editable?) {
@@ -291,7 +268,10 @@ class IDVerificationFragment :
         binding.apply {
 
             btnNext.setOnClickListener {
+                activity?.let {
+                    hideKeyboard(it)
 
+                }
                 var isHaveError = false
 
                 //  FirstName Error
@@ -323,27 +303,10 @@ class IDVerificationFragment :
                 // Date Of Birth Error
                 if (etDate.text.toString().isEmpty()) {
                     txtErrorDate.visibility = View.VISIBLE
-                    etDate.backgroundTintList =
-                        ColorStateList.valueOf(
-                            ContextCompat.getColor(
-                                UTSwapApp.instance,
-                                R.color.danger
-                            )
-                        )
+                    etDate.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_underline_error_text)
                     isHaveError = true
                 }
 
-                //Gender Error
-                if (gender.isEmpty()) {
-                    viewUnderlineGender.setBackgroundColor(
-                        ContextCompat.getColor(
-                            UTSwapApp.instance,
-                            R.color.danger
-                        )
-                    )
-                    txtErrorGender.visibility = View.VISIBLE
-                    isHaveError = true
-                }
 
                 // City/Province Error
                 if (tvValueCity.text.isEmpty()) {
@@ -354,6 +317,12 @@ class IDVerificationFragment :
                         )
                     )
                     txtErrorCity.visibility = View.VISIBLE
+                    isHaveError = true
+                }
+
+                if (tvGender.text.isEmpty()) {
+                    txtErrorGender.visibility = View.VISIBLE
+                    tvGender.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_underline_error_text)
                     isHaveError = true
                 }
 
@@ -502,6 +471,10 @@ class IDVerificationFragment :
 
         setEventShowDialog()
         binding.rlProvince.setOnClickListener {
+            activity?.let {
+                hideKeyboard(it)
+
+            }
             showDialog(provinceList, "province")
         }
 
@@ -564,6 +537,8 @@ class IDVerificationFragment :
             view = View(activity)
         }
         imm.hideSoftInputFromWindow(view.windowToken, 0)
+        binding.etFirstName.clearFocus()
+        binding.etLastName.clearFocus()
     }
 
 
@@ -622,14 +597,9 @@ class IDVerificationFragment :
             if (gender.isNotEmpty()) {
                 tvGender.text = gender
                 txtErrorGender.visibility = View.GONE
-
-                viewUnderlineGender.setBackgroundColor(
-                    ContextCompat.getColor(
-                        UTSwapApp.instance,
-                        R.color.secondary_text
-                    )
-                )
+                tvGender.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_underline_text)
             } else {
+
                 tvGender.text = ""
             }
 
@@ -643,7 +613,10 @@ class IDVerificationFragment :
 
             etFirstName.setText(sureName.ifEmpty { "" })
             etLastName.setText(name.ifEmpty { "" })
-            etDate.setText(date.ifEmpty { "" })
+            if (date.isNotEmpty()) {
+                etDate.text = date
+                txtErrorDate.visibility = View.GONE
+            }
 
 
         }
@@ -653,6 +626,9 @@ class IDVerificationFragment :
         if (district.isNotEmpty()) {
             binding.llCommune.isClickable = true
             binding.llCommune.setOnClickListener {
+                activity?.let {
+                    hideKeyboard(it)
+                }
                 showDialog(communeList, "commune")
             }
         } else {
@@ -661,12 +637,17 @@ class IDVerificationFragment :
         if (provice.isNotEmpty()) {
             binding.llDistrict.isClickable = true
             binding.llDistrict.setOnClickListener {
+                activity?.let {
+                    hideKeyboard(it)
+
+                }
                 showDialog(districtList, "district")
             }
         } else {
             binding.llDistrict.isClickable = false
         }
     }
+
 
 }
 
