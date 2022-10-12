@@ -160,17 +160,6 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
     }
 
-    private fun getBadgeNumber() {
-        val param = JsonObject()
-        param.addProperty("page", 1)
-        ApiNotificationImp().notification(this, param).subscribe({
-            if (it.status == 1) {
-                badgeCount = it.data?.countGroupNoti?.toInt() ?: 0
-            }
-        },{
-
-        })
-    }
 
 
 }

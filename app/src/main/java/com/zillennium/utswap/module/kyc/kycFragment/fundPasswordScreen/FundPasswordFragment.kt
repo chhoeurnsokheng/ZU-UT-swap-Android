@@ -948,12 +948,6 @@ class FundPasswordFragment :
         return encodeString
     }
 
-    private fun enableButton() {
-        binding.apply {
-            btnNext.isEnabled = newFundPassword.length == 4 && confirmPassword.length == 4
-        }
-    }
-
     private fun validateBtnNext() {
         binding.apply {
             btnNext.setOnClickListener {
