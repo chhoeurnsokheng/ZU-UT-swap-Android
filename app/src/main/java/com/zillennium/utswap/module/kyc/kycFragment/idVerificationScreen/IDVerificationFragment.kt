@@ -131,6 +131,7 @@ class IDVerificationFragment :
                         SimpleDateFormat(format, Locale.US)
                     etDate.text = simpleDateFormat.format(calendar.time)
                     txtErrorDate.visibility = View.GONE
+                    date = simpleDateFormat.format(calendar.time)
                     etDate.background = ContextCompat.getDrawable(UTSwapApp.instance, R.drawable.bg_underline_text)
 
                 }
