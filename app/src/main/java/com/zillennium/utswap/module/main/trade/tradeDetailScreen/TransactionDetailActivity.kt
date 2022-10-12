@@ -25,11 +25,17 @@ class TransactionDetailActivity :
     override var mPresenter: TransactionDetailView.Presenter = TransactionDetailPresenter()
     override val layoutResource: Int = R.layout.activity_trade_transactions_detail
     private var id: String? = null
+    private var type: String? = null
 
     companion object {
-        fun launchTransactionDetailsActivity(context: Context, transactionId: String?) {
+        fun launchTransactionDetailsActivity(
+            context: Context,
+            transactionId: String?,
+            type: String?
+        ) {
             val intent = Intent(context, TransactionDetailActivity::class.java)
             intent.putExtra("id", transactionId)
+            intent.putExtra("TYPE", type)
             context.startActivity(intent)
         }
     }
@@ -40,19 +46,45 @@ class TransactionDetailActivity :
         if (intent.hasExtra("id")) {
             id = intent?.getStringExtra("id")
         }
+        if (intent.hasExtra("TYPE")) {
+            type = intent?.getStringExtra("TYPE")
+            binding.apply {
+                if (type.toString() == "1") {
+                    txtStatus.text = resources.getString(R.string.buy)
+                }
+                if (type.toString() == "2") {
+                    txtStatus.text = resources.getString(R.string.sell)
+                    txtStatus.setTextColor(
+                        ContextCompat.getColor(
+                            UTSwapApp.instance,
+                            R.color.danger
+                        )
+                    )
+                }
+            }
+        }
 
-        binding.swipeRefresh.setColorSchemeColors(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
+        binding.swipeRefresh.setColorSchemeColors(
+            ContextCompat.getColor(
+                UTSwapApp.instance,
+                R.color.primary
+            )
+        )
 
         Tovuti.from(UTSwapApp.instance).monitor { _, isConnected, _ ->
             if (isConnected) {
-                mPresenter.onGetTransactionDetail(TradingList.TradeTransactionDetailObj(id.toString().toInt()),UTSwapApp.instance)
+                mPresenter.onGetTransactionDetail(
+                    TradingList.TradeTransactionDetailObj(
+                        id.toString().toInt()
+                    ), UTSwapApp.instance
+                )
             }
         }
 
         onSwipeRefresh()
 
         binding.apply {
-            imgBack.setOnClickListener{
+            imgBack.setOnClickListener {
                 finish()
             }
         }
@@ -60,6 +92,7 @@ class TransactionDetailActivity :
 
     override fun onGetTransactionDetailSuccess(data: TradingList.TradeTransactionDetailData) {
         binding.apply {
+
             txtDate.text = data.addtime.toString()
             txtTransactionId.text = data.transaction_id.toString()
             txtPrice.text = groupingSeparator(data.price.toString().toDouble())
@@ -75,15 +108,7 @@ class TransactionDetailActivity :
             txtUnitNet.visibility = View.VISIBLE
             txtUnitPrice.visibility = View.VISIBLE
 
-            if(data.type_trade_log == "BUY")
-            {
-                txtStatus.text = resources.getString(R.string.buy)
-            }
-            if(data.type_trade_log == "SELL")
-            {
-                txtStatus.text = resources.getString(R.string.sell)
-                txtStatus.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
-            }
+
 
             progressBar.visibility = View.GONE
             swipeRefresh.isRefreshing = false
@@ -95,13 +120,17 @@ class TransactionDetailActivity :
         binding.swipeRefresh.isRefreshing = false
     }
 
-    private fun onSwipeRefresh(){
+    private fun onSwipeRefresh() {
         binding.apply {
             swipeRefresh.setOnRefreshListener {
                 swipeRefresh.isRefreshing = true
                 Tovuti.from(UTSwapApp.instance).monitor { _, isConnected, _ ->
                     if (isConnected) {
-                        mPresenter.onGetTransactionDetail(TradingList.TradeTransactionDetailObj(id.toString().toInt()),UTSwapApp.instance)
+                        mPresenter.onGetTransactionDetail(
+                            TradingList.TradeTransactionDetailObj(
+                                id.toString().toInt()
+                            ), UTSwapApp.instance
+                        )
                     }
                 }
             }
