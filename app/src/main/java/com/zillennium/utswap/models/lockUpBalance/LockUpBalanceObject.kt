@@ -36,5 +36,6 @@ object LockUpBalanceObject {
         var nameid: String = ""
         var id: Int = 0
         var status: String = ""
+        var action_balance:String = ""
     }
 }

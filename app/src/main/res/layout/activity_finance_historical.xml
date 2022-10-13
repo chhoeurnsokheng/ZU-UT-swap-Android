@@ -21,7 +21,7 @@
                     android:layout_width="@dimen/dimen_64"
                     android:layout_height="@dimen/dimen_64"
                     android:padding="@dimen/dimen_16"
-                    android:src="@drawable/ic_baseline_arrow_back_24"
+                    android:src="@drawable/ic_back_primary"
                     app:tint="@color/primary" />
 
                 <com.google.android.material.textview.MaterialTextView
@@ -89,7 +89,8 @@
                         android:layout_marginEnd="@dimen/dimen_6"
                         android:layout_marginBottom="@dimen/dimen_22"
                         app:cardCornerRadius="@dimen/dimen_25"
-                        app:cardElevation="@dimen/dimen_8">
+                        app:cardElevation="@dimen/dimen_8"
+                        >
 
                         <LinearLayout
                             android:id="@+id/lay_filter_button"
@@ -111,7 +112,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/dimen_10"
                                 android:text="@string/filter_"
-                                android:textAppearance="@style/medium_14"
+                                android:textAppearance="@style/bold_14"
                                 android:textColor="@color/primary" />
 
                         </LinearLayout>
@@ -126,7 +127,8 @@
                         android:layout_marginEnd="@dimen/dimen_20"
                         android:layout_marginBottom="@dimen/dimen_22"
                         app:cardCornerRadius="@dimen/dimen_25"
-                        app:cardElevation="@dimen/dimen_8">
+                        app:cardElevation="@dimen/dimen_8"
+                        >
 
                         <LinearLayout
                             android:id="@+id/lay_select_date_range"
@@ -134,7 +136,8 @@
                             android:layout_height="@dimen/dimen_52"
                             android:gravity="center"
                             android:orientation="horizontal"
-                            android:paddingHorizontal="@dimen/dimen_15">
+                            android:paddingHorizontal="@dimen/dimen_15"
+                            >
 
                             <ImageView
                                 android:layout_width="@dimen/dimen_18"
@@ -157,7 +160,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/dimen_5"
                                 android:text="@string/select_date_range"
-                                android:textAppearance="@style/medium_14"
+                                android:textAppearance="@style/bold_14"
                                 android:textColor="@color/primary" />
 
                             <TextView
@@ -401,6 +404,21 @@
                                 android:gravity="center"
                                 android:visibility="gone" />
 
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <ProgressBar
+                                    android:id="@+id/loading_progress_bar"
+                                    android:layout_width="@dimen/dimen_30"
+                                    android:layout_height="@dimen/dimen_30"
+                                    android:layout_centerInParent="true"
+                                    android:layout_marginTop="@dimen/dimen_20"
+                                    android:indeterminateTint="@color/primary"
+                                    android:visibility="gone" />
+
+                            </RelativeLayout>
+
                         </LinearLayout>
 
                     </androidx.core.widget.NestedScrollView>
@@ -436,21 +454,6 @@
                 android:id="@+id/progress_bar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_marginTop="@dimen/dimen_20"
-                android:indeterminateTint="@color/primary"
-                android:visibility="gone" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ProgressBar
-                android:id="@+id/loading_progress_bar"
-                android:layout_width="@dimen/dimen_30"
-                android:layout_height="@dimen/dimen_30"
                 android:layout_centerInParent="true"
                 android:layout_marginTop="@dimen/dimen_20"
                 android:indeterminateTint="@color/primary"

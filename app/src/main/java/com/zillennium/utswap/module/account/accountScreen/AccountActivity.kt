@@ -1,6 +1,8 @@
 package com.zillennium.utswap.module.account.accountScreen
 
 import android.app.Activity
+import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -8,7 +10,9 @@ import android.text.Html
 import android.util.Base64
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
+import androidx.preference.PreferenceManager
 import com.androidstudy.networkmanager.Tovuti
 import com.bumptech.glide.Glide
 import com.github.dhaval2404.imagepicker.ImagePicker
@@ -24,7 +28,6 @@ import com.zillennium.utswap.module.account.accountKycPending.AccountKycPendingA
 import com.zillennium.utswap.module.account.addNumberScreen.AddNumberActivity
 import com.zillennium.utswap.module.account.customerSupportScreen.CustomerSupportActivity
 import com.zillennium.utswap.module.account.documentsScreen.DocumentsActivity
-import com.zillennium.utswap.module.account.lockTimeOutScreen.LockTimeOutActivity
 import com.zillennium.utswap.screens.navbar.navbar.MainActivity
 import com.zillennium.utswap.module.kyc.kycActivity.KYCActivity
 import com.zillennium.utswap.utils.ClientClearData
@@ -43,14 +46,15 @@ class AccountActivity :
     private val PICK_IMAGE_FROM_GALLERY = 1
     private var newImageFile: File? = null
     var preferencesCondition = true
-    private var strKyc: String? = ""
     private var intentStr = ""
+    private var fullName = ""
 
 
     override fun initView() {
         super.initView()
         onOtherActivity()
         onCallApi()
+        checkTheme()
         if (intent?.hasExtra(Constants.IntentType.FROM_MAIN_ACTIVITY) == true) {
             intentStr = intent.getStringExtra(Constants.IntentType.FROM_MAIN_ACTIVITY).toString()
         }
@@ -101,6 +105,11 @@ class AccountActivity :
                 if (preferencesCondition) {
                     linearLayoutDetailPreferences.visibility = View.VISIBLE
                     imgArrowDropDown.rotation = 90f
+
+                    layoutDarkMode.setOnClickListener {
+
+                        chooseThemeDialog()
+                    }
                 } else {
                     linearLayoutDetailPreferences.visibility = View.GONE
                     imgArrowDropDown.rotation = 270f
@@ -137,6 +146,7 @@ class AccountActivity :
 
             linearVerifyPending.setOnClickListener {
                 val intent = Intent(UTSwapApp.instance, AccountKycPendingActivity::class.java)
+                    .putExtra("fullName", fullName)
                 startActivity(intent)
             }
 
@@ -215,7 +225,57 @@ class AccountActivity :
             }
         }
     }
+    private fun checkTheme() {
+        when (MyPreferences(this).darkMode) {
+            0 -> {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                delegate.applyDayNight()
+            }
+            1 -> {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                delegate.applyDayNight()
+            }
+            2 -> {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+                delegate.applyDayNight()
+            }
+        }
+    }
+    private fun chooseThemeDialog() {
 
+
+
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle(getString(R.string.choose_theme_text))
+        val styles = arrayOf("Light","Dark","System default")
+        val checkedItem = 0
+
+        builder.setSingleChoiceItems(styles, checkedItem) { dialog, which ->
+
+            when (which) {
+                0 -> {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                    delegate.applyDayNight()
+                    dialog.dismiss()
+                }
+                1 -> {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                    delegate.applyDayNight()
+
+                    dialog.dismiss()
+                }
+                2 -> {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+                    delegate.applyDayNight()
+                    dialog.dismiss()
+                }
+
+            }
+        }
+
+        val dialog = builder.create()
+        dialog.show()
+    }
     private fun onCallApi(){
         Tovuti.from(UTSwapApp.instance).monitor{ _, isConnected, _ ->
             if(isConnected)
@@ -226,6 +286,7 @@ class AccountActivity :
     }
 
     override fun onGetUserInfoSuccess(data: User.AppSideBarData) {
+        fullName = data.truename.toString()
         binding.apply {
             txtPhoneNumber.visibility = View.VISIBLE
 
@@ -365,4 +426,17 @@ class AccountActivity :
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
         }
     }
+}
+
+class MyPreferences(context: Context?) {
+
+    companion object {
+        private const val DARK_STATUS = "io.github.manuelernesto.DARK_STATUS"
+    }
+
+    private val preferences = PreferenceManager.getDefaultSharedPreferences(context)
+
+    var darkMode = preferences.getInt(DARK_STATUS, 0)
+        set(value) = preferences.edit().putInt(DARK_STATUS, value).apply()
+
 }

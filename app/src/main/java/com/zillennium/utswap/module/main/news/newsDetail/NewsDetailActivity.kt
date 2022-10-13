@@ -15,6 +15,10 @@ import com.zillennium.utswap.UTSwapApp
 import com.zillennium.utswap.bases.mvp.BaseMvpActivity
 import com.zillennium.utswap.databinding.ActivityNewsDetailBinding
 import com.zillennium.utswap.models.newsService.News
+import com.zillennium.utswap.utils.AspectRatioUtil
+import com.zillennium.utswap.utils.NoInternetLayoutUtil
+import com.zillennium.utswap.utils.UtilConvert
+import kotlin.math.roundToInt
 
 
 class NewsDetailActivity :
@@ -33,6 +37,7 @@ class NewsDetailActivity :
             context.startActivity(intent)
         }
     }
+
     override fun initView() {
         super.initView()
 
@@ -46,13 +51,12 @@ class NewsDetailActivity :
 
         onSwipeRefresh()
 
-       // NoInternetLayoutUtil().noInternetLayoutUtil(binding.rlNoInt)
+         NoInternetLayoutUtil().noInternetLayoutUtil(binding.rlNoInt)
     }
 
-    private fun onCallApi(){
-        Tovuti.from(UTSwapApp.instance).monitor{ _, isConnected, _ ->
-            if(isConnected)
-            {
+    private fun onCallApi() {
+        Tovuti.from(UTSwapApp.instance).monitor { _, isConnected, _ ->
+            if (isConnected) {
                 mPresenter.onGetNewsDetail(id!!)
                 binding.progressBar.visibility = View.VISIBLE
             }
@@ -74,6 +78,15 @@ class NewsDetailActivity :
                 .placeholder(R.drawable.ic_placeholder)
                 .into(imgNews)
             view.visibility = View.VISIBLE
+
+            AspectRatioUtil.apply(
+                9,
+                16,
+                UtilConvert.convertDpToPixel(0f, UTSwapApp.instance).roundToInt(),
+                this@NewsDetailActivity,
+                binding.imgNews
+            )
+
         }
     }
 
@@ -92,32 +105,32 @@ class NewsDetailActivity :
     }
 
 
-
     override fun onGetNewsFail(data: News.NewsDetailData) {
-       binding.apply {
-           progressBar.visibility = View.VISIBLE
-           swipeRefresh.isRefreshing = false
-       }
+        binding.apply {
+            progressBar.visibility = View.VISIBLE
+            swipeRefresh.isRefreshing = false
+        }
     }
 
     private fun toolBar() {
         setSupportActionBar(binding.includeLayout.tb)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_arrow_left)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_back_primary)
         supportActionBar?.setDisplayShowTitleEnabled(false)
         binding.includeLayout.apply {
             tbTitleLeft.visibility = View.VISIBLE
             tbTitleLeft.setOnClickListener {
                 tbTitleLeft.isEnabled = false
-
+                val link = "https://utswap.io/Article/detail/id/$id"
                 // Share data to other application
-                val shareIntent = Intent().apply {
-                    this.action = Intent.ACTION_SEND
-                    this.type = "text/plain"
-                    this.putExtra(Intent.EXTRA_TEXT, "https://utswap.io/Article/detail/id/$id")
-                }
-                startActivity(shareIntent)
-
+//                val shareIntent = Intent().apply {
+//                    this.action = Intent.ACTION_SEND
+//                    this.type = "text/plain"
+//                    this.putExtra(Intent.EXTRA_TEXT, "https://utswap.io/Article/detail/id/$id")
+//
+//                }
+//                startActivity(shareIntent)
+                startShareIntent(link)
                 Handler().postDelayed({
                     tbTitleLeft.isEnabled = true
                 }, 3000)
@@ -126,11 +139,26 @@ class NewsDetailActivity :
                 finish()
             }
 
-            binding.swipeRefresh.setColorSchemeColors(ContextCompat.getColor(UTSwapApp.instance, R.color.primary))
+            binding.swipeRefresh.setColorSchemeColors(
+                ContextCompat.getColor(
+                    UTSwapApp.instance,
+                    R.color.primary
+                )
+            )
         }
     }
 
-    private fun onSwipeRefresh(){
+    private fun startShareIntent(shortLink: String) {
+
+        val sharingIntent = Intent(Intent.ACTION_SEND)
+        sharingIntent.type = "text/plain"
+        sharingIntent.putExtra(Intent.EXTRA_TEXT, shortLink)
+        sharingIntent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+        startActivity(Intent.createChooser(sharingIntent, shortLink))
+
+    }
+
+    private fun onSwipeRefresh() {
         binding.apply {
             swipeRefresh.setOnRefreshListener {
                 onSwipeRefreshCallApi()
@@ -138,10 +166,9 @@ class NewsDetailActivity :
         }
     }
 
-    private fun onSwipeRefreshCallApi(){
-        Tovuti.from(UTSwapApp.instance).monitor{ _, isConnected, _ ->
-            if(isConnected)
-            {
+    private fun onSwipeRefreshCallApi() {
+        Tovuti.from(UTSwapApp.instance).monitor { _, isConnected, _ ->
+            if (isConnected) {
                 id?.let { mPresenter.onGetNewsDetail(it) }
                 binding.swipeRefresh.isRefreshing = true
             }

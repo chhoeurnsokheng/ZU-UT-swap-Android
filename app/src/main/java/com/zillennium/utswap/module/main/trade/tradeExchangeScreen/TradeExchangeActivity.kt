@@ -287,6 +287,18 @@ class TradeExchangeActivity :
                     })
                     buySellBottomSheet?.show(this@TradeExchangeActivity.supportFragmentManager, "")
                 }
+
+                llBottom.setOnTouchListener { view, motionEvent ->
+                    buySellBottomSheet = BuyAndSellBottomSheetDialog(object :
+                        BuyAndSellBottomSheetDialog.OnDismissListener {
+                        override fun onDismiss(isDismiss: Boolean) {
+                            kycPending()
+                        }
+                    })
+                    buySellBottomSheet?.show(this@TradeExchangeActivity.supportFragmentManager, "")
+                    false
+                }
+
                 btnSellBottomSheetClick.setOnClickListener {
                     buySellBottomSheet = BuyAndSellBottomSheetDialog(object :
                         BuyAndSellBottomSheetDialog.OnDismissListener {
@@ -312,21 +324,12 @@ class TradeExchangeActivity :
                 //add to favorite
                 includeLayout.imgRemember.setOnClickListener {
                     if (remember == true) {
-                        includeLayout.imgRemember.imageTintList = ColorStateList.valueOf(
-                            ContextCompat.getColor(
-                                UTSwapApp.instance,
-                                R.color.dark_gray
-                            )
-                        )
+
+                        includeLayout.imgRemember.setImageResource(R.drawable.ic_baseline_star_24)
                         mPresenter.addFavoriteProject(TradingList.TradeAddFavoriteObj(0,intent?.getStringExtra(Constants.TradeExchange.ProjectId).toString().toInt()),UTSwapApp.instance)
                         remember = false
                     } else {
-                        includeLayout.imgRemember.imageTintList = ColorStateList.valueOf(
-                            ContextCompat.getColor(
-                                UTSwapApp.instance,
-                                R.color.warning
-                            )
-                        )
+                        includeLayout.imgRemember.setImageResource(R.drawable.ic_star_fill_with_yellow)
                         mPresenter.addFavoriteProject(TradingList.TradeAddFavoriteObj(1,intent?.getStringExtra(Constants.TradeExchange.ProjectId).toString().toInt()),UTSwapApp.instance)
                         remember = true
                     }
@@ -696,7 +699,9 @@ class TradeExchangeActivity :
         kycSubmit = data.data?.status_submit_kyc
         kycComplete = data.data?.status_kyc
         onCheckSessionStatusAndKYC()
-
+        if (data.message =="Please sign in"){
+            binding.layAuth.visibility = View.VISIBLE
+        }
     }
 
     override fun onCheckKYCFail() {
@@ -737,23 +742,24 @@ class TradeExchangeActivity :
             if (SessionPreferences().SESSION_TOKEN != null) {
                 includeLayout.imgRemember.visibility = View.VISIBLE
 
-                if (kycComplete == true) {
+                if (kycComplete == true) { //Complete
                     layTransactions.visibility = View.VISIBLE
                     layVerify.visibility = View.GONE
                     layAuth.visibility = View.GONE
                     llBottom.visibility = View.VISIBLE
                     llBtnVerify.visibility = View.GONE
-                } else if (kycComplete == false && kycSubmit == true) {
+                } else if (kycComplete == false && kycSubmit == true) { // Pending
                     layVerify.visibility = View.GONE
                     layTransactions.visibility = View.GONE
                     layAuth.visibility = View.GONE
                     llBottom.visibility = View.VISIBLE
                     llBtnVerify.visibility = View.VISIBLE
-                } else if (kycComplete == false && kycSubmit == false) {
+                } else if (kycComplete == false && kycSubmit == false) { // New
                     layVerify.visibility = View.VISIBLE
                     layTransactions.visibility = View.GONE
                     layAuth.visibility = View.GONE
                     llBottom.visibility = View.GONE
+
                 }
             } else {
                 layTransactions.visibility = View.GONE
@@ -815,20 +821,11 @@ class TradeExchangeActivity :
         binding.apply {
             if(data.data?.is_favorite == true)
             {
-                includeLayout.imgRemember.imageTintList = ColorStateList.valueOf(
-                    ContextCompat.getColor(
-                        UTSwapApp.instance,
-                        R.color.warning
-                    )
-                )
+                includeLayout.imgRemember.setImageResource(R.drawable.ic_star_fill_with_yellow)
                 remember = true
             }else{
-                includeLayout.imgRemember.imageTintList = ColorStateList.valueOf(
-                    ContextCompat.getColor(
-                        UTSwapApp.instance,
-                        R.color.dark_gray
-                    )
-                )
+
+                includeLayout.imgRemember.setImageResource(R.drawable.ic_baseline_star_24)
                 remember = false
             }
         }
@@ -997,7 +994,7 @@ class TradeExchangeActivity :
                         R.color.danger
                     )
                 )
-                includeLayout.btnLive.text = resources.getString(R.string.close)
+                includeLayout.btnLive.text = resources.getString(R.string.closed)
 
                 SessionVariable.marketOpen.value = false
             }
@@ -1012,6 +1009,8 @@ class TradeExchangeActivity :
         super.onBackPressed()
         clearData()
 
+        OrderBookFragment().orderBookAskList.clear()
+        OrderBookFragment().orderBookBidList.clear()
         OrderBookFragment().clearData()
     }
 
@@ -1019,6 +1018,8 @@ class TradeExchangeActivity :
         super.onDestroy()
 
         clearData()
+        OrderBookFragment().orderBookAskList.clear()
+        OrderBookFragment().orderBookBidList.clear()
         OrderBookFragment().clearData()
     }
 

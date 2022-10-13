@@ -30,6 +30,7 @@ class AccountDetailActivity :
     override val layoutResource: Int = R.layout.activity_account_detail
 
     private var strTitle: String? = ""
+    private var fullName: String = ""
 
     override fun initView() {
         super.initView()
@@ -84,6 +85,7 @@ class AccountDetailActivity :
 
             linearVerifyPending.setOnClickListener {
                 val intent = Intent(UTSwapApp.instance, AccountKycPendingActivity::class.java)
+                    .putExtra("fullName", fullName)
                 startActivity(intent)
             }
         }
@@ -100,6 +102,7 @@ class AccountDetailActivity :
     }
 
     override fun onGetUserInfoDetailSuccess(data: User.AppSideBarData) {
+        fullName = data.truename.toString()
         binding.apply {
 
             progressBar.visibility = View.GONE
@@ -231,7 +234,7 @@ class AccountDetailActivity :
     private fun toolBar() {
         setSupportActionBar(binding.includeLayout.tb)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_arrow_left)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_back_primary)
         supportActionBar?.setDisplayShowTitleEnabled(false)
         binding.includeLayout.apply {
             tbTitle.setText(R.string.account)

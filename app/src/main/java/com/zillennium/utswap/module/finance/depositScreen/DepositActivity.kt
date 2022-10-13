@@ -14,7 +14,10 @@ import com.zillennium.utswap.models.deposite.DataQueryOrderObj
 import com.zillennium.utswap.models.deposite.DepositObj
 import com.zillennium.utswap.module.finance.depositScreen.adapter.DepositAdapter
 import com.zillennium.utswap.module.finance.depositScreen.depositBottomSheet.BottomSheetFinanceDepositPayment
-
+/**
+ * @author chhoeurnsokheng
+ * By Mac
+ */
 class DepositActivity :
     BaseMvpActivity<DepositView.View, DepositView.Presenter, ActivityFinanceDepositBinding>(),
     DepositView.View {
@@ -63,18 +66,18 @@ class DepositActivity :
     override fun onGetListBankSuccess(data: DepositObj.DepositRes) {
         listBank = data.data
         binding.swipeRefresh.isRefreshing = false
-        var indexAliPay = 0
-        var indexKessPay = 0
-        listBank?.forEachIndexed { index, dataListRes ->
-            if (dataListRes.title == "AliPay") {
-                indexAliPay = index
-            }
-            if (dataListRes.title == "KESS PAY") {
-                indexKessPay = index
-            }
-        }
-        listBank?.removeAt(indexAliPay)
-        listBank?.removeAt(indexKessPay)
+//        var indexAliPay = 0
+//        var indexKessPay = 0
+//        listBank?.forEachIndexed { index, dataListRes ->
+//            if (dataListRes.title == "AliPay") {
+//                indexAliPay = index
+//            }
+//            if (dataListRes.title == "KESS PAY") {
+//                indexKessPay = index
+//            }
+//        }
+//        listBank?.removeAt(indexAliPay)
+//        listBank?.removeAt(indexKessPay)
 
 
         binding.rvPayment.apply {
@@ -117,7 +120,7 @@ class DepositActivity :
         mPresenter.getDepositFee(this)
         setSupportActionBar(binding.includeLayout.tb)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_arrow_left)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_back_primary)
         supportActionBar?.setDisplayShowTitleEnabled(false)
         binding.includeLayout.apply {
             tbTitle.setText(R.string.deposit)

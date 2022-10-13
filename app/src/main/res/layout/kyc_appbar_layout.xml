@@ -41,8 +41,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text=""
-                android:textSize="@dimen/dimen_16" />
+                android:textAppearance="@style/medium_18"
+                android:text="Change "
+                android:textColor="@color/primary" />
         </androidx.appcompat.widget.Toolbar>
 
         <View

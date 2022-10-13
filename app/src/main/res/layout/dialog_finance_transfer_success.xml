@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout>
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
@@ -145,6 +145,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginVertical="@dimen/dimen_10"
                             android:layout_weight="35"
+                            android:maxLines="2"
                             android:text="@string/transaction_date"
                             android:textAppearance="@style/regular_12"
                             android:textColor="@color/gray_888888" />

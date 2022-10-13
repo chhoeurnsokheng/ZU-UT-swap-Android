@@ -39,7 +39,7 @@ object SubscriptionObject {
         var convert_price : Double = 0.0
         var id : Int = 0
         var lock_type : Int = 0
-        var jian : Int = 0
+        var jian : String = ""
         var transaction_id : String = ""
         var peerid : Int = 0
         var unlock : String = ""

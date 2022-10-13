@@ -20,9 +20,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text=""
                 android:textColor="@color/primary"
-                android:textAppearance="@style/bold_22"
+                android:textAppearance="@style/bold_20"
                 android:visibility="visible" />
 
             <com.google.android.material.textview.MaterialTextView

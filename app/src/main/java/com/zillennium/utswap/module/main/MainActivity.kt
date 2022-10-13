@@ -36,6 +36,7 @@ import com.zillennium.utswap.module.main.home.HomeFragment
 import com.zillennium.utswap.module.main.news.NewsFragment
 import com.zillennium.utswap.module.main.portfolio.PortfolioFragment
 import com.zillennium.utswap.module.main.trade.tradeScreen.TradeFragment
+import com.zillennium.utswap.module.notification.MyFirebaseMessagingService
 import com.zillennium.utswap.module.security.securityActivity.signInScreen.SignInActivity
 import com.zillennium.utswap.utils.ClientClearData
 import com.zillennium.utswap.utils.DialogUtil
@@ -59,11 +60,17 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
     var activeFragment: Fragment = homeFragment
     val fragmentManager = supportFragmentManager
     private var resultIntent = ""
+    private var currentBadge = ""
 
 
     override fun initView() {
         super.initView()
         onSetUpNavBar()
+        SessionVariable.NOTIFICATION_LISTENER.observe(this){
+            if (it) {
+                onRefreshData()
+            }
+        }
 
         FirebaseInstanceId.getInstance().instanceId.addOnCompleteListener { p0 ->
             if (p0.isSuccessful) {
@@ -100,10 +107,10 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
         val dataIntent = intent?.getStringExtra("dataIntent")
         when (dataIntent) {
 
-            "KYC" -> {
+            "KYC Approved", "KYC Rejected" -> {
                 startActivity(
                     Intent(this, KYCActivity::class.java)
-                        .putExtra("fromNotification", "KYC")
+                        .putExtra("fromNotification", dataIntent)
                 )
             }
 
@@ -170,7 +177,6 @@ class MainActivity : BaseMvpActivity<MainView.View, MainView.Presenter, Activity
     override fun onNotificationSuccess(data: NotificationModel.NotificationData) {
         SessionVariable.BADGE_NUMBER.value = data.countGroupNoti ?: ""
         homeFragment.setBadgeNumber()
-
 
     }
 

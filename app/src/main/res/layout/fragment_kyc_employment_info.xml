@@ -227,12 +227,12 @@
         <LinearLayout
             android:id="@+id/btn_next"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dimen_50"
+            android:layout_height="@dimen/dimen_48"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="@dimen/dimen_15"
-            android:layout_marginEnd="@dimen/dimen_15"
-            android:layout_marginBottom="@dimen/dimen_30"
-            android:background="@drawable/bg_circular"
+            android:layout_marginBottom="@dimen/dimen_8"
+            android:layout_marginHorizontal="@dimen/dimen_20"
+            android:background="@drawable/bg_gray_ripple_radius_100"
+            android:backgroundTint="@color/primary"
             android:gravity="center">
 
             <TextView

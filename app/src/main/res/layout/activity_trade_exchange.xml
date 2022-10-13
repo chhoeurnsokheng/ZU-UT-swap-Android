@@ -379,8 +379,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:orientation="vertical"
-                android:paddingBottom="@dimen/dimen_12"
-                android:visibility="gone">
+                android:paddingBottom="@dimen/dimen_12">
 
                 <LinearLayout
                     android:id="@+id/lay_kyc_status"
@@ -446,18 +445,28 @@
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-        <LinearLayout
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/ll_bottom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:background="@drawable/dialog_bg_bottom_sheet"
-            android:orientation="vertical">
-
+            app:strokeWidth="@dimen/dimen_1"
+            app:strokeColor="@color/gray"
+            app:cardCornerRadius="@dimen/dimen_12"
+            app:cardElevation="@dimen/dimen_10"
+            android:orientation="vertical"
+            android:visibility="visible">
+            <View
+                android:layout_marginTop="@dimen/dimen_10"
+                android:layout_width="@dimen/dimen_42"
+                android:layout_height="@dimen/dimen_5"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/bg_gray_dd"/>
             <LinearLayout
                 android:id="@+id/ll_btn_verify"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dimen_12"
                 android:gravity="center_horizontal"
                 android:orientation="vertical"
                 android:visibility="gone">
@@ -465,14 +474,14 @@
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_verify_kyc"
                     style="?android:attr/borderlessButtonStyle"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="@dimen/dimen_48"
-                    android:layout_marginTop="@dimen/dimen_20"
+                    android:layout_marginHorizontal="@dimen/dimen_40"
+                    android:layout_marginTop="@dimen/dimen_16"
                     android:layout_marginBottom="@dimen/dimen_6"
                     android:background="@drawable/bg_circular"
                     android:hint="KYC Approval is Pending"
-                    android:paddingHorizontal="@dimen/dimen_48"
-                    android:textAppearance="@style/bold_14"
+                    android:textAppearance="@style/bold_18"
                     android:textColorHint="@color/white"
                     app:backgroundTint="@color/secondary" />
 
@@ -481,14 +490,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Your KYC application is being reviewed by our team."
-                    android:textAppearance="@style/regular_10" />
+                    android:textAppearance="@style/regular_12" />
             </LinearLayout>
+
 
             <LinearLayout
                 android:id="@+id/lay_buy_and_sell_click"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_38"
+                android:layout_marginTop="@dimen/dimen_37"
                 android:layout_marginBottom="@dimen/dimen_12"
                 android:background="@color/white"
                 android:orientation="horizontal"
@@ -601,7 +611,7 @@
                 </LinearLayout>
 
             </LinearLayout>
-        </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
         <LinearLayout
             android:id="@+id/lay_auth"
             android:layout_width="match_parent"

@@ -7,7 +7,7 @@
         <item name="strokeColor">@color/gray</item>
         <item name="strokeWidth">@dimen/dimen_2</item>
     </style>
-
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight"/>
     <style name="FullScreenDialog" parent="Theme.AppCompat.Light.Dialog">
         <item name="android:windowNoTitle">true</item>
         <item name="android:padding">0dp</item>

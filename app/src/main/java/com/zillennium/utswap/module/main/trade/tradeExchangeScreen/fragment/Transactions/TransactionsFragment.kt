@@ -260,7 +260,7 @@ class TransactionsFragment :
 
     private val onClickTransactions: TransactionAdapter.OnClickTransactions = object : TransactionAdapter.OnClickTransactions{
         override fun onClickMe(orders: TradingList.TradeMatchingTransactionEntrust) {
-            TransactionDetailActivity.launchTransactionDetailsActivity(requireActivity(), orders.id)
+            TransactionDetailActivity.launchTransactionDetailsActivity(requireActivity(), orders.id, orders.type)
         }
 
 

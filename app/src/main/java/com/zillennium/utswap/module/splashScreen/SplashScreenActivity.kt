@@ -30,7 +30,7 @@ class SplashScreenActivity :
                     val intent = Intent(UTSwapApp.instance, MainActivity::class.java)
                     startActivity(intent)
                     finish()
-                }, 3000)
+                }, 1500)
             }
             // Code
         } catch (error: Exception) {

@@ -24,10 +24,7 @@ class CustomerSupportActivity :
         super.initView()
         mPresenter.getCustomerSupport()
         binding.apply {
-            imgClose.setOnClickListener {
-                finish()
-            }
-
+            toolBar()
             btnTelegram.setOnClickListener {
                 startActivity(
                     Intent(
@@ -48,6 +45,18 @@ class CustomerSupportActivity :
         }
     }
 
+    private fun toolBar() {
+        setSupportActionBar(binding.includeLayout.tb)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_back_primary)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        binding.includeLayout.apply {
+            tbTitle.setText(R.string.customer_support)
+            tb.setNavigationOnClickListener {
+                finish()
+            }
+        }
+    }
     override fun onGetCustomerSupportSuccess(data: CustomerSupport.CustomerSupportData) {
 
         if(data.contact_cellphone!!.isNotEmpty()){

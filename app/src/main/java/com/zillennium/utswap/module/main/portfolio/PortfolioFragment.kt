@@ -41,6 +41,7 @@ import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.time.Duration.Companion.milliseconds
 
 class PortfolioFragment :
     BaseMvpFragment<PortfolioView.View, PortfolioView.Presenter, FragmentNavbarPortfolioBinding>(),
@@ -84,11 +85,11 @@ class PortfolioFragment :
 
                 mPresenter.getPortfolioDashboardChart(requireActivity())
 
-                val list1 = listOf("1", "-214", "114","0","1","2","3","0","0")
-                 var sorted = list1.sortedBy { it.toDouble() }
-                 var sortDec  = list1.sortedByDescending { it.toDouble() }
-                Log.d("SortBy"," , $sorted , $sortDec")
-                println("$sorted , $sortDec" )
+                val list1 = listOf("1", "-214", "114", "0", "1", "2", "3", "0", "0")
+                var sorted = list1.sortedBy { it.toDouble() }
+                var sortDec = list1.sortedByDescending { it.toDouble() }
+                Log.d("SortBy", " , $sorted , $sortDec")
+                println("$sorted , $sortDec")
 
 
                 SessionVariable.SESSION_STATUS.observe(this@PortfolioFragment) {
@@ -149,10 +150,16 @@ class PortfolioFragment :
                     loadingProgressBar.visibility = View.VISIBLE
                     layTradingBalance.visibility = View.GONE
                     btnFilter.text = portfolioSelectType
-                    mPresenter.onGetPortfolio(
-                        Portfolio.GetPortfolioObject(typePortfolio),
-                        requireActivity()
-                    )
+                    activity?.let {
+                        mPresenter.onGetPortfolio(
+                            Portfolio.GetPortfolioObject(typePortfolio),
+                            it
+                        )
+                    }
+//                    mPresenter.onGetPortfolio(
+//                        Portfolio.GetPortfolioObject(typePortfolio),
+//                        requireActivity()
+//                    )
                 }
             }
         }
@@ -174,7 +181,25 @@ class PortfolioFragment :
             swipeRefresh.isRefreshing = false
             loadingProgressBar.visibility = View.GONE
             layTradingBalance.visibility = View.VISIBLE
-            txtBalance.text = "$ " + data.data?.total_market_value?.let { UtilKt().formatValue(it, "###,###.##") }
+
+
+            if (data.data?.total_market_value == 0.0) {
+                txtBalance.text = "$ 0.00"
+            } else {
+                txtBalance.text = "$ " + data.data?.total_market_value?.let {
+                    UtilKt().formatValue(
+                        it,
+                        "###,###.##"
+                    )
+                }
+            }
+
+//            if (data.data?.total_market_value ==0.0){
+//                txtTradingBalance.text ="$ 0.00"
+//            }else{
+//                txtTradingBalance.text = "$ " + data.data?.total_user_balance?.toDouble()
+//                    ?.let { UtilKt().formatValue(it, "###,###.##") }
+//            }
 
             filter = 0
 
@@ -190,14 +215,15 @@ class PortfolioFragment :
 
                         data.data?.let { changeList.addAll(it.profolio_dashboard) }
                         rvFilter.layoutManager = LinearLayoutManager(UTSwapApp.instance)
-                        val changePortfolioAdapter = ChangeAdapter(changeList, onClickListener = object :OnClickPortfolio{
-                            override fun ClickPortfolioProjectID(isNull: Boolean) {
-                                if (isNull==true){
-                                    showAlterProjectCannotShowTradeDetails()
+                        val changePortfolioAdapter =
+                            ChangeAdapter(changeList, onClickListener = object : OnClickPortfolio {
+                                override fun ClickPortfolioProjectID(isNull: Boolean) {
+                                    if (isNull == true) {
+                                        showAlterProjectCannotShowTradeDetails()
+                                    }
                                 }
-                            }
 
-                        })
+                            })
 
                         rvFilter.adapter = changePortfolioAdapter
 
@@ -214,11 +240,11 @@ class PortfolioFragment :
                                     imgSortChange.setImageResource(R.drawable.ic_sort_arrow_up_down_selected)
                                     imgSortChange.rotation = 180f
 
-                                    val sorted =  list.sortedByDescending {
+                                    val sorted = list.sortedByDescending {
                                         it.mkt_project_change?.toDouble()
                                     }
 
-                                    list  = sorted as   MutableList<Portfolio.GetPortfolioDashBoard>
+                                    list = sorted as MutableList<Portfolio.GetPortfolioDashBoard>
 
 
                                 }
@@ -246,19 +272,12 @@ class PortfolioFragment :
                         }
 
                         lineChart.visibility = View.VISIBLE
-
-
-                        val balance_weight = data.data?.balance_weight?.toDouble()
-                        val totalUserBalance = data.data?.total_user_balance
-                        val totalTrading = (totalUserBalance?.let { balance_weight?.times(it) })?.div(
-                            100
-                        )
-
-                        txtTradingBalance.text =  "$ " + data.data?.total_user_balance?.let {
-                            UtilKt().formatValue(
-                                it,
-                                "###,###.##"
-                            )
+                        if (data.data?.total_market_value == 0.0) {
+                            txtTradingBalance.text = "$ 0.00"
+                        } else {
+                            txtTradingBalance.text =
+                                "$ " + data.data?.total_user_balance?.toDouble()
+                                    ?.let { UtilKt().formatValue(it, "###,###.##") }
                         }
 
 
@@ -268,13 +287,14 @@ class PortfolioFragment :
 
                         data.data?.profolio_dashboard?.let { performanceList.addAll(it) }
                         rvFilter.layoutManager = LinearLayoutManager(UTSwapApp.instance)
-                        val performancePortfolioAdapter = PerformanceAdapter(performanceList, object :OnClickPortfolio{
-                            override fun ClickPortfolioProjectID(isNull: Boolean) {
-                                if (isNull==true){
-                                    showAlterProjectCannotShowTradeDetails()
+                        val performancePortfolioAdapter =
+                            PerformanceAdapter(performanceList, object : OnClickPortfolio {
+                                override fun ClickPortfolioProjectID(isNull: Boolean) {
+                                    if (isNull == true) {
+                                        showAlterProjectCannotShowTradeDetails()
+                                    }
                                 }
-                            }
-                        })
+                            })
                         performancePortfolioAdapter.itemList = performanceList
                         rvFilter.adapter = performancePortfolioAdapter
 
@@ -291,11 +311,11 @@ class PortfolioFragment :
                                     filter = 2
                                     imgSortPerformance.setImageResource(R.drawable.ic_sort_arrow_up_down_selected)
                                     imgSortPerformance.rotation = 180f
-                                    val sorted =  list.sortedByDescending {
+                                    val sorted = list.sortedByDescending {
                                         it.mkt_project_perf?.toDouble()
                                     }
 
-                                    list  = sorted as   MutableList<Portfolio.GetPortfolioDashBoard>
+                                    list = sorted as MutableList<Portfolio.GetPortfolioDashBoard>
                                 }
                                 1 -> {
                                     filter = 1
@@ -318,56 +338,49 @@ class PortfolioFragment :
                         }
 
                         lineChart.visibility = View.VISIBLE
-                        val balance_weight = data.data?.balance_weight?.toDouble()
-                        val totalUserBalance = data.data?.total_user_balance
-                        val totalTrading = (totalUserBalance?.let { balance_weight?.times(it) })?.div(
-                            100
-                        )
-
-                        txtTradingBalance.text = "$ " + data.data?.total_user_balance?.let {
-                            UtilKt().formatValue(
-                                it,
-                                "###,###.##"
-                            )
+                        if (data.data?.total_market_value == 0.0) {
+                            txtTradingBalance.text = "$ 0.00"
+                        } else {
+                            txtTradingBalance.text =
+                                "$ " + data.data?.total_user_balance?.toDouble()
+                                    ?.let { UtilKt().formatValue(it, "###,###.##") }
                         }
+
                     }
                     Constants.PortfolioFilter.Price -> {
                         linearLayoutPrice.visibility = View.VISIBLE
 
                         data.data?.profolio_dashboard?.let { priceList.addAll(it) }
                         rvFilter.layoutManager = LinearLayoutManager(UTSwapApp.instance)
-                        val pricePortfolioAdapter = PriceAdapter(priceList, object :OnClickPortfolio{
-                            override fun ClickPortfolioProjectID(isNull: Boolean) {
-                                    if (isNull == true){
-                                       showAlterProjectCannotShowTradeDetails()
+                        val pricePortfolioAdapter =
+                            PriceAdapter(priceList, object : OnClickPortfolio {
+                                override fun ClickPortfolioProjectID(isNull: Boolean) {
+                                    if (isNull == true) {
+                                        showAlterProjectCannotShowTradeDetails()
                                     }
+                                }
+
                             }
 
-                        }
-
-                        )
+                            )
                         pricePortfolioAdapter.itemList = priceList
                         rvFilter.adapter = pricePortfolioAdapter
 
                         lineChart.visibility = View.VISIBLE
-                        txtTradingBalance.text = "$ " + data.data?.total_user_balance?.let {
-                            UtilKt().formatValue(
-                                it,
-                                "###,###.##"
-                            )
-                        }
+
                     }
                     Constants.PortfolioFilter.Balance -> {
                         linearLayoutBalance.visibility = View.VISIBLE
 
                         data.data?.profolio_dashboard?.let { balanceList.addAll(it) }
                         rvFilter.layoutManager = LinearLayoutManager(UTSwapApp.instance)
-                        val balancePortfolioAdapter = BalanceAdapter(balanceList, object :OnClickPortfolio{
-                            override fun ClickPortfolioProjectID(isNull: Boolean) {
-                                showAlterProjectCannotShowTradeDetails()
-                            }
+                        val balancePortfolioAdapter =
+                            BalanceAdapter(balanceList, object : OnClickPortfolio {
+                                override fun ClickPortfolioProjectID(isNull: Boolean) {
+                                    showAlterProjectCannotShowTradeDetails()
+                                }
 
-                        })
+                            })
                         balancePortfolioAdapter.itemList = balanceList
                         rvFilter.adapter = balancePortfolioAdapter
 
@@ -407,33 +420,30 @@ class PortfolioFragment :
                         }
 
                         lineChart.visibility = View.VISIBLE
-
-                        val balance_weight = data.data?.balance_weight?.toDouble()
-                        val totalUserBalance = data.data?.total_user_balance
-                        val totalTrading = (totalUserBalance?.let { balance_weight?.times(it) })?.div(
-                            100
-                        )
-
-                        txtTradingBalance.text = "$ " + data.data?.total_user_balance?.let {
-                            UtilKt().formatValue(
-                                it,
-                                "###,###.##"
-                            )
+                        if (data.data?.total_market_value == 0.0) {
+                            txtTradingBalance.text = "$ 0.00"
+                        } else {
+                            txtTradingBalance.text =
+                                "$ " + data.data?.total_user_balance?.toDouble()
+                                    ?.let { UtilKt().formatValue(it, "###,###.##") }
                         }
+
+
                     }
                     Constants.PortfolioFilter.Weight -> {
                         linearLayoutWeight.visibility = View.VISIBLE
 
                         data.data?.profolio_dashboard?.let { weightList.addAll(it) }
                         rvFilter.layoutManager = LinearLayoutManager(UTSwapApp.instance)
-                        val weightPortfolioAdapter = WeightAdapter(weightList, object :OnClickPortfolio{
-                            override fun ClickPortfolioProjectID(isNull: Boolean) {
-                                if (isNull==true){
-                                    showAlterProjectCannotShowTradeDetails()
+                        val weightPortfolioAdapter =
+                            WeightAdapter(weightList, object : OnClickPortfolio {
+                                override fun ClickPortfolioProjectID(isNull: Boolean) {
+                                    if (isNull == true) {
+                                        showAlterProjectCannotShowTradeDetails()
+                                    }
                                 }
-                            }
 
-                        })
+                            })
                         weightPortfolioAdapter.itemList = weightList
                         rvFilter.adapter = weightPortfolioAdapter
 
@@ -449,11 +459,11 @@ class PortfolioFragment :
                                     filter = 2
                                     imgSortWeight.setImageResource(R.drawable.ic_sort_arrow_up_down_selected)
                                     imgSortWeight.rotation = 180f
-                                    val sorted =  list.sortedByDescending {
+                                    val sorted = list.sortedByDescending {
                                         it.weight?.toDouble()
                                     }
 
-                                    list  = sorted as   MutableList<Portfolio.GetPortfolioDashBoard>
+                                    list = sorted as MutableList<Portfolio.GetPortfolioDashBoard>
                                 }
                                 1 -> {
                                     filter = 1
@@ -477,15 +487,11 @@ class PortfolioFragment :
 
                         chartPie.visibility = View.VISIBLE
 
-                        val balance_weight = data.data?.balance_weight?.toDouble()
-                        val totalUserBalance = data.data?.total_user_balance
-                        val totalTrading = (totalUserBalance?.let { balance_weight?.times(it) })?.div(
-                            100
-                        )
-
-                        txtTradingBalance.text = data.data?.balance_weight.toString() + "%"
-
-
+                        if (data.data?.total_market_value == 0.0) {
+                            txtTradingBalance.text = "% 0.00"
+                        } else {
+                            txtTradingBalance.text = data.data?.balance_weight + "%"
+                        }
 
 
                     }
@@ -531,15 +537,27 @@ class PortfolioFragment :
         weekTwoSales.mode = LineDataSet.Mode.CUBIC_BEZIER
         weekTwoSales.color = ContextCompat.getColor(requireActivity(), R.color.primary)
         weekTwoSales.valueTextColor = ContextCompat.getColor(requireActivity(), R.color.gray)
+        weekTwoSales.setCircleColor(getResources().getColor(R.color.primary))
+
         val dataSet = ArrayList<ILineDataSet>()
         dataSet.add(weekTwoSales)
         weekTwoSales.setDrawValues(false)
-        weekTwoSales.valueTextColor = R.color.gray
+        //   weekTwoSales.valueTextColor = R.color.gray
         weekTwoSales.circleRadius = 6f
         val lineData = LineData(dataSet)
         binding.lineChart.data = lineData
         binding.lineChart.invalidate()
-        binding.lineChart.axisRight.textColor = ContextCompat.getColor(requireActivity(), R.color.secondary_text)
+        binding.lineChart.apply {
+            setVisibleXRangeMaximum( 6f)
+           var lastIndex=  lineData.dataSets.first().entryCount -1
+           var lastEntry= lineData.dataSets.first()?.entryCount
+            if (lastEntry != null) {
+                centerViewTo(lastIndex.toFloat(), lastEntry.toFloat(),axisRight.axisDependency )
+            }
+
+        }
+
+
         binding.lineChart.axisRight.valueFormatter = object : ValueFormatter() {
             override fun getFormattedValue(value: Float): String {
                 val v: String = getPriceFormat(Math.round(value).toFloat())
@@ -557,7 +575,7 @@ class PortfolioFragment :
 
         with(binding.lineChart) {
 
-           description.isEnabled = false
+            description.isEnabled = false
             xAxis.setDrawGridLines(false)
             xAxis.position = XAxis.XAxisPosition.BOTTOM
             xAxis.granularity = 1F
@@ -592,7 +610,7 @@ class PortfolioFragment :
         val lp = binding.lineChart.layoutParams
         lp.height = (200 * density * labelCount / 7).toInt()
         binding.lineChart.layoutParams = lp
-        binding.lineChart.setVisibleXRangeMaximum(6f)
+
 
         binding.lineChart.setDrawGridBackground(false)
         binding.apply {
@@ -623,16 +641,18 @@ class PortfolioFragment :
             }
         }
     }
-    private fun showAlterProjectCannotShowTradeDetails(){
+
+    private fun showAlterProjectCannotShowTradeDetails() {
         val builder = AlertDialog.Builder(requireActivity())
         builder.setTitle("This project is closed .")
-        builder.setMessage("Can not open trad Details")
+        builder.setMessage("Can not open trade Details")
 
-        builder.setPositiveButton("Okay"){dialogInterface, which ->
+        builder.setPositiveButton("Okay") { dialogInterface, which ->
         }
         val alertDialog: AlertDialog = builder.create()
         alertDialog.show()
     }
+
     private fun onUserBalancePortfolio() {
         binding.apply {
             /* Show or Hide Trading Balance */
@@ -647,7 +667,7 @@ class PortfolioFragment :
             }
         }
     }
-    
+
     private fun onLayoutHeader() {
         binding.apply {
             //check share preference
@@ -655,7 +675,10 @@ class PortfolioFragment :
                 if (SessionVariable.SESSION_STATUS.value == true) {
                     imgMenu.setOnClickListener {
                         val intent = Intent(UTSwapApp.instance, AccountActivity::class.java)
-                            .putExtra(Constants.IntentType.FROM_MAIN_ACTIVITY, Constants.IntentType.FROM_MAIN_ACTIVITY )
+                            .putExtra(
+                                Constants.IntentType.FROM_MAIN_ACTIVITY,
+                                Constants.IntentType.FROM_MAIN_ACTIVITY
+                            )
                         startActivity(intent)
                         requireActivity().overridePendingTransition(
                             R.anim.slide_in_left,
@@ -718,8 +741,6 @@ class PortfolioFragment :
     }
 
 
-
-
     fun setBadgeNumberPortfolio() {
         binding.apply {
             SessionVariable.BADGE_NUMBER.observe(this@PortfolioFragment) {
@@ -778,7 +799,7 @@ class PortfolioFragment :
                 txtBalance.paint.maskFilter = null
                 imgVisibility.setImageResource(R.drawable.ic_baseline_remove_red_eye_24)
 
-                lineChart.axisRight.isEnabled = false
+                //   lineChart.axisRight.isEnabled = false
                 blurCondition = false
 
             } else {
@@ -786,7 +807,7 @@ class PortfolioFragment :
                 txtBalance.paint.maskFilter = blurMask
                 imgVisibility.setImageResource(R.drawable.ic_baseline_visibility_off_24)
 
-                lineChart.axisRight.isEnabled = true
+                //   lineChart.axisRight.isEnabled = true
                 blurCondition = true
             }
         }

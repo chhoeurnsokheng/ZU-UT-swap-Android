@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/gray_F7F7F7">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_margin="@dimen/dimen_6">
+
+                <LinearLayout
+                    android:id="@+id/ll_header"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent">
+                    <TextView
+                        android:id="@+id/tv_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Terms and Conditions"
+                        android:maxLines="2"
+                        android:ellipsize="end"
+                        android:layout_marginStart="@dimen/dimen_10"
+                        android:textAppearance="@style/medium_16"
+                        android:textColor="@color/black_333333" />
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/iv_icon"
+                        android:src="@drawable/ic_arrow_left"
+                        android:layout_width="@dimen/dimen_20"
+                        android:layout_height="@dimen/dimen_20"
+                        android:layout_marginEnd="@dimen/dimen_20"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_content_term_of_use"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/ll_header"
+                    android:layout_marginStart="@dimen/dimen_4"
+                    android:layout_marginTop="@dimen/dimen_4"
+                    android:layout_marginEnd="@dimen/dimen_4"
+                    android:layout_marginBottom="@dimen/dimen_4"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/ll_header"
+                    app:layout_constrainedHeight="true"
+                    app:layout_constraintHeight_max="@dimen/dimen_250"
+                    android:background="@color/white">
+
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/tv_message"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/dimen_10"
+                             android:text="Hello"
+                            android:textAppearance="@style/regular_10"
+                            android:textColor="@color/black_333333" />
+                        </LinearLayout>
+
+                    </ScrollView>
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/rl_check_box"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_8"
+                    android:layout_below="@+id/ll_content_term_of_use"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/ll_content_term_of_use">
+
+                    <CheckBox
+                        android:id="@+id/cb_eAgreement"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="-24dp"
+                        android:layout_marginTop="@dimen/dimen_1"
+                        android:textColor="@color/secondary_text" />
+                   <!-- android:button="@drawable/custom_check_box"-->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginStart="@dimen/dimen_4"
+                        android:layout_toEndOf="@+id/cb_eAgreement"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:text="@string/e_agreement_words"
+                        android:textAppearance="@style/regular_10"
+                        android:textColor="@color/black" />
+
+                </LinearLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_positive"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dimen_40"
+                    android:background="@drawable/bg_subscribe_terms"
+                    android:textAppearance="@style/medium_14"
+                    android:textColor="@color/white"
+                    android:text="@string/agree"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/rl_check_box"
+                    android:layout_gravity="center"
+                    android:layout_below="@+id/rl_check_box"
+                    android:paddingStart="@dimen/dimen_20"
+                    android:layout_centerHorizontal="true"
+                    android:paddingEnd="@dimen/dimen_20"
+                    android:layout_marginBottom="@dimen/dimen_2"
+                    android:layout_marginTop="@dimen/dimen_4"
+                    android:gravity="center"
+                    android:enabled="false"
+                    app:backgroundTint="@color/light_gray" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+</layout>

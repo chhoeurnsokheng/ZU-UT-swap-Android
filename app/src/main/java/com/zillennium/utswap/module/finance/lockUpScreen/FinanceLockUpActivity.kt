@@ -93,7 +93,7 @@ class FinanceLockUpActivity :
     private fun initToolBar() {
         setSupportActionBar(binding.toolBar.tb)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_arrow_left)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_back_primary)
         supportActionBar?.setDisplayShowTitleEnabled(false)
         binding.toolBar.apply {
             tbTitle.setText(R.string.lock_up)

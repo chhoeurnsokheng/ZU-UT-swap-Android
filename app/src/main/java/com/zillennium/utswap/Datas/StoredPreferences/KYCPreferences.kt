@@ -36,4 +36,6 @@ class KYCPreferences : BaseStoredPreferences(UTSwapApp.instance, "KYCPreferences
     var ID_CARD_INFOR by stringPref()
 
 
+
+
 }

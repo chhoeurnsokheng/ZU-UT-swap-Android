@@ -12,7 +12,6 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.core.graphics.drawable.DrawableCompat
 import com.androidstudy.networkmanager.Tovuti
 import com.zillennium.utswap.Datas.GlobalVariable.SessionVariable
 import com.zillennium.utswap.R
@@ -23,11 +22,9 @@ import com.zillennium.utswap.models.financeBalance.BalanceFinance
 import com.zillennium.utswap.models.financeTransfer.Transfer
 import com.zillennium.utswap.models.userService.User
 import com.zillennium.utswap.module.account.addNumberScreen.AddNumberActivity
-import com.zillennium.utswap.module.finance.transferScreen.dialog.TransferSuccessDialog
-import com.zillennium.utswap.module.security.securityDialog.FundPasswordDialog
+import com.zillennium.utswap.module.finance.transferScreen.dialog.TransferSuccessDialog.Companion.backToHomeTranfer
 import com.zillennium.utswap.screens.navbar.navbar.MainActivity
 import com.zillennium.utswap.utils.ClientClearData
-import com.zillennium.utswap.utils.Constants
 import com.zillennium.utswap.utils.DecimalDigitsInputFilter
 import com.zillennium.utswap.utils.UtilKt
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent
@@ -69,8 +66,8 @@ class TransferActivity :
                         layTransactions.visibility = View.GONE
                         etMountTransfer.hideKeyboard()
 
-                        val transferSuccessDialog = TransferSuccessDialog()
-                        transferSuccessDialog.show(supportFragmentManager, "Transfer Success Dialog")
+                       // val transferSuccessDialog = TransferSuccessDialog()
+                      //  transferSuccessDialog.show(supportFragmentManager, "Transfer Success Dialog")
 
                         mPresenter.onGetUserInfo(UTSwapApp.instance)
                     }
@@ -86,6 +83,9 @@ class TransferActivity :
                 etPhoneNumberScanQR.filters = arrayOf(filter, LengthFilter(12))
 
                 imgClose.setOnClickListener {
+                    if (backToHomeTranfer== true){
+                        startActivity(Intent(this@TransferActivity,MainActivity::class.java))
+                    }
                     etMountTransfer.hideKeyboard()
                     layTransactions.visibility = View.GONE
                     finish()
@@ -162,8 +162,12 @@ class TransferActivity :
         binding.apply {
 
             loadingTransfer.visibility = View.GONE
-            val fundPasswordDialog: FundPasswordDialog = FundPasswordDialog.transferInstance(amountTransfer, currencyTransfer, receiverTransfer, Constants.FundPasswordType.transfer)
-            fundPasswordDialog.show(supportFragmentManager, "Fund Password Dialog Transfer")
+
+            data.to_account?.let {
+                TransferActivityReview.lunchTransferActivityReviewActivity(this@TransferActivity, data.to_cellphone,
+                    it,data.balance_transfer, data.fee, data.total, receiverTransfer )
+            }
+
         }
     }
     override fun onGetValidateTransferFail(data: Transfer.GetValidateTransfer) {
@@ -347,6 +351,7 @@ class TransferActivity :
     override fun onBackPressed() {
         super.onBackPressed()
         SessionVariable.successTransfer.value = false
+
     }
 
 }

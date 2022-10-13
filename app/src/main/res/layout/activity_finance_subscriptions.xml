@@ -47,7 +47,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dimen_10"
                         android:text="@string/filter_"
-                        android:textAppearance="@style/medium_14"
+                        android:textAppearance="@style/bold_14"
                         android:textColor="@color/primary" />
 
                 </LinearLayout>
@@ -56,9 +56,9 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dimen_20"
-                android:layout_marginEnd="@dimen/dimen_20"
+                android:layout_marginStart="@dimen/dimen_5"
                 android:layout_marginTop="@dimen/dimen_20"
+                android:layout_marginEnd="@dimen/dimen_10"
                 android:layout_marginBottom="@dimen/dimen_22"
                 app:cardCornerRadius="@dimen/dimen_25"
                 app:cardElevation="@dimen/dimen_8">
@@ -67,9 +67,9 @@
                     android:id="@+id/lay_select_date_range"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dimen_52"
-                    android:gravity="start|center_vertical"
+                    android:gravity="center"
                     android:orientation="horizontal"
-                    android:paddingHorizontal="@dimen/dimen_20">
+                    android:paddingHorizontal="@dimen/dimen_15">
 
                     <ImageView
                         android:layout_width="@dimen/dimen_18"
@@ -78,13 +78,41 @@
                         app:tint="@color/primary" />
 
                     <TextView
+                        android:id="@+id/txt_selected_date_start"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dimen_2"
+                        android:textAppearance="@style/medium_12"
+                        android:textColor="@color/primary"
+                        android:visibility="gone" />
+
+                    <TextView
                         android:id="@+id/txt_select_date_from_to"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/dimen_10"
+                        android:layout_marginStart="@dimen/dimen_5"
                         android:text="@string/select_date_range"
-                        android:textAppearance="@style/medium_14"
+                        android:textAppearance="@style/bold_14"
                         android:textColor="@color/primary" />
+
+                    <TextView
+                        android:id="@+id/txt_select_date_to"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dimen_2"
+                        android:text="@string/to"
+                        android:textAppearance="@style/medium_12"
+                        android:textColor="@color/primary"
+                        android:visibility="gone"/>
+
+                    <TextView
+                        android:id="@+id/txt_selected_date_end"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dimen_2"
+                        android:textAppearance="@style/medium_12"
+                        android:textColor="@color/primary"
+                        android:visibility="gone" />
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
@@ -110,6 +138,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/txt_title_filter">
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_subscriptions"
                     android:layout_width="match_parent"

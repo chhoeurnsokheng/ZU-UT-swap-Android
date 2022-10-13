@@ -2,219 +2,253 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <eightbitlab.com.blurview.BlurView
-        android:id="@+id/blurView"
+    <RelativeLayout
+        android:id="@+id/rl_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/color_blur_bg_dialog_balance">
+        android:layout_height="match_parent">
 
-        <LinearLayout
+        <eightbitlab.com.blurview.BlurView
+            android:id="@+id/blurView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:background="@color/color_blur_bg_dialog_balance" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
+        <RelativeLayout
+            android:id="@+id/rl_transaction"
+            android:layout_width="@dimen/dimen_350"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:clickable="true"
+            android:focusable="true">
+
+            <ImageView
+                android:id="@+id/close_image"
+                android:layout_width="@dimen/dimen_26"
+                android:layout_height="@dimen/dimen_26"
+                android:layout_gravity="end"
+                android:layout_marginBottom="@dimen/dimen_30"
+                android:src="@drawable/ic_sharp_close_24"
+                android:visibility="gone"
+                app:tint="@color/white" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/material_card_view"
+                android:layout_width="@dimen/dimen_350"
                 android:layout_height="wrap_content"
-                android:gravity="center">
+                app:cardCornerRadius="12dp">
 
-                <LinearLayout
-                    android:layout_width="@dimen/dimen_350"
+                <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:paddingVertical="@dimen/dimen_30">
 
-                    <ImageView
-                        android:id="@+id/close_image"
-                        android:layout_width="@dimen/dimen_26"
-                        android:layout_height="@dimen/dimen_26"
-                        android:layout_gravity="end"
-                        android:layout_marginTop="@dimen/dimen_100"
-                        android:layout_marginBottom="@dimen/dimen_30"
-                        android:src="@drawable/ic_sharp_close_24"
-                        app:tint="@color/white" />
-
-
-                    <LinearLayout
-                        android:id="@+id/balance_dialog_box"
-                        android:layout_width="@dimen/dimen_350"
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/mcv"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:background="@drawable/bg_balance_dialog"
-                        android:gravity="center"
-                        android:paddingVertical="@dimen/dimen_15"
-                        android:orientation="vertical">
+                        app:cardCornerRadius="12dp"
+                        app:cardElevation="@dimen/dimen_0"
+                        app:strokeWidth="0dp">
 
-                        <com.google.android.material.card.MaterialCardView
-                            android:id="@+id/material_card_view"
-                            android:layout_width="@dimen/dimen_350"
-                            app:cardCornerRadius="0dp"
+                        <RelativeLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content">
 
                             <LinearLayout
+                                android:id="@+id/lay_logo"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:orientation="vertical"
-                                android:paddingVertical="@dimen/dimen_25">
+                                android:paddingHorizontal="@dimen/dimen_16">
 
-                                <LinearLayout
-                                    android:id="@+id/lay_logo"
+                                <ImageView
+                                    android:layout_width="61dp"
+                                    android:layout_height="39dp"
+                                    android:layout_gravity="center"
+                                    android:layout_marginBottom="@dimen/dimen_20"
+                                    android:src="@drawable/ic_ut_swap_logo_vertical" />
+
+                                <TextView
+                                    android:id="@+id/title_transaction"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:orientation="vertical"
-                                    android:paddingHorizontal="@dimen/dimen_16">
+                                    android:gravity="center"
+                                    android:textAppearance="@style/medium_16"
+                                    android:textColor="@color/black_0a0b12" />
 
-                                    <ImageView
-                                        android:layout_width="@dimen/dimen_110"
-                                        android:layout_height="@dimen/dimen_64"
-                                        android:layout_gravity="center"
-                                        android:layout_marginBottom="@dimen/dimen_20"
-                                        android:src="@drawable/ic_ut_swap_logo_vertical" />
+                            </LinearLayout>
+
+                            <View
+                                android:id="@+id/line"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/dimen_1"
+                                android:layout_below="@+id/lay_logo"
+                                android:layout_marginTop="@dimen/dimen_28"
+                                android:background="@color/gray_light" />
+
+                            <LinearLayout
+                                android:id="@+id/ll_container"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/line"
+                                android:layout_marginTop="@dimen/dimen_20"
+                                android:orientation="horizontal"
+                                android:paddingHorizontal="@dimen/dimen_20">
+
+                                <LinearLayout
+                                    android:layout_width="@dimen/dimen_0"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="35"
+                                    android:orientation="vertical">
 
                                     <TextView
-                                        android:id="@+id/title_transaction"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:gravity="start"
-                                        android:textAppearance="@style/medium_18"
-                                        android:textColor="@color/black_0a0b12" />
+                                        android:layout_marginVertical="@dimen/dimen_10"
+                                        android:text="@string/date__"
+                                        android:textAppearance="@style/regular_12"
+                                        android:textColor="@color/black_0A0B12" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginVertical="@dimen/dimen_10"
+                                        android:text="@string/transaction_id_"
+                                        android:textAppearance="@style/regular_12"
+                                        android:textColor="@color/black_0A0B12" />
+
+                                    <TextView
+                                        android:id="@+id/txt_money_type"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginVertical="@dimen/dimen_10"
+                                        android:textAppearance="@style/regular_12"
+                                        android:textColor="@color/black_0A0B12" />
+
+                                    <TextView
+                                        android:id="@+id/txt_fee_admin"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginVertical="@dimen/dimen_10"
+                                        android:text="@string/fee__"
+                                        android:textAppearance="@style/regular_12"
+                                        android:textColor="@color/black_0A0B12"
+                                        android:visibility="gone" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginVertical="@dimen/dimen_10"
+                                        android:text="@string/balance__"
+                                        android:textAppearance="@style/regular_12"
+                                        android:textColor="@color/black_0A0B12" />
 
                                 </LinearLayout>
 
-                                <View
-                                    android:layout_width="match_parent"
-                                    android:layout_height="@dimen/dimen_1"
-                                    android:layout_marginVertical="@dimen/dimen_20"
-                                    android:background="@color/light_gray" />
-
                                 <LinearLayout
-                                    android:layout_width="match_parent"
+                                    android:layout_width="@dimen/dimen_0"
                                     android:layout_height="wrap_content"
-                                    android:orientation="horizontal"
-                                    android:paddingHorizontal="@dimen/dimen_20">
+                                    android:layout_weight="65"
+                                    android:gravity="end"
+                                    android:orientation="vertical">
 
-                                    <LinearLayout
-                                        android:layout_width="@dimen/dimen_0"
+                                    <TextView
+                                        android:id="@+id/date_transaction"
+                                        android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:layout_weight="35"
-                                        android:orientation="vertical">
+                                        android:layout_marginVertical="@dimen/dimen_10"
+                                        android:textAppearance="@style/regular_12"
+                                        android:textColor="@color/gray_888888" />
 
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginVertical="@dimen/dimen_10"
-                                            android:text="@string/date__"
-                                            android:textAppearance="@style/regular_12"
-                                            android:textColor="@color/gray_888888" />
-
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginVertical="@dimen/dimen_10"
-                                            android:text="@string/transaction_id_"
-                                            android:textAppearance="@style/regular_12"
-                                            android:textColor="@color/gray_888888" />
-
-                                        <TextView
-                                            android:id="@+id/txt_money_type"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginVertical="@dimen/dimen_10"
-                                            android:textAppearance="@style/regular_12"
-                                            android:textColor="@color/gray_888888" />
-
-                                        <TextView
-                                            android:id="@+id/txt_fee_admin"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:text="@string/fee__"
-                                            android:layout_marginVertical="@dimen/dimen_10"
-                                            android:textAppearance="@style/regular_12"
-                                            android:textColor="@color/gray_888888"
-                                            android:visibility="gone"/>
-
-                                        <TextView
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginVertical="@dimen/dimen_10"
-                                            android:text="@string/balance__"
-                                            android:textAppearance="@style/regular_12"
-                                            android:textColor="@color/gray_888888" />
-
-                                    </LinearLayout>
-
-                                    <LinearLayout
-                                        android:layout_width="@dimen/dimen_0"
+                                    <TextView
+                                        android:id="@+id/txt_balance_id"
+                                        android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:layout_weight="65"
-                                        android:gravity="end"
-                                        android:orientation="vertical">
+                                        android:layout_marginVertical="@dimen/dimen_10"
+                                        android:textAppearance="@style/regular_12"
+                                        android:textColor="@color/gray_888888" />
 
-                                        <TextView
-                                            android:id="@+id/date_transaction"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginVertical="@dimen/dimen_10"
-                                            android:textAppearance="@style/regular_12"
-                                            android:textColor="@color/black_0a0b12" />
+                                    <TextView
+                                        android:id="@+id/amount_balance"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginVertical="@dimen/dimen_10"
+                                        android:textAppearance="@style/regular_12"
+                                        android:textColor="@color/danger" />
 
-                                        <TextView
-                                            android:id="@+id/txt_balance_id"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginVertical="@dimen/dimen_10"
-                                            android:textAppearance="@style/regular_12"
-                                            android:textColor="@color/black_0a0b12" />
+                                    <TextView
+                                        android:id="@+id/txt_fee_id"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginVertical="@dimen/dimen_10"
+                                        android:textAppearance="@style/regular_12"
+                                        android:textColor="@color/gray_888888"
+                                        android:visibility="gone" />
 
-                                        <TextView
-                                            android:id="@+id/amount_balance"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginVertical="@dimen/dimen_10"
-                                            android:textAppearance="@style/regular_12"
-                                            android:textColor="@color/danger" />
-
-                                        <TextView
-                                            android:id="@+id/txt_fee_id"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginVertical="@dimen/dimen_10"
-                                            android:textAppearance="@style/regular_12"
-                                            android:textColor="@color/black_0a0b12"
-                                            android:visibility="gone"/>
-
-                                        <TextView
-                                            android:id="@+id/txt_balance"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginVertical="@dimen/dimen_10"
-                                            android:textAppearance="@style/regular_12"
-                                            android:textColor="@color/black_0a0b12" />
-
-                                    </LinearLayout>
+                                    <TextView
+                                        android:id="@+id/txt_balance"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginVertical="@dimen/dimen_10"
+                                        android:textAppearance="@style/regular_12"
+                                        android:textColor="@color/gray_888888" />
 
                                 </LinearLayout>
 
                             </LinearLayout>
+                        </RelativeLayout>
+                    </com.google.android.material.card.MaterialCardView>
 
-                        </com.google.android.material.card.MaterialCardView>
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_close"
+                        style="?android:attr/borderlessButtonStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dimen_48"
+                        android:layout_below="@+id/mcv"
+                        android:layout_marginHorizontal="@dimen/dimen_20"
+                        android:layout_marginTop="@dimen/dimen_20"
+                        android:layout_marginBottom="1dp"
+                        android:background="@drawable/bg_gray_ripple_radius_100"
+                        android:text="@string/close"
+                        android:textAllCaps="false"
+                        android:textAppearance="@style/bold_18"
+                        android:textColor="@color/black_0a0b12"
+                        android:visibility="gone"
+                        app:backgroundTint="@color/light_gray" />
 
-                    </LinearLayout>
+                </RelativeLayout>
 
-                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+        </RelativeLayout>
 
-            </LinearLayout>
+        <RelativeLayout
+            android:id="@+id/img_screen_shot"
+            android:layout_width="@dimen/dimen_48"
+            android:layout_height="@dimen/dimen_48"
+            android:layout_below="@+id/rl_transaction"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/dimen_30"
+            android:background="@drawable/bg_gray_ripple_radius_100">
 
             <ImageView
-                android:id="@+id/img_screen_shot"
-                android:layout_width="@dimen/dimen_36"
-                android:layout_height="@dimen/dimen_36"
-                android:layout_gravity="center"
-                android:layout_marginTop="@dimen/dimen_30"
-                android:src="@drawable/ic_screenshot"
-                app:tint="@color/white" />
-        </LinearLayout>
+                android:layout_width="@dimen/dimen_24"
+                android:layout_height="@dimen/dimen_24"
+                android:layout_centerInParent="true"
+                android:src="@drawable/ic_screenshot" />
+        </RelativeLayout>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/img_screen_shot"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/dimen_15"
+            android:text="Screenshot"
+            android:textColor="@color/white" />
 
-    </eightbitlab.com.blurview.BlurView>
+    </RelativeLayout>
+
 </layout>

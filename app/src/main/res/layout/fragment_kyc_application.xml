@@ -1,270 +1,164 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".module.kyc.kycFragment.kycApplicationScreen.KycApplication">
 
-        <LinearLayout
-            android:id="@+id/tool_bar"
+        <include
+            android:id="@+id/includeLayout"
+            layout="@layout/appbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_below="@+id/includeLayout"
+            android:layout_marginHorizontal="@dimen/dimen_20"
+            android:layout_marginTop="@dimen/dimen_20">
 
-            <ImageView
-                android:id="@+id/img_back"
-                android:layout_width="@dimen/dimen_60"
-                android:layout_height="@dimen/dimen_60"
-                android:padding="@dimen/dimen_14"
-                android:src="@drawable/ic_baseline_arrow_back_24"
-                app:tint="@color/primary" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tool_bar"
-            android:layout_marginTop="@dimen/dimen_25"
-            android:orientation="vertical"
-            android:paddingStart="@dimen/dimen_15"
-            android:paddingEnd="@dimen/dimen_15">
-
-            <TextView
+            <RelativeLayout
+                android:id="@+id/rl_submission"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAppearance="@style/bold_20"
-                android:gravity="center"
-                android:text="@string/kyc_application"
-                android:textColor="@color/primary"/>
+                android:orientation="horizontal">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_35"
-                android:baselineAligned="false"
-                android:orientation="horizontal"
-                android:paddingStart="@dimen/dimen_20"
-                android:paddingEnd="@dimen/dimen_0">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/tv_kyc_submission"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:text="@string/kyc_submission"
+                    android:textAppearance="@style/bold_14"
+                    android:textColor="@color/black_0a0b12" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="@style/medium_18"
-                        android:textColor="@color/black_333333"
-                        android:text="@string/kyc_submission"/>
+                <TextView
+                    android:id="@+id/tv_full_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_kyc_submission"
+                    android:layout_marginTop="@dimen/dimen_10"
+                    android:text="[Full Name]"
+                    android:textAppearance="@style/bold_12"
+                    android:textColor="@color/gray_888888"
+                    android:textSize="12sp" />
 
-                    <TextView
-                        android:id="@+id/tv_full_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dimen_10"
-                        android:textColor="@color/black"
-                        android:textAppearance="@style/regular_14" />
+                <ImageView
+                    android:layout_width="@dimen/dimen_16"
+                    android:layout_height="@dimen/dimen_16"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/dimen_9"
+                    android:layout_toStartOf="@+id/tv_submission"
+                    android:src="@drawable/ic_baseline_check_circle_24" />
 
-                </LinearLayout>
+                <TextView
+                    android:id="@+id/tv_submission"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/submitted"
+                    android:textAppearance="@style/regular_14"
+                    android:textColor="#848588" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginEnd="@dimen/dimen_20"
-                    android:layout_weight="1"
-                    android:gravity="end"
-                    android:orientation="horizontal">
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:contentDescription="@string/check_icon"
-                        android:src="@drawable/ic_baseline_check_circle_24"
-                        app:tint="@color/success" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginStart="@dimen/dimen_5"
-                        android:fontFamily="@font/avenirnextcy_regular"
-                        android:text="@string/submitted"
-                        android:textAppearance="@style/regular_16"
-                        android:textColor="@color/black_333333" />
-
-                </LinearLayout>
-
-            </LinearLayout>
+            </RelativeLayout>
 
             <View
+                android:id="@+id/line"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_2"
-                android:layout_marginStart="@dimen/dimen_20"
-                android:layout_marginTop="@dimen/dimen_20"
-                android:layout_marginEnd="@dimen/dimen_20"
+                android:layout_height="@dimen/dimen_1"
+                android:layout_below="@+id/rl_submission"
+                android:layout_marginTop="@dimen/dimen_24"
                 android:background="@color/success" />
 
-            <LinearLayout
+            <RelativeLayout
+                android:id="@+id/rl_kyc_status"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_30"
-                android:baselineAligned="false"
-                android:orientation="horizontal"
-                android:paddingStart="@dimen/dimen_20"
-                android:paddingEnd="@dimen/dimen_20">
+                android:layout_below="@+id/line"
+                android:layout_marginTop="@dimen/dimen_35"
+                android:orientation="horizontal">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+
+                <TextView
+                    android:id="@+id/tv_kyc_status"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:text="@string/kyc_approval"
+                    android:textAppearance="@style/bold_14"
+                    android:textColor="@color/black_0a0b12" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/kyc_approval"
-                        android:textColor="@color/black_333333"
-                        android:textAppearance="@style/medium_18" />
+                <TextView
+                    android:id="@+id/tv_kyc_des"
+                    android:layout_width="@dimen/dimen_165"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_kyc_status"
+                    android:layout_marginTop="@dimen/dimen_10"
+                    android:text="@string/your_kyc_application_is_being_reviewed_by_our_team"
+                    android:textAppearance="@style/regular_12"
+                    android:textColor="#80888888" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dimen_10"
-                        android:text="@string/your_kyc_application_is_being_reviewed_by_our_team"
-                        android:textAppearance="@style/regular_12" />
 
-                </LinearLayout>
+                <ImageView
+                    android:id="@+id/img_pending"
+                    android:layout_width="@dimen/dimen_16"
+                    android:layout_height="@dimen/dimen_16"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/dimen_9"
+                    android:layout_toStartOf="@+id/tv_pending"
+                    android:src="@drawable/ic_pending" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginEnd="@dimen/dimen_20"
-                    android:layout_weight="1"
-                    android:gravity="end"
-                    android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/tv_pending"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/pending"
+                    android:textAppearance="@style/regular_14"
+                    android:textColor="#848588" />
 
-                    <ImageView
-                        android:id="@+id/img_pending"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:src="@drawable/ic_baseline_access_time_24"
-                        app:tint="@color/warning" />
 
-                    <TextView
-                        android:id="@+id/txt_pending"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginStart="@dimen/dimen_5"
-                        android:text="@string/pending"
-                        android:textColor="@color/black_333333"
-                        android:textAppearance="@style/regular_16" />
+            </RelativeLayout>
 
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <!--<View
-                android:id="@+id/line_pending"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_2"
-                android:layout_marginStart="@dimen/dimen_20"
-                android:layout_marginTop="@dimen/dimen_20"
-                android:layout_marginEnd="@dimen/dimen_20"
-                android:background="@color/success" />-->
             <View
                 android:id="@+id/line_pending"
                 android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_marginStart="@dimen/dimen_20"
-                android:layout_marginTop="@dimen/dimen_20"
-                android:layout_marginEnd="@dimen/dimen_20"
+                android:layout_height="1dp"
+                android:layout_below="@+id/rl_kyc_status"
+                android:layout_marginTop="@dimen/dimen_24"
                 android:background="@color/warning" />
 
             <TextView
                 android:id="@+id/txt_message_kyc_success"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_20"
+                android:layout_below="@+id/line_pending"
+                android:layout_marginTop="46dp"
                 android:gravity="center"
                 android:text="@string/you_have_been_certified"
                 android:textAppearance="@style/regular_18"
                 android:textColor="@color/success"
                 android:visibility="invisible" />
 
-        </LinearLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dimen_30"
-            android:layout_marginEnd="@dimen/dimen_30"
-            android:layout_marginBottom="@dimen/dimen_30">
-
-            <LinearLayout
-                android:id="@+id/btn_accept"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_50"
-                android:layout_alignParentBottom="true"
-                android:layout_marginStart="@dimen/dimen_30"
-                android:layout_marginEnd="@dimen/dimen_30"
-                android:layout_marginBottom="@dimen/dimen_30"
-                android:background="@drawable/bg_circular_condition"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:visibility="gone">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Start Trading"
-                    android:textAllCaps="false"
-                    android:textAppearance="@style/bold_18"
-                    android:textColor="@color/white" />
-              <!--  <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dimen_5"
-                    android:src="@drawable/ic_baseline_arrow_forward_24"
-                    app:tint="@color/white" />-->
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/btn_accept_home"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_50"
-                android:layout_alignParentBottom="true"
-                android:layout_marginStart="@dimen/dimen_30"
-                android:layout_marginEnd="@dimen/dimen_30"
-                android:layout_marginBottom="@dimen/dimen_30"
-                android:background="@drawable/bg_circular_redd"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:visibility="visible">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Home"
-                    android:textAllCaps="false"
-                    android:textAppearance="@style/bold_18"
-                    android:textColor="@color/white" />
-
-                <!--  <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dimen_5"
-                    android:src="@drawable/ic_baseline_arrow_forward_24"
-                    app:tint="@color/white" />-->
-            </LinearLayout>
         </RelativeLayout>
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_accept_home"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_48"
+            android:layout_alignParentBottom="true"
+            android:layout_marginHorizontal="@dimen/dimen_20"
+            android:text="Home"
+            android:textAppearance="@style/bold_18"
+            android:textColor="@color/white"
+            style="@style/SelectableItemBackground"
+            android:layout_marginBottom="@dimen/dimen_8"
+            android:background="@drawable/bg_gray_ripple_radius_100" />
 
     </RelativeLayout>
 </layout>

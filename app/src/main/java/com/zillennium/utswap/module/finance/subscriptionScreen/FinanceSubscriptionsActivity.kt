@@ -16,7 +16,6 @@ import com.zillennium.utswap.module.finance.subscriptionScreen.bottomSheet.Finan
 import com.zillennium.utswap.module.finance.subscriptionScreen.bottomSheet.FinanceSubscriptionFilterBottomSheet
 import com.zillennium.utswap.module.finance.subscriptionScreen.dialog.FinanceSubscriptionsDialog
 import com.zillennium.utswap.utils.isOnline
-import kotlin.collections.ArrayList
 
 
 class FinanceSubscriptionsActivity :
@@ -35,8 +34,9 @@ class FinanceSubscriptionsActivity :
     private var end = ""
     private var totalItem = ""
     private var lastPosition = 0
+    private var dateStart: String = ""
+    private var dateEnd: String = ""
     private var isLostConnection = false
-
 
     companion object {
         var titleProject = "All Projects"
@@ -58,8 +58,26 @@ class FinanceSubscriptionsActivity :
 
             /* Select Date Range */
             laySelectDateRange.setOnClickListener {
-                FinanceSubscriptionDateRangeBottomSheet.newInstance()
-                    .show(supportFragmentManager, "Select Date Time Subscription")
+
+                val financeHistoricalSelectDateRangeBottomSheet = FinanceSubscriptionDateRangeBottomSheet(
+                    object: FinanceSubscriptionDateRangeBottomSheet.CallBackDateListener{
+                        override fun onSelectDateChangeSelect(startDate: String, endDate: String) {
+
+                            dateStart = startDate
+                            dateEnd = endDate
+                            if (endDate.isNotEmpty()){
+                                txtSelectedDateStart.visibility = View.VISIBLE
+                                txtSelectedDateEnd.visibility = View.VISIBLE
+                                txtSelectDateTo.visibility = View.VISIBLE
+                                txtSelectDateFromTo.visibility = View.GONE
+                                txtSelectedDateStart.text = dateStart
+                                txtSelectedDateEnd.text = dateEnd
+                            }
+
+                        }
+                    }
+                )
+                financeHistoricalSelectDateRangeBottomSheet.show(supportFragmentManager, "Select Date Time Subscription")
             }
 
             swipeRefresh.setOnRefreshListener {
@@ -67,15 +85,6 @@ class FinanceSubscriptionsActivity :
                 page = 1
                 requestData()
             }
-
-            /* Sorted Date */
-            /*val dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MMMM-yyyy")
-            arraySubscription.sortByDescending {
-                LocalDate.parse(
-                    it.dateSubscription,
-                    dateTimeFormatter
-                )
-            }*/
 
             Tovuti.from(this@FinanceSubscriptionsActivity).monitor { _, isConnected, _ ->
                 if (isConnected && isLostConnection) {
@@ -148,8 +157,7 @@ class FinanceSubscriptionsActivity :
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 if (dy > 0) {
-                    lastPosition =
-                        (binding.rvSubscriptions.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
+                    lastPosition = (binding.rvSubscriptions.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
                     if (lastPosition == arraySubscription.size - 1 && arraySubscription.size < totalItem.toInt()) {
                         binding.progressBar.visibility = View.VISIBLE
                         page++
@@ -200,7 +208,7 @@ class FinanceSubscriptionsActivity :
     private fun toolBar() {
         setSupportActionBar(binding.includeLayout.tb)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_arrow_left)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_back_primary)
         supportActionBar?.setDisplayShowTitleEnabled(false)
         binding.includeLayout.apply {
             tbTitle.setText(R.string.subscriptions)

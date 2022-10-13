@@ -12,7 +12,7 @@
             android:id="@+id/includeLayout"
             layout="@layout/kyc_appbar_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
 
 
         <ScrollView
@@ -40,9 +40,9 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/id_verification"
                         android:drawableRight="@drawable/ic_star_error"
                         android:drawablePadding="@dimen/dimen_6"
+                        android:text="@string/id_verification"
                         android:textAppearance="@style/medium_16"
                         android:textColor="@color/primary" />
 
@@ -87,11 +87,11 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/dimen_0"
                                 android:layout_marginTop="@dimen/dimen_5"
+                                android:drawableLeft="@drawable/ic_field_required"
+                                android:drawablePadding="@dimen/dimen_3"
                                 android:ellipsize="end"
                                 android:singleLine="true"
                                 android:text="@string/text_required"
-                                android:drawablePadding="@dimen/dimen_3"
-                                android:drawableLeft="@drawable/ic_field_required"
                                 android:textAppearance="@style/regular_10"
                                 android:textColor="@color/red_ee1111"
                                 android:visibility="gone" />
@@ -123,11 +123,11 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/dimen_5"
+                                android:drawableLeft="@drawable/ic_field_required"
+                                android:drawablePadding="@dimen/dimen_3"
                                 android:ellipsize="end"
                                 android:singleLine="true"
                                 android:text="@string/text_required"
-                                android:drawablePadding="@dimen/dimen_3"
-                                android:drawableLeft="@drawable/ic_field_required"
                                 android:textAppearance="@style/regular_10"
                                 android:textColor="@color/red_ee1111"
                                 android:visibility="gone" />
@@ -137,52 +137,43 @@
 
                     </LinearLayout>
 
-                    <LinearLayout
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:baselineAligned="false"
-                        android:orientation="horizontal">
+                        android:layout_height="wrap_content">
 
                         <LinearLayout
-                            android:layout_width="wrap_content"
+                            android:id="@+id/linearLayout"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="@dimen/dimen_10"
-                            android:layout_marginBottom="@dimen/dimen_10"
-                            android:layout_weight="1"
                             android:orientation="vertical"
-                            android:paddingTop="@dimen/dimen_5">
+                            android:paddingEnd="@dimen/dimen_12"
+                            android:paddingTop="@dimen/dimen_5"
+                            app:layout_constraintEnd_toStartOf="@+id/linearLayout3"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
 
-                            <RelativeLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="@dimen/dimen_50"
-                                android:gravity="center"
-                                android:orientation="horizontal">
 
-                                <EditText
-                                    android:id="@+id/et_date"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="@dimen/dimen_50"
-                                    android:backgroundTint="@color/secondary_text"
-                                    android:hint="@string/date_of_birth"
-                                    android:importantForAutofill="no"
-                                    android:inputType="none"
-                                    android:singleLine="true"
-                                    android:textAppearance="@style/regular_16"
-                                    android:textColor="@color/secondary_text"
-                                    tools:ignore="TextFields" />
+                            <TextView
+                                android:id="@+id/et_date"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/bg_underline_text"
+                                android:hint="@string/date_of_birth"
+                                android:paddingBottom="@dimen/dimen_10"
+                                android:textAppearance="@style/regular_16"
+                                android:textColor="@color/secondary_text" />
 
-                            </RelativeLayout>
 
                             <TextView
                                 android:id="@+id/txt_error_date"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/dimen_5"
+                                android:drawableLeft="@drawable/ic_field_required"
+                                android:drawablePadding="@dimen/dimen_3"
                                 android:ellipsize="end"
                                 android:singleLine="true"
                                 android:text="@string/text_required"
-                                android:drawablePadding="@dimen/dimen_3"
-                                android:drawableLeft="@drawable/ic_field_required"
                                 android:textAppearance="@style/regular_10"
                                 android:textColor="@color/red_ee1111"
                                 android:visibility="gone" />
@@ -190,52 +181,27 @@
                         </LinearLayout>
 
                         <LinearLayout
-                            android:layout_width="match_parent"
+                            android:id="@+id/linearLayout3"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
                             android:orientation="vertical"
-                            android:layout_marginTop="@dimen/dimen_5">
-
-                            <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
-                                android:id="@+id/spinner_gender"
-                                android:layout_width="match_parent"
-                                android:layout_height="@dimen/dimen_50"
-                                app:smsp_floatingLabelColor="@color/white"
-                                app:smsp_hint="Gender"
-                                app:smsp_hintColor="@color/gray"
-                                app:smsp_itemColor="@color/secondary_text"
-                                app:smsp_itemListColor="@color/secondary_text"
-                                app:smsp_itemListHintBackgroundColor="@color/backgroundHint"
-                                app:smsp_itemListHintColor="@color/white"
-                                app:smsp_multilineError="false"
-                                app:smsp_selectedItemListColor="@color/secondary_text"
-                                app:smsp_underlineColor="@color/secondary_text"
-                                app:smsp_underlineSize="0.1dp"
-                                android:visibility="gone"/>
+                            android:paddingTop="@dimen/dimen_5"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/linearLayout"
+                            app:layout_constraintTop_toTopOf="parent">
 
                             <TextView
                                 android:id="@+id/tv_gender"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/dimen_4"
-                                android:layout_marginTop="@dimen/dimen_8"
+                                android:background="@drawable/bg_underline_text"
                                 android:drawableEnd="@drawable/ic_drop_down"
                                 android:hint="Gender"
                                 android:paddingEnd="@dimen/dimen_5"
+                                android:paddingBottom="@dimen/dimen_10"
                                 android:textAppearance="@style/regular_16"
-                                android:textColor="@color/black"
-                                android:visibility="visible" />
-
-                            <View
-                                android:id="@+id/view_underline_gender"
-                                android:layout_width="match_parent"
-                                android:layout_height="@dimen/dimen_1"
-                                android:layout_below="@+id/tv_value_city"
-                                android:layout_marginStart="@dimen/dimen_4"
-                                android:layout_marginTop="@dimen/dimen_10"
-                                android:layout_marginEnd="@dimen/dimen_4"
-                                android:background="@color/secondary_text"
-                                android:visibility="visible" />
+                                android:textColor="@color/black" />
 
 
                             <TextView
@@ -243,16 +209,16 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/dimen_5"
+                                android:drawableLeft="@drawable/ic_field_required"
+                                android:drawablePadding="@dimen/dimen_3"
                                 android:ellipsize="end"
                                 android:singleLine="true"
                                 android:text="@string/text_required"
-                                android:drawablePadding="@dimen/dimen_3"
-                                android:drawableLeft="@drawable/ic_field_required"
                                 android:textAppearance="@style/regular_10"
                                 android:textColor="@color/red_ee1111"
                                 android:visibility="gone" />
                         </LinearLayout>
-                    </LinearLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -326,13 +292,13 @@
                             android:id="@+id/txt_error_city"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_below="@+id/view_underline_1"
                             android:layout_marginTop="5dp"
+                            android:drawableLeft="@drawable/ic_field_required"
+                            android:drawablePadding="@dimen/dimen_3"
                             android:ellipsize="end"
                             android:singleLine="true"
-                            android:layout_below="@+id/view_underline_1"
                             android:text="@string/text_required"
-                            android:drawablePadding="@dimen/dimen_3"
-                            android:drawableLeft="@drawable/ic_field_required"
                             android:textAppearance="@style/regular_10"
                             android:textColor="@color/red_ee1111"
                             android:visibility="gone" />
@@ -345,21 +311,23 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dimen_10"
                         android:orientation="vertical">
+
                         <TextView
                             android:id="@+id/txt_label_district"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="District/Khan"
-                            android:textAppearance="@style/regular_12"
+                            android:layout_marginRight="@dimen/dimen_4"
                             android:drawableRight="@drawable/ic_star_error"
                             android:drawablePadding="@dimen/dimen_6"
-                            android:layout_marginRight="@dimen/dimen_4"
-                            android:visibility="invisible"/>
+                            android:text="District/Khan"
+                            android:textAppearance="@style/regular_12"
+                            android:visibility="invisible" />
 
                         <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
                             android:id="@+id/spinner_district_khan"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:visibility="gone"
                             app:smsp_alwaysShowFloatingLabel="false"
                             app:smsp_hintColor="@color/gray"
                             app:smsp_itemColor="@color/secondary_text"
@@ -369,8 +337,7 @@
                             app:smsp_multilineError="true"
                             app:smsp_selectedItemListColor="@color/secondary_text"
                             app:smsp_underlineColor="@color/secondary_text"
-                            app:smsp_underlineSize="0.1dp"
-                            android:visibility="gone"/>
+                            app:smsp_underlineSize="0.1dp" />
 
                         <TextView
                             android:id="@+id/tv_value_distict"
@@ -378,9 +345,9 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/txt_label_province"
                             android:layout_marginStart="@dimen/dimen_4"
-                            android:hint="District/Khan"
                             android:layout_marginTop="@dimen/dimen_8"
                             android:drawableEnd="@drawable/ic_drop_down"
+                            android:hint="District/Khan"
                             android:paddingEnd="@dimen/dimen_5"
                             android:textAppearance="@style/regular_16"
                             android:textColor="@color/black"
@@ -390,22 +357,22 @@
                             android:id="@+id/view_underline_2"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/dimen_1"
-                            android:background="@color/secondary_text"
                             android:layout_below="@+id/tv_value_distict"
-                            android:layout_marginTop="@dimen/dimen_11"
                             android:layout_marginStart="@dimen/dimen_4"
+                            android:layout_marginTop="@dimen/dimen_11"
                             android:layout_marginEnd="@dimen/dimen_4"
-                            android:visibility="visible"/>
+                            android:background="@color/secondary_text"
+                            android:visibility="visible" />
 
                         <TextView
                             android:id="@+id/txt_error_district"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
+                            android:drawableLeft="@drawable/ic_field_required"
                             android:ellipsize="end"
                             android:singleLine="true"
                             android:text="@string/text_required"
-                            android:drawableLeft="@drawable/ic_field_required"
                             android:textAppearance="@style/regular_10"
                             android:textColor="@color/red_ee1111"
                             android:visibility="gone" />
@@ -419,36 +386,38 @@
                         android:layout_marginTop="@dimen/dimen_5"
                         android:layout_weight="1"
                         android:orientation="vertical">
+
                         <TextView
                             android:id="@+id/txt_label_commune"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Commune/Sangkat"
-                            android:textAppearance="@style/regular_12"
+                            android:layout_marginRight="@dimen/dimen_4"
                             android:drawableRight="@drawable/ic_star_error"
                             android:drawablePadding="@dimen/dimen_6"
-                            android:layout_marginRight="@dimen/dimen_4"
-                            android:visibility="invisible"/>
+                            android:text="Commune/Sangkat"
+                            android:textAppearance="@style/regular_12"
+                            android:visibility="invisible" />
 
-<!--                        <com.chivorn.smartmaterialspinner.SmartMaterialSpinner-->
-<!--                           -->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            app:smsp_hintColor="@color/gray"-->
-<!--                            app:smsp_alwaysShowFloatingLabel="false"-->
-<!--                            app:smsp_itemColor="@color/secondary_text"-->
-<!--                            app:smsp_itemListColor="@color/secondary_text"-->
-<!--                            app:smsp_itemListHintBackgroundColor="@color/backgroundHint"-->
-<!--                            app:smsp_itemListHintColor="@color/white"-->
-<!--                            app:smsp_multilineError="false"-->
-<!--                            app:smsp_selectedItemListColor="@color/secondary_text"-->
-<!--                            app:smsp_underlineColor="@color/secondary_text"-->
-<!--                            app:smsp_underlineSize="0.1dp" />-->
+                        <!--                        <com.chivorn.smartmaterialspinner.SmartMaterialSpinner-->
+                        <!--                           -->
+                        <!--                            android:layout_width="match_parent"-->
+                        <!--                            android:layout_height="wrap_content"-->
+                        <!--                            app:smsp_hintColor="@color/gray"-->
+                        <!--                            app:smsp_alwaysShowFloatingLabel="false"-->
+                        <!--                            app:smsp_itemColor="@color/secondary_text"-->
+                        <!--                            app:smsp_itemListColor="@color/secondary_text"-->
+                        <!--                            app:smsp_itemListHintBackgroundColor="@color/backgroundHint"-->
+                        <!--                            app:smsp_itemListHintColor="@color/white"-->
+                        <!--                            app:smsp_multilineError="false"-->
+                        <!--                            app:smsp_selectedItemListColor="@color/secondary_text"-->
+                        <!--                            app:smsp_underlineColor="@color/secondary_text"-->
+                        <!--                            app:smsp_underlineSize="0.1dp" />-->
 
                         <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
                             android:id="@+id/spinner_commune_sangkat"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:visibility="gone"
                             app:smsp_alwaysShowFloatingLabel="false"
                             app:smsp_hintColor="@color/gray"
                             app:smsp_itemColor="@color/secondary_text"
@@ -458,15 +427,15 @@
                             app:smsp_multilineError="true"
                             app:smsp_selectedItemListColor="@color/secondary_text"
                             app:smsp_underlineColor="@color/secondary_text"
-                            app:smsp_underlineSize="0.1dp"
-                            android:visibility="gone"/>
+                            app:smsp_underlineSize="0.1dp" />
 
                         <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
                             android:id="@+id/spinner_commune_sangkat_view"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:smsp_hintColor="@color/gray"
+                            android:visibility="gone"
                             app:smsp_alwaysShowFloatingLabel="false"
+                            app:smsp_hintColor="@color/gray"
                             app:smsp_itemColor="@color/secondary_text"
                             app:smsp_itemListColor="@color/secondary_text"
                             app:smsp_itemListHintBackgroundColor="@color/backgroundHint"
@@ -474,8 +443,7 @@
                             app:smsp_multilineError="false"
                             app:smsp_selectedItemListColor="@color/secondary_text"
                             app:smsp_underlineColor="@color/secondary_text"
-                            app:smsp_underlineSize="0.1dp"
-                            android:visibility="gone" />
+                            app:smsp_underlineSize="0.1dp" />
 
                         <TextView
                             android:id="@+id/tv_value_commune"
@@ -483,9 +451,9 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/txt_label_province"
                             android:layout_marginStart="@dimen/dimen_4"
-                            android:hint="Commune/Sangkat"
                             android:layout_marginTop="@dimen/dimen_8"
                             android:drawableEnd="@drawable/ic_drop_down"
+                            android:hint="Commune/Sangkat"
                             android:paddingEnd="@dimen/dimen_5"
                             android:textAppearance="@style/regular_16"
                             android:textColor="@color/black"
@@ -495,22 +463,22 @@
                             android:id="@+id/view_underline_3"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/dimen_1"
-                            android:background="@color/secondary_text"
                             android:layout_below="@+id/tv_value_commune"
-                            android:layout_marginTop="@dimen/dimen_11"
                             android:layout_marginStart="@dimen/dimen_4"
+                            android:layout_marginTop="@dimen/dimen_11"
                             android:layout_marginEnd="@dimen/dimen_4"
-                            android:visibility="visible"/>
+                            android:background="@color/secondary_text"
+                            android:visibility="visible" />
 
                         <TextView
                             android:id="@+id/txt_error_commune"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
+                            android:drawableLeft="@drawable/ic_field_required"
+                            android:drawablePadding="@dimen/dimen_3"
                             android:ellipsize="end"
                             android:singleLine="true"
-                            android:drawablePadding="@dimen/dimen_3"
-                            android:drawableLeft="@drawable/ic_field_required"
                             android:text="@string/text_required"
                             android:textAppearance="@style/regular_10"
                             android:textColor="@color/red_ee1111"
@@ -529,16 +497,17 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="@dimen/dimen_2"
                             android:orientation="horizontal">
+
                             <TextView
                                 android:id="@+id/txt_label_house_num"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/house_no_street"
-                                android:textAppearance="@style/regular_12"
+                                android:layout_marginRight="@dimen/dimen_4"
                                 android:drawableRight="@drawable/ic_star_error"
                                 android:drawablePadding="@dimen/dimen_6"
-                                android:layout_marginRight="@dimen/dimen_4"
-                                android:visibility="invisible"/>
+                                android:text="@string/house_no_street"
+                                android:textAppearance="@style/regular_12"
+                                android:visibility="invisible" />
 
 
                         </LinearLayout>
@@ -548,10 +517,10 @@
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/dimen_50"
                             android:backgroundTint="@color/secondary_text"
+                            android:hint="House"
                             android:importantForAutofill="no"
                             android:inputType="textNoSuggestions"
                             android:singleLine="true"
-                            android:hint="House"
                             android:textAppearance="@style/regular_16"
                             android:textColor="@color/secondary_text" />
 
@@ -560,11 +529,11 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
+                            android:drawableLeft="@drawable/ic_field_required"
+                            android:drawablePadding="@dimen/dimen_3"
                             android:ellipsize="end"
                             android:singleLine="true"
                             android:text="@string/text_required"
-                            android:drawablePadding="@dimen/dimen_3"
-                            android:drawableLeft="@drawable/ic_field_required"
                             android:textAppearance="@style/regular_10"
                             android:textColor="@color/red_ee1111"
                             android:visibility="gone" />
@@ -584,10 +553,10 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/dimen_4"
                             android:text="@string/star"
-                            android:textColor="@color/red_ee1111"
                             android:textAppearance="@style/regular_10"
-                            android:layout_marginEnd="@dimen/dimen_4"/>
+                            android:textColor="@color/red_ee1111" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -607,13 +576,13 @@
         <LinearLayout
             android:id="@+id/btn_next"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dimen_50"
+            android:layout_height="@dimen/dimen_48"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="@dimen/dimen_30"
-            android:layout_marginTop="@dimen/dimen_30"
-            android:layout_marginEnd="@dimen/dimen_30"
-            android:layout_marginBottom="31dp"
-            android:background="@drawable/bg_circular"
+            android:layout_marginStart="@dimen/dimen_20"
+            android:layout_marginEnd="@dimen/dimen_20"
+            android:layout_marginBottom="@dimen/dimen_8"
+            android:background="@drawable/bg_gray_ripple_radius_100"
+            android:backgroundTint="@color/primary"
             android:gravity="center">
 
             <TextView
@@ -639,12 +608,13 @@
             android:layout_height="match_parent"
             android:background="@color/ripple_color"
             android:clickable="true"
-            android:focusable="true">
+            android:focusable="true"
+            android:visibility="gone">
 
             <ProgressBar
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"/>
+                android:layout_centerInParent="true" />
 
         </RelativeLayout>
 

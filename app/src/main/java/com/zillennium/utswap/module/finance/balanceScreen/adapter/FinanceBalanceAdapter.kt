@@ -37,31 +37,31 @@ class FinanceBalanceAdapter(onClickAdapter: OnClickAdapter): BaseRecyclerViewAda
                 dateTransaction.text =  userBalanceTransaction.addtimeReadable
                 titleTransaction.text = userBalanceTransaction.remark
                 if (userBalanceTransaction.type == "1"){
-                    amountBalance.text = "$" + userBalanceTransaction.total?.let { UtilKt().formatValue(it, "###,###.##") }
+                    amountBalance.text = "$ " + userBalanceTransaction.total?.let { UtilKt().formatValue(it, "###,###.##") }
                     amountBalance.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.success))
                     imageBalance.setImageResource(Constants.UserBalanceIcon.BalanceTradeSell)
                 }else if (userBalanceTransaction.type == "2"){
-                    amountBalance.text = "-$" + userBalanceTransaction.total?.let { UtilKt().formatValue(it, "###,###.##") }
+                    amountBalance.text = "-$ " + userBalanceTransaction.total?.let { UtilKt().formatValue(it, "###,###.##") }
                     amountBalance.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
                     imageBalance.setImageResource(Constants.UserBalanceIcon.BalanceTradeBuy)
                 }else if (userBalanceTransaction.type == "3"){
-                    amountBalance.text = "$" + userBalanceTransaction.total?.let { UtilKt().formatValue(it, "###,###.##") }
+                    amountBalance.text = "$ " + userBalanceTransaction.total?.let { UtilKt().formatValue(it, "###,###.##") }
                     amountBalance.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.success))
                     imageBalance.setImageResource(Constants.UserBalanceIcon.BalanceDeposit)
                 }else if (userBalanceTransaction.type == "4"){
-                    amountBalance.text = "-$" + userBalanceTransaction.total?.let { UtilKt().formatValue(it, "###,###.##") }
+                    amountBalance.text = "-$ " + userBalanceTransaction.total?.let { UtilKt().formatValue(it, "###,###.##") }
                     amountBalance.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
                     imageBalance.setImageResource(Constants.UserBalanceIcon.BalanceWithdrawal)
                 }else if (userBalanceTransaction.type == "5"){
-                    amountBalance.text = "-$" + userBalanceTransaction.total?.let { UtilKt().formatValue(it, "###,###.##") }
+                    amountBalance.text = "-$ " + userBalanceTransaction.total?.let { UtilKt().formatValue(it, "###,###.##") }
                     amountBalance.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
                     imageBalance.setImageResource(Constants.UserBalanceIcon.BalanceSubscriptions)
                 }else if (userBalanceTransaction.type == "RECEIVE"){
-                    amountBalance.text = "$" + userBalanceTransaction.total?.let { UtilKt().formatValue(it, "###,###.##") }
+                    amountBalance.text = "$ " + userBalanceTransaction.total?.let { UtilKt().formatValue(it, "###,###.##") }
                     amountBalance.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.success))
                     imageBalance.setImageResource(Constants.UserBalanceIcon.BalanceTransfer)
                 }else if (userBalanceTransaction.type == "SEND"){
-                    amountBalance.text = "-$" + userBalanceTransaction.total?.let { UtilKt().formatValue(it, "###,###.##") }
+                    amountBalance.text = "-$ " + userBalanceTransaction.total?.let { UtilKt().formatValue(it, "###,###.##") }
                     amountBalance.setTextColor(ContextCompat.getColor(UTSwapApp.instance, R.color.danger))
                     imageBalance.setImageResource(Constants.UserBalanceIcon.BalanceTransfer)
                 }
